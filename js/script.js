@@ -609,7 +609,7 @@ function renderSimpleComponent(component, path, mode) {
         if (name === 'titlebar') {
             const idMatch = componentHTML.match(/id="([^"]+)"/);
             if (idMatch && idMatch[1]) {
-                registerComponentForInitialization('titlebar', idMatch[1]);
+                registerComponentForInitialization('titlebar', idMatch[1], properties);
             }
         }
         
@@ -672,8 +672,8 @@ function renderAccordion(component, path, mode) {
         contentHTML = renderComponentsList(content.components, contentPath, mode);
     }
 
-    const accordionHTML = `<details>
-        <summary>${title}</summary>
+    const accordionHTML = `<details class="accordion">
+        <summary class="accordion-summary">${title}</summary>
         <div class="card">
             <div class="card-body">${contentHTML}</div>
         </div>
@@ -743,13 +743,13 @@ function generateComponentInnerHTML(type, props, classes, styleAttr, mode) {
             return `<iframe ${finalAttrs} src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%; aspect-ratio: 16/9;"></iframe>`;
         },
         gif: () => `<img src="${props.src || 'https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif'}" alt="gif" ${finalAttrs} />`,
-        textbox: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label}</label><input type="text" id="${id}" placeholder="${props.placeholder || 'Enter text...'}" value="${props.value || ''}" ${finalAttrs} /></div>`,
-        textarea: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label}</label><textarea id="${id}" placeholder="${props.placeholder || 'Enter text...'}" rows="${props.rows || 3}" ${finalAttrs}>${props.value || ''}</textarea></div>`,
+        textbox: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label || ''}</label><input type="text" id="${id}" placeholder="${props.placeholder || 'Enter text...'}" value="${props.value || ''}" ${finalAttrs} /></div>`,
+        textarea: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label || ''}</label><textarea id="${id}" placeholder="${props.placeholder || 'Enter text...'}" rows="${props.rows || 3}" ${finalAttrs}>${props.value || ''}</textarea></div>`,
         button: () => `<button onclick="${props.onclick || ''}" ${finalAttrs}>${props.text || 'Click Me'}</button>`,
         dropdown: () => {
             const options = (props.options || 'Option 1,Option 2,Option3').split(',');
             const optionHTML = options.map(opt => `<option value="${opt.trim()}" ${props.selected === opt.trim() ? 'selected' : ''}>${opt.trim()}</option>`).join('');
-            return `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label}</label><select id="${id}" ${finalAttrs}>${optionHTML}</select></div>`;
+            return `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label || ''}</label><select id="${id}" ${finalAttrs}>${optionHTML}</select></div>`;
         },
         calendar: () => generateCalendarHTML(props),
         checkbox: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" ${finalAttrs} style="${labelStyles}"><input type="checkbox" id="${id}" ${props.checked ? 'checked' : ''} /><span>${props.text || 'Check me'}</span></label></div>`,
@@ -784,18 +784,103 @@ function generateComponentInnerHTML(type, props, classes, styleAttr, mode) {
 
 function generateTitlebarHTML(props, classes, styleAttr, mode) {
     const alignmentClass = getAlignmentClass(props.alignment);
+    const logoPosition = props.logoPosition === 'right' ? 'right' : 'left';
     const logoHTML = props.logo ? `<img src="${props.logo}" alt="Logo" class="titlebar-logo" />` : '';
     const titleHTML = props.title ? `<h1 class="titlebar-title">${props.title}</h1>` : '';
-    const linksHTML = generateTitlebarLinks(props.links, props.focusedButtonBackgroundColor);
+    const linksHTML = generateTitlebarLinks(props.links, props);
+    const brandClass = `titlebar-brand ${logoPosition === 'right' ? 'logo-right' : 'logo-left'}`;
+
+    const ensureRem = (value, fallback) => {
+        const source = value ?? fallback;
+        if (typeof source === 'number' && !Number.isNaN(source)) {
+            return `${source / 10}rem`;
+        }
+        if (typeof source === 'string') {
+            const trimmed = source.trim();
+            if (!trimmed) {
+                return ensureRem(fallback, undefined);
+            }
+            if (trimmed.endsWith('rem')) {
+                return trimmed;
+            }
+            const numeric = parseFloat(trimmed);
+            if (!Number.isNaN(numeric)) {
+                return `${numeric / 10}rem`;
+            }
+        }
+        if (fallback !== undefined && fallback !== value) {
+            if (typeof fallback === 'number' && !Number.isNaN(fallback)) {
+                return `${fallback / 10}rem`;
+            }
+            if (typeof fallback === 'string') {
+                const trimmedFallback = fallback.trim();
+                if (trimmedFallback.endsWith('rem')) {
+                    return trimmedFallback;
+                }
+                const numericFallback = parseFloat(trimmedFallback);
+                if (!Number.isNaN(numericFallback)) {
+                    return `${numericFallback / 10}rem`;
+                }
+            }
+        }
+        return '0rem';
+    };
+
+    const baseHeightPx = (() => {
+        const rawHeight = props.height;
+        if (typeof rawHeight === 'number' && !Number.isNaN(rawHeight)) {
+            return rawHeight;
+        }
+        if (typeof rawHeight === 'string') {
+            const trimmed = rawHeight.trim();
+            if (trimmed.endsWith('rem')) {
+                const remValue = parseFloat(trimmed);
+                if (!Number.isNaN(remValue)) {
+                    return remValue * 10;
+                }
+            }
+            const parsed = parseFloat(trimmed);
+            if (!Number.isNaN(parsed)) {
+                return parsed;
+            }
+        }
+        return 60;
+    })();
+
+    const titleFontSize = ensureRem(props.titleFontSize, 24);
+    const menuFontSize = ensureRem(props.menuFontSize, 16);
+    const shrinkPercentRaw = props.shrinkPercent ?? 50;
+    const shrinkPercentNumeric = typeof shrinkPercentRaw === 'number' ? shrinkPercentRaw : parseFloat(shrinkPercentRaw);
+    const shrinkScale = (() => {
+        if (Number.isNaN(shrinkPercentNumeric)) {
+            return 0.5;
+        }
+        return Math.min(1, Math.max(0.1, shrinkPercentNumeric / 100));
+    })();
+
+    const baseHeightRem = ensureRem(baseHeightPx, 60);
     const titlebarId = `titlebar_${Date.now()}`;
-    
+    const hasStyle = typeof styleAttr === 'string' && styleAttr.trim().length > 0;
+    const normalizedStyleAttr = hasStyle
+        ? (styleAttr.trim().endsWith(';') ? styleAttr.trim() : `${styleAttr.trim()};`)
+        : '';
+    const styleFragments = [];
+    if (normalizedStyleAttr) {
+        styleFragments.push(normalizedStyleAttr);
+    }
+    styleFragments.push(`--base-height: ${baseHeightRem};`);
+    styleFragments.push(`--title-font-size: ${titleFontSize};`);
+    styleFragments.push(`--menu-font-size: ${menuFontSize};`);
+    styleFragments.push(`--shrink-scale: ${shrinkScale};`);
+    const combinedStyles = styleFragments.join(' ');
+    const brandContent = logoPosition === 'right' ? `${titleHTML}${logoHTML}` : `${logoHTML}${titleHTML}`;
+
     return `
-        <nav class="titlebar ${alignmentClass} ${classes}" style="${styleAttr} height: ${toRem(props.height || 60)};" id="${titlebarId}">
-            <div class="titlebar-brand">
-                ${logoHTML}
-                ${titleHTML}
+        <nav class="titlebar ${alignmentClass} ${classes}" style="${combinedStyles}" data-base-height="${baseHeightPx}" data-logo-position="${logoPosition}" id="${titlebarId}">
+            <div class="${brandClass}">
+                ${brandContent}
             </div>
-            <button id="mobile-menu-button" class="mobile-menu-button">
+            <button type="button" class="mobile-menu-button">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -843,9 +928,6 @@ function generateRemainingStyles(props) {
         styles += `border: ${toRem(props.borderWidth)} ${props.borderStyle || 'solid'} ${props.borderColor || '#000000'};`;
     }
     if (props.borderRadius) styles += `border-radius: ${toRem(props.borderRadius)};`;
-    if (props.border_size) styles += `border-width: ${props.border_size};`;
-    if (props.border_color) styles += `border-color: ${props.border_color};`;
-    if (props.border_radius) styles += `border-radius: ${props.border_radius};`;
     return styles;
 }
 
@@ -869,7 +951,7 @@ function renderPropertiesPanel(component, componentId, path) {
 
     for (const key in finalProps) {
         if (key === 'content' || key === 'columns' || key === 'tabs' || key === 'components' || key === 'slides' || key === 'backgroundImage' || key === 'label_properties') continue;
-        if (typeof finalProps[key] === 'object' && finalProps[key] !== null && key !== 'links' && key !== 'backgroundColor') continue;
+        if (typeof finalProps[key] === 'object' && finalProps[key] !== null && key !== 'backgroundColor') continue;
         
         const value = finalProps[key] === undefined ? '' : finalProps[key];
         
@@ -913,7 +995,8 @@ function renderProperty(key, value, propType = null) {
         fontStyle: ['normal', 'italic'],
         fontWeight: ['normal', 'bold', 'lighter'],
         borderStyle: ['none', 'solid', 'dotted', 'dashed', 'double', 'groove', 'ridge', 'inset', 'outset'],
-        textAlign: ['left', 'center', 'right']
+        textAlign: ['left', 'center', 'right'],
+        logoPosition: ['left', 'right']
     };
 
     if (colorProperties.includes(key)) {
@@ -1039,40 +1122,51 @@ function applyYamlComponentProperties(componentId, path) {
         const key = input.dataset.key;
         const isLabelProp = input.dataset.propType === 'label_properties';
 
-        if (colorProperties.includes(key)) {
-            const colorTypeSelect = document.getElementById(`prop_color_type_${key}`);
-            if (colorTypeSelect) {
-                const selectedType = colorTypeSelect.value;
-                if (selectedType === 'solid') {
-                    const value = document.getElementById(`prop_text_${key}`).value;
-                    if (isLabelProp) newLabelProps[key] = value; else newProps[key] = value;
-                } else if (selectedType === 'transparent') {
-                    if (isLabelProp) newLabelProps[key] = 'transparent'; else newProps[key] = 'transparent';
-                } else if (selectedType === 'gradient' && key === 'backgroundColor') {
-                    const value = {
-                        direction: document.getElementById(`prop_gradient_dir_${key}`).value,
-                        start: document.getElementById(`prop_gradient_start_${key}`).value,
-                        end: document.getElementById(`prop_gradient_end_${key}`).value
-                    };
-                    if (isLabelProp) newLabelProps[key] = value; else newProps[key] = value;
-                }
-            }
-        } else if (imageProperties.includes(key)) {
-            const value = input.value;
-            if (isLabelProp) newLabelProps[key] = value; else newProps[key] = value;
-        } else if (!key.startsWith('images.') && key !== 'color_type' && key !== 'solid_color' && key !== 'gradient_direction' && key !== 'gradient_start' && key !== 'gradient_end') {
-            const value = input.type === 'checkbox' ? input.checked : input.value;
-            if (isLabelProp) {
-                newLabelProps[key] = value;
-            } else {
-                newProps[key] = value;
-            }
+        if (key.startsWith('links') || key.startsWith('images') || key === 'color_type' || key === 'solid_color' || key === 'gradient_direction' || key === 'gradient_start' || key === 'gradient_end' || imageProperties.includes(key)) {
+            return;
+        }
+
+        const value = input.type === 'checkbox' ? input.checked : input.value;
+        if (isLabelProp) {
+            newLabelProps[key] = value;
+        } else {
+            newProps[key] = value;
         }
     });
 
+    colorProperties.forEach(key => {
+        const colorTypeSelect = document.getElementById(`prop_color_type_${key}`);
+        if (colorTypeSelect) {
+            const isLabelProp = colorTypeSelect.dataset.propType === 'label_properties';
+            const target = isLabelProp ? newLabelProps : newProps;
+            const selectedType = colorTypeSelect.value;
+
+            if (selectedType === 'solid') {
+                target[key] = document.getElementById(`prop_text_${key}`).value;
+            } else if (selectedType === 'transparent') {
+                target[key] = 'transparent';
+            } else if (selectedType === 'gradient' && key === 'backgroundColor') {
+                target[key] = {
+                    direction: document.getElementById(`prop_gradient_dir_${key}`).value,
+                    start: document.getElementById(`prop_gradient_start_${key}`).value,
+                    end: document.getElementById(`prop_gradient_end_${key}`).value
+                };
+            }
+        }
+    });
+    
+    imageProperties.forEach(key => {
+        const input = document.getElementById(`prop_${key}`);
+        if (input) {
+            const isLabelProp = input.dataset.propType === 'label_properties';
+            const target = isLabelProp ? newLabelProps : newProps;
+            target[key] = input.value;
+        }
+    });
+
+
     const component = getComponentByPath(yamlStructure, path);
     if (component) {
-        // special handling for links
         if (component.name === 'titlebar') {
             const links = [];
             document.querySelectorAll('.link-item').forEach((linkItem, index) => {
@@ -1278,6 +1372,9 @@ function openFullscreen() {
     const fullscreenContent = document.getElementById('fullscreenContent');
     const modal = document.getElementById('fullscreenModal');
     fullscreenContent.innerHTML = cleanHTML;
+    if (typeof initializeTitlebar === 'function') {
+        fullscreenContent.querySelectorAll('.titlebar').forEach(titlebar => initializeTitlebar(titlebar));
+    }
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
@@ -1302,6 +1399,7 @@ function exportCode() {
     const bodyStyles = generateRemainingStyles(pageProperties);
     const bodyContent = generateCleanHTML(yamlText);
     
+    const behaviorScript = generateTitlebarBehaviorScript();
     const fullHTML = `<!DOCTYPE html>
 <html lang="en" style="height: 100%;">
 <head>
@@ -1316,6 +1414,7 @@ function exportCode() {
 </head>
 <body style="${bodyStyles}">
     ${bodyContent}
+    ${behaviorScript}
 </body>
 </html>`;
     
@@ -1350,6 +1449,38 @@ function generateCleanHTML(yamlText) {
     const structure = parseYamlContent(yamlText);
     const result = renderYamlStructure(structure, 'export');
     return result.html;
+}
+
+function generateTitlebarBehaviorScript() {
+    return `<script>
+(function() {
+    const SCROLL_OFFSET = 50;
+
+    function applyScrollState() {
+        const scrolled = window.scrollY > SCROLL_OFFSET;
+        document.querySelectorAll('.titlebar').forEach(nav => {
+            nav.classList.toggle('scrolled', scrolled);
+        });
+    }
+
+    function bindInteractions(nav) {
+        const button = nav.querySelector('.mobile-menu-button');
+        const links = nav.querySelector('.titlebar-nav');
+        if (button && links) {
+            button.addEventListener('click', () => {
+                links.classList.toggle('active');
+            });
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const navbars = document.querySelectorAll('.titlebar');
+        navbars.forEach(bindInteractions);
+        applyScrollState();
+        window.addEventListener('scroll', applyScrollState, { passive: true });
+    });
+})();
+</script>`;
 }
 
 function logHtml() {

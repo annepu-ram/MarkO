@@ -5,7 +5,7 @@
     - name: titlebar
       properties:
         title: "The Golden Loaf"
-        logo: "https://via.placeholder.com/150x50/8B4513/FFFFFF?text=Logo"
+        logo: "https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         backgroundColor: "#ffffff"
         links:
           - text: "Home"
@@ -19,7 +19,7 @@
 
     - name: image
       properties:
-        src: "https://via.placeholder.com/1200x400/D2B48C/FFFFFF?text=Freshly+Baked+Bread"
+        src: "https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt: "A spread of freshly baked bread"
         margin: "0 0 40 0"
       components:
@@ -59,7 +59,7 @@
         - components:
             - name: image
               properties:
-                src: "https://via.placeholder.com/300x200/D2B48C/FFFFFF?text=Croissants"
+                src: "https://images.pexels.com/photos/380954/pexels-photo-380954.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt: "Flaky croissants"
               components:
                 - name: h3
@@ -72,7 +72,7 @@
         - components:
             - name: image
               properties:
-                src: "https://via.placeholder.com/300x200/D2B48C/FFFFFF?text=Sourdough"
+                src: "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt: "Crusty sourdough bread"
               components:
                 - name: h3
@@ -85,7 +85,7 @@
         - components:
             - name: image
               properties:
-                src: "https://via.placeholder.com/300x200/D2B48C/FFFFFF?text=Cupcakes"
+                src: "https://images.pexels.com/photos/1027811/pexels-photo-1027811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt: "Colorful cupcakes"
               components:
                 - name: h3
@@ -124,16 +124,19 @@
 
     - name: h2
       properties:
-        text: "About Us"
+        text: "Our Story"
         textAlign: "center"
         color: "#8B4513"
         margin: "40 0 20 0"
 
-    - name: paragraph
+    - name: accordion
       properties:
-        text: "The Golden Loaf was founded in 2015 with a passion for traditional baking techniques. We believe in quality, community, and the joy of a simple, delicious treat."
-        textAlign: "center"
-        margin: "0 40 40 40"
+        title: "Our Passion for Baking"
+      content:
+        components:
+          - name: paragraph
+            properties:
+              text: "The Golden Loaf was founded in 2015 with a passion for traditional baking techniques. We believe in quality, community, and the joy of a simple, delicious treat."
 
     - name: h2
       properties:

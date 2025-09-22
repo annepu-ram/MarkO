@@ -5,7 +5,7 @@
     - name: titlebar
       properties:
         title: "The Chef's Table"
-        logo: "https://via.placeholder.com/150x50/FF4500/FFFFFF?text=TCT"
+        logo: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         backgroundColor: "#ffffff"
         links:
           - text: "Home"
@@ -19,7 +19,7 @@
 
     - name: image
       properties:
-        src: "https://via.placeholder.com/1200x500/FF6347/FFFFFF?text=Exquisite+Dining"
+        src: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt: "A beautifully plated dish"
         margin: "0 0 40 0"
       components:
@@ -79,6 +79,31 @@
               - name: paragraph
                 properties:
                   text: "Classic Italian coffee-flavored dessert."
+
+    - name: h2
+      properties:
+        text: "Frequently Asked Questions"
+        textAlign: "center"
+        color: "#FF4500"
+        margin: "40 0 20 0"
+
+    - name: accordion
+      properties:
+        title: "Do you take reservations?"
+      content:
+        components:
+          - name: paragraph
+            properties:
+              text: "Yes, we highly recommend making a reservation, especially on weekends. You can book a table through our website or by calling us directly."
+
+    - name: accordion
+      properties:
+        title: "What is the dress code?"
+      content:
+        components:
+          - name: paragraph
+            properties:
+              text: "We have a smart casual dress code. We kindly ask that you refrain from wearing sportswear, shorts, or flip-flops."
 
     - name: h2
       properties:

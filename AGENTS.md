@@ -2,13 +2,68 @@
 
 This project is a web-based visual website builder. It allows users to create and customize web pages using a YAML-based structure in a code editor, with a live preview that updates in real-time. The application is built with vanilla JavaScript, HTML, and CSS, and it utilizes the Mini.css framework for styling the generated components.
 
-## Key Features
 
-- **Live Preview:** A real-time preview of the website as you type.
-- **Component-Based:** Build your site using a YAML-based structure.
-- **Visual Editing:** Click on components in the preview to edit their properties.
-- **Export to HTML:** Export your creation as a single, clean HTML file.
-- **Mini.css Integration:** Uses the lightweight Mini.css framework for a professional look.
+
+# Website Builder Explanation
+
+## Project Snapshot
+- Client-side visual website builder driven entirely by a YAML document.
+- Core runtime: `index.html` bootstraps Mini.css, js-yaml, and `/js/script.js` for application logic.
+- Users edit YAML in the left-hand editor; preview pane renders the interpreted structure in real time.
+- Component defaults live in `component_defaults.yaml`, ensuring consistent starter props across insertions and property panels.
+
+## Application Lifecycle
+1. `DOMContentLoaded` triggers `init()` (`js/script.js`).
+2. Component templates load from YAML, event listeners/sidebars/resizer initialize.
+3. Current editor contents are pushed onto an undo stack and parsed into `yamlStructure`.
+4. `renderYamlStructure()` validates a single root `page` component, then recursively renders every child.
+5. After rendering, dynamic widgets (carousel, titlebar) register for initialization via `/js/component_interactions.js`.
+
+## YAML Data Model
+- Expected top-level array with a single object: `{ name: 'page', properties, components }`.
+- Simple components carry a `properties` object (text, color, sizing, etc.).
+- Container components add nested collections: `components` (generic), `columns`, `tabs`, `slides`, or `content.components` for accordions.
+- `componentIdToPathMap` links rendered DOM nodes back to their YAML path for selection, deletion, and property editing.
+
+## Rendering Pipeline
+- `renderComponent()` dispatches by `name`, delegating to helpers for page, grids, accordion, tabs, carousel, forms, images, or simple elements.
+- Simple components call `generateComponentInnerHTML()` which merges Mini.css classes (`generateMiniCssClasses()`) with inline styles (`generateRemainingStyles()`).
+- Containers recursively call `renderComponentsList()` on nested paths, adding editor-only chrome (labels, drop zones, delete buttons) when in preview mode.
+- Export mode omits editor wrappers, returning clean HTML for downloads and fullscreen preview.
+
+## User Interaction Flow
+- Preview clicks bubble to `handlePreviewClick()`, highlighting selections and loading their properties into the side panel.
+- Property panel UI is built by `renderPropertiesPanel()`, combining defaults with instance props, including nested label properties and titlebar links.
+- "Apply Changes" invokes `applyYamlComponentProperties()`, which serializes updated props back into YAML, re-parses, re-renders, and restores selection.
+- Sidebar component buttons call `insertYamlComponent()`, cloning defaults and injecting scaffolding (page shell, starter tabs, carousel slides, etc.).
+
+## Styling Strategy
+- `css/style.css` controls the builder shell: grid layout, editor styling, properties panel, custom scrollbars, responsive tweaks.
+- `css/components.css` augments Mini.css for rendered components (tabs, accordion, titlebar, carousel overlays) without polluting exported HTML.
+- `generateRemainingStyles()` converts user props (colors, gradients, spacing, borders) to inline styles, using `toRem()` for rem-based sizing.
+
+## Dynamic Components
+- `/js/component_interactions.js` exposes `initializeCarousel()` and `initializeTitlebar()`; `registerComponentForInitialization()` queues these during rendering.
+- Carousels support autoplay, manual navigation, and dot indicators using the component's properties to configure delays and behavior.
+- Titlebar toggles map to mobile menu interactions and link rendering sourced from YAML-linked arrays.
+
+## Export & Utilities
+- `generateCleanHTML()` re-renders in export mode, reused by fullscreen preview and the `exportCode()` download flow.
+- `exportCode()` wraps the clean body markup inside a standalone HTML document, embedding Mini.css via CDN and applying page-level styles to `<body>`.
+- Supporting actions: undo/redo history capped at 50 states, editor tab handling, canvas clearing, help panel toggle, and console logging of generated HTML.
+
+## Key Files
+- `index.html` � application shell, script/style includes, help panel content.
+- `js/script.js` � state management, YAML parsing, rendering engine, property panel logic, actions.
+- `js/component_interactions.js` � client-side behaviors for carousel and titlebar components.
+- `css/style.css` � UI styling for builder workspace.
+- `css/components.css` � supplementary styling for rendered components.
+- `component_defaults.yaml` � template props for every component type exposed in the editor.
+
+## Extensibility Notes
+- New components require defaults in `component_defaults.yaml`, render handling in `renderComponent()`, optional property panel entries, and�if interactive�an initializer added to `componentInitializers`.
+- YAML-centric architecture simplifies persistence and export but assumes well-formed indentation; error handling surfaces via console logging in `parseYamlContent()`.
+
 
 # Project Structure
 
@@ -218,104 +273,100 @@ components:
 6.  **Export your work** by clicking the "Export HTML" button.
 7.  **Example of complex nested components.** 
 ```yaml
-page:
+-name: page
   properties:
     backgroundColor: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
     backgroundImage: 'https://www.toptal.com/designers/subtlepatterns/uploads/moroccan-flower.png'
     padding: 0
+  components:
+    - name: titlebar
+      properties:
+        title: 'My Company'
+        logo: 'https://via.placeholder.com/50x40/4f46e5/ffffff?text=LOGO'
+        backgroundColor: '#ffffff'
+        links:
+          - text: 'Home'
+            value: '#home'
+          - text: 'Services' 
+            value: '#services'
+          - text: 'Contact'
+            value: '#contact'
 
-components:
-  - name: titlebar
-    properties:
-      title: 'My Company'
-      logo: 'https://via.placeholder.com/50x40/4f46e5/ffffff?text=LOGO'
-      backgroundColor: '#ffffff'
-      links:
-        - text: 'Home'
-          value: '#home'
-        - text: 'Services' 
-          value: '#services'
-        - text: 'Contact'
-          value: '#contact'
+    - name: columnsgrid
+      properties:
+        count: 3
+        padding: 40
+        margin: 20
+      columns:
+        - components:
+            - name: paragraph
+              properties:
+                text: 'Beautiful, responsive websites that engage your audience.'
+                textAlign: 'center'
+            - name: button
+              properties:
+                text: 'Learn More'
+                variant: 'primary'   
+        - components:
+            - name: paragraph
+              properties:
+                text: 'Full-stack development with modern technologies.'
+                textAlign: 'center'
+            - name: button
+              properties:
+                text: 'View Projects'
+                variant: 'secondary'
+        - components:
+            - name: paragraph
+              properties:
+                text: '24/7 support and maintenance for your peace of mind.'
+                textAlign: 'center'
 
-  - name: columnsgrid
-    properties:
-      count: 3
-      padding: 40
-      margin: 20
-    columns:
-      - components:
-          - name: paragraph
-            properties:
-              text: 'Beautiful, responsive websites that engage your audience.'
-              textAlign: 'center'
-          - name: button
-            properties:
-              text: 'Learn More'
-              variant: 'primary'
-              
-      - components:
-          - name: paragraph
-            properties:
-              text: 'Full-stack development with modern technologies.'
-              textAlign: 'center'
-          - name: button
-            properties:
-              text: 'View Projects'
-              variant: 'secondary'
-              
-      - components:
-          - name: paragraph
-            properties:
-              text: '24/7 support and maintenance for your peace of mind.'
-              textAlign: 'center'
-
-  - name: tabs
-    properties:
-      margin: 40
-    tabs:
-      - title: 'About Us'
-        components:
-          - name: h2
-            properties:
-              text: 'Our Story'
-              fontSize: 28
-          - name: paragraph
-            properties:
-              text: 'Founded in 2020, we have been creating digital experiences that matter. Our team of designers and developers work together to bring your vision to life.'
-              fontSize: 16
-              lineHeight: 1.6
-          - name: image
-            properties:
-              src: 'https://via.placeholder.com/600x300/4f46e5/ffffff?text=Our+Team'
-              alt: 'Our team working together'
-              
-      - title: 'Our Process'
-        components:
-          - name: accordion
-            properties:
-              title: 'Discovery Phase'
-            content:
-              components:
-                - name: paragraph
-                  properties:
-                    text: 'We start by understanding your business goals, target audience, and project requirements through detailed consultation.'
-          - name: accordion
-            properties:
-              title: 'Design Phase'
-            content:
-              components:
-                - name: paragraph
-                  properties:
-                    text: 'Our designers create wireframes and mockups, ensuring every element serves a purpose and enhances user experience.'
-          - name: accordion
-            properties:
-              title: 'Development Phase'
-            content:
-              components:
-                - name: paragraph
-                  properties:
-                    text: 'Clean, efficient code brings the designs to life with responsive layouts and smooth interactions.'
+    - name: tabs
+      properties:
+        margin: 40
+      tabs:
+        - title: 'About Us'
+          components:
+            - name: h2
+              properties:
+                text: 'Our Story'
+                fontSize: 28
+            - name: paragraph
+              properties:
+                text: 'Founded in 2020, we have been creating digital experiences that matter. Our team of designers and developers work together to bring your vision to life.'
+                fontSize: 16
+                lineHeight: 1.6
+            - name: image
+              properties:
+                src: 'https://via.placeholder.com/600x300/4f46e5/ffffff?text=Our+Team'
+                alt: 'Our team working together'
+        - title: 'Our Process'
+          components:
+            - name: accordion
+              properties:
+                title: 'Discovery Phase'
+              content:
+                components:
+                  - name: paragraph
+                    properties:
+                      text: 'We start by understanding your business goals, target audience, and project requirements through detailed consultation.'
+            - name: accordion
+              properties:
+                title: 'Design Phase'
+              content:
+                components:
+                  - name: paragraph
+                    properties:
+                      text: 'Our designers create wireframes and mockups, ensuring every element serves a purpose and enhances user experience.'
+            - name: accordion
+              properties:
+                title: 'Development Phase'
+              content:
+                components:
+                  - name: paragraph
+                    properties:
+                      text: 'Clean, efficient code brings the designs to life with responsive layouts and smooth interactions.'
 ```
 
 # Functions

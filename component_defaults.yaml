@@ -9,18 +9,40 @@ titlebar:
   links:
     - text: 'Home'
       value: '#home'
+      borderWidth: 1
+      borderStyle: 'solid'
+      borderColor: '#cccccc'
+      backgroundColor: '#f0f0f0'
+      borderRadius: 5
+      padding: '5px 10px'
     - text: 'About'
       value: '#about'
     - text: 'Contact'
       value: '#contact'
+  borderWidth: 1
+  borderStyle: 'solid'
   borderColor: '#ddd'
   backgroundColor: '#ffffff'
   focusedButtonBackgroundColor: '#f0f0f0'
   alignment: 'left'
+  logoPosition: 'left'
+  titleFontSize: 24
+  menuFontSize: 16
+  shrinkPercent: 50
   height: 60
   padding: 10
   margin: 0
   borderRadius: 0
+  linksBackgroundColor: '#f0f0f0'
+  linksBorderWidth: 0.1
+  linksBorderStyle: 'solid'
+  linksBorderColor: '#cccccc'
+  linksBorderRadius: 0.5
+  linksPadding: '0.5rem 1rem'
+  linksColor: '#000000'
+  linksFontSize: 1.6
+  linksFontWeight: 'normal'
+  linksFontStyle: 'normal'
 h1:
   text: 'Main Heading'
   color: '#000000'
@@ -103,7 +125,7 @@ textbox:
   borderWidth: 1
   borderColor: '#cccccc'
   borderRadius: 4
-  fontColor: '#333333'
+  color: '#333333'
   fontWeight: 'normal'
   label_properties:
     fontSize: 14
@@ -142,7 +164,7 @@ dropdown:
   borderWidth: 1
   borderColor: '#cccccc'
   borderRadius: 4
-  fontColor: '#333333'
+  color: '#333333'
   fontWeight: 'normal'
   label_properties:
     fontSize: 14
@@ -179,7 +201,7 @@ radio:
   borderWidth: 1
   borderColor: '#cccccc'
   borderRadius: 4
-  fontColor: '#333333'
+  color: '#333333'
   fontWeight: 'normal'
   label_properties:
     fontSize: 14

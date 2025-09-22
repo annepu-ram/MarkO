@@ -1,4 +1,3 @@
-
 - name: page
   properties:
     backgroundColor: "#f8f9fa"
@@ -6,7 +5,7 @@
     - name: titlebar
       properties:
         title: "Prestige Motors"
-        logo: "https://via.placeholder.com/150x50/000000/FFFFFF?text=PM"
+        logo: "https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         backgroundColor: "#343a40"
         color: "#ffffff"
         links:
@@ -21,7 +20,7 @@
 
     - name: image
       properties:
-        src: "https://via.placeholder.com/1200x500/495057/FFFFFF?text=Find+Your+Dream+Car"
+        src: "https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt: "Luxury sports car"
         margin: "0 0 40 0"
 
@@ -45,55 +44,117 @@
         color: "#343a40"
         margin: "40 0 20 0"
 
-    - name: columnsgrid
+    - name: tabs
       properties:
-        count: 3
-      columns:
-        - components:
-            - name: image
-              properties:
-                src: "https://via.placeholder.com/300x200/6c757d/FFFFFF?text=Sedan"
-                alt: "Luxury Sedan"
-            - name: h3
-              properties:
-                text: "2023 Apex Sedan"
-            - name: paragraph
-              properties:
-                text: "$55,000 - Low mileage, fully loaded."
-            - name: button
-              properties:
-                text: "View Details"
-                variant: "primary"
-        - components:
-            - name: image
-              properties:
-                src: "https://via.placeholder.com/300x200/6c757d/FFFFFF?text=SUV"
-                alt: "Luxury SUV"
-            - name: h3
-              properties:
-                text: "2022 Nova SUV"
-            - name: paragraph
-              properties:
-                text: "$62,000 - Perfect for the family."
-            - name: button
-              properties:
-                text: "View Details"
-                variant: "primary"
-        - components:
-            - name: image
-              properties:
-                src: "https://via.placeholder.com/300x200/6c757d/FFFFFF?text=Coupe"
-                alt: "Sports Coupe"
-            - name: h3
-              properties:
-                text: "2023 Comet Coupe"
-            - name: paragraph
-              properties:
-                text: "$75,000 - Unmatched performance."
-            - name: button
-              properties:
-                text: "View Details"
-                variant: "primary"
+        tabs:
+          - title: "Sedans"
+            components:
+              - name: columnsgrid
+                properties:
+                  count: 2
+                columns:
+                  - components:
+                      - name: image
+                        properties:
+                          src: "https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          alt: "Luxury Sedan"
+                      - name: h3
+                        properties:
+                          text: "2023 Apex Sedan"
+                      - name: paragraph
+                        properties:
+                          text: "$55,000 - Low mileage, fully loaded."
+                      - name: button
+                        properties:
+                          text: "View Details"
+                          variant: "primary"
+                  - components:
+                      - name: image
+                        properties:
+                          src: "https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          alt: "Luxury Sedan"
+                      - name: h3
+                        properties:
+                          text: "2023 Apex Sedan"
+                      - name: paragraph
+                        properties:
+                          text: "$55,000 - Low mileage, fully loaded."
+                      - name: button
+                        properties:
+                          text: "View Details"
+                          variant: "primary"
+          - title: "SUVs"
+            components:
+              - name: columnsgrid
+                properties:
+                  count: 2
+                columns:
+                  - components:
+                      - name: image
+                        properties:
+                          src: "https://images.pexels.com/photos/1637859/pexels-photo-1637859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          alt: "Luxury SUV"
+                      - name: h3
+                        properties:
+                          text: "2022 Nova SUV"
+                      - name: paragraph
+                        properties:
+                          text: "$62,000 - Perfect for the family."
+                      - name: button
+                        properties:
+                          text: "View Details"
+                          variant: "primary"
+                  - components:
+                      - name: image
+                        properties:
+                          src: "https://images.pexels.com/photos/1637859/pexels-photo-1637859.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          alt: "Luxury SUV"
+                      - name: h3
+                        properties:
+                          text: "2022 Nova SUV"
+                      - name: paragraph
+                        properties:
+                          text: "$62,000 - Perfect for the family."
+                      - name: button
+                        properties:
+                          text: "View Details"
+                          variant: "primary"
+          - title: "Coupes"
+            components:
+              - name: columnsgrid
+                properties:
+                  count: 2
+                columns:
+                  - components:
+                      - name: image
+                        properties:
+                          src: "https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          alt: "Sports Coupe"
+                      - name: h3
+                        properties:
+                          text: "2023 Comet Coupe"
+                      - name: paragraph
+                        properties:
+                          text: "$75,000 - Unmatched performance."
+                      - name: button
+                        properties:
+                          text: "View Details"
+                          variant: "primary"
+                  - components:
+                      - name: image
+                        properties:
+                          src: "https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                          alt: "Sports Coupe"
+                      - name: h3
+                        properties:
+                          text: "2023 Comet Coupe"
+                      - name: paragraph
+                        properties:
+                          text: "$75,000 - Unmatched performance."
+                      - name: button
+                        properties:
+                          text: "View Details"
+                          variant: "primary"
 
     - name: h2
       properties:
@@ -131,4 +192,3 @@
       properties:
         text: "Visit our showroom at 123 Prestige Lane, or give us a call at 555-1234."
         textAlign: "center"
-

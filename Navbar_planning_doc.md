@@ -1,22 +1,22 @@
 # Titlebar Component Implementation Plan
 
 ## 1. Overview
-This document outlines the implementation plan for adding a titlebar component to the existing website builder application. The titlebar will be a flexible header component with logo, title, navigation links, and responsive scroll behavior.
+This document outlines the implementation plan for adding a titlebar component to the existing website builder application. The titlebar will be a flexible header component with logo, title, navigation links, and responsive scroll behavior. navbar should first appear at the top. when scrolled down it should stick to the top and shrink to 50% of its original size. there should a property to set the logo to the left or right.
 
 ## 2. Component Definition
 
 ### 2.1 Component Template Addition
 Add to `componentTemplates` object in `script.js`:
 
-```javascript
-titlebar: {
+
+titlebar: 
     logo: 'https://via.placeholder.com/50x40', 
     title: 'Website Title',
-    links: [
+    links: 
         { text: 'Home', value: '#home' },
         { text: 'About', value: '#about' },
         { text: 'Contact', value: '#contact' }
-    ],
+    
     borderColor: '#ddd',
     backgroundColor: '#ffffff',
     focusedButtonBackgroundColor: '#f0f0f0',

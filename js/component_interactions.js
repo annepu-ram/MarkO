@@ -3,6 +3,16 @@ const componentInitializers = {
     titlebar: initializeTitlebar
 };
 
+let titlebarScrollHandlerAttached = false;
+
+function handleTitlebarScroll() {
+    const scrolled = window.scrollY > 50;
+    document.querySelectorAll('.titlebar').forEach(titlebar => {
+        titlebar.classList.toggle('scrolled', scrolled);
+    });
+}
+
+
 function initializeCarousel(carouselElement, props = {}) {
     if (!carouselElement) return;
 
@@ -90,15 +100,82 @@ function initializeCarousel(carouselElement, props = {}) {
     startAutoplay();
 }
 
-function initializeTitlebar(titlebarElement) {
+function initializeTitlebar(titlebarElement, props = {}) {
     if (!titlebarElement) return;
 
     const mobileMenuButton = titlebarElement.querySelector('.mobile-menu-button');
     const navLinks = titlebarElement.querySelector('.titlebar-nav');
 
-    if (mobileMenuButton && navLinks) {
+    if (mobileMenuButton && navLinks && !mobileMenuButton.dataset.initialized) {
+        mobileMenuButton.dataset.initialized = 'true';
         mobileMenuButton.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
     }
+
+    const resolveRem = (value, fallback) => {
+        if (typeof value === 'number' && !Number.isNaN(value)) {
+            return `${value / 10}rem`;
+        }
+        if (typeof value === 'string') {
+            const trimmed = value.trim();
+            if (!trimmed && fallback !== undefined) {
+                return resolveRem(fallback, undefined);
+            }
+            if (trimmed.endsWith('rem')) {
+                return trimmed;
+            }
+            const numeric = parseFloat(trimmed);
+            if (!Number.isNaN(numeric)) {
+                return `${numeric / 10}rem`;
+            }
+        }
+        if (fallback !== undefined) {
+            return resolveRem(fallback, undefined);
+        }
+        return null;
+    };
+
+    const ensureRemVar = (variable, value, fallback) => {
+        if (titlebarElement.style.getPropertyValue(variable)) return;
+        const remValue = resolveRem(value, fallback);
+        if (remValue) {
+            titlebarElement.style.setProperty(variable, remValue);
+        }
+    };
+
+    const resolveScale = (value, fallback = 0.5) => {
+        const numeric = typeof value === 'number' ? value : parseFloat(value);
+        if (!Number.isNaN(numeric)) {
+            return Math.min(1, Math.max(0.1, numeric / 100));
+        }
+        return fallback;
+    };
+
+    if (!titlebarElement.style.getPropertyValue('--base-height')) {
+        const dataHeight = parseFloat(titlebarElement.getAttribute('data-base-height'));
+        const propHeight = typeof props.height === 'number' ? props.height : parseFloat(props.height);
+        const resolvedHeight = !Number.isNaN(dataHeight) ? dataHeight : (!Number.isNaN(propHeight) ? propHeight : null);
+        const heightRem = resolveRem(resolvedHeight, 60);
+        if (heightRem) {
+            titlebarElement.style.setProperty('--base-height', heightRem);
+        }
+    }
+
+    ensureRemVar('--title-font-size', props.titleFontSize, 24);
+    ensureRemVar('--menu-font-size', props.menuFontSize, 16);
+
+    if (!titlebarElement.style.getPropertyValue('--shrink-scale')) {
+        const scale = resolveScale(props.shrinkPercent);
+        titlebarElement.style.setProperty('--shrink-scale', `${scale}`);
+    }
+
+    if (!titlebarScrollHandlerAttached) {
+        titlebarScrollHandlerAttached = true;
+        window.addEventListener('scroll', handleTitlebarScroll, { passive: true });
+    }
+
+    handleTitlebarScroll();
 }
+
+
