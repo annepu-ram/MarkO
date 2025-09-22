@@ -1,0 +1,114 @@
+- name: page
+  properties:
+    backgroundColor: "#fffaf0"
+  components:
+    - name: titlebar
+      properties:
+        title: "The Chef's Table"
+        logo: "https://via.placeholder.com/150x50/FF4500/FFFFFF?text=TCT"
+        backgroundColor: "#ffffff"
+        links:
+          - text: "Home"
+            value: "#home"
+          - text: "Menu"
+            value: "#menu"
+          - text: "Reservations"
+            value: "#reservations"
+          - text: "Contact"
+            value: "#contact"
+
+    - name: image
+      properties:
+        src: "https://via.placeholder.com/1200x500/FF6347/FFFFFF?text=Exquisite+Dining"
+        alt: "A beautifully plated dish"
+        margin: "0 0 40 0"
+      components:
+        - name: h1
+          properties:
+            text: "The Chef's Table"
+            color: "#ffffff"
+        - name: button
+          properties:
+            text: "Make a Reservation"
+            variant: "primary"
+
+    - name: h1
+      properties:
+        text: "A Culinary Journey"
+        textAlign: "center"
+        color: "#FF4500"
+
+    - name: paragraph
+      properties:
+        text: "Experience the finest in seasonal and locally-sourced cuisine."
+        textAlign: "center"
+        fontSize: 18
+        margin: "0 0 40 0"
+
+    - name: h2
+      properties:
+        text: "Our Menu"
+        textAlign: "center"
+        color: "#FF4500"
+        margin: "40 0 20 0"
+
+    - name: tabs
+      properties:
+        tabs:
+          - title: "Appetizers"
+            components:
+              - name: h3
+                properties:
+                  text: "Bruschetta"
+              - name: paragraph
+                properties:
+                  text: "Grilled bread with tomatoes, garlic, and olive oil."
+          - title: "Main Courses"
+            components:
+              - name: h3
+                properties:
+                  text: "Filet Mignon"
+              - name: paragraph
+                properties:
+                  text: "Served with roasted potatoes and seasonal vegetables."
+          - title: "Desserts"
+            components:
+              - name: h3
+                properties:
+                  text: "Tiramisu"
+              - name: paragraph
+                properties:
+                  text: "Classic Italian coffee-flavored dessert."
+
+    - name: h2
+      properties:
+        text: "Make a Reservation"
+        textAlign: "center"
+        color: "#FF4500"
+        margin: "40 0 20 0"
+
+    - name: calendar
+      properties:
+        {}
+
+    - name: dropdown
+      properties:
+        options: "1 person, 2 people, 3 people, 4 people, 5+ people"
+        margin: "20 0 20 0"
+
+    - name: button
+      properties:
+        text: "Book Your Table"
+        variant: "primary"
+
+    - name: h2
+      properties:
+        text: "Contact & Location"
+        textAlign: "center"
+        color: "#FF4500"
+        margin: "40 0 20 0"
+
+    - name: paragraph
+      properties:
+        text: "456 Culinary Ave | Phone: 555-5678 | Open Daily: 5pm - 10pm"
+        textAlign: "center"

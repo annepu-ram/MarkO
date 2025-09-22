@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Builder - YAML Format</title>
+    <!-- Mini.css Framework -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mini.css@3.0.1/dist/mini-default.min.css">
+    <!-- External stylesheet for the builder UI -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <!-- YAML Parser Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+<body>
+    <!-- Main application container -->
+    <div id="appContainer" class="app-container">
+        <!-- Sidebar for components and properties -->
+        <div class="sidebar">
+            <!-- Components Section -->
+            <div class="components-section">
+                <h2><i data-feather="grid"></i> Components</h2>
+                <!-- Updated syntax information for YAML -->
+                
+                <!-- Component buttons (unchanged) -->
+                <button class="component-item" data-component="page" title="Page container with styling">
+                    <i data-feather="file-text"></i> Page
+                </button>
+                <button class="component-item" data-component="titlebar" title="Navigation bar with logo and links">
+                    <i data-feather="credit-card"></i> Title Bar
+                </button>
+                
+                <button class="component-item" data-component="h1" title="Main heading">
+                    <i data-feather="type"></i> Heading 1
+                </button>
+                <button class="component-item" data-component="h2" title="Section heading">
+                    <i data-feather="type"></i> Heading 2
+                </button>
+                <button class="component-item" data-component="h3" title="Subsection heading">
+                    <i data-feather="type"></i> Heading 3
+                </button>
+                <button class="component-item" data-component="paragraph" title="Text paragraph">
+                    <i data-feather="align-left"></i> Paragraph
+                </button>
+                <button class="component-item" data-component="image" title="Image element">
+                    <i data-feather="image"></i> Image
+                </button>
+                <button class="component-item" data-component="video" title="YouTube video embed">
+                    <i data-feather="video"></i> Video
+                </button>
+                <button class="component-item" data-component="gif" title="Animated GIF">
+                    <i data-feather="film"></i> GIF
+                </button>
+                <button class="component-item" data-component="textbox" title="Single line text input">
+                    <i data-feather="edit-2"></i> Text Box
+                </button>
+                <button class="component-item" data-component="textarea" title="Multi-line text input">
+                    <i data-feather="edit"></i> Text Area
+                </button>
+                <button class="component-item" data-component="button" title="Clickable button">
+                    <i data-feather="box"></i> Button
+                </button>
+                <button class="component-item" data-component="dropdown" title="Selection dropdown">
+                    <i data-feather="chevron-down"></i> Dropdown
+                </button>
+                <button class="component-item" data-component="calendar" title="Calendar widget">
+                    <i data-feather="calendar"></i> Calendar
+                </button>
+                <button class="component-item" data-component="checkbox" title="Checkbox input">
+                    <i data-feather="check-square"></i> Checkbox
+                </button>
+                <button class="component-item" data-component="radio" title="Radio button">
+                    <i data-feather="circle"></i> Radio Button
+                </button>
+                <button class="component-item" data-component="columnsgrid" title="Multi-column layout">
+                    <i data-feather="columns"></i> Columns Grid
+                </button>
+                <button class="component-item" data-component="accordion" title="Collapsible content">
+                    <i data-feather="chevrons-down"></i> Accordion
+                </button>
+                <button class="component-item" data-component="tabs" title="Tabbed content">
+                    <i data-feather="trello"></i> Tabs
+                </button>
+                <button class="component-item" data-component="hamburger" title="Mobile menu">
+                    <i data-feather="menu"></i> Hamburger Menu
+                </button>
+                <button class="component-item" data-component="br" title="Line break">
+                    <i data-feather="minus"></i> Line Break
+                </button>
+                <button class="component-item" data-component="link" title="Hyperlink">
+                    <i data-feather="link"></i> Link
+                </button>
+                <button class="component-item" data-component="form" title="Form container">
+                    <i data-feather="file-plus"></i> Form
+                </button>
+                <button class="component-item" data-component="carousel" title="Image carousel">
+                    <i data-feather="sliders"></i> Carousel
+                </button>
+            </div>
+            
+            <!-- Properties Section -->
+            <div id="propertiesPanel" class="properties-section">
+                <h2><i data-feather="settings"></i> Properties</h2>
+                <div id="propertiesContent">
+                    <p style="color: #666; font-style: italic; font-size: 1.2rem; text-align: center; padding: 2rem 0;">
+                        Select a component in the preview to edit its properties.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content area for the code editor and preview -->
+        <div class="main-canvas">
+            <div class="canvas-header">
+                <h2>🎨 YAML Builder</h2>
+                <!-- Action buttons -->
+                <div>
+                    <button id="clearBtn" class="btn btn-secondary">Clear</button>
+                    <button id="helpBtn" class="btn btn-help">Help</button>
+                    <button id="fullscreenBtn" class="btn btn-fullscreen">Fullscreen</button>
+                    <button id="exportBtn" class="btn">Export HTML</button>
+                    <button id="logHtmlBtn" class="btn">Log HTML</button>
+                </div>
+            </div>
+            <div class="canvas-content">
+                <!-- YAML editor -->
+                <textarea 
+                    id="codeEditor" 
+                    class="code-editor" 
+                    placeholder="Write your YAML structure here:&#10;&#10;page:&#10;  properties:&#10;    backgroundColor: '#f0f4f8'&#10;&#10;components:&#10;  - name: h1&#10;    properties:&#10;      text: 'Welcome!'"
+                    
+                ></textarea>
+                
+                <!-- Draggable Separator -->
+                <div class="resizer" id="resizer"></div>
+
+                <!-- Preview area -->
+                <div id="preview" class="preview-area">
+                    <div style="text-align: center; color: #6b7280; padding: 5rem;">
+                        <h3>🚀 Start building your website!</h3>
+                        <p>Write YAML in the editor above or click components from the sidebar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for fullscreen preview -->
+        <div id="fullscreenModal" class="fullscreen-modal">
+            <button id="closeFullscreenBtn" class="fullscreen-close">✕ Close</button>
+            <div class="fullscreen-content" id="fullscreenContent">
+            </div>
+        </div>
+
+        <!-- Help panel with YAML documentation -->
+        <div id="helpPanel" class="help-panel" style="display: none;">
+            <h2>❓ YAML Format Help</h2>
+            <div id="helpContent">
+                
+                <div class="help-section">
+                    <h3>YAML Structure</h3>
+                    <p>The website is defined using YAML format with clear hierarchy and indentation.</p>
+                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1.2rem;">page:
+  properties:
+    backgroundColor: '#f0f4f8'
+    padding: 20
+
+components:
+  - name: h1
+    properties:
+      text: 'Welcome!'
+      textAlign: 'center'</pre>
+                </div>
+
+                <div class="help-section">
+                    <h3>Page Properties</h3>
+                    <p>Set global page styling at the top level:</p>
+                    <ul>
+                        <li><code>backgroundColor</code>: Page background color</li>
+                        <li><code>padding</code>: Page padding in pixels</li>
+                        <li><code>margin</code>: Page margin in pixels</li>
+                    </ul>
+                </div>
+
+                <div class="help-section">
+                    <h3>Components Array</h3>
+                    <p>All components are listed under the <code>components</code> array. Each component has:</p>
+                    <ul>
+                        <li><code>name</code>: Component type (h1, paragraph, button, etc.)</li>
+                        <li><code>properties</code>: Component-specific settings</li>
+                    </ul>
+                </div>
+
+                <div class="help-section">
+                    <h3>Complex Components</h3>
+                    <p><strong>Columns Grid:</strong></p>
+                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: columnsgrid
+  properties:
+    count: 2
+  columns:
+    - components:
+        - name: h2
+          properties:
+            text: 'Left Column'</pre>
+                    
+                    <p><strong>Tabs:</strong></p>
+                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: tabs
+  tabs:
+    - title: 'Tab 1'
+      components:
+        - name: paragraph
+          properties:
+            text: 'Tab content'</pre>
+
+                    <p><strong>Accordion:</strong></p>
+                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: accordion
+  properties:
+    title: 'Click to expand'
+  content:
+    components:
+      - name: paragraph
+        properties:
+          text: 'Hidden content'</pre>
+                </div>
+
+                <div class="help-section">
+                    <h3>Common Properties</h3>
+                    <ul>
+                        <li><code>text</code>: Display text for headings, paragraphs, buttons</li>
+                        <li><code>color</code>: Text color (hex or color name)</li>
+                        <li><code>backgroundColor</code>: Background color</li>
+                        <li><code>fontSize</code>: Font size in pixels</li>
+                        <li><code>textAlign</code>: left, center, right</li>
+                        <li><code>padding</code>: Inner spacing</li>
+                        <li><code>margin</code>: Outer spacing</li>
+                        <li><code>src</code>: URL for images and videos</li>
+                        <li><code>placeholder</code>: Placeholder text for inputs</li>
+                    </ul>
+                </div>
+
+                <div class="help-section">
+                    <h3>YAML Syntax Tips</h3>
+                    <ul>
+                        <li>Use 2 spaces for indentation (not tabs)</li>
+                        <li>Strings with spaces should be in quotes</li>
+                        <li>Arrays use <code>-</code> (dash) prefix</li>
+                        <li>Keep consistent indentation levels</li>
+                        <li>Use <code>#</code> for comments</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to the updated JavaScript file -->
+    <script src="js/component_interactions.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+      feather.replace()
+    </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+page:
+  backgroundColor: '#ffffff'
+  backgroundImage: ''
+  padding: 10
+  margin: 0
+titlebar:
+  logo: 'https://via.placeholder.com/50x40'
+  title: 'Website Title'
+  links:
+    - text: 'Home'
+      value: '#home'
+    - text: 'About'
+      value: '#about'
+    - text: 'Contact'
+      value: '#contact'
+  borderColor: '#ddd'
+  backgroundColor: '#ffffff'
+  focusedButtonBackgroundColor: '#f0f0f0'
+  alignment: 'left'
+  height: 60
+  padding: 10
+  margin: 0
+  borderRadius: 0
+h1:
+  text: 'Main Heading'
+  color: '#000000'
+  fontStyle: 'normal'
+  fontWeight: 'bold'
+  fontSize: 32
+  textAlign: 'left'
+  backgroundColor: 'transparent'
+  borderWidth: 0
+  borderStyle: 'solid'
+  borderColor: '#000000'
+  padding: 10
+  margin: 10
+  borderRadius: 0
+h2:
+  text: 'Section Heading'
+  color: '#000000'
+  fontStyle: 'normal'
+  fontWeight: 'bold'
+  fontSize: 24
+  textAlign: 'left'
+  backgroundColor: 'transparent'
+  borderWidth: 0
+  borderStyle: 'solid'
+  borderColor: '#000000'
+  padding: 10
+  margin: 10
+  borderRadius: 0
+h3:
+  text: 'Subsection Heading'
+  color: '#000000'
+  fontStyle: 'normal'
+  fontWeight: 'bold'
+  fontSize: 18
+  textAlign: 'left'
+  backgroundColor: 'transparent'
+  borderWidth: 0
+  borderStyle: 'solid'
+  borderColor: '#000000'
+  padding: 10
+  margin: 10
+  borderRadius: 0
+paragraph:
+  text: 'This is a paragraph of text content.'
+  color: '#000000'
+  fontStyle: 'normal'
+  fontWeight: 'normal'
+  fontSize: 16
+  textAlign: 'left'
+  backgroundColor: 'transparent'
+  borderWidth: 0
+  borderStyle: 'solid'
+  borderColor: '#000000'
+  padding: 10
+  margin: 10
+  borderRadius: 0
+image:
+  src: 'https://via.placeholder.com/150'
+  alt: 'Placeholder image'
+  height: auto
+  padding: 0
+  margin: 10
+  borderRadius: 0
+video:
+  src: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+  padding: 0
+  margin: 10
+  borderRadius: 0
+gif:
+  src: 'https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif'
+  padding: 10
+  margin: 10
+  borderRadius: 0
+textbox:
+  label: 'Textbox Label'
+  placeholder: 'Enter text...'
+  value: ''
+  padding: 10
+  margin: 10
+  borderWidth: 1
+  borderColor: '#cccccc'
+  borderRadius: 4
+  fontColor: '#333333'
+  fontWeight: 'normal'
+  label_properties:
+    fontSize: 14
+    fontWeight: '500'
+    fontStyle: 'normal'
+    color: '#374151'
+    backgroundColor: 'transparent'
+textarea:
+  label: 'Textarea Label'
+  placeholder: 'Enter text...'
+  rows: 3
+  padding: 10
+  margin: 10
+  borderRadius: 0
+  label_properties:
+    fontSize: 14
+    fontWeight: '500'
+    fontStyle: 'normal'
+    color: '#374151'
+    backgroundColor: 'transparent'
+
+button:
+  text: 'Click Me'
+  onclick: 'alert("Clicked!")'
+  variant: 'primary'
+  padding: 10
+  margin: 10
+  borderRadius: 0
+  align: 'none'
+dropdown:
+  label: 'Dropdown Label'
+  options: 'Option 1,Option 2,Option 3'
+  selected: ''
+  padding: 10
+  margin: 10
+  borderWidth: 1
+  borderColor: '#cccccc'
+  borderRadius: 4
+  fontColor: '#333333'
+  fontWeight: 'normal'
+  label_properties:
+    fontSize: 14
+    fontWeight: '500'
+    fontStyle: 'normal'
+    color: '#374151'
+    backgroundColor: 'transparent'
+calendar:
+  month: 8
+  year: 2024
+  padding: 10
+  margin: 10
+  borderRadius: 0
+checkbox:
+  label: 'Checkbox Label'
+  text: 'Check me'
+  checked: false
+  padding: 10
+  margin: 10
+  borderRadius: 0
+  label_properties:
+    fontSize: 14
+    fontWeight: '500'
+    fontStyle: 'normal'
+    color: '#374151'
+    backgroundColor: 'transparent'
+radio:
+  label: 'Radio Label'
+  text: 'Select me'
+  name: 'radio1'
+  value: 'option1'
+  padding: 10
+  margin: 10
+  borderWidth: 1
+  borderColor: '#cccccc'
+  borderRadius: 4
+  fontColor: '#333333'
+  fontWeight: 'normal'
+  label_properties:
+    fontSize: 14
+    fontWeight: '500'
+    fontStyle: 'normal'
+    color: '#374151'
+    backgroundColor: 'transparent'
+columnsgrid:
+  count: 2
+  padding: 10
+  margin: 10
+  borderRadius: 0
+accordion:
+  title: 'Click to expand'
+  padding: 10
+  margin: 10
+  borderRadius: 0
+tabs:
+  padding: 10
+  margin: 10
+  borderRadius: 0
+hamburger: {}
+br: {}
+link:
+  text: 'Click Me'
+  url: '#'
+  color: '#0000EE'
+  underline: true
+  showArrow: false
+  fontSize: 16
+  fontStyle: 'normal'
+  fontWeight: 'normal'
+  align: 'none'
+form:
+  components: []
+  padding: 10
+  margin: 10
+  borderRadius: 0
+carousel:
+  images_count: 3
+  
+  autoplay: true
+  delay: 3000
+  slides:
+    - components:
+        - name: image
+          properties:
+            src: 'https://via.placeholder.com/800x400?text=Slide+1'
+            alt: 'Slide 1'
+        - name: h3
+          properties:
+            text: 'First Slide'
+    - components:
+        - name: image
+          properties:
+            src: 'https://via.placeholder.com/800x400?text=Slide+2'
+            alt: 'Slide 2'
+        - name: paragraph
+          properties:
+            text: 'Second slide with some text.'
+    - components:
+        - name: image
+          properties:
+            src: 'https://via.placeholder.com/800x400?text=Slide+3'
+            alt: 'Slide 3'

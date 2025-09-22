@@ -1,0 +1,154 @@
+
+- name: page
+  properties:
+    backgroundColor: "#f0f4f8"
+  components:
+    - name: titlebar
+      properties:
+        title: "InnovateCon 2025"
+        logo: "https://via.placeholder.com/150x50/007BFF/FFFFFF?text=IC25"
+        backgroundColor: "#ffffff"
+        links:
+          - text: "Home"
+            value: "#home"
+          - text: "Speakers"
+            value: "#speakers"
+          - text: "Schedule"
+            value: "#schedule"
+          - text: "Register"
+            value: "#register"
+
+    - name: h1
+      properties:
+        text: "InnovateCon 2025: The Future of Technology"
+        textAlign: "center"
+        color: "#007BFF"
+        margin: "40 0 10 0"
+
+    - name: h3
+      properties:
+        text: "October 22-24, 2025 | Metro Convention Center"
+        textAlign: "center"
+        fontWeight: "normal"
+        margin: "0 0 30 0"
+
+    - name: button
+      properties:
+        text: "Register Now"
+        variant: "primary"
+        margin: "0 auto 40 auto"
+        textAlign: "center"
+
+    - name: h2
+      properties:
+        text: "Featured Speakers"
+        textAlign: "center"
+        color: "#343a40"
+        margin: "40 0 20 0"
+
+    - name: columnsgrid
+      properties:
+        count: 4
+      columns:
+        - components:
+            - name: image
+              properties:
+                src: "https://via.placeholder.com/150x150/007BFF/FFFFFF?text=Speaker+1"
+                alt: "Speaker 1"
+            - name: h3
+              properties:
+                text: "Jane Doe"
+                textAlign: "center"
+                fontSize: 16
+        - components:
+            - name: image
+              properties:
+                src: "https://via.placeholder.com/150x150/007BFF/FFFFFF?text=Speaker+2"
+                alt: "Speaker 2"
+            - name: h3
+              properties:
+                text: "John Smith"
+                textAlign: "center"
+                fontSize: 16
+        - components:
+            - name: image
+              properties:
+                src: "https://via.placeholder.com/150x150/007BFF/FFFFFF?text=Speaker+3"
+                alt: "Speaker 3"
+            - name: h3
+              properties:
+                text: "Emily Jones"
+                textAlign: "center"
+                fontSize: 16
+        - components:
+            - name: image
+              properties:
+                src: "https://via.placeholder.com/150x150/007BFF/FFFFFF?text=Speaker+4"
+                alt: "Speaker 4"
+            - name: h3
+              properties:
+                text: "Michael Lee"
+                textAlign: "center"
+                fontSize: 16
+
+    - name: h2
+      properties:
+        text: "Conference Schedule"
+        textAlign: "center"
+        color: "#343a40"
+        margin: "40 0 20 0"
+
+    - name: tabs
+      properties:
+        tabs:
+          - title: "Day 1: Foundations"
+            components:
+              - name: h3
+                properties:
+                  text: "9:00 AM - Keynote Address"
+              - name: paragraph
+                properties:
+                  text: "10:00 AM - The Future of AI"
+              - name: paragraph
+                properties:
+                  text: "12:00 PM - Lunch Break"
+          - title: "Day 2: Deep Dive"
+            components:
+              - name: h3
+                properties:
+                  text: "9:00 AM - Machine Learning Workshops"
+              - name: paragraph
+                properties:
+                  text: "11:00 AM - Quantum Computing"
+              - name: paragraph
+                properties:
+                  text: "1:00 PM - Networking Event"
+          - title: "Day 3: Futures"
+            components:
+              - name: h3
+                properties:
+                  text: "10:00 AM - The Metaverse and Beyond"
+              - name: paragraph
+                properties:
+                  text: "12:00 PM - Closing Remarks"
+
+    - name: h2
+      properties:
+        text: "Register Your Interest"
+        textAlign: "center"
+        color: "#343a40"
+        margin: "40 0 20 0"
+
+    - name: textbox
+      properties:
+        placeholder: "Full Name"
+    - name: textbox
+      properties:
+        placeholder: "Email Address"
+    - name: dropdown
+      properties:
+        options: "General Admission, VIP Pass, Student Pass"
+    - name: button
+      properties:
+        text: "Submit"
+        variant: "primary"

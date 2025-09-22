@@ -1,0 +1,121 @@
+- name: page
+  properties:
+    backgroundColor: '#f8f9fa'
+    padding: 0
+  components:
+  - name: titlebar
+    properties:
+      title: 'SwiftLogistics'
+      logo: 'https://via.placeholder.com/150x50/007bff/ffffff?text=SwiftLogistics'
+      backgroundColor: '#ffffff'
+      links:
+        - text: 'Home'
+          value: '#home'
+        - text: 'Services'
+          value: '#services'
+        - text: 'About Us'
+          value: '#about'
+        - text: 'Contact'
+          value: '#contact'
+
+  - name: image
+    properties:
+      src: 'https://images.unsplash.com/photo-1577562529198-5599338f235a?q=80&w=2070&auto=format&fit=crop'
+      alt: 'Logistics warehouse'
+      height: '500px'
+    components:
+      - name: h1
+        properties:
+          text: 'Efficient & Reliable Logistics Solutions'
+          color: '#ffffff'
+          textAlign: 'center'
+          backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          padding: 20
+          borderRadius: 5
+      - name: button
+        properties:
+          text: 'Get a Quote'
+          variant: 'primary'
+          margin: 20
+
+  - name: columnsgrid
+    properties:
+      count: 3
+      padding: 40
+      margin: 20
+    columns:
+      - components:
+          - name: image
+            properties:
+              src: 'https://images.unsplash.com/photo-1605713288453-55759c265a4a?q=80&w=2070&auto=format&fit=crop'
+              alt: 'Air Freight'
+              height: '200px'
+              borderRadius: 5
+          - name: h3
+            properties:
+              text: 'Air Freight'
+              textAlign: 'center'
+          - name: paragraph
+            properties:
+              text: 'Fast and reliable air freight services for your urgent shipping needs.'
+              textAlign: 'center'
+      - components:
+          - name: image
+            properties:
+              src: 'https://images.unsplash.com/photo-1613689283564-46a5e41c9a6a?q=80&w=2070&auto=format&fit=crop'
+              alt: 'Sea Freight'
+              height: '200px'
+              borderRadius: 5
+          - name: h3
+            properties:
+              text: 'Sea Freight'
+              textAlign: 'center'
+          - name: paragraph
+            properties:
+              text: 'Cost-effective sea freight solutions for large shipments.'
+              textAlign: 'center'
+      - components:
+          - name: image
+            properties:
+              src: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1974&auto=format&fit=crop'
+              alt: 'Land Transport'
+              height: '200px'
+              borderRadius: 5
+          - name: h3
+            properties:
+              text: 'Land Transport'
+              textAlign: 'center'
+          - name: paragraph
+            properties:
+              text: 'Comprehensive road and rail transport across the country.'
+              textAlign: 'center'
+
+  - name: accordion
+    properties:
+      title: 'Why Choose Us?'
+      margin: 40
+    content:
+      components:
+        - name: h3
+          properties:
+            text: 'Global Network'
+        - name: paragraph
+          properties:
+            text: 'Our extensive network of partners ensures your shipments reach any destination worldwide.'
+        - name: h3
+          properties:
+            text: 'Advanced Tracking'
+        - name: paragraph
+          properties:
+            text: 'Real-time tracking of your shipments from origin to destination.'
+        - name: h3
+          properties:
+            text: '24/7 Support'
+        - name: paragraph
+          properties:
+            text: 'Our dedicated team is available around the clock to assist you with any queries.'
+
+  - name: video
+    properties:
+      src: 'https://www.youtube.com/watch?v=3t5-pA0A_lk'
+      margin: 40
