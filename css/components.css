@@ -342,3 +342,37 @@ select {
     content: '\2192'; /* Unicode right arrow */
     margin-left: 0.5em;
 }
+/* --- Text Component Enhancements --- */
+.text-heading {
+    margin: 0;
+}
+
+.text-eyebrow {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.text-caption {
+    font-size: 0.9rem;
+}
+
+.text-blockquote,
+.text-blockquote blockquote {
+    font-style: italic;
+}
+
+.text-blockquote {
+    margin: 2rem 0;
+    padding-left: 1.2rem;
+    border-left: 4px solid var(--blockquote-border, currentColor);
+}
+
+.blockquote-citation {
+    display: block;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    opacity: 0.75;
+}

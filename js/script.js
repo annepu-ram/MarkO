@@ -1,4 +1,4 @@
-// --- YAML-BASED WEBSITE BUILDER //---
+﻿// --- YAML-BASED WEBSITE BUILDER //---
 // Load js-yaml from CDN - add to HTML: <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
 // =================================================================================================
@@ -61,7 +61,6 @@ function initializeEventListeners() {
     document.getElementById('fullscreenBtn').addEventListener('click', openFullscreen);
     document.getElementById('closeFullscreenBtn').addEventListener('click', closeFullscreen);
     document.getElementById('helpBtn').addEventListener('click', toggleHelpPanel);
-    document.getElementById('logHtmlBtn').addEventListener('click', logHtml);
 }
 
 // =================================================================================================
@@ -75,6 +74,175 @@ let componentIdToPathMap = {};
 let yamlStructure = null;
 let componentsToInitialize = [];
 
+const TYPOGRAPHY_SIZE_MAP = {
+    xxs: '1rem',
+    xs: '1.2rem',
+    sm: '1.4rem',
+    md: '1.6rem',
+    lg: '2rem',
+    xl: '2.4rem',
+    xxl: '3.2rem',
+    xxxl: '3.6rem'
+};
+
+const FONT_WEIGHT_MAP = {
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    extrabold: 800
+};
+
+const LETTER_SPACING_MAP = {
+    normal: 'normal',
+    tight: '-0.015em',
+    wide: '0.1em',
+    wider: '0.15em'
+};
+
+const LINE_HEIGHT_MAP = {
+    normal: 1.5,
+    snug: 1.35,
+    relaxed: 1.7,
+    loose: 1.9
+};
+
+const SPACING_SCALE_MAP = {
+    none: '0',
+    xs: '0.4rem',
+    sm: '0.8rem',
+    md: '1.6rem',
+    lg: '2.4rem',
+    xl: '3.2rem'
+};
+
+const TEXT_VARIANTS = {
+    paragraph: {
+        body: {},
+        lead: {
+            typography: { size: 'lg', lineHeight: 1.75 },
+            spacing: { margin: { top: 'sm', bottom: 'lg' } }
+        },
+        muted: {
+            typography: { color: '#6b7280' }
+        },
+        note: {
+            typography: { size: 'sm', color: '#6b7280', lineHeight: 1.5 }
+        }
+    }
+};
+
+const TEXT_COMPONENTS = new Set(['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote']);
+
+const SPACING_OPTIONS = ['none', 'xs', 'sm', 'md', 'lg', 'xl'];
+
+
+function deepClone(value) {
+    if (value === undefined) return undefined;
+    return JSON.parse(JSON.stringify(value));
+}
+
+function deepMerge(target = {}, ...sources) {
+    for (const source of sources) {
+        if (!source || typeof source !== 'object') continue;
+        for (const key of Object.keys(source)) {
+            const sourceValue = source[key];
+            if (Array.isArray(sourceValue)) {
+                target[key] = sourceValue.map(item => (typeof item === 'object' && item !== null) ? deepClone(item) : item);
+            } else if (sourceValue && typeof sourceValue === 'object') {
+                const base = target[key];
+                target[key] = deepMerge((base && typeof base === 'object') ? base : {}, sourceValue);
+            } else if (sourceValue !== undefined) {
+                target[key] = sourceValue;
+            }
+        }
+    }
+    return target;
+}
+
+function cloneTemplate(template = {}) {
+    return deepClone(template) || {};
+}
+
+function resolveComponentVariant(name, properties = {}) {
+    const variants = TEXT_VARIANTS[name];
+    if (!variants) {
+        return properties;
+    }
+    const variantKeys = Object.keys(variants);
+    if (variantKeys.length === 0) {
+        return properties;
+    }
+    const defaultKey = variantKeys.includes('default') ? 'default' : variantKeys[0];
+    const variantKey = properties.variant && variants[properties.variant] ? properties.variant : defaultKey;
+    const base = variants.default && variantKey !== 'default' ? variants.default : {};
+    const selected = variants[variantKey] || {};
+    return deepMerge({}, base, selected, properties);
+}
+
+
+function resolveTypographySize(value) {
+    if (!value) return null;
+    if (TYPOGRAPHY_SIZE_MAP[value]) {
+        return TYPOGRAPHY_SIZE_MAP[value];
+    }
+    return typeof value === 'number' ? toRem(value) : value;
+}
+
+function resolveFontWeight(value) {
+    if (!value) return null;
+    if (FONT_WEIGHT_MAP[value] !== undefined) {
+        return FONT_WEIGHT_MAP[value];
+    }
+    return value;
+}
+
+function resolveLineHeight(value) {
+    if (!value) return null;
+    if (LINE_HEIGHT_MAP[value] !== undefined) {
+        return LINE_HEIGHT_MAP[value];
+    }
+    return value;
+}
+
+function resolveLetterSpacing(value) {
+    if (!value) return null;
+    if (LETTER_SPACING_MAP[value] !== undefined) {
+        return LETTER_SPACING_MAP[value];
+    }
+    return value;
+}
+
+function resolveSpacingValue(value) {
+    if (value === undefined || value === null || value === '') {
+        return null;
+    }
+    if (SPACING_SCALE_MAP[value] !== undefined) {
+        return SPACING_SCALE_MAP[value];
+    }
+    if (value === 'auto') {
+        return 'auto';
+    }
+    if (typeof value === 'number') {
+        return toRem(value);
+    }
+    const numeric = parseFloat(value);
+    if (!Number.isNaN(numeric) && String(value).trim() === `${numeric}`) {
+        return toRem(numeric);
+    }
+    return value;
+}
+
+function escapeHtml(value) {
+    if (typeof value !== 'string') return value;
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
 const history = {
     undoStack: [],
     redoStack: [],
@@ -311,13 +479,13 @@ function insertYamlComponent(componentName) {
     if (!isComponentTemplatesLoaded) return;
 
     const editor = document.getElementById('codeEditor');
-    const template = componentTemplates[componentName] || {};
+    const template = cloneTemplate(componentTemplates[componentName]);
 
     let newComponent;
     if (componentName === 'page') {
         newComponent = {
             name: 'page',
-            properties: { ...template },
+            properties: template || {},
             components: []
         };
         const newComponentYaml = jsyaml.dump([newComponent], {
@@ -331,48 +499,51 @@ function insertYamlComponent(componentName) {
         editor.focus();
         return;
     } else if (componentName === 'tabs') {
+        const properties = template || {};
         newComponent = {
             name: 'tabs',
-            properties: { ...template },
-            tabs: [ {title : 'Tab Name', components: [] }]
+            properties,
+            tabs: [{ title: 'Tab Name', components: [] }]
         };
     } else if (componentName === 'carousel') {
-        const { slides, ...properties } = template;
+        const { slides = [], ...properties } = template || {};
         newComponent = {
             name: 'carousel',
-            properties: properties,
-            slides: slides || []
+            properties,
+            slides
         };
     } else if (componentName === 'accordion') {
+        const properties = template || {};
         newComponent = {
             name: 'accordion',
-            properties: { ...template },
+            properties,
             content: {
                 components: []
             }
         };
     } else if (componentName === 'form') {
+        const properties = template || {};
         newComponent = {
             name: 'form',
-            properties: { ...template },
+            properties,
             components: []
         };
     } else if (componentName === 'image') {
+        const properties = template || {};
         newComponent = {
             name: 'image',
-            properties: { ...template },
+            properties,
             components: []
         };
     } else {
         newComponent = {
             name: componentName,
-            properties: { ...template }
+            properties: template || {}
         };
     }
 
     let structure = parseYamlContent(editor.value);
 
-    // If the editor is empty or doesn't have a page component, create one.
     if (!structure || !Array.isArray(structure) || structure.length !== 1 || structure[0].name !== 'page') {
         structure = [{
             name: 'page',
@@ -380,12 +551,11 @@ function insertYamlComponent(componentName) {
             components: [newComponent]
         }];
     } else {
-        if (!structure[0].components) {
+        if (!Array.isArray(structure[0].components)) {
             structure[0].components = [];
         }
         structure[0].components.push(newComponent);
     }
-
 
     const newYaml = generateYamlFromStructure(structure);
     editor.value = newYaml;
@@ -408,8 +578,9 @@ function renderYamlStructure(structure, mode = 'preview') {
 &nbsp;&nbsp;properties:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;backgroundColor: '#ffffff'<br>
 &nbsp;&nbsp;components:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;- name: h1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- name: heading<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;properties:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;level: 2<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text: 'Welcome!'
                 </p>
             </div>`
@@ -598,9 +769,10 @@ function renderImageComponent(component, path, mode) {
 
 function renderSimpleComponent(component, path, mode) {
     const { name, properties = {} } = component;
-    const classes = generateMiniCssClasses(name, properties);
-    const styles = generateRemainingStyles(properties);
-    const componentHTML = generateComponentInnerHTML(name, properties, classes, styles, mode);
+    const resolvedProps = resolveComponentVariant(name, properties);
+    const classes = generateMiniCssClasses(name, resolvedProps);
+    const styles = generateRemainingStyles(resolvedProps, name);
+    const componentHTML = generateComponentInnerHTML(name, resolvedProps, classes, styles, mode);
 
     if (mode === 'preview') {
         const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -727,59 +899,114 @@ function renderTabs(component, path, mode) {
 }
 
 function generateComponentInnerHTML(type, props, classes, styleAttr, mode) {
-    const finalAttrs = `${classes ? `class="${classes}"` : ''} style="${styleAttr}"`;
-    const id = `input_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    const labelStyles = generateRemainingStyles(props.label_properties || {});
+    let componentType = type;
+    let componentProps = props || {};
+
+    if (componentType === 'h1' || componentType === 'h2' || componentType === 'h3') {
+        const level = parseInt(componentType.slice(1), 10) || 2;
+        componentType = 'heading';
+        componentProps = deepMerge({}, componentProps, { level, text: componentProps.text || componentProps.content });
+    }
+
+    let styleString = typeof styleAttr === 'string' ? styleAttr.trim() : '';
+    const appendInlineStyle = (base, addition) => {
+        const normalized = (base || '').trim();
+        const additionValue = (addition || '').trim();
+        if (!additionValue) {
+            return normalized;
+        }
+        if (!normalized) {
+            return additionValue;
+        }
+        return normalized.endsWith(';') ? normalized + ' ' + additionValue : normalized + '; ' + additionValue;
+    };
+
+    if (componentType === 'blockquote') {
+        const borderColor = componentProps.pullBorderColor || '#6366f1';
+        styleString = appendInlineStyle(styleString, `--blockquote-border: ${borderColor};`);
+    }
+
+    const attributeParts = [];
+    if (classes) {
+        attributeParts.push(`class="${classes}"`);
+    }
+    attributeParts.push(`style="${styleString}"`);
+    const attributeString = attributeParts.join(' ').trim();
+    const attrSegment = attributeString ? ' ' + attributeString : '';
+
+
+    if (componentType === 'heading') {
+        const level = Math.min(6, Math.max(1, parseInt(componentProps.level, 10) || 2));
+        const textContent = escapeHtml(componentProps.text || 'Heading');
+        return '<h' + level + attrSegment + '>' + textContent + '</h' + level + '>';
+    }
+
+    if (componentType === 'paragraph') {
+        const textContent = escapeHtml(componentProps.text || 'Paragraph');
+        return '<p' + attrSegment + '>' + textContent + '</p>';
+    }
+
+    if (componentType === 'eyebrow') {
+        const textContent = escapeHtml(componentProps.text || 'Label');
+        return '<p' + attrSegment + '>' + textContent + '</p>';
+    }
+
+    if (componentType === 'caption') {
+        const textContent = escapeHtml(componentProps.text || 'Caption');
+        return '<p' + attrSegment + '>' + textContent + '</p>';
+    }
+
+    if (componentType === 'blockquote') {
+        const quoteContent = escapeHtml(componentProps.quote || componentProps.text || 'Quote');
+        const citation = componentProps.cite ? '<figcaption class="blockquote-citation">&mdash; ' + escapeHtml(componentProps.cite) + '</figcaption>' : '';
+        return '<figure' + attrSegment + '><blockquote>' + quoteContent + '</blockquote>' + citation + '</figure>';
+    }
+
+    const finalAttrs = attributeString;
+    const id = 'input_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    const labelStyles = generateRemainingStyles(componentProps.label_properties || {}, 'label');
 
     const componentGenerators = {
-        h1: () => `<h1 ${finalAttrs}>${props.text || 'Main Heading'}</h1>`,
-        h2: () => `<h2 ${finalAttrs}>${props.text || 'Section Heading'}</h2>`,
-        h3: () => `<h3 ${finalAttrs}>${props.text || 'Subsection Heading'}</h3>`,
-        paragraph: () => `<p ${finalAttrs}>${props.text || 'This is a paragraph of text content.'}</p>`,
-        image: () => `<img src="${props.src || 'https://via.placeholder.com/150'}" alt="${props.alt || ''}" style="width: 100%; height: ${toRem(props.height) || 'auto'}; object-fit: cover;">`,
+        image: () => '<img src="' + (componentProps.src || 'https://via.placeholder.com/150') + '" alt="' + (componentProps.alt || '') + '" style="width: 100%; height: ' + (toRem(componentProps.height) || 'auto') + '; object-fit: cover;">',
         video: () => {
-            const videoId = (props.src || '').split('v=')[1];
-            const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId.split('&')[0]}` : '';
-            return `<iframe ${finalAttrs} src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%; aspect-ratio: 16/9;"></iframe>`;
+            const videoId = (componentProps.src || '').split('v=')[1];
+            const embedUrl = videoId ? 'https://www.youtube.com/embed/' + videoId.split('&')[0] : '';
+            return '<iframe ' + finalAttrs + ' src="' + embedUrl + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width: 100%; aspect-ratio: 16/9;"></iframe>';
         },
-        gif: () => `<img src="${props.src || 'https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif'}" alt="gif" ${finalAttrs} />`,
-        textbox: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label || ''}</label><input type="text" id="${id}" placeholder="${props.placeholder || 'Enter text...'}" value="${props.value || ''}" ${finalAttrs} /></div>`,
-        textarea: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label || ''}</label><textarea id="${id}" placeholder="${props.placeholder || 'Enter text...'}" rows="${props.rows || 3}" ${finalAttrs}>${props.value || ''}</textarea></div>`,
-        button: () => `<button onclick="${props.onclick || ''}" ${finalAttrs}>${props.text || 'Click Me'}</button>`,
+        gif: () => '<img src="' + (componentProps.src || 'https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif') + '" alt="gif" ' + finalAttrs + ' />',
+        textbox: () => '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><input type="text" id="' + id + '" placeholder="' + (componentProps.placeholder || 'Enter text...') + '" value="' + (componentProps.value || '') + '" ' + finalAttrs + ' /></div>',
+        textarea: () => '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><textarea id="' + id + '" placeholder="' + (componentProps.placeholder || 'Enter text...') + '" rows="' + (componentProps.rows || 3) + '" ' + finalAttrs + '>' + (componentProps.value || '') + '</textarea></div>',
+        button: () => '<button onclick="' + (componentProps.onclick || '') + '" ' + finalAttrs + '>' + (componentProps.text || 'Click Me') + '</button>',
         dropdown: () => {
-            const options = (props.options || 'Option 1,Option 2,Option3').split(',');
-            const optionHTML = options.map(opt => `<option value="${opt.trim()}" ${props.selected === opt.trim() ? 'selected' : ''}>${opt.trim()}</option>`).join('');
-            return `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" style="${labelStyles}">${props.label || ''}</label><select id="${id}" ${finalAttrs}>${optionHTML}</select></div>`;
+            const options = (componentProps.options || 'Option 1,Option 2,Option3').split(',');
+            const optionHTML = options.map(opt => {
+                const value = opt.trim();
+                const selected = componentProps.selected === value ? ' selected' : '';
+                return '<option value="' + value + '"' + selected + '>' + value + '</option>';
+            }).join('');
+            return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><select id="' + id + '" ' + finalAttrs + '>' + optionHTML + '</select></div>';
         },
-        calendar: () => generateCalendarHTML(props),
-        checkbox: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" ${finalAttrs} style="${labelStyles}"><input type="checkbox" id="${id}" ${props.checked ? 'checked' : ''} /><span>${props.text || 'Check me'}</span></label></div>`,
-        radio: () => `<div style="width: 100%; margin-bottom: 1rem;"><label for="${id}" ${finalAttrs} style="${labelStyles}"><input type="radio" id="${id}" name="${props.name || 'radio1'}" value="${props.value || 'option1'}" /><span>${props.text || 'Select me'}</span></label></div>`,
+        calendar: () => generateCalendarHTML(componentProps),
+        checkbox: () => '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" ' + finalAttrs + ' style="' + labelStyles + '"><input type="checkbox" id="' + id + '"' + (componentProps.checked ? ' checked' : '') + ' /><span>' + (componentProps.text || 'Check me') + '</span></label></div>',
+        radio: () => '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" ' + finalAttrs + ' style="' + labelStyles + '"><input type="radio" id="' + id + '" name="' + (componentProps.name || 'radio1') + '" value="' + (componentProps.value || 'option1') + '" /><span>' + (componentProps.text || 'Select me') + '</span></label></div>',
         hamburger: () => {
-            const items = (props.items || 'Home,About,Services,Contact').split(',');
-            let menuHTML = `<div class="dropdown" ${finalAttrs}><button class="button primary">☰</button><div class="menu">`;
-            items.forEach(item => { menuHTML += `<a href="#" class="menu-item">${item.trim()}</a>`; });
+            const items = (componentProps.items || 'Home,About,Services,Contact').split(',');
+            let menuHTML = '<div class="dropdown" ' + finalAttrs + '><button class="button primary">?</button><div class="menu">';
+            items.forEach(item => { menuHTML += '<a href="#" class="menu-item">' + item.trim() + '</a>'; });
             menuHTML += '</div></div>';
             return menuHTML;
         },
-        br: () => mode === 'preview' ? `<div class="comp-br" style="height: 2rem; border-bottom: 1px dashed #ccc; margin: 1rem 0;"></div>` : '<br>',
-        titlebar: () => generateTitlebarHTML(props, classes, styleAttr, mode),
+        br: () => mode === 'preview' ? '<div class="comp-br" style="height: 2rem; border-bottom: 1px dashed #ccc; margin: 1rem 0;"></div>' : '<br>',
+        titlebar: () => generateTitlebarHTML(componentProps, classes, styleAttr, mode),
         link: () => {
-            let linkStyle = '';
-            if (props.underline) {
-                linkStyle += 'text-decoration: underline;';
-            } else {
-                linkStyle += 'text-decoration: none;';
-            }
-            let arrowHTML = '';
-            if (props.showArrow) {
-                arrowHTML = '&nbsp;&#x2192;';
-            }
-            const finalStyle = styleAttr.replace(/text-align:[^;]+;/g, '');
-            return `<div style="text-align: ${props.textAlign || 'left'};}"><a href="${props.url || '#'}" style="${linkStyle} ${finalStyle}">${props.text || 'Click Me'}${arrowHTML}</a></div>`;
+            let linkStyle = componentProps.underline ? 'text-decoration: underline;' : 'text-decoration: none;';
+            const arrowHTML = componentProps.showArrow ? '&nbsp;?' : '';
+            const sanitizedStyles = styleString.replace(/text-align:[^;]+;/g, '');
+            return '<div style="text-align: ' + (componentProps.textAlign || 'left') + ';"><a href="' + (componentProps.url || '#') + '" style="' + linkStyle + ' ' + sanitizedStyles + '">' + (componentProps.text || 'Click Me') + arrowHTML + '</a></div>';
         }
     };
 
-    return componentGenerators[type] ? componentGenerators[type]() : `<div style="color: #ef4444; font-style: italic;">Unknown component: ${type}</div>`;
+    return componentGenerators[componentType] ? componentGenerators[componentType]() : '<div style="color: #ef4444; font-style: italic;">Unknown component: ' + componentType + '</div>';
 }
 
 function generateTitlebarHTML(props, classes, styleAttr, mode) {
@@ -893,41 +1120,121 @@ function generateTitlebarHTML(props, classes, styleAttr, mode) {
 }
 
 function generateMiniCssClasses(type, props) {
-    let classes = [];
+    const classes = [];
     if (type === 'button') {
         classes.push('button');
-        if (props.variant) classes.push(props.variant);
+        if (props.variant) {
+            classes.push(props.variant);
+        }
     }
-    return classes.join(' ');
+
+    if (TEXT_COMPONENTS.has(type)) {
+        classes.push('text-' + type);
+        const variantMap = TEXT_VARIANTS[type];
+        if (variantMap) {
+            const variant = props.variant && props.variant !== 'default' && variantMap[props.variant] ? props.variant : null;
+            if (variant) {
+                classes.push('text-' + type + '--' + variant);
+            }
+        }
+    }
+
+    if (type === 'blockquote') {
+        classes.push('blockquote');
+    }
+
+    return classes.join(' ').trim();
 }
 
-function generateRemainingStyles(props) {
+function generateRemainingStyles(props = {}, componentName) {
     let styles = '';
+
     if (props.backgroundImage) {
-        styles += `background-image: url('${props.backgroundImage}');`;
-        styles += `background-size: cover;`;
-        styles += `background-position: center;`;
-    }
-    else if (props.backgroundColor) {
+        styles += "background-image: url('" + props.backgroundImage + "');";
+        styles += 'background-size: cover;';
+        styles += 'background-position: center;';
+    } else if (props.backgroundColor) {
         if (typeof props.backgroundColor === 'object' && props.backgroundColor !== null) {
-            styles += `background-image: linear-gradient(${props.backgroundColor.direction}, ${props.backgroundColor.start}, ${props.backgroundColor.end});`;
+            styles += 'background-image: linear-gradient(' + props.backgroundColor.direction + ', ' + props.backgroundColor.start + ', ' + props.backgroundColor.end + ');';
         } else if (props.backgroundColor === 'transparent') {
             styles += 'background-color: transparent;';
         } else {
-            styles += `background-color: ${props.backgroundColor};`;
+            styles += 'background-color: ' + props.backgroundColor + ';';
         }
     }
-    if (props.color) styles += `color: ${props.color};`;
-    if (props.fontStyle) styles += `font-style: ${props.fontStyle};`;
-    if (props.fontWeight) styles += `font-weight: ${props.fontWeight};`;
-    if (props.fontSize) styles += `font-size: ${toRem(props.fontSize)};`;
-    if (props.textAlign) styles += `text-align: ${props.textAlign};`;
-    if (props.padding) styles += `padding: ${toRem(props.padding)};`;
-    if (props.margin) styles += `margin: ${toRem(props.margin)};`;
-    if (props.borderWidth > 0 && props.borderStyle !== 'none') {
-        styles += `border: ${toRem(props.borderWidth)} ${props.borderStyle || 'solid'} ${props.borderColor || '#000000'};`;
+
+    const typography = props.typography || {};
+    const fontSize = resolveTypographySize(typography.size || props.fontSize);
+    if (fontSize) {
+        styles += 'font-size: ' + fontSize + ';';
     }
-    if (props.borderRadius) styles += `border-radius: ${toRem(props.borderRadius)};`;
+    const fontWeight = resolveFontWeight(typography.weight || props.fontWeight);
+    if (fontWeight) {
+        styles += 'font-weight: ' + fontWeight + ';';
+    }
+    const fontStyle = typography.fontStyle || props.fontStyle;
+    if (fontStyle) {
+        styles += 'font-style: ' + fontStyle + ';';
+    }
+    const textTransform = typography.transform || props.transform;
+    if (textTransform) {
+        styles += 'text-transform: ' + textTransform + ';';
+    }
+    const letterSpacing = resolveLetterSpacing(typography.letterSpacing || props.letterSpacing);
+    if (letterSpacing) {
+        styles += 'letter-spacing: ' + letterSpacing + ';';
+    }
+    const lineHeight = resolveLineHeight(typography.lineHeight || props.lineHeight);
+    if (lineHeight) {
+        styles += 'line-height: ' + lineHeight + ';';
+    }
+    const textAlign = typography.align || props.textAlign;
+    if (textAlign) {
+        styles += 'text-align: ' + textAlign + ';';
+    }
+    const color = typography.color || props.color;
+    if (color) {
+        styles += 'color: ' + color + ';';
+    }
+
+    const spacing = props.spacing || {};
+    if (spacing.margin && typeof spacing.margin === 'object') {
+        for (const side in spacing.margin) {
+            if (Object.prototype.hasOwnProperty.call(spacing.margin, side)) {
+                const resolved = resolveSpacingValue(spacing.margin[side]);
+                if (resolved !== null) {
+                    styles += 'margin-' + side + ': ' + resolved + ';';
+                }
+            }
+        }
+    } else if (props.margin) {
+        styles += 'margin: ' + toRem(props.margin) + ';';
+    }
+
+    if (spacing.padding && typeof spacing.padding === 'object') {
+        for (const side in spacing.padding) {
+            if (Object.prototype.hasOwnProperty.call(spacing.padding, side)) {
+                const resolved = resolveSpacingValue(spacing.padding[side]);
+                if (resolved !== null) {
+                    styles += 'padding-' + side + ': ' + resolved + ';';
+                }
+            }
+        }
+    } else if (props.padding) {
+        styles += 'padding: ' + toRem(props.padding) + ';';
+    }
+
+    if (props.borderWidth !== undefined && props.borderWidth !== null) {
+        const borderWidthValue = toRem(props.borderWidth);
+        const borderStyle = props.borderStyle || 'solid';
+        if (parseFloat(borderWidthValue) > 0 && borderStyle !== 'none') {
+            styles += 'border: ' + borderWidthValue + ' ' + borderStyle + ' ' + (props.borderColor || '#000000') + ';';
+        }
+    }
+    if (props.borderRadius) {
+        styles += 'border-radius: ' + toRem(props.borderRadius) + ';';
+    }
+
     return styles;
 }
 
@@ -941,38 +1248,44 @@ function renderPropertiesPanel(component, componentId, path) {
     if (existingButton) existingButton.remove();
 
     if (!component || !componentId) {
-        propertiesContent.innerHTML = `<p style="color: #666; font-style: italic; font-size: 1.2rem; text-align: center; padding: 2rem 0;">Select a component to edit.</p>`;
+        propertiesContent.innerHTML = '<p style="color: #666; font-style: italic; font-size: 1.2rem; text-align: center; padding: 2rem 0;">Select a component to edit.</p>';
         return;
     }
 
     let propertiesHTML = '';
-    const templateProps = componentTemplates[component.name] || {};
-    const finalProps = { ...templateProps, ...component.properties };
+    const templateProps = cloneTemplate(componentTemplates[component.name] || {});
+    const finalProps = deepMerge({}, templateProps, component.properties || {});
+    const isTextComponent = TEXT_COMPONENTS.has(component.name);
 
-    for (const key in finalProps) {
-        if (key === 'content' || key === 'columns' || key === 'tabs' || key === 'components' || key === 'slides' || key === 'backgroundImage' || key === 'label_properties') continue;
-        if (typeof finalProps[key] === 'object' && finalProps[key] !== null && key !== 'backgroundColor') continue;
-        
-        const value = finalProps[key] === undefined ? '' : finalProps[key];
-        
-        propertiesHTML += renderProperty(key, value);
-    }
+    if (isTextComponent) {
+        propertiesHTML += renderTextComponentProperties(component.name, finalProps);
+    } else {
+        for (const key in finalProps) {
+            if (!Object.prototype.hasOwnProperty.call(finalProps, key)) continue;
+            if (key === 'content' || key === 'columns' || key === 'tabs' || key === 'components' || key === 'slides' || key === 'backgroundImage' || key === 'label_properties' || key === 'variants') continue;
+            if (typeof finalProps[key] === 'object' && finalProps[key] !== null && key !== 'backgroundColor') continue;
 
-    if (component.name === 'titlebar') {
-        let links = finalProps.links || [];
-        propertiesHTML += generateLinksEditor(links);
-    }
-
-    if (finalProps.label_properties) {
-        propertiesHTML += '<h4>Label Properties</h4>';
-        for (const key in finalProps.label_properties) {
-            const value = finalProps.label_properties[key] === undefined ? '' : finalProps.label_properties[key];
-            propertiesHTML += renderProperty(key, value, 'label_properties');
+            const value = finalProps[key] === undefined ? '' : finalProps[key];
+            propertiesHTML += renderProperty(key, value);
         }
-    }
 
-    if (component.name === 'page') {
-        propertiesHTML += renderProperty('backgroundImage', finalProps.backgroundImage || '');
+        if (component.name === 'titlebar') {
+            const links = Array.isArray(finalProps.links) ? finalProps.links : [];
+            propertiesHTML += generateLinksEditor(links);
+        }
+
+        if (finalProps.label_properties) {
+            propertiesHTML += '<h4>Label Properties</h4>';
+            for (const key in finalProps.label_properties) {
+                if (!Object.prototype.hasOwnProperty.call(finalProps.label_properties, key)) continue;
+                const value = finalProps.label_properties[key] === undefined ? '' : finalProps.label_properties[key];
+                propertiesHTML += renderProperty(key, value, 'label_properties');
+            }
+        }
+
+        if (component.name === 'page') {
+            propertiesHTML += renderProperty('backgroundImage', finalProps.backgroundImage || '');
+        }
     }
 
     propertiesContent.innerHTML = propertiesHTML;
@@ -984,10 +1297,6 @@ function renderPropertiesPanel(component, componentId, path) {
     applyButton.onclick = () => applyYamlComponentProperties(componentId, path);
     propertiesSection.appendChild(applyButton);
 }
-
-
-
-
 function renderProperty(key, value, propType = null) {
     const colorProperties = ['backgroundColor', 'color', 'borderColor', 'focusedButtonBackgroundColor', 'border_color'];
     const imageProperties = ['backgroundImage'];
@@ -1110,28 +1419,203 @@ function renderSelectProperty(key, value, options, propType) {
     </div>`;
 }
 
+function buildSelectOptions(options, selectedValue, defaultLabel) {
+    let html = '';
+    const selectedString = selectedValue !== undefined && selectedValue !== null ? String(selectedValue) : '';
+    if (defaultLabel !== undefined && defaultLabel !== null) {
+        const isSelected = selectedString === '' ? ' selected' : '';
+        html += '<option value=""' + isSelected + '>' + (defaultLabel || 'Default') + '</option>';
+    }
+    options.forEach(option => {
+        if (option === undefined || option === null || option === '') return;
+        const value = String(option);
+        const isSelected = value === selectedString ? ' selected' : '';
+        html += '<option value="' + value + '"' + isSelected + '>' + formatOptionLabel(value) + '</option>';
+    });
+    return html;
+}
+
+function formatOptionLabel(option) {
+    if (option === null || option === undefined) return '';
+    if (option === 'none') return 'None';
+    if (option === 'xs') return 'XS';
+    if (option === 'sm') return 'SM';
+    if (option === 'md') return 'MD';
+    if (option === 'lg') return 'LG';
+    if (option === 'xl') return 'XL';
+    if (option === 'auto') return 'Auto';
+    const text = String(option).replace(/_/g, ' ');
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+function renderTextComponentProperties(type, props) {
+    const typography = props.typography || {};
+    const spacing = props.spacing || {};
+    const margin = spacing.margin || {};
+    const variantMap = TEXT_VARIANTS[type];
+    const variantOptions = variantMap ? Object.keys(variantMap) : [];
+    const sizeOptions = Object.keys(TYPOGRAPHY_SIZE_MAP);
+    const weightOptions = Object.keys(FONT_WEIGHT_MAP);
+    const alignOptions = ['inherit', 'left', 'center', 'right', 'justify'];
+    const letterSpacingOptions = Object.keys(LETTER_SPACING_MAP);
+    const transformOptions = ['none', 'uppercase', 'lowercase', 'capitalize'];
+    const spacingOptions = [...SPACING_OPTIONS, 'auto'];
+
+    const segments = [];
+
+    if (type === 'blockquote') {
+        segments.push('<div class="property-item"><label>Quote</label><textarea data-key="quote" data-allow-empty="true" rows="4">' + escapeHtml(props.quote || props.text || '') + '</textarea></div>');
+        segments.push('<div class="property-item"><label>Citation</label><input type="text" data-key="cite" value="' + escapeHtml(props.cite || '') + '"></div>');
+    } else {
+        const rows = type === 'paragraph' ? 4 : 3;
+        segments.push('<div class="property-item"><label>Text</label><textarea data-key="text" data-allow-empty="true" rows="' + rows + '">' + escapeHtml(props.text || '') + '</textarea></div>');
+    }
+
+    if (type === 'heading') {
+        const levelValue = props.level !== undefined ? props.level : 2;
+        let levelOptions = '';
+        for (let i = 1; i <= 6; i++) {
+            const selected = Number(levelValue) === i ? ' selected' : '';
+            levelOptions += '<option value="' + i + '"' + selected + '>H' + i + '</option>';
+        }
+        segments.push('<div class="property-item"><label>Heading Level</label><select data-key="level" data-type="number">' + levelOptions + '</select></div>');
+    }
+
+    if (variantOptions.length > 1) {
+        segments.push('<div class="property-item"><label>Variant</label><select data-key="variant">' + buildSelectOptions(variantOptions, props.variant || 'default', null) + '</select></div>');
+    }
+
+    segments.push('<div class="property-group"><h4>Typography</h4>');
+    segments.push('<div class="property-item"><label>Font Size</label><select data-key="typography.size">' + buildSelectOptions(sizeOptions, typography.size, null) + '</select></div>');
+    segments.push('<div class="property-item"><label>Font Weight</label><select data-key="typography.weight">' + buildSelectOptions(weightOptions, typography.weight, null) + '</select></div>');
+    segments.push('<div class="property-item"><label>Alignment</label><select data-key="typography.align">' + buildSelectOptions(alignOptions, typography.align, null) + '</select></div>');
+    segments.push('<div class="property-item"><label>Line Height</label><input type="text" data-key="typography.lineHeight" value="' + (typography.lineHeight !== undefined ? typography.lineHeight : '') + '" placeholder="e.g. 1.6 or relaxed"></div>');
+    segments.push('<div class="property-item"><label>Letter Spacing</label><select data-key="typography.letterSpacing">' + buildSelectOptions(letterSpacingOptions, typography.letterSpacing, null) + '</select></div>');
+    segments.push('<div class="property-item"><label>Transform</label><select data-key="typography.transform">' + buildSelectOptions(transformOptions, typography.transform, null) + '</select></div>');
+    segments.push('<div class="property-item"><label>Text Color</label><input type="color" data-key="typography.color" value="' + (typography.color !== undefined ? typography.color : '') + '"></div>');
+    segments.push('</div>');
+
+    segments.push('<div class="property-group"><h4>Spacing</h4>');
+    segments.push('<div class="property-item"><label>Margin Top</label><select data-key="spacing.margin.top">' + buildSelectOptions(spacingOptions, margin.top, null) + '</select></div>');
+    segments.push('<div class="property-item"><label>Margin Bottom</label><select data-key="spacing.margin.bottom">' + buildSelectOptions(spacingOptions, margin.bottom, null) + '</select></div>');
+    segments.push('</div>');
+
+    if (type === 'blockquote') {
+        const borderColor = props.pullBorderColor !== undefined ? props.pullBorderColor : '#6366f1';
+        segments.push('<div class="property-group"><h4>Pull Style</h4>');
+        segments.push('<div class="property-item"><label>Border Color</label><input type="color" data-key="pullBorderColor" value="' + borderColor + '"></div>');
+        segments.push(renderColorProperty('backgroundColor', props.backgroundColor !== undefined ? props.backgroundColor : ''));
+        segments.push('</div>');
+    }
+
+    return segments.join('');
+}
+
+function setNestedValue(target, path, value) {
+    const segments = path.split('.');
+    let current = target;
+    for (let i = 0; i < segments.length; i++) {
+        const key = segments[i];
+        if (i === segments.length - 1) {
+            current[key] = value;
+        } else {
+            if (!current[key] || typeof current[key] !== 'object') {
+                current[key] = {};
+            }
+            current = current[key];
+        }
+    }
+}
+
+function deleteNestedValue(target, path) {
+    const segments = path.split('.');
+    const stack = [];
+    let current = target;
+
+    for (let i = 0; i < segments.length; i++) {
+        const key = segments[i];
+        if (!current || typeof current !== 'object') {
+            return;
+        }
+        stack.push({ parent: current, key });
+        current = current[key];
+    }
+
+    const last = stack.pop();
+    if (last && last.parent && Object.prototype.hasOwnProperty.call(last.parent, last.key)) {
+        delete last.parent[last.key];
+    }
+
+    for (let i = stack.length - 1; i >= 0; i--) {
+        const entry = stack[i];
+        if (entry.parent && entry.parent[entry.key] && typeof entry.parent[entry.key] === 'object' && Object.keys(entry.parent[entry.key]).length === 0) {
+            delete entry.parent[entry.key];
+        }
+    }
+}
+
+function pruneEmptyObjects(obj) {
+    if (!obj || typeof obj !== 'object') return;
+    Object.keys(obj).forEach(key => {
+        const value = obj[key];
+        if (value && typeof value === 'object') {
+            pruneEmptyObjects(value);
+            if (Object.keys(value).length === 0) {
+                delete obj[key];
+            }
+        } else if (value === '' || value === null) {
+            delete obj[key];
+        }
+    });
+}
 function applyYamlComponentProperties(componentId, path) {
     if (!yamlStructure || !path) return;
 
     const newProps = {};
     const newLabelProps = {};
+    const pathsToDelete = [];
     const colorProperties = ['backgroundColor', 'color', 'borderColor', 'focusedButtonBackgroundColor', 'border_color'];
     const imageProperties = ['backgroundImage'];
 
-    document.querySelectorAll('#propertiesContent input[data-key], #propertiesContent select[data-key], #propertiesContent textarea[data-key]').forEach(input => {
-        const key = input.dataset.key;
-        const isLabelProp = input.dataset.propType === 'label_properties';
+    const inputs = document.querySelectorAll('#propertiesContent input[data-key], #propertiesContent select[data-key], #propertiesContent textarea[data-key]');
+    inputs.forEach(input => {
+        const keyPath = input.dataset.key;
+        if (!keyPath) return;
 
-        if (key.startsWith('links') || key.startsWith('images') || key === 'color_type' || key === 'solid_color' || key === 'gradient_direction' || key === 'gradient_start' || key === 'gradient_end' || imageProperties.includes(key)) {
+        if (keyPath.startsWith('links') || keyPath.startsWith('images') || keyPath === 'color_type' || keyPath === 'solid_color' || keyPath === 'gradient_direction' || keyPath === 'gradient_start' || keyPath === 'gradient_end' || imageProperties.includes(keyPath)) {
             return;
         }
 
-        const value = input.type === 'checkbox' ? input.checked : input.value;
-        if (isLabelProp) {
-            newLabelProps[key] = value;
+        const isLabelProp = input.dataset.propType === 'label_properties';
+        const dataType = input.dataset.type;
+        const shouldTrim = input.dataset.trim !== 'false';
+        const allowEmpty = input.dataset.allowEmpty === 'true';
+        let value;
+
+        if (input.type === 'checkbox') {
+            value = input.checked;
+        } else if (input.tagName === 'SELECT') {
+            value = input.value;
         } else {
-            newProps[key] = value;
+            value = input.value;
+            if (shouldTrim && typeof value === 'string') {
+                value = value.trim();
+            }
         }
+
+        if (dataType === 'number' && typeof value === 'string' && value !== '') {
+            const numeric = Number(value);
+            value = Number.isNaN(numeric) ? value : numeric;
+        }
+
+        const target = isLabelProp ? newLabelProps : newProps;
+
+        if ((value === '' || value === null) && input.type !== 'checkbox' && !allowEmpty) {
+            pathsToDelete.push({ target: isLabelProp ? 'label_properties' : 'properties', path: keyPath });
+            return;
+        }
+
+        setNestedValue(target, keyPath, value);
     });
 
     colorProperties.forEach(key => {
@@ -1142,28 +1626,32 @@ function applyYamlComponentProperties(componentId, path) {
             const selectedType = colorTypeSelect.value;
 
             if (selectedType === 'solid') {
-                target[key] = document.getElementById(`prop_text_${key}`).value;
+                setNestedValue(target, key, document.getElementById(`prop_text_${key}`).value);
             } else if (selectedType === 'transparent') {
-                target[key] = 'transparent';
+                setNestedValue(target, key, 'transparent');
             } else if (selectedType === 'gradient' && key === 'backgroundColor') {
-                target[key] = {
+                setNestedValue(target, key, {
                     direction: document.getElementById(`prop_gradient_dir_${key}`).value,
                     start: document.getElementById(`prop_gradient_start_${key}`).value,
                     end: document.getElementById(`prop_gradient_end_${key}`).value
-                };
+                });
             }
         }
     });
-    
+
     imageProperties.forEach(key => {
         const input = document.getElementById(`prop_${key}`);
         if (input) {
             const isLabelProp = input.dataset.propType === 'label_properties';
             const target = isLabelProp ? newLabelProps : newProps;
-            target[key] = input.value;
+            const value = input.value.trim();
+            if (value) {
+                setNestedValue(target, key, value);
+            } else {
+                pathsToDelete.push({ target: isLabelProp ? 'label_properties' : 'properties', path: key });
+            }
         }
     });
-
 
     const component = getComponentByPath(yamlStructure, path);
     if (component) {
@@ -1173,23 +1661,40 @@ function applyYamlComponentProperties(componentId, path) {
                 const textInput = linkItem.querySelector(`input[data-key="links.${index}.text"]`);
                 const valueInput = linkItem.querySelector(`input[data-key="links.${index}.value"]`);
                 if (textInput && valueInput) {
-                    links.push({ text: textInput.value, value: valueInput.value });
+                    const textValue = textInput.value.trim();
+                    const linkValue = valueInput.value.trim();
+                    if (textValue || linkValue) {
+                        links.push({ text: textValue, value: linkValue });
+                    }
                 }
             });
-            newProps.links = links;
+            setNestedValue(newProps, 'links', links);
         }
-        
-        component.properties = { ...component.properties, ...newProps };
+
+        component.properties = deepMerge({}, component.properties || {}, newProps);
+
         if (Object.keys(newLabelProps).length > 0) {
-            component.properties.label_properties = { ...component.properties.label_properties, ...newLabelProps };
+            component.properties.label_properties = deepMerge({}, component.properties.label_properties || {}, newLabelProps);
         }
+
+        pathsToDelete.forEach(entry => {
+            if (entry.target === 'label_properties') {
+                if (component.properties.label_properties) {
+                    deleteNestedValue(component.properties.label_properties, entry.path);
+                }
+            } else {
+                deleteNestedValue(component.properties, entry.path);
+            }
+        });
+
+        pruneEmptyObjects(component.properties);
     }
 
     const yamlString = generateYamlFromStructure(yamlStructure);
     document.getElementById('codeEditor').value = yamlString;
-    
+
     parseYamlComponents(yamlString);
-    
+
     setTimeout(() => {
         let newComponentId = null;
         for (const [id, compPath] of Object.entries(componentIdToPathMap)) {
@@ -1200,7 +1705,7 @@ function applyYamlComponentProperties(componentId, path) {
         }
 
         if (newComponentId) {
-            const elementToReselect = document.querySelector(`[data-component-id="${newComponentId}"]`);
+            const elementToReselect = document.querySelector('[data-component-id="' + newComponentId + '"]');
             if (elementToReselect) {
                 document.querySelectorAll('.rendered-component').forEach(el => el.style.border = '1px solid #404A6B');
                 elementToReselect.style.border = '2px solid #ef4444';
@@ -1210,8 +1715,6 @@ function applyYamlComponentProperties(componentId, path) {
         }
     }, 50);
 }
-
-
 // =================================================================================================
 // --- UI HELPERS ---
 // =================================================================================================
@@ -1483,8 +1986,45 @@ function generateTitlebarBehaviorScript() {
 </script>`;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function logHtml() {
     const yamlText = document.getElementById('codeEditor').value;
     const cleanHTML = generateCleanHTML(yamlText);
     console.log(cleanHTML);
 }
+
+
+
+
+
+

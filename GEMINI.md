@@ -1,6 +1,9 @@
-# Project Overview
+﻿# Project Overview
 
 This project is a web-based visual website builder. It allows users to create and customize web pages using a YAML-based structure in a code editor, with a live preview that updates in real-time. The application is built with vanilla JavaScript, HTML, and CSS, and it utilizes the Mini.css framework for styling the generated components.
+
+> **Update:** Headings now use a unified `heading` component with a `level` property instead of discrete `h1`/`h2`/`h3` entries. Additional text helpers (`eyebrow`, `caption`, `blockquote`) share the same typography/spacing token model.
+> **Architecture:** Default typography/colors for text components now live entirely in `component_defaults.yaml`; runtime rendering just merges overrides so blockquote/eyebrow/caption styling is driven by YAML rather than hard-coded script or CSS.
 
 ## Key Features
 
@@ -14,13 +17,13 @@ This project is a web-based visual website builder. It allows users to create an
 
 ```
 .
-├── css/
-│   └── style.css         # Styles for the builder UI
-├── js/
-│   └── script.js         # Core application logic
-├── index.html            # Main HTML file
-├── README.md             # Project documentation
-└── GEMINI.md             # This file
+â”œâ”€â”€ css/
+â”‚   â””â”€â”€ style.css         # Styles for the builder UI
+â”œâ”€â”€ js/
+â”‚   â””â”€â”€ script.js         # Core application logic
+â”œâ”€â”€ index.html            # Main HTML file
+â”œâ”€â”€ README.md             # Project documentation
+â””â”€â”€ GEMINI.md             # This file
 ```
 
 # Building and Running
@@ -378,3 +381,13 @@ components:
 - `parseYamlComponents(yamlText)`: Parses the YAML from the code editor and renders the preview.
 - `generateCleanHTML(yamlText)`: Generates clean HTML for export.
 - `logHtml()`: Logs the generated HTML to the console.
+
+
+- heading: relies on its `level` plus typography settings from `component_defaults.yaml`; there are no heading variants (level 1 -> `xxxl`, level 2 -> `xxl`, level 3 -> `xl`, level 4 -> `lg`, level 5 -> `md`, level 6 -> `sm`).
+- blockquote: default leaves the blockquote styling exactly as supplied by the component defaults and the shared CSS; pull is the customization that tweaks margins/typography.
+- caption: default keeps the standard caption look (smaller type, neutral color). The muted variant swaps color/alignment.
+- eyebrow: default uses the baseline uppercase styling and color; accent is the variant that swaps to the accent color.
+
+
+
+

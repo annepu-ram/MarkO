@@ -1,139 +1,144 @@
 - name: page
   properties:
-    backgroundColor: "#fffaf0"
+    backgroundColor: '#fffaf0'
   components:
-    - name: titlebar
+  - name: titlebar
+    properties:
+      title: The Chef's Table
+      logo: https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+      backgroundColor: '#ffffff'
+      links:
+      - text: Home
+        value: '#home'
+      - text: Menu
+        value: '#menu'
+      - text: Reservations
+        value: '#reservations'
+      - text: Contact
+        value: '#contact'
+  - name: image
+    properties:
+      src: https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+      alt: A beautifully plated dish
+      margin: 0 0 40 0
+    components:
+    - name: heading
       properties:
-        title: "The Chef's Table"
-        logo: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        backgroundColor: "#ffffff"
-        links:
-          - text: "Home"
-            value: "#home"
-          - text: "Menu"
-            value: "#menu"
-          - text: "Reservations"
-            value: "#reservations"
-          - text: "Contact"
-            value: "#contact"
-
-    - name: image
-      properties:
-        src: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt: "A beautifully plated dish"
-        margin: "0 0 40 0"
-      components:
-        - name: h1
-          properties:
-            text: "The Chef's Table"
-            color: "#ffffff"
-        - name: button
-          properties:
-            text: "Make a Reservation"
-            variant: "primary"
-
-    - name: h1
-      properties:
-        text: "A Culinary Journey"
-        textAlign: "center"
-        color: "#FF4500"
-
-    - name: paragraph
-      properties:
-        text: "Experience the finest in seasonal and locally-sourced cuisine."
-        textAlign: "center"
-        fontSize: 18
-        margin: "0 0 40 0"
-
-    - name: h2
-      properties:
-        text: "Our Menu"
-        textAlign: "center"
-        color: "#FF4500"
-        margin: "40 0 20 0"
-
-    - name: tabs
-      properties:
-        tabs:
-          - title: "Appetizers"
-            components:
-              - name: h3
-                properties:
-                  text: "Bruschetta"
-              - name: paragraph
-                properties:
-                  text: "Grilled bread with tomatoes, garlic, and olive oil."
-          - title: "Main Courses"
-            components:
-              - name: h3
-                properties:
-                  text: "Filet Mignon"
-              - name: paragraph
-                properties:
-                  text: "Served with roasted potatoes and seasonal vegetables."
-          - title: "Desserts"
-            components:
-              - name: h3
-                properties:
-                  text: "Tiramisu"
-              - name: paragraph
-                properties:
-                  text: "Classic Italian coffee-flavored dessert."
-
-    - name: h2
-      properties:
-        text: "Frequently Asked Questions"
-        textAlign: "center"
-        color: "#FF4500"
-        margin: "40 0 20 0"
-
-    - name: accordion
-      properties:
-        title: "Do you take reservations?"
-      content:
-        components:
-          - name: paragraph
-            properties:
-              text: "Yes, we highly recommend making a reservation, especially on weekends. You can book a table through our website or by calling us directly."
-
-    - name: accordion
-      properties:
-        title: "What is the dress code?"
-      content:
-        components:
-          - name: paragraph
-            properties:
-              text: "We have a smart casual dress code. We kindly ask that you refrain from wearing sportswear, shorts, or flip-flops."
-
-    - name: h2
-      properties:
-        text: "Make a Reservation"
-        textAlign: "center"
-        color: "#FF4500"
-        margin: "40 0 20 0"
-
-    - name: calendar
-      properties:
-        {}
-
-    - name: dropdown
-      properties:
-        options: "1 person, 2 people, 3 people, 4 people, 5+ people"
-        margin: "20 0 20 0"
-
+        text: The Chef's Table
+        color: '#ffffff'
+        level: 1
+        variant: display
     - name: button
       properties:
-        text: "Book Your Table"
-        variant: "primary"
-
-    - name: h2
-      properties:
-        text: "Contact & Location"
-        textAlign: "center"
-        color: "#FF4500"
-        margin: "40 0 20 0"
-
-    - name: paragraph
-      properties:
-        text: "456 Culinary Ave | Phone: 555-5678 | Open Daily: 5pm - 10pm"
-        textAlign: "center"
+        text: Make a Reservation
+        variant: primary
+  - name: heading
+    properties:
+      text: A Culinary Journey
+      textAlign: center
+      color: '#FF4500'
+      level: 1
+      variant: display
+  - name: paragraph
+    properties:
+      text: Experience the finest in seasonal and locally-sourced cuisine.
+      textAlign: center
+      fontSize: 18
+      margin: 0 0 40 0
+  - name: heading
+    properties:
+      text: Our Menu
+      textAlign: center
+      color: '#FF4500'
+      margin: 40 0 20 0
+      level: 2
+      variant: default
+  - name: tabs
+    properties:
+      tabs:
+      - title: Appetizers
+        components:
+        - name: heading
+          properties:
+            text: Bruschetta
+            level: 3
+            variant: subtitle
+        - name: paragraph
+          properties:
+            text: Grilled bread with tomatoes, garlic, and olive oil.
+      - title: Main Courses
+        components:
+        - name: heading
+          properties:
+            text: Filet Mignon
+            level: 3
+            variant: subtitle
+        - name: paragraph
+          properties:
+            text: Served with roasted potatoes and seasonal vegetables.
+      - title: Desserts
+        components:
+        - name: heading
+          properties:
+            text: Tiramisu
+            level: 3
+            variant: subtitle
+        - name: paragraph
+          properties:
+            text: Classic Italian coffee-flavored dessert.
+  - name: heading
+    properties:
+      text: Frequently Asked Questions
+      textAlign: center
+      color: '#FF4500'
+      margin: 40 0 20 0
+      level: 2
+      variant: default
+  - name: accordion
+    properties:
+      title: Do you take reservations?
+    content:
+      components:
+      - name: paragraph
+        properties:
+          text: Yes, we highly recommend making a reservation, especially on weekends.
+            You can book a table through our website or by calling us directly.
+  - name: accordion
+    properties:
+      title: What is the dress code?
+    content:
+      components:
+      - name: paragraph
+        properties:
+          text: We have a smart casual dress code. We kindly ask that you refrain
+            from wearing sportswear, shorts, or flip-flops.
+  - name: heading
+    properties:
+      text: Make a Reservation
+      textAlign: center
+      color: '#FF4500'
+      margin: 40 0 20 0
+      level: 2
+      variant: default
+  - name: calendar
+    properties: {}
+  - name: dropdown
+    properties:
+      options: 1 person, 2 people, 3 people, 4 people, 5+ people
+      margin: 20 0 20 0
+  - name: button
+    properties:
+      text: Book Your Table
+      variant: primary
+  - name: heading
+    properties:
+      text: Contact & Location
+      textAlign: center
+      color: '#FF4500'
+      margin: 40 0 20 0
+      level: 2
+      variant: default
+  - name: paragraph
+    properties:
+      text: '456 Culinary Ave | Phone: 555-5678 | Open Daily: 5pm - 10pm'
+      textAlign: center

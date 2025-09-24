@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Builder - YAML Format</title>
     <!-- Mini.css Framework -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mini.css@3.0.1/dist/mini-default.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mini.css@3.0.1/dist/mini-default.min.css"> -->
     <!-- External stylesheet for the builder UI -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
@@ -57,14 +57,28 @@
                             <button class="component-item" data-component="titlebar" title="Navigation bar with logo and links">
                                 <i data-feather="credit-card"></i><span>Titlebar</span>
                             </button>
-                            <button class="component-item" data-component="h1" title="Main heading">
-                                <i data-feather="type"></i><span>H1</span>
+                            <button class="component-item" data-component="heading" title="Heading element">
+                                <i data-feather="type"></i><span>Heading</span>
                             </button>
-                            <button class="component-item" data-component="h2" title="Section heading">
-                                <i data-feather="type"></i><span>H2</span>
+                            <button class="component-item" data-component="eyebrow" title="Topper text">
+                                <i>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentcolor" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-width="2" stroke-linecap="round" stroke-opacity="100%" d="M3 6h10"/><path stroke-width="2" stroke-linecap="round" stroke-opacity="50%" d="M4 12h16"/><path stroke-width="1.2" stroke-linecap="round" stroke-opacity="50%" d="M3 16h18M3 19h18M3 22h18"/>    
+                                    </svg>
+                                </i><span>Eyebrow text</span>
                             </button>
-                            <button class="component-item" data-component="h3" title="Subsection heading">
-                                <i data-feather="type"></i><span>H3</span>
+                            <button class="component-item" data-component="caption" title="Caption text">
+                                <i><svg width="24" height="24" viewBox="0 0 24 24" stroke="currentcolor" xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="currentColor" fill-rule="nonzero" stroke-width="1">
+                                        <path d="M4.75,20.5 L19.25,20.5 C19.6642136,20.5 20,20.8357864 20,21.25 C20,21.6296958 19.7178461,21.943491 19.3517706,21.9931534 L19.25,22 L4.75,22 C4.33578644,22 4,21.6642136 4,21.25 C4,20.8703042 4.28215388,20.556509 4.64822944,20.5068466 L4.75,20.5 L19.25,20.5 L4.75,20.5 Z M16.25,3 C18.3210678,3 20,4.67893219 20,6.75 L20,15.25 C20,17.3210678 18.3210678,19 16.25,19 L7.75,19 C5.67893219,19 4,17.3210678 4,15.25 L4,6.75 C4,4.67893219 5.67893219,3 7.75,3 L16.25,3 Z M16.25,4.5 L7.75,4.5 C6.50735931,4.5 5.5,5.50735931 5.5,6.75 L5.5,15.25 C5.5,16.4926407 6.50735931,17.5 7.75,17.5 L16.25,17.5 C17.4926407,17.5 18.5,16.4926407 18.5,15.25 L18.5,6.75 C18.5,5.50735931 17.4926407,4.5 16.25,4.5 Z" ></path>
+                                    </g>
+                                </svg></i>
+                                <span>Caption text</span>
+                            </button>
+                            <button class="component-item" data-component="blockquote" title="Quoted text">
+                                <i>
+                                    <svg fill="currentcolor" height="24px" width="24px" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 0.96 0.96" xml:space="preserve"><g><path d="M0.39 0.33c0.018 0 0.03 -0.012 0.03 -0.03s-0.012 -0.03 -0.03 -0.03c-0.15 0 -0.27 0.12 -0.27 0.27 0 0.084 0.066 0.15 0.15 0.15s0.15 -0.066 0.15 -0.15 -0.066 -0.15 -0.15 -0.15c-0.009 0 -0.021 0 -0.03 0.003 0.039 -0.039 0.09 -0.063 0.15 -0.063"/><path d="M0.69 0.39c-0.009 0 -0.021 0 -0.03 0.003 0.039 -0.039 0.09 -0.063 0.15 -0.063 0.018 0 0.03 -0.012 0.03 -0.03s-0.012 -0.03 -0.03 -0.03c-0.15 0 -0.27 0.12 -0.27 0.27 0 0.084 0.066 0.15 0.15 0.15s0.15 -0.066 0.15 -0.15 -0.066 -0.15 -0.15 -0.15"/></g></svg>
+                                </i><span>Quoted text</span>
                             </button>
                             <button class="component-item" data-component="paragraph" title="Text paragraph">
                                 <i data-feather="align-left"></i><span>Paragraph</span>
@@ -153,11 +167,12 @@
                 </h2>
                 <!-- Action buttons -->
                 <div>
-                    <button id="clearBtn" class="btn btn-secondary">Clear</button>
-                    <button id="helpBtn" class="btn btn-help">Help</button>
-                    <button id="fullscreenBtn" class="btn btn-fullscreen">Fullscreen</button>
-                    <button id="exportBtn" class="btn">Export HTML</button>
-                    <button id="logHtmlBtn" class="btn">Log HTML</button>
+                    <button id="clearBtn" class="btn btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><g id="_01_align_center" data-name="01 align center"><?xml version="1.0" encoding="UTF-8"?><path d="M22.852,1.729c-.196-.194-.514-.192-.707,.005l-4.407,4.467c-1.722-1.615-4.285-3.132-7.584-.381-.382,.217-3.561,2.02-5.34,2.937-1.16,.599-2.94,1.311-3.01,1.342-.431,.232-.7,.635-.779,1.164-.261,1.737,1.584,4.709,5.194,8.369,1.822,1.847,3.688,2.783,5.548,2.783h0c1.577,0,3.141-.706,4.404-1.987,2.059-2.088,2.594-5.279,2.693-6.022,2.644-3.251,1.167-5.785-.423-7.497l4.413-4.473c.194-.196,.192-.513-.004-.707Zm-7.393,17.997c-1.089,1.105-2.365,1.689-3.691,1.689h0c-1.022,0-2.063-.35-3.111-1.042,.235-.154,.648-.432,.95-.667,.702-.548,1.841-1.658,1.889-1.705,.197-.193,.201-.51,.008-.708-.191-.196-.509-.2-.707-.008-.011,.011-1.146,1.118-1.805,1.631-.31,.242-.747,.531-.945,.661l-.245,.155c-.29-.242-.58-.51-.87-.804-1.239-1.255-2.17-2.325-2.869-3.231,.015-.006,.028-.011,.037-.014,.29-.114,.935-.376,1.402-.609,.977-.488,2.62-1.554,2.689-1.599,.231-.151,.297-.46,.146-.692-.15-.232-.462-.297-.691-.147-.017,.011-1.665,1.081-2.592,1.543-.44,.22-1.05,.466-1.322,.574-.044,.017-.169,.064-.285,.106-1.446-2.085-1.484-3.107-1.432-3.449,.042-.282,.171-.381,.213-.408,.074-.03,1.842-.737,3.046-1.358,1.555-.802,4.162-2.27,5.081-2.79l7.505,7.523c-.123,.81-.656,3.58-2.399,5.346Zm2.884-6.275l-7.156-7.174c2.125-1.578,3.949-1.278,6.188,.968,2.241,2.247,2.541,4.077,.967,6.206Z"/></g></svg>
+                    </button>
+                    <button id="helpBtn" class="btn btn-help"><i data-feather="help-circle"></i></button>
+                    <button id="fullscreenBtn" class="btn btn-fullscreen"><i data-feather="maximize"></i></button>
+                    <button id="exportBtn" class="btn"><i data-feather="download"></i></button>
                 </div>
             </div>
             <div class="canvas-content">
@@ -165,7 +180,7 @@
                 <textarea 
                     id="codeEditor" 
                     class="code-editor" 
-                    placeholder="Write your YAML structure here:&#10;&#10;page:&#10;  properties:&#10;    backgroundColor: '#f0f4f8'&#10;&#10;components:&#10;  - name: h1&#10;    properties:&#10;      text: 'Welcome!'"
+                    placeholder="Write your YAML structure here:&#10;&#10;page:&#10;  properties:&#10;    backgroundColor: '#f0f4f8'&#10;&#10;components:&#10;  - name: heading&#10;    properties:&#10;      level: 2&#10;      text: 'Welcome!'"
                     
                 ></textarea>
                 
@@ -203,10 +218,12 @@
     padding: 20
 
 components:
-  - name: h1
+  - name: heading
     properties:
+      level: 2
       text: 'Welcome!'
-      textAlign: 'center'</pre>
+      textAlign: 'center'
+</pre>
                 </div>
 
                 <div class="help-section">
@@ -231,14 +248,22 @@ components:
                 <div class="help-section">
                     <h3>Complex Components</h3>
                     <p><strong>Columns Grid:</strong></p>
-                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: columnsgrid
+                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: tabs
   properties:
-    count: 2
-  columns:
-    - components:
-        - name: h2
-          properties:
-            text: 'Left Column'</pre>
+    tabs:
+      - title: 'Day 1: Foundations'
+        components:
+          - name: heading
+            properties:
+              level: 3
+              text: '9:00 AM - Keynote Address'
+          - name: paragraph
+            properties:
+              text: '10:00 AM - The Future of AI'
+          - name: paragraph
+            properties:
+              text: '12:00 PM - Lunch Break'
+</pre>
                     
                     <p><strong>Tabs:</strong></p>
                     <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: tabs
@@ -299,3 +324,13 @@ components:
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

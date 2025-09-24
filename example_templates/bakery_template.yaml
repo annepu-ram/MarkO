@@ -1,160 +1,169 @@
 - name: page
   properties:
-    backgroundColor: "#fdf8f2"
+    backgroundColor: '#fdf8f2'
   components:
-    - name: titlebar
+  - name: titlebar
+    properties:
+      title: The Golden Loaf
+      logo: https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+      backgroundColor: '#ffffff'
+      links:
+      - text: Home
+        value: '#home'
+      - text: Menu
+        value: '#menu'
+      - text: About Us
+        value: '#about'
+      - text: Contact
+        value: '#contact'
+  - name: image
+    properties:
+      src: https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+      alt: A spread of freshly baked bread
+      margin: 0 0 40 0
+    components:
+    - name: heading
       properties:
-        title: "The Golden Loaf"
-        logo: "https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        backgroundColor: "#ffffff"
-        links:
-          - text: "Home"
-            value: "#home"
-          - text: "Menu"
-            value: "#menu"
-          - text: "About Us"
-            value: "#about"
-          - text: "Contact"
-            value: "#contact"
-
-    - name: image
-      properties:
-        src: "https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt: "A spread of freshly baked bread"
-        margin: "0 0 40 0"
-      components:
-        - name: h1
-          properties:
-            text: "The Golden Loaf"
-            color: "#ffffff"
-        - name: button
-          properties:
-            text: "Order Now"
-            variant: "primary"
-
-    - name: h1
-      properties:
-        text: "Artisanal Breads and Pastries"
-        textAlign: "center"
-        color: "#8B4513"
-
-    - name: paragraph
-      properties:
-        text: "Baked fresh daily with love and the finest local ingredients."
-        textAlign: "center"
-        fontSize: 18
-        margin: "0 0 40 0"
-
-    - name: h2
-      properties:
-        text: "Today's Specials"
-        textAlign: "center"
-        color: "#8B4513"
-        margin: "40 0 20 0"
-
-    - name: columnsgrid
-      properties:
-        count: 3
-      columns:
-        - components:
-            - name: image
-              properties:
-                src: "https://images.pexels.com/photos/380954/pexels-photo-380954.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt: "Flaky croissants"
-              components:
-                - name: h3
-                  properties:
-                    text: "Butter Croissants"
-                    color: "#ffffff"
-            - name: paragraph
-              properties:
-                text: "Flaky, buttery, and simply irresistible."
-        - components:
-            - name: image
-              properties:
-                src: "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt: "Crusty sourdough bread"
-              components:
-                - name: h3
-                  properties:
-                    text: "Sourdough Loaf"
-                    color: "#ffffff"
-            - name: paragraph
-              properties:
-                text: "Our signature crusty sourdough."
-        - components:
-            - name: image
-              properties:
-                src: "https://images.pexels.com/photos/1027811/pexels-photo-1027811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt: "Colorful cupcakes"
-              components:
-                - name: h3
-                  properties:
-                    text: "Vanilla Cupcakes"
-                    color: "#ffffff"
-            - name: paragraph
-              properties:
-                text: "Perfect for any celebration."
-
-    - name: h2
-      properties:
-        text: "Our Menu"
-        textAlign: "center"
-        color: "#8B4513"
-        margin: "40 0 20 0"
-
-    - name: tabs
-      properties:
-        tabs:
-          - title: "Breads"
-            components:
-              - name: paragraph
-                properties:
-                  text: "Whole Wheat, Sourdough, Baguette, Rye, and more."
-          - title: "Cakes"
-            components:
-              - name: paragraph
-                properties:
-                  text: "Chocolate Fudge, Red Velvet, Carrot Cake, Custom Orders."
-          - title: "Pastries"
-            components:
-              - name: paragraph
-                properties:
-                  text: "Croissants, Danishes, Muffins, Scones."
-
-    - name: h2
-      properties:
-        text: "Our Story"
-        textAlign: "center"
-        color: "#8B4513"
-        margin: "40 0 20 0"
-
-    - name: accordion
-      properties:
-        title: "Our Passion for Baking"
-      content:
-        components:
-          - name: paragraph
-            properties:
-              text: "The Golden Loaf was founded in 2015 with a passion for traditional baking techniques. We believe in quality, community, and the joy of a simple, delicious treat."
-
-    - name: h2
-      properties:
-        text: "Contact Us"
-        textAlign: "center"
-        color: "#8B4513"
-        margin: "40 0 20 0"
-
-    - name: textbox
-      properties:
-        placeholder: "Your Name"
-    - name: textbox
-      properties:
-        placeholder: "Your Email"
-    - name: textarea
-      properties:
-        placeholder: "Your Message"
+        text: The Golden Loaf
+        color: '#ffffff'
+        level: 1
+        variant: display
     - name: button
       properties:
-        text: "Send Message"
-        variant: "primary"
+        text: Order Now
+        variant: primary
+  - name: heading
+    properties:
+      text: Artisanal Breads and Pastries
+      textAlign: center
+      color: '#8B4513'
+      level: 1
+      variant: display
+  - name: paragraph
+    properties:
+      text: Baked fresh daily with love and the finest local ingredients.
+      textAlign: center
+      fontSize: 18
+      margin: 0 0 40 0
+  - name: heading
+    properties:
+      text: Today's Specials
+      textAlign: center
+      color: '#8B4513'
+      margin: 40 0 20 0
+      level: 2
+      variant: default
+  - name: columnsgrid
+    properties:
+      count: 3
+    columns:
+    - components:
+      - name: image
+        properties:
+          src: https://images.pexels.com/photos/380954/pexels-photo-380954.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+          alt: Flaky croissants
+        components:
+        - name: heading
+          properties:
+            text: Butter Croissants
+            color: '#ffffff'
+            level: 3
+            variant: subtitle
+      - name: paragraph
+        properties:
+          text: Flaky, buttery, and simply irresistible.
+    - components:
+      - name: image
+        properties:
+          src: https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+          alt: Crusty sourdough bread
+        components:
+        - name: heading
+          properties:
+            text: Sourdough Loaf
+            color: '#ffffff'
+            level: 3
+            variant: subtitle
+      - name: paragraph
+        properties:
+          text: Our signature crusty sourdough.
+    - components:
+      - name: image
+        properties:
+          src: https://images.pexels.com/photos/1027811/pexels-photo-1027811.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+          alt: Colorful cupcakes
+        components:
+        - name: heading
+          properties:
+            text: Vanilla Cupcakes
+            color: '#ffffff'
+            level: 3
+            variant: subtitle
+      - name: paragraph
+        properties:
+          text: Perfect for any celebration.
+  - name: heading
+    properties:
+      text: Our Menu
+      textAlign: center
+      color: '#8B4513'
+      margin: 40 0 20 0
+      level: 2
+      variant: default
+  - name: tabs
+    properties:
+      tabs:
+      - title: Breads
+        components:
+        - name: paragraph
+          properties:
+            text: Whole Wheat, Sourdough, Baguette, Rye, and more.
+      - title: Cakes
+        components:
+        - name: paragraph
+          properties:
+            text: Chocolate Fudge, Red Velvet, Carrot Cake, Custom Orders.
+      - title: Pastries
+        components:
+        - name: paragraph
+          properties:
+            text: Croissants, Danishes, Muffins, Scones.
+  - name: heading
+    properties:
+      text: Our Story
+      textAlign: center
+      color: '#8B4513'
+      margin: 40 0 20 0
+      level: 2
+      variant: default
+  - name: accordion
+    properties:
+      title: Our Passion for Baking
+    content:
+      components:
+      - name: paragraph
+        properties:
+          text: The Golden Loaf was founded in 2015 with a passion for traditional
+            baking techniques. We believe in quality, community, and the joy of a
+            simple, delicious treat.
+  - name: heading
+    properties:
+      text: Contact Us
+      textAlign: center
+      color: '#8B4513'
+      margin: 40 0 20 0
+      level: 2
+      variant: default
+  - name: textbox
+    properties:
+      placeholder: Your Name
+  - name: textbox
+    properties:
+      placeholder: Your Email
+  - name: textarea
+    properties:
+      placeholder: Your Message
+  - name: button
+    properties:
+      text: Send Message
+      variant: primary

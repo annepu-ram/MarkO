@@ -38,6 +38,7 @@ This project is a web-based visual website builder. It allows users to create an
 - Sidebar component buttons call `insertYamlComponent()`, cloning defaults and injecting scaffolding (page shell, starter tabs, carousel slides, etc.).
 
 ## Styling Strategy
+- Component defaults own all typography and color baselines (e.g., heading, caption, blockquote); runtime just merges overrides so new text helpers pull colors/borders from YAML instead of hard-coded script/CSS values.
 - `css/style.css` controls the builder shell: grid layout, editor styling, properties panel, custom scrollbars, responsive tweaks.
 - `css/components.css` augments Mini.css for rendered components (tabs, accordion, titlebar, carousel overlays) without polluting exported HTML.
 - `generateRemainingStyles()` converts user props (colors, gradients, spacing, borders) to inline styles, using `toRem()` for rem-based sizing.

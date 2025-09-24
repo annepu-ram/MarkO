@@ -75,6 +75,9 @@ body {
 
 .properties-section {
     background: linear-gradient(180deg, var(--white), var(--primary-color));
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     flex-grow: 1;
     overflow-y: auto;
     min-height: 0;
@@ -145,7 +148,7 @@ h2 {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin: 0.8rem 1,8rem;
+    margin: 0.8rem 1.8rem;
 }
 
 .component-groups {
@@ -224,6 +227,7 @@ h2 {
     align-items: center;
     gap: 0.2rem;
     cursor: pointer;
+    border: none;
    
 }
 
@@ -442,7 +446,7 @@ h2 {
 .property-item {
     margin-bottom: 0.6rem;
     padding-bottom: 0.6rem;
-    border-bottom: 2px solid var(--accent-color-lighter);
+    
 
 }
 
@@ -470,6 +474,13 @@ h2 {
     padding: 0.6rem;
     border-radius: 4px;
     border: 1px solid var(--accent-color-light);
+}
+
+.property-item option {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    background-color: var(--accent-color-lighter);
 }
 
 .property-color-container {
@@ -582,4 +593,26 @@ h2 {
         padding: 0.8rem 1.2rem;
         font-size: 1.3rem;
     }
+}
+.property-group {
+    margin-top: 1.5rem;
+    border-top: 2px solid var(--accent-color-lighter);
+    padding-top: 1rem;
+}
+
+.property-group h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.property-item textarea {
+    display: block;
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    color: var(--secondary-color);
+    border: 1px solid var(--accent-color-light);
 }
