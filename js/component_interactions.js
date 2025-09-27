@@ -1,6 +1,6 @@
-const componentInitializers = {
+export const componentInitializers = {
     carousel: initializeCarousel,
-    titlebar: initializeTitlebar
+    titlebar: initializeTitlebar,
 };
 
 let titlebarScrollHandlerAttached = false;
@@ -12,8 +12,7 @@ function handleTitlebarScroll() {
     });
 }
 
-
-function initializeCarousel(carouselElement, props = {}) {
+export function initializeCarousel(carouselElement, props = {}) {
     if (!carouselElement) return;
 
     const slidesContainer = carouselElement.querySelector('.carousel-slides');
@@ -35,13 +34,13 @@ function initializeCarousel(carouselElement, props = {}) {
     let autoplayInterval = null;
 
     const autoplay = props.autoplay === true || props.autoplay === 'true';
-    const delay = parseInt(props.delay) || 3000;
+    const delay = parseInt(props.delay, 10) || 3000;
 
     function updateCarousel() {
-        if(slidesContainer) {
+        if (slidesContainer) {
             slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
-        if(dots) {
+        if (dots) {
             dots.forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentIndex);
             });
@@ -69,24 +68,24 @@ function initializeCarousel(carouselElement, props = {}) {
         clearInterval(autoplayInterval);
     }
 
-    if(nextButton) {
+    if (nextButton) {
         nextButton.addEventListener('click', () => {
             nextSlide();
             startAutoplay();
         });
     }
 
-    if(prevButton) {
+    if (prevButton) {
         prevButton.addEventListener('click', () => {
             prevSlide();
             startAutoplay();
         });
     }
 
-    if(dots) {
+    if (dots) {
         dots.forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                currentIndex = parseInt(e.target.dataset.slideTo);
+            dot.addEventListener('click', event => {
+                currentIndex = parseInt(event.target.dataset.slideTo, 10);
                 updateCarousel();
                 startAutoplay();
             });
@@ -100,7 +99,7 @@ function initializeCarousel(carouselElement, props = {}) {
     startAutoplay();
 }
 
-function initializeTitlebar(titlebarElement, props = {}) {
+export function initializeTitlebar(titlebarElement, props = {}) {
     if (!titlebarElement) return;
 
     const mobileMenuButton = titlebarElement.querySelector('.mobile-menu-button');
@@ -177,5 +176,4 @@ function initializeTitlebar(titlebarElement, props = {}) {
 
     handleTitlebarScroll();
 }
-
 

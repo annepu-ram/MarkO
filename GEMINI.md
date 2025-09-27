@@ -1,6 +1,6 @@
-﻿# Project Overview
+# Project Overview
 
-This project is a web-based visual website builder. It allows users to create and customize web pages using a YAML-based structure in a code editor, with a live preview that updates in real-time. The application is built with vanilla JavaScript, HTML, and CSS, and it utilizes the Mini.css framework for styling the generated components.
+This project is a web-based visual website builder. It allows users to create and customize web pages using a YAML-based structure in a code editor, with a live preview that updates in real-time. The application is built with vanilla JavaScript, HTML, and CSS.
 
 > **Update:** Headings now use a unified `heading` component with a `level` property instead of discrete `h1`/`h2`/`h3` entries. Additional text helpers (`eyebrow`, `caption`, `blockquote`) share the same typography/spacing token model.
 > **Architecture:** Default typography/colors for text components now live entirely in `component_defaults.yaml`; runtime rendering just merges overrides so blockquote/eyebrow/caption styling is driven by YAML rather than hard-coded script or CSS.
@@ -11,19 +11,41 @@ This project is a web-based visual website builder. It allows users to create an
 - **Component-Based:** Build your site using a YAML-based structure.
 - **Visual Editing:** Click on components in the preview to edit their properties.
 - **Export to HTML:** Export your creation as a single, clean HTML file.
-- **Mini.css Integration:** Uses the lightweight Mini.css framework for a professional look.
 
 # Project Structure
 
 ```
 .
-â”œâ”€â”€ css/
-â”‚   â””â”€â”€ style.css         # Styles for the builder UI
-â”œâ”€â”€ js/
-â”‚   â””â”€â”€ script.js         # Core application logic
-â”œâ”€â”€ index.html            # Main HTML file
-â”œâ”€â”€ README.md             # Project documentation
-â””â”€â”€ GEMINI.md             # This file
+├── css/
+│   ├── components.css      # Styles for rendered components
+│   └── style.css           # Styles for the builder UI
+├── js/
+│   ├── core/
+│   │   ├── app.js          # Core application initialization
+│   │   ├── state.js        # State management
+│   │   ├── templates.js    # Loading component templates and schemas
+│   │   └── yaml.js         # YAML parsing and manipulation
+│   ├── properties/
+│   │   ├── customRenderers.js # Custom property editors
+│   │   └── index.js        # Properties panel rendering
+│   ├── render/
+│   │   └── index.js        # Component rendering engine
+│   ├── ui/
+│   │   ├── actions.js      # UI actions
+│   │   └── events.js       # Event listeners
+│   ├── utils/
+│   │   ├── object.js       # Object utility functions
+│   │   ├── strings.js      # String utility functions
+│   │   ├── styles.js       # Style utility functions
+│   │   └── timing.js       # Timing utility functions
+│   ├── component_interactions.js # Component-specific interactions
+│   └── script.js           # Main entry point
+├── index.html              # Main HTML file
+├── component_defaults.yaml # Default properties for components
+├── component_schemas.yaml  # Schema for component properties
+├── schema_tokens.yaml      # Design tokens for property editors
+├── README.md               # Project documentation
+└── GEMINI.md               # This file
 ```
 
 # Building and Running
@@ -32,8 +54,8 @@ This is a client-side application and does not require a build process. To run t
 
 # Development Conventions
 
-- **JavaScript:** The core logic is in `js/script.js`. The code is organized into sections for configuration, utility functions, the rendering engine, UI handling, and actions. The parsing logic has been updated to use a YAML-based structure, which inherently supports multiline component definitions.
-- **CSS:** The application's UI is styled in `css/style.css`. The generated components are styled using a hybrid approach: Mini.css for structure and inline styles for user-defined customizations.
+- **JavaScript:** The JavaScript code is organized into modules, each with a specific responsibility. The main entry point is `js/script.js`, which initializes the application. The core logic is in the `js/core` directory, the rendering engine is in `js/render`, the properties panel logic is in `js/properties`, UI actions and events are in `js/ui`, and utility functions are in `js/utils`.
+- **CSS:** The application's UI is styled in `css/style.css`. The generated components are styled using `css/components.css` and inline styles for user-defined customizations.
 - **HTML:** The main structure of the application is in `index.html`.
 
 # Available Components
@@ -323,71 +345,46 @@ components:
 
 # Functions
 
-- `init()`: Initializes the application. It loads component templates, sets up event listeners, initializes component buttons, and the resizer. It's called when the DOM content is loaded.
-- `loadComponentTemplates()`: Fetches and loads component templates from `component_defaults.yaml`. Called by `init()`.
-- `debounce(func, delay)`: A utility function that delays the execution of a function until after a certain amount of time has passed without it being called.
-- `initializeEventListeners()`: Sets up all the event listeners for the application, such as for the code editor, preview window, and various buttons. Called by `init()`.
-- `registerComponentForInitialization(name, id)`: Registers a component to be initialized after rendering. Called by `renderCarousel` and `renderSimpleComponent`.
-- `initializeAllComponents()`: Initializes all registered components. Called by `parseYamlComponents`.
-- `handlePreviewClick(event)`: Handles click events on the preview window, including selecting and deleting components.
-- `handleKeyDown(event)`: Handles keydown events in the code editor, such as Tab for indentation and Ctrl+Z/Y for undo/redo.
-- `parseYamlContent(yamlText)`: Parses a YAML string into a JavaScript object.
-- `generateYamlFromStructure(structure)`: Converts a JavaScript object into a YAML string.
-- `getComponentByPath(structure, path)`: Retrieves a component from the YAML structure using its path.
-- `updateComponentByPath(structure, path, newComponent)`: Updates a component in the YAML structure using its path.
-- `deleteComponentByPath(structure, path)`: Deletes a component from the YAML structure using its path.
-- `deleteComponent(componentId)`: Deletes a component by its ID.
-- `insertYamlComponent(componentName)`: Inserts a new component into the YAML structure.
-- `renderYamlStructure(structure, mode)`: Renders the entire YAML structure into HTML.
-- `renderComponentsList(components, basePath, mode)`: Renders a list of components into HTML.
-- `renderComponent(component, path, mode)`: Renders a single component into HTML.
-- `renderCarousel(component, path, mode)`: Renders a carousel component.
-- `renderGroupComponent(component, path, mode)`: Renders a group component.
-- `renderPageComponent(component, path, mode)`: Renders the page component.
-- `renderImageComponent(component, path, mode)`: Renders an image component.
-- `renderSimpleComponent(component, path, mode)`: Renders a simple component.
-- `renderColumnsGrid(component, path, mode)`: Renders a columns grid component.
-- `renderAccordion(component, path, mode)`: Renders an accordion component.
-- `renderTabs(component, path, mode)`: Renders a tabs component.
-- `generateComponentInnerHTML(type, props, classes, styleAttr, mode)`: Generates the inner HTML for a component.
-- `generateTitlebarHTML(props, classes, styleAttr, mode)`: Generates the HTML for a titlebar component.
-- `generateMiniCssClasses(type, props)`: Generates Mini.css classes for a component.
-- `generateRemainingStyles(props)`: Generates inline styles for a component.
-- `renderPropertiesPanel(component, componentId, path)`: Renders the properties panel for a selected component.
-- `generateCarouselImageEditor(images)`: Generates the HTML for the carousel image editor in the properties panel.
-- `addCarouselImage()`: Adds a new image to a carousel component.
-- `removeCarouselImage(index)`: Removes an image from a carousel component.
-- `renderProperty(key, value)`: Renders a single property in the properties panel.
-- `renderImageProperty(key, value)`: Renders an image property in the properties panel.
-- `renderTextProperty(key, value)`: Renders a text property in the properties panel.
-- `renderColorProperty(key, value)`: Renders a color property in the properties panel.
-- `toggleColorFields(selectElement, key)`: Toggles the visibility of color fields in the properties panel.
-- `renderSelectProperty(key, value, options)`: Renders a select property in the properties panel.
-- `applyYamlComponentProperties(componentId, path)`: Applies the properties from the properties panel to the selected component.
-- `toRem(value)`: Converts a pixel value to a rem value.
-- `generateCalendarHTML(props)`: Generates the HTML for a calendar component.
-- `getAlignmentClass(alignment)`: Gets the alignment class for a titlebar component.
-- `generateTitlebarLinks(links, focusColor)`: Generates the HTML for the links in a titlebar component.
-- `generateLinksEditor(links)`: Generates the HTML for the links editor in the properties panel.
-- `addTitlebarLink()`: Adds a new link to a titlebar component.
-- `removeTitlebarLink(index)`: Removes a link from a titlebar component.
-- `initializeComponentButtons()`: Initializes the component buttons in the sidebar.
-- `initializeResizer()`: Initializes the resizer for the code editor.
-- `toggleHelpPanel()`: Toggles the visibility of the help panel.
-- `openFullscreen()`: Opens the preview in fullscreen mode.
-- `closeFullscreen()`: Closes the fullscreen preview.
-- `clearCanvas()`: Clears the code editor and the preview.
-- `exportCode()`: Exports the website as an HTML file.
-- `parseYamlComponents(yamlText)`: Parses the YAML from the code editor and renders the preview.
-- `generateCleanHTML(yamlText)`: Generates clean HTML for export.
-- `logHtml()`: Logs the generated HTML to the console.
+## core
 
+- `initializeApp()`: Initializes the application.
+- `loadMetadata()`: Fetches and loads component templates, schemas, and tokens.
+- `setSelection()`: Sets the selected component.
+- `getState()`: Returns the current application state.
+- `setYamlStructure()`: Sets the YAML structure in the state.
+- `getYamlStructure()`: Gets the YAML structure from the state.
+- `getComponentByPath()`: Retrieves a component from the YAML structure using its path.
+- `updateComponentByPath()`: Updates a component in the YAML structure using its path.
+- `deleteComponentByPath()`: Deletes a component from the YAML structure using its path.
+- `parseYamlContent()`: Parses a YAML string into a JavaScript object.
+- `generateYamlFromStructure()`: Converts a JavaScript object into a YAML string.
+
+## properties
+
+- `renderPropertiesPanel()`: Renders the properties panel for a selected component.
+- `applyPropertiesForComponent()`: Applies the properties from the properties panel to the selected component.
+- `clearPropertiesPanel()`: Clears the properties panel.
+
+## render
+
+- `renderYamlStructure()`: Renders the entire YAML structure into HTML.
+- `renderComponentsList()`: Renders a list of components into HTML.
+- `renderComponent()`: Renders a single component into HTML.
+- `initializeAllComponents()`: Initializes all registered components.
+
+## ui
+
+- `createActions()`: Creates the UI actions.
+- `initializeEvents()`: Initializes the event listeners.
+
+## utils
+
+- `debounce()`: A utility function that delays the execution of a function.
+- `toRem()`: Converts a pixel value to a rem value.
+- `deepClone()`: Creates a complete, independent copy of a JavaScript object or array. This is crucial for state immutability, ensuring that the original state is not accidentally modified.
+- `deepMerge()`: Recursively merges the properties of one or more source objects into a target object. This is used to combine default component properties with user-defined properties.
 
 - heading: relies on its `level` plus typography settings from `component_defaults.yaml`; there are no heading variants (level 1 -> `xxxl`, level 2 -> `xxl`, level 3 -> `xl`, level 4 -> `lg`, level 5 -> `md`, level 6 -> `sm`).
 - blockquote: default leaves the blockquote styling exactly as supplied by the component defaults and the shared CSS; pull is the customization that tweaks margins/typography.
 - caption: default keeps the standard caption look (smaller type, neutral color). The muted variant swaps color/alignment.
 - eyebrow: default uses the baseline uppercase styling and color; accent is the variant that swaps to the accent color.
-
-
-
-

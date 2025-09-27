@@ -1,48 +1,94 @@
 ﻿page:
-  backgroundColor: '#ffffff'
-  backgroundImage: ''
-  padding: 10
-  margin: 0
+  background:
+    color: '#ffffff'
+    image: ''
+  layout:
+    padding:
+      top: none
+      right: none
+      bottom: none
+      left: none
+    margin:
+      top: none
+      right: none
+      bottom: none
+      left: none
+
+section:
+  layout:
+    variant: classic
+    padding:
+      top: xl
+      right: lg
+      bottom: xl
+      left: lg
+    margin:
+      top: none
+      right: auto
+      bottom: none
+      left: auto
+    gap: md
+    maxWidth: 1200
+    align: center
+  background:
+    color: '#ffffff'
+    image: ''
+  border:
+    radius: none
+
+stack:
+  layout:
+    variant: classic
+    gap: md
+    align: start
+    justify: start
+  responsive:
+    collapseBreakpoint: sm
+
+columnsgrid:
+  layout:
+    variant: classic
+    columns: 2
+    gap: md
+    align: stretch
+  responsive:
+    breakpoints:
+      md: 2
+      sm: 1
+
 titlebar:
-  logo: https://via.placeholder.com/50x40
-  title: Website Title
-  links:
-  - text: Home
-    value: '#home'
-    borderWidth: 1
-    borderStyle: solid
-    borderColor: '#cccccc'
-    backgroundColor: '#f0f0f0'
-    borderRadius: 5
-    padding: 5px 10px
-  - text: About
-    value: '#about'
-  - text: Contact
-    value: '#contact'
-  borderWidth: 1
-  borderStyle: solid
-  borderColor: '#ddd'
-  backgroundColor: '#ffffff'
-  focusedButtonBackgroundColor: '#f0f0f0'
-  alignment: left
-  logoPosition: left
-  titleFontSize: 24
-  menuFontSize: 16
-  shrinkPercent: 50
-  height: 60
-  padding: 10
-  margin: 0
-  borderRadius: 0
-  linksBackgroundColor: '#f0f0f0'
-  linksBorderWidth: 0.1
-  linksBorderStyle: solid
-  linksBorderColor: '#cccccc'
-  linksBorderRadius: 0.5
-  linksPadding: 0.5rem 1rem
-  linksColor: '#000000'
-  linksFontSize: 1.6
-  linksFontWeight: normal
-  linksFontStyle: normal
+  branding:
+    logoUrl: https://via.placeholder.com/50x40
+    title: Website Title
+  navigation:
+    links:
+      - label: Home
+        href: '#home'
+      - label: About
+        href: '#about'
+      - label: Contact
+        href: '#contact'
+  layout:
+    alignment: left
+    logoPlacement: left
+    height: 60
+  appearance:
+    background:
+      color: '#ffffff'
+    border:
+      width: 1
+      style: solid
+      color: '#dddddd'
+    focus:
+      background: '#f0f0f0'
+  typography:
+    title:
+      size: 24
+      weight: bold
+    menu:
+      size: 16
+      weight: medium
+
 heading:
   text: Section Heading
   level: 2
@@ -50,27 +96,31 @@ heading:
     size: xl
     weight: bold
     lineHeight: 1.2
-    transform: 'none'
+    transform: none
+    letterSpacing: normal
     align: center
     color: '#111827'
   spacing:
     margin:
-      top: lg
-      bottom: md
+      top: none
+      bottom: none
+
 paragraph:
   text: This is a paragraph of text content.
   variant: body
   typography:
     size: md
     lineHeight: 1.6
-    transform: 'none'
+    transform: none
+    letterSpacing: normal
     align: left
     color: '#1f2937'
-    weight: normal
+    weight: regular
   spacing:
     margin:
       top: sm
       bottom: md
+
 eyebrow:
   text: Featured
   typography:
@@ -83,17 +133,19 @@ eyebrow:
   spacing:
     margin:
       bottom: xs
+
 caption:
   text: Photo by Jane Doe
   typography:
     size: sm
     lineHeight: 1.4
-    transform: 'none'
+    transform: none
     align: center
     color: '#6b7280'
   spacing:
     margin:
       top: xs
+
 blockquote:
   quote: Design is intelligence made visible.
   cite: Alina Wheeler
@@ -101,181 +153,235 @@ blockquote:
     size: lg
     lineHeight: 1.6
     weight: medium
-    transform: 'none'
+    transform: none
     align: center
     color: '#111827'
   spacing:
     margin:
       top: lg
       bottom: lg
-  pullBorderColor: '#6366f1'
-  backgroundColor: '#f9fafb'
+  appearance:
+    border:
+      accentColor: '#6366f1'
+    background:
+      color: '#f9fafb'
+
 image:
-  src: https://via.placeholder.com/150
-  alt: Placeholder image
-  height: auto
-  padding: 0
-  margin: 10
-  borderRadius: 0
+  source:
+    url: https://via.placeholder.com/150
+    altText: Placeholder image
+  presentation:
+    height: auto
+    fit: cover
+    cornerStyle: none
+  overlay:
+    enabled: false
+
 video:
-  src: https://www.youtube.com/watch?v=dQw4w9WgXcQ
-  padding: 0
-  margin: 10
-  borderRadius: 0
+  source:
+    url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  playback:
+    controls: true
+    autoplay: false
+    muted: false
+
 gif:
-  src: https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif
-  padding: 10
-  margin: 10
-  borderRadius: 0
+  source:
+    url: https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif
+  presentation:
+    fit: cover
+
 textbox:
-  label: Textbox Label
-  placeholder: Enter text...
-  value: ''
-  padding: 10
-  margin: 10
-  borderWidth: 1
-  borderColor: '#cccccc'
-  borderRadius: 4
-  color: '#333333'
-  fontWeight: normal
-  label_properties:
-    fontSize: 14
-    fontWeight: '500'
-    fontStyle: normal
-    color: '#374151'
-    backgroundColor: transparent
+  label:
+    text: Textbox Label
+    show: true
+    typography:
+      size: sm
+      weight: medium
+      color: '#374151'
+  field:
+    placeholder: Enter text...
+    initialValue: ''
+    helperText: ''
+    required: false
+  appearance:
+    border:
+      width: 1
+      style: solid
+      color: '#cccccc'
+    background:
+      color: '#ffffff'
+    icon:
+      position: none
+
 textarea:
-  label: Textarea Label
-  placeholder: Enter text...
-  rows: 3
-  padding: 10
-  margin: 10
-  borderRadius: 0
-  label_properties:
-    fontSize: 14
-    fontWeight: '500'
-    fontStyle: normal
-    color: '#374151'
-    backgroundColor: transparent
+  label:
+    text: Textarea Label
+    show: true
+    typography:
+      size: sm
+      weight: medium
+      color: '#374151'
+  field:
+    placeholder: Enter text...
+    rows: 3
+    helperText: ''
+    required: false
+  appearance:
+    border:
+      width: 1
+      style: solid
+      color: '#cccccc'
+    background:
+      color: '#ffffff'
+
 button:
   text: Click Me
-  onclick: alert("Clicked!")
-  variant: primary
-  padding: 10
-  margin: 10
-  borderRadius: 0
-  align: none
+  action:
+    type: inlineScript
+    value: 'alert("Clicked!")'
+  appearance:
+    variant: primary
+    iconPlacement: none
+  typography:
+    weight: semibold
+
 dropdown:
-  label: Dropdown Label
-  options: Option 1,Option 2,Option 3
-  selected: ''
-  padding: 10
-  margin: 10
-  borderWidth: 1
-  borderColor: '#cccccc'
-  borderRadius: 4
-  color: '#333333'
-  fontWeight: normal
-  label_properties:
-    fontSize: 14
-    fontWeight: '500'
-    fontStyle: normal
-    color: '#374151'
-    backgroundColor: transparent
+  label:
+    text: Dropdown Label
+    show: true
+    typography:
+      size: sm
+      weight: medium
+      color: '#374151'
+  field:
+    placeholder: Choose an option
+    selected: ''
+    options: |-
+      Option 1
+      Option 2
+      Option 3
+  appearance:
+    border:
+      width: 1
+      style: solid
+      color: '#cccccc'
+    background:
+      color: '#ffffff'
+
 calendar:
-  month: 8
-  year: 2024
-  padding: 10
-  margin: 10
-  borderRadius: 0
+  display:
+    month: 8
+    year: 2024
+  appearance:
+    showWeekNumbers: false
+
 checkbox:
-  label: Checkbox Label
-  text: Check me
-  checked: false
-  padding: 10
-  margin: 10
-  borderRadius: 0
-  label_properties:
-    fontSize: 14
-    fontWeight: '500'
-    fontStyle: normal
-    color: '#374151'
-    backgroundColor: transparent
+  label:
+    text: Checkbox Label
+    typography:
+      size: sm
+      weight: medium
+      color: '#374151'
+  field:
+    text: Check me
+    checked: false
+    required: false
+
 radio:
-  label: Radio Label
-  text: Select me
-  name: radio1
-  value: option1
-  padding: 10
-  margin: 10
-  borderWidth: 1
-  borderColor: '#cccccc'
-  borderRadius: 4
-  color: '#333333'
-  fontWeight: normal
-  label_properties:
-    fontSize: 14
-    fontWeight: '500'
-    fontStyle: normal
-    color: '#374151'
-    backgroundColor: transparent
-columnsgrid:
-  count: 2
-  padding: 10
-  margin: 10
-  borderRadius: 0
+  label:
+    text: Radio Label
+    typography:
+      size: sm
+      weight: medium
+      color: '#374151'
+  field:
+    text: Select me
+    groupName: radio1
+    value: option1
+    checked: false
+
 accordion:
-  title: Click to expand
-  padding: 10
-  margin: 10
-  borderRadius: 0
+  items:
+    - title: Click to expand
+      content: ''
+  behavior:
+    allowMultipleOpen: false
+
 tabs:
-  padding: 10
-  margin: 10
-  borderRadius: 0
-hamburger: {}
-br: {}
+  layout:
+    orientation: horizontal
+  tabs:
+    - title: Tab One
+      content: ''
+    - title: Tab Two
+      content: ''
+
+hamburger:
+  label: Menu
+  links:
+    - label: Home
+      href: '#home'
+    - label: About
+      href: '#about'
+
+br:
+  size: md
+
 link:
   text: Click Me
-  url: '#'
-  color: '#0000EE'
-  underline: true
-  showArrow: false
-  fontSize: 16
-  fontStyle: normal
-  fontWeight: normal
-  align: none
+  href: '#'
+  appearance:
+    color: '#0000ee'
+    underline: true
+    showArrow: false
+  typography:
+    size: md
+    weight: regular
+
 form:
-  components: []
-  padding: 10
-  margin: 10
-  borderRadius: 0
+  layout:
+    variant: stacked
+    gap: md
+  submit:
+    buttonText: Submit
+    show: true
+
 carousel:
-  images_count: 3
-  autoplay: true
-  delay: 3000
+  behavior:
+    autoplay: true
+    delay: 3000
+    loop: true
+  navigation:
+    showArrows: true
+    showDots: true
   slides:
-  - components:
-    - name: image
-      properties:
-        src: https://via.placeholder.com/800x400?text=Slide+1
-        alt: Slide 1
-    - name: h3
-      properties:
-        text: First Slide
-  - components:
-    - name: image
-      properties:
-        src: https://via.placeholder.com/800x400?text=Slide+2
-        alt: Slide 2
-    - name: paragraph
-      properties:
-        text: Second slide with some text.
-  - components:
-    - name: image
-      properties:
-        src: https://via.placeholder.com/800x400?text=Slide+3
-        alt: Slide 3
+    - components:
+        - name: image
+          properties:
+            source:
+              url: https://via.placeholder.com/800x400?text=Slide+1
+              altText: Slide 1
+        - name: heading
+          properties:
+            text: First Slide
+            level: 3
+    - components:
+        - name: image
+          properties:
+            source:
+              url: https://via.placeholder.com/800x400?text=Slide+2
+              altText: Slide 2
+        - name: paragraph
+          properties:
+            text: Second slide with some text.
+    - components:
+        - name: image
+          properties:
+            source:
+              url: https://via.placeholder.com/800x400?text=Slide+3
+              altText: Slide 3
+
 
 
 

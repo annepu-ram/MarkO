@@ -24,15 +24,15 @@ The following new properties will be added to the `titlebar` component's `proper
 1.  **`component_defaults.yaml`:**
     *   Add the new `links...` properties to the `titlebar` component's default properties, using `rem` for numeric values.
 
-2.  **`js/script.js`:**
+2.  **`js/render/index.js`:**
     *   **`generateTitlebarLinks` function:**
         *   This function will be modified to accept the `titlebar`'s `properties` object.
         *   It will construct a style string from the new `links...` properties, using the `toRem` utility function for numeric values.
         *   This style string will be applied to each `<a>` tag.
+
+3.  **`js/properties/index.js`:**
     *   **`renderPropertiesPanel` function:**
         *   When rendering the properties for a `titlebar`, this function will be updated to include input fields for the new `links...` properties.
-    *   **`applyYamlComponentProperties` function:**
-        *   This function will be updated to read the values of the new `links...` properties from the properties panel and save them to the `titlebar` component's properties.
 
 **4. Example**
 
@@ -50,14 +50,15 @@ titlebar:
   linksFontSize: 1.6
   linksFontWeight: 'normal'
   linksFontStyle: 'normal'
-  links:
-    - text: 'Home'
-      value: '#home'
-    - text: 'About'
-      value: '#about'
+  navigation:
+    links:
+      - label: Home
+        href: '#home'
+      - label: About
+        href: '#about'
 ```
 
-**`generateTitlebarLinks` (pseudo-code):**
+**`generateTitlebarLinks` in `js/render/index.js` (pseudo-code):**
 ```javascript
 function generateTitlebarLinks(links, props) {
     let linkStyles = '';
@@ -87,7 +88,7 @@ function generateTitlebarLinks(links, props) {
     }
 
     return links.map(link => {
-        return `<a href="${link.value || '#'}" class="titlebar-link" style="${linkStyles}">${link.text || 'Link'}</a>`;
+        return `<a href="${link.href || '#'}" class="titlebar-link" style="${linkStyles}">${link.label || 'Link'}</a>`;
     }).join('');
 }
 ```

@@ -48,27 +48,52 @@ body {
 
 .app-container {
     display: grid;
-    grid-template-columns: 20% 1fr;
+    grid-template-columns: var(--sidebar-width, 250px) 8px 1fr; /* sidebar, resizer, main-canvas */
     height: 100vh;
-    gap: 0;
+    gap: 0px; /* Ensure no gap between grid items */
 }
 
 .app-container.help-visible {
-    grid-template-columns: 300px 1fr 350px;
+    grid-template-columns: var(--sidebar-width, 250px) 8px 1fr 350px; /* sidebar, resizer, main-canvas, help-panel */
 }
 
 .sidebar {
-    
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
+
+.sidebar-resizer {
+    color: var(--accent-color-light); /* A visible color for the handle */
+    cursor: ew-resize;
+    position: relative;
+    z-index: 10;
+    align-content: start;
+    width: 5px;
+    font-size: 5rem;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE 10+ */
+    user-select: none;   
+    align-self: center;  /* Centers the item vertically within its cell */
+}
+
+
+.main-canvas {
+    background: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
 .components-section {
+
     background: var(--primary-color);
     flex-shrink: 0;
     height: 45%;
-    overflow-y: scroll;
+    overflow-y:visible;
     padding: 0rem;
     overflow-x: hidden;
 }
@@ -234,7 +259,7 @@ h2 {
 .component-item .component-icon svg {
     width: 28px;
     height: 28px;
-    stroke-width: 2.2;
+    stroke-width: 2;
 }
 
 .component-item span {
@@ -259,38 +284,34 @@ h2 {
     margin: 0.2rem;
     font-family: 'Courier New', monospace;
     font-size: 1.4rem;
-    line-height: 1.5;
+    line-height: 1.2;
     border: none;
     width: 100%;
     resize: none; 
     flex-shrink: 0;
-    min-height: 10rem;
+    min-height: 4rem;
+    margin-bottom: 0rem;
 }
 
 .resizer {
-    background-color: var(--accent-color-light);
-    padding: 1px;
-    border-radius: 0.5rem;
     cursor: ns-resize;
-    height: 0.6rem;
     width: 100%;
     position: relative;
     flex-shrink: 0;
-    border-top: 1px solid var(--accent-color-light);
-    border-bottom: 1px solid var(--accent-color-light);
+    color: var(--accent-color-light);
+    font-size: 2rem;
+    line-height: 10px;
+    font-weight:900;
+    margin:0rem;
+    text-align: center;
 }
 
-.resizer::after {
-    content: '•••';
+.resizer::before{
+    transform:translateY(-50%);
+    top:50%;
     position: absolute;
-    top: -0.3rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.8rem;
-    line-height: 1;
-    letter-spacing: 2px;
-    color: var(--primary-color);
 }
+
 
 .preview-area {
     border: 2px var(--primary-color);
@@ -516,8 +537,8 @@ h2 {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 2px;
+  height: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -527,8 +548,7 @@ h2 {
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--accent-color-light);
-  border-radius: 10px;
-  border: 2px solid transparent;
+  border-radius: 2px;
   background-clip: content-box;
 }
 

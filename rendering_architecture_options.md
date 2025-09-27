@@ -1,10 +1,10 @@
-﻿# Rendering Architecture Options
+# Rendering Architecture Options
 
 ## Context
 The builder currently renders YAML to HTML entirely in the browser. Upcoming work includes integrating a Python-based LLM service to mutate YAML structures and assist users. This document compares keeping all rendering in JavaScript vs. moving rendering to a backend service.
 
 ## Option 1: Client-Side Rendering (Status Quo)
-- **How it works:** The browser parses YAML, generates DOM/HTML, and updates the preview instantly. Exporting HTML reuses the same render pipeline.
+- **How it works:** The browser parses YAML, generates DOM/HTML, and updates the preview instantly. The rendering logic is modular, with `js/render/index.js` as the main rendering engine. Exporting HTML reuses the same render pipeline.
 - **Pros**
   - Zero round-trips for preview updates; ideal for an interactive editor.
   - Users can work offline once assets are cached.
@@ -52,18 +52,16 @@ The builder currently renders YAML to HTML entirely in the browser. Upcoming wor
   - Applies schema-aware mutations to YAML and returns the updated document.
   - Optionally logs changes or runs validations before returning data.
 - **Share schemas/contracts:** Define a YAML schema (JSON Schema or shared module) usable by both the front-end runtime and Python service to ensure consistency.
-- **Expose reusable render functions:** As the JavaScript renderer is modularized, provide a pure render function that can run under Node. This enables future server-side rendering or export jobs without abandoning the client-renderer.
+- **Expose reusable render functions:** The modularized JavaScript renderer in `js/render/index.js` provides a pure render function that can run under Node. This enables future server-side rendering or export jobs without abandoning the client-renderer.
 
 ## Integration Flow with LLM Service
 1. User triggers an LLM-assisted update (prompt from UI).
 2. Front end sends current YAML + prompt metadata to the Python service.
 3. Python service invokes the LLM, applies schema validation, and returns updated YAML (or diffs).
-4. Front end replaces the YAML in the editor, triggering the existing preview render.
+4. Front end replaces the YAML in the editor, triggering the existing preview render via `parseAndRender` in `js/ui/actions.js`.
 5. Optional: the service can store audit logs or suggestions for undo/redo coordination.
 
 ## Future Considerations
 - Evaluate running the JavaScript render bundle in Node for exports, eliminating the need for a separate Python renderer.
 - If heavy server-rendered exports become crucial, consider a dedicated rendering worker that reuses the JS modules via Deno/Node.
 - Monitor latency and cost: if the LLM service sees heavy load, rate limit or queue requests without affecting the live preview.
-
-

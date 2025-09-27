@@ -24,6 +24,7 @@
       margin: 40 0 10 0
       level: 1
       variant: display
+      letterSpacing: normal
   - name: heading
     properties:
       text: October 22-24, 2025 | Metro Convention Center
@@ -32,6 +33,7 @@
       margin: 0 0 30 0
       level: 3
       variant: subtitle
+      letterSpacing: normal
   - name: button
     properties:
       text: Register Now
@@ -46,6 +48,7 @@
       margin: 40 0 20 0
       level: 2
       variant: default
+      letterSpacing: normal
   - name: columnsgrid
     properties:
       count: 4
@@ -62,6 +65,7 @@
           fontSize: 16
           level: 3
           variant: subtitle
+          letterSpacing: normal
     - components:
       - name: image
         properties:
@@ -74,6 +78,7 @@
           fontSize: 16
           level: 3
           variant: subtitle
+          letterSpacing: normal
     - components:
       - name: image
         properties:
@@ -86,6 +91,7 @@
           fontSize: 16
           level: 3
           variant: subtitle
+          letterSpacing: normal
     - components:
       - name: image
         properties:
@@ -98,14 +104,14 @@
           fontSize: 16
           level: 3
           variant: subtitle
+          letterSpacing: normal
   - name: heading
     properties:
-      text: Conference Schedule
-      textAlign: center
       color: '#343a40'
       margin: 40 0 20 0
       level: 2
       variant: default
+      letterSpacing: normal
   - name: tabs
     properties:
       tabs:
@@ -116,12 +122,15 @@
             text: 9:00 AM - Keynote Address
             level: 3
             variant: subtitle
+            letterSpacing: normal
         - name: paragraph
           properties:
             text: 10:00 AM - The Future of AI
+            letterSpacing: normal
         - name: paragraph
           properties:
             text: 12:00 PM - Lunch Break
+            letterSpacing: normal
       - title: 'Day 2: Deep Dive'
         components:
         - name: heading
@@ -129,19 +138,22 @@
             text: 9:00 AM - Machine Learning Workshops
             level: 3
             variant: subtitle
+            letterSpacing: normal
         - name: paragraph
           properties:
             text: 11:00 AM - Quantum Computing
+            letterSpacing: normal
         - name: paragraph
           properties:
             text: 1:00 PM - Networking Event
+            letterSpacing: normal
       - title: 'Day 3: Futures'
         components:
         - name: heading
           properties:
-            text: 10:00 AM - The Metaverse and Beyond
             level: 3
             variant: subtitle
+            letterSpacing: normal
         - name: paragraph
           properties:
             text: 12:00 PM - Closing Remarks
@@ -153,6 +165,7 @@
       margin: 40 0 20 0
       level: 2
       variant: default
+      letterSpacing: normal
   - name: accordion
     properties:
       title: What is the dress code?
@@ -162,6 +175,7 @@
         properties:
           text: The dress code is business casual. We want you to be comfortable while
             you learn and network.
+          letterSpacing: normal
   - name: accordion
     properties:
       title: Are meals provided?
@@ -171,11 +185,13 @@
         properties:
           text: Yes, a continental breakfast, lunch, and afternoon snacks will be
             provided on all three days of the conference.
+          letterSpacing: normal
   - name: heading
     properties:
       text: Register Your Interest
       textAlign: center
       color: '#343a40'
+      letterSpacing: normal
       margin: 40 0 20 0
       level: 2
       variant: default

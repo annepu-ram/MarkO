@@ -1,4 +1,3 @@
-
 # Form Enhancement Plan
 
 This document outlines the plan to enhance the form elements in the website builder, based on standard HTML form practices.
@@ -8,8 +7,8 @@ This document outlines the plan to enhance the form elements in the website buil
 The `label` component will be removed as a standalone component from the component library. It will be integrated directly into the form field components.
 
 **Action:**
-- Remove `label` from the component insertion UI.
-- Update the `insertYamlComponent` function in `js/script.js` to remove the `label` case.
+- Remove `label` from the component insertion UI in `index.html`.
+- Update the `insertComponent` function in `js/ui/actions.js` to remove the `label` case.
 - Remove the `label` entry from `component_defaults.yaml`.
 
 ## 2. Introduce a `form` Component
@@ -17,7 +16,7 @@ The `label` component will be removed as a standalone component from the compone
 A new `form` component will be created to act as a container for form elements. This will replace the existing `group` component, which will be repurposed or removed. The `form` component will have a `width` property that defaults to `100%`.
 
 **Action:**
-- Rename the `group` component to `form` in `js/script.js` and `component_defaults.yaml`.
+- Rename the `group` component to `form` in `js/render/index.js` and `component_defaults.yaml`.
 - The `renderGroupComponent` function will be renamed to `renderFormComponent`.
 - The new `form` component will have a default `width` of `100%`.
 
@@ -34,7 +33,7 @@ The `label` property will be a string that represents the label text for the for
 
 **Action:**
 - Update `component_defaults.yaml` to add a `label` property to the `textbox`, `textarea`, `dropdown`, `radio`, and `checkbox` components.
-- Update the `generateComponentInnerHTML` function in `js/script.js` to render the label and the form field wrapped in a `div` container. The `div` will have a `width` of `100%`. The `label` and the input will be associated using the `for` and `id` attributes.
+- Update the `generateComponentInnerHTML` function in `js/render/index.js` to render the label and the form field wrapped in a `div` container. The `div` will have a `width` of `100%`. The `label` and the input will be associated using the `for` and `id` attributes.
 
 ### New HTML Structure Example (Textbox):
 
@@ -50,7 +49,7 @@ The `label` property will be a string that represents the label text for the for
 The properties panel will be updated to allow editing the new `label` property for the form field components.
 
 **Action:**
-- Update the `renderPropertiesPanel` function in `js/script.js` to render a text input for the `label` property when a `textbox`, `textarea`, `dropdown`, `radio`, or `checkbox` component is selected.
+- Update the `renderPropertiesPanel` function in `js/properties/index.js` to render a text input for the `label` property when a `textbox`, `textarea`, `dropdown`, `radio`, or `checkbox` component is selected.
 
 ## 5. Example YAML Usage
 

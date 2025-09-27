@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Builder - YAML Format</title>
-    <!-- Mini.css Framework -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mini.css@3.0.1/dist/mini-default.min.css"> -->
+    
     <!-- External stylesheet for the builder UI -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
@@ -156,6 +155,9 @@
             </div>
         </div>
 
+        <!-- Sidebar Resizer Handle -->
+        <div class="sidebar-resizer" id="sidebarResizer">&#124</div>
+
         <!-- Main content area for the code editor and preview -->
         <div class="main-canvas">
             <div class="canvas-header">
@@ -180,12 +182,12 @@
                 <textarea 
                     id="codeEditor" 
                     class="code-editor" 
-                    placeholder="Write your YAML structure here:&#10;&#10;page:&#10;  properties:&#10;    backgroundColor: '#f0f4f8'&#10;&#10;components:&#10;  - name: heading&#10;    properties:&#10;      level: 2&#10;      text: 'Welcome!'"
+                    placeholder="page:&#10;  properties:&#10;    backgroundColor: '#ffffff'&#10;components:&#10;  - name: heading&#10;    properties:&#10;      level: 2&#10;      text: 'Welcome!'&#10;      typography:&#10;        align: 'right'"
                     
                 ></textarea>
                 
                 <!-- Draggable Separator -->
-                <div class="resizer" id="resizer"></div>
+                <div class="resizer" id="resizer">&mdash;&mdash;&mdash;</div>
 
                 <!-- Preview area -->
                 <div id="preview" class="preview-area">
@@ -316,8 +318,8 @@ components:
     </div>
 
     <!-- Link to the updated JavaScript file -->
-    <script src="js/component_interactions.js"></script>
-    <script src="js/script.js"></script>
+    <script type="module" src="js/component_interactions.js"></script>
+    <script type="module" src="js/script.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script>
       feather.replace()
