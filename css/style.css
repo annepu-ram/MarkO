@@ -379,7 +379,7 @@ h2 {
     font-size: 1rem;
     font-weight: bold;
     display: block;
-    z-index: 40;
+    z-index: 100;
 }
 
 .column-label {

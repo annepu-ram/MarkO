@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateComponentInnerHTML should generate correct HTML for heading with center alignment 1`] = `"<h1 style="color: red;">Main Title</h1>"`;
+
+exports[`generateComponentInnerHTML should generate correct HTML for image 1`] = `"<img src="test.jpg" alt="Test Image" style="width: 100%; height: auto; object-fit: cover;">"`;
+
+exports[`generateComponentInnerHTML should generate correct HTML for paragraph 1`] = `"<p style="font-size: 1.6rem;">Some text.</p>"`;
+
+exports[`generateComponentInnerHTML should generate correct HTML for textbox 1`] = `"<div style="width: 100%; margin-bottom: 1rem;"><label for="input_1678886400000_4fzzzxjyl" style="">Name</label><input type="text" id="input_1678886400000_4fzzzxjyl" placeholder="Enter name" value="" style="" /></div>"`;
+
+exports[`generateComponentInnerHTML should handle unknown component type 1`] = `"<div style="color: #ef4444; font-style: italic;">Unknown component: unknown</div>"`;
+
+exports[`renderSimpleComponent should register titlebar for initialization in preview mode 1`] = `
+"<div class="rendered-component" data-component-id="comp_1678886400000_4fzzzxjyl">
+                    <div class="component-label">titlebar</div>
+                    <div class="delete-component-btn" data-component-id="comp_1678886400000_4fzzzxjyl">&#10006;</div>
+                    
+        <nav class="titlebar  " style="--base-height: 6rem; --title-font-size: 2.4rem; --menu-font-size: 1.6rem; --title-font-weight: 700; --menu-font-weight: 500; --shrink-scale: 0.5;" data-base-height="60" data-logo-position="left" id="titlebar_1678886400000">
+
+            <div class="titlebar-brand">
+                
+            </div>
+
+            <button type="button" class="mobile-menu-button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <div class="titlebar-nav">
+                
+            </div>
+        </nav>
+    
+                </div>"
+`;
+
+exports[`renderSimpleComponent should return raw HTML in export mode 1`] = `"<p style="">Hello</p>"`;
+
+exports[`renderSimpleComponent should wrap component in rendered-component div in preview mode 1`] = `
+"<div class="rendered-component" data-component-id="comp_1678886400000_4fzzzxjyl">
+                    <div class="component-label">paragraph</div>
+                    <div class="delete-component-btn" data-component-id="comp_1678886400000_4fzzzxjyl">&#10006;</div>
+                    <p style="">Hello</p>
+                </div>"
+`;

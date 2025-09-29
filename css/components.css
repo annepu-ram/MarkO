@@ -107,15 +107,14 @@ details .card-body {
     transition: transform 0.3s ease-in-out, gap 0.3s ease-in-out;
 }
 
-.titlebar-brand.logo-right {
-    flex-direction: row-reverse;
+.titlebar-brand.align-right {
+    justify-content: flex-end;
     text-align: right;
 }
 
-.titlebar-brand.logo-right .titlebar-title {
+.titlebar-brand.align-right .titlebar-title {
     text-align: right;
 }
-
 .titlebar-logo {
     max-height: calc(var(--base-height, 6rem) - 2rem);
     height: auto;
@@ -125,7 +124,8 @@ details .card-body {
 
 .titlebar-title {
     font-size: var(--title-font-size, 1.5rem);
-    font-weight: bold;
+    font-weight: var(--title-font-weight, 700);
+    color: var(--titlebar-title-color, inherit);
     margin: 0;
     transition: font-size 0.3s ease-in-out;
 }
@@ -136,17 +136,19 @@ details .card-body {
 }
 
 .titlebar-link {
-    color: #333;
+    color: var(--titlebar-link-color, #333);
     text-decoration: none;
     padding: 0.5rem 1rem;
     font-size: var(--menu-font-size, 1.6rem);
+    font-weight: var(--menu-font-weight, 500);
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .titlebar-link:hover,
 .titlebar-link:focus {
-    background-color: var(--focus-bg, #f0f0f0);
+    background-color: var(--titlebar-link-hover-bg, #f0f0f0);
+    color: var(--titlebar-link-hover-color, #000);
 }
 
 .mobile-menu-button {
@@ -410,3 +412,4 @@ button.secondary, .button.secondary {
     font-size: 0.9rem;
     opacity: 0.75;
 }
+

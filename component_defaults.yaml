@@ -1,4 +1,4 @@
-﻿page:
+page:
   background:
     color: '#ffffff'
     image: ''
@@ -58,6 +58,7 @@ columnsgrid:
 
 titlebar:
   branding:
+    showLogo: true
     logoUrl: https://via.placeholder.com/50x40
     title: Website Title
   navigation:
@@ -70,7 +71,6 @@ titlebar:
         href: '#contact'
   layout:
     alignment: left
-    logoPlacement: left
     height: 60
   appearance:
     background:
@@ -85,9 +85,11 @@ titlebar:
     title:
       size: 24
       weight: bold
+      color: '#111827'
     menu:
       size: 16
       weight: medium
+      color: '#333333'
 
 heading:
   text: Section Heading
@@ -381,6 +383,10 @@ carousel:
             source:
               url: https://via.placeholder.com/800x400?text=Slide+3
               altText: Slide 3
+
+
+
+
 
 
 

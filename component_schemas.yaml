@@ -1,0 +1,900 @@
+page:
+  groups:
+    - id: background
+      label: Background
+      fields:
+        - path: background.color
+          type: color
+          label: Background Color
+        - path: background.image
+          type: text
+          label: Background Image URL
+    - id: layout
+      label: Layout
+      fields:
+        - path: layout.padding.top
+          type: select
+          label: Padding Top
+          tokens: spacingScale
+        - path: layout.padding.right
+          type: select
+          label: Padding Right
+          tokens: spacingScale
+        - path: layout.padding.bottom
+          type: select
+          label: Padding Bottom
+          tokens: spacingScale
+        - path: layout.padding.left
+          type: select
+          label: Padding Left
+          tokens: spacingScale
+        - path: layout.margin.top
+          type: select
+          label: Margin Top
+          tokens: spacingScale
+        - path: layout.margin.bottom
+          type: select
+          label: Margin Bottom
+          tokens: spacingScale
+
+section:
+  groups:
+    - id: layout
+      label: Layout
+      fields:
+        - path: layout.variant
+          type: select
+          label: Variant
+          options: [classic, hero, card, banner]
+        - path: layout.gap
+          type: select
+          label: Content Gap
+          tokens: gapScale
+        - path: layout.maxWidth
+          type: text
+          label: Max Width (px)
+        - path: layout.align
+          type: select
+          label: Horizontal Alignment
+          options: [start, center, end]
+        - path: layout.padding.top
+          type: select
+          label: Padding Top
+          tokens: spacingScale
+        - path: layout.padding.bottom
+          type: select
+          label: Padding Bottom
+          tokens: spacingScale
+    - id: background
+      label: Background
+      fields:
+        - path: background.color
+          type: color
+          label: Background Color
+        - path: background.image
+          type: text
+          label: Background Image URL
+    - id: border
+      label: Border
+      fields:
+        - path: border.radius
+          type: select
+          label: Corner Radius
+          tokens: borderRadiusScale
+
+stack:
+  groups:
+    - id: layout
+      label: Layout
+      fields:
+        - path: layout.variant
+          type: select
+          label: Variant
+          options: [classic, centered, timeline]
+        - path: layout.gap
+          type: select
+          label: Gap Between Items
+          tokens: gapScale
+        - path: layout.align
+          type: select
+          label: Horizontal Alignment
+          options: [start, center, end]
+        - path: layout.justify
+          type: select
+          label: Vertical Alignment
+          options: [start, center, end]
+    - id: responsive
+      label: Responsive
+      fields:
+        - path: responsive.collapseBreakpoint
+          type: select
+          label: Collapse at Breakpoint
+          options: [sm, md, lg]
+
+columnsgrid:
+  groups:
+    - id: layout
+      label: Layout
+      fields:
+        - path: layout.variant
+          type: select
+          label: Variant
+          options: [classic, two-column, sidebar-left, gallery]
+        - path: layout.columns
+          type: number
+          label: Columns
+          min: 1
+          max: 6
+        - path: layout.gap
+          type: select
+          label: Gap
+          tokens: gapScale
+        - path: layout.align
+          type: select
+          label: Alignment
+          options: [stretch, start, center]
+    - id: responsive
+      label: Responsive
+      fields:
+        - path: responsive.breakpoints.md
+          type: number
+          label: Columns at Medium Width
+          min: 1
+          max: 4
+        - path: responsive.breakpoints.sm
+          type: number
+          label: Columns at Small Width
+          min: 1
+          max: 3
+
+titlebar:
+  groups:
+    - id: branding
+      label: Branding
+      fields:
+        - path: branding.logoUrl
+          type: text
+          label: Logo URL
+        - path: branding.showLogo
+          type: checkbox
+          label: Show Logo
+        - path: branding.title
+          type: text
+          label: Title
+    - id: navigation
+      label: Navigation
+      fields:
+        - path: navigation.links
+          type: custom
+          renderer: linksEditor
+    - id: layout
+      label: Layout
+      fields:
+        - path: layout.alignment
+          type: select
+          label: Alignment
+          options: [left, center, right]
+        - path: layout.height
+          type: number
+          label: Height (px)
+        - path: layout.shrinkPercent
+          type: number
+          label: Shrink Percentage
+          min: 0
+          max: 100
+    - id: appearance
+      label: Appearance
+      fields:
+        - path: appearance.background.color
+          type: color
+          label: Background Color
+        - path: appearance.border.width
+          type: number
+          label: Border Width (px)
+        - path: appearance.border.style
+          type: select
+          label: Border Style
+          tokens: borderStyleOptions
+        - path: appearance.border.color
+          type: color
+          label: Border Color
+        - path: appearance.focus.background
+          type: color
+          label: Focus Background
+        - path: appearance.focus.color
+          type: color
+          label: Focus Text Color
+    - id: typography
+      label: Typography
+      fields:
+        - path: typography.title.size
+          type: number
+          label: Title Size (px)
+        - path: typography.title.weight
+          type: select
+          label: Title Weight
+          tokens: fontWeights
+        - path: typography.title.color
+          type: color
+          label: Title Color
+        - path: typography.menu.size
+          type: number
+          label: Menu Size (px)
+        - path: typography.menu.weight
+          type: select
+          label: Menu Weight
+          tokens: fontWeights
+        - path: typography.menu.color
+          type: color
+          label: Menu Color
+
+heading:
+  groups:
+    - id: content
+      label: Content
+      fields:
+        - path: text
+          type: textarea
+          label: Text
+          rows: 3
+        - path: level
+          type: select
+          label: Level
+          options: [1,2,3,4,5,6]
+    - id: typography
+      label: Typography
+      fields:
+        - path: typography.size
+          type: select
+          label: Font Size
+          tokens: typographySizes
+        - path: typography.weight
+          type: select
+          label: Weight
+          tokens: fontWeights
+        - path: typography.align
+          type: select
+          label: Alignment
+          tokens: alignmentHorizontal
+        - path: typography.color
+          type: color
+          label: Text Color
+        - path: typography.lineHeight
+          type: text
+          label: Line Height
+        - path: typography.transform
+          type: select
+          label: Transform
+          options: [none, uppercase, lowercase, capitalize]
+        - path: typography.letterSpacing
+          type: select
+          label: Letter Spacing
+          tokens: letterSpacingMap
+    - id: spacing
+      label: Spacing
+      fields:
+        - path: spacing.margin.top
+          type: select
+          label: Margin Top
+          tokens: spacingScale
+        - path: spacing.margin.bottom
+          type: select
+          label: Margin Bottom
+          tokens: spacingScale
+
+paragraph:
+  groups:
+    - id: content
+      label: Content
+      fields:
+        - path: text
+          type: textarea
+          label: Text
+          rows: 4
+        - path: variant
+          type: select
+          label: Variant
+          options: [body, lead, muted, note]
+    - id: typography
+      label: Typography
+      fields:
+        - path: typography.size
+          type: select
+          label: Font Size
+          tokens: typographySizes
+        - path: typography.align
+          type: select
+          label: Alignment
+          tokens: alignmentHorizontal
+        - path: typography.color
+          type: color
+          label: Text Color
+        - path: typography.weight
+          type: select
+          label: Weight
+          tokens: fontWeights
+        - path: typography.letterSpacing
+          type: select
+          label: Letter Spacing
+          tokens: letterSpacingMap
+    - id: spacing
+      label: Spacing
+      fields:
+        - path: spacing.margin.top
+          type: select
+          label: Margin Top
+          tokens: spacingScale
+        - path: spacing.margin.bottom
+          type: select
+          label: Margin Bottom
+          tokens: spacingScale
+
+blockquote:
+  groups:
+    - id: content
+      label: Content
+      fields:
+        - path: quote
+          type: textarea
+          label: Quote
+          rows: 4
+        - path: cite
+          type: text
+          label: Citation
+    - id: typography
+      label: Typography
+      fields:
+        - path: typography.size
+          type: select
+          label: Font Size
+          tokens: typographySizes
+        - path: typography.align
+          type: select
+          label: Alignment
+          tokens: alignmentHorizontal
+        - path: typography.color
+          type: color
+          label: Text Color
+        - path: typography.lineHeight
+          type: text
+          label: Line Height
+    - id: appearance
+      label: Appearance
+      fields:
+        - path: appearance.border.accentColor
+          type: color
+          label: Accent Color
+        - path: appearance.background.color
+          type: color
+          label: Background Color
+    - id: spacing
+      label: Spacing
+      fields:
+        - path: spacing.margin.top
+          type: select
+          label: Margin Top
+          tokens: spacingScale
+        - path: spacing.margin.bottom
+          type: select
+          label: Margin Bottom
+          tokens: spacingScale
+
+caption:
+  # Schema for the Caption component
+  groups:
+    - id: content
+      label: Content
+      fields:
+        - path: text
+          type: textarea
+          label: Text
+          rows: 2
+    - id: typography
+      label: Typography
+      fields:
+        - path: typography.size
+          type: select
+          label: Font Size
+          tokens: typographySizes
+        - path: typography.lineHeight
+          type: text
+          label: Line Height
+        - path: typography.align
+          type: select
+          label: Alignment
+          tokens: alignmentHorizontal
+        - path: typography.color
+          type: color
+          label: Text Color
+        - path: typography.transform
+          type: select
+          label: Transform
+          options: [none, uppercase, lowercase, capitalize]
+    - id: spacing
+      label: Spacing
+      fields:
+        - path: spacing.margin.top
+          type: select
+          label: Margin Top
+          tokens: spacingScale
+
+image:
+  groups:
+    - id: source
+      label: Source
+      fields:
+        - path: source.url
+          type: text
+          label: Image URL
+        - path: source.altText
+          type: text
+          label: Alt Text
+    - id: presentation
+      label: Presentation
+      fields:
+        - path: presentation.height
+          type: text
+          label: Height (px or auto)
+        - path: presentation.fit
+          type: select
+          label: Object Fit
+          options: [cover, contain, fill, none]
+        - path: presentation.cornerStyle
+          type: select
+          label: Corners
+          tokens: borderRadiusScale
+    - id: overlay
+      label: Overlay
+      fields:
+        - path: overlay.enabled
+          type: checkbox
+          label: Enable Overlay
+
+video:
+  groups:
+    - id: source
+      label: Source
+      fields:
+        - path: source.url
+          type: text
+          label: Video URL
+    - id: playback
+      label: Playback
+      fields:
+        - path: playback.controls
+          type: checkbox
+          label: Show Controls
+        - path: playback.autoplay
+          type: checkbox
+          label: Autoplay
+        - path: playback.muted
+          type: checkbox
+          label: Start Muted
+
+gif:
+  groups:
+    - id: source
+      label: Source
+      fields:
+        - path: source.url
+          type: text
+          label: GIF URL
+    - id: presentation
+      label: Presentation
+      fields:
+        - path: presentation.fit
+          type: select
+          label: Fit
+          options: [cover, contain]
+
+textbox:
+  groups:
+    - id: label
+      label: Label
+      fields:
+        - path: label.text
+          type: text
+          label: Label Text
+        - path: label.show
+          type: checkbox
+          label: Show Label
+        - path: label.typography.size
+          type: select
+          label: Label Size
+          tokens: typographySizes
+        - path: label.typography.weight
+          type: select
+          label: Label Weight
+          tokens: fontWeights
+        - path: label.typography.color
+          type: color
+          label: Label Color
+    - id: field
+      label: Field
+      fields:
+        - path: field.placeholder
+          type: text
+          label: Placeholder
+        - path: field.initialValue
+          type: text
+          label: Initial Value
+        - path: field.helperText
+          type: text
+          label: Helper Text
+        - path: field.required
+          type: checkbox
+          label: Required
+    - id: appearance
+      label: Appearance
+      fields:
+        - path: appearance.border.width
+          type: number
+          label: Border Width (px)
+        - path: appearance.border.style
+          type: select
+          label: Border Style
+          tokens: borderStyleOptions
+        - path: appearance.border.color
+          type: color
+          label: Border Color
+        - path: appearance.background.color
+          type: color
+          label: Background Color
+
+textarea:
+  groups:
+    - id: label
+      label: Label
+      fields:
+        - path: label.text
+          type: text
+          label: Label Text
+        - path: label.show
+          type: checkbox
+          label: Show Label
+    - id: field
+      label: Field
+      fields:
+        - path: field.placeholder
+          type: text
+          label: Placeholder
+        - path: field.rows
+          type: number
+          label: Rows
+          min: 2
+          max: 12
+        - path: field.helperText
+          type: text
+          label: Helper Text
+        - path: field.required
+          type: checkbox
+          label: Required
+    - id: appearance
+      label: Appearance
+      fields:
+        - path: appearance.border.width
+          type: number
+          label: Border Width (px)
+        - path: appearance.border.style
+          type: select
+          label: Border Style
+          tokens: borderStyleOptions
+        - path: appearance.border.color
+          type: color
+          label: Border Color
+        - path: appearance.background.color
+          type: color
+          label: Background Color
+
+button:
+  groups:
+    - id: content
+      label: Content
+      fields:
+        - path: text
+          type: text
+          label: Button Text
+    - id: action
+      label: Action
+      fields:
+        - path: action.type
+          type: select
+          label: Action Type
+          options: [inlineScript, link, submit]
+        - path: action.value
+          type: textarea
+          label: Action Value
+          rows: 2
+    - id: appearance
+      label: Appearance
+      fields:
+        - path: appearance.variant
+          type: select
+          label: Variant
+          options: [primary, secondary, outline, ghost]
+        - path: appearance.iconPlacement
+          type: select
+          label: Icon Placement
+          options: [none, left, right]
+    - id: typography
+      label: Typography
+      fields:
+        - path: typography.weight
+          type: select
+          label: Weight
+          tokens: fontWeights
+
+dropdown:
+  groups:
+    - id: label
+      label: Label
+      fields:
+        - path: label.text
+          type: text
+          label: Label Text
+        - path: label.show
+          type: checkbox
+          label: Show Label
+    - id: field
+      label: Field
+      fields:
+        - path: field.placeholder
+          type: text
+          label: Placeholder
+        - path: field.selected
+          type: text
+          label: Default Value
+        - path: field.options
+          type: textarea
+          label: Options (one per line)
+          rows: 4
+    - id: appearance
+      label: Appearance
+      fields:
+        - path: appearance.border.width
+          type: number
+          label: Border Width (px)
+        - path: appearance.border.style
+          type: select
+          label: Border Style
+          tokens: borderStyleOptions
+        - path: appearance.border.color
+          type: color
+          label: Border Color
+        - path: appearance.background.color
+          type: color
+          label: Background Color
+
+calendar:
+  groups:
+    - id: display
+      label: Display
+      fields:
+        - path: display.month
+          type: number
+          label: Month
+          min: 1
+          max: 12
+        - path: display.year
+          type: number
+          label: Year
+          min: 1900
+          max: 2100
+        - path: appearance.showWeekNumbers
+          type: checkbox
+          label: Show Week Numbers
+
+checkbox:
+  groups:
+    - id: label
+      label: Label
+      fields:
+        - path: label.text
+          type: text
+          label: Label Text
+        - path: label.typography.size
+          type: select
+          label: Label Size
+          tokens: typographySizes
+        - path: label.typography.weight
+          type: select
+          label: Label Weight
+          tokens: fontWeights
+        - path: label.typography.color
+          type: color
+          label: Label Color
+    - id: field
+      label: Field
+      fields:
+        - path: field.text
+          type: text
+          label: Field Text
+        - path: field.checked
+          type: checkbox
+          label: Checked by Default
+        - path: field.required
+          type: checkbox
+          label: Required
+
+radio:
+  groups:
+    - id: label
+      label: Label
+      fields:
+        - path: label.text
+          type: text
+          label: Label Text
+        - path: label.typography.size
+          type: select
+          label: Label Size
+          tokens: typographySizes
+        - path: label.typography.weight
+          type: select
+          label: Label Weight
+          tokens: fontWeights
+        - path: label.typography.color
+          type: color
+          label: Label Color
+    - id: field
+      label: Field
+      fields:
+        - path: field.text
+          type: text
+          label: Field Text
+        - path: field.groupName
+          type: text
+          label: Group Name
+        - path: field.value
+          type: text
+          label: Value
+        - path: field.checked
+          type: checkbox
+          label: Checked by Default
+
+accordion:
+  groups:
+    - id: items
+      label: Items
+      fields:
+        - path: items
+          type: custom
+          renderer: accordionItems
+    - id: behavior
+      label: Behavior
+      fields:
+        - path: behavior.allowMultipleOpen
+          type: checkbox
+          label: Allow Multiple Open
+
+tabs:
+  groups:
+    - id: layout
+      label: Layout
+      fields:
+        - path: layout.orientation
+          type: select
+          label: Orientation
+          options: [horizontal, vertical]
+    - id: tabs
+      label: Tabs
+      fields:
+        - path: tabs
+          type: custom
+          renderer: tabsEditor
+
+hamburger:
+  groups:
+    - id: content
+      label: Content
+      fields:
+        - path: label
+          type: text
+          label: Menu Label
+        - path: links
+          type: custom
+          renderer: linksEditor
+
+br:
+  groups:
+    - id: display
+      label: Display
+      fields:
+        - path: size
+          type: select
+          label: Break Size
+          tokens: spacingScale
+
+link:
+  groups:
+    - id: content
+      label: Content
+      fields:
+        - path: text
+          type: text
+          label: Link Text
+        - path: href
+          type: text
+          label: URL
+    - id: appearance
+      label: Appearance
+      fields:
+        - path: appearance.color
+          type: color
+          label: Text Color
+        - path: appearance.underline
+          type: checkbox
+          label: Underline
+        - path: appearance.showArrow
+          type: checkbox
+          label: Show Arrow
+    - id: typography
+      label: Typography
+      fields:
+        - path: typography.size
+          type: select
+          label: Font Size
+          tokens: typographySizes
+        - path: typography.weight
+          type: select
+          label: Weight
+          tokens: fontWeights
+
+form:
+  groups:
+    - id: layout
+      label: Layout
+      fields:
+        - path: layout.variant
+          type: select
+          label: Variant
+          options: [stacked, inline, grid]
+        - path: layout.gap
+          type: select
+          label: Field Gap
+          tokens: gapScale
+    - id: submit
+      label: Submit Button
+      fields:
+        - path: submit.show
+          type: checkbox
+          label: Show Submit Button
+        - path: submit.buttonText
+          type: text
+          label: Button Text
+
+carousel:
+  groups:
+    - id: behavior
+      label: Behavior
+      fields:
+        - path: behavior.autoplay
+          type: checkbox
+          label: Autoplay
+        - path: behavior.delay
+          type: number
+          label: Delay (ms)
+          min: 1000
+        - path: behavior.loop
+          type: checkbox
+          label: Loop Slides
+    - id: navigation
+      label: Navigation
+      fields:
+        - path: navigation.showArrows
+          type: checkbox
+          label: Show Arrows
+        - path: navigation.showDots
+          type: checkbox
+          label: Show Dots
+    - id: slides
+      label: Slides
+      fields:
+        - path: slides
+          type: custom
+          renderer: carouselSlides
+
+
+
+
+
+
