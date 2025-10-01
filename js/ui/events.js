@@ -85,25 +85,54 @@ function handleEditorKeyDown(event, editor, actions) {
 
     if (event.key === 'Tab') {
         event.preventDefault();
-        if (start !== end) {
-            const selectedText = editor.value.substring(start, end);
-            const selectedLines = selectedText.split('');
-            if (event.shiftKey) {
-                const updatedLines = selectedLines.map(line => (line.startsWith('  ') ? line.substring(2) : line));
-                const newText = updatedLines.join('');
-                editor.value = editor.value.substring(0, start) + newText + editor.value.substring(end);
-                editor.selectionStart = start;
-                editor.selectionEnd = start + newText.length;
-            } else {
-                const updatedLines = selectedLines.map(line => '  ' + line);
-                const newText = updatedLines.join('');
-                editor.value = editor.value.substring(0, start) + newText + editor.value.substring(end);
-                editor.selectionStart = start;
-                editor.selectionEnd = start + newText.length;
+        const value = editor.value;
+        const indent = '  ';
+        const hasSelection = start !== end;
+        const blockStart = value.lastIndexOf('\n', Math.max(start - 1, 0)) + 1;
+        const lastAffectedIndex = Math.max((hasSelection ? end - 1 : start), blockStart);
+        const nextNewline = value.indexOf('\n', lastAffectedIndex);
+        const blockEnd = nextNewline === -1 ? value.length : nextNewline;
+        const before = value.slice(0, blockStart);
+        const block = value.slice(blockStart, blockEnd);
+        const after = value.slice(blockEnd);
+
+        if (event.shiftKey) {
+            const lines = block.split('\n');
+            let removedFromFirstLine = 0;
+            let totalRemoved = 0;
+            const adjustedLines = lines.map((line, index) => {
+                const leadingSpaces = (line.match(/^ */) || [''])[0].length;
+                const removeCount = Math.min(indent.length, leadingSpaces);
+                if (removeCount > 0) {
+                    if (index === 0) {
+                        removedFromFirstLine = removeCount;
+                    }
+                    totalRemoved += removeCount;
+                    return line.slice(removeCount);
+                }
+                return line;
+            });
+            const updatedBlock = adjustedLines.join('\n');
+
+            if (updatedBlock !== block) {
+                editor.value = before + updatedBlock + after;
+                const newStart = Math.max(blockStart, start - removedFromFirstLine);
+                const newEnd = Math.max(newStart, end - totalRemoved);
+                editor.selectionStart = newStart;
+                editor.selectionEnd = newEnd;
+                editor.dispatchEvent(new Event('input', { bubbles: true }));
             }
         } else {
-            editor.value = editor.value.substring(0, start) + '  ' + editor.value.substring(end);
-            editor.selectionStart = editor.selectionEnd = start + 2;
+            const lines = block.split('\n');
+            const updatedLines = lines.map(line => indent + line);
+            const updatedBlock = updatedLines.join('\n');
+            editor.value = before + updatedBlock + after;
+            const linesAffected = lines.length;
+            const newStart = start + indent.length;
+            const newEnd = end + indent.length * linesAffected;
+            editor.selectionStart = newStart;
+            editor.selectionEnd = newEnd;
+            editor.dispatchEvent(new Event('input', { bubbles: true }));
         }
         return;
     }
@@ -206,3 +235,5 @@ function initializeResizer(resizer, editor) {
         window.addEventListener('mouseup', handleMouseUp);
     });
 }
+
+export { handleEditorKeyDown };

@@ -1,0 +1,26 @@
+- name: section
+  properties:
+    layout:
+      direction: column
+      align: stretch
+      justify: start
+      gap: md
+      maxWidth: 960px
+    spacing:
+      padding:
+        top: lg
+        right: lg
+        bottom: lg
+        left: lg
+      margin:
+        top: md
+        right: auto
+        bottom: md
+        left: auto
+    background:
+      color: '#ffffff'
+    border:
+      radius: 16px
+    appearance:
+      shadow: 0 24px 48px rgba(15, 23, 42, 0.12)
+  components: []

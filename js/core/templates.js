@@ -61,10 +61,9 @@ export async function loadSchemaTokens() {
 
 /**
  * @function loadMetadata
- * @description Loads all component metadata (templates, schemas, tokens) concurrently.
+ * @description Loads all component metadata concurrently.
  * @returns {Promise<void>}
  * @calledBy {js/core/app.js}
- * @calls {loadComponentTemplates|loadComponentSchemas|loadSchemaTokens}
  */
 export async function loadMetadata() {
     await Promise.all([
@@ -73,3 +72,4 @@ export async function loadMetadata() {
         loadSchemaTokens(),
     ]);
 }
+

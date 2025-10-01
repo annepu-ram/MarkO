@@ -1,9 +1,69 @@
 import { registerComponentPath, resetComponentPathMap, queueComponentInitialization, consumeComponentInitializationQueue } from '../core/state.js';
-import { deepClone, deepMerge, getNestedValue } from '../utils/object.js';
+import { deepClone, deepMerge, getNestedValue, deleteNestedValue } from '../utils/object.js';
 import { toRem, resolveSpacingValue, resolveLetterSpacing, resolveLineHeight, resolveTypographySize, resolveFontWeight } from '../utils/styles.js';
 import { escapeHtml } from '../utils/strings.js';
 // --- COMPONENT RENDERING ---
 // =================================================================================================
+
+const FLEX_ALIGN_MAP = {
+    start: 'flex-start',
+    center: 'center',
+    end: 'flex-end',
+    stretch: 'stretch',
+};
+
+const FLEX_JUSTIFY_MAP = {
+    start: 'flex-start',
+    center: 'center',
+    end: 'flex-end',
+    'space-between': 'space-between',
+    'space-around': 'space-around',
+    'space-evenly': 'space-evenly',
+};
+
+function buildStyleString(parts = []) {
+    return parts
+        .filter(Boolean)
+        .map(part => {
+            const trimmed = part.trim();
+            if (!trimmed) {
+                return '';
+            }
+            return trimmed.endsWith(';') ? trimmed : `${trimmed};`;
+        })
+        .filter(Boolean)
+        .join(' ');
+}
+
+function normalizeDimensionValue(value) {
+    if (value === undefined || value === null || value === '') {
+        return null;
+    }
+    if (typeof value === 'number') {
+        return `${value}px`;
+    }
+    if (typeof value === 'string') {
+        const trimmed = value.trim();
+        if (!trimmed) {
+            return null;
+        }
+        const numeric = parseFloat(trimmed);
+        if (!Number.isNaN(numeric) && `${numeric}` === trimmed) {
+            return `${numeric}px`;
+        }
+        return trimmed;
+    }
+    return null;
+}
+
+function mapFlexAlign(value) {
+    return FLEX_ALIGN_MAP[value] || value;
+}
+
+function mapFlexJustify(value) {
+    return FLEX_JUSTIFY_MAP[value] || value;
+}
+
 const getAlignmentClass = (alignment) => {
     switch (alignment) {
         case 'left':
@@ -72,13 +132,14 @@ export function renderComponentsList(components, basePath, mode) {
  */
 export function renderComponent(component, path, mode) {
     if (!component || !component.name) return '';
-    const {
-        name,
-        properties = {} 
-    } = component;
+    const { name, properties = {} } = component;
     switch (name) {
         case 'page':
             return renderPageComponent(component, path, mode);
+        case 'section':
+            return renderSectionComponent(component, path, mode);
+        case 'stack':
+            return renderStackComponent(component, path, mode);
         case 'columnsgrid':
             return renderColumnsGrid(component, path, mode);
         case 'accordion':
@@ -207,6 +268,163 @@ function renderPageComponent(component, path, mode) {
     // For export mode, we'll handle this differently, perhaps with a style tag
     return `<div style="${styles} width: 100%; height: 100%;">${contentHTML}</div>`;
 }
+
+
+
+function renderStackComponent(component, path, mode) {
+    const { properties = {}, components = [] } = component;
+    const directionValue = getNestedValue(properties, ['layout', 'direction']) || 'column';
+    const direction = directionValue === 'row' ? 'row' : 'column';
+    const align = getNestedValue(properties, ['layout', 'align']);
+    const justify = getNestedValue(properties, ['layout', 'justify']);
+    const wrapValue = getNestedValue(properties, ['layout', 'wrap']);
+    const wrap = wrapValue ? wrapValue : null;
+    const gapToken = getNestedValue(properties, ['layout', 'gap']) ?? getNestedValue(properties, ['spacing', 'gap']);
+    const resolvedGap = resolveSpacingValue(gapToken);
+
+    const outerProperties = deepClone(properties);
+    const maxWidth = getNestedValue(outerProperties, ['layout', 'maxWidth']);
+    const explicitWidth = getNestedValue(outerProperties, ['layout', 'width']);
+    deleteNestedValue(outerProperties, ['layout', 'maxWidth']);
+    deleteNestedValue(outerProperties, ['layout', 'width']);
+
+    const outerStyleAttr = buildStyleString([generateRemainingStyles(outerProperties, 'stack')]);
+
+    const innerStyleParts = ['display: flex;', `flex-direction: ${direction};`];
+    if (resolvedGap) {
+        innerStyleParts.push(`gap: ${resolvedGap};`);
+    }
+    if (align) {
+        innerStyleParts.push(`align-items: ${mapFlexAlign(align)};`);
+    }
+    if (justify) {
+        innerStyleParts.push(`justify-content: ${mapFlexJustify(justify)};`);
+    }
+    if (wrap && wrap !== 'nowrap') {
+        innerStyleParts.push(`flex-wrap: ${wrap};`);
+    }
+    const normalizedMaxWidth = normalizeDimensionValue(maxWidth);
+    if (normalizedMaxWidth) {
+        innerStyleParts.push(`max-width: ${normalizedMaxWidth};`);
+        innerStyleParts.push('margin-left: auto;');
+        innerStyleParts.push('margin-right: auto;');
+    }
+    const normalizedWidth = normalizeDimensionValue(explicitWidth);
+    if (normalizedWidth) {
+        innerStyleParts.push(`width: ${normalizedWidth};`);
+    }
+    const innerStyleAttr = buildStyleString(innerStyleParts);
+
+    const collapseBreakpoint = getNestedValue(properties, ['responsive', 'collapseBreakpoint']);
+    const collapseAttr = collapseBreakpoint ? ` data-stack-collapse="${collapseBreakpoint}"` : '';
+    const dividerSetting = getNestedValue(properties, ['appearance', 'divider']) || 'none';
+    const dividerClass = dividerSetting && dividerSetting !== 'none' ? ` stack--divider-${dividerSetting}` : '';
+
+    const componentsPath = [...path, 'components'];
+    let contentHTML = '';
+    components.forEach((child, index) => {
+        const childPath = [...componentsPath, index];
+        const rendered = renderComponent(child, childPath, mode);
+        if (rendered) {
+            contentHTML += `<div class="stack__item">${rendered}</div>`;
+        }
+    });
+    if (mode === 'preview' && !contentHTML) {
+        contentHTML = '<div class="stack-placeholder">Drop components here...</div>';
+    }
+
+    const contentWrapper = innerStyleAttr
+        ? `<div class="stack__content" style="${innerStyleAttr}">${contentHTML}</div>`
+        : `<div class="stack__content">${contentHTML}</div>`;
+
+    const stackMarkup = `<div class="stack${dividerClass}" style="${outerStyleAttr}"${collapseAttr}>
+            ${contentWrapper}
+        </div>`;
+
+    if (mode === 'preview') {
+        const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        registerComponentPath(componentId, path);
+        return `<div class="rendered-component" data-component-id="${componentId}">
+                    <div class="component-label">stack</div>
+                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
+                    ${stackMarkup}
+                </div>`;
+    }
+
+    return stackMarkup;
+}
+
+function renderSectionComponent(component, path, mode) {
+    const { properties = {}, components = [] } = component;
+    const tagCandidate = (getNestedValue(properties, ['layout', 'tag']) || 'section').toString().trim();
+    const tag = tagCandidate.match(/^[a-zA-Z][a-zA-Z0-9-]*$/) ? tagCandidate : 'section';
+    const direction = getNestedValue(properties, ['layout', 'direction']) || 'column';
+    const align = getNestedValue(properties, ['layout', 'align']);
+    const justify = getNestedValue(properties, ['layout', 'justify']);
+    const wrap = getNestedValue(properties, ['layout', 'wrap']);
+    const gapToken = getNestedValue(properties, ['layout', 'gap']) ?? getNestedValue(properties, ['spacing', 'gap']);
+    const resolvedGap = resolveSpacingValue(gapToken);
+
+    const outerProperties = deepClone(properties);
+    const maxWidth = getNestedValue(outerProperties, ['layout', 'maxWidth']);
+    const explicitWidth = getNestedValue(outerProperties, ['layout', 'width']);
+    deleteNestedValue(outerProperties, ['layout', 'maxWidth']);
+    deleteNestedValue(outerProperties, ['layout', 'width']);
+
+    const outerStyleAttr = buildStyleString([generateRemainingStyles(outerProperties, 'section')]);
+
+    const innerStyleParts = ['display: flex;', `flex-direction: ${direction};`];
+    if (resolvedGap) {
+        innerStyleParts.push(`gap: ${resolvedGap};`);
+    }
+    if (align) {
+        innerStyleParts.push(`align-items: ${mapFlexAlign(align)};`);
+    }
+    if (justify) {
+        innerStyleParts.push(`justify-content: ${mapFlexJustify(justify)};`);
+    }
+    if (wrap) {
+        innerStyleParts.push(`flex-wrap: ${wrap === true ? 'wrap' : wrap};`);
+    }
+
+    const normalizedMaxWidth = normalizeDimensionValue(maxWidth);
+    if (normalizedMaxWidth) {
+        innerStyleParts.push(`max-width: ${normalizedMaxWidth};`);
+        innerStyleParts.push('margin-left: auto;');
+        innerStyleParts.push('margin-right: auto;');
+    }
+    const normalizedWidth = normalizeDimensionValue(explicitWidth);
+    if (normalizedWidth) {
+        innerStyleParts.push(`width: ${normalizedWidth};`);
+    }
+    const innerStyleAttr = buildStyleString(innerStyleParts);
+
+    const componentsPath = [...path, 'components'];
+    let innerHTML = renderComponentsList(components, componentsPath, mode);
+    if (mode === 'preview' && components.length === 0) {
+        innerHTML = '<div class="section-placeholder">Drop components here...</div>';
+    }
+
+    const innerWrapper = innerStyleAttr
+        ? `<div class="section__content" style="${innerStyleAttr}">${innerHTML}</div>`
+        : `<div class="section__content">${innerHTML}</div>`;
+
+    const sectionMarkup = `<${tag} class="section" style="${outerStyleAttr}">
+            ${innerWrapper}
+        </${tag}>`;
+
+    if (mode === 'preview') {
+        const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        registerComponentPath(componentId, path);
+        return `<div class="rendered-component" data-component-id="${componentId}">
+                    <div class="component-label">section</div>
+                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
+                    ${sectionMarkup}
+                </div>`;
+    }
+
+    return sectionMarkup;
+}
 /**
  * @function renderImageComponent
  * @description Renders an image component.
@@ -250,6 +468,7 @@ function renderImageComponent(component, path, mode) {
     }
     return contentHTML;
 }
+
 /**
  * Renders a simple component.
  * @param {object} component The component to render.
@@ -798,6 +1017,10 @@ function generateRemainingStyles(props = {}, componentName) {
         const radiusValue = typeof borderRadius === 'number' ? `${borderRadius}px` : toRem(borderRadius);
         styles += `border-radius: ${radiusValue};`;
     }
+    const shadowValue = appearance.shadow ?? props.shadow;
+    if (shadowValue) {
+        styles += `box-shadow: ${shadowValue};`;
+    }
     const maxWidth = layout.maxWidth;
     if (maxWidth !== undefined && maxWidth !== null) {
         styles += `max-width: ${typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth};`;
@@ -805,6 +1028,11 @@ function generateRemainingStyles(props = {}, componentName) {
     const width = layout.width || props.width;
     if (width) {
         styles += `width: ${typeof width === 'number' ? `${width}px` : width};`;
+    }
+    const minHeightValue = layout.minHeight ?? props.minHeight;
+    const normalizedMinHeight = normalizeDimensionValue(minHeightValue);
+    if (normalizedMinHeight) {
+        styles += `min-height: ${normalizedMinHeight};`;
     }
     return styles;
 }
@@ -843,6 +1071,11 @@ export function initializeAllComponents(componentInitializers) {
 export function computeInlineStylesFromProperties(props = {}) {
     return generateRemainingStyles(props, 'page');
 }
+
+
+
+
+
 
 
 

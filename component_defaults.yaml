@@ -13,41 +13,40 @@ page:
       right: none
       bottom: none
       left: none
-
 section:
   layout:
-    variant: classic
+    tag: section
+    direction: column
+    align: stretch
+    justify: start
+    gap: md
+  spacing:
     padding:
-      top: xl
-      right: lg
-      bottom: xl
-      left: lg
+      top: md
+      right: md
+      bottom: md
+      left: md
     margin:
       top: none
-      right: auto
+      right: none
       bottom: none
-      left: auto
-    gap: md
-    maxWidth: 1200
-    align: center
+      left: none
   background:
     color: '#ffffff'
     image: ''
-  border:
-    radius: none
-
+  appearance: {}
 stack:
   layout:
-    variant: classic
+    direction: column
     gap: md
     align: start
     justify: start
   responsive:
     collapseBreakpoint: sm
-
+  appearance:
+    divider: none
 columnsgrid:
   layout:
-    variant: classic
     columns: 2
     gap: md
     align: stretch
@@ -55,7 +54,6 @@ columnsgrid:
     breakpoints:
       md: 2
       sm: 1
-
 titlebar:
   branding:
     showLogo: true
@@ -63,12 +61,12 @@ titlebar:
     title: Website Title
   navigation:
     links:
-      - label: Home
-        href: '#home'
-      - label: About
-        href: '#about'
-      - label: Contact
-        href: '#contact'
+    - label: Home
+      href: '#home'
+    - label: About
+      href: '#about'
+    - label: Contact
+      href: '#contact'
   layout:
     alignment: left
     height: 60
@@ -90,7 +88,6 @@ titlebar:
       size: 16
       weight: medium
       color: '#333333'
-
 heading:
   text: Section Heading
   level: 2
@@ -106,10 +103,8 @@ heading:
     margin:
       top: none
       bottom: none
-
 paragraph:
   text: This is a paragraph of text content.
-  variant: body
   typography:
     size: md
     lineHeight: 1.6
@@ -122,7 +117,6 @@ paragraph:
     margin:
       top: sm
       bottom: md
-
 eyebrow:
   text: Featured
   typography:
@@ -135,7 +129,6 @@ eyebrow:
   spacing:
     margin:
       bottom: xs
-
 caption:
   text: Photo by Jane Doe
   typography:
@@ -147,7 +140,6 @@ caption:
   spacing:
     margin:
       top: xs
-
 blockquote:
   quote: Design is intelligence made visible.
   cite: Alina Wheeler
@@ -167,7 +159,6 @@ blockquote:
       accentColor: '#6366f1'
     background:
       color: '#f9fafb'
-
 image:
   source:
     url: https://via.placeholder.com/150
@@ -178,7 +169,6 @@ image:
     cornerStyle: none
   overlay:
     enabled: false
-
 video:
   source:
     url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
@@ -186,13 +176,11 @@ video:
     controls: true
     autoplay: false
     muted: false
-
 gif:
   source:
     url: https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif
   presentation:
     fit: cover
-
 textbox:
   label:
     text: Textbox Label
@@ -215,7 +203,6 @@ textbox:
       color: '#ffffff'
     icon:
       position: none
-
 textarea:
   label:
     text: Textarea Label
@@ -236,18 +223,20 @@ textarea:
       color: '#cccccc'
     background:
       color: '#ffffff'
-
 button:
   text: Click Me
   action:
     type: inlineScript
-    value: 'alert("Clicked!")'
+    value: alert("Clicked!")
   appearance:
-    variant: primary
+    background:
+      color: '#2563eb'
+    border:
+      color: '#1d4ed8'
     iconPlacement: none
   typography:
     weight: semibold
-
+    color: '#ffffff'
 dropdown:
   label:
     text: Dropdown Label
@@ -259,10 +248,11 @@ dropdown:
   field:
     placeholder: Choose an option
     selected: ''
-    options: |-
-      Option 1
+    options: 'Option 1
+
       Option 2
-      Option 3
+
+      Option 3'
   appearance:
     border:
       width: 1
@@ -270,14 +260,12 @@ dropdown:
       color: '#cccccc'
     background:
       color: '#ffffff'
-
 calendar:
   display:
     month: 8
     year: 2024
   appearance:
     showWeekNumbers: false
-
 checkbox:
   label:
     text: Checkbox Label
@@ -289,7 +277,6 @@ checkbox:
     text: Check me
     checked: false
     required: false
-
 radio:
   label:
     text: Radio Label
@@ -302,34 +289,29 @@ radio:
     groupName: radio1
     value: option1
     checked: false
-
 accordion:
   items:
-    - title: Click to expand
-      content: ''
+  - title: Click to expand
+    content: ''
   behavior:
     allowMultipleOpen: false
-
 tabs:
   layout:
     orientation: horizontal
   tabs:
-    - title: Tab One
-      content: ''
-    - title: Tab Two
-      content: ''
-
+  - title: Tab One
+    content: ''
+  - title: Tab Two
+    content: ''
 hamburger:
   label: Menu
   links:
-    - label: Home
-      href: '#home'
-    - label: About
-      href: '#about'
-
+  - label: Home
+    href: '#home'
+  - label: About
+    href: '#about'
 br:
   size: md
-
 link:
   text: Click Me
   href: '#'
@@ -340,15 +322,13 @@ link:
   typography:
     size: md
     weight: regular
-
 form:
   layout:
-    variant: stacked
+    direction: column
     gap: md
   submit:
     buttonText: Submit
     show: true
-
 carousel:
   behavior:
     autoplay: true
@@ -358,39 +338,28 @@ carousel:
     showArrows: true
     showDots: true
   slides:
-    - components:
-        - name: image
-          properties:
-            source:
-              url: https://via.placeholder.com/800x400?text=Slide+1
-              altText: Slide 1
-        - name: heading
-          properties:
-            text: First Slide
-            level: 3
-    - components:
-        - name: image
-          properties:
-            source:
-              url: https://via.placeholder.com/800x400?text=Slide+2
-              altText: Slide 2
-        - name: paragraph
-          properties:
-            text: Second slide with some text.
-    - components:
-        - name: image
-          properties:
-            source:
-              url: https://via.placeholder.com/800x400?text=Slide+3
-              altText: Slide 3
-
-
-
-
-
-
-
-
-
-
-
+  - components:
+    - name: image
+      properties:
+        source:
+          url: https://via.placeholder.com/800x400?text=Slide+1
+          altText: Slide 1
+    - name: heading
+      properties:
+        text: First Slide
+        level: 3
+  - components:
+    - name: image
+      properties:
+        source:
+          url: https://via.placeholder.com/800x400?text=Slide+2
+          altText: Slide 2
+    - name: paragraph
+      properties:
+        text: Second slide with some text.
+  - components:
+    - name: image
+      properties:
+        source:
+          url: https://via.placeholder.com/800x400?text=Slide+3
+          altText: Slide 3

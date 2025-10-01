@@ -34,6 +34,8 @@ export function createActions(dom) {
         helpPanel,
     } = dom;
 
+    const childComponentContainers = new Set(['section', 'stack', 'form', 'image']);
+
     const findComponentIdByPath = path => {
         const map = getComponentPathMap();
         for (const [componentId, storedPath] of map.entries()) {
@@ -210,17 +212,15 @@ export function createActions(dom) {
                 properties: template || {},
                 content: { components: [] },
             };
-        } else if (componentName === 'form' || componentName === 'image') {
-            newComponent = {
-                name: componentName,
-                properties: template || {},
-                components: [],
-            };
         } else {
             newComponent = {
                 name: componentName,
                 properties: template || {},
             };
+        }
+
+        if (childComponentContainers.has(componentName)) {
+            newComponent.components = Array.isArray(newComponent.components) ? newComponent.components : [];
         }
 
         let structure = parseYamlContent(editor.value);
@@ -258,20 +258,10 @@ export function createActions(dom) {
         }
         setYamlStructure(result.updatedStructure);
 
-        // Generate YAML for the editor using the cleaned component
-        // We need to reconstruct the full YAML structure with the cleaned component
-        const tempStructureForEditor = deepClone(structure);
-        let cursor = tempStructureForEditor;
-        for (let i = 0; i < selection.path.length - 1; i++) {
-            cursor = cursor[selection.path[i]];
-        }
-        cursor[selection.path[selection.path.length - 1]] = result.cleanedComponent;
+        const updatedYaml = generateYamlFromStructure(result.updatedStructure);
+        editor.value = updatedYaml;
 
-        const yamlTextForEditor = generateYamlFromStructure(tempStructureForEditor);
-        editor.value = yamlTextForEditor;
-
-        // Re-render the preview using the full, uncleaned updatedStructure
-        parseAndRender(generateYamlFromStructure(result.updatedStructure), { pushHistory: true });
+        parseAndRender(updatedYaml, { pushHistory: true });
         const nextPath = result.nextSelectionPath || selection.path;
         setSelection({ path: nextPath });
         refreshSelection();

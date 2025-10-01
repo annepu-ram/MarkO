@@ -1,6 +1,6 @@
 import { getComponentTemplates, getComponentSchemas, getSchemaTokens } from '../core/state.js';
 import { getComponentByPath, updateComponentByPath } from '../core/yaml.js';
-import { deepClone, deepMerge, getNestedValue, setNestedValue, deleteNestedValue, pruneEmptyValues } from '../utils/object.js';
+import { deepClone, deepMerge, getNestedValue, setNestedValue } from '../utils/object.js';
 import { customRenderers } from './customRenderers.js';
 
 let activeComponentName = null;
@@ -531,16 +531,16 @@ export function applyPropertiesForComponent({ componentId, path, structure }) {
                 value = control.checked;
                 break;
             default:
-                value = control.value.trim();
+                value = control.value;
+                if ((field.type === 'text' || field.type === 'textarea') && value === '') {
+                    value = ' ';
+                }
                 break;
         }
 
         const destination = target === 'component' ? updatedComponent : updatedComponent.properties;
-        if (field.type !== 'checkbox' && (value === '' || value === null)) {
-            deleteNestedValue(destination, pathSegments);
-        } else {
-            setNestedValue(destination, pathSegments, value);
-        }
+        const normalizedValue = value === undefined ? null : value;
+        setNestedValue(destination, pathSegments, normalizedValue);
     });
 
     activeCustomEditors.forEach(entry => {
@@ -551,14 +551,12 @@ export function applyPropertiesForComponent({ componentId, path, structure }) {
         const value = instance.serialize();
         const destination = target === 'component' ? updatedComponent : updatedComponent.properties;
         const pathSegments = pathToSegments(fieldPath);
-        if (value === undefined || value === null) {
-            deleteNestedValue(destination, pathSegments);
-        } else {
-            setNestedValue(destination, pathSegments, value);
-        }
+        const normalizedValue = value === undefined ? null : value;
+        setNestedValue(destination, pathSegments, normalizedValue);
     });
 
-    
+    updatedComponent.properties = deepMerge({}, defaults, updatedComponent.properties || {});
+
     const updatedStructure = updateComponentByPath(structure, path, updatedComponent);
 
     // Create a *separate* cleaned version of the component for YAML generation (editor display)
@@ -570,3 +568,5 @@ export function applyPropertiesForComponent({ componentId, path, structure }) {
         cleanedComponent: cleanedComponentForYaml, // The cleaned component for editor YAML display
     };
 }
+
+

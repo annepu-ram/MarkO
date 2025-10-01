@@ -1,0 +1,12 @@
+- name: paragraph
+  properties:
+    text: Lead paragraph copy for hero sections.
+    typography:
+      size: lg
+      lineHeight: 1.8
+      weight: medium
+      color: '#111827'
+    spacing:
+      margin:
+        top: md
+        bottom: lg

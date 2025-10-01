@@ -1,0 +1,9 @@
+- name: form
+  properties:
+    layout:
+      direction: column
+      gap: md
+    submit:
+      buttonText: Send Message
+      show: true
+  components: []

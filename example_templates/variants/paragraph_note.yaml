@@ -1,0 +1,12 @@
+- name: paragraph
+  properties:
+    text: Note text for additional details.
+    typography:
+      size: sm
+      lineHeight: 1.4
+      weight: medium
+      color: '#4b5563'
+    spacing:
+      margin:
+        top: xs
+        bottom: sm

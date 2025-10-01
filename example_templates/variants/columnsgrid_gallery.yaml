@@ -1,0 +1,11 @@
+- name: columnsgrid
+  properties:
+    layout:
+      columns: 3
+      gap: sm
+      align: stretch
+    responsive:
+      breakpoints:
+        md: 3
+        sm: 1
+  columns: []

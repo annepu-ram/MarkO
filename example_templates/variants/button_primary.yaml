@@ -1,0 +1,10 @@
+- name: button
+  properties:
+    text: Primary Action
+    appearance:
+      backgroundColor: '#2563eb'
+      textColor: '#ffffff'
+      borderColor: '#1d4ed8'
+      iconPlacement: none
+    typography:
+      weight: semibold
