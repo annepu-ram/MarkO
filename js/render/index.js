@@ -1,7 +1,7 @@
 import { registerComponentPath, resetComponentPathMap, queueComponentInitialization, consumeComponentInitializationQueue } from '../core/state.js';
 import { deepClone, deepMerge, getNestedValue, deleteNestedValue } from '../utils/object.js';
 import { toRem, resolveSpacingValue, resolveLetterSpacing, resolveLineHeight, resolveTypographySize, resolveFontWeight } from '../utils/styles.js';
-import { escapeHtml } from '../utils/strings.js';
+import { escapeHtml, escapeHtmlWithLineBreaks } from '../utils/strings.js';
 // --- COMPONENT RENDERING ---
 // =================================================================================================
 
@@ -666,24 +666,24 @@ export function generateComponentInnerHTML(type, props, classes, styleAttr, mode
     const attrSegment = attributeString ? ' ' + attributeString : '';
     if (componentType === 'heading') {
         const level = Math.min(6, Math.max(1, parseInt(componentProps.level, 10) || 2));
-        const textContent = escapeHtml(componentProps.text || 'Heading');
+        const textContent = escapeHtmlWithLineBreaks(componentProps.text || 'Heading');
             return '<h' + level + attrSegment + '>' + textContent + '</h' + level + '>';  ;
     }
     
     if (componentType === 'paragraph') {
-        const textContent = escapeHtml(componentProps.text || 'Paragraph');
+        const textContent = escapeHtmlWithLineBreaks(componentProps.text || 'Paragraph');
         return '<p' + attrSegment + '>' + textContent + '</p>';
     }
     if (componentType === 'eyebrow') {
-        const textContent = escapeHtml(componentProps.text || 'Label');
+        const textContent = escapeHtmlWithLineBreaks(componentProps.text || 'Label');
         return '<p' + attrSegment + '>' + textContent + '</p>';
     }
     if (componentType === 'caption') {
-        const textContent = escapeHtml(componentProps.text || 'Caption');
+        const textContent = escapeHtmlWithLineBreaks(componentProps.text || 'Caption');
         return '<p' + attrSegment + '>' + textContent + '</p>';
     }
     if (componentType === 'blockquote') {
-        const quoteContent = escapeHtml(componentProps.quote || componentProps.text || 'Quote');
+        const quoteContent = escapeHtmlWithLineBreaks(componentProps.quote || componentProps.text || 'Quote');
         const citation = componentProps.cite ? '<figcaption class="blockquote-citation">&mdash; ' + escapeHtml(componentProps.cite) + '</figcaption>' : '';
         return '<figure' + attrSegment + '><blockquote>' + quoteContent + '</blockquote>' + citation + '</figure>';
     }

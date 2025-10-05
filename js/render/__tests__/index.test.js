@@ -60,7 +60,25 @@ jest.mock('../../utils/styles.js', () => ({
   }),
 }));
 jest.mock('../../utils/strings.js', () => ({
-  escapeHtml: jest.fn(str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')),
+  escapeHtml: jest.fn(value => {
+    if (typeof value !== 'string') {
+      return value;
+    }
+    return value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }),
+  escapeHtmlWithLineBreaks: jest.fn(value => {
+    if (typeof value !== 'string') {
+      return value;
+    }
+    return value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\r\n|\r|\n/g, '<br>');
+  }),
 }));
 
 describe('generateComponentInnerHTML', () => {
@@ -80,6 +98,12 @@ describe('generateComponentInnerHTML', () => {
     const styleAttr = 'font-size: 1.6rem;';
     const html = generateComponentInnerHTML('paragraph', props, '', styleAttr, 'preview');
     expect(html).toMatchSnapshot();
+  });
+
+  test('should convert newline characters into <br> for paragraph text', () => {
+    const props = { text: 'Line one\nLine two' };
+    const html = generateComponentInnerHTML('paragraph', props, '', '', 'preview');
+    expect(html).toContain('Line one<br>Line two');
   });
 
   test('should generate correct HTML for image', () => {

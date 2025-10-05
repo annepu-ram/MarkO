@@ -420,6 +420,56 @@ paragraph:
       type: select
       label: Margin Bottom
       tokens: spacingScale
+eyebrow:
+  groups:
+  - id: content
+    label: Content
+    fields:
+    - path: text
+      type: textarea
+      label: Text
+      rows: 2
+  - id: typography
+    label: Typography
+    fields:
+    - path: typography.size
+      type: select
+      label: Font Size
+      tokens: typographySizes
+    - path: typography.weight
+      type: select
+      label: Weight
+      tokens: fontWeights
+    - path: typography.transform
+      type: select
+      label: Transform
+      options:
+      - none
+      - uppercase
+      - lowercase
+      - capitalize
+    - path: typography.letterSpacing
+      type: select
+      label: Letter Spacing
+      tokens: letterSpacingMap
+    - path: typography.align
+      type: select
+      label: Alignment
+      tokens: alignmentHorizontal
+    - path: typography.color
+      type: color
+      label: Text Color
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.margin.top
+      type: select
+      label: Margin Top
+      tokens: spacingScale
+    - path: spacing.margin.bottom
+      type: select
+      label: Margin Bottom
+      tokens: spacingScale
 blockquote:
   groups:
   - id: content
@@ -989,3 +1039,4 @@ carousel:
     - path: slides
       type: custom
       renderer: carouselSlides
+
