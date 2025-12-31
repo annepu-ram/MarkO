@@ -1,0 +1,166 @@
+# Comprehensive test file including all components and nested structures.
+- name: page
+  properties:
+    background: { color: '#f0f4f8' }
+    layout:
+      padding: { top: sm, right: sm, bottom: sm, left: sm }
+    appearance:
+      border: { width: 2, style: solid, color: '#a0a0a0' } # Page border
+  components:
+    # Titlebar component at the top
+    - name: titlebar
+      properties:
+        branding: { showLogo: true, logoUrl: 'https://placehold.co/100x40/png', title: 'Component Test Suite' }
+        navigation:
+          links:
+            - { label: Home, href: '#' }
+            - { label: About, href: '#' }
+            - { label: Contact, href: '#' }
+
+    - name: br
+      properties: { size: lg }
+
+    # Hero Section
+    - name: image
+      properties:
+        source: { url: 'https://placehold.co/1200x400', altText: 'Hero Image' }
+        presentation: { height: '400px' }
+      components:
+        - name: layout-column
+          properties:
+            layout: { align: center }
+            spacing: { paddingBlock: xl }
+          components:
+            - name: heading
+              properties:
+                text: All The Components
+                level: 1
+                typography: { color: '#fff', size: xxxl, weight: bold }
+            - name: paragraph
+              properties:
+                text: "This page tests every component in the system."
+                typography: { color: '#fff', size: lg }
+            - name: button
+              properties: { text: Get Started }
+
+    - name: br
+      properties: { size: xl }
+
+    # Main Content Area (Layout Row with two columns)
+    - name: layout-row
+      properties:
+        layout: { align: start, gap: xl }
+        appearance:
+          border: { width: 1, style: dashed, color: '#dd6b20' }
+          padding: { block: md, inline: md }
+      components:
+        # Left Column (70%)
+        - name: layout-column
+          properties:
+            layout: { widthMode: 70, gap: lg }
+            appearance:
+              border: { width: 1, style: dotted, color: '#2b6cb0' }
+              padding: { block: md, inline: md }
+          components:
+            - name: heading
+              properties: { text: 'Tabs, Videos, and Blockquotes' }
+            - name: tabs
+              properties:
+                layout:
+                  orientation: horizontal
+                tabs:
+                  - title: Video
+                    components:
+                      - name: paragraph
+                        properties: { text: 'This tab contains a video.' }
+                      - name: video
+                        properties:
+                          source: { url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' }
+                  - title: Quote
+                    components:
+                      - name: blockquote
+                        properties:
+                          quote: "This is a blockquote inside a tab."
+                          cite: "A wise person"
+            - name: heading
+              properties: { text: 'A Carousel' }
+            - name: carousel
+              properties:
+                behavior:
+                  autoplay: true
+                  delay: 3000
+                slides:
+                  - components:
+                    - name: image
+                      properties: { source: { url: 'https://placehold.co/600x300/F4D03F/000000?text=Slide+1' } }
+                  - components:
+                    - name: image
+                      properties: { source: { url: 'https://placehold.co/600x300/1ABC9C/000000?text=Slide+2' } }
+
+        # Right Column (30%)
+        - name: layout-column
+          properties:
+            layout: { widthMode: 30, gap: lg }
+            appearance:
+              border: { width: 1, style: dotted, color: '#805ad5' }
+              padding: { block: md, inline: md }
+          components:
+            - name: heading
+              properties: { text: 'Accordion & GIF' }
+            - name: accordion
+              properties:
+                items:
+                  - title: An Animated GIF
+                    content: "This accordion item contains a GIF."
+                  - title: Some details
+                    content: "More details here."
+            - name: gif
+              properties:
+                source: { url: 'https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif' }
+
+    - name: br
+      properties: { size: xl }
+
+    # Form Section
+    - name: form
+      properties:
+        layout: { direction: column, gap: md }
+        submit: { show: true, buttonText: 'Submit All The Things' }
+        appearance:
+          border: { width: 1, style: dashed, color: '#800080' }
+          padding: { block: lg, inline: lg }
+          background: { color: '#ffffff' }
+      components:
+        - name: heading
+          properties: { text: 'A Complete Form' }
+        - name: textbox
+          properties: { label: { show: true, text: 'Textbox' }, field: { placeholder: 'Text goes here' } }
+        - name: textarea
+          properties: { label: { show: true, text: 'Textarea' }, field: { placeholder: 'Longer text goes here' } }
+        - name: dropdown
+          properties: { label: { show: true, text: 'Dropdown' }, field: { options: "Option 1\nOption 2\nOption 3" } }
+        - name: checkbox
+          properties: { label: { show: true, text: 'Checkbox' }, field: { text: 'I agree', checked: true } }
+        - name: radio
+          properties: { label: { show: true, text: 'Radio Buttons' }, field: { text: 'Choose me', groupName: 'rad', value: '1' } }
+        - name: radio
+          properties: { field: { text: 'No, choose me', groupName: 'rad', value: '2' } }
+        - name: calendar
+          properties: {}
+
+    # Footer section
+    - name: layout-row
+      properties:
+        layout: { align: center, gap: xl }
+        spacing: { paddingBlock: xl }
+        appearance:
+          background: { color: '#2d3748' }
+      components:
+        - name: paragraph
+          properties: { text: 'Footer content', typography: { color: '#ffffff' } }
+        - name: hamburger
+          properties:
+            label: Footer Menu
+            links:
+              - { label: Privacy, href: '#' }
+              - { label: Terms, href: '#' }

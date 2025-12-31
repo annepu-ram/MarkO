@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Builder - SSR (Python)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+</head>
+<body>
+    <div id="svgSpriteRoot" hidden></div>
+    <!-- Main application container -->
+    <div id="appContainer" class="app-container">
+        <!-- Sidebar for components and properties -->
+        <div class="sidebar">
+            <!-- Vertical Navigation Bar -->
+            <nav class="sidebar-nav" role="tablist" aria-label="Sidebar navigation">
+                <button id="componentsNavBtn" class="sidebar-nav-item active" type="button" role="tab" aria-selected="true" data-target="componentsPanel" aria-controls="componentsPanel" title="Components">
+                    <svg class="sidebar-nav-icon" aria-hidden="true"><use href="#icon-grid"></use></svg>
+                    <span class="sidebar-nav-label">Components</span>
+                </button>
+                <button id="propertiesNavBtn" class="sidebar-nav-item" type="button" role="tab" aria-selected="false" data-target="propertiesPanel" aria-controls="propertiesPanel" title="Properties">
+                    <svg class="sidebar-nav-icon" aria-hidden="true"><use href="#icon-settings"></use></svg>
+                    <span class="sidebar-nav-label">Properties</span>
+                </button>
+            </nav>
+
+            <!-- Panel Container -->
+            <div class="sidebar-panels-container">
+                <!-- Components Section -->
+                <div id="componentsPanel" class="components-section sidebar-panel active" role="tabpanel" aria-labelledby="componentsNavBtn" aria-hidden="false">
+                    <div class="component-groups">
+                        </div>
+                </div>
+                <!-- Properties Section -->
+                <div id="propertiesPanel" class="properties-section sidebar-panel" role="tabpanel" aria-labelledby="propertiesNavBtn" aria-hidden="true">
+                    <div id="propertiesContent">
+                        <p class="properties-empty-state">
+                            Select a component in the preview to edit its properties.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Resizer Handle -->
+        <div class="sidebar-resizer" id="sidebarResizer">&#124;</div>
+
+        <!-- Main content area for the code editor and preview -->
+        <div class="main-canvas">
+            <div class="canvas-header">
+                <h2>SSR Edition</h2>
+                <!-- Action buttons -->
+                <div>
+                    <button id="clearBtn" class="btn btn-secondary"><svg class="icon" aria-hidden="true"><use href="#icon-clear-canvas"></use></svg></button>
+                    <button id="fullscreenBtn" class="btn btn-fullscreen"><svg class="icon icon-maximize" aria-hidden="true"><use href="#icon-maximize"></use></svg></button>
+                    <button id="exportBtn" class="btn"><svg class="icon icon-download" aria-hidden="true"><use href="#icon-download"></use></svg></button>
+                    <button id="helpBtn" class="btn btn-help"><svg class="icon icon-help-circle" aria-hidden="true"><use href="#icon-help-circle"></use></svg></button>
+                </div>
+            </div>
+            <div class="canvas-content">
+                <!-- YAML editor -->
+                <textarea id="codeEditor" class="code-editor" placeholder="Enter YAML..."></textarea>
+                <!-- Draggable Separator -->
+                <div class="resizer" id="resizer">&mdash;&mdash;&mdash;</div>
+                <!-- Preview area -->
+                <div id="preview" class="preview-area">
+                    <div class="preview-placeholder">
+                        <h3>Live Preview</h3>
+                        <p>Your rendered HTML will appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load js-yaml for YAML parsing on client side -->
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script>
+        // Make js-yaml available globally
+        window.jsyaml = jsyaml;
+    </script>
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

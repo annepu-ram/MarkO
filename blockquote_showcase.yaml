@@ -1,0 +1,226 @@
+# Blockquote Component Showcase - Enhanced Styling
+
+- name: page
+  properties:
+    background: { color: '#ffffff' }
+    layout:
+      padding: { top: lg, right: md, bottom: lg, left: md }
+  components:
+    - name: heading
+      properties:
+        text: Blockquote Component Showcase
+        level: 1
+        typography: { size: xxxl, weight: bold, color: '#111827' }
+        spacing: { marginBlock: lg }
+    
+    - name: paragraph
+      properties:
+        text: Demonstrating the enhanced blockquote styling with decorative quotation marks and customizable accent borders.
+        typography: { size: md, color: '#6b7280' }
+        spacing: { marginBlock: md }
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Default Blue Blockquote
+    - name: heading
+      properties:
+        text: 1. Default Blue Accent
+        level: 2
+        typography: { size: xl, weight: semibold, color: '#374151' }
+        spacing: { marginBlock: md }
+    
+    - name: blockquote
+      properties:
+        quote: |
+          Design is intelligence made visible.
+          It's not just what it looks like and feels like.
+          Design is how it works.
+        cite: Steve Jobs
+        typography: { size: lg, lineHeight: 1.6, weight: medium, align: left, color: '#1f2937' }
+        spacing: { marginBlock: lg }
+        appearance:
+          border: { accentColor: '#3b82f6' }
+          background: { color: '#f9fafb' }
+          padding: { block: md, inline: md }
+        layout: { widthMode: stretch }
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Green Success Blockquote
+    - name: heading
+      properties:
+        text: 2. Green Success Theme
+        level: 2
+        typography: { size: xl, weight: semibold, color: '#374151' }
+        spacing: { marginBlock: md }
+    
+    - name: blockquote
+      properties:
+        quote: This tool transformed how we build websites. The flexibility and ease of use is truly remarkable.
+        cite: Sarah Chen, Lead Designer
+        typography: { size: md, lineHeight: 1.6, weight: medium, align: left, color: '#1f2937' }
+        spacing: { marginBlock: lg }
+        appearance:
+          border: { accentColor: '#10b981' }
+          background: { color: '#f0fdf4' }
+          padding: { block: md, inline: md }
+        layout: { widthMode: stretch }
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Purple Creative Blockquote
+    - name: heading
+      properties:
+        text: 3. Purple Creative Theme
+        level: 2
+        typography: { size: xl, weight: semibold, color: '#374151' }
+        spacing: { marginBlock: md }
+    
+    - name: blockquote
+      properties:
+        quote: Creativity is intelligence having fun.
+        cite: Albert Einstein
+        typography: { size: xl, lineHeight: 1.6, weight: semibold, align: center, color: '#1f2937' }
+        spacing: { marginBlock: lg }
+        appearance:
+          border: { accentColor: '#8b5cf6' }
+          background: { color: '#faf5ff' }
+          padding: { block: xl, inline: lg }
+        layout: { widthMode: stretch }
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Amber Warning Blockquote
+    - name: heading
+      properties:
+        text: 4. Amber Attention Theme
+        level: 2
+        typography: { size: xl, weight: semibold, color: '#374151' }
+        spacing: { marginBlock: md }
+    
+    - name: blockquote
+      properties:
+        quote: |
+          Simplicity is the ultimate sophistication.
+          
+          When you first start off trying to solve a problem, the first solutions you come up with are very complex. But if you keep going, you can often arrive at some very elegant and simple solutions.
+        cite: Leonardo da Vinci
+        typography: { size: md, lineHeight: 1.6, weight: medium, align: left, color: '#78350f' }
+        spacing: { marginBlock: lg }
+        appearance:
+          border: { accentColor: '#f59e0b' }
+          background: { color: '#fffbeb' }
+          padding: { block: lg, inline: lg }
+        layout: { widthMode: stretch }
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Indigo Professional Blockquote
+    - name: heading
+      properties:
+        text: 5. Indigo Professional Theme
+        level: 2
+        typography: { size: xl, weight: semibold, color: '#374151' }
+        spacing: { marginBlock: md }
+    
+    - name: blockquote
+      properties:
+        quote: The best way to predict the future is to invent it.
+        cite: Alan Kay
+        typography: { size: lg, lineHeight: 1.6, weight: medium, align: left, color: '#1e1b4b' }
+        spacing: { marginBlock: lg }
+        appearance:
+          border: { accentColor: '#6366f1' }
+          background: { color: '#eef2ff' }
+          padding: { block: md, inline: md }
+        layout: { widthMode: stretch }
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Red Passionate Blockquote (Fit Width)
+    - name: heading
+      properties:
+        text: 6. Red Passionate Theme (Fit Width)
+        level: 2
+        typography: { size: xl, weight: semibold, color: '#374151' }
+        spacing: { marginBlock: md }
+    
+    - name: blockquote
+      properties:
+        quote: Be bold, be courageous, be your best.
+        cite: Gabrielle Giffords
+        typography: { size: lg, lineHeight: 1.6, weight: bold, align: center, color: '#7f1d1d' }
+        spacing: { marginBlock: lg }
+        appearance:
+          border: { accentColor: '#ef4444' }
+          background: { color: '#fef2f2' }
+          padding: { block: lg, inline: xl }
+        layout: { widthMode: fit }
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Cyan Fresh Blockquote
+    - name: heading
+      properties:
+        text: 7. Cyan Fresh Theme
+        level: 2
+        typography: { size: xl, weight: semibold, color: '#374151' }
+        spacing: { marginBlock: md }
+    
+    - name: blockquote
+      properties:
+        quote: Innovation distinguishes between a leader and a follower.
+        cite: Steve Jobs
+        typography: { size: md, lineHeight: 1.6, weight: medium, align: left, color: '#164e63' }
+        spacing: { marginBlock: lg }
+        appearance:
+          border: { accentColor: '#06b6d4' }
+          background: { color: '#ecfeff' }
+          padding: { block: md, inline: md }
+        layout: { widthMode: stretch }
+    
+    - name: br
+      properties: { size: xl }
+    
+    # Comparison Section
+    - name: heading
+      properties:
+        text: Width Mode Comparison
+        level: 2
+        typography: { size: xl, weight: semibold, color: '#374151' }
+        spacing: { marginBlock: md }
+    
+    - name: layout-row
+      properties:
+        layout: { align: start, gap: lg, wrap: wrap }
+        spacing: { paddingBlock: md }
+      components:
+        - name: blockquote
+          properties:
+            quote: Stretch mode takes full width
+            cite: Default behavior
+            typography: { size: sm, weight: medium, color: '#1f2937' }
+            appearance:
+              border: { accentColor: '#3b82f6' }
+              background: { color: '#f9fafb' }
+              padding: { block: sm, inline: sm }
+            layout: { widthMode: stretch }
+        
+        - name: blockquote
+          properties:
+            quote: Fit mode adjusts to content
+            cite: Compact
+            typography: { size: sm, weight: medium, color: '#1f2937' }
+            appearance:
+              border: { accentColor: '#10b981' }
+              background: { color: '#f0fdf4' }
+              padding: { block: sm, inline: sm }
+            layout: { widthMode: fit }
+
