@@ -108,6 +108,19 @@ const resolvePropertyValue = (component, pathSegments, defaults, target = 'prope
     }
     const props = component.properties || {};
     const value = getNestedValue(props, pathSegments);
+
+    // Debug logging
+    if (pathSegments[0] === 'items' && component.name === 'accordion') {
+        console.log('[resolvePropertyValue] Accordion items:', {
+            pathSegments,
+            target,
+            'component.properties': component.properties,
+            'props': props,
+            'value from props': value,
+            'defaults value': getNestedValue(defaults, pathSegments)
+        });
+    }
+
     if (value !== undefined) {
         return value;
     }
@@ -146,7 +159,17 @@ const resolveDefaultValue = (defaults, pathSegments, target = 'properties') => {
 const determineFieldTarget = (field, component) => {
     if (field.type === 'custom') {
         if (!field.path.includes('.')) {
-            return 'component';
+            // Check if property exists in component.properties first
+            const props = component.properties || {};
+            if (props[field.path] !== undefined) {
+                return 'properties';
+            }
+            // Otherwise check component level
+            if (component[field.path] !== undefined) {
+                return 'component';
+            }
+            // Default to properties for custom fields without dots
+            return 'properties';
         }
         return 'properties';
     }
@@ -284,7 +307,7 @@ const renderCheckbox = ({ field, value, fieldId }) => {
 
 /**
  * @function renderColorInput
- * @description Renders an HTML text input element specifically for color values.
+ * @description Renders native HTML5 color picker for RGB values (no alpha).
  * @param {object} options - Options for rendering the color input.
  * @param {object} options.field - The field definition.
  * @param {string} options.value - The current color value.
@@ -298,9 +321,61 @@ const renderColorInput = ({ field, value, fieldId }) => {
     input.type = 'color';
     input.id = fieldId;
     input.className = baseInputClass;
-    input.value = value || '';
-    input.placeholder = field.placeholder || '#RRGGBB or CSS value';
+
+    // Ensure value is in hex format for color picker
+    let hexValue = value || '#000000';
+    if (hexValue.startsWith('rgba')) {
+        // Convert rgba to hex (extract RGB only, ignore alpha)
+        const matches = hexValue.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (matches) {
+            const r = parseInt(matches[1]).toString(16).padStart(2, '0');
+            const g = parseInt(matches[2]).toString(16).padStart(2, '0');
+            const b = parseInt(matches[3]).toString(16).padStart(2, '0');
+            hexValue = `#${r}${g}${b}`;
+        }
+    }
+
+    input.value = hexValue;
     return input;
+};
+
+/**
+ * @function renderRangeInput
+ * @description Renders a range slider with live value display for transparency/opacity.
+ * @param {object} options - Options for rendering the range input.
+ * @param {object} options.field - The field definition.
+ * @param {number} options.value - The current value.
+ * @param {string} options.fieldId - The ID for the input element.
+ * @returns {HTMLElement} Container with slider and value display.
+ * @calledBy {renderPropertiesPanel}
+ * @calls {document.createElement}
+ */
+const renderRangeInput = ({ field, value, fieldId }) => {
+    const container = document.createElement('div');
+    container.className = 'range-input-container';
+
+    const slider = document.createElement('input');
+    slider.type = 'range';
+    slider.id = fieldId;
+    slider.className = baseInputClass + ' range-slider';
+    slider.min = field.min !== undefined ? field.min : 0;
+    slider.max = field.max !== undefined ? field.max : 100;
+    slider.value = value !== undefined ? value : (field.default !== undefined ? field.default : 100);
+
+    const valueDisplay = document.createElement('span');
+    valueDisplay.className = 'range-value';
+    valueDisplay.textContent = `${slider.value}${field.unit || ''}`;
+
+    slider.addEventListener('input', (e) => {
+        valueDisplay.textContent = `${e.target.value}${field.unit || ''}`;
+    });
+
+    container.appendChild(slider);
+    container.appendChild(valueDisplay);
+
+    // Return the slider element as the control, but wrapped in container
+    container.controlElement = slider;
+    return container;
 };
 
 /**
@@ -349,6 +424,14 @@ export function renderPropertiesPanel(component, componentId, path) {
         return;
     }
 
+    // Debug logging for accordion
+    if (component.name === 'accordion') {
+        console.log('[renderPropertiesPanel] Accordion component:', {
+            component: JSON.parse(JSON.stringify(component)),
+            path
+        });
+    }
+
     const schema = getComponentSchema(component.name);
     if (!schema) {
         propertiesContent.innerHTML = '<p style="color: #b91c1c; font-size: 1.2rem; text-align: center; padding: 2rem 0;">No schema available for this component yet.</p>';
@@ -384,6 +467,11 @@ export function renderPropertiesPanel(component, componentId, path) {
 
                 let renderedEditor = null;
                 if (renderer && typeof renderer.render === 'function') {
+                    console.log(`[Properties Panel] Rendering custom field "${field.path}" for ${component.name}:`, {
+                        currentValue,
+                        target,
+                        renderer: field.renderer
+                    });
                     renderedEditor = renderer.render({ value: currentValue, field, component });
                 }
 
@@ -439,12 +527,17 @@ export function renderPropertiesPanel(component, componentId, path) {
                 case 'color':
                     control = renderColorInput({ field, value: currentValue, fieldId });
                     break;
+                case 'range':
+                    control = renderRangeInput({ field, value: currentValue, fieldId });
+                    break;
                 default:
                     control = renderTextInput({ field, value: currentValue, fieldId, type: 'text' });
                     break;
             }
-            control.dataset.fieldPath = field.path;
-            control.dataset.fieldType = field.type;
+            // For range inputs, the actual control is nested inside the container
+            const actualControl = control.controlElement || control;
+            actualControl.dataset.fieldPath = field.path;
+            actualControl.dataset.fieldType = field.type;
             wrapper.appendChild(control);
             groupEl.appendChild(wrapper);
             activeFieldMeta.set(field.path, {
@@ -510,7 +603,8 @@ export function applyPropertiesForComponent({ componentId, path, structure }) {
     }
     const defaults = getTemplateDefaults(activeComponentName);
     const updatedComponent = deepClone(component);
-    updatedComponent.properties = deepClone(component.properties || {});
+    // Merge defaults first, before applying user changes
+    updatedComponent.properties = deepMerge({}, defaults, component.properties || {});
 
     activeFieldMeta.forEach((meta, fieldPath) => {
         const control = propertiesContent.querySelector(`[data-field-path="${fieldPath}"]`);
@@ -555,7 +649,8 @@ export function applyPropertiesForComponent({ componentId, path, structure }) {
         setNestedValue(destination, pathSegments, normalizedValue);
     });
 
-    updatedComponent.properties = deepMerge({}, defaults, updatedComponent.properties || {});
+    // Don't re-merge defaults here - we already merged them before applying user changes
+    // This prevents custom editor values from being overwritten by defaults
 
     const updatedStructure = updateComponentByPath(structure, path, updatedComponent);
 

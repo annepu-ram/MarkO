@@ -1228,6 +1228,50 @@ pathMapBuilder.buildPathMap(previewElement, yamlStructure);
 - `generateYamlFromStructure(structure)` — Converts structure to YAML string
 - `updateYamlEditor(yamlText)` — Updates editor without triggering auto-render
 
+#### **`ssr_python/static/js/historyManager.js`**
+
+**Purpose:** Manages undo/redo history for the YAML editor.
+
+**Architecture:**
+- Maintains two stacks: `undoStack` (previous states) and `redoStack` (undone states)
+- Maximum stack size of 50 states to prevent memory issues
+- Automatically clears redo stack when new changes are made
+
+**Key Methods:**
+- `push(yamlContent)` — Saves current YAML state to history
+- `canUndo()` — Returns true if undo is possible
+- `canRedo()` — Returns true if redo is possible
+- `undo()` — Returns previous YAML state and updates stacks
+- `redo()` — Returns next YAML state and updates stacks
+- `clear()` — Clears all history (used when clearing canvas)
+
+**How It Works:**
+
+1. **Pushing History:**
+   - Called when editor content changes (`handleEditorInput`)
+   - Called when properties are applied (`applySelectedComponentProperties`)
+   - Skips if content is identical to last state
+   - Clears redo stack to prevent invalid forward states
+
+2. **Undo Operation (Ctrl+Z):**
+   - Pops current state from undo stack → pushes to redo stack
+   - Returns previous state from undo stack
+   - Updates editor and re-renders without pushing new history
+
+3. **Redo Operation (Ctrl+Y):**
+   - Pops state from redo stack → pushes to undo stack
+   - Returns next state
+   - Updates editor and re-renders without pushing new history
+
+**Keyboard Shortcuts:**
+- **Ctrl+Z** — Undo last change
+- **Ctrl+Y** — Redo last undone change
+
+**Integration Points:**
+- **main.js**: Imports `historyManager` and integrates with actions
+- **events.js**: Sets up keyboard shortcuts (Ctrl+Z, Ctrl+Y)
+- **Initial State**: Editor content is pushed to history on app initialization
+
 ---
 
 ### Flask API Endpoints
@@ -1362,6 +1406,7 @@ Selection highlighting uses existing CSS classes:
 | **YAML Parsing** | Client-side (js-yaml) | Client-side (js-yaml) + Server-side (PyYAML) |
 | **Properties Application** | Updates state directly | Updates YAML editor, triggers re-render |
 | **Selection Persistence** | Via state management | Via selection manager + path map |
+| **Undo/Redo** | ✅ Full support (state.js) | ✅ Full support (historyManager.js) |
 
 ---
 
@@ -1391,3 +1436,231 @@ Selection highlighting uses existing CSS classes:
 ---
 
 **SSR Component Selection Implementation Complete** ✅
+
+---
+
+## Component Styling Architecture: Inline Styles vs CSS Variables
+
+This section documents which component properties are configured using inline styles (via `build_styles()`) versus CSS variables (via `vars.append()`). This is critical for understanding how to add new properties or modify existing ones.
+
+### Components Using CSS Variables
+
+These components generate CSS variables that are consumed by `components.css`:
+
+#### **1. Tabs Component**
+**CSS Variables Generated:**
+- `--tabs-gap` - Layout gap between tabs
+- `--tabs-margin-block` - Vertical margin
+- `--tabs-margin-inline` - Horizontal margin
+- `--tabs-label-font-size` - Tab label font size
+- `--tabs-label-font-weight` - Tab label font weight
+- `--tabs-label-color-inactive` - Inactive tab text color
+- `--tabs-label-color-active` - Active tab text color
+- `--tabs-active-color` - Active tab color (alias)
+- `--tabs-label-bg-active` - Active tab background
+- `--tabs-label-bg-inactive` - Inactive tab background
+- `--tabs-active-bg` - Active tab background (alias)
+- `--tabs-border-width` - Tab border width
+- `--tabs-border-style` - Tab border style (solid/dashed/none)
+- `--tabs-content-bg` - Tab content background
+- `--tabs-content-border-width` - Content border width
+- `--tabs-content-border-style` - Content border style
+- `--tabs-content-border-color` - Content border color
+- `--tabs-content-padding-block` - Content vertical padding
+- `--tabs-content-padding-inline` - Content horizontal padding
+
+**Macro:** `build_tabs_vars()` in `_components.html`
+**Properties:** `spacing`, `layout.gap`, `typography.label`, `appearance.tab`, `appearance.content`
+
+#### **2. Accordion Component**
+**CSS Variables Generated:**
+- `--accordion-gap` - Gap between accordion items
+- `--accordion-margin-block` - Vertical margin
+- `--accordion-margin-inline` - Horizontal margin
+- `--accordion-border-radius` - Border radius
+- `--accordion-title-font-size` - Title font size
+- `--accordion-title-font-weight` - Title font weight
+- `--accordion-title-color` - Title text color
+- `--accordion-title-bg` - Title background color
+- `--accordion-title-padding-block` - Title vertical padding
+- `--accordion-title-padding-inline` - Title horizontal padding
+- `--accordion-border-width` - Border width
+- `--accordion-border-style` - Border style (solid/dashed/none)
+- `--accordion-border-color` - Border color
+- `--accordion-content-font-size` - Content font size
+- `--accordion-content-font-weight` - Content font weight
+- `--accordion-content-color` - Content text color
+- `--accordion-content-bg` - Content background color
+- `--accordion-content-padding-block` - Content vertical padding
+- `--accordion-content-padding-inline` - Content horizontal padding
+
+**Macro:** `build_accordion_vars()` in `_components.html`
+**Properties:** `spacing`, `typography.title`, `typography.content`, `appearance`
+
+#### **3. Titlebar Component**
+**CSS Variables Generated:**
+- `--base-height` - Header height (from `layout.height`)
+- `--title-font-size` - Title font size (from `typography.title.size`)
+- `--title-font-weight` - Title font weight (from `typography.title.weight`)
+- `--titlebar-title-color` - Title text color (from `typography.title.color`)
+- `--menu-font-size` - Link font size (from `typography.menu.size`)
+- `--menu-font-weight` - Link font weight (from `typography.menu.weight`)
+- `--titlebar-link-color` - Link text color (from `typography.menu.color`)
+- `--titlebar-link-hover-bg` - Link hover background (from `appearance.focus.background`)
+- `--titlebar-link-hover-color` - Link hover color (from `appearance.focus.color`)
+
+**Macro:** `render_titlebar()` generates CSS variables inline
+**Properties:** `layout.height`, `typography.title`, `typography.menu`, `appearance.focus`
+
+**Note:** Titlebar also uses `build_styles()` for container-level styles (background, border, spacing).
+
+#### **4. Blockquote Component** (Partial CSS Variable)
+**CSS Variables Generated:**
+- `--blockquote-border` - Accent border color (from `appearance.border.accentColor`)
+
+**Macro:** `render_text_component()` generates this variable inline for blockquote
+**Properties:** `appearance.border.accentColor`
+
+**Note:** Blockquote also uses `build_styles()` for other properties.
+
+---
+
+### Components Using Inline Styles Only
+
+These components use `build_styles()` to generate inline styles directly on the element:
+
+#### **1. Page Component**
+**Inline Styles:** All properties via `build_styles(component, tokens, part='outer')`
+**Properties:** `layout`, `spacing`, `appearance` (background, border, radius, shadow, padding)
+
+#### **2. Layout Row Component**
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `layout`, `spacing`, `appearance`
+
+#### **3. Layout Column Component**
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `layout`, `spacing`, `appearance`
+
+#### **4. Columnsgrid Component**
+**Inline Styles:** All properties via `build_styles()`
+**CSS Variables Generated:** `--cols`, `--cols-md`, `--cols-sm` (for grid columns)
+**Properties:** `layout.columns`, `layout.gap`, `responsive.breakpoints`, `spacing`, `appearance`
+
+#### **5. Form Component**
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `layout`, `spacing`, `appearance`
+
+#### **6. Text Components** (heading, paragraph, eyebrow, caption, blockquote, link)
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `typography` (size, weight, color, alignment, line-height, transform), `spacing`, `appearance`, `layout.widthMode`
+
+**Special Cases:**
+- **Blockquote:** Also generates `--blockquote-border` CSS variable for accent color
+- **Link:** Uses wrapper div with inline styles, anchor tag has separate underline styles
+
+#### **7. Image Component**
+**Inline Styles:** All properties via `build_styles()`
+**Additional Inline:** `height` from `presentation.height`, `object-fit` from `presentation.fit`
+**Properties:** `layout.widthMode`, `spacing`, `appearance`, `presentation`
+
+#### **8. Video Component**
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `layout.widthMode`, `spacing`, `appearance`, `presentation`
+
+#### **9. GIF Component**
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `layout.widthMode`, `spacing`, `appearance`, `presentation`
+
+#### **10. Button Component**
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `typography`, `spacing`, `appearance`, `layout`
+
+#### **11. Carousel Component**
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `layout`, `spacing`, `appearance`
+
+#### **12. Hamburger Component**
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `layout`, `spacing`, `appearance`
+
+#### **13. Form Input Components** (textbox, textarea, dropdown, checkbox, radio, calendar)
+**Inline Styles:** All properties via `build_styles()`
+**Properties:** `layout`, `spacing`, `appearance`, `label`, `field`
+
+---
+
+### Properties Handled by `build_styles()` Macro
+
+The `build_styles()` macro generates inline styles for these property categories:
+
+#### **Layout Properties:**
+- `display: flex` / `flex-direction` (row/column)
+- `align-items`
+- `gap` (from tokens)
+- `flex-wrap`
+- `--cols`, `--cols-md`, `--cols-sm` (for columnsgrid)
+
+#### **Spacing Properties:**
+- `margin-block` (from tokens)
+- `margin-inline` (from tokens)
+- `padding-block` (from tokens)
+- `padding-inline` (from tokens)
+- `padding-top`, `padding-right`, `padding-bottom`, `padding-left` (individual)
+
+#### **Appearance Properties:**
+- `background-color` (with transparency conversion)
+- `border` (width, style, color) - handles `none` style
+- `border-radius` (from tokens)
+- `box-shadow`
+
+#### **Typography Properties:**
+- `font-size` (from tokens)
+- `font-weight` (from tokens)
+- `color`
+- `text-align`
+- `line-height`
+- `text-transform`
+
+#### **Width Mode Properties** (for text components and images):
+- `display: inline-block`
+- `box-sizing: border-box`
+- `width` and `flex` properties based on `widthMode` (fit/25/50/75/stretch)
+
+---
+
+### Decision Guidelines: When to Use CSS Variables vs Inline Styles
+
+**Use CSS Variables When:**
+1. Component has nested elements that need different styling (e.g., tabs have labels and content)
+2. Component needs dynamic styling based on state (e.g., active/inactive tabs)
+3. Component has complex sub-parts (e.g., accordion title vs content)
+4. CSS needs to reference values in calculations (e.g., `calc(var(--base-height) * 0.5)`)
+5. Component has hover/focus states that need different colors
+
+**Use Inline Styles When:**
+1. Component is a simple single element
+2. All styles apply directly to the component element
+3. No nested elements need different styling
+4. No state-based styling needed
+5. Simpler implementation is preferred
+
+**Hybrid Approach:**
+- Some components use both (e.g., titlebar uses inline styles for container and CSS variables for nested elements)
+- Blockquote uses inline styles for most properties but CSS variable for accent border color
+
+---
+
+### Adding New Properties
+
+When adding a new property to a component:
+
+1. **Check existing pattern:** Look at similar components to see if they use CSS variables or inline styles
+2. **For CSS Variables:** Add variable generation in the component macro (or `build_tabs_vars()` / `build_accordion_vars()`)
+3. **For Inline Styles:** Add property handling in `build_styles()` macro
+4. **Update CSS:** Add CSS variable usage in `components.css` if using CSS variables
+5. **Update Defaults:** Add default value in `component_defaults.yaml`
+6. **Update Schema:** Add field definition in `component_schemas.yaml`
+
+---
+
+**Last Updated:** December 2024

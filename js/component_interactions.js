@@ -1,6 +1,7 @@
 export const componentInitializers = {
     carousel: initializeCarousel,
     titlebar: initializeTitlebar,
+    accordion: initializeAccordion,
 };
 
 let titlebarScrollHandlerAttached = false;
@@ -177,3 +178,25 @@ export function initializeTitlebar(titlebarElement, props = {}) {
     handleTitlebarScroll();
 }
 
+export function initializeAccordion(accordionContainer, props = {}) {
+    if (!accordionContainer) return;
+
+    const allowMultiple = accordionContainer.dataset.allowMultiple === 'true';
+
+    if (!allowMultiple) {
+        const details = accordionContainer.querySelectorAll('details.accordion');
+
+        details.forEach(detail => {
+            detail.addEventListener('toggle', () => {
+                if (detail.open) {
+                    // Close other accordions when one opens
+                    details.forEach(other => {
+                        if (other !== detail && other.open) {
+                            other.open = false;
+                        }
+                    });
+                }
+            });
+        });
+    }
+}

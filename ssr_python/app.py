@@ -5,6 +5,28 @@ import os
 
 app = Flask(__name__)
 
+# Add custom Jinja2 filter for transparency to hex alpha conversion
+@app.template_filter('transparency_to_hex')
+def transparency_to_hex(transparency):
+    """
+    Convert transparency (0-100) to hex alpha (00-ff)
+    0 = fully transparent (00)
+    100 = fully opaque (ff)
+    """
+    if transparency is None:
+        return 'ff'  # Default to fully opaque
+    
+    try:
+        trans_int = int(transparency)
+        # Clamp to 0-100
+        trans_int = max(0, min(100, trans_int))
+        # Convert to 0-255 range
+        alpha = int(trans_int * 255 / 100)
+        # Convert to hex (00-ff)
+        return format(alpha, '02x')
+    except (ValueError, TypeError):
+        return 'ff'  # Default to fully opaque on error
+
 # Get the directory where this app.py file is located
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # Get the parent directory (project root) for component schemas/defaults
@@ -21,6 +43,18 @@ if os.path.exists(tokens_path):
     print(f"Tokens keys: {TOKENS.keys() if TOKENS else 'None'}")
 else:
     print(f"Warning: tokens.yaml not found at {tokens_path}")
+
+# Load component defaults from component_defaults.yaml
+COMPONENT_DEFAULTS = {}
+defaults_path = os.path.join(PROJECT_ROOT, 'component_defaults.yaml')
+
+if os.path.exists(defaults_path):
+    with open(defaults_path, 'r') as f:
+        COMPONENT_DEFAULTS = yaml.safe_load(f)
+    print(f"Loaded component defaults from {defaults_path}")
+    print(f"Available components: {list(COMPONENT_DEFAULTS.keys()) if COMPONENT_DEFAULTS else 'None'}")
+else:
+    print(f"Warning: component_defaults.yaml not found at {defaults_path}")
 
 # API endpoints for component metadata
 @app.route('/api/schemas')
@@ -63,8 +97,8 @@ def render_from_yaml():
         yaml_data = request.get_data(as_text=True)
         # Safely parse the YAML
         structure = yaml.safe_load(yaml_data)
-        # Render the structure to HTML, passing the tokens to the template
-        html_content = render_yaml_structure(structure, tokens=TOKENS)
+        # Render the structure to HTML, passing tokens and defaults
+        html_content = render_yaml_structure(structure, tokens=TOKENS, defaults=COMPONENT_DEFAULTS)
         return html_content
     except yaml.YAMLError as e:
         # Provide a more descriptive error with line and column numbers

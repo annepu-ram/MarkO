@@ -15,6 +15,9 @@ export function initializeEvents(dom, actions) {
         resizer,
         sidebar,
         sidebarResizer,
+        sidebarNavItems,
+        sidebarPanels,
+        propertiesPanel,
     } = dom;
 
     if (editor) {
@@ -61,6 +64,31 @@ export function initializeEvents(dom, actions) {
         });
     }
 
+    if (Array.isArray(sidebarNavItems) && sidebarNavItems.length > 0 && Array.isArray(sidebarPanels) && sidebarPanels.length > 0) {
+        const activateNavItem = targetId => {
+            sidebarNavItems.forEach(navItem => {
+                const isActive = navItem.dataset.target === targetId;
+                navItem.classList.toggle('active', isActive);
+                navItem.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            sidebarPanels.forEach(panel => {
+                const isActive = panel.id === targetId;
+                panel.classList.toggle('active', isActive);
+                panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+            });
+        };
+
+        sidebarNavItems.forEach(navItem => {
+            navItem.addEventListener('click', () => {
+                const targetId = navItem.dataset.target;
+                if (targetId) {
+                    activateNavItem(targetId);
+                }
+            });
+        });
+    }
+
     if (resizer && editor) {
         initializeResizer(resizer, editor);
     }
@@ -69,7 +97,6 @@ export function initializeEvents(dom, actions) {
         initializeSidebarResizer(sidebarResizer, sidebar);
     }
 
-    const propertiesPanel = document.getElementById('propertiesPanel');
     if (propertiesPanel) {
         propertiesPanel.addEventListener('click', event => {
             if (event.target.classList.contains('properties-apply-button')) {
@@ -162,7 +189,7 @@ function initializeSidebarResizer(sidebarResizer, sidebar) {
     let initialX;
     let initialWidth;
 
-    const minWidth = 150; // Minimum width for the sidebar
+    const minWidth = 250; // Minimum width for the sidebar
     const maxWidth = 500;  // Maximum width for the sidebar
 
     const appContainer = document.getElementById('appContainer');

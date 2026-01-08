@@ -1,28 +1,10 @@
 :root {
-    --primary-color: #edeeff;
-    --secondary-color: #181c28;
-    --sidebar-bg: #d8e3ff;
-    --gradient-primary-start: #ced0ff;
-    --gradient-primary-end: #d8e3ff;
-    --accent-color-light: #7390ef;
-    --accent-color-lighter: #d8e3ff;
-    --success-color: #10b981;
-    --danger-color: #ef4444;
-    --danger-color-dark: #dc2626;
-    --text-color-dark: #333;
-    --text-color-medium: #555;
-    --text-color-light: #666;
-    --text-color-lighter: #9ca3af;
-    --editor-bg: #404A6B;
-    --editor-text: #F6F6F6;
-    --white: #fff;
-    --black: #000;
-    --border-color: #7796CB;
-    --shadow-color-light: #A3BCF9;
-    --shadow-color-dark: #7796CB;
-    --shadow-color-component: #404A6B;
-    --modal-bg: rgba(0, 0, 0, 0.9);
-    --scrollbar-track-bg: #edeeff;
+    --color-base: #f3fbff;
+    --color-primary: #004173;
+    --color-secondary: #00e397;
+    --color-neutral: color-mix(in srgb, var(--color-primary) 30%, var(--color-base) 70%);
+    --color-danger: #ef4444;
+    --color-success: #10b981;
 }
 
 html {
@@ -39,11 +21,35 @@ html {
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--primary-color);
+    background: var(--color-base);
     height: 100%;
     width: 100%;
     overflow: hidden;
     font-size: 1.6rem; /* Base font size for rem units */
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icon.icon-brand {
+    color: var(--color-primary);
+}
+
+.icon-title {
+    width: 3rem;
+    height: 3rem;
+    stroke: var(--color-secondary);
+    fill: none;
+    stroke-width: 2;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .app-container {
@@ -57,15 +63,113 @@ body {
     grid-template-columns: var(--sidebar-width, 250px) 8px 1fr 350px; /* sidebar, resizer, main-canvas, help-panel */
 }
 
+/* ============================================
+   VERTICAL SIDEBAR NAVIGATION
+   ============================================ */
+
 .sidebar {
-    backdrop-filter: blur(10px);
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Nav bar + Panel area side-by-side */
+    background: var(--color-base);
+    backdrop-filter: blur(10px);
     overflow: hidden;
 }
 
+/* Vertical Navigation Bar */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+    flex-shrink: 0; /* Fixed width, doesn't shrink */
+    background: var(--color-primary);
+    padding: 1rem 0;
+    gap: 0.5rem;
+}
+
+/* Individual Navigation Item */
+.sidebar-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem 0.2rem;
+    background: transparent;
+    border: none;
+    border-left: 5px solid transparent;
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.sidebar-nav-item:hover,
+.sidebar-nav-item:focus-visible {
+    background: var(--color-base);
+    color: var(--color-primary);
+}
+
+.sidebar-nav-item.active {
+    color: var(--color-primary);
+    background: var(--color-base);
+    border-left-color: var(--color-secondary);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius:0px;
+}
+
+/* Icon Styling */
+.sidebar-nav-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0.4rem;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Label Styling */
+.sidebar-nav-label {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+/* Panels Container */
+.sidebar-panels-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0; /* Allow flex shrinking */
+}
+
+/* Sidebar Panel (existing, minor adjustments) */
+.sidebar .sidebar-panel {
+    display: none !important;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+}
+
+.sidebar .sidebar-panel.active {
+    display: block !important;
+}
+
+.sidebar .properties-section.sidebar-panel.active {
+    display: flex !important;
+}
+
+
+
 .sidebar-resizer {
-    color: var(--accent-color-light); /* A visible color for the handle */
+    color: var(--color-primary); /* A visible color for the handle */
     cursor: ew-resize;
     position: relative;
     z-index: 10;
@@ -80,40 +184,28 @@ body {
 }
 
 
-.main-canvas {
-    background: var(--primary-color);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-}
-
 .components-section {
-
-    background: var(--primary-color);
-    flex-shrink: 0;
-    height: 45%;
-    overflow-y:visible;
-    padding: 0rem;
+    background: var(--color-base);
+    padding: 1rem;
+    overflow-y: auto;
     overflow-x: hidden;
+    flex: 1;
+    min-height: 0;
 }
 
 .properties-section {
-    background: linear-gradient(180deg, var(--white), var(--primary-color));
+    background: var(--color-base);
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    flex-grow: 1;
+    flex: 1;
     overflow-y: auto;
     min-height: 0;
-    display: flex;
-    flex-direction: column;
-    border-top: 4px solid var(--accent-color-light);
-    border-radius: 10px;
+    padding: 1rem 1rem;
 }
 
 .main-canvas {
-    background: var(--primary-color);
+    background: var(--color-base);
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
@@ -122,7 +214,7 @@ body {
 }
 
 .canvas-header {
-    background: var(--primary-color);
+    background: var(--color-base);
     padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
@@ -131,17 +223,32 @@ body {
     gap: 1rem;
 }
 
-.canvas-header h2,
+.canvas-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    font-weight: 700;
+    font-size: 2rem;
+    background: radial-gradient(ellipse,var(--color-secondary) 1%, var(--color-primary) 50%, var(--color-secondary) 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+
+.canvas-header h2 .icon-title path {
+    stroke: var(--color-primary) !important;
+}
+
 .canvas-header i {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin: 0rem;
-    background: linear-gradient(90deg, #353cff, #376fff);
-    font-weight: Bolder;
-    font-size: 3rem;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    margin: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 2rem;
 }
 
 .canvas-content {
@@ -154,26 +261,18 @@ body {
 }
 
 .help-panel {
-    background: rgba(255, 230, 230, 0.95);
+    background: color-mix(in srgb, var(--color-primary) 15%, var(--color-base) 85%);
     backdrop-filter: blur(10px);
-    border-left: 1px solid var(--border-color);
+    border-left: 1px solid color-mix(in srgb, var(--color-primary) 60%, var(--color-base) 40%);
     padding: 2rem;
     overflow-y: auto;
 }
 
 h2 {
-    color: var(--secondary-color);
+    color: var(--color-primary);
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
     font-weight: 600;
-}
-
-.components-section h2,
-.properties-section h2 {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 0.8rem 1.8rem;
 }
 
 .component-groups {
@@ -184,10 +283,8 @@ h2 {
 }
 
 .component-group {
-    border-bottom: 1px solid var(--secondary-color) ;
-    border-radius: 0px;
     overflow: hidden;
-    margin:0rem;
+    margin-bottom:1rem;
 }
 
 .component-group summary {
@@ -199,8 +296,9 @@ h2 {
     padding: 0.5rem 1.2rem;
     font-size: 1.4rem;
     font-weight: 600;
-    color: var(--secondary-color);
-    background: linear-gradient(90deg, var(--gradient-primary-start), var(--gradient-primary-end));
+    color: var(--color-primary);
+    background: color-mix(in srgb, var(--color-secondary) 20%, var(--color-base) 80%);
+    border-radius: 5px;
 }
 
 .component-group summary::-webkit-details-marker {
@@ -214,7 +312,12 @@ h2 {
     transform: rotate(0deg);
     transform-origin: center;
     transition: transform 0.3s ease;
-    color: var(--secondary-color)
+    color: var(--color-primary);
+}
+
+.component-group[open] summary {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .component-group[open] summary::after {
@@ -225,26 +328,28 @@ h2 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
     gap: 1rem;
-    padding: 0 0.5rem;
-    background: var(--primary-color);
+    padding: 1rem 0.5rem;
+    background: color-mix(in srgb, var(--color-secondary) 30%, var(--color-base) 70%);
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+    transition: max-height 0.2s ease-in-out, opacity 0.2s ease-in-out, padding 0.2s ease-in-out;
     pointer-events: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
 .component-group[open] .component-group-body {
-    padding: 0.5rem;
     max-height: 600px;
     opacity: 1;
     pointer-events: auto;
+    
 }
 
 
 .component-item {
     background: transparent;
-    color: var(--secondary-color);
+    color: var(--color-primary);
     margin: 0;
     padding: 0.3rem;
     display: flex;
@@ -252,7 +357,7 @@ h2 {
     align-items: center;
     gap: 0.2rem;
     cursor: pointer;
-    border: none;
+    border: 2px solid transparent;
    
 }
 
@@ -265,7 +370,7 @@ h2 {
 .component-item span {
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--secondary-color);
+    color: var(--color-primary);
     text-align: center;
   
     letter-spacing: 0.02em;
@@ -273,12 +378,13 @@ h2 {
 
 .component-item:hover,
 .component-item:focus-visible {
-    background:linear-gradient(90deg, var(--gradient-primary-start), var(--gradient-primary-end));
+    border: 2px solid var(--color-primary);
+    border-radius: 5px;
 }
 
 .code-editor {
-    background: var(--editor-bg);
-    color: var(--editor-text);
+    background: var(--color-primary);
+    color: var(--color-base);
     padding: 1rem;
     border-radius: 8px;
     margin: 0.2rem;
@@ -298,7 +404,7 @@ h2 {
     width: 100%;
     position: relative;
     flex-shrink: 0;
-    color: var(--accent-color-light);
+    color: var(--color-primary);
     font-size: 2rem;
     line-height: 10px;
     font-weight:900;
@@ -314,10 +420,10 @@ h2 {
 
 
 .preview-area {
-    border: 2px var(--primary-color);
+    border: none;
     border-radius: 8px;
-    padding: 0rem;
-    background: var(--white);
+    padding: 0.5rem;
+    background: white;
     position: relative;
     overflow-y: auto;
     flex-grow: 1;
@@ -326,68 +432,205 @@ h2 {
 }
 
 .btn {
-    background: linear-gradient(180deg, var(--gradient-primary-start), var(--gradient-primary-end));
-    color: var(--secondary-color);
+    background: color-mix(in srgb, var(--color-secondary) 45%, var(--color-base) 55%);
+    color: var(--color-primary);
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     font-size: 1.4rem;
 }
 
 .btn:hover {
-    background: var(--accent-color-light);
-   
+    background: var(--color-primary);
+    color: var(--color-base);
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--color-secondary) 20%, transparent);
+    transform: translateY(-1px);
 }
 
-.rendered-component {
-    margin: 0.7rem;
-    padding: 0.7rem;
-    border: 1px solid var(--secondary-color);
-    border-radius: 6px; 
+/* Chrome Structure - Solution 5: Zero Wrappers! */
+
+/* Target component - selection border via ::before pseudo-element */
+.chrome-target {
     position: relative;
-}
-
-.rendered-component:hover {
-    box-shadow: 0 4px 10px var(--shadow-color-component);
-}
-
-.component-label {
-    position: absolute;
-    top: -0.3rem;
-    left: 0.5rem;
-    background: var(--secondary-color);
-    color: var(--white);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-    z-index: 30;
-    margin: 0rem;
-}
-.delete-component-btn {
-    position: absolute;
-    top: -0.3rem;
-    right: 0.5rem;
-    background: var(--danger-color);
-    color: var(--white);
+    box-sizing: border-box;
     cursor: pointer;
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.4rem;
+}
+
+.chrome-target::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px dashed var(--color-secondary);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+/* Hover state */
+.chrome-target:hover::before {
+    border-color: var(--color-secondary);
+    opacity: 1;
+}
+
+/* Selected state */
+.chrome-target.selected::before {
+    border-color: var(--color-danger);
+    opacity: 1;
+}
+
+/* Form element wrapper - special handling for buttons, inputs, etc. */
+.form-element-wrapper {
+    display: inline-flex !important;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Pseudo-element border for form elements (same as chrome-target) */
+.form-element-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px dashed var(--color-secondary);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+/* Hover state for form elements */
+.form-element-wrapper:hover::before {
+    border-color: var(--color-secondary);
+    opacity: 1;
+}
+
+/* Selected state for form elements */
+.form-element-wrapper.selected::before {
+    border-color: var(--color-danger);
+    opacity: 1;
+}
+
+/* Form elements inside wrapper should not expand beyond their content */
+.form-element-wrapper > button,
+.form-element-wrapper > input,
+.form-element-wrapper > textarea,
+.form-element-wrapper > select,
+.form-element-wrapper > div {
+    flex-grow: 0;
+}
+
+/* Label - absolutely positioned above component */
+.chrome-label {
+    position: absolute;
+    top: 0rem;
+    left: 0;
+    background: var(--color-primary);
+    color: var(--color-base);
+    padding: 0rem 0.8rem;
+    border-radius: 1rem;
     font-size: 1rem;
-    font-weight: bold;
-    display: block;
-    z-index: 100;
+    font-weight: 600;
+    pointer-events: auto;
+    z-index: 1001;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+}
+
+/* Delete button - absolutely positioned above component */
+.chrome-delete {
+    position: absolute;
+    top: 0rem;
+    right: 0;
+    background: var(--color-danger);
+    color: var(--color-base);
+    border: none;
+    border-radius: 9999px;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 1001;
+    pointer-events: auto;
+    font-family: inherit;
+    line-height: 1;
+}
+
+.chrome-delete:hover,
+.chrome-delete:focus-visible {
+    background: color-mix(in srgb, var(--color-danger) 85%, var(--color-primary) 15%);
+    transform: scale(1.05);
+}
+
+.chrome-delete:focus-visible {
+    outline: 2px solid var(--color-base);
+    outline-offset: 2px;
+}
+
+/* Page component chrome - uses pseudo-element for label only (no delete button) */
+.chrome-target-page {
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Dashed border for page component (same as other components) */
+.chrome-target-page::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px dashed var(--color-secondary);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+.chrome-target-page:hover::before {
+    border-color: var(--color-secondary);
+    opacity: 1;
+}
+
+.chrome-target-page.selected::before {
+    border-color: var(--color-danger);
+    opacity: 1;
+}
+
+/* Label as pseudo-element - NO delete button for page */
+.chrome-target-page::after {
+    content: 'page';
+    position: absolute;
+    top: 0rem;
+    left: 0;
+    background: var(--color-primary);
+    color: var(--color-base);
+    padding: 0rem 0.8rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    z-index: 1001;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+    pointer-events: none;
 }
 
 .column-label {
     position: absolute;
     top: -0.8rem;
     right: 1rem;
-    background: var(--success-color);
-    color: var(--white);
+    background: var(--color-success);
+    color: var(--color-base);
     padding: 0.2rem 0.6rem;
     border-radius: 3px;
     font-size: 0.9rem;
@@ -395,7 +638,7 @@ h2 {
 }
 
 .column-placeholder {
-    color: var(--text-color-lighter);
+    color: color-mix(in srgb, var(--color-neutral) 50%, var(--color-base) 50%);
     font-style: italic;
     text-align: center;
     padding: 2rem 1rem;
@@ -408,10 +651,10 @@ h2 {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: var(--white);
+    background: var(--color-base);
     padding: 0 0.8rem;
     font-size: 1rem;
-    color: var(--text-color-lighter);
+    color: color-mix(in srgb, var(--color-neutral) 50%, var(--color-base) 50%);
     font-style: italic;
 }
 
@@ -423,7 +666,7 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--modal-bg);
+    background: color-mix(in srgb, var(--color-primary) 90%, transparent);
     z-index: 10000;
     padding: 2rem;
 }
@@ -431,19 +674,29 @@ h2 {
 .fullscreen-content {
     width: 100%;
     height: 100%;
-    background: var(--white);
-    border-radius: 12px;
+    background: transparent;
+    border-radius: 0;
     overflow: auto;
     position: relative;
-    padding: 4rem;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.fullscreen-preview.preview-area {
+    margin: 0 auto;
+    flex-grow: 0;
+    width: 100%;
+    max-width: min(1200px, 100%);
 }
 
 .fullscreen-close {
     position: absolute;
     top: 2rem;
     right: 2rem;
-    background: var(--danger-color);
-    color: var(--white);
+    background: var(--color-danger);
+    color: var(--color-base);
     border: none;
     padding: 1rem 1.5rem;
     border-radius: 6px;
@@ -453,12 +706,12 @@ h2 {
 }
 
 .fullscreen-close:hover {
-    background: var(--danger-color-dark);
+    background: color-mix(in srgb, var(--color-danger) 80%, var(--color-primary) 20%);
 }
 
 .help-section {
-    background: var(--accent-color-lighter);
-    border-left: 4px solid var(--primary-color);
+    background: color-mix(in srgb, var(--color-secondary) 45%, var(--color-base) 55%);
+    border-left: 4px solid var(--color-base);
     padding: 1rem;
     margin: 1rem 0;
     border-radius: 4px;
@@ -475,7 +728,7 @@ h2 {
     display: block;
     padding: 0.1rem;
     font-size: 1.2rem;
-    color: var(--secondary-color);
+    color: var(--color-primary);
     font-weight: bold;
 }
 
@@ -485,8 +738,8 @@ h2 {
     padding: 0.6rem;
     font-size: 1.2rem;
     border-radius: 4px;
-    color: var(--secondary-color);
-    border: 1px solid var(--accent-color-light);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
 }
 
 .property-item select {
@@ -494,14 +747,14 @@ h2 {
     font-size: 1.2rem;
     padding: 0.6rem;
     border-radius: 4px;
-    border: 1px solid var(--accent-color-light);
+    border: 1px solid var(--color-primary);
 }
 
 .property-item option {
     width: 100%;
     font-size: 1.2rem;
     padding: 0.6rem;
-    background-color: var(--accent-color-lighter);
+    background-color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-base) 55%);
 }
 
 .property-color-container {
@@ -517,7 +770,7 @@ h2 {
 .color-picker-input {
     width: 3.2rem;
     height: 3.2rem;
-    border: 1px solid var(--accent-color-light);
+    border: 1px solid var(--color-primary);
     border-radius: 4px;
     padding: 2px;
     cursor: pointer;
@@ -542,18 +795,18 @@ h2 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--scrollbar-track-bg);
+  background: var(--color-base);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color-light);
+  background-color: color-mix(in srgb, var(--color-secondary) 45%, var(--color-base) 55%);
   border-radius: 2px;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--color-primary);
 }
 
 #propertiesContent {
@@ -584,7 +837,7 @@ h2 {
     .app-container.help-visible {
         grid-template-columns: 1fr;
     }
-    
+
     .canvas-header {
        justify-content: center;
     }
@@ -595,11 +848,12 @@ h2 {
         width: 100%;
         display: flex;
         align-items: center;
-        background: linear-gradient(90deg, #353cff, #376fff);
-        font-weight: Bolder;
+        justify-content: center;
+        font-weight: 400;
+        background: radial-gradient(ellipse, var(--color-primary) 10%, var(--color-secondary) 80%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-       
+        background-clip: text;
     }
 
     .canvas-header > div {
@@ -608,22 +862,36 @@ h2 {
         justify-content: center;
         gap: 5px;
     }
-    
+
     .btn {
         padding: 0.8rem 1.2rem;
         font-size: 1.3rem;
     }
+
+    /* Responsive adjustments for vertical navigation */
+    .sidebar-nav {
+        width: 60px;
+    }
+
+    .sidebar-nav-label {
+        font-size: 0.9rem;
+    }
+
+    .sidebar-nav-icon {
+        width: 20px;
+        height: 20px;
+    }
 }
 .property-group {
     margin-top: 1.5rem;
-    border-top: 2px solid var(--accent-color-lighter);
+    border-top: 2px solid var(--color-secondary);
     padding-top: 1rem;
 }
 
 .property-group h4 {
     margin: 0 0 0.75rem 0;
     font-size: 1.2rem;
-    color: var(--secondary-color);
+    color: var(--color-primary);
     font-weight: 600;
 }
 
@@ -633,6 +901,90 @@ h2 {
     padding: 0.6rem;
     font-size: 1.2rem;
     border-radius: 4px;
-    color: var(--secondary-color);
-    border: 1px solid var(--accent-color-light);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
 }
+
+
+
+
+
+
+
+
+.properties-empty-state {
+    color: color-mix(in srgb, var(--color-neutral) 45%, var(--color-base) 55%);
+    font-style: italic;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.preview-placeholder {
+    text-align: center;
+    color: color-mix(in srgb, var(--color-neutral) 60%, var(--color-base) 40%);
+    padding: 5rem;
+}
+
+.help-code-block {
+    background: color-mix(in srgb, var(--color-secondary) 20%, var(--color-base) 80%);
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Courier New', monospace;
+    line-height: 1.4;
+    color: var(--color-neutral);
+}
+
+.help-code-block--large {
+    font-size: 1.2rem;
+}
+
+/* Range slider for transparency control */
+.range-input-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.range-slider {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, #e5e7eb, #3b82f6);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.range-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.range-value {
+    min-width: 45px;
+    text-align: right;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+}
+

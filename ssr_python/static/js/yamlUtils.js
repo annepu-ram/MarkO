@@ -99,8 +99,8 @@ export function updateYamlEditor(yamlText) {
     const editor = document.getElementById('codeEditor');
     if (editor) {
         editor.value = yamlText;
-        // Trigger input event to notify listeners (but don't auto-render)
-        // The apply button will handle re-rendering
+        // Dispatch input event to update line numbers (won't trigger auto-render due to debounce)
+        editor.dispatchEvent(new Event('input', { bubbles: true }));
     }
 }
 

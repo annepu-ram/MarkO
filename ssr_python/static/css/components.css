@@ -1,12 +1,102 @@
+/* Layout Components - Two-level wrapper structure */
 .layout-row,
 .layout-column {
     width: 100%;
     position: relative;
+    box-sizing: border-box;
 }
 
 .layout-row__content,
 .layout-column__content {
     width: 100%;
+    box-sizing: border-box;
+}
+
+/* Page Component */
+.page-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #6b7280;
+    padding: 5rem;
+    border: 2px dashed #ccc;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    min-height: 200px;
+}
+
+/* Form Component */
+.form {
+    box-sizing: border-box;
+}
+
+.form__content {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form__submit {
+    padding: 0.75rem 1.5rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.form__submit:hover {
+    background-color: #2563eb;
+}
+
+/* Columnsgrid Component */
+.columnsgrid {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.columnsgrid__row {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.columnsgrid__col {
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.columnsgrid .column-label {
+    position: absolute;
+    top: -1.5rem;
+    left: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+.columnsgrid .column-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    flex: 1;
+    color: #9ca3af;
+    border: 2px dashed #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    text-align: center;
+    padding: 1rem;
 }
 /* --- Custom Tabs Component --- */
 .tabs {
@@ -31,22 +121,20 @@
   font-weight: var(--tabs-label-font-weight, var(--font-weight-semibold, 600));
   color: var(--tabs-label-color-inactive, #6b7280);
   background-color: var(--tabs-label-bg-inactive, #f3f4f6);
-  border-width: var(--tabs-border-width, 2px);
-  border-style: solid;
-  border-color: transparent;
+  border: none;
 }
 
-/* Border position handling */
+/* Border position handling - use border shorthand to avoid trapezoid effect from mitered corners */
 .tabs label[data-border-position="upper"] {
-  border-top-color: var(--tabs-label-color-inactive, #6b7280);
+  border-top: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
 }
 
 .tabs label[data-border-position="lower"] {
-  border-bottom-color: var(--tabs-label-color-inactive, #6b7280);
+  border-bottom: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
 }
 
 .tabs label[data-border-position="full"] {
-  border-color: var(--tabs-label-color-inactive, #6b7280);
+  border: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
 }
 
 .tabs input[type="radio"]:checked + label {
@@ -55,15 +143,15 @@
 }
 
 .tabs input[type="radio"]:checked + label[data-border-position="upper"] {
-  border-top-color: var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
+  border-top: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
 }
 
 .tabs input[type="radio"]:checked + label[data-border-position="lower"] {
-  border-bottom-color: var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
+  border-bottom: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
 }
 
 .tabs input[type="radio"]:checked + label[data-border-position="full"] {
-  border-color: var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
+  border: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
 }
 
 .tabs .content {
@@ -73,7 +161,7 @@
   display: none;
   animation: fadeIn 0.3s ease-in-out;
   background-color: var(--tabs-content-bg, #ffffff);
-  border: var(--tabs-content-border-width, 1px) solid var(--tabs-content-border-color, #d1d5db);
+  border: var(--tabs-content-border-width, 1px) var(--tabs-content-border-style, solid) var(--tabs-content-border-color, #d1d5db);
   padding-block: var(--tabs-content-padding-block, var(--spacing-md, 2rem));
   padding-inline: var(--tabs-content-padding-inline, var(--spacing-md, 2rem));
 }
@@ -281,7 +369,7 @@ details[open] .accordion-summary::after {
     gap: 1rem;
 }
 
-.titlebar-link {
+.titlebar-nav .titlebar-link {
     color: var(--titlebar-link-color, #333);
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -291,8 +379,8 @@ details[open] .accordion-summary::after {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.titlebar-link:hover,
-.titlebar-link:focus {
+.titlebar-nav .titlebar-link:hover,
+.titlebar-nav .titlebar-link:focus {
     background-color: var(--titlebar-link-hover-bg, #f0f0f0);
     color: var(--titlebar-link-hover-color, #000);
 }
@@ -312,16 +400,43 @@ details[open] .accordion-summary::after {
     transition: all 0.3s ease-in-out;
 }
 
-.titlebar-left {
+/* Titlebar Alignment Variants */
+
+/* Right Alignment */
+.titlebar.align-right {
+    flex-direction: row-reverse;
+}
+
+.titlebar.align-right .titlebar-branding {
+    flex-direction: row-reverse;
     justify-content: flex-start;
 }
 
-.titlebar-center {
+/* Center Alignment */
+.titlebar.align-center {
+    flex-direction: column;
     justify-content: center;
+    height: auto;
+    padding-bottom: 1rem;
 }
 
-.titlebar-right {
-    justify-content: flex-end;
+.titlebar.align-center .titlebar-branding {
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.titlebar.align-center .titlebar-nav {
+    justify-content: center;
+    width: 100%;
+}
+
+/* Ensure branding is flex container */
+.titlebar-branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .titlebar.scrolled {
@@ -342,7 +457,7 @@ details[open] .accordion-summary::after {
     font-size: calc(var(--title-font-size, 1.5rem) * var(--shrink-scale, 0.5));
 }
 
-.titlebar.scrolled .titlebar-link {
+.titlebar.scrolled .titlebar-nav .titlebar-link {
     font-size: calc(var(--menu-font-size, 1.6rem) * var(--shrink-scale, 0.5));
     padding: calc(0.5rem * var(--shrink-scale, 0.5)) calc(1rem * var(--shrink-scale, 0.5));
 }
@@ -759,8 +874,8 @@ select {
 }
 
 .titlebar-branding .titlebar-title {
-    font-size: 1.25rem;
-    font-weight: 600;
+    /* font-size and font-weight removed - they override CSS variables from properties panel */
+    /* Use the CSS variables set on .titlebar-title instead (lines 360-361) */
     margin: 0;
 }
 
@@ -840,11 +955,12 @@ a.link-arrow:hover::after {
 .carousel-slide {
     min-width: 100%;
     flex-shrink: 0;
-    display: none;
+    /* display: none; - Removed to allow transform animation */
+    display: block;
 }
 
 .carousel-slide.active {
-    display: block;
+    /* display: block; - Not needed if always block */
 }
 
 .carousel-prev,

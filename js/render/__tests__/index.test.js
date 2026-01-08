@@ -1,4 +1,4 @@
-import { generateComponentInnerHTML, renderSimpleComponent } from '../index.js';
+import { generateComponentInnerHTML, renderSimpleComponent, renderComponent } from '../index.js';
 import * as State from '../../core/state.js';
 import * as ObjectUtils from '../../utils/object.js';
 import * as StyleUtils from '../../utils/styles.js';
@@ -39,8 +39,17 @@ jest.mock('../../utils/styles.js', () => ({
     return value;
   }),
   resolveSpacingValue: jest.fn(value => {
-    if (value === 'md') {
-      return '1.6rem';
+    const map = {
+      none: '0',
+      xs: '0.4rem',
+      sm: '0.8rem',
+      md: '1.6rem',
+      lg: '2.4rem',
+      xl: '3.2rem',
+      auto: 'auto',
+    };
+    if (map[value] !== undefined) {
+      return map[value];
     }
     const numeric = parseFloat(value);
     return !Number.isNaN(numeric) ? `${numeric / 10}rem` : value;
@@ -106,6 +115,18 @@ describe('generateComponentInnerHTML', () => {
     expect(html).toContain('Line one<br>Line two');
   });
 
+  test('applies width mode styles for heading', () => {
+    const props = { text: 'Width sample', layout: { widthMode: '25' } };
+    const html = generateComponentInnerHTML('heading', props, '', '', 'preview');
+    const styleMatch = html.match(/style="([^"]*)"/);
+    expect(styleMatch).toBeTruthy();
+    const styleAttr = styleMatch[1];
+    expect(styleAttr).toContain('display: inline-block');
+    expect(styleAttr).toContain('box-sizing: border-box');
+    expect(styleAttr).toContain('width: 25%');
+  });
+
+
   test('should generate correct HTML for image', () => {
     const props = { src: 'test.jpg', alt: 'Test Image' };
     const styleAttr = '';
@@ -149,12 +170,62 @@ describe('renderSimpleComponent', () => {
     expect(State.registerComponentPath).toHaveBeenCalledWith(expect.any(String), path);
   });
 
+  test('applies width mode styles to component directly in preview', () => {
+    const component = {
+      name: 'paragraph',
+      properties: {
+        text: 'Sized heading',
+        layout: { widthMode: '25' },
+      },
+    };
+    const path = [0, 0];
+    const html = renderSimpleComponent(component, path, 'preview');
+    // Component should have chrome-target class and all width styles
+    expect(html).toContain('chrome-target');
+    expect(html).toContain('width: 25%');
+    expect(html).toContain('flex: 0 1 25%');
+  });
+
   test('should return raw HTML in export mode', () => {
     const component = { name: 'paragraph', properties: { text: 'Hello' } };
     const path = [0, 0];
     const html = renderSimpleComponent(component, path, 'export');
     expect(html).toMatchSnapshot();
     expect(State.registerComponentPath).not.toHaveBeenCalled();
+  });
+
+  test('applies stretch width to component', () => {
+    const component = {
+      name: 'paragraph',
+      properties: {
+        text: 'Stretch me',
+        layout: { widthMode: 'stretch' },
+      },
+    };
+    const path = [0, 1];
+    const html = renderSimpleComponent(component, path, 'preview');
+    // Component should have chrome-target class and all width styles
+    expect(html).toContain('chrome-target');
+    expect(html).toContain('width: 100%');
+    expect(html).toContain('flex: 1 1 100%');
+  });
+
+  test('applies spacing tokens when rendering simple component', () => {
+    const component = {
+      name: 'paragraph',
+      properties: {
+        text: 'Spacing tokens',
+        spacing: {
+          margin: { top: 'md', bottom: 'sm' },
+          padding: { left: 'lg' },
+        },
+      },
+    };
+    const path = [0, 0];
+    const html = renderSimpleComponent(component, path, 'export');
+    expect(html).toContain('margin-top: 1.6rem;');
+    expect(html).toContain('margin-bottom: 0.8rem;');
+    expect(html).toContain('padding-left: 2.4rem;');
   });
 
   test('should register titlebar for initialization in preview mode', () => {
@@ -170,95 +241,77 @@ describe('renderSimpleComponent', () => {
   });
 });
 
-describe('titlebar rendering integration', () => {
+describe('renderLayoutContainer integration', () => {
   beforeEach(() => {
+    jest.restoreAllMocks();
     jest.clearAllMocks();
+    jest.spyOn(global.Date, 'now').mockReturnValue(1678886400000);
+    jest.spyOn(global.Math, 'random').mockReturnValue(0.987654321);
   });
 
-  const buildTitlebarProps = overrides => ({
-    branding: {
-      logoUrl: 'https://example.com/logo.png',
-      title: 'Sample Title',
-    },
-    layout: {
-      alignment: 'center',
-      height: 80,
-    },
-    navigation: {
-      links: [
-        { label: 'Home', href: '#home' },
-        { label: 'About', href: '#about' },
-      ],
-    },
-    typography: {
-      title: { size: 32, weight: 'semibold', color: '#123456' },
-      menu: { size: 18, weight: 'medium', color: '#654321' },
-    },
-    appearance: {
-      focus: { background: '#cccccc', color: '#111111' },
-    },
-    ...overrides,
-  });
-
-  test('respects showLogo flag to hide logo', () => {
-    const props = buildTitlebarProps();
-    props.branding.showLogo = false;
-
-    const html = generateComponentInnerHTML('titlebar', props, '', '', 'preview');
-
-    expect(html).not.toContain('class="titlebar-logo"');
-  });
-
-  test('emits CSS variables for typography colours and weights', () => {
-    const html = generateComponentInnerHTML('titlebar', buildTitlebarProps(), '', '', 'preview');
-
-    expect(html).toContain('class="titlebar titlebar-center');
-
-    const styleAttr = html.match(/style="([^"]+)"/)[1];
-    expect(styleAttr).toContain('--titlebar-title-color: #123456;');
-    expect(styleAttr).toContain('--titlebar-link-color: #654321;');
-    expect(styleAttr).toContain('--title-font-weight: 600;');
-    expect(styleAttr).toContain('--menu-font-weight: 500;');
-    expect(styleAttr).toContain('--titlebar-link-hover-bg: #cccccc;');
-    expect(styleAttr).toContain('--titlebar-link-hover-color: #111111;');
-
-    expect(html).not.toMatch(/class="titlebar-link" style=/);
-  });
-
-  test('omits optional colour variables when typography values missing', () => {
-    const overrides = {
-      layout: { alignment: 'right', height: '72' },
-      typography: {
-        title: { size: 24 },
-        menu: { size: 16 },
+  test('renders layout-row preview chrome with spacing', () => {
+    const component = {
+      name: 'layout-row',
+      properties: {
+        layout: { align: 'center', justify: 'space-between', gap: 'md' },
+        spacing: { paddingBlock: 'md', paddingInline: 'lg' },
+        background: { color: '#f0f4f8' },
+        size: { minHeight: '160px' },
       },
-      navigation: { links: [{ label: 'Docs', href: '#docs' }] },
-      appearance: { focus: {} },
+      components: [],
     };
+    const path = [0, 1];
+    const html = renderComponent(component, path, 'preview');
+    expect(html).toMatchSnapshot();
+    expect(State.registerComponentPath).toHaveBeenCalledWith(expect.any(String), path);
+  });
 
-    const html = generateComponentInnerHTML('titlebar', buildTitlebarProps(overrides), '', '', 'preview');
-
-    expect(html).toContain('class="titlebar titlebar-right');
-
-    const navIndex = html.indexOf('class="titlebar-nav"');
-    const brandIndex = html.indexOf('class="titlebar-brand');
-    expect(navIndex).toBeGreaterThan(-1);
-    expect(brandIndex).toBeGreaterThan(-1);
-    expect(navIndex).toBeLessThan(brandIndex);
-
-    const brandCloseIndex = html.indexOf('</div>', brandIndex);
-    const brandSegment = brandCloseIndex !== -1 ? html.slice(brandIndex, brandCloseIndex) : '';
-    const titlePos = brandSegment.indexOf('titlebar-title');
-    const logoPos = brandSegment.indexOf('titlebar-logo');
-    if (logoPos !== -1 && titlePos !== -1) {
-      expect(titlePos).toBeLessThan(logoPos);
-    }
-
-
-    const styleAttr = html.match(/style="([^"]+)"/)[1];
-    expect(styleAttr).toContain('--title-font-weight: 700;');
-    expect(styleAttr).toContain('--menu-font-weight: 500;');
-    expect(styleAttr).not.toContain('--titlebar-title-color');
-    expect(styleAttr).not.toContain('--titlebar-link-color');
+  test('renders layout-column export markup', () => {
+    const component = {
+      name: 'layout-column',
+      properties: {
+        layout: { align: 'stretch', justify: 'start', gap: 'md', tag: 'article' },
+        spacing: { paddingBlock: 'sm', paddingInline: 'sm', marginBlock: 'none', marginInline: 'auto' },
+        size: { maxWidth: '800px' },
+        appearance: { radius: 'md' },
+      },
+      components: [],
+    };
+    const path = [0, 2];
+    const html = renderComponent(component, path, 'export');
+    expect(html).toContain('<article class="layout-column"');
+    expect(html).toContain('max-width: 800px;');
+    expect(State.registerComponentPath).not.toHaveBeenCalled();
   });
 });
+describe('Overlay Chrome', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        jest.spyOn(global.Date, 'now').mockReturnValue(1678886400000);
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);
+    });
+
+    test('should include chrome elements in preview mode', () => {
+        const component = { name: 'paragraph', properties: { text: 'Hello' } };
+        const path = [0, 0];
+        const html = renderSimpleComponent(component, path, 'preview');
+        expect(html).toContain('chrome-target');
+        expect(html).toContain('chrome-label');
+        expect(html).toContain('chrome-delete');
+    });
+
+    test('should not include chrome elements in export mode', () => {
+        const component = { name: 'paragraph', properties: { text: 'Hello' } };
+        const path = [0, 0];
+        const html = renderSimpleComponent(component, path, 'export');
+        expect(html).not.toContain('chrome-target');
+        expect(html).not.toContain('chrome-label');
+        expect(html).not.toContain('chrome-delete');
+    });
+});
+
+
+
+
+
+

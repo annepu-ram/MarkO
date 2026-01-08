@@ -32,9 +32,12 @@ export function createActions(dom) {
         fullscreenModal,
         fullscreenContent,
         helpPanel,
+        sidebarNavItems,
+        sidebarPanels,
+        propertiesNavBtn,
     } = dom;
 
-    const childComponentContainers = new Set(['section', 'stack', 'form', 'image']);
+    const childComponentContainers = new Set(['layout-row', 'layout-column', 'section', 'stack', 'form', 'image']);
 
     const findComponentIdByPath = path => {
         const map = getComponentPathMap();
@@ -47,15 +50,23 @@ export function createActions(dom) {
     };
 
     const clearHighlights = () => {
-        preview.querySelectorAll('.rendered-component').forEach(node => {
-            node.style.border = '1px solid #404A6B';
+        if (!preview) {
+            return;
+        }
+        preview.querySelectorAll('.chrome-target.selected, .chrome-target-page.selected').forEach(node => {
+            node.classList.remove('selected');
+            const deleteBtn = node.querySelector('.chrome-delete');
+            if(deleteBtn) deleteBtn.setAttribute('tabindex', '-1');
         });
     };
 
     const highlightElement = element => {
-        if (element) {
-            element.style.border = '2px solid #ef4444';
+        if (!element) {
+            return;
         }
+        element.classList.add('selected');
+        const deleteBtn = element.querySelector('.chrome-delete');
+        if(deleteBtn) deleteBtn.setAttribute('tabindex', '0');
     };
 
     const refreshSelection = () => {
@@ -74,7 +85,7 @@ export function createActions(dom) {
             return;
         }
 
-        const element = preview.querySelector(`[data-component-id="${componentId}"]`);
+        const element = preview.querySelector(`.chrome-target[data-component-id="${componentId}"], .chrome-target-page[data-component-id="${componentId}"]`);
         if (!element) {
             setSelection();
             clearHighlights();
@@ -120,23 +131,66 @@ export function createActions(dom) {
         parseAndRender(value, { pushHistory: true });
     };
 
+    /**
+     * Activates a specific sidebar panel by its ID
+     * @param {string} panelId - The ID of the panel to activate (e.g., 'propertiesPanel', 'componentsPanel')
+     */
+    const activateSidebarPanel = panelId => {
+        // Validate that we have the necessary DOM elements
+        if (!Array.isArray(sidebarNavItems) || !Array.isArray(sidebarPanels) ||
+            sidebarNavItems.length === 0 || sidebarPanels.length === 0) {
+            return;
+        }
+
+        // Check if the target panel is already active
+        const isAlreadyActive = sidebarPanels.some(
+            panel => panel.id === panelId && panel.classList.contains('active')
+        );
+
+        if (isAlreadyActive) {
+            return;
+        }
+
+        // Update all navigation items: activate the one targeting this panel, deactivate others
+        sidebarNavItems.forEach(navItem => {
+            const shouldActivate = navItem.dataset.target === panelId;
+            navItem.classList.toggle('active', shouldActivate);
+            navItem.setAttribute('aria-selected', shouldActivate ? 'true' : 'false');
+        });
+
+        // Update all panels: show the target panel, hide others
+        sidebarPanels.forEach(panel => {
+            const shouldShow = panel.id === panelId;
+            panel.classList.toggle('active', shouldShow);
+            panel.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+        });
+    };
+
+    /**
+     * Switches to the properties panel in the sidebar
+     */
+    const focusPropertiesPanel = () => {
+        activateSidebarPanel('propertiesPanel');
+    };
+
     const handlePreviewClick = event => {
-        const deleteButton = event.target.closest('.delete-component-btn');
+        const deleteButton = event.target.closest('.chrome-delete');
         if (deleteButton) {
             event.stopPropagation();
             deleteComponentById(deleteButton.dataset.componentId);
             return;
         }
 
-        const wrapper = event.target.closest('.rendered-component');
+        // Find the component (chrome-target or chrome-target-page for page component)
+        const target = event.target.closest('.chrome-target, .chrome-target-page');
         clearHighlights();
-        if (!wrapper) {
+        if (!target) {
             setSelection();
             clearPropertiesPanel();
             return;
         }
 
-        const componentId = wrapper.dataset.componentId;
+        const componentId = target.dataset.componentId;
         const path = getPathForComponent(componentId);
         if (!path) {
             setSelection();
@@ -145,11 +199,12 @@ export function createActions(dom) {
         }
 
         setSelection({ componentId, path });
-        highlightElement(wrapper);
+        highlightElement(target);
         const structure = getYamlStructure();
         const component = getComponentByPath(structure, path);
         if (component) {
             renderPropertiesPanel(component, componentId, path);
+            focusPropertiesPanel();
         }
     };
 
@@ -158,6 +213,13 @@ export function createActions(dom) {
         if (!path) {
             return;
         }
+
+        // GUARD: Prevent deleting page component (root at path [0])
+        if (path.length === 1 && path[0] === 0) {
+            console.warn('Cannot delete page component - it is the mandatory root container');
+            return;
+        }
+
         const structure = getYamlStructure();
         if (!structure) {
             return;
@@ -197,7 +259,7 @@ export function createActions(dom) {
             newComponent = {
                 name: 'tabs',
                 properties: template || {},
-                tabs: [{ title: 'Tab Name', components: [] }],
+                tabs: [{ title: 'Tab one', components: [] }],
             };
         } else if (componentName === 'carousel') {
             const { slides = [], ...properties } = template || {};
@@ -210,7 +272,6 @@ export function createActions(dom) {
             newComponent = {
                 name: 'accordion',
                 properties: template || {},
-                content: { components: [] },
             };
         } else {
             newComponent = {
@@ -338,23 +399,45 @@ export function createActions(dom) {
         URL.revokeObjectURL(url);
     };
 
+
     const openFullscreen = () => {
+        if (!fullscreenContent || !fullscreenModal) {
+            return;
+        }
         const yamlText = editor.value;
         const cleanHTML = generateCleanHTML(yamlText);
-        fullscreenContent.innerHTML = cleanHTML;
+        fullscreenContent.innerHTML = `<div class="preview-area fullscreen-preview">${cleanHTML}</div>`;
+        fullscreenContent.scrollTop = 0;
         fullscreenModal.style.display = 'block';
         document.body.style.overflow = 'hidden';
     };
-
     const closeFullscreen = () => {
-        fullscreenModal.style.display = 'none';
+        if (fullscreenModal) {
+            fullscreenModal.style.display = 'none';
+        }
+        if (fullscreenContent) {
+            fullscreenContent.innerHTML = '';
+            fullscreenContent.scrollTop = 0;
+        }
         document.body.style.overflow = 'auto';
     };
 
     const clearCanvas = () => {
-        editor.value = '';
+        // Get default page properties from templates
+        const templates = getComponentTemplates();
+        const pageDefaults = templates?.page || {};
+
+        const defaultPageStructure = [{
+            name: 'page',
+            properties: pageDefaults,
+            components: []
+        }];
+
+        const defaultPageYaml = generateYamlFromStructure(defaultPageStructure);
+
+        editor.value = defaultPageYaml;
         setYamlStructure(null);
-        parseAndRender('', { pushHistory: true });
+        parseAndRender(defaultPageYaml, { pushHistory: true });
         clearPropertiesPanel();
     };
 
@@ -400,6 +483,7 @@ export function createActions(dom) {
         parseAndRender,
         handleEditorInput,
         handlePreviewClick,
+        focusPropertiesPanel,
         deleteComponent: deleteComponentById,
         insertComponent,
         applySelectedComponentProperties,
@@ -414,3 +498,4 @@ export function createActions(dom) {
         refreshSelection,
     };
 }
+

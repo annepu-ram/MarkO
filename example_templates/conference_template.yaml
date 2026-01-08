@@ -1,210 +1,202 @@
 - name: page
   properties:
-    backgroundColor: '#f0f4f8'
+    background:
+      color: '#f0f4f8'
   components:
   - name: titlebar
     properties:
-      title: InnovateCon 2025
-      logo: https://images.pexels.com/photos/2833037/pexels-photo-2833037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-      backgroundColor: '#ffffff'
-      links:
-      - text: Home
-        value: '#home'
-      - text: Speakers
-        value: '#speakers'
-      - text: Schedule
-        value: '#schedule'
-      - text: Register
-        value: '#register'
+      branding:
+        title: InnovateCon 2025
+        logoUrl: https://images.pexels.com/photos/2833037/pexels-photo-2833037.jpeg?auto=compress&cs=tinysrgb&w=100
+      appearance:
+        background:
+          color: '#ffffff'
+      navigation:
+        links:
+        - label: Home
+          href: '#home'
+        - label: Speakers
+          href: '#speakers'
+        - label: Schedule
+          href: '#schedule'
+        - label: Register
+          href: '#register'
   - name: heading
     properties:
       text: 'InnovateCon 2025: The Future of Technology'
-      textAlign: center
-      color: '#007BFF'
-      margin: 40 0 10 0
+      typography:
+        align: center
+        color: '#007BFF'
+      spacing:
+        marginBlock: lg
       level: 1
-      variant: display
-      letterSpacing: normal
   - name: heading
     properties:
       text: October 22-24, 2025 | Metro Convention Center
-      textAlign: center
-      fontWeight: normal
-      margin: 0 0 30 0
+      typography:
+        align: center
+        weight: regular
+      spacing:
+        marginBlock: md
       level: 3
-      variant: subtitle
-      letterSpacing: normal
   - name: button
     properties:
       text: Register Now
-      variant: primary
-      margin: 0 auto 40 auto
-      textAlign: center
   - name: heading
     properties:
       text: Featured Speakers
-      textAlign: center
-      color: '#343a40'
-      margin: 40 0 20 0
+      typography:
+        align: center
+        color: '#343a40'
+      spacing:
+        marginBlock: lg
       level: 2
-      variant: default
-      letterSpacing: normal
   - name: columnsgrid
     properties:
-      count: 4
+      layout:
+        columns: 4
+        gap: md
     columns:
     - components:
       - name: image
         properties:
-          src: https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-          alt: Speaker 1
+          source:
+            url: https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400
+            altText: Professional speaker portrait
+          presentation:
+            height: 250px
+            fit: cover
+            cornerStyle: md
+          layout:
+            widthMode: stretch
       - name: heading
         properties:
           text: Jane Doe
-          textAlign: center
-          fontSize: 16
+          typography:
+            align: center
+            size: md
           level: 3
-          variant: subtitle
-          letterSpacing: normal
     - components:
       - name: image
         properties:
-          src: https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-          alt: Speaker 2
+          source:
+            url: https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400
+            altText: Professional speaker portrait
+          presentation:
+            height: 250px
+            fit: cover
+            cornerStyle: md
+          layout:
+            widthMode: stretch
       - name: heading
         properties:
           text: John Smith
-          textAlign: center
-          fontSize: 16
+          typography:
+            align: center
+            size: md
           level: 3
-          variant: subtitle
-          letterSpacing: normal
     - components:
       - name: image
         properties:
-          src: https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-          alt: Speaker 3
+          source:
+            url: https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400
+            altText: Professional speaker portrait
+          presentation:
+            height: 250px
+            fit: cover
+            cornerStyle: md
+          layout:
+            widthMode: stretch
       - name: heading
         properties:
           text: Emily Jones
-          textAlign: center
-          fontSize: 16
+          typography:
+            align: center
+            size: md
           level: 3
-          variant: subtitle
-          letterSpacing: normal
     - components:
       - name: image
         properties:
-          src: https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-          alt: Speaker 4
+          source:
+            url: https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=400
+            altText: Professional speaker portrait
+          presentation:
+            height: 250px
+            fit: cover
+            cornerStyle: md
+          layout:
+            widthMode: stretch
       - name: heading
         properties:
           text: Michael Lee
-          textAlign: center
-          fontSize: 16
+          typography:
+            align: center
+            size: md
           level: 3
-          variant: subtitle
-          letterSpacing: normal
   - name: heading
     properties:
-      color: '#343a40'
-      margin: 40 0 20 0
+      text: Conference Schedule
+      typography:
+        align: center
+        color: '#343a40'
+      spacing:
+        marginBlock: lg
       level: 2
-      variant: default
-      letterSpacing: normal
   - name: tabs
     properties:
+      layout:
+        orientation: horizontal
       tabs:
       - title: 'Day 1: Foundations'
-        components:
-        - name: heading
-          properties:
-            text: 9:00 AM - Keynote Address
-            level: 3
-            variant: subtitle
-            letterSpacing: normal
-        - name: paragraph
-          properties:
-            text: 10:00 AM - The Future of AI
-            letterSpacing: normal
-        - name: paragraph
-          properties:
-            text: 12:00 PM - Lunch Break
-            letterSpacing: normal
+        content: ''
       - title: 'Day 2: Deep Dive'
-        components:
-        - name: heading
-          properties:
-            text: 9:00 AM - Machine Learning Workshops
-            level: 3
-            variant: subtitle
-            letterSpacing: normal
-        - name: paragraph
-          properties:
-            text: 11:00 AM - Quantum Computing
-            letterSpacing: normal
-        - name: paragraph
-          properties:
-            text: 1:00 PM - Networking Event
-            letterSpacing: normal
+        content: ''
       - title: 'Day 3: Futures'
-        components:
-        - name: heading
-          properties:
-            level: 3
-            variant: subtitle
-            letterSpacing: normal
-        - name: paragraph
-          properties:
-            text: 12:00 PM - Closing Remarks
+        content: ''
   - name: heading
     properties:
       text: Frequently Asked Questions
-      textAlign: center
-      color: '#343a40'
-      margin: 40 0 20 0
+      typography:
+        align: center
+        color: '#343a40'
+      spacing:
+        marginBlock: lg
       level: 2
-      variant: default
-      letterSpacing: normal
   - name: accordion
     properties:
-      title: What is the dress code?
-    content:
-      components:
-      - name: paragraph
-        properties:
-          text: The dress code is business casual. We want you to be comfortable while
-            you learn and network.
-          letterSpacing: normal
-  - name: accordion
-    properties:
-      title: Are meals provided?
-    content:
-      components:
-      - name: paragraph
-        properties:
-          text: Yes, a continental breakfast, lunch, and afternoon snacks will be
-            provided on all three days of the conference.
-          letterSpacing: normal
+      items:
+      - title: What is the dress code?
+        content: The dress code is business casual. We want you to be comfortable while you learn and network.
+      - title: Are meals provided?
+        content: Yes, a continental breakfast, lunch, and afternoon snacks will be provided on all three days of the conference.
+      - title: Is parking available?
+        content: Free parking is available at the Metro Convention Center. We also recommend public transportation as the venue is well-connected.
+      behavior:
+        allowMultipleOpen: false
   - name: heading
     properties:
       text: Register Your Interest
-      textAlign: center
-      color: '#343a40'
-      letterSpacing: normal
-      margin: 40 0 20 0
+      typography:
+        align: center
+        color: '#343a40'
+      spacing:
+        marginBlock: lg
       level: 2
-      variant: default
   - name: textbox
     properties:
-      placeholder: Full Name
+      field:
+        placeholder: Full Name
   - name: textbox
     properties:
-      placeholder: Email Address
+      field:
+        placeholder: Email Address
   - name: dropdown
     properties:
-      options: General Admission, VIP Pass, Student Pass
+      field:
+        options: |
+          General Admission
+          VIP Pass
+          Student Pass
   - name: button
     properties:
       text: Submit
-      variant: primary

@@ -1,4 +1,4 @@
-﻿typographySizes:
+typographySizes:
   type: selectOptions
   options:
     - value: xxs
@@ -75,12 +75,18 @@ borderRadiusScale:
   options:
     - value: none
       label: None
+    - value: xs
+      label: Extra Small
     - value: sm
       label: Small
     - value: md
       label: Medium
     - value: lg
       label: Large
+    - value: xl
+      label: Extra Large
+    - value: xxl
+      label: Extra Extra Large
     - value: pill
       label: Pill
 

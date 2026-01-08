@@ -2,6 +2,32 @@ import { registerComponentPath, resetComponentPathMap, queueComponentInitializat
 import { deepClone, deepMerge, getNestedValue, deleteNestedValue } from '../utils/object.js';
 import { toRem, resolveSpacingValue, resolveLetterSpacing, resolveLineHeight, resolveTypographySize, resolveFontWeight } from '../utils/styles.js';
 import { escapeHtml, escapeHtmlWithLineBreaks } from '../utils/strings.js';
+
+// --- UTILITY FUNCTIONS ---
+// =================================================================================================
+
+/**
+ * @function hexToRgba
+ * @description Converts hex color (#RRGGBB) and transparency percentage (0-100) to rgba format.
+ * @param {string} hex - Hex color string (e.g., '#3b82f6')
+ * @param {number} transparencyPercent - Transparency percentage from 0 (transparent) to 100 (opaque)
+ * @returns {string} RGBA color string (e.g., 'rgba(59,130,246,0.5)')
+ */
+function hexToRgba(hex, transparencyPercent) {
+    // Remove # if present
+    hex = hex.replace('#', '');
+
+    // Convert hex to RGB
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    // Convert transparency percent (0-100) to alpha (0-1)
+    const alpha = transparencyPercent / 100;
+
+    return `rgba(${r},${g},${b},${alpha})`;
+}
+
 // --- COMPONENT RENDERING ---
 // =================================================================================================
 
@@ -12,14 +38,44 @@ const FLEX_ALIGN_MAP = {
     stretch: 'stretch',
 };
 
-const FLEX_JUSTIFY_MAP = {
-    start: 'flex-start',
-    center: 'center',
-    end: 'flex-end',
-    'space-between': 'space-between',
-    'space-around': 'space-around',
-    'space-evenly': 'space-evenly',
+const TEXT_COMPONENTS_WITH_WIDTH_MODE = new Set(['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote', 'image', 'gif']);
+const WIDTH_MODE_RULES = {
+    fit: {
+        component: 'width: auto;',
+        flex: ['width: auto;', 'flex: 0 1 auto;'],
+    },
+    '25': {
+        component: 'width: 25%;',
+        flex: ['width: 25%;', 'flex: 0 1 25%;', 'max-width: 25%;'],
+    },
+    '50': {
+        component: 'width: 50%;',
+        flex: ['width: 50%;', 'flex: 0 1 50%;', 'max-width: 50%;'],
+    },
+    '75': {
+        component: 'width: 75%;',
+        flex: ['width: 75%;', 'flex: 0 1 75%;', 'max-width: 75%;'],
+    },
+    stretch: {
+        component: 'width: 100%;',
+        flex: ['width: 100%;', 'flex: 1 1 100%;', 'max-width: 100%;'],
+    },
 };
+
+function getWidthModeRule(mode) {
+    return WIDTH_MODE_RULES[mode] || WIDTH_MODE_RULES.stretch;
+}
+
+
+const BORDER_RADIUS_MAP = {
+    none: '0',
+    sm: '0.4rem',
+    md: '0.8rem',
+    lg: '1.6rem',
+    pill: '9999px',
+};
+const canUseSpacingValue = (value) => value !== null && value !== undefined && value !== 'undefined' && value !== '';
+
 
 function buildStyleString(parts = []) {
     return parts
@@ -60,8 +116,24 @@ function mapFlexAlign(value) {
     return FLEX_ALIGN_MAP[value] || value;
 }
 
-function mapFlexJustify(value) {
-    return FLEX_JUSTIFY_MAP[value] || value;
+function resolveBorderRadiusToken(token) {
+    if (token === undefined || token === null || token === '') {
+        return null;
+    }
+    if (BORDER_RADIUS_MAP[token] !== undefined) {
+        return BORDER_RADIUS_MAP[token];
+    }
+    if (typeof token === 'number') {
+        return `${token}px`;
+    }
+    const trimmed = String(token).trim();
+    if (!trimmed) {
+        return null;
+    }
+    if (/^d+(?:.d+)?$/.test(trimmed)) {
+        return `${trimmed}px`;
+    }
+    return trimmed;
 }
 
 const getAlignmentClass = (alignment) => {
@@ -83,7 +155,9 @@ const getAlignmentClass = (alignment) => {
  * @returns {{html: string}} The rendered HTML.
  */
 export function renderYamlStructure(structure, mode = 'preview') {
-    resetComponentPathMap();
+    if (mode === 'preview') {
+        resetComponentPathMap();
+    }
     if (!structure || !Array.isArray(structure) || structure.length !== 1 || structure[0].name !== 'page') {
         return {
             html: `<div style="text-align: center; color: #6b7280; padding: 5rem;">
@@ -123,6 +197,106 @@ export function renderComponentsList(components, basePath, mode) {
     });
     return html;
 }
+
+function getComponentDepth(path = []) {
+    if (!Array.isArray(path) || path.length === 0) {
+        return 0;
+    }
+    const numericSegments = path.filter(segment => typeof segment === 'number');
+    if (numericSegments.length === 0) {
+        return 0;
+    }
+    return Math.max(numericSegments.length - 1, 0);
+}
+
+function wrapComponentWithChrome(componentId, label, contentHTML, depth = 0) {
+    const safeLabel = escapeHtml(label || 'component');
+
+    // Chrome elements to inject as first children
+    const chromeHTML = `<span class="chrome-label">${safeLabel}</span><button type="button" class="chrome-delete" data-component-id="${componentId}" aria-label="Delete ${safeLabel}">&#10006;</button>`;
+
+    // Inject chrome into component HTML (no wrapper needed!)
+    return injectChromeIntoComponent(contentHTML, chromeHTML, componentId);
+}
+
+function injectChromeIntoComponent(componentHTML, chromeHTML, componentId) {
+    // Find opening tag (e.g., <h2>, <p>, <section>, etc.)
+    const match = componentHTML.match(/^(<[a-zA-Z][a-zA-Z0-9]*\s*[^>]*>)/);
+
+    if (!match) {
+        // Fallback: wrap in div if no tag found (e.g., for self-closing tags)
+        return `<div class="chrome-target" data-component-id="${componentId}" style="position: relative;">${chromeHTML}${componentHTML}</div>`;
+    }
+
+    const openingTag = match[1];
+    const restOfHTML = componentHTML.slice(openingTag.length);
+
+    // Add chrome-target class to opening tag
+    let modifiedTag = openingTag;
+    if (modifiedTag.includes('class="')) {
+        // Add to existing class
+        modifiedTag = modifiedTag.replace(/class="([^"]*)"/, 'class="$1 chrome-target"');
+    } else {
+        // Add new class attribute before closing >
+        modifiedTag = modifiedTag.replace(/>$/, ' class="chrome-target">');
+    }
+
+    // Add data-component-id attribute
+    modifiedTag = modifiedTag.replace(/>$/, ` data-component-id="${componentId}">`);
+
+    // Ensure position: relative in style
+    if (modifiedTag.includes('style="')) {
+        // Add to existing style - check if it already has position
+        if (modifiedTag.includes('position:')) {
+            // Already has position, don't override
+            modifiedTag = modifiedTag.replace(/style="([^"]*)"/, 'style="$1"');
+        } else {
+            // Add position: relative
+            modifiedTag = modifiedTag.replace(/style="([^"]*)"/, 'style="$1 position: relative;"');
+        }
+    } else {
+        // Add new style attribute
+        modifiedTag = modifiedTag.replace(/>$/, ' style="position: relative;">');
+    }
+
+    // Inject chrome as first children
+    return modifiedTag + chromeHTML + restOfHTML;
+}
+
+/**
+ * @function wrapFormElementWithChrome
+ * @description Wraps form elements (button, input, textarea, etc.) in a container with chrome UI.
+ * For form elements, we need a wrapper div because pseudo-elements don't work well directly on form controls.
+ * @param {string} componentId - The unique component ID
+ * @param {string} label - The label for the chrome UI
+ * @param {string} formElementHTML - The HTML of the form element (e.g., <button>Click</button>)
+ * @returns {string} The wrapped HTML with chrome container
+ */
+function wrapFormElementWithChrome(componentId, label, formElementHTML) {
+    const safeLabel = escapeHtml(label || 'component');
+
+    // Chrome elements to inject as first children of wrapper
+    const chromeHTML = `<span class="chrome-label">${safeLabel}</span><button type="button" class="chrome-delete" data-component-id="${componentId}" aria-label="Delete ${safeLabel}">&#10006;</button>`;
+
+    // Wrap form element in a container div with chrome styling
+    // Use inline-flex to contain the form element and allow chrome UI positioning
+    // padding: 0.4rem provides visual spacing around the form element
+    return `<div class="chrome-target form-element-wrapper" data-component-id="${componentId}" style="display: inline-flex; align-items: center; padding: 0.4rem; position: relative; box-sizing: border-box; cursor: pointer; overflow: hidden;">${chromeHTML}${formElementHTML}</div>`;
+}
+
+/**
+ * @function wrapFormElementForExport
+ * @description Wraps form elements in export mode without chrome UI.
+ * The wrapper div maintains consistent flex layout behavior between preview and export.
+ * @param {string} formElementHTML - The HTML of the form element
+ * @returns {string} The wrapped HTML without chrome UI
+ */
+function wrapFormElementForExport(formElementHTML) {
+    // Same wrapper structure as preview but without chrome label/delete button
+    // This ensures consistent width behavior in flex containers
+    return `<div class="form-element-wrapper" style="display: inline-flex; align-items: center; padding: 0.4rem; position: relative; box-sizing: border-box; overflow: hidden;">${formElementHTML}</div>`;
+}
+
 /**
  * Renders a single component into HTML.
  * @param {object} component The component to render.
@@ -136,18 +310,22 @@ export function renderComponent(component, path, mode) {
     switch (name) {
         case 'page':
             return renderPageComponent(component, path, mode);
-        case 'section':
-            return renderSectionComponent(component, path, mode);
+        case 'layout-row':
+            return renderLayoutContainer(component, path, mode, { orientation: 'row', label: 'layout-row' });
+        case 'layout-column':
+            return renderLayoutContainer(component, path, mode, { orientation: 'column', label: 'layout-column' });
+        case 'section': {
+            const legacyOrientation = (getNestedValue(component.properties || {}, ['layout', 'direction']) || 'column') === 'row' ? 'row' : 'column';
+            return renderLayoutContainer(component, path, mode, { orientation: legacyOrientation, label: 'section' });
+        }
         case 'stack':
-            return renderStackComponent(component, path, mode);
+            return renderLayoutContainer(component, path, mode, { orientation: 'column', label: 'stack' });
         case 'columnsgrid':
             return renderColumnsGrid(component, path, mode);
         case 'accordion':
             return renderAccordion(component, path, mode);
         case 'tabs':
             return renderTabs(component, path, mode);
-        case 'image':
-            return renderImageComponent(component, path, mode);
         case 'form':
             return renderFormComponent(component, path, mode);
         case 'carousel':
@@ -158,6 +336,7 @@ export function renderComponent(component, path, mode) {
 }
 /**
  * @function renderCarousel
+/**
  * @description Renders a carousel component.
  * @param {object} component - The carousel component object.
  * @param {Array} path - The path to the component in the YAML structure.
@@ -196,11 +375,7 @@ function renderCarousel(component, path, mode) {
         const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         registerComponentPath(componentId, path);
         registerComponentForInitialization('carousel', carouselId, properties);
-        return `<div class="rendered-component" data-component-id="${componentId}">
-                    <div class="component-label">carousel</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${contentHTML}
-                </div>`;
+        return wrapComponentWithChrome(componentId, 'carousel', contentHTML, getComponentDepth(path));
     }
     return contentHTML;
 }
@@ -225,11 +400,8 @@ function renderFormComponent(component, path, mode) {
             contentHTML = '<div class="group-placeholder" style="text-align: center; color: #6b7280; padding: 5rem; border: 2px dashed #ccc;">Drop form elements here</div>';
         }
         const styles = generateRemainingStyles(properties);
-        return `<div class="rendered-component" data-component-id="${componentId}" style="${styles}" >
-                    <div class="component-label">form</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    <form>${contentHTML}</form>
-                </div>`;
+        const formHTML = `<form style="${styles}">${contentHTML}</form>`;
+        return wrapComponentWithChrome(componentId, 'form', formHTML, getComponentDepth(path));
     }
     // For export mode
     const styles = generateRemainingStyles(properties);
@@ -253,222 +425,246 @@ function renderPageComponent(component, path, mode) {
     const componentsPath = [...path, 'components'];
     let contentHTML = renderComponentsList(components, componentsPath, mode);
     const styles = generateRemainingStyles(properties);
+
     if (mode === 'preview') {
         const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         registerComponentPath(componentId, path);
         if (components.length === 0) {
-            contentHTML = '<div class="page-placeholder" style="text-align: center; color: #6b7280; padding: 5rem; border: 2px dashed #ccc;">Write YAML in the editor above or click components from the sidebar</div>';
+            contentHTML = '<div class="page-placeholder" style="text-align: center; color: #6b7280; padding: 5rem; border: 2px dashed #ccc;">Click components from the sidebar to get started</div>';
         }
-        return `<div class="rendered-component" data-component-id="${componentId}" style="${styles} width: 100%; height: 100%;" >
-                    <div class="component-label">page</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${contentHTML}
-                </div>`;
+
+        // Page component: NO delete button, uses pseudo-element for label via chrome-target-page class
+        const pageHTML = `<div class="chrome-target-page" data-component-id="${componentId}" style="${styles} display: flex; flex-direction: column; width: 100%; position: relative;">${contentHTML}</div>`;
+        return pageHTML;
     }
-    // For export mode, we'll handle this differently, perhaps with a style tag
-    return `<div style="${styles} width: 100%; height: 100%;">${contentHTML}</div>`;
+
+    // Export mode - also use flex container for parity
+    return `<div style="${styles} width: 100%; display: flex; flex-direction: column;">${contentHTML}</div>`;
 }
 
 
 
-function renderStackComponent(component, path, mode) {
-    const { properties = {}, components = [] } = component;
-    const directionValue = getNestedValue(properties, ['layout', 'direction']) || 'column';
-    const direction = directionValue === 'row' ? 'row' : 'column';
-    const align = getNestedValue(properties, ['layout', 'align']);
-    const justify = getNestedValue(properties, ['layout', 'justify']);
-    const wrapValue = getNestedValue(properties, ['layout', 'wrap']);
-    const wrap = wrapValue ? wrapValue : null;
-    const gapToken = getNestedValue(properties, ['layout', 'gap']) ?? getNestedValue(properties, ['spacing', 'gap']);
+function renderLayoutContainer(component, path, mode, options = {}) {
+    const {
+        orientation = 'column',
+        label = 'layout',
+    } = options;
+
+    const props = component.properties || {};
+    const components = Array.isArray(component.components) ? component.components : [];
+
+    const layoutGroup = props.layout || {};
+    const tagCandidate = (layoutGroup.tag || 'section').toString().trim();
+    const tag = /^[a-zA-Z][a-zA-Z0-9-]*$/.test(tagCandidate) ? tagCandidate : 'section';
+
+    const defaultAlign = orientation === 'row' ? 'center' : 'stretch';
+    const alignValue = layoutGroup.align || defaultAlign;
+
+    const gapToken = layoutGroup.gap ?? getNestedValue(props, ['spacing', 'gap']);
     const resolvedGap = resolveSpacingValue(gapToken);
 
-    const outerProperties = deepClone(properties);
-    const maxWidth = getNestedValue(outerProperties, ['layout', 'maxWidth']);
-    const explicitWidth = getNestedValue(outerProperties, ['layout', 'width']);
-    deleteNestedValue(outerProperties, ['layout', 'maxWidth']);
-    deleteNestedValue(outerProperties, ['layout', 'width']);
+    const spacingGroup = props.spacing || {};
+    const paddingBlockToken = spacingGroup.paddingBlock;
+    const paddingInlineToken = spacingGroup.paddingInline;
+    const paddingTopToken = getNestedValue(spacingGroup, ['padding', 'top']);
+    const paddingBottomToken = getNestedValue(spacingGroup, ['padding', 'bottom']);
+    const paddingLeftToken = getNestedValue(spacingGroup, ['padding', 'left']);
+    const paddingRightToken = getNestedValue(spacingGroup, ['padding', 'right']);
 
-    const outerStyleAttr = buildStyleString([generateRemainingStyles(outerProperties, 'stack')]);
+    const marginBlockToken = spacingGroup.marginBlock;
+    const marginInlineToken = spacingGroup.marginInline;
+    const marginTopToken = getNestedValue(spacingGroup, ['margin', 'top']);
+    const marginBottomToken = getNestedValue(spacingGroup, ['margin', 'bottom']);
+    const marginLeftToken = getNestedValue(spacingGroup, ['margin', 'left']);
+    const marginRightToken = getNestedValue(spacingGroup, ['margin', 'right']);
 
-    const innerStyleParts = ['display: flex;', `flex-direction: ${direction};`];
-    if (resolvedGap) {
-        innerStyleParts.push(`gap: ${resolvedGap};`);
-    }
-    if (align) {
-        innerStyleParts.push(`align-items: ${mapFlexAlign(align)};`);
-    }
-    if (justify) {
-        innerStyleParts.push(`justify-content: ${mapFlexJustify(justify)};`);
-    }
-    if (wrap && wrap !== 'nowrap') {
-        innerStyleParts.push(`flex-wrap: ${wrap};`);
-    }
-    const normalizedMaxWidth = normalizeDimensionValue(maxWidth);
-    if (normalizedMaxWidth) {
-        innerStyleParts.push(`max-width: ${normalizedMaxWidth};`);
-        innerStyleParts.push('margin-left: auto;');
-        innerStyleParts.push('margin-right: auto;');
-    }
-    const normalizedWidth = normalizeDimensionValue(explicitWidth);
-    if (normalizedWidth) {
-        innerStyleParts.push(`width: ${normalizedWidth};`);
-    }
-    const innerStyleAttr = buildStyleString(innerStyleParts);
+    const sizeGroup = props.size || {};
+    const minWidthToken = sizeGroup.minWidth ?? layoutGroup.minWidth;
+    const maxWidthToken = sizeGroup.maxWidth ?? layoutGroup.maxWidth;
+    const minHeightToken = sizeGroup.minHeight ?? layoutGroup.minHeight;
+    const maxHeightToken = sizeGroup.maxHeight ?? layoutGroup.maxHeight;
+    const explicitWidthToken = layoutGroup.width;
 
-    const collapseBreakpoint = getNestedValue(properties, ['responsive', 'collapseBreakpoint']);
-    const collapseAttr = collapseBreakpoint ? ` data-stack-collapse="${collapseBreakpoint}"` : '';
-    const dividerSetting = getNestedValue(properties, ['appearance', 'divider']) || 'none';
-    const dividerClass = dividerSetting && dividerSetting !== 'none' ? ` stack--divider-${dividerSetting}` : '';
+    const outerStyleParts = ['width: 100%;', 'position: relative;', 'box-sizing: border-box;'];
+
+    const applyPaddingPair = (valueToken, fallbackA, fallbackB, propertyA, propertyB) => {
+        if (valueToken !== undefined) {
+            const resolved = resolveSpacingValue(valueToken);
+            if (canUseSpacingValue(resolved) && resolved !== 'auto') {
+                outerStyleParts.push(`${propertyA}: ${resolved};`, `${propertyB}: ${resolved};`);
+            }
+        } else {
+            const first = resolveSpacingValue(fallbackA);
+            const second = resolveSpacingValue(fallbackB);
+            if (canUseSpacingValue(first) && first !== 'auto') {
+                outerStyleParts.push(`${propertyA}: ${first};`);
+            }
+            if (canUseSpacingValue(second) && second !== 'auto') {
+                outerStyleParts.push(`${propertyB}: ${second};`);
+            }
+        }
+    };
+
+    applyPaddingPair(paddingBlockToken, paddingTopToken, paddingBottomToken, 'padding-top', 'padding-bottom');
+    applyPaddingPair(paddingInlineToken, paddingLeftToken, paddingRightToken, 'padding-left', 'padding-right');
+
+    let inlineMarginSpecified = false;
+
+    if (marginBlockToken !== undefined) {
+        const resolved = resolveSpacingValue(marginBlockToken);
+        if (canUseSpacingValue(resolved)) {
+            outerStyleParts.push(`margin-top: ${resolved};`, `margin-bottom: ${resolved};`);
+        }
+    } else {
+        const top = resolveSpacingValue(marginTopToken);
+        const bottom = resolveSpacingValue(marginBottomToken);
+        if (canUseSpacingValue(top)) {
+            outerStyleParts.push(`margin-top: ${top};`);
+        }
+        if (canUseSpacingValue(bottom)) {
+            outerStyleParts.push(`margin-bottom: ${bottom};`);
+        }
+    }
+
+    if (marginInlineToken !== undefined) {
+        const resolved = resolveSpacingValue(marginInlineToken);
+        if (canUseSpacingValue(resolved)) {
+            inlineMarginSpecified = true;
+            outerStyleParts.push(`margin-left: ${resolved};`, `margin-right: ${resolved};`);
+        }
+    } else {
+        const left = resolveSpacingValue(marginLeftToken);
+        const right = resolveSpacingValue(marginRightToken);
+        if (canUseSpacingValue(left)) {
+            inlineMarginSpecified = true;
+            outerStyleParts.push(`margin-left: ${left};`);
+        }
+        if (canUseSpacingValue(right)) {
+            inlineMarginSpecified = true;
+            outerStyleParts.push(`margin-right: ${right};`);
+        }
+    }
+
+    const normalizeSizeValue = value => {
+        if (value === undefined || value === null || value === '') {
+            return null;
+        }
+        const normalized = normalizeDimensionValue(value);
+        if (!normalized || normalized === 'auto') {
+            return normalized === 'auto' ? 'auto' : null;
+        }
+        return normalized;
+    };
+
+    const minWidthValue = normalizeSizeValue(minWidthToken);
+    if (minWidthValue && minWidthValue !== 'auto') {
+        outerStyleParts.push(`min-width: ${minWidthValue};`);
+    }
+
+    const maxWidthValue = normalizeSizeValue(maxWidthToken);
+    if (maxWidthValue && maxWidthValue !== 'auto') {
+        outerStyleParts.push(`max-width: ${maxWidthValue};`);
+        if (!inlineMarginSpecified) {
+            outerStyleParts.push('margin-left: auto;', 'margin-right: auto;');
+            inlineMarginSpecified = true;
+        }
+    }
+
+    const minHeightValue = normalizeSizeValue(minHeightToken);
+    if (minHeightValue && minHeightValue !== 'auto') {
+        outerStyleParts.push(`min-height: ${minHeightValue};`);
+    }
+
+    const maxHeightValue = normalizeSizeValue(maxHeightToken);
+    if (maxHeightValue && maxHeightValue !== 'auto') {
+        outerStyleParts.push(`max-height: ${maxHeightValue};`);
+    }
+
+    const explicitWidthValue = normalizeSizeValue(explicitWidthToken);
+    if (explicitWidthValue && explicitWidthValue !== 'auto') {
+        outerStyleParts.push(`width: ${explicitWidthValue};`);
+    }
+
+    const backgroundGroup = props.background || {};
+    if (backgroundGroup.color) {
+        outerStyleParts.push(`background-color: ${backgroundGroup.color};`);
+    }
+    const backgroundImage = (backgroundGroup.image || '').toString().trim();
+    if (backgroundImage) {
+        const safeUrl = backgroundImage.replace(/"/g, '"');
+        outerStyleParts.push(`background-image: url("${safeUrl}");`, 'background-size: cover;', 'background-repeat: no-repeat;', 'background-position: center;');
+    }
+
+    const borderGroup = getNestedValue(props, ['appearance', 'border']) || props.border || {};
+    const borderWidthRaw = borderGroup.width;
+    const borderStyleValue = borderGroup.style || 'none';
+    const borderColorValue = borderGroup.color || 'transparent';
+    const borderWidthValue = borderWidthRaw !== undefined ? normalizeDimensionValue(borderWidthRaw) : null;
+    const borderWidthNumber = borderWidthValue ? parseFloat(borderWidthValue) : 0;
+    if (borderStyleValue === 'none' || !borderWidthValue || Number.isNaN(borderWidthNumber) || borderWidthNumber === 0) {
+        outerStyleParts.push('border: none;');
+    } else {
+        outerStyleParts.push(`border: ${borderWidthValue} ${borderStyleValue} ${borderColorValue};`);
+    }
+
+    const radiusToken = getNestedValue(props, ['appearance', 'radius']) ?? getNestedValue(props, ['border', 'radius']);
+    const radiusValue = resolveBorderRadiusToken(radiusToken);
+    if (radiusValue) {
+        outerStyleParts.push(`border-radius: ${radiusValue};`);
+    }
+
+    const shadowValueRaw = getNestedValue(props, ['appearance', 'shadow']);
+    const shadowValue = shadowValueRaw && shadowValueRaw.toString().trim();
+    if (shadowValue && shadowValue.toLowerCase() !== 'none') {
+        outerStyleParts.push(`box-shadow: ${shadowValue};`);
+    }
+
+    const textColor = getNestedValue(props, ['typography', 'color']);
+    if (textColor) {
+        outerStyleParts.push(`color: ${textColor};`);
+    }
+
+    const contentStyleParts = ['display: flex;', `flex-direction: ${orientation};`];
+    if (resolvedGap && resolvedGap !== 'auto') {
+        contentStyleParts.push(`gap: ${resolvedGap};`);
+    }
+    if (alignValue) {
+        contentStyleParts.push(`align-items: ${mapFlexAlign(alignValue)};`);
+    }
+    // Default to nowrap - users can explicitly enable wrapping via layout.wrap property
+    let flexWrapValue = 'nowrap';
+    const wrapOverride = layoutGroup.wrap;
+    if (wrapOverride !== undefined && wrapOverride !== null && wrapOverride !== '') {
+        flexWrapValue = wrapOverride === true ? 'wrap' : String(wrapOverride);
+    }
+    if (flexWrapValue) {
+        contentStyleParts.push(`flex-wrap: ${flexWrapValue};`);
+    }
 
     const componentsPath = [...path, 'components'];
-    let contentHTML = '';
-    components.forEach((child, index) => {
-        const childPath = [...componentsPath, index];
-        const rendered = renderComponent(child, childPath, mode);
-        if (rendered) {
-            contentHTML += `<div class="stack__item">${rendered}</div>`;
-        }
-    });
-    if (mode === 'preview' && !contentHTML) {
-        contentHTML = '<div class="stack-placeholder">Drop components here...</div>';
-    }
+    const innerHTML = renderComponentsList(components, componentsPath, mode);
+
+    const baseClass = orientation === 'row' ? 'layout-row' : 'layout-column';
+    const outerStyleAttr = buildStyleString(outerStyleParts);
+    const innerStyleAttr = buildStyleString(contentStyleParts);
 
     const contentWrapper = innerStyleAttr
-        ? `<div class="stack__content" style="${innerStyleAttr}">${contentHTML}</div>`
-        : `<div class="stack__content">${contentHTML}</div>`;
+        ? `<div class="${baseClass}__content" style="${innerStyleAttr}">${innerHTML}</div>`
+        : `<div class="${baseClass}__content">${innerHTML}</div>`;
 
-    const stackMarkup = `<div class="stack${dividerClass}" style="${outerStyleAttr}"${collapseAttr}>
+    const layoutMarkup = `<${tag} class="${baseClass}" style="${outerStyleAttr}">
             ${contentWrapper}
-        </div>`;
-
-    if (mode === 'preview') {
-        const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        registerComponentPath(componentId, path);
-        return `<div class="rendered-component" data-component-id="${componentId}">
-                    <div class="component-label">stack</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${stackMarkup}
-                </div>`;
-    }
-
-    return stackMarkup;
-}
-
-function renderSectionComponent(component, path, mode) {
-    const { properties = {}, components = [] } = component;
-    const tagCandidate = (getNestedValue(properties, ['layout', 'tag']) || 'section').toString().trim();
-    const tag = tagCandidate.match(/^[a-zA-Z][a-zA-Z0-9-]*$/) ? tagCandidate : 'section';
-    const direction = getNestedValue(properties, ['layout', 'direction']) || 'column';
-    const align = getNestedValue(properties, ['layout', 'align']);
-    const justify = getNestedValue(properties, ['layout', 'justify']);
-    const wrap = getNestedValue(properties, ['layout', 'wrap']);
-    const gapToken = getNestedValue(properties, ['layout', 'gap']) ?? getNestedValue(properties, ['spacing', 'gap']);
-    const resolvedGap = resolveSpacingValue(gapToken);
-
-    const outerProperties = deepClone(properties);
-    const maxWidth = getNestedValue(outerProperties, ['layout', 'maxWidth']);
-    const explicitWidth = getNestedValue(outerProperties, ['layout', 'width']);
-    deleteNestedValue(outerProperties, ['layout', 'maxWidth']);
-    deleteNestedValue(outerProperties, ['layout', 'width']);
-
-    const outerStyleAttr = buildStyleString([generateRemainingStyles(outerProperties, 'section')]);
-
-    const innerStyleParts = ['display: flex;', `flex-direction: ${direction};`];
-    if (resolvedGap) {
-        innerStyleParts.push(`gap: ${resolvedGap};`);
-    }
-    if (align) {
-        innerStyleParts.push(`align-items: ${mapFlexAlign(align)};`);
-    }
-    if (justify) {
-        innerStyleParts.push(`justify-content: ${mapFlexJustify(justify)};`);
-    }
-    if (wrap) {
-        innerStyleParts.push(`flex-wrap: ${wrap === true ? 'wrap' : wrap};`);
-    }
-
-    const normalizedMaxWidth = normalizeDimensionValue(maxWidth);
-    if (normalizedMaxWidth) {
-        innerStyleParts.push(`max-width: ${normalizedMaxWidth};`);
-        innerStyleParts.push('margin-left: auto;');
-        innerStyleParts.push('margin-right: auto;');
-    }
-    const normalizedWidth = normalizeDimensionValue(explicitWidth);
-    if (normalizedWidth) {
-        innerStyleParts.push(`width: ${normalizedWidth};`);
-    }
-    const innerStyleAttr = buildStyleString(innerStyleParts);
-
-    const componentsPath = [...path, 'components'];
-    let innerHTML = renderComponentsList(components, componentsPath, mode);
-    if (mode === 'preview' && components.length === 0) {
-        innerHTML = '<div class="section-placeholder">Drop components here...</div>';
-    }
-
-    const innerWrapper = innerStyleAttr
-        ? `<div class="section__content" style="${innerStyleAttr}">${innerHTML}</div>`
-        : `<div class="section__content">${innerHTML}</div>`;
-
-    const sectionMarkup = `<${tag} class="section" style="${outerStyleAttr}">
-            ${innerWrapper}
         </${tag}>`;
 
     if (mode === 'preview') {
         const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         registerComponentPath(componentId, path);
-        return `<div class="rendered-component" data-component-id="${componentId}">
-                    <div class="component-label">section</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${sectionMarkup}
-                </div>`;
+        const depth = getComponentDepth(path);
+        return wrapComponentWithChrome(componentId, label, layoutMarkup, depth);
     }
 
-    return sectionMarkup;
+    return layoutMarkup;
 }
-/**
- * @function renderImageComponent
- * @description Renders an image component.
- * @param {object} component - The image component object.
- * @param {Array} path - The path to the component in the YAML structure.
- * @param {string} mode - The rendering mode ('preview' or 'export').
- * @returns {string} The rendered HTML for the image.
- * @calledBy {renderComponent}
- * @calls {generateRemainingStyles|toRem|renderComponentsList|registerComponentPath}
- */
-function renderImageComponent(component, path, mode) {
-    const { properties = {}, components = [] } = component;
-    const src = getNestedValue(properties, ['source', 'url']);
-    const alt = getNestedValue(properties, ['source', 'altText']);
-    const height = getNestedValue(properties, ['presentation', 'height']);
-    const link = properties.link;
-    const styles = generateRemainingStyles(properties);
-    let imageHTML = `<img src="${src || 'https://via.placeholder.com'}" alt="${alt || ''}" style="width: 100%; height: ${toRem(height) || 'auto'}; object-fit: cover;">`;
-    if (link) {
-        imageHTML = `<a href="${link}">${imageHTML}</a>`;
-    }
-    let nestedComponentsHTML = '';
-    if (components.length > 0) {
-        const componentsPath = [...path, 'components'];
-        nestedComponentsHTML = renderComponentsList(components, componentsPath, mode);
-    }
-    const contentHTML = `<div class="image-component-container" style="${styles}">
-        ${imageHTML}
-        <div class="image-nested-components">
-            ${nestedComponentsHTML}
-        </div>
-    </div>`;
-    if (mode === 'preview') {
-        const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        registerComponentPath(componentId, path);
-        return `<div class="rendered-component" data-component-id="${componentId}" >
-                    <div class="component-label">image</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${contentHTML}
-                </div>`;
-    }
-    return contentHTML;
-}
-
 /**
  * Renders a simple component.
  * @param {object} component The component to render.
@@ -477,9 +673,32 @@ function renderImageComponent(component, path, mode) {
  * @returns {string} The rendered HTML.
  */
 export function renderSimpleComponent(component, path, mode) {
-    const { name, properties = {} } = component;
+    const { name, properties = {}, components = [] } = component;
     const styles = generateRemainingStyles(properties, name);
-    const componentHTML = generateComponentInnerHTML(name, properties, '', styles, mode);
+    let componentHTML = generateComponentInnerHTML(name, properties, '', styles, mode);
+
+    // Handle nested components for image and gif (for overlays/captions)
+    if ((name === 'image' || name === 'gif') && components.length > 0) {
+        const componentsPath = [...path, 'components'];
+        const nestedHTML = renderComponentsList(components, componentsPath, mode);
+        // Inject nested components before closing div
+        componentHTML = componentHTML.replace('</div>', `<div class="image-nested-components">${nestedHTML}</div></div>`);
+    }
+
+    // Form elements need special wrapper to maintain consistent flex layout behavior
+    const formElements = ['button', 'input', 'textarea', 'dropdown', 'checkbox', 'radio'];
+    if (formElements.includes(name)) {
+        if (mode === 'preview') {
+            const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            registerComponentPath(componentId, path);
+            // Preview mode: wrap with chrome UI (label + delete button)
+            return wrapFormElementWithChrome(componentId, name, componentHTML);
+        } else {
+            // Export mode: wrap without chrome UI for consistent width behavior
+            return wrapFormElementForExport(componentHTML);
+        }
+    }
+
     if (mode === 'preview') {
         const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         registerComponentPath(componentId, path);
@@ -489,13 +708,13 @@ export function renderSimpleComponent(component, path, mode) {
                 registerComponentForInitialization('titlebar', idMatch[1], properties);
             }
         }
-        
-        return `<div class="rendered-component" data-component-id="${componentId}">
-                    <div class="component-label">${name}</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${componentHTML}
-                </div>`;
+        const depth = getComponentDepth(path);
+
+        // CHANGE: No wrapper styles needed - component gets all styles directly
+        // Just inject chrome into component HTML
+        return wrapComponentWithChrome(componentId, name, componentHTML, depth);
     }
+
     return componentHTML;
 }
 /**
@@ -511,76 +730,187 @@ export function renderSimpleComponent(component, path, mode) {
 function renderColumnsGrid(component, path, mode) {
     const { properties = {}, columns = [] } = component;
     const columnCount = parseInt(getNestedValue(properties, ['layout', 'columns'])) || 2;
-    
-    let contentHTML = `<div class="row">`;
-    
+    const gap = getNestedValue(properties, ['layout', 'gap']);
+
+    // Resolve gap spacing
+    const gapValue = gap ? resolveSpacingValue(gap) : '1rem';
+
+    // Calculate column width accounting for gap
+    // Formula: (100% - (gap × (n-1))) / n
+    // This ensures columns + gaps = 100%
+    const columnWidth = `calc((100% - (${gapValue} * ${columnCount - 1})) / ${columnCount})`;
+
+    let contentHTML = `<div class="row" style="gap: ${gapValue};">`;
+
     for (let i = 0; i < columnCount; i++) {
         const columnComponents = columns[i] ? columns[i].components || [] : [];
         const columnPath = [...path, 'columns', i, 'components'];
-        
-        contentHTML += `<div class="col-sm" style="position: relative;">`;
-        
+
+        // Apply calculated width with flex properties for proper column sizing
+        // Use calc() to account for gap spacing
+        contentHTML += `<div class="col" style="position: relative; width: ${columnWidth}; flex: 0 0 ${columnWidth}; box-sizing: border-box;">`;
+
         if (mode === 'preview') {
             contentHTML += `<div class="column-label">Col ${i + 1}</div>`;
         }
-        
+
         if (columnComponents.length > 0) {
             contentHTML += renderComponentsList(columnComponents, columnPath, mode);
         } else if (mode === 'preview') {
             contentHTML += '<div class="column-placeholder">Drop components here...</div>';
         }
-        
+
         contentHTML += '</div>';
     }
-    
+
     contentHTML += '</div>';
     if (mode === 'preview') {
         const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         registerComponentPath(componentId, path);
-        return `<div class="rendered-component" data-component-id="${componentId}">
-                    <div class="component-label">columnsgrid</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${contentHTML}
-                </div>`;
+        return wrapComponentWithChrome(componentId, 'columnsgrid', contentHTML, getComponentDepth(path));
     }
-    
+
     return contentHTML;
 }
 /**
  * @function renderAccordion
- * @description Renders an accordion component.
+ * @description Renders an accordion component with simple title/content strings.
  * @param {object} component - The accordion component object.
  * @param {Array} path - The path to the component in the YAML structure.
  * @param {string} mode - The rendering mode ('preview' or 'export').
  * @returns {string} The rendered HTML for the accordion.
  * @calledBy {renderComponent}
- * @calls {renderComponentsList|registerComponentPath}
+ * @calls {registerComponentPath}
  */
 function renderAccordion(component, path, mode) {
-    const { properties = {}, content } = component;
-    const title = properties.title || 'Click to expand';
-    
-    let contentHTML = '';
-    if (content && content.components) {
-        const contentPath = [...path, 'content', 'components'];
-        contentHTML = renderComponentsList(content.components, contentPath, mode);
+    const { properties = {} } = component;
+    const items = properties.items || [];
+    const allowMultipleOpen = getNestedValue(properties, ['behavior', 'allowMultipleOpen']) ?? false;
+
+    // Typography properties
+    const titleSize = resolveTypographySize(getNestedValue(properties, ['typography', 'title', 'size'])) || resolveTypographySize('lg');
+    const titleWeight = resolveFontWeight(getNestedValue(properties, ['typography', 'title', 'weight'])) || resolveFontWeight('semibold');
+    const titleColor = getNestedValue(properties, ['typography', 'title', 'color']) || '#111827';
+    const contentSize = resolveTypographySize(getNestedValue(properties, ['typography', 'content', 'size'])) || resolveTypographySize('md');
+    const contentWeight = resolveFontWeight(getNestedValue(properties, ['typography', 'content', 'weight'])) || resolveFontWeight('regular');
+    const contentColor = getNestedValue(properties, ['typography', 'content', 'color']) || '#374151';
+
+    // Layout properties
+    const widthMode = getNestedValue(properties, ['layout', 'widthMode']) || 'stretch';
+    const widthRule = getWidthModeRule(widthMode);
+
+    // Appearance properties
+    const borderRadius = BORDER_RADIUS_MAP[getNestedValue(properties, ['appearance', 'radius'])] || BORDER_RADIUS_MAP.sm;
+    const paddingBlock = resolveSpacingValue(getNestedValue(properties, ['appearance', 'padding', 'block'])) || resolveSpacingValue('sm');
+    const paddingInline = resolveSpacingValue(getNestedValue(properties, ['appearance', 'padding', 'inline'])) || resolveSpacingValue('sm');
+
+    // Shared border properties (applies to both title and content)
+    const borderWidth = getNestedValue(properties, ['appearance', 'border', 'width']) ?? 1;
+    const borderStyle = getNestedValue(properties, ['appearance', 'border', 'style']) || 'solid';
+    const borderColor = getNestedValue(properties, ['appearance', 'border', 'color']) || '#d1d5db';
+    const borderPosition = getNestedValue(properties, ['appearance', 'border', 'position']) || 'bottom';
+
+    // Title background properties
+    const titleBackgroundColor = getNestedValue(properties, ['appearance', 'titleBackground', 'color']) || '#f5f5f5';
+
+    // Content background properties (NEW)
+    const contentBackgroundColor = getNestedValue(properties, ['appearance', 'contentBackground', 'color']) || '#ffffff';
+    const contentBackgroundTransparency = getNestedValue(properties, ['appearance', 'contentBackground', 'transparency']);
+    let contentBgColor = contentBackgroundColor;
+    if (contentBackgroundTransparency !== undefined && contentBackgroundColor.startsWith('#')) {
+        contentBgColor = hexToRgba(contentBackgroundColor, contentBackgroundTransparency);
     }
-    const accordionHTML = `<details class="accordion">
-        <summary class="accordion-summary">${title}</summary>
-        <div class="card">
-            <div class="card-body">${contentHTML}</div>
-        </div>
-    </details>`;
+
+    // Spacing properties
+    const marginBlock = resolveSpacingValue(getNestedValue(properties, ['spacing', 'marginBlock'])) || resolveSpacingValue('md');
+    const marginInline = resolveSpacingValue(getNestedValue(properties, ['spacing', 'marginInline'])) || resolveSpacingValue('none');
+
+    // Fallback for empty accordion
+    let accordionItems = items;
+    if (items.length === 0) {
+        accordionItems = [{ title: 'Click to expand', content: '' }];
+    }
+
+    const containerId = `accordion_container_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+    // Build container styles (container should be transparent, background applies to items)
+    const containerStyles = buildStyleString([
+        widthRule.component,
+        `border-radius: ${borderRadius};`,
+        canUseSpacingValue(marginBlock) ? `margin-block: ${marginBlock};` : '',
+        canUseSpacingValue(marginInline) ? `margin-inline: ${marginInline};` : '',
+    ]);
+
+    let accordionHTML = `<div id="${containerId}" class="accordion-container" data-allow-multiple="${allowMultipleOpen}" style="${containerStyles}">`;
+
+    accordionItems.forEach((item, index) => {
+        const itemId = `accordion_${containerId}_${index}`;
+        const title = escapeHtml(item.title || `Item ${index + 1}`);
+
+        // Only support simple string content
+        const contentHTML = item.content ? escapeHtmlWithLineBreaks(item.content) : '';
+
+        // Build item styles
+        // Determine border style based on position (applies to both title and content)
+        let borderStyleString = '';
+        switch(borderPosition) {
+            case 'top':
+                borderStyleString = `border-top: ${borderWidth}px ${borderStyle} ${borderColor};`;
+                break;
+            case 'left':
+                borderStyleString = `border-left: ${borderWidth}px ${borderStyle} ${borderColor};`;
+                break;
+            case 'right':
+                borderStyleString = `border-right: ${borderWidth}px ${borderStyle} ${borderColor};`;
+                break;
+            case 'all':
+                borderStyleString = `border: ${borderWidth}px ${borderStyle} ${borderColor};`;
+                break;
+            default: // 'bottom'
+                borderStyleString = `border-bottom: ${borderWidth}px ${borderStyle} ${borderColor};`;
+        }
+
+        const summaryStyles = buildStyleString([
+            `font-size: ${titleSize};`,
+            `font-weight: ${titleWeight};`,
+            `color: ${titleColor};`,
+            `background-color: ${titleBackgroundColor};`,
+            borderStyleString,
+            canUseSpacingValue(paddingBlock) ? `padding-block: ${paddingBlock};` : '',
+            canUseSpacingValue(paddingInline) ? `padding-inline: ${paddingInline};` : '',
+            'cursor: pointer;',
+            'transition: background-color 0.2s ease, border-color 0.2s ease;',
+        ]);
+
+        const contentStyles = buildStyleString([
+            `font-size: ${contentSize};`,
+            `font-weight: ${contentWeight};`,
+            `color: ${contentColor};`,
+            `background-color: ${contentBgColor};`,
+            borderStyleString,
+            canUseSpacingValue(paddingBlock) ? `padding-block: ${paddingBlock};` : '',
+            canUseSpacingValue(paddingInline) ? `padding-inline: ${paddingInline};` : '',
+        ]);
+
+        accordionHTML += `
+            <details class="accordion" data-accordion-id="${itemId}">
+                <summary class="accordion-summary" style="${summaryStyles}">${title}</summary>
+                <div class="card">
+                    <div class="card-body" style="${contentStyles}">${contentHTML}</div>
+                </div>
+            </details>
+        `;
+    });
+
+    accordionHTML += '</div>';
+
     if (mode === 'preview') {
         const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         registerComponentPath(componentId, path);
-        return `<div class="rendered-component" data-component-id="${componentId}">
-                    <div class="component-label">accordion</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${accordionHTML}
-                </div>`;
+        registerComponentForInitialization('accordion', containerId, { allowMultipleOpen });
+        return wrapComponentWithChrome(componentId, 'accordion', accordionHTML, getComponentDepth(path));
     }
-    
+
     return accordionHTML;
 }
 /**
@@ -596,32 +926,106 @@ function renderAccordion(component, path, mode) {
 function renderTabs(component, path, mode) {
     const { properties = {}, tabs = [] } = component;
     const tabsId = `tabs_${Math.random().toString(36).substr(2, 9)}`;
-    
-    let tabsHTML = `<div class="tabs">`;
+
+    // Read styling properties
+    const widthMode = getNestedValue(properties, ['layout', 'widthMode']) || 'stretch';
+    const widthRule = getWidthModeRule(widthMode);
+    const orientation = getNestedValue(properties, ['layout', 'orientation']) || 'horizontal';
+
+    // Typography
+    const labelSize = resolveTypographySize(getNestedValue(properties, ['typography', 'label', 'size'])) || '1.6rem';
+    const labelWeight = resolveFontWeight(getNestedValue(properties, ['typography', 'label', 'weight'])) || '600';
+    const activeColor = getNestedValue(properties, ['typography', 'label', 'active', 'color']) || '#000000';
+    const inactiveColor = getNestedValue(properties, ['typography', 'label', 'inactive', 'color']) || '#6b7280';
+
+    // Appearance
+    const activeBg = getNestedValue(properties, ['appearance', 'tab', 'background', 'active']) || '#ffffff';
+    const inactiveBg = getNestedValue(properties, ['appearance', 'tab', 'background', 'inactive']) || '#f3f4f6';
+    const tabBorderWidth = getNestedValue(properties, ['appearance', 'tab', 'border', 'width']) ?? 2;
+    const borderPosition = getNestedValue(properties, ['appearance', 'tab', 'border', 'position']) || 'lower';
+    const tabGap = resolveSpacingValue(getNestedValue(properties, ['appearance', 'tab', 'gap'])) || '0';
+
+    const contentBg = getNestedValue(properties, ['appearance', 'content', 'background', 'color']) || '#ffffff';
+    const contentTransparency = getNestedValue(properties, ['appearance', 'content', 'background', 'transparency']);
+
+    // Handle content background transparency
+    let contentBgColor = contentBg;
+    if (contentTransparency !== undefined && contentBg.startsWith('#')) {
+        contentBgColor = hexToRgba(contentBg, contentTransparency);
+    }
+
+    const contentBorderWidth = getNestedValue(properties, ['appearance', 'content', 'border', 'width']) ?? 1;
+    const contentBorderColor = getNestedValue(properties, ['appearance', 'content', 'border', 'color']) || '#d1d5db';
+    const contentPaddingBlock = resolveSpacingValue(getNestedValue(properties, ['appearance', 'content', 'padding', 'block'])) || '1.6rem';
+    const contentPaddingInline = resolveSpacingValue(getNestedValue(properties, ['appearance', 'content', 'padding', 'inline'])) || '1.6rem';
+
+    // Spacing
+    const marginBlock = resolveSpacingValue(getNestedValue(properties, ['spacing', 'marginBlock'])) || '1.6rem';
+    const marginInline = resolveSpacingValue(getNestedValue(properties, ['spacing', 'marginInline'])) || '0';
+
+    // Build container styles
+    const containerStyles = buildStyleString([
+        widthRule.component,
+        canUseSpacingValue(marginBlock) ? `margin-block: ${marginBlock};` : '',
+        canUseSpacingValue(marginInline) ? `margin-inline: ${marginInline};` : '',
+        canUseSpacingValue(tabGap) ? `gap: ${tabGap};` : '',
+    ]);
+
+    let tabsHTML = `<div class="tabs" data-orientation="${orientation}" style="${containerStyles}">`;
+
     tabs.forEach((tab, i) => {
         const tabId = `${tabsId}_${i}`;
-        const tabTitle = tab.title || `Tab ${i + 1}`;
+        const tabTitle = escapeHtml(tab.title || `Tab ${i + 1}`);
         const tabComponents = tab.components || [];
         const tabPath = [...path, 'tabs', i, 'components'];
-        
+
+        // Radio input (hidden)
         tabsHTML += `<input type="radio" name="${tabsId}" id="${tabId}" ${i === 0 ? 'checked' : ''} />`;
-        tabsHTML += `<label for="${tabId}">${tabTitle}</label>`;
-        
+
+        // Tab label with styling and CSS custom properties for active state
+        // Build border based on position - border color uses typography colors
+        let borderStyle = '';
+        if (borderPosition === 'upper') {
+            borderStyle = `border-top: ${tabBorderWidth}px solid ${inactiveColor};`;
+        } else if (borderPosition === 'lower') {
+            borderStyle = `border-bottom: ${tabBorderWidth}px solid ${inactiveColor};`;
+        } else if (borderPosition === 'full') {
+            borderStyle = `border: ${tabBorderWidth}px solid ${inactiveColor};`;
+        }
+
+        const labelStyles = buildStyleString([
+            `font-size: ${labelSize};`,
+            `font-weight: ${labelWeight};`,
+            `color: ${inactiveColor};`,
+            `background-color: ${inactiveBg};`,
+            borderStyle,
+            `--active-color: ${activeColor};`,
+            `--active-bg: ${activeBg};`,
+            `--border-width: ${tabBorderWidth}px;`,
+            `--border-position: ${borderPosition};`,
+        ]);
+        tabsHTML += `<label for="${tabId}" style="${labelStyles}">${tabTitle}</label>`;
+
+        // Content area with styling
+        const contentStyles = buildStyleString([
+            `background-color: ${contentBgColor};`,
+            `border: ${contentBorderWidth}px solid ${contentBorderColor};`,
+            `padding-block: ${contentPaddingBlock};`,
+            `padding-inline: ${contentPaddingInline};`,
+        ]);
+
         const tabContent = renderComponentsList(tabComponents, tabPath, mode);
-        tabsHTML += `<div class="content"><div>${tabContent}</div></div>`;
+        tabsHTML += `<div class="content" style="${contentStyles}"><div>${tabContent}</div></div>`;
     });
-    
+
     tabsHTML += `</div>`;
+
     if (mode === 'preview') {
         const componentId = `comp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         registerComponentPath(componentId, path);
-        return `<div class="rendered-component" data-component-id="${componentId}">
-                    <div class="component-label">tabs</div>
-                    <div class="delete-component-btn" data-component-id="${componentId}">&#10006;</div>
-                    ${tabsHTML}
-                </div>`;
+        return wrapComponentWithChrome(componentId, 'tabs', tabsHTML, getComponentDepth(path));
     }
-    
+
     return tabsHTML;
 }
 /**
@@ -657,6 +1061,25 @@ export function generateComponentInnerHTML(type, props, classes, styleAttr, mode
         const borderColor = componentProps.pullBorderColor || '#6366f1';
         styleString = appendInlineStyle(styleString, `--blockquote-border: ${borderColor};`);
     }
+
+    if (TEXT_COMPONENTS_WITH_WIDTH_MODE.has(componentType)) {
+        const widthMode = getNestedValue(componentProps, ['layout', 'widthMode']) || 'stretch';
+        const widthRule = getWidthModeRule(widthMode);
+
+        // Apply component styles
+        styleString = appendInlineStyle(styleString, 'display: inline-block; box-sizing: border-box;');
+        styleString = appendInlineStyle(styleString, widthRule.component);
+
+        // CHANGE: ALWAYS apply flex properties to component (both preview and export)
+        // No wrappers means component gets all styles
+        if (Array.isArray(widthRule.flex)) {
+            widthRule.flex.forEach(declaration => {
+                if (declaration) {
+                    styleString = appendInlineStyle(styleString, declaration);
+                }
+            });
+        }
+    }
     const attributeParts = [];
     if (classes) {
         attributeParts.push(`class="${classes}"`);
@@ -667,20 +1090,20 @@ export function generateComponentInnerHTML(type, props, classes, styleAttr, mode
     if (componentType === 'heading') {
         const level = Math.min(6, Math.max(1, parseInt(componentProps.level, 10) || 2));
         const textContent = escapeHtmlWithLineBreaks(componentProps.text || 'Heading');
-            return '<h' + level + attrSegment + '>' + textContent + '</h' + level + '>';  ;
+        return `<h${level}${attrSegment}>${textContent}</h${level}>`;
     }
-    
+
     if (componentType === 'paragraph') {
         const textContent = escapeHtmlWithLineBreaks(componentProps.text || 'Paragraph');
-        return '<p' + attrSegment + '>' + textContent + '</p>';
+        return `<p${attrSegment}>${textContent}</p>`;
     }
     if (componentType === 'eyebrow') {
         const textContent = escapeHtmlWithLineBreaks(componentProps.text || 'Label');
-        return '<p' + attrSegment + '>' + textContent + '</p>';
+        return `<p${attrSegment}>${textContent}</p>`;
     }
     if (componentType === 'caption') {
         const textContent = escapeHtmlWithLineBreaks(componentProps.text || 'Caption');
-        return '<p' + attrSegment + '>' + textContent + '</p>';
+        return `<p${attrSegment}>${textContent}</p>`;
     }
     if (componentType === 'blockquote') {
         const quoteContent = escapeHtmlWithLineBreaks(componentProps.quote || componentProps.text || 'Quote');
@@ -688,8 +1111,78 @@ export function generateComponentInnerHTML(type, props, classes, styleAttr, mode
         return '<figure' + attrSegment + '><blockquote>' + quoteContent + '</blockquote>' + citation + '</figure>';
     }
     const finalAttrs = attributeString;
+
     if (componentType === 'image') {
-        return '<img src="' + (componentProps.src || 'https://via.placeholder.com/150') + '" alt="' + (componentProps.alt || '') + '" style="width: 100%; height: ' + (toRem(componentProps.height) || 'auto') + '; object-fit: cover;">';
+        const src = getNestedValue(componentProps, ['source', 'url']) || 'https://via.placeholder.com/150';
+        const alt = getNestedValue(componentProps, ['source', 'altText']) || '';
+        const height = getNestedValue(componentProps, ['presentation', 'height']);
+        const fit = getNestedValue(componentProps, ['presentation', 'fit']) || 'cover';
+        const cornerStyle = getNestedValue(componentProps, ['presentation', 'cornerStyle']);
+
+        let imgStyles = `width: 100%; height: ${toRem(height) || 'auto'}; object-fit: ${fit};`;
+
+        // Apply cornerStyle to the <img> element
+        if (cornerStyle) {
+            const radius = resolveBorderRadiusToken(cornerStyle);
+            if (radius) {
+                imgStyles += ` border-radius: ${radius};`;
+            }
+        }
+
+        const link = componentProps.link;
+        let imageHTML = `<img src="${src}" alt="${alt}" style="${imgStyles}">`;
+
+        if (link) {
+            imageHTML = `<a href="${link}">${imageHTML}</a>`;
+        }
+
+        // Handle overlay
+        const overlayEnabled = getNestedValue(componentProps, ['overlay', 'enabled']);
+        if (overlayEnabled) {
+            const overlayColor = getNestedValue(componentProps, ['overlay', 'color']) || 'rgba(0,0,0,0.5)';
+            const overlayOpacity = getNestedValue(componentProps, ['overlay', 'opacity']) || '0.5';
+            imageHTML += `<div class="image-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: ${overlayColor}; opacity: ${overlayOpacity}; pointer-events: none;"></div>`;
+        }
+
+        // Merge position: relative with existing styles
+        const containerStyle = appendInlineStyle(styleString, 'position: relative;');
+        const containerAttrs = attributeString.replace(/style="[^"]*"/, `style="${containerStyle}"`);
+        return `<div ${containerAttrs}>${imageHTML}</div>`;
+    } else if (componentType === 'gif') {
+        const src = getNestedValue(componentProps, ['source', 'url']) || 'https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif';
+        const alt = getNestedValue(componentProps, ['source', 'altText']) || 'animated gif';
+        const fit = getNestedValue(componentProps, ['presentation', 'fit']) || 'cover';
+        const cornerStyle = getNestedValue(componentProps, ['presentation', 'cornerStyle']);
+
+        let imgStyles = `width: 100%; height: auto; object-fit: ${fit};`;
+
+        // Apply cornerStyle to the <img> element
+        if (cornerStyle) {
+            const radius = resolveBorderRadiusToken(cornerStyle);
+            if (radius) {
+                imgStyles += ` border-radius: ${radius};`;
+            }
+        }
+
+        const link = componentProps.link;
+        let gifHTML = `<img src="${src}" alt="${alt}" style="${imgStyles}">`;
+
+        if (link) {
+            gifHTML = `<a href="${link}">${gifHTML}</a>`;
+        }
+
+        // Handle overlay
+        const overlayEnabled = getNestedValue(componentProps, ['overlay', 'enabled']);
+        if (overlayEnabled) {
+            const overlayColor = getNestedValue(componentProps, ['overlay', 'color']) || 'rgba(0,0,0,0.5)';
+            const overlayOpacity = getNestedValue(componentProps, ['overlay', 'opacity']) || '0.5';
+            gifHTML += `<div class="image-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: ${overlayColor}; opacity: ${overlayOpacity}; pointer-events: none;"></div>`;
+        }
+
+        // Merge position: relative with existing styles
+        const containerStyle = appendInlineStyle(styleString, 'position: relative;');
+        const containerAttrs = attributeString.replace(/style="[^"]*"/, `style="${containerStyle}"`);
+        return `<div ${containerAttrs}>${gifHTML}</div>`;
     } else if (componentType === 'video') {
         const videoUrl = getNestedValue(componentProps, ['source', 'url']) || '';
         const videoId = videoUrl.split('v=')[1];
@@ -701,12 +1194,122 @@ export function generateComponentInnerHTML(type, props, classes, styleAttr, mode
     } else if (componentType === 'textbox') {
         const id = 'input_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         const labelStyles = generateRemainingStyles(componentProps.label_properties || {}, 'label');
-        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><input type="text" id="' + id + '" placeholder="' + (componentProps.placeholder || 'Enter text...') + '" value="' + (componentProps.value || '') + '" ' + finalAttrs + ' /></div>';
+
+        // Extract appearance properties
+        const bgColor = getNestedValue(componentProps, ['appearance', 'background', 'color']) || '#ffffff';
+        const bgTransparency = getNestedValue(componentProps, ['appearance', 'background', 'transparency']) ?? 100;
+        let backgroundColor = bgColor;
+        if (bgTransparency !== undefined && bgColor.startsWith('#')) {
+            backgroundColor = hexToRgba(bgColor, bgTransparency);
+        }
+        const borderWidth = getNestedValue(componentProps, ['appearance', 'border', 'width']) ?? 1;
+        const borderStyle = getNestedValue(componentProps, ['appearance', 'border', 'style']) || 'solid';
+        const borderColor = getNestedValue(componentProps, ['appearance', 'border', 'color']) || '#cccccc';
+        const borderRadius = resolveBorderRadiusToken(getNestedValue(componentProps, ['appearance', 'radius'])) || '0px';
+        const textColor = getNestedValue(componentProps, ['typography', 'color']) || '#000000';
+        const paddingBlock = resolveSpacingValue(getNestedValue(componentProps, ['appearance', 'padding', 'block'])) || resolveSpacingValue('sm');
+        const paddingInline = resolveSpacingValue(getNestedValue(componentProps, ['appearance', 'padding', 'inline'])) || resolveSpacingValue('sm');
+
+        // Build textbox styles - border hidden by default, shown on focus via CSS
+        let textboxStyles = `background-color: ${backgroundColor};`;
+        textboxStyles += `color: ${textColor};`;
+        textboxStyles += `border: ${borderWidth}px ${borderStyle} transparent;`;
+        textboxStyles += `border-radius: ${borderRadius};`;
+        textboxStyles += `width: 100%;`;
+        textboxStyles += `box-sizing: border-box;`;
+        if (canUseSpacingValue(paddingBlock)) {
+            textboxStyles += `padding-block: ${paddingBlock};`;
+        }
+        if (canUseSpacingValue(paddingInline)) {
+            textboxStyles += `padding-inline: ${paddingInline};`;
+        }
+        textboxStyles += `transition: all 0.2s ease;`;
+        textboxStyles += `--focus-border-color: ${borderColor};`;
+
+        const inputAttrs = attributeString.replace(/style="[^"]*"/, `style="${textboxStyles}"`);
+        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><input type="text" id="' + id + '" placeholder="' + (componentProps.placeholder || 'Enter text...') + '" value="' + (componentProps.value || '') + '" ' + inputAttrs + ' /></div>';
     } else if (componentType === 'textarea') {
         const id = 'input_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         const labelStyles = generateRemainingStyles(componentProps.label_properties || {}, 'label');
-        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><textarea id="' + id + '" placeholder="' + (componentProps.placeholder || 'Enter text...') + '" rows="' + (componentProps.rows || 3) + '" ' + finalAttrs + '>' + (componentProps.value || '') + '</textarea></div>';
+
+        // Extract appearance properties
+        const bgColor = getNestedValue(componentProps, ['appearance', 'background', 'color']) || '#ffffff';
+        const bgTransparency = getNestedValue(componentProps, ['appearance', 'background', 'transparency']) ?? 100;
+        let backgroundColor = bgColor;
+        if (bgTransparency !== undefined && bgColor.startsWith('#')) {
+            backgroundColor = hexToRgba(bgColor, bgTransparency);
+        }
+        const borderWidth = getNestedValue(componentProps, ['appearance', 'border', 'width']) ?? 1;
+        const borderStyle = getNestedValue(componentProps, ['appearance', 'border', 'style']) || 'solid';
+        const borderColor = getNestedValue(componentProps, ['appearance', 'border', 'color']) || '#cccccc';
+        const borderRadius = resolveBorderRadiusToken(getNestedValue(componentProps, ['appearance', 'radius'])) || '0px';
+        const textColor = getNestedValue(componentProps, ['typography', 'color']) || '#000000';
+        const paddingBlock = resolveSpacingValue(getNestedValue(componentProps, ['appearance', 'padding', 'block'])) || resolveSpacingValue('sm');
+        const paddingInline = resolveSpacingValue(getNestedValue(componentProps, ['appearance', 'padding', 'inline'])) || resolveSpacingValue('sm');
+
+        // Build textarea styles - border hidden by default, shown on focus via CSS
+        let textareaStyles = `background-color: ${backgroundColor};`;
+        textareaStyles += `color: ${textColor};`;
+        textareaStyles += `border: ${borderWidth}px ${borderStyle} transparent;`;
+        textareaStyles += `border-radius: ${borderRadius};`;
+        textareaStyles += `width: 100%;`;
+        textareaStyles += `box-sizing: border-box;`;
+        if (canUseSpacingValue(paddingBlock)) {
+            textareaStyles += `padding-block: ${paddingBlock};`;
+        }
+        if (canUseSpacingValue(paddingInline)) {
+            textareaStyles += `padding-inline: ${paddingInline};`;
+        }
+        textareaStyles += `font-family: inherit;`;
+        textareaStyles += `transition: all 0.2s ease;`;
+        textareaStyles += `--focus-border-color: ${borderColor};`;
+
+        const textareaAttrs = attributeString.replace(/style="[^"]*"/, `style="${textareaStyles}"`);
+        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><textarea id="' + id + '" placeholder="' + (componentProps.placeholder || 'Enter text...') + '" rows="' + (componentProps.rows || 3) + '" ' + textareaAttrs + '>' + (componentProps.value || '') + '</textarea></div>';
     } else if (componentType === 'button') {
+        // Extract appearance properties
+        const bgColor = getNestedValue(componentProps, ['appearance', 'background', 'color']) || '#2563eb';
+        const bgTransparency = getNestedValue(componentProps, ['appearance', 'background', 'transparency']) ?? 100;
+        let backgroundColor = bgColor;
+        if (bgTransparency !== undefined && bgColor.startsWith('#')) {
+            backgroundColor = hexToRgba(bgColor, bgTransparency);
+        }
+        const borderWidth = getNestedValue(componentProps, ['appearance', 'border', 'width']) ?? 1;
+        const borderStyle = getNestedValue(componentProps, ['appearance', 'border', 'style']) || 'solid';
+        const borderColor = getNestedValue(componentProps, ['appearance', 'border', 'color']) || 'transparent';
+        const borderRadius = resolveBorderRadiusToken(getNestedValue(componentProps, ['appearance', 'radius'])) || '4px';
+        const paddingBlock = resolveSpacingValue(getNestedValue(componentProps, ['appearance', 'padding', 'block'])) || resolveSpacingValue('sm');
+        const paddingInline = resolveSpacingValue(getNestedValue(componentProps, ['appearance', 'padding', 'inline'])) || resolveSpacingValue('md');
+        const marginBlock = resolveSpacingValue(getNestedValue(componentProps, ['spacing', 'marginBlock'])) || resolveSpacingValue('sm');
+        const marginInline = resolveSpacingValue(getNestedValue(componentProps, ['spacing', 'marginInline'])) || resolveSpacingValue('xs');
+
+        // Extract typography properties
+        const textColor = getNestedValue(componentProps, ['typography', 'color']) || '#ffffff';
+        const fontWeight = resolveFontWeight(getNestedValue(componentProps, ['typography', 'weight'])) || resolveFontWeight('semibold');
+
+        // Build comprehensive button styles
+        let buttonStyles = 'width: auto; flex: 0 0 auto;';
+        buttonStyles += `background-color: ${backgroundColor};`;
+        buttonStyles += `color: ${textColor};`;
+        buttonStyles += `font-weight: ${fontWeight};`;
+        buttonStyles += `border: ${borderWidth}px ${borderStyle} ${borderColor};`;
+        buttonStyles += `border-radius: ${borderRadius};`;
+        buttonStyles += `cursor: pointer;`;
+        buttonStyles += `transition: all 0.2s ease;`;
+        if (canUseSpacingValue(paddingBlock)) {
+            buttonStyles += `padding-block: ${paddingBlock};`;
+        }
+        if (canUseSpacingValue(paddingInline)) {
+            buttonStyles += `padding-inline: ${paddingInline};`;
+        }
+        if (canUseSpacingValue(marginBlock)) {
+            buttonStyles += `margin-block: ${marginBlock};`;
+        }
+        if (canUseSpacingValue(marginInline)) {
+            buttonStyles += `margin-inline: ${marginInline};`;
+        }
+
+        styleString = appendInlineStyle(styleString, buttonStyles);
         return '<button onclick="' + (componentProps.onclick || '') + '" ' + finalAttrs + '>' + (componentProps.text || 'Click Me') + '</button>';
     } else if (componentType === 'dropdown') {
         const id = 'input_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -717,17 +1320,57 @@ export function generateComponentInnerHTML(type, props, classes, styleAttr, mode
             const selected = componentProps.selected === value ? ' selected' : '';
             return '<option value="' + value + '"' + selected + '>' + value + '</option>';
         }).join('');
-        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><select id="' + id + '" ' + finalAttrs + '>' + optionHTML + '</select></div>';
+
+        // Extract appearance properties
+        const bgColor = getNestedValue(componentProps, ['appearance', 'background', 'color']) || '#ffffff';
+        const bgTransparency = getNestedValue(componentProps, ['appearance', 'background', 'transparency']) ?? 100;
+        let backgroundColor = bgColor;
+        if (bgTransparency !== undefined && bgColor.startsWith('#')) {
+            backgroundColor = hexToRgba(bgColor, bgTransparency);
+        }
+        const borderWidth = getNestedValue(componentProps, ['appearance', 'border', 'width']) ?? 1;
+        const borderStyle = getNestedValue(componentProps, ['appearance', 'border', 'style']) || 'solid';
+        const borderColor = getNestedValue(componentProps, ['appearance', 'border', 'color']) || '#cccccc';
+        const borderRadius = resolveBorderRadiusToken(getNestedValue(componentProps, ['appearance', 'radius'])) || '0px';
+
+        // Build dropdown styles
+        let dropdownStyles = `background-color: ${backgroundColor};`;
+        dropdownStyles += `border: ${borderWidth}px ${borderStyle} ${borderColor};`;
+        dropdownStyles += `border-radius: ${borderRadius};`;
+        dropdownStyles += `width: 100%;`;
+        dropdownStyles += `box-sizing: border-box;`;
+        dropdownStyles += `padding: 0.4rem;`;
+        dropdownStyles += `cursor: pointer;`;
+        dropdownStyles += `transition: all 0.2s ease;`;
+
+        const selectAttrs = attributeString.replace(/style="[^"]*"/, `style="${dropdownStyles}"`);
+        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" style="' + labelStyles + '">' + (componentProps.label || '') + '</label><select id="' + id + '" ' + selectAttrs + '>' + optionHTML + '</select></div>';
     } else if (componentType === 'calendar') {
         return generateCalendarHTML(componentProps);
     } else if (componentType === 'checkbox') {
         const id = 'input_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         const labelStyles = generateRemainingStyles(componentProps.label_properties || {}, 'label');
-        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" ' + finalAttrs + ' style="' + labelStyles + '"><input type="checkbox" id="' + id + '"' + (componentProps.checked ? ' checked' : '') + ' /><span>' + (componentProps.text || 'Check me') + '</span></label></div>';
+
+        // Extract appearance color
+        const accentColor = getNestedValue(componentProps, ['appearance', 'color']) || '#2563eb';
+
+        // Build checkbox styles with accent color via CSS variable
+        let checkboxStyles = `--checkbox-color: ${accentColor};`;
+
+        const checkboxAttrs = attributeString ? attributeString.replace(/style="[^"]*"/, `style="${checkboxStyles}"`) : `style="${checkboxStyles}"`;
+        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" ' + checkboxAttrs + ' style="' + labelStyles + '"><input type="checkbox" id="' + id + '" class="styled-checkbox"' + (componentProps.checked ? ' checked' : '') + ' style="accent-color: ' + accentColor + ';" /><span>' + (componentProps.text || 'Check me') + '</span></label></div>';
     } else if (componentType === 'radio') {
         const id = 'input_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         const labelStyles = generateRemainingStyles(componentProps.label_properties || {}, 'label');
-        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" ' + finalAttrs + ' style="' + labelStyles + '"><input type="radio" id="' + id + '" name="' + (componentProps.name || 'radio1') + '" value="' + (componentProps.value || 'option1') + '" /><span>' + (componentProps.text || 'Select me') + '</span></label></div>';
+
+        // Extract appearance color
+        const accentColor = getNestedValue(componentProps, ['appearance', 'color']) || '#2563eb';
+
+        // Build radio styles with accent color via CSS variable
+        let radioStyles = `--radio-color: ${accentColor};`;
+
+        const radioAttrs = finalAttrs ? finalAttrs.replace(/style="[^"]*"/, `style="${radioStyles}"`) : `style="${radioStyles}"`;
+        return '<div style="width: 100%; margin-bottom: 1rem;"><label for="' + id + '" ' + radioAttrs + ' style="' + labelStyles + '"><input type="radio" id="' + id + '" name="' + (componentProps.name || 'radio1') + '" value="' + (componentProps.value || 'option1') + '" class="styled-radio" style="accent-color: ' + accentColor + ';" /><span>' + (componentProps.text || 'Select me') + '</span></label></div>';
     } else if (componentType === 'hamburger') {
         const links = componentProps.links || [];
         let menuHTML = '<div class="dropdown" ' + finalAttrs + '><button class="button primary">?</button><div class="menu">';
@@ -917,7 +1560,7 @@ function generateTitlebarHTML(props, classes, styleAttr, mode) {
     const sections = isRightAligned
         ? [navMarkup, mobileMenuButton, brandMarkup]
         : [brandMarkup, mobileMenuButton, navMarkup];
-    const contentMarkup = sections.join('\n');
+    const contentMarkup = sections.join('n');
 
     return `
         <nav class="titlebar ${alignmentClass} ${classes}" style="${combinedStyles}" data-base-height="${baseHeightPx}" data-logo-position="${brandPositionAttr}" id="${titlebarId}">
@@ -937,12 +1580,20 @@ function generateRemainingStyles(props = {}, componentName) {
     const backgroundGroup = props.background || appearance.background || {};
     const backgroundImage = backgroundGroup.image || props.backgroundImage;
     const backgroundColor = backgroundGroup.color || props.backgroundColor;
+    const transparency = backgroundGroup.transparency;
+
     if (backgroundImage) {
         styles += `background-image: url('${backgroundImage}');`;
         styles += 'background-size: cover;';
         styles += 'background-position: center;';
     } else if (backgroundColor) {
-        styles += `background-color: ${backgroundColor};`;
+        // Check if we have a transparency value (0-100) to combine with hex color
+        if (transparency !== undefined && backgroundColor.startsWith('#')) {
+            const finalColor = hexToRgba(backgroundColor, transparency);
+            styles += `background-color: ${finalColor};`;
+        } else {
+            styles += `background-color: ${backgroundColor};`;
+        }
     }
     const typographyGroup = props.typography || {};
     const fontSize = resolveTypographySize(typographyGroup.size || props.fontSize);
@@ -983,19 +1634,36 @@ function generateRemainingStyles(props = {}, componentName) {
     if (marginGroup && typeof marginGroup === 'object') {
         for (const side of Object.keys(marginGroup)) {
             const resolved = resolveSpacingValue(marginGroup[side]);
-            if (resolved !== null) {
+            if (canUseSpacingValue(resolved)) {
                 styles += `margin-${side}: ${resolved};`;
             }
         }
     } else if (props.margin) {
         styles += `margin: ${toRem(props.margin)};`;
     }
-    const paddingGroup = spacingGroup.padding || layout.padding;
+
+    // Check for appearance.padding (text components) first, then spacing.padding or layout.padding
+    const appearancePaddingGroup = appearance.padding;
+    const paddingGroup = appearancePaddingGroup || spacingGroup.padding || layout.padding;
+
     if (paddingGroup && typeof paddingGroup === 'object') {
-        for (const side of Object.keys(paddingGroup)) {
-            const resolved = resolveSpacingValue(paddingGroup[side]);
-            if (resolved !== null) {
-                styles += `padding-${side}: ${resolved};`;
+        // Handle block/inline padding (logical properties)
+        if ('block' in paddingGroup || 'inline' in paddingGroup) {
+            const blockPadding = resolveSpacingValue(paddingGroup.block);
+            if (canUseSpacingValue(blockPadding) && blockPadding !== 'auto') {
+                styles += `padding-top: ${blockPadding}; padding-bottom: ${blockPadding};`;
+            }
+            const inlinePadding = resolveSpacingValue(paddingGroup.inline);
+            if (canUseSpacingValue(inlinePadding) && inlinePadding !== 'auto') {
+                styles += `padding-left: ${inlinePadding}; padding-right: ${inlinePadding};`;
+            }
+        } else {
+            // Handle traditional side-based padding
+            for (const side of Object.keys(paddingGroup)) {
+                const resolved = resolveSpacingValue(paddingGroup[side]);
+                if (canUseSpacingValue(resolved)) {
+                    styles += `padding-${side}: ${resolved};`;
+                }
             }
         }
     } else if (props.padding) {
@@ -1012,10 +1680,12 @@ function generateRemainingStyles(props = {}, componentName) {
             styles += `border: ${widthValue} ${styleValue} ${borderColorValue || '#000000'};`;
         }
     }
-    const borderRadius = borderGroup.radius ?? props.borderRadius;
+    const borderRadius = borderGroup.radius ?? appearance.radius ?? props.borderRadius;
     if (borderRadius) {
-        const radiusValue = typeof borderRadius === 'number' ? `${borderRadius}px` : toRem(borderRadius);
-        styles += `border-radius: ${radiusValue};`;
+        const radiusValue = resolveBorderRadiusToken(borderRadius);
+        if (radiusValue) {
+            styles += `border-radius: ${radiusValue};`;
+        }
     }
     const shadowValue = appearance.shadow ?? props.shadow;
     if (shadowValue) {
@@ -1071,6 +1741,14 @@ export function initializeAllComponents(componentInitializers) {
 export function computeInlineStylesFromProperties(props = {}) {
     return generateRemainingStyles(props, 'page');
 }
+
+
+
+
+
+
+
+
 
 
 

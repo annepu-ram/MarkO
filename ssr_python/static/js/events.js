@@ -5,6 +5,7 @@ import { componentInitializers } from './component_interactions.js';
 export function initializeEvents(dom, actions) {
     const {
         editor,
+        editorWrapper,
         preview,
         exportButton,
         clearButton,
@@ -89,8 +90,8 @@ export function initializeEvents(dom, actions) {
         });
     }
 
-    if (resizer && editor) {
-        initializeResizer(resizer, editor);
+    if (resizer && editorWrapper) {
+        initializeResizer(resizer, editorWrapper);
     }
 
     if (sidebarResizer && sidebar) {
@@ -237,7 +238,7 @@ function initializeSidebarResizer(sidebarResizer, sidebar) {
     sidebarResizer.addEventListener('mousedown', startResizing);
 }
 
-function initializeResizer(resizer, editor) {
+function initializeResizer(resizer, editorWrapper) {
     let initialEditorHeight = 0;
     let initialMouseY = 0;
 
@@ -245,7 +246,7 @@ function initializeResizer(resizer, editor) {
         const deltaY = event.clientY - initialMouseY;
         const newHeight = initialEditorHeight + deltaY;
         if (newHeight > 120) {
-            editor.style.height = `${newHeight}px`;
+            editorWrapper.style.height = `${newHeight}px`;
         }
     };
 
@@ -256,7 +257,7 @@ function initializeResizer(resizer, editor) {
 
     resizer.addEventListener('mousedown', event => {
         event.preventDefault();
-        initialEditorHeight = editor.clientHeight;
+        initialEditorHeight = editorWrapper.clientHeight;
         initialMouseY = event.clientY;
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseup', handleMouseUp);

@@ -63,33 +63,54 @@
 {#-=============== LAYOUT COMPONENT MACROS ===============-#}
 
 {% macro render_page(component, tokens, path, component_id) %}
-    {% set page_styles = build_styles(component, tokens) %}
-    {% if page_styles %}
-    <div class="chrome-target-page" data-component-id="{{ component_id }}" style="{{ page_styles }}">
-    {% else %}
-    <div class="chrome-target-page" data-component-id="{{ component_id }}">
-    {% endif %}
-        {% for child in component.components | default([]) %}
-            {% set child_path = path + ['components', loop.index0] %}
-            {{ render_component(child, tokens, child_path) }}
-        {% endfor %}
+    {% set properties = component.properties | default({}) %}
+    {% set components = component.components | default([]) %}
+    {% set page_styles = build_styles(component, tokens, part='outer') %}
+    
+    {# Page always uses flex-direction: column, width: 100% #}
+    {% set base_styles = 'display: flex; flex-direction: column; width: 100%; box-sizing: border-box;' %}
+    
+    <div class="chrome-target-page" data-component-id="{{ component_id }}" style="{{ base_styles }} {{ page_styles }}">
+        {% if components | length > 0 %}
+            {% for child in components %}
+                {% set child_path = path + ['components', loop.index0] %}
+                {{ render_component(child, tokens, child_path) }}
+            {% endfor %}
+        {% else %}
+            <div class="page-placeholder">
+                Click components from the sidebar to get started
+            </div>
+        {% endif %}
     </div>
 {% endmacro %}
 
 {% macro render_tabs(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
-    {% set tabs_list = component.tabs | default(properties.tabs) | default([]) %}
+    {% set tabs_list = component.tabs | default([]) %}
     {% set tabs_id = 'tabs_' ~ range(1000, 9999) | random %}
     {% set orientation = properties.layout.orientation | default('horizontal') if properties.layout else 'horizontal' %}
     {% set border_position = properties.appearance.tab.border.position | default('lower') if properties.appearance and properties.appearance.tab and properties.appearance.tab.border else 'lower' %}
     {% set tabs_vars = build_tabs_vars(component, tokens) %}
-    <div class="tabs chrome-target" data-component-id="{{ component_id }}" data-orientation="{{ orientation }}"{% if tabs_vars %} style="{{ tabs_vars }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    
+    {# Determine layout styles based on orientation #}
+    {% if orientation == 'vertical' %}
+        {% set container_style = 'display: grid; grid-template-columns: 200px 1fr; gap: 0; align-items: start;' %}
+        {# Only add grid positioning - let CSS handle all borders via data-border-position #}
+        {% set label_style = 'grid-column: 1; width: 100%; text-align: left;' %}
+        {% set content_style = 'grid-column: 2; grid-row: 1 / 999; width: 100%; min-height: 200px;' %}
+    {% else %}
+        {% set container_style = '' %}
+        {% set label_style = '' %}
+        {% set content_style = '' %}
+    {% endif %}
+
+    <div class="tabs chrome-target" data-component-id="{{ component_id }}" data-orientation="{{ orientation }}"{% if tabs_vars %} style="{{ tabs_vars }} position: relative; {{ container_style }}"{% else %} style="position: relative; {{ container_style }}"{% endif %}>
         {% for tab in tabs_list %}
             {% set tab_index = loop.index0 %}
             {% set tab_id = tabs_id ~ '_' ~ tab_index %}
             <input type="radio" name="{{ tabs_id }}" id="{{ tab_id }}" {% if loop.first %}checked{% endif %}>
-            <label for="{{ tab_id }}" data-border-position="{{ border_position }}">{{ tab.title }}</label>
-            <div class="content">
+            <label for="{{ tab_id }}" data-border-position="{{ border_position }}" style="{{ label_style }}">{{ tab.title }}</label>
+            <div class="content" style="{{ content_style }}">
                 {% if tab.components %}
                     {% for child in tab.components | default([]) %}
                         {% set child_path = path + ['tabs', tab_index, 'components', loop.index0] %}
@@ -106,15 +127,29 @@
 {% macro render_accordion(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
     {% set behavior = properties.behavior | default({}) %}
-    {% set items = properties.get('items', []) if properties else [] %}
+    {% set items = component['items'] | default([]) %}
     {% set border_position = properties.appearance.border.position | default('bottom') if properties.appearance and properties.appearance.border else 'bottom' %}
     {% set accordion_vars = build_accordion_vars(component, tokens) %}
     <div class="accordion-container chrome-target" data-component-id="{{ component_id }}" data-component-type="accordion" data-allow-multiple="{{ behavior.allowMultipleOpen | default(false) }}"{% if accordion_vars %} style="{{ accordion_vars }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% for item in items %}
+            {% set item_index = loop.index0 %}
+            {% set item_path = path + ['items', item_index] %}
+            {% set item_components = [] %}
+            {% if item is mapping and 'components' in item %}
+                {% set item_components = item['components'] | default([]) %}
+            {% endif %}
             <details class="accordion">
-                <summary class="accordion-summary" data-border-position="{{ border_position }}">{{ item.title }}</summary>
+                <summary class="accordion-summary" data-border-position="{{ border_position }}">{{ item.title | default('Untitled') }}</summary>
                 <div class="card-body" data-border-position="{{ border_position }}">
-                    <p>{{ item.content | replace('\n', '<br>') | safe }}</p>
+                    {% if item_components | length > 0 %}
+                        {% for nested_component in item_components %}
+                            {% set nested_path = item_path + ['components', loop.index0] %}
+                            {{ render_component(nested_component, tokens, nested_path) }}
+                        {% endfor %}
+                    {% endif %}
+                    {% if item.content is defined and item.content %}
+                        <p>{{ item.content | replace('\n', '<br>') | safe }}</p>
+                    {% endif %}
                 </div>
             </details>
         {% endfor %}
@@ -123,11 +158,11 @@
 
 {% macro render_hamburger(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
-    {% set links = properties.links | default([]) %}
+    {% set links = component.links | default([]) %}
     {% set styles = build_styles(component, tokens) %}
     <div class="hamburger-menu chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         <button class="mobile-menu-button">
-            <span>{{ properties.label | default('Menu') }}</span>
+            <span>{{ component.label | default('Menu') }}</span>
         </button>
         <div class="titlebar-nav">
             {% for link in links %}
@@ -150,12 +185,20 @@
     {% set properties = component.properties | default({}) %}
     {% set layout_props = properties.layout | default({}) %}
     {% set tag = layout_props.tag | default('section') %}
-    {% set styles = build_styles(component, tokens, 'row') %}
-    <{{ tag }} class="chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
-        {% for child in component.components | default([]) %}
-            {% set child_path = path + ['components', loop.index0] %}
-            {{ render_component(child, tokens, child_path) }}
-        {% endfor %}
+    
+    {# Outer wrapper styles: box model properties #}
+    {% set outer_styles = build_styles(component, tokens, part='outer') %}
+    
+    {# Inner wrapper styles: flex layout properties #}
+    {% set inner_styles = build_flex_styles(component, tokens, 'row') %}
+    
+    <{{ tag }} class="layout-row chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+        <div class="layout-row__content" style="{{ inner_styles }}">
+            {% for child in component.components | default([]) %}
+                {% set child_path = path + ['components', loop.index0] %}
+                {{ render_component(child, tokens, child_path) }}
+            {% endfor %}
+        </div>
     </{{ tag }}>
 {% endmacro %}
 
@@ -163,47 +206,88 @@
     {% set properties = component.properties | default({}) %}
     {% set layout_props = properties.layout | default({}) %}
     {% set tag = layout_props.tag | default('section') %}
-    {% set width_mode = layout_props.widthMode | default('') %}
-    {% set width_style = '' %}
-    {% if width_mode and width_mode != 'stretch' %}
-        {% set width_style = 'flex: 0 0 ' ~ width_mode ~ '%; max-width: ' ~ width_mode ~ '%;' %}
-    {% endif %}
-    {% set styles = build_styles(component, tokens, 'column') %}
-    <{{ tag }} class="chrome-target" data-component-id="{{ component_id }}"{% if styles or width_style %} style="{{ styles }} {{ width_style }} position: relative;"{% else %} style="position: relative;"{% endif %}>
-        {% for child in component.components | default([]) %}
-            {% set child_path = path + ['components', loop.index0] %}
-            {{ render_component(child, tokens, child_path) }}
-        {% endfor %}
+    
+    {# Outer wrapper styles: box model properties #}
+    {% set outer_styles = build_styles(component, tokens, part='outer') %}
+    
+    {# Inner wrapper styles: flex layout properties #}
+    {% set inner_styles = build_flex_styles(component, tokens, 'column') %}
+    
+    <{{ tag }} class="layout-column chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+        <div class="layout-column__content" style="{{ inner_styles }}">
+            {% for child in component.components | default([]) %}
+                {% set child_path = path + ['components', loop.index0] %}
+                {{ render_component(child, tokens, child_path) }}
+            {% endfor %}
+        </div>
     </{{ tag }}>
 {% endmacro %}
 
 {% macro render_columnsgrid(component, tokens, path, component_id) %}
-    {% set styles = build_styles(component, tokens) %}
-    <div class="columnsgrid chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
-        {% for column in component.columns | default([]) %}
-            {% set column_index = loop.index0 %}
-            <div>
-                {% for child in column.components | default([]) %}
-                    {% set child_path = path + ['columns', column_index, 'components', loop.index0] %}
-                    {{ render_component(child, tokens, child_path) }}
-                {% endfor %}
-            </div>
-        {% endfor %}
+    {% set properties = component.properties | default({}) %}
+    {% set layout_props = properties.layout | default({}) %}
+    {% set columns = component.columns | default([]) %}
+    
+    {# Column count #}
+    {% set column_count = layout_props.columns | default(2) | int %}
+    
+    {# Gap spacing #}
+    {% set gap_token = layout_props.gap | default('md') %}
+    {% set gap_value = tokens.spacing[gap_token] if tokens and tokens.spacing and gap_token in tokens.spacing else '1rem' %}
+    
+    {# Calculate column width with gap using calc() formula: (100% - (gap × (n-1))) / n #}
+    {% set column_width = 'calc((100% - (' ~ gap_value ~ ' * ' ~ (column_count - 1) ~ ')) / ' ~ column_count ~ ')' %}
+    
+    {# Outer container styles #}
+    {% set outer_styles = build_styles(component, tokens, part='outer') %}
+    
+    <div class="columnsgrid chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+        <div class="columnsgrid__row" style="display: flex; gap: {{ gap_value }}; width: 100%; box-sizing: border-box;">
+            {% for col_index in range(column_count) %}
+                {% set column = columns[col_index] if col_index < columns | length else {} %}
+                {% set column_components = column.components | default([]) %}
+                
+                <div class="columnsgrid__col" style="position: relative; width: {{ column_width }}; flex: 0 0 {{ column_width }}; box-sizing: border-box; display: flex; flex-direction: column;">
+                    <div class="column-label">Col {{ col_index + 1 }}</div>
+                    
+                    {% if column_components | length > 0 %}
+                        {% for child in column_components %}
+                            {% set child_path = path + ['columns', col_index, 'components', loop.index0] %}
+                            {{ render_component(child, tokens, child_path) }}
+                        {% endfor %}
+                    {% else %}
+                        <div class="column-placeholder">Drop components here...</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endmacro %}
 
 {% macro render_form(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
+    {% set layout_props = properties.layout | default({}) %}
     {% set submit = properties.submit | default({}) %}
-    {% set styles = build_styles(component, tokens) %}
-    <form class="chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
-        {% for child in component.components | default([]) %}
-            {% set child_path = path + ['components', loop.index0] %}
-            {{ render_component(child, tokens, child_path) }}
-        {% endfor %}
-        {% if submit.show %}
-            <button type="submit">{{ submit.buttonText | default('Submit') }}</button>
-        {% endif %}
+    
+    {# Get direction from layout.direction, default to column #}
+    {% set direction = layout_props.direction | default('column') %}
+    
+    {# Outer wrapper styles #}
+    {% set outer_styles = build_styles(component, tokens, part='outer') %}
+    
+    {# Inner wrapper styles: flex layout #}
+    {% set inner_styles = build_flex_styles(component, tokens, direction) %}
+    
+    <form class="form chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+        <div class="form__content" style="{{ inner_styles }}">
+            {% for child in component.components | default([]) %}
+                {% set child_path = path + ['components', loop.index0] %}
+                {{ render_component(child, tokens, child_path) }}
+            {% endfor %}
+            {% if submit.show %}
+                <button type="submit" class="form__submit">{{ submit.buttonText | default('Submit') }}</button>
+            {% endif %}
+        </div>
     </form>
 {% endmacro %}
 
@@ -320,9 +404,93 @@
     {% set properties = component.properties | default({}) %}
     {% set branding = properties.branding | default({}) %}
     {% set navigation = properties.navigation | default({}) %}
+    {% set layout = properties.layout | default({}) %}
+    {% set alignment = layout.alignment | default('left') %}
     {% set links = navigation.links | default([]) %}
     {% set styles = build_styles(component, tokens) %}
-    <header class="titlebar chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    
+    {# Generate CSS variables for typography and layout #}
+    {% set vars = [] %}
+    
+    {# Layout height #}
+    {% if layout.height %}
+        {% set height_value = layout.height %}
+        {% set _ = vars.append('--base-height: ' ~ height_value ~ 'px;') %}
+    {% endif %}
+    
+    {# Typography #}
+    {% if properties.typography %}
+        {% set typo = properties.typography %}
+        
+        {# Title typography #}
+        {% if typo.title %}
+            {% set title = typo.title %}
+            {% if title.size %}
+                {% if tokens and tokens.typography_sizes and title.size in tokens.typography_sizes %}
+                    {% set _ = vars.append('--title-font-size: ' ~ tokens.typography_sizes[title.size] ~ ';') %}
+                {% else %}
+                    {# Assume numeric value in px #}
+                    {% set _ = vars.append('--title-font-size: ' ~ title.size ~ 'px;') %}
+                {% endif %}
+            {% endif %}
+            {% if title.weight %}
+                {% if tokens and tokens.font_weights and title.weight in tokens.font_weights %}
+                    {% set _ = vars.append('--title-font-weight: ' ~ tokens.font_weights[title.weight] ~ ';') %}
+                {% else %}
+                    {# Handle numeric weights or common names #}
+                    {% set weight_map = {'bold': '700', 'medium': '500', 'regular': '400', 'light': '300', 'semibold': '600', 'extrabold': '800'} %}
+                    {% set weight_value = weight_map[title.weight] | default(title.weight) %}
+                    {% set _ = vars.append('--title-font-weight: ' ~ weight_value ~ ';') %}
+                {% endif %}
+            {% endif %}
+            {% if title.color %}
+                {% set _ = vars.append('--titlebar-title-color: ' ~ title.color ~ ';') %}
+            {% endif %}
+        {% endif %}
+        
+        {# Menu/Link typography #}
+        {% if typo.menu %}
+            {% set menu = typo.menu %}
+            {% if menu.size %}
+                {% if tokens and tokens.typography_sizes and menu.size in tokens.typography_sizes %}
+                    {% set _ = vars.append('--menu-font-size: ' ~ tokens.typography_sizes[menu.size] ~ ';') %}
+                {% else %}
+                    {# Assume numeric value in px #}
+                    {% set _ = vars.append('--menu-font-size: ' ~ menu.size ~ 'px;') %}
+                {% endif %}
+            {% endif %}
+            {% if menu.weight %}
+                {% if tokens and tokens.font_weights and menu.weight in tokens.font_weights %}
+                    {% set _ = vars.append('--menu-font-weight: ' ~ tokens.font_weights[menu.weight] ~ ';') %}
+                {% else %}
+                    {# Handle numeric weights or common names #}
+                    {% set weight_map = {'bold': '700', 'medium': '500', 'regular': '400', 'light': '300', 'semibold': '600', 'extrabold': '800'} %}
+                    {% set weight_value = weight_map[menu.weight] | default(menu.weight) %}
+                    {% set _ = vars.append('--menu-font-weight: ' ~ weight_value ~ ';') %}
+                {% endif %}
+            {% endif %}
+            {% if menu.color %}
+                {% set _ = vars.append('--titlebar-link-color: ' ~ menu.color ~ ';') %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    
+    {# Focus colors #}
+    {% if properties.appearance and properties.appearance.focus %}
+        {% set focus = properties.appearance.focus %}
+        {% if focus.background %}
+            {% set _ = vars.append('--titlebar-link-hover-bg: ' ~ focus.background ~ ';') %}
+        {% endif %}
+        {% if focus.color %}
+            {% set _ = vars.append('--titlebar-link-hover-color: ' ~ focus.color ~ ';') %}
+        {% endif %}
+    {% endif %}
+    
+    {# Combine styles and CSS variables #}
+    {% set css_vars = vars | join(' ') %}
+    {% set combined_styles = (styles ~ ' ' ~ css_vars) | trim %}
+    
+    <header class="titlebar chrome-target align-{{ alignment }}" data-component-id="{{ component_id }}"{% if combined_styles %} style="{{ combined_styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         <div class="titlebar-branding">
             {% if branding.showLogo and branding.logoUrl %}
                 <img src="{{ branding.logoUrl }}" alt="Logo" class="titlebar-logo">
@@ -341,7 +509,7 @@
 
 {% macro render_carousel(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
-    {% set slides = properties.slides | default([]) %}
+    {% set slides = component.slides | default([]) %}
     {% set behavior = properties.behavior | default({}) %}
     {% set carousel_id = 'carousel_' ~ range(1000, 9999) | random %}
     {% set styles = build_styles(component, tokens) %}
@@ -510,12 +678,16 @@
             {% if tab.border.width %}
                 {% set _ = vars.append('--tabs-border-width: ' ~ tab.border.width ~ 'px;') %}
             {% endif %}
-            {% if tab.border.position %}
-                {# Position is handled via data attribute #}
+            {% if tab.border.style %}
+                {% set tab_border_style = tab.border.style %}
+                {% if tab_border_style == 'none' %}
+                    {% set _ = vars.append('--tabs-border-width: 0px;') %}
+                {% endif %}
+                {% set _ = vars.append('--tabs-border-style: ' ~ tab_border_style ~ ';') %}
+            {% else %}
+                {% set _ = vars.append('--tabs-border-style: solid;') %}
             {% endif %}
-        {% endif %}
-        {% if tab.gap and tokens and tokens.spacing and tab.gap in tokens.spacing %}
-            {% set _ = vars.append('--tabs-gap: var(--spacing-' ~ tab.gap ~ ');') %}
+            {# Position is handled via data-border-position attribute in HTML #}
         {% endif %}
     {% endif %}
     
@@ -530,6 +702,15 @@
         {% if content.border %}
             {% if content.border.width %}
                 {% set _ = vars.append('--tabs-content-border-width: ' ~ content.border.width ~ 'px;') %}
+            {% endif %}
+            {% if content.border.style %}
+                {% set content_border_style = content.border.style %}
+                {% if content_border_style == 'none' %}
+                    {% set _ = vars.append('--tabs-content-border-width: 0px;') %}
+                {% endif %}
+                {% set _ = vars.append('--tabs-content-border-style: ' ~ content_border_style ~ ';') %}
+            {% else %}
+                {% set _ = vars.append('--tabs-content-border-style: solid;') %}
             {% endif %}
             {% if content.border.color %}
                 {% set _ = vars.append('--tabs-content-border-color: ' ~ content.border.color ~ ';') %}
@@ -603,7 +784,13 @@
                 {% set _ = vars.append('--accordion-border-width: ' ~ border.width ~ 'px;') %}
             {% endif %}
             {% if border.style %}
-                {% set _ = vars.append('--accordion-border-style: ' ~ border.style ~ ';') %}
+                {% set border_style = border.style %}
+                {% if border_style == 'none' %}
+                    {% set _ = vars.append('--accordion-border-width: 0px;') %}
+                {% endif %}
+                {% set _ = vars.append('--accordion-border-style: ' ~ border_style ~ ';') %}
+            {% else %}
+                {% set _ = vars.append('--accordion-border-style: solid;') %}
             {% endif %}
             {% if border.color %}
                 {% set _ = vars.append('--accordion-border-color: ' ~ border.color ~ ';') %}
@@ -655,18 +842,21 @@
 
     {# --- General Styling --- #}
 
-    {# Layout Properties (Flexbox/Grid) #}
-    {% if props.layout %}
+    {# Layout Properties (Flexbox/Grid) - Skip for outer wrapper of layout components #}
+    {% if props.layout and part != 'outer' %}
         {% set layout = props.layout %}
         {# Determine the flex direction #}
         {% set direction = layout_direction if layout_direction else ('row' if part == 'row' else 'column') %}
-        {% if layout.tag == 'section' or layout.tag == 'div' or layout.tag == 'header' or layout.tag == 'footer' or layout.tag == 'main' or layout.tag == 'aside' or layout.tag == 'nav' or component.name == 'layout-row' or component.name == 'layout-column' %}
-            {% set _ = styles.append('display: flex;') %}
-            {% set _ = styles.append('flex-direction: ' ~ direction ~ ';') %}
+        {# Only add flex properties to non-layout components or when explicitly needed #}
+        {% if component.name not in ['layout-row', 'layout-column', 'page'] %}
+            {% if layout.tag == 'section' or layout.tag == 'div' or layout.tag == 'header' or layout.tag == 'footer' or layout.tag == 'main' or layout.tag == 'aside' or layout.tag == 'nav' %}
+                {% set _ = styles.append('display: flex;') %}
+                {% set _ = styles.append('flex-direction: ' ~ direction ~ ';') %}
+            {% endif %}
+            {% if layout.align %}{% set _ = styles.append('align-items: ' ~ layout.align ~ ';') %}{% endif %}
+            {% if layout.gap and tokens and tokens.spacing and layout.gap in tokens.spacing %}{% set _ = styles.append('gap: ' ~ tokens.spacing[layout.gap] ~ ';') %}{% endif %}
+            {% if layout.wrap %}{% set _ = styles.append('flex-wrap: ' ~ layout.wrap ~ ';') %}{% endif %}
         {% endif %}
-        {% if layout.align %}{% set _ = styles.append('align-items: ' ~ layout.align ~ ';') %}{% endif %}
-        {% if layout.gap and tokens and tokens.spacing and layout.gap in tokens.spacing %}{% set _ = styles.append('gap: ' ~ tokens.spacing[layout.gap] ~ ';') %}{% endif %}
-        {% if layout.wrap %}{% set _ = styles.append('flex-wrap: ' ~ layout.wrap ~ ';') %}{% endif %}
 
         {# Columnsgrid specific properties #}
         {% if component.name == 'columnsgrid' %}
@@ -699,10 +889,23 @@
     {# Appearance (Background, Border, Radius, Shadow, Padding) #}
     {% if props.appearance %}
         {% set appearance = props.appearance %}
-        {% if appearance.background and appearance.background.color %}{% set _ = styles.append('background-color: ' ~ appearance.background.color ~ ';') %}{% endif %}
+        {% if appearance.background and appearance.background.color %}
+            {# Apply transparency by appending hex alpha to color #}
+            {% set bg_color = appearance.background.color %}
+            {% if appearance.background.transparency is defined %}
+                {% set alpha_hex = appearance.background.transparency | transparency_to_hex %}
+                {% set bg_color = bg_color ~ alpha_hex %}
+            {% endif %}
+            {% set _ = styles.append('background-color: ' ~ bg_color ~ ';') %}
+        {% endif %}
         {% if appearance.border %}
             {% set border = appearance.border %}
-            {% set _ = styles.append('border: ' ~ (border.width | default(1)) ~ 'px ' ~ (border.style | default('solid')) ~ ' ' ~ (border.color | default('#e5e7eb')) ~ ';') %}
+            {% if border.style == 'none' or not border.width or border.width == 0 %}
+                {% set _ = styles.append('border: none;') %}
+            {% else %}
+                {% set border_style = border.style | default('solid') %}
+                {% set _ = styles.append('border: ' ~ border.width ~ 'px ' ~ border_style ~ ' ' ~ (border.color | default('#e5e7eb')) ~ ';') %}
+            {% endif %}
         {% endif %}
         {% if appearance.radius and tokens and tokens.border_radius and appearance.radius in tokens.border_radius %}{% set _ = styles.append('border-radius: ' ~ tokens.border_radius[appearance.radius] ~ ';') %}{% endif %}
         {% if appearance.shadow %}{% set _ = styles.append('box-shadow: ' ~ appearance.shadow ~ ';') %}{% endif %}
@@ -768,6 +971,45 @@
     
     {# Always add position relative for selection to work #}
     {% set _ = styles.append('position: relative;') %}
+    
+    {# Add box-sizing: border-box for layout components to prevent overflow #}
+    {% if component.name in ['page', 'layout-row', 'layout-column', 'columnsgrid', 'form'] %}
+        {% set _ = styles.append('box-sizing: border-box;') %}
+    {% endif %}
 
+    {{ styles | join(' ') }}
+{%- endmacro %}
+
+{#-=============== FLEX LAYOUT STYLES BUILDER ===============-#}
+
+{% macro build_flex_styles(component, tokens, orientation='column') -%}
+    {% set props = component.properties | default({}) %}
+    {% set layout = props.layout | default({}) %}
+    {% set spacing = props.spacing | default({}) %}
+    {% set styles = [] %}
+    
+    {# Always flex #}
+    {% set _ = styles.append('display: flex;') %}
+    {% set _ = styles.append('flex-direction: ' ~ orientation ~ ';') %}
+    {% set _ = styles.append('box-sizing: border-box;') %}
+    {% set _ = styles.append('width: 100%;') %}
+    
+    {# Gap - check both layout.gap and spacing.gap #}
+    {% set gap = layout.gap or spacing.gap %}
+    {% if gap and tokens and tokens.spacing and gap in tokens.spacing %}
+        {% set _ = styles.append('gap: ' ~ tokens.spacing[gap] ~ ';') %}
+    {% endif %}
+    
+    {# Alignment #}
+    {% set default_align = 'center' if orientation == 'row' else 'stretch' %}
+    {% set align = layout.align | default(default_align) %}
+    {% if align %}
+        {% set _ = styles.append('align-items: ' ~ align ~ ';') %}
+    {% endif %}
+    
+    {# Flex wrap #}
+    {% set wrap = layout.wrap | default('nowrap') %}
+    {% set _ = styles.append('flex-wrap: ' ~ wrap ~ ';') %}
+    
     {{ styles | join(' ') }}
 {%- endmacro %}

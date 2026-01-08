@@ -1,5 +1,6 @@
 import { getComponentSchema, getComponentDefaults, getSchemaTokens } from './metadataLoader.js';
 import { deepClone, deepMerge, getNestedValue, setNestedValue } from './utils/object.js';
+import { customRenderers } from './customRenderers.js';
 
 let activeComponentName = null;
 let activeFieldMeta = new Map();
@@ -33,6 +34,10 @@ const resolvePropertyValue = (component, pathSegments, defaults, target = 'prope
  * Determine if field targets component or properties
  */
 const determineFieldTarget = (field, component) => {
+    // Check for explicit target from schema first
+    if (field.target) {
+        return field.target;
+    }
     if (field.path.includes('.')) {
         return 'properties';
     }
@@ -58,6 +63,48 @@ const getTokenOptions = tokenName => {
         return entry.options;
     }
     return [];
+};
+
+/**
+ * Compare two values for equality (deep comparison for objects/arrays)
+ */
+const valuesAreEqual = (value1, value2) => {
+    // Exact match
+    if (value1 === value2) return true;
+    
+    // Both null/undefined
+    if (value1 == null && value2 == null) return true;
+    
+    // One is null/undefined
+    if (value1 == null || value2 == null) return false;
+    
+    // Both are objects/arrays - deep compare
+    if (typeof value1 === 'object' && typeof value2 === 'object') {
+        return JSON.stringify(value1) === JSON.stringify(value2);
+    }
+    
+    // Primitive comparison
+    return false;
+};
+
+/**
+ * Get value from form control based on field type
+ */
+const getValueFromControl = (control, field) => {
+    switch (field.type) {
+        case 'number':
+            const numValue = control.value === '' ? '' : Number(control.value);
+            return Number.isNaN(numValue) ? '' : numValue;
+        
+        case 'checkbox':
+            return control.checked;
+        
+        case 'range':
+            return control.controlElement ? Number(control.controlElement.value) : Number(control.value);
+        
+        default:
+            return control.value;
+    }
 };
 
 /**
@@ -236,11 +283,25 @@ export function renderPropertiesPanel(component, componentId, path) {
     }
 
     const defaults = getComponentDefaults(component.name);
-    const resolvedProps = deepMerge({}, defaults, component.properties || {});
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:285',message:'renderPropertiesPanel defaults loaded',data:{componentName:component.name,defaults:JSON.stringify(defaults),componentProps:JSON.stringify(component.properties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
+    // Note: getComponentDefaults returns the properties object directly (not wrapped in a 'properties' key)
+    // Merge defaults first, then component.properties on top
+    // This ensures we have the full structure with defaults, then override with component values
+    const resolvedProps = deepMerge({}, defaults || {}, component.properties || {});
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:293',message:'renderPropertiesPanel resolved properties',data:{resolvedProps:JSON.stringify(resolvedProps)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+    // #endregion
 
     propertiesContent.innerHTML = '';
+    
+    // Create scrollable wrapper for form
+    const formScrollWrapper = document.createElement('div');
+    formScrollWrapper.className = 'properties-form';
+    
     const formContainer = document.createElement('div');
-    formContainer.className = 'properties-form';
+    formContainer.className = 'properties-form-content';
 
     schema.groups?.forEach(group => {
         const groupEl = document.createElement('div');
@@ -252,19 +313,35 @@ export function renderPropertiesPanel(component, componentId, path) {
         group.fields?.forEach(field => {
             const pathSegments = pathToSegments(field.path);
             const target = determineFieldTarget(field, component);
-            const defaultValue = getNestedValue(defaults, pathSegments);
-            const currentValue = resolvePropertyValue(component, pathSegments, defaults, target);
+            // Note: defaults is the properties object directly (not wrapped in a 'properties' key)
+            const defaultValue = getNestedValue(defaults || {}, pathSegments);
+            const currentValue = resolvePropertyValue(component, pathSegments, defaults || {}, target);
+            // #region agent log
+            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:312',message:'renderPropertiesPanel field values',data:{fieldPath:field.path,fieldType:field.type,defaultValue,currentValue,target},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+            // #endregion
             const fieldId = `prop_${componentId}_${field.path.replace(/[^a-z0-9]/gi, '_')}`;
-
-            // Skip custom fields for now (can be added later)
-            if (field.type === 'custom') {
-                return;
-            }
 
             const { wrapper } = createFieldWrapper(field, fieldId);
             let control;
+            let customEditorInstance;
 
             switch (field.type) {
+                case 'custom':
+                    // Handle custom renderers (accordion items, tabs, etc.)
+                    if (field.renderer && customRenderers[field.renderer]) {
+                        customEditorInstance = customRenderers[field.renderer].render({ value: currentValue });
+                        wrapper.appendChild(customEditorInstance.element);
+                        activeFieldMeta.set(field.path, { 
+                            field, 
+                            target, 
+                            defaultValue,
+                            customSerializer: customEditorInstance.serialize
+                        });
+                    } else {
+                        console.warn(`Custom renderer "${field.renderer}" not found`);
+                    }
+                    break;
+
                 case 'text':
                 case 'textarea':
                     if (field.type === 'textarea') {
@@ -318,9 +395,12 @@ export function renderPropertiesPanel(component, componentId, path) {
         formContainer.appendChild(groupEl);
     });
 
-    propertiesContent.appendChild(formContainer);
+    // Append form content to scrollable wrapper
+    formScrollWrapper.appendChild(formContainer);
+    propertiesContent.appendChild(formScrollWrapper);
 
     // Add Apply button (click handler is set up in events.js)
+    // Button is added as sibling to scroll wrapper, so it stays at bottom
     const applyButton = document.createElement('button');
     applyButton.type = 'button';
     applyButton.className = 'btn btn-primary properties-apply-button';
@@ -344,7 +424,8 @@ export function clearPropertiesPanel() {
 
 /**
  * Apply properties to component (called from main.js after YAML update)
- * This function reads form values and returns updated component
+ * This function reads form values and returns updated component properties.
+ * Only returns properties that differ from defaults (keeps YAML clean).
  */
 export function collectPropertyValues() {
     if (!activeComponentName || !activePath) {
@@ -356,11 +437,33 @@ export function collectPropertyValues() {
         return null;
     }
 
-    const defaults = getComponentDefaults(activeComponentName);
-    const updatedProperties = deepMerge({}, defaults);
+    // Separate objects for component-level and properties-level updates
+    const updatedProperties = {};
+    const componentUpdates = {};
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:432',message:'collectPropertyValues entry',data:{activeComponentName,numFields:activeFieldMeta.size},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    // #endregion
 
     activeFieldMeta.forEach((meta, fieldPath) => {
-        const { field, target } = meta;
+        const { field, target, defaultValue, customSerializer } = meta;
+        let value;
+
+        // Handle custom fields with serializers
+        if (field.type === 'custom' && customSerializer) {
+            value = customSerializer();
+            
+            // Apply to correct destination based on target
+            if (target === 'component') {
+                const pathSegments = pathToSegments(fieldPath);
+                setNestedValue(componentUpdates, pathSegments, value);
+            } else {
+                const pathSegments = pathToSegments(fieldPath);
+                setNestedValue(updatedProperties, pathSegments, value);
+            }
+            return;
+        }
+
+        // Handle standard fields
         const fieldId = `prop_${activeComponentId}_${fieldPath.replace(/[^a-z0-9]/gi, '_')}`;
         const control = propertiesContent.querySelector(`#${fieldId}`);
 
@@ -368,38 +471,57 @@ export function collectPropertyValues() {
             return;
         }
 
-        let value;
-        switch (field.type) {
-            case 'number':
-                value = control.value === '' ? '' : Number(control.value);
-                if (Number.isNaN(value)) {
-                    value = '';
-                }
-                break;
-            case 'checkbox':
-                value = control.checked;
-                break;
-            case 'range':
-                value = control.controlElement ? Number(control.controlElement.value) : Number(control.value);
-                break;
-            default:
-                value = control.value;
-                if ((field.type === 'text' || field.type === 'textarea') && value === '') {
-                    value = ' ';
-                }
-                break;
+            // Get value from control using helper
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:458',message:'collectPropertyValues before getValueFromControl',data:{fieldPath,fieldType:field.type,controlValue:control.value,controlChecked:control.checked},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+        // #endregion
+        value = getValueFromControl(control, field);
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:460',message:'collectPropertyValues after getValueFromControl',data:{fieldPath,value,valueType:typeof value},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+        // #endregion
+
+        // Handle empty strings for text fields - preserve if explicitly set
+        if ((field.type === 'text' || field.type === 'textarea') && value === '') {
+            // Empty string is only meaningful if default is not also empty
+            if (defaultValue !== '' && defaultValue !== undefined) {
+                value = '';  // Keep empty string as explicit value
+            } else {
+                return;  // Skip if default is also empty
+            }
         }
 
         if (target === 'component') {
-            // Component-level properties are handled separately
+            // Apply component-level standard fields
+            if (!valuesAreEqual(value, defaultValue)) {
+                const pathSegments = pathToSegments(fieldPath);
+                setNestedValue(componentUpdates, pathSegments, value === undefined ? null : value);
+            }
             return;
         }
 
-        const pathSegments = pathToSegments(fieldPath);
-        setNestedValue(updatedProperties, pathSegments, value === undefined ? null : value);
+        // Only set value if it differs from default (properties-level)
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:480',message:'collectPropertyValues before setNestedValue',data:{fieldPath,value,defaultValue,areEqual:valuesAreEqual(value,defaultValue),updatedPropsBefore:JSON.stringify(updatedProperties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
+        if (!valuesAreEqual(value, defaultValue)) {
+            const pathSegments = pathToSegments(fieldPath);
+            // #region agent log
+            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:483',message:'collectPropertyValues calling setNestedValue',data:{pathSegments,value,updatedPropsBefore:JSON.stringify(updatedProperties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+            // #endregion
+            setNestedValue(updatedProperties, pathSegments, value === undefined ? null : value);
+            // #region agent log
+            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:485',message:'collectPropertyValues after setNestedValue',data:{updatedPropsAfter:JSON.stringify(updatedProperties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+            // #endregion
+        }
     });
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:505',message:'collectPropertyValues final result',data:{finalProperties:JSON.stringify(updatedProperties),finalComponent:JSON.stringify(componentUpdates)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
+    // #endregion
 
-    return updatedProperties;
+    return {
+        properties: updatedProperties,
+        component: componentUpdates
+    };
 }
 
 /**

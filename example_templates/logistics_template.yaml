@@ -1,121 +1,175 @@
 - name: page
   properties:
-    backgroundColor: '#f8f9fa'
-    padding: 0
+    background:
+      color: '#f8f9fa'
+    layout:
+      padding:
+        top: none
+        right: none
+        bottom: none
+        left: none
   components:
   - name: titlebar
     properties:
-      title: Swift Logistics
-      logo: https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-      backgroundColor: '#ffffff'
-      links:
-      - text: Home
-        value: '#home'
-      - text: Services
-        value: '#services'
-      - text: Tracking
-        value: '#tracking'
-      - text: Contact
-        value: '#contact'
+      branding:
+        title: Swift Logistics
+        logoUrl: https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=100
+      appearance:
+        background:
+          color: '#ffffff'
+      navigation:
+        links:
+        - label: Home
+          href: '#home'
+        - label: Services
+          href: '#services'
+        - label: Tracking
+          href: '#tracking'
+        - label: Contact
+          href: '#contact'
   - name: image
     properties:
-      src: https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-      alt: Logistics warehouse
-      height: 300px
-      padding: '0'
-      margin: '10'
-      borderRadius: '0'
+      source:
+        url: https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+        altText: Logistics warehouse with shipping containers
+      presentation:
+        height: 400px
+        fit: cover
+        cornerStyle: none
+      spacing:
+        marginBlock: sm
+        marginInline: none
+      layout:
+        widthMode: stretch
     components:
     - name: heading
       properties:
         text: Efficient & Reliable Logistics Solutions
-        color: '#ffffff'
-        textAlign: center
-        backgroundColor: rgba(0, 0, 0, 0.5)
-        padding: 20
-        borderRadius: 5
+        typography:
+          color: '#ffffff'
+          align: center
+        appearance:
+          background:
+            color: rgba(0, 0, 0, 0.5)
+          padding:
+            block: md
+            inline: md
+          radius: sm
         level: 1
-        variant: display
   - name: heading
     properties:
       text: Our Services
-      textAlign: center
-      margin: 40 0 20 0
+      typography:
+        align: center
+      spacing:
+        marginBlock: lg
       level: 2
-      variant: default
   - name: tabs
     properties:
+      layout:
+        orientation: horizontal
       tabs:
       - title: Air Freight
-        components:
-        - name: image
-          properties:
-            src: https://images.pexels.com/photos/4481258/pexels-photo-4481258.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt: Air Freight
-            height: 200px
-            borderRadius: 5
-        - name: paragraph
-          properties:
-            text: Fast and reliable air freight services for your urgent shipping
-              needs.
-            textAlign: center
+        content: ''
       - title: Sea Freight
-        components:
-        - name: image
-          properties:
-            src: https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-            alt: Sea Freight
-            height: 200px
-            borderRadius: 5
-        - name: paragraph
-          properties:
-            text: Cost-effective sea freight solutions for large shipments.
-            textAlign: center
+        content: ''
       - title: Land Transport
-        components:
-        - name: image
-          properties:
-            src: https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-            alt: Land Transport
+        content: ''
+  - name: columnsgrid
+    properties:
+      layout:
+        columns: 3
+        gap: md
+    columns:
+    - components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=600
+            altText: Airplane taking off
+          presentation:
             height: 200px
-            borderRadius: 5
-        - name: paragraph
-          properties:
-            text: Comprehensive road and rail transport across the country.
-            textAlign: center
+            fit: cover
+            cornerStyle: sm
+          layout:
+            widthMode: stretch
+      - name: heading
+        properties:
+          text: Air Freight
+          level: 3
+      - name: paragraph
+        properties:
+          text: Fast and reliable air freight services for your urgent shipping needs.
+          typography:
+            align: center
+    - components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=600
+            altText: Cargo ship at port
+          presentation:
+            height: 200px
+            fit: cover
+            cornerStyle: sm
+          layout:
+            widthMode: stretch
+      - name: heading
+        properties:
+          text: Sea Freight
+          level: 3
+      - name: paragraph
+        properties:
+          text: Cost-effective sea freight solutions for large shipments.
+          typography:
+            align: center
+    - components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=600
+            altText: Trucks on highway
+          presentation:
+            height: 200px
+            fit: cover
+            cornerStyle: sm
+          layout:
+            widthMode: stretch
+      - name: heading
+        properties:
+          text: Land Transport
+          level: 3
+      - name: paragraph
+        properties:
+          text: Comprehensive road and rail transport across the country.
+          typography:
+            align: center
+  - name: heading
+    properties:
+      text: Why Choose Us?
+      typography:
+        align: center
+      spacing:
+        marginBlock: lg
+      level: 2
   - name: accordion
     properties:
-      title: Why Choose Us?
-      margin: 40
-    content:
-      components:
-      - name: heading
-        properties:
-          text: Global Network
-          level: 3
-          variant: subtitle
-      - name: paragraph
-        properties:
-          text: Our extensive network of partners ensures your shipments reach any
-            destination worldwide.
-      - name: heading
-        properties:
-          text: Advanced Tracking
-          level: 3
-          variant: subtitle
-      - name: paragraph
-        properties:
-          text: Real-time tracking of your shipments from origin to destination.
-      - name: heading
-        properties:
-          text: 24/7 Support
-          level: 3
-          variant: subtitle
-      - name: paragraph
-        properties:
-          text: Our dedicated team is available around the clock to assist you with
-            any queries.
+      items:
+      - title: Global Network
+        content: Our extensive network of partners ensures your shipments reach any destination worldwide with reliable service.
+      - title: Advanced Tracking
+        content: Real-time tracking of your shipments from origin to destination. Track your packages online or via our mobile app.
+      - title: 24/7 Support
+        content: Our dedicated team is available around the clock to assist you with any queries or concerns about your shipments.
+      behavior:
+        allowMultipleOpen: false
   - name: video
     properties:
-      src: https://www.youtube.com/watch?v=3t5-pA0A_lk
-      margin: 40
+      source:
+        url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      playback:
+        controls: true
+        autoplay: false
+        muted: false
+      spacing:
+        marginBlock: lg

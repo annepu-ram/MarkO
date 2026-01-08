@@ -1,7 +1,9 @@
 import { loadMetadata } from './templates.js';
-import { markMetadataLoaded, setSelection } from './state.js';
+import { markMetadataLoaded, setSelection, getComponentTemplates } from './state.js';
 import { createActions } from '../ui/actions.js';
 import { initializeEvents } from '../ui/events.js';
+import { loadSvgSprite } from '../utils/sprite.js';
+import { generateYamlFromStructure } from './yaml.js';
 
 /**
  * @function getDomReferences
@@ -30,6 +32,10 @@ function getDomReferences() {
         resizer: document.getElementById('resizer'),
         sidebar: document.querySelector('.sidebar'),
         sidebarResizer: document.getElementById('sidebarResizer'),
+        sidebarNavItems: Array.from(document.querySelectorAll('.sidebar-nav-item')),
+        sidebarPanels: Array.from(document.querySelectorAll('.sidebar-panel')),
+        componentsNavBtn: document.getElementById('componentsNavBtn'),
+        propertiesNavBtn: document.getElementById('propertiesNavBtn'),
     };
 }
 
@@ -42,6 +48,7 @@ function getDomReferences() {
  */
 export async function initializeApp() {
     const dom = getDomReferences();
+    loadSvgSprite();
     const actions = createActions(dom);
 
     initializeEvents(dom, actions);
@@ -53,7 +60,29 @@ export async function initializeApp() {
         console.error('Failed to load component metadata:', error);
     }
 
-    const initialValue = dom.editor ? dom.editor.value : '';
-    actions.parseAndRender(initialValue || '', { pushHistory: true });
+    const initialValue = dom.editor ? dom.editor.value.trim() : '';
+
+    // Auto-initialize with page component if editor is empty
+    if (!initialValue) {
+        // Get default page properties from templates
+        const templates = getComponentTemplates();
+        const pageDefaults = templates?.page || {};
+
+        const defaultPageStructure = [{
+            name: 'page',
+            properties: pageDefaults,
+            components: []
+        }];
+
+        const defaultPageYaml = generateYamlFromStructure(defaultPageStructure);
+
+        if (dom.editor) {
+            dom.editor.value = defaultPageYaml;
+        }
+        actions.parseAndRender(defaultPageYaml, { pushHistory: true });
+    } else {
+        actions.parseAndRender(initialValue, { pushHistory: true });
+    }
+
     setSelection();
 }

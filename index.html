@@ -12,175 +12,196 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
+    <div id="svgSpriteRoot" hidden></div>
     <!-- Main application container -->
     <div id="appContainer" class="app-container">
         <!-- Sidebar for components and properties -->
         <div class="sidebar">
-            <!-- Components Section -->
-            <div class="components-section">
-                <h2><i data-feather="grid"></i> Components</h2>
+            <!-- Vertical Navigation Bar -->
+            <nav class="sidebar-nav" role="tablist" aria-label="Sidebar navigation">
+                <button
+                    id="componentsNavBtn"
+                    class="sidebar-nav-item active"
+                    type="button"
+                    role="tab"
+                    aria-selected="true"
+                    data-target="componentsPanel"
+                    aria-controls="componentsPanel"
+                    title="Components">
+                    <svg class="sidebar-nav-icon" aria-hidden="true">
+                        <use href="#icon-grid"></use>
+                    </svg>
+                    <span class="sidebar-nav-label">Components</span>
+                </button>
+
+                <button
+                    id="propertiesNavBtn"
+                    class="sidebar-nav-item"
+                    type="button"
+                    role="tab"
+                    aria-selected="false"
+                    data-target="propertiesPanel"
+                    aria-controls="propertiesPanel"
+                    title="Properties">
+                    <svg class="sidebar-nav-icon" aria-hidden="true">
+                        <use href="#icon-settings"></use>
+                    </svg>
+                    <span class="sidebar-nav-label">Properties</span>
+                </button>
+            </nav>
+
+            <!-- Panel Container -->
+            <div class="sidebar-panels-container">
+                <!-- Components Section -->
+                <div id="componentsPanel" class="components-section sidebar-panel active" role="tabpanel" aria-labelledby="componentsNavBtn" aria-hidden="false">
                 <!-- Updated syntax information for YAML -->                <!-- Component buttons grouped -->
                 <div class="component-groups">
                     <details class="component-group">
                         <summary>
-                            <i data-feather="layout"></i>
+                            <svg class="icon icon-layout" aria-hidden="true"><use href="#icon-layout"></use></svg>
                             <span>Layout Components</span>
                         </summary>
                         <div class="component-group-body">
-                            <button class="component-item" data-component="page" title="Page container with styling">
-                                <i data-feather="file-text"></i><span>Page</span>
+                            <!-- Page component removed - auto-initialized on app load -->
+                            <button class="component-item" data-component="layout-row" title="Horizontal row layout">
+                                <svg class="icon icon-brand" aria-hidden="true"><use href="#icon-layout-row"></use></svg><span>Row Layout</span>
                             </button>
-                            <button class="component-item" data-component="section" title="Flexible section layout with presets">
-                                <i data-feather="square"></i><span>Section</span>
-                            </button>
-                            <button class="component-item" data-component="stack" title="Vertical stack layout with variants">
-                                <i data-feather="layers"></i><span>Stack</span>
+                            <button class="component-item" data-component="layout-column" title="Vertical column layout">
+                                <svg class="icon icon-brand" aria-hidden="true"><use href="#icon-layout-column"></use></svg><span>Column Layout</span>
                             </button>
                             <button class="component-item" data-component="columnsgrid" title="Responsive grid layout">
-                                <i data-feather="columns"></i><span>Columns Grid</span>
+                                <svg class="icon icon-columns" aria-hidden="true"><use href="#icon-columnsgrid"></use></svg><span>Columns Grid</span>
                            </button>
                             <button class="component-item" data-component="tabs" title="Tabbed content">
-                                <i data-feather="folder"></i><span>Tabs</span>
+                                <svg class="icon icon-folder" aria-hidden="true"><use href="#icon-tabs"></use></svg><span>Tabs</span>
                             </button>
                             <button class="component-item" data-component="accordion" title="Collapsible content">
-                                <i data-feather="chevrons-down"></i><span>Accordion</span>
+                                <svg class="icon icon-chevrons-down" aria-hidden="true"><use href="#icon-accordion"></use></svg><span>Accordion</span>
                             </button>
                             <button class="component-item" data-component="hamburger" title="Mobile menu">
-                                <i data-feather="menu"></i><span>Menu</span>
+                                <svg class="icon icon-menu" aria-hidden="true"><use href="#icon-hamburger"></use></svg><span>Menu</span>
                             </button>
                             <button class="component-item" data-component="br" title="Line break">
-                                <i data-feather="minus"></i><span>Break</span>
+                                <svg class="icon icon-minus" aria-hidden="true"><use href="#icon-br"></use></svg><span>Break</span>
                             </button>
                         </div>
                     </details>
                     <details class="component-group">
                         <summary>
-                            <i data-feather="type"></i>
+                            <svg class="icon icon-type" aria-hidden="true"><use href="#icon-type"></use></svg>
                             <span>Text Components</span>
                         </summary>
                         <div class="component-group-body">
                             <button class="component-item" data-component="titlebar" title="Navigation bar with logo and links">
-                                <i data-feather="credit-card"></i><span>Titlebar</span>
+                                <svg class="icon icon-credit-card" aria-hidden="true"><use href="#icon-titlebar"></use></svg><span>Titlebar</span>
                             </button>
                             <button class="component-item" data-component="heading" title="Heading element">
-                                <i data-feather="type"></i><span>Heading</span>
+                                <svg class="icon icon-type" aria-hidden="true"><use href="#icon-heading"></use></svg><span>Heading</span>
                             </button>
                             <button class="component-item" data-component="eyebrow" title="Topper text">
-                                <i>
-                                    <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentcolor" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-width="2" stroke-linecap="round" stroke-opacity="100%" d="M3 6h10"/><path stroke-width="2" stroke-linecap="round" stroke-opacity="50%" d="M4 12h16"/><path stroke-width="1.2" stroke-linecap="round" stroke-opacity="50%" d="M3 16h18M3 19h18M3 22h18"/>    
-                                    </svg>
-                                </i><span>Eyebrow text</span>
+                                <svg class="icon icon-brand" aria-hidden="true"><use href="#icon-eyebrow"></use></svg><span>Eyebrow text</span>
                             </button>
                             <button class="component-item" data-component="caption" title="Caption text">
-                                <i><svg width="24" height="24" viewBox="0 0 24 24" stroke="currentcolor" xmlns="http://www.w3.org/2000/svg">
-                                    <g fill="currentColor" fill-rule="nonzero" stroke-width="1">
-                                        <path d="M4.75,20.5 L19.25,20.5 C19.6642136,20.5 20,20.8357864 20,21.25 C20,21.6296958 19.7178461,21.943491 19.3517706,21.9931534 L19.25,22 L4.75,22 C4.33578644,22 4,21.6642136 4,21.25 C4,20.8703042 4.28215388,20.556509 4.64822944,20.5068466 L4.75,20.5 L19.25,20.5 L4.75,20.5 Z M16.25,3 C18.3210678,3 20,4.67893219 20,6.75 L20,15.25 C20,17.3210678 18.3210678,19 16.25,19 L7.75,19 C5.67893219,19 4,17.3210678 4,15.25 L4,6.75 C4,4.67893219 5.67893219,3 7.75,3 L16.25,3 Z M16.25,4.5 L7.75,4.5 C6.50735931,4.5 5.5,5.50735931 5.5,6.75 L5.5,15.25 C5.5,16.4926407 6.50735931,17.5 7.75,17.5 L16.25,17.5 C17.4926407,17.5 18.5,16.4926407 18.5,15.25 L18.5,6.75 C18.5,5.50735931 17.4926407,4.5 16.25,4.5 Z" ></path>
-                                    </g>
-                                </svg></i>
+                                <svg class="icon icon-brand" aria-hidden="true"><use href="#icon-caption"></use></svg>
                                 <span>Caption text</span>
                             </button>
                             <button class="component-item" data-component="blockquote" title="Quoted text">
-                                <i>
-                                    <svg fill="currentcolor" height="24px" width="24px" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 0.96 0.96" xml:space="preserve"><g><path d="M0.39 0.33c0.018 0 0.03 -0.012 0.03 -0.03s-0.012 -0.03 -0.03 -0.03c-0.15 0 -0.27 0.12 -0.27 0.27 0 0.084 0.066 0.15 0.15 0.15s0.15 -0.066 0.15 -0.15 -0.066 -0.15 -0.15 -0.15c-0.009 0 -0.021 0 -0.03 0.003 0.039 -0.039 0.09 -0.063 0.15 -0.063"/><path d="M0.69 0.39c-0.009 0 -0.021 0 -0.03 0.003 0.039 -0.039 0.09 -0.063 0.15 -0.063 0.018 0 0.03 -0.012 0.03 -0.03s-0.012 -0.03 -0.03 -0.03c-0.15 0 -0.27 0.12 -0.27 0.27 0 0.084 0.066 0.15 0.15 0.15s0.15 -0.066 0.15 -0.15 -0.066 -0.15 -0.15 -0.15"/></g></svg>
-                                </i><span>Quoted text</span>
+                                <svg class="icon icon-brand" aria-hidden="true"><use href="#icon-blockquote"></use></svg><span>Quoted text</span>
                             </button>
                             <button class="component-item" data-component="paragraph" title="Text paragraph">
-                                <i data-feather="align-left"></i><span>Paragraph</span>
+                                <svg class="icon icon-align-left" aria-hidden="true"><use href="#icon-paragraph"></use></svg><span>Paragraph</span>
                             </button>
                             <button class="component-item" data-component="link" title="Hyperlink">
-                                <i data-feather="link"></i><span>Link</span>
+                                <svg class="icon icon-link" aria-hidden="true"><use href="#icon-link"></use></svg><span>Link</span>
                             </button>
                         </div>
                     </details>
 
                     <details class="component-group">
                         <summary>
-                            <i data-feather="image"></i>
+                            <svg class="icon icon-image" aria-hidden="true"><use href="#icon-image"></use></svg>
                             <span>Media Components</span>
                         </summary>
                         <div class="component-group-body">
                             <button class="component-item" data-component="image" title="Image element">
-                                <i data-feather="image"></i><span>Image</span>
+                                <svg class="icon icon-image" aria-hidden="true"><use href="#icon-image"></use></svg><span>Image</span>
                             </button>
                             <button class="component-item" data-component="video" title="YouTube video embed">
-                                <i data-feather="video"></i><span>Video</span>
+                                <svg class="icon icon-video" aria-hidden="true"><use href="#icon-video"></use></svg><span>Video</span>
                             </button>
                             <button class="component-item" data-component="gif" title="Animated GIF">
-                                <i data-feather="film"></i><span>Gif</span>
+                                <svg class="icon icon-film" aria-hidden="true"><use href="#icon-film"></use></svg><span>Gif</span>
                             </button>
                             <button class="component-item" data-component="carousel" title="Image carousel">
-                                <i data-feather="sliders"></i><span>Carousel</span>
+                                <svg class="icon icon-sliders" aria-hidden="true"><use href="#icon-carousel"></use></svg><span>Carousel</span>
                             </button>
                         </div>
                     </details>
 
                     <details class="component-group">
                         <summary>
-                            <i data-feather="edit-2"></i>
+                            <svg class="icon icon-edit-2" aria-hidden="true"><use href="#icon-edit-2"></use></svg>
                             <span>Form Components</span>
                         </summary>
                         <div class="component-group-body">
                             <button class="component-item" data-component="form" title="Form container">
-                                <i data-feather="file-plus"></i><span>Form</span>
+                                <svg class="icon icon-file-plus" aria-hidden="true"><use href="#icon-form"></use></svg><span>Form</span>
                             </button>
                             <button class="component-item" data-component="textbox" title="Single line text input">
-                                <i data-feather="edit-2"></i><span>Textbox</span>
+                                <svg class="icon icon-edit-2" aria-hidden="true"><use href="#icon-textbox"></use></svg><span>Textbox</span>
                             </button>
                             <button class="component-item" data-component="textarea" title="Multi-line text input">
-                                <i data-feather="edit"></i><span>Textarea</span>
+                                <svg class="icon icon-edit" aria-hidden="true"><use href="#icon-textarea"></use></svg><span>Textarea</span>
                             </button>
                             <button class="component-item" data-component="dropdown" title="Selection dropdown">
-                                <i data-feather="chevron-down"></i><span>Dropdown</span>
+                                <svg class="icon icon-chevron-down" aria-hidden="true"><use href="#icon-dropdown"></use></svg><span>Dropdown</span>
                             </button>
                             <button class="component-item" data-component="checkbox" title="Checkbox input">
-                                <i data-feather="check-square"></i><span>Checkbox</span>
+                                <svg class="icon icon-check-square" aria-hidden="true"><use href="#icon-checkbox"></use></svg><span>Checkbox</span>
                             </button>
                             <button class="component-item" data-component="radio" title="Radio button">
-                                <i data-feather="circle"></i><span>Radio</span>
+                                <svg class="icon icon-circle" aria-hidden="true"><use href="#icon-radio"></use></svg><span>Radio</span>
                             </button>
                             <button class="component-item" data-component="button" title="Clickable button">
-                                <i data-feather="box"></i><span>Button</span>
+                                <svg class="icon icon-box" aria-hidden="true"><use href="#icon-button"></use></svg><span>Button</span>
                             </button>
                             <button class="component-item" data-component="calendar" title="Calendar widget">
-                                <i data-feather="calendar"></i><span>Calendar</span>
+                                <svg class="icon icon-calendar" aria-hidden="true"><use href="#icon-calendar"></use></svg><span>Calendar</span>
                             </button>
                         </div>
                     </details>
                 </div>
             </div>
-            
-            <!-- Properties Section -->
-            <div id="propertiesPanel" class="properties-section">
-                <h2><i data-feather="settings"></i> Properties</h2>
-                <div id="propertiesContent">
-                    <p style="color: #666; font-style: italic; font-size: 1.2rem; text-align: center; padding: 2rem 0;">
-                        Select a component in the preview to edit its properties.
-                    </p>
+
+                <!-- Properties Section -->
+                <div id="propertiesPanel" class="properties-section sidebar-panel" role="tabpanel" aria-labelledby="propertiesNavBtn" aria-hidden="true">
+                    <div id="propertiesContent">
+                        <p class="properties-empty-state">
+                            Select a component in the preview to edit its properties.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Sidebar Resizer Handle -->
-        <div class="sidebar-resizer" id="sidebarResizer">&#124</div>
+        <div class="sidebar-resizer" id="sidebarResizer">&#124;</div>
 
         <!-- Main content area for the code editor and preview -->
         <div class="main-canvas">
             <div class="canvas-header">
                 <h2>
-                    <i>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#376fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><path d="m22.999 10c0 4.397-1.021 7.169-1.063 7.285-.104.275-.324.492-.602.591-.122.043-2.895 1.005-8.335 1.113v2.011h3.001c.553 0 1 .447 1 1s-.447 1-1 1h-8c-.553 0-1-.447-1-1s.447-1 1-1h3v-2.011c-5.44-.108-8.214-1.07-8.336-1.113-.277-.099-.498-.315-.602-.591-.043-.116-1.063-2.888-1.063-7.285s1.021-7.169 1.063-7.285c.104-.275.324-.492.602-.591.129-.046 3.232-1.124 9.335-1.124.724 0 1.405.015 2.043.042.552.023.98.489.957 1.041s-.484.997-1.041.957c-.612-.025-1.265-.04-1.959-.04-4.427 0-7.18.6-8.209.875-.263.904-.791 3.101-.791 6.125s.528 5.219.792 6.125c1.026.274 3.78.875 8.208.875s7.18-.6 8.209-.875c.263-.904.791-3.101.791-6.125 0-.553.447-1 1-1s1 .447 1 1zm-9.238-3.958c.554-.552 1.092-1.069 1.598-1.541.973-.901 1.978-1.777 3.073-2.678.924-.755 2.174-1.431 3.671.065 1.547 1.547.771 2.844.054 3.686-.572.697-1.509 1.804-2.647 3.035-.475.51-1.006 1.067-1.559 1.623.099 1.081-.378 2.161-1.474 3.256-1.269 1.269-3.514 1.508-5.021 1.508-.771 0-1.348-.062-1.506-.081-.458-.056-.818-.416-.874-.874-.056-.466-.49-4.61 1.427-6.527 1.097-1.097 2.177-1.573 3.259-1.473zm1.302 2.887c-1.234-1.234-1.912-1.234-3.146 0-.828.828-.951 2.807-.911 4.061 1.416.053 3.288-.145 4.058-.914 1.235-1.235 1.235-1.911 0-3.146zm.695-2.045c.239.183.479.391.719.631.241.241.449.48.632.719.327-.339.644-.672.936-.985 1.104-1.193 2.013-2.269 2.58-2.959.366-.43.376-.579.376-.578.025-.255-.423-.748-.709-.712.004 0-.149.009-.591.37-1.062.873-2.038 1.724-2.979 2.596-.309.288-.633.597-.963.918z"/></svg>
-                    </i>
+                    <svg class="icon-title" aria-hidden="true"><use href="#icon-swift-sites"></use></svg>
                     Swift Sites
                 </h2>
                 <!-- Action buttons -->
                 <div>
-                    <button id="clearBtn" class="btn btn-secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><g id="_01_align_center" data-name="01 align center"><?xml version="1.0" encoding="UTF-8"?><path d="M22.852,1.729c-.196-.194-.514-.192-.707,.005l-4.407,4.467c-1.722-1.615-4.285-3.132-7.584-.381-.382,.217-3.561,2.02-5.34,2.937-1.16,.599-2.94,1.311-3.01,1.342-.431,.232-.7,.635-.779,1.164-.261,1.737,1.584,4.709,5.194,8.369,1.822,1.847,3.688,2.783,5.548,2.783h0c1.577,0,3.141-.706,4.404-1.987,2.059-2.088,2.594-5.279,2.693-6.022,2.644-3.251,1.167-5.785-.423-7.497l4.413-4.473c.194-.196,.192-.513-.004-.707Zm-7.393,17.997c-1.089,1.105-2.365,1.689-3.691,1.689h0c-1.022,0-2.063-.35-3.111-1.042,.235-.154,.648-.432,.95-.667,.702-.548,1.841-1.658,1.889-1.705,.197-.193,.201-.51,.008-.708-.191-.196-.509-.2-.707-.008-.011,.011-1.146,1.118-1.805,1.631-.31,.242-.747,.531-.945,.661l-.245,.155c-.29-.242-.58-.51-.87-.804-1.239-1.255-2.17-2.325-2.869-3.231,.015-.006,.028-.011,.037-.014,.29-.114,.935-.376,1.402-.609,.977-.488,2.62-1.554,2.689-1.599,.231-.151,.297-.46,.146-.692-.15-.232-.462-.297-.691-.147-.017,.011-1.665,1.081-2.592,1.543-.44,.22-1.05,.466-1.322,.574-.044,.017-.169,.064-.285,.106-1.446-2.085-1.484-3.107-1.432-3.449,.042-.282,.171-.381,.213-.408,.074-.03,1.842-.737,3.046-1.358,1.555-.802,4.162-2.27,5.081-2.79l7.505,7.523c-.123,.81-.656,3.58-2.399,5.346Zm2.884-6.275l-7.156-7.174c2.125-1.578,3.949-1.278,6.188,.968,2.241,2.247,2.541,4.077,.967,6.206Z"/></g></svg>
-                    </button>
-                    <button id="helpBtn" class="btn btn-help"><i data-feather="help-circle"></i></button>
-                    <button id="fullscreenBtn" class="btn btn-fullscreen"><i data-feather="maximize"></i></button>
-                    <button id="exportBtn" class="btn"><i data-feather="download"></i></button>
+                    <button id="clearBtn" class="btn btn-secondary"><svg class="icon" aria-hidden="true"><use href="#icon-clear-canvas"></use></svg></button>
+                    
+                    <button id="fullscreenBtn" class="btn btn-fullscreen"><svg class="icon icon-maximize" aria-hidden="true"><use href="#icon-maximize"></use></svg></button>
+                    <button id="exportBtn" class="btn"><svg class="icon icon-download" aria-hidden="true"><use href="#icon-download"></use></svg></button>
+
+                    <button id="helpBtn" class="btn btn-help"><svg class="icon icon-help-circle" aria-hidden="true"><use href="#icon-help-circle"></use></svg></button>
                 </div>
             </div>
             <div class="canvas-content">
@@ -197,8 +218,8 @@
 
                 <!-- Preview area -->
                 <div id="preview" class="preview-area">
-                    <div style="text-align: center; color: #6b7280; padding: 5rem;">
-                        <h3>🚀 Start building your website!</h3>
+                    <div class="preview-placeholder">
+                        <h3>???? Start building your website!</h3>
                         <p>Write YAML in the editor above or click components from the sidebar</p>
                     </div>
                 </div>
@@ -207,20 +228,20 @@
 
         <!-- Modal for fullscreen preview -->
         <div id="fullscreenModal" class="fullscreen-modal">
-            <button id="closeFullscreenBtn" class="fullscreen-close">✕ Close</button>
+            <button id="closeFullscreenBtn" class="fullscreen-close">??? Close</button>
             <div class="fullscreen-content" id="fullscreenContent">
             </div>
         </div>
 
         <!-- Help panel with YAML documentation -->
         <div id="helpPanel" class="help-panel" style="display: none;">
-            <h2>❓ YAML Format Help</h2>
+            <h2>??? YAML Format Help</h2>
             <div id="helpContent">
                 
                 <div class="help-section">
                     <h3>YAML Structure</h3>
                     <p>The website is defined using YAML format with clear hierarchy and indentation.</p>
-                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1.2rem;">page:
+                    <pre class="help-code-block help-code-block--large">page:
   properties:
     backgroundColor: '#f0f4f8'
     padding: 20
@@ -256,7 +277,7 @@ components:
                 <div class="help-section">
                     <h3>Complex Components</h3>
                     <p><strong>Columns Grid:</strong></p>
-                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: tabs
+                    <pre class="help-code-block">- name: tabs
   properties:
     tabs:
       - title: 'Day 1: Foundations'
@@ -274,7 +295,7 @@ components:
 </pre>
                     
                     <p><strong>Tabs:</strong></p>
-                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: tabs
+                    <pre class="help-code-block">- name: tabs
   tabs:
     - title: 'Tab 1'
       components:
@@ -283,7 +304,7 @@ components:
             text: 'Tab content'</pre>
 
                     <p><strong>Accordion:</strong></p>
-                    <pre style="background: #f5f5f5; padding: 1rem; border-radius: 4px; font-size: 1rem;">- name: accordion
+                    <pre class="help-code-block">- name: accordion
   properties:
     title: 'Click to expand'
   content:
@@ -326,12 +347,9 @@ components:
     <!-- Link to the updated JavaScript file -->
     <script type="module" src="js/component_interactions.js"></script>
     <script type="module" src="js/script.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script>
-      feather.replace()
-    </script>
 </body>
 </html>
+
 
 
 

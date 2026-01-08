@@ -1,123 +1,18 @@
-.stack {
-    position: relative;
-    width: 100%;
-}
-
-.stack__content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.stack__item {
-    width: 100%;
-}
-
-.stack-placeholder {
-    padding: 2.5rem;
-    border: 2px dashed #d1d5db;
-    color: #6b7280;
-    text-align: center;
-    font-size: 1.3rem;
-    border-radius: 0.8rem;
-    background-color: rgba(249, 250, 251, 0.6);
-}
-
-.stack--centered .stack__content {
-    align-items: center;
-    text-align: center;
-}
-
-
-.stack--divider-line {
-    --stack-divider-color: #d4d4d8;
-    --stack-marker-color: #1f2937;
-}
-
-.stack--timeline {
-    --stack-divider-color: rgba(148, 163, 184, 0.8);
-    --stack-marker-color: #1d4ed8;
-}
-
-.stack--divider-line .stack__content {
-    position: relative;
-}
-
-.stack--divider-line .stack__content::before {
-    content: '';
-    position: absolute;
-    left: 1.2rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--stack-divider-color);
-}
-
-.stack--divider-line .stack__item {
-    position: relative;
-    padding-left: 3.2rem;
-}
-
-.stack--divider-line .stack__item::before {
-    content: '';
-    position: absolute;
-    left: 0.8rem;
-    top: 0.9rem;
-    width: 12px;
-    height: 12px;
-    border-radius: 9999px;
-    background-color: var(--stack-marker-color);
-    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
-}
-
-.stack--timeline .stack__item::before {
-    box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
-}
-
-@media (max-width: 40rem) {
-    .stack[data-stack-collapse='sm'] .stack__content {
-        flex-direction: column !important;
-    }
-}
-
-@media (max-width: 48rem) {
-    .stack[data-stack-collapse='md'] .stack__content {
-        flex-direction: column !important;
-    }
-}
-
-@media (max-width: 64rem) {
-    .stack[data-stack-collapse='lg'] .stack__content {
-        flex-direction: column !important;
-    }
-}
-
-.section {
+.layout-row,
+.layout-column {
     width: 100%;
     position: relative;
 }
 
-.section__content {
+.layout-row__content,
+.layout-column__content {
     width: 100%;
 }
-
-.section-placeholder {
-    padding: 3rem;
-    border: 2px dashed #d1d5db;
-    color: #6b7280;
-    text-align: center;
-    font-size: 1.4rem;
-    background-color: rgba(249, 250, 251, 0.6);
-    border-radius: 0.8rem;
-}
-
 /* --- Custom Tabs Component --- */
 .tabs {
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px solid #ddd;
   position: relative;
-  margin-bottom: 1rem;
 }
 
 .tabs input[type="radio"] {
@@ -125,17 +20,11 @@
 }
 
 .tabs label {
-  padding: 1rem 1.5rem;
   cursor: pointer;
-  border: none;
-  border-bottom: 2px solid transparent;
-  background-color: transparent;
-  color: #666;
-  font-weight: 500;
   transition: all 0.2s ease-in-out;
   position: relative;
-  top: 1px;
-  margin-right: 5px;
+  padding: 0.8rem 1.6rem;
+  /* Inline styles from renderer will override these defaults */
 }
 
 .tabs .content {
@@ -143,39 +32,70 @@
   flex-grow: 1;
   width: 100%;
   display: none;
-  padding: 2rem;
-  border-top: 1px solid #ddd;
-  background-color: #fff;
-  border-radius: 0 0 6px 6px;
   animation: fadeIn 0.3s ease-in-out;
+  /* Inline styles from renderer will override padding/borders */
 }
 
 .tabs input[type="radio"]:checked + label {
-  border-bottom-color: #86469C;
-  color: #333;
+  background-color: var(--active-bg, #ffffff) !important;
+  color: var(--active-color, #000000) !important;
+}
+
+/* Dynamic border color based on position */
+.tabs input[type="radio"]:checked + label[style*="--border-position: upper"] {
+  border-top-color: var(--active-color, #000000) !important;
+}
+
+.tabs input[type="radio"]:checked + label[style*="--border-position: lower"] {
+  border-bottom-color: var(--active-color, #000000) !important;
+}
+
+.tabs input[type="radio"]:checked + label[style*="--border-position: full"] {
+  border-color: var(--active-color, #000000) !important;
 }
 
 .tabs input[type="radio"]:checked + label + .content {
   display: block;
 }
 
-/* --- Custom Accordion --- */
-.accordion {
-    background: #ffffff;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    border: 1px solid #E1AFD1;
+/* Vertical orientation support */
+.tabs[data-orientation="vertical"] {
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
+.tabs[data-orientation="vertical"] label {
+  writing-mode: horizontal-tb;
+  flex-shrink: 0;
+}
+
+.tabs[data-orientation="vertical"] .content {
+  order: initial;
+  flex-grow: 1;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Custom Accordion --- */
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Accordion styling is applied via inline styles from renderer */
+/* CSS here handles only layout/behavior, not appearance */
+
 .accordion-summary {
-    font-weight: 600;
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    outline: none;
+    /* Typography, padding, and background applied via inline styles */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .accordion-summary::-webkit-details-marker {
@@ -352,10 +272,9 @@ details .card-body {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.image-component-container {
-    position: relative;
-}
 
+/* --- Image & GIF Nested Components --- */
+/* Behaves like page container - simple flex column without centering constraints */
 .image-nested-components {
     position: absolute;
     top: 0;
@@ -364,10 +283,13 @@ details .card-body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
     padding: 1rem;
     box-sizing: border-box;
+    pointer-events: none;
+}
+
+.image-nested-components > * {
+    pointer-events: auto;
 }
 
 /* --- Form Elements --- */
@@ -392,30 +314,79 @@ select {
 }
 
 button, .button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
+    /* Styling applied via inline styles from renderer */
+    /* This ensures component properties take precedence */
+    font-family: inherit;
     cursor: pointer;
-    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+button:hover, .button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active, .button:active {
+    transform: translateY(0);
+}
+
+button:focus-visible, .button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
 }
 
 button.secondary, .button.secondary {
-    background-color: #6c757d;
+    /* Secondary button styling via inline styles */
+}
+
+/* --- Form Elements Focus States --- */
+/* Textbox: border visible only on focus */
+input[type="text"] {
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: var(--focus-border-color, #2563eb) !important;
+}
+
+/* Textarea: border visible only on focus */
+textarea {
+    outline: none;
+    resize: vertical;
+}
+
+textarea:focus {
+    border-color: var(--focus-border-color, #2563eb) !important;
+}
+
+/* Dropdown: standard focus state */
+select {
+    outline: none;
+}
+
+select:focus {
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
 
 /* --- Grid System --- */
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -1rem;
 }
 
-.col-sm {
-    flex-grow: 1;
-    padding: 0 1rem;
+.col {
     box-sizing: border-box;
+    min-width: 0; /* Prevent flex items from overflowing */
+}
+
+/* Mobile responsive: stack columns vertically */
+@media (max-width: 767px) {
+    .col {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+    }
 }
 
 /* --- Carousel Component --- */
@@ -525,5 +496,6 @@ button.secondary, .button.secondary {
     font-size: 0.9rem;
     opacity: 0.75;
 }
+
 
 

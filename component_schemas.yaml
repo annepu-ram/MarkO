@@ -6,6 +6,12 @@ page:
     - path: background.color
       type: color
       label: Background Color
+    - path: background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
     - path: background.image
       type: text
       label: Background Image URL
@@ -36,7 +42,7 @@ page:
       type: select
       label: Margin Bottom
       tokens: spacingScale
-section:
+layout-row:
   groups:
   - id: layout
     label: Layout
@@ -49,12 +55,6 @@ section:
       - div
       - main
       - article
-    - path: layout.direction
-      type: select
-      label: Direction
-      options:
-      - column
-      - row
     - path: layout.align
       type: select
       label: Align Items
@@ -63,16 +63,6 @@ section:
       - center
       - end
       - stretch
-    - path: layout.justify
-      type: select
-      label: Justify Content
-      options:
-      - start
-      - center
-      - end
-      - space-between
-      - space-around
-      - space-evenly
     - path: layout.wrap
       type: select
       label: Wrap Children
@@ -83,49 +73,42 @@ section:
       type: select
       label: Gap Between Items
       tokens: gapScale
+  - id: sizing
+    label: Sizing
+    fields:
+    - path: layout.width
+      type: text
+      label: Width
+    - path: layout.minWidth
+      type: text
+      label: Min Width
     - path: layout.maxWidth
       type: text
       label: Max Width
-    - path: layout.width
-      type: text
-      label: Explicit Width
     - path: layout.minHeight
       type: text
       label: Min Height
+    - path: layout.maxHeight
+      type: text
+      label: Max Height
   - id: spacing
     label: Spacing
     fields:
-    - path: spacing.padding.top
+    - path: spacing.paddingBlock
       type: select
-      label: Padding Top
+      label: Padding (Vertical)
       tokens: spacingScale
-    - path: spacing.padding.right
+    - path: spacing.paddingInline
       type: select
-      label: Padding Right
+      label: Padding (Horizontal)
       tokens: spacingScale
-    - path: spacing.padding.bottom
+    - path: spacing.marginBlock
       type: select
-      label: Padding Bottom
+      label: Margin (Vertical)
       tokens: spacingScale
-    - path: spacing.padding.left
+    - path: spacing.marginInline
       type: select
-      label: Padding Left
-      tokens: spacingScale
-    - path: spacing.margin.top
-      type: select
-      label: Margin Top
-      tokens: spacingScale
-    - path: spacing.margin.right
-      type: select
-      label: Margin Right
-      tokens: spacingScale
-    - path: spacing.margin.bottom
-      type: select
-      label: Margin Bottom
-      tokens: spacingScale
-    - path: spacing.margin.left
-      type: select
-      label: Margin Left
+      label: Margin (Horizontal)
       tokens: spacingScale
   - id: background
     label: Background
@@ -133,71 +116,150 @@ section:
     - path: background.color
       type: color
       label: Background Color
+    - path: background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
     - path: background.image
       type: text
       label: Background Image URL
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.border.width
+      type: number
+      label: Border Width (px)
+    - path: appearance.border.style
+      type: select
+      label: Border Style
+      options:
+        - value: solid
+          label: Solid
+        - value: dashed
+          label: Dashed
+        - value: none
+          label: None
+    - path: appearance.border.color
+      type: color
+      label: Border Color
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadius
     - path: appearance.shadow
       type: text
       label: Shadow
-    - path: border.radius
-      type: text
-      label: Border Radius
-stack:
+layout-column:
   groups:
   - id: layout
     label: Layout
     fields:
-    - path: layout.gap
+    - path: layout.tag
       type: select
-      label: Gap Between Items
-      tokens: gapScale
+      label: HTML Tag
+      options:
+      - section
+      - div
+      - main
+      - article
     - path: layout.align
       type: select
-      label: Horizontal Alignment
+      label: Align Items
       options:
       - start
       - center
       - end
-    - path: layout.justify
-      type: select
-      label: Vertical Alignment
-      options:
-      - start
-      - center
-      - end
-    - path: layout.maxWidth
-      type: text
-      label: Max Width
+      - stretch
     - path: layout.wrap
       type: select
       label: Wrap Children
       options:
       - nowrap
       - wrap
-  - id: responsive
-    label: Responsive
-    fields:
-    - path: responsive.collapseBreakpoint
+    - path: layout.gap
       type: select
-      label: Collapse at Breakpoint
-      options:
-      - sm
-      - md
-      - lg
+      label: Gap Between Items
+      tokens: gapScale
+  - id: sizing
+    label: Sizing
+    fields:
+    - path: layout.width
+      type: text
+      label: Width
+    - path: layout.minWidth
+      type: text
+      label: Min Width
+    - path: layout.maxWidth
+      type: text
+      label: Max Width
+    - path: layout.minHeight
+      type: text
+      label: Min Height
+    - path: layout.maxHeight
+      type: text
+      label: Max Height
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Vertical)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Horizontal)
+      tokens: spacingScale
+  - id: background
+    label: Background
+    fields:
+    - path: background.color
+      type: color
+      label: Background Color
+    - path: background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: background.image
+      type: text
+      label: Background Image URL
   - id: appearance
     label: Appearance
     fields:
-    - path: appearance.divider
+    - path: appearance.border.width
+      type: number
+      label: Border Width (px)
+    - path: appearance.border.style
       type: select
-      label: Divider
+      label: Border Style
       options:
-      - value: none
-        label: None
-      - value: line
-        label: Timeline Line
+        - value: solid
+          label: Solid
+        - value: dashed
+          label: Dashed
+        - value: none
+          label: None
+    - path: appearance.border.color
+      type: color
+      label: Border Color
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadius
+    - path: appearance.shadow
+      type: text
+      label: Shadow
 columnsgrid:
   groups:
   - id: layout
@@ -276,13 +338,15 @@ titlebar:
     - path: appearance.background.color
       type: color
       label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
     - path: appearance.border.width
       type: number
       label: Border Width (px)
-    - path: appearance.border.style
-      type: select
-      label: Border Style
-      tokens: borderStyleOptions
     - path: appearance.border.color
       type: color
       label: Border Color
@@ -367,16 +431,57 @@ heading:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      options:
+      - value: fit
+        label: Fit to content
+      - value: '25'
+        label: 25%
+      - value: '50'
+        label: 50%
+      - value: '75'
+        label: 75%
+      - value: stretch
+        label: Stretch
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.background.color
+      type: color
+      label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusScale
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Top & Bottom)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Left & Right)
+      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
-    - path: spacing.margin.top
+    - path: spacing.marginBlock
       type: select
-      label: Margin Top
+      label: Margin (Top & Bottom)
       tokens: spacingScale
-    - path: spacing.margin.bottom
+    - path: spacing.marginInline
       type: select
-      label: Margin Bottom
+      label: Margin (Left & Right)
       tokens: spacingScale
 paragraph:
   groups:
@@ -409,16 +514,57 @@ paragraph:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      options:
+      - value: fit
+        label: Fit to content
+      - value: '25'
+        label: 25%
+      - value: '50'
+        label: 50%
+      - value: '75'
+        label: 75%
+      - value: stretch
+        label: Stretch
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.background.color
+      type: color
+      label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusScale
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Top & Bottom)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Left & Right)
+      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
-    - path: spacing.margin.top
+    - path: spacing.marginBlock
       type: select
-      label: Margin Top
+      label: Margin (Top & Bottom)
       tokens: spacingScale
-    - path: spacing.margin.bottom
+    - path: spacing.marginInline
       type: select
-      label: Margin Bottom
+      label: Margin (Left & Right)
       tokens: spacingScale
 eyebrow:
   groups:
@@ -459,16 +605,57 @@ eyebrow:
     - path: typography.color
       type: color
       label: Text Color
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      options:
+      - value: fit
+        label: Fit to content
+      - value: '25'
+        label: 25%
+      - value: '50'
+        label: 50%
+      - value: '75'
+        label: 75%
+      - value: stretch
+        label: Stretch
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.background.color
+      type: color
+      label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusScale
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Top & Bottom)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Left & Right)
+      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
-    - path: spacing.margin.top
+    - path: spacing.marginBlock
       type: select
-      label: Margin Top
+      label: Margin (Top & Bottom)
       tokens: spacingScale
-    - path: spacing.margin.bottom
+    - path: spacing.marginInline
       type: select
-      label: Margin Bottom
+      label: Margin (Left & Right)
       tokens: spacingScale
 blockquote:
   groups:
@@ -499,6 +686,23 @@ blockquote:
     - path: typography.lineHeight
       type: text
       label: Line Height
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      options:
+      - value: fit
+        label: Fit to content
+      - value: '25'
+        label: 25%
+      - value: '50'
+        label: 50%
+      - value: '75'
+        label: 75%
+      - value: stretch
+        label: Stretch
   - id: appearance
     label: Appearance
     fields:
@@ -508,16 +712,34 @@ blockquote:
     - path: appearance.background.color
       type: color
       label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusScale
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Top & Bottom)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Left & Right)
+      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
-    - path: spacing.margin.top
+    - path: spacing.marginBlock
       type: select
-      label: Margin Top
+      label: Margin (Top & Bottom)
       tokens: spacingScale
-    - path: spacing.margin.bottom
+    - path: spacing.marginInline
       type: select
-      label: Margin Bottom
+      label: Margin (Left & Right)
       tokens: spacingScale
 caption:
   groups:
@@ -553,12 +775,57 @@ caption:
       - uppercase
       - lowercase
       - capitalize
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      options:
+      - value: fit
+        label: Fit to content
+      - value: '25'
+        label: 25%
+      - value: '50'
+        label: 50%
+      - value: '75'
+        label: 75%
+      - value: stretch
+        label: Stretch
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.background.color
+      type: color
+      label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusScale
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Top & Bottom)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Left & Right)
+      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
-    - path: spacing.margin.top
+    - path: spacing.marginBlock
       type: select
-      label: Margin Top
+      label: Margin (Top & Bottom)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Left & Right)
       tokens: spacingScale
 image:
   groups:
@@ -675,16 +942,28 @@ textbox:
     - path: appearance.border.width
       type: number
       label: Border Width (px)
-    - path: appearance.border.style
-      type: select
-      label: Border Style
-      tokens: borderStyleOptions
     - path: appearance.border.color
       type: color
       label: Border Color
     - path: appearance.background.color
       type: color
       label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusTokens
+  - id: typography
+    label: Typography
+    fields:
+    - path: typography.color
+      type: color
+      label: Text Color
 textarea:
   groups:
   - id: label
@@ -719,16 +998,28 @@ textarea:
     - path: appearance.border.width
       type: number
       label: Border Width (px)
-    - path: appearance.border.style
-      type: select
-      label: Border Style
-      tokens: borderStyleOptions
     - path: appearance.border.color
       type: color
       label: Border Color
     - path: appearance.background.color
       type: color
       label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusTokens
+  - id: typography
+    label: Typography
+    fields:
+    - path: typography.color
+      type: color
+      label: Text Color
 button:
   groups:
   - id: content
@@ -757,9 +1048,40 @@ button:
     - path: appearance.background.color
       type: color
       label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.border.width
+      type: number
+      label: Border Width (px)
+    - path: appearance.border.style
+      type: select
+      label: Border Style
+      options:
+        - value: solid
+          label: Solid
+        - value: dashed
+          label: Dashed
+        - value: none
+          label: None
     - path: appearance.border.color
       type: color
       label: Border Color
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusTokens
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
     - path: appearance.iconPlacement
       type: select
       label: Icon Placement
@@ -767,6 +1089,17 @@ button:
       - none
       - left
       - right
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Vertical)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Horizontal)
+      tokens: spacingScale
   - id: typography
     label: Typography
     fields:
@@ -807,16 +1140,22 @@ dropdown:
     - path: appearance.border.width
       type: number
       label: Border Width (px)
-    - path: appearance.border.style
-      type: select
-      label: Border Style
-      tokens: borderStyleOptions
     - path: appearance.border.color
       type: color
       label: Border Color
     - path: appearance.background.color
       type: color
       label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadiusTokens
 calendar:
   groups:
   - id: display
@@ -866,6 +1205,12 @@ checkbox:
     - path: field.required
       type: checkbox
       label: Required
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.color
+      type: color
+      label: Checkbox Color
 radio:
   groups:
   - id: label
@@ -900,6 +1245,12 @@ radio:
     - path: field.checked
       type: checkbox
       label: Checked by Default
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.color
+      type: color
+      label: Radio Color
 accordion:
   groups:
   - id: items
@@ -908,14 +1259,129 @@ accordion:
     - path: items
       type: custom
       renderer: accordionItems
+      target: component
   - id: behavior
     label: Behavior
     fields:
     - path: behavior.allowMultipleOpen
       type: checkbox
       label: Allow Multiple Open
+  - id: typography
+    label: Typography
+    fields:
+    - path: typography.title.size
+      type: select
+      label: Title Font Size
+      tokens: typographySizes
+    - path: typography.title.weight
+      type: select
+      label: Title Font Weight
+      tokens: fontWeights
+    - path: typography.title.color
+      type: color
+      label: Title Text Color
+    - path: typography.content.size
+      type: select
+      label: Content Font Size
+      tokens: typographySizes
+    - path: typography.content.weight
+      type: select
+      label: Content Font Weight
+      tokens: fontWeights
+    - path: typography.content.color
+      type: color
+      label: Content Text Color
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.titleBackground.color
+      type: color
+      label: Title Background Color
+    - path: appearance.border.width
+      type: number
+      label: Border Width
+    - path: appearance.border.style
+      type: select
+      label: Border Style
+      options:
+        - value: solid
+          label: Solid
+        - value: dashed
+          label: Dashed
+        - value: none
+          label: None
+    - path: appearance.border.color
+      type: color
+      label: Border Color
+    - path: appearance.border.position
+      type: select
+      label: Border Position
+      options:
+      - value: top
+        label: Top
+      - value: bottom
+        label: Bottom
+      - value: left
+        label: Left
+      - value: right
+        label: Right
+      - value: all
+        label: All Sides
+    - path: appearance.contentBackground.color
+      type: color
+      label: Content Background Color
+    - path: appearance.contentBackground.transparency
+      type: range
+      label: Content Background Transparency
+    - path: appearance.radius
+      type: select
+      label: Border Radius
+      tokens: borderRadius
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Vertical)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Horizontal)
+      tokens: spacingScale
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width Mode
+      options:
+      - value: fit
+        label: Fit to content
+      - value: '25'
+        label: 25%
+      - value: '50'
+        label: 50%
+      - value: '75'
+        label: 75%
+      - value: stretch
+        label: Stretch
 tabs:
   groups:
+  - id: tabs
+    label: Tabs
+    fields:
+    - path: tabs
+      type: custom
+      renderer: tabsEditor
+      target: component
   - id: layout
     label: Layout
     fields:
@@ -925,12 +1391,113 @@ tabs:
       options:
       - horizontal
       - vertical
-  - id: tabs
-    label: Tabs
+    - path: layout.widthMode
+      type: select
+      label: Width
+      options:
+      - value: fit
+        label: Fit to content
+      - value: '25'
+        label: 25%
+      - value: '50'
+        label: 50%
+      - value: '75'
+        label: 75%
+      - value: stretch
+        label: Stretch
+  - id: typography
+    label: Typography
     fields:
-    - path: tabs
-      type: custom
-      renderer: tabsEditor
+    - path: typography.label.size
+      type: select
+      label: Label Font Size
+      tokens: typographySizes
+    - path: typography.label.weight
+      type: select
+      label: Label Font Weight
+      tokens: fontWeights
+    - path: typography.label.active.color
+      type: color
+      label: Active Tab Text Color
+    - path: typography.label.inactive.color
+      type: color
+      label: Inactive Tab Text Color
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.tab.background.active
+      type: color
+      label: Active Tab Background
+    - path: appearance.tab.background.inactive
+      type: color
+      label: Inactive Tab Background
+    - path: appearance.tab.border.width
+      type: number
+      label: Tab Border Width
+    - path: appearance.tab.border.style
+      type: select
+      label: Tab Border Style
+      options:
+        - value: solid
+          label: Solid
+        - value: dashed
+          label: Dashed
+        - value: none
+          label: None
+    - path: appearance.tab.border.position
+      type: select
+      label: Tab Border Position
+      options:
+      - value: upper
+        label: Upper
+      - value: lower
+        label: Lower
+      - value: full
+        label: Full
+    - path: appearance.content.background.color
+      type: color
+      label: Content Background Color
+    - path: appearance.content.background.transparency
+      type: range
+      label: Content Background Transparency
+      min: 0
+      max: 100
+      unit: '%'
+    - path: appearance.content.border.color
+      type: color
+      label: Content Border Color
+    - path: appearance.content.border.width
+      type: number
+      label: Content Border Width
+    - path: appearance.content.border.style
+      type: select
+      label: Content Border Style
+      options:
+        - value: solid
+          label: Solid
+        - value: dashed
+          label: Dashed
+        - value: none
+          label: None
+    - path: appearance.content.padding.block
+      type: select
+      label: Content Padding (Top & Bottom)
+      tokens: spacingScale
+    - path: appearance.content.padding.inline
+      type: select
+      label: Content Padding (Left & Right)
+      tokens: spacingScale
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Top & Bottom)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Left & Right)
+      tokens: spacingScale
 hamburger:
   groups:
   - id: content
