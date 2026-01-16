@@ -1,20 +1,50 @@
-import { getPathMapBuilder } from './ssr_app.js';
+import { getPathMapBuilder, selectComponentInIframe, clearSelectionInIframe } from './ssr_app.js';
 
 export class SelectionManager {
     constructor() {
         this.selectedComponentId = null;
         this.selectedPath = null;
         this.onSelectionChange = null; // Callback function
+
+        // Listen for iframe component clicks (dispatched by ssr_app.js)
+        this.setupIframeClickListener();
     }
 
     /**
-     * Handle click on preview area
+     * Set up listener for iframe component click events
+     */
+    setupIframeClickListener() {
+        console.log('[SelectionManager] Setting up iframe click listener');
+        window.addEventListener('iframe-component-clicked', (event) => {
+            console.log('[SelectionManager] Received iframe-component-clicked event:', event.detail);
+            const { componentId } = event.detail;
+            if (componentId) {
+                this.selectComponent(componentId);
+            }
+        });
+    }
+
+    /**
+     * Check if we're in iframe mode
+     * @returns {boolean} True if using iframe preview
+     */
+    isIframeMode() {
+        return !!document.getElementById('preview-frame');
+    }
+
+    /**
+     * Handle click on preview area (legacy mode - direct DOM clicks)
      * @param {MouseEvent} event - Click event
      */
     handlePreviewClick(event) {
+        // In iframe mode, clicks are handled via postMessage
+        if (this.isIframeMode()) {
+            return;
+        }
+
         // Find the closest component element
         const componentElement = event.target.closest('[data-component-id]');
-        
+
         if (!componentElement) {
             this.clearSelection();
             return;
@@ -47,11 +77,17 @@ export class SelectionManager {
      * @param {string} componentId - Component ID
      */
     selectComponent(componentId) {
+        console.log(`[SelectionManager] selectComponent called with: ${componentId}`);
+
         const pathMapBuilder = getPathMapBuilder();
+        console.log(`[SelectionManager] Path map size: ${pathMapBuilder.size()}`);
+
         const path = pathMapBuilder.getPath(componentId);
+        console.log(`[SelectionManager] Path lookup result:`, path);
 
         if (!path) {
-            console.warn(`SelectionManager: No path found for component ID: ${componentId}`);
+            console.warn(`[SelectionManager] No path found for component ID: ${componentId}`);
+            console.log(`[SelectionManager] Available IDs:`, Array.from(pathMapBuilder.pathMap.keys()));
             return;
         }
 
@@ -92,14 +128,20 @@ export class SelectionManager {
      * @param {string} componentId - Component ID to highlight
      */
     highlightComponent(componentId) {
-        const preview = document.getElementById('preview');
-        if (!preview) return;
+        if (this.isIframeMode()) {
+            // Send selection to iframe via postMessage
+            selectComponentInIframe(componentId);
+        } else {
+            // Legacy: Direct DOM manipulation
+            const preview = document.getElementById('preview');
+            if (!preview) return;
 
-        const element = preview.querySelector(`[data-component-id="${componentId}"]`);
-        if (element) {
-            element.classList.add('selected');
-            // Scroll into view if needed (smooth scroll)
-            element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            const element = preview.querySelector(`[data-component-id="${componentId}"]`);
+            if (element) {
+                element.classList.add('selected');
+                // Scroll into view if needed (smooth scroll)
+                element.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            }
         }
     }
 
@@ -107,11 +149,17 @@ export class SelectionManager {
      * Clear highlight from all components
      */
     clearHighlight() {
-        const preview = document.getElementById('preview');
-        if (!preview) return;
+        if (this.isIframeMode()) {
+            // Send clear selection to iframe
+            clearSelectionInIframe();
+        } else {
+            // Legacy: Direct DOM manipulation
+            const preview = document.getElementById('preview');
+            if (!preview) return;
 
-        const selectedElements = preview.querySelectorAll('.selected');
-        selectedElements.forEach(el => el.classList.remove('selected'));
+            const selectedElements = preview.querySelectorAll('.selected');
+            selectedElements.forEach(el => el.classList.remove('selected'));
+        }
     }
 
     /**
@@ -131,11 +179,10 @@ export class SelectionManager {
      */
     restoreSelection() {
         if (this.selectedComponentId) {
-            // Small delay to ensure DOM is ready
+            // Small delay to ensure DOM/iframe is ready
             setTimeout(() => {
                 this.highlightComponent(this.selectedComponentId);
-            }, 50);
+            }, 100);
         }
     }
 }
-

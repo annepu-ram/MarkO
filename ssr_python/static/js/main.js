@@ -8,6 +8,7 @@ import { historyManager } from './historyManager.js';
 import { loadSvgSprite } from './sprite.js';
 import { deepMerge } from './utils/object.js';
 import { initComponentTree, buildTreeFromStructure, renderTree, highlightTreeItem, clearTreeSelection } from './componentTree.js';
+import { debounce } from './utils/timing.js';
 
 // Create singleton selection manager instance
 export const selectionManager = new SelectionManager();
@@ -76,12 +77,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Function to update component tree
     const updateComponentTree = () => {
-        if (!dom.componentTree) return;
+        console.log('[Main] updateComponentTree called');
+        if (!dom.componentTree) {
+            console.warn('[Main] componentTree DOM element not found');
+            return;
+        }
         const yamlStructure = getYamlStructureFromEditor();
+        console.log('[Main] YAML structure:', yamlStructure);
         if (yamlStructure && yamlStructure.length > 0) {
             const treeData = buildTreeFromStructure(yamlStructure);
+            console.log('[Main] Tree data built with', treeData.length, 'root nodes');
             renderTree(treeData, dom.componentTree);
         } else {
+            console.log('[Main] No components in structure, showing empty message');
             dom.componentTree.innerHTML = '<p class="tree-empty">No components</p>';
         }
     };
@@ -94,7 +102,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Set up selection change handler to update properties panel and tree
     selectionManager.onSelectionChange = (selection) => {
+        console.log('[Main] onSelectionChange called with:', selection);
         if (!selection) {
+            console.log('[Main] Selection cleared');
             clearPropertiesPanel();
             clearTreeSelection();
             return;
@@ -106,41 +116,51 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Get component from YAML structure
         const yamlStructure = getYamlStructureFromEditor();
         const component = getComponentByPath(yamlStructure, selection.path);
+        console.log('[Main] Component at path:', component);
 
         if (component) {
+            console.log('[Main] Rendering properties panel for:', component.name);
             renderPropertiesPanel(component, selection.componentId, selection.path);
         } else {
+            console.warn('[Main] Component not found at path, clearing properties panel');
             clearPropertiesPanel();
         }
     };
+
+    // Create debounced render function to prevent rapid-fire requests
+    const debouncedRender = debounce((yamlContent, currentSelection) => {
+        renderPreview(yamlContent).then(() => {
+            // Update component tree
+            updateComponentTree();
+
+            // Restore selection after re-render if it existed
+            if (currentSelection && currentSelection.componentId) {
+                selectionManager.restoreSelection();
+                highlightTreeItem(currentSelection.componentId);
+                // Restore properties panel
+                const yamlStructure = getYamlStructureFromEditor();
+                const component = getComponentByPath(yamlStructure, currentSelection.path);
+                if (component) {
+                    renderPropertiesPanel(component, currentSelection.componentId, currentSelection.path);
+                }
+            }
+        });
+    }, 300);
 
     // 3. Create a simplified 'actions' object for the SSR app
     const actions = {
         // The most important action: handle editor input by calling the SSR render function
         handleEditorInput: (yamlContent, options = { pushHistory: true }) => {
-            // Push to history if not disabled (e.g., during undo/redo)
+            // Push to history immediately (not debounced for accurate undo/redo)
             if (options.pushHistory) {
                 historyManager.push(yamlContent);
             }
 
             // Store current selection before re-render
             const currentSelection = selectionManager.getSelection();
-            renderPreview(yamlContent).then(() => {
-                // Update component tree
-                updateComponentTree();
-                
-                // Restore selection after re-render if it existed
-                if (currentSelection.componentId) {
-                    selectionManager.restoreSelection();
-                    highlightTreeItem(currentSelection.componentId);
-                    // Restore properties panel
-                    const yamlStructure = getYamlStructureFromEditor();
-                    const component = getComponentByPath(yamlStructure, currentSelection.path);
-                    if (component) {
-                        renderPropertiesPanel(component, currentSelection.componentId, currentSelection.path);
-                    }
-                }
-            });
+
+            // Debounce the render to prevent rapid-fire requests
+            debouncedRender(yamlContent, currentSelection);
         },
         // Handle preview clicks for component selection
         handlePreviewClick: (event) => {
@@ -194,25 +214,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Create updated component with both component-level and properties updates
             // Use deepMerge for properties to preserve unchanged values
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:196',message:'applySelectedComponentProperties before merge',data:{currentProps:JSON.stringify(currentComponent.properties),collectedProps:JSON.stringify(collectedValues.properties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-            // #endregion
             // Merge defaults first to ensure we have the full structure, then merge collected values
             // Note: getComponentDefaults returns the properties object directly (not wrapped in a 'properties' key)
             const defaults = getComponentDefaults(currentComponent.name);
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:201',message:'before first merge',data:{componentName:currentComponent.name,defaults:JSON.stringify(defaults),currentProps:JSON.stringify(currentComponent.properties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-            // #endregion
             // Start with defaults, then merge current properties on top (so current overrides defaults)
             const baseProperties = deepMerge({}, defaults || {}, currentComponent.properties || {});
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:205',message:'after first merge',data:{baseProps:JSON.stringify(baseProperties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-            // #endregion
             // Merge collected values into baseProperties (preserves defaults that aren't being changed)
             const finalProperties = deepMerge({}, baseProperties, collectedValues.properties);
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:204',message:'applySelectedComponentProperties after merge',data:{updatedProps:JSON.stringify(finalProperties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-            // #endregion
             const updatedComponent = {
                 ...currentComponent,
                 ...collectedValues.component,  // Apply component-level updates (tabs, items, etc.)
@@ -223,16 +231,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const updatedStructure = updateComponentByPath(yamlStructure, activeInfo.path, updatedComponent);
 
             // Generate YAML string
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:217',message:'before generateYamlFromStructure',data:{updatedComponentProps:JSON.stringify(updatedComponent.properties),updatedStructure:JSON.stringify(updatedStructure)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-            // #endregion
             const yamlText = generateYamlFromStructure(updatedStructure);
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:232',message:'after generateYamlFromStructure',data:{yamlTextLength:yamlText.length,yamlPreview:yamlText.substring(0,500)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
-            // #endregion
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'main.js:220',message:'after generateYamlFromStructure',data:{yamlText:yamlText.substring(0,500)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-            // #endregion
             if (!yamlText) {
                 console.error('Failed to generate YAML');
                 return;

@@ -471,7 +471,7 @@ export function collectPropertyValues() {
             return;
         }
 
-            // Get value from control using helper
+        // Get value from control using helper
         // #region agent log
         fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:458',message:'collectPropertyValues before getValueFromControl',data:{fieldPath,fieldType:field.type,controlValue:control.value,controlChecked:control.checked},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
         // #endregion

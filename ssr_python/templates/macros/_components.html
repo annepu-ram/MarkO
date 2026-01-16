@@ -1,5 +1,5 @@
 {#- Main dispatcher macro -#}
-{% macro render_component(component, tokens, path=[]) %}
+{% macro render_component(component, tokens, path=[], parent_direction='row') %}
     {% set name = component.name %}
     {# Generate component ID from path #}
     {% if path | length > 0 %}
@@ -28,13 +28,13 @@
     {% elif name == 'br' %}
         {{ render_br(component, tokens, path, component_id) }}
     {% elif name in ['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote', 'link'] %}
-        {{ render_text_component(component, tokens, path, component_id) }}
+        {{ render_text_component(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'image' %}
-        {{ render_image(component, tokens, path, component_id) }}
+        {{ render_image(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'video' %}
         {{ render_video(component, tokens, path, component_id) }}
     {% elif name == 'gif' %}
-        {{ render_gif(component, tokens, path, component_id) }}
+        {{ render_gif(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'button' %}
         {{ render_button(component, tokens, path, component_id) }}
     {% elif name == 'titlebar' %}
@@ -70,7 +70,7 @@
     {# Page always uses flex-direction: column, width: 100% #}
     {% set base_styles = 'display: flex; flex-direction: column; width: 100%; box-sizing: border-box;' %}
     
-    <div class="chrome-target-page" data-component-id="{{ component_id }}" style="{{ base_styles }} {{ page_styles }}">
+    <div class="page" data-component-id="{{ component_id }}" style="{{ base_styles }} {{ page_styles }}">
         {% if components | length > 0 %}
             {% for child in components %}
                 {% set child_path = path + ['components', loop.index0] %}
@@ -196,7 +196,7 @@
         <div class="layout-row__content" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}
-                {{ render_component(child, tokens, child_path) }}
+                {{ render_component(child, tokens, child_path, 'row') }}
             {% endfor %}
         </div>
     </{{ tag }}>
@@ -217,7 +217,7 @@
         <div class="layout-column__content" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}
-                {{ render_component(child, tokens, child_path) }}
+                {{ render_component(child, tokens, child_path, 'column') }}
             {% endfor %}
         </div>
     </{{ tag }}>
@@ -294,10 +294,10 @@
 
 {#-=============== REUSABLE MACRO GROUPS ===============-#}
 
-{% macro render_text_component(component, tokens, path, component_id) %}
+{% macro render_text_component(component, tokens, path, component_id, parent_direction='row') %}
     {% set name = component.name %}
     {% set properties = component.properties | default({}) %}
-    {% set styles = build_styles(component, tokens) %}
+    {% set styles = build_styles(component, tokens, layout_direction=parent_direction) %}
     {% if name == 'heading' %}
         <h{{ properties.level | default(2) }} class="chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</h{{ properties.level | default(2) }}>
     {% elif name == 'paragraph' %}
@@ -336,12 +336,12 @@
     {% endif %}
 {% endmacro %}
 
-{% macro render_image(component, tokens, path, component_id) %}
+{% macro render_image(component, tokens, path, component_id, parent_direction='row') %}
     {% set properties = component.properties | default({}) %}
     {% set source = properties.source | default({}) %}
     {% set presentation = properties.presentation | default({}) %}
     {% set has_children = component.components and component.components | length > 0 %}
-    {% set base_styles = build_styles(component, tokens) %}
+    {% set base_styles = build_styles(component, tokens, layout_direction=parent_direction) %}
     {% set extra_styles = 'position: relative;' %}
     {% if presentation.height %}
         {% set extra_styles = extra_styles ~ ' height: ' ~ presentation.height ~ ';' %}
@@ -378,10 +378,10 @@
     </div>
 {% endmacro %}
 
-{% macro render_gif(component, tokens, path, component_id) %}
+{% macro render_gif(component, tokens, path, component_id, parent_direction='row') %}
     {% set properties = component.properties | default({}) %}
     {% set source = properties.source | default({}) %}
-    {% set styles = build_styles(component, tokens) %}
+    {% set styles = build_styles(component, tokens, layout_direction=parent_direction) %}
     <div class="gif-container chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         <img src="{{ source.url }}" alt="{{ source.altText | default('') }}" style="width: 100%; height: auto;">
     </div>
@@ -417,6 +417,12 @@
         {% set height_value = layout.height %}
         {% set _ = vars.append('--base-height: ' ~ height_value ~ 'px;') %}
     {% endif %}
+
+    {# Scroll shrink percentage (convert percentage to decimal: 30% -> 0.3) #}
+    {% set scroll = properties.scroll | default({}) %}
+    {% set shrink_pct = scroll.shrinkPercentage | default(30) %}
+    {% set shrink_scale = shrink_pct / 100 %}
+    {% set _ = vars.append('--shrink-scale: ' ~ shrink_scale ~ ';') %}
     
     {# Typography #}
     {% if properties.typography %}
@@ -487,7 +493,7 @@
     {% endif %}
     
     {# Combine styles and CSS variables #}
-    {% set css_vars = vars | join(' ') %}
+    {% set css_vars = vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') %}
     {% set combined_styles = (styles ~ ' ' ~ css_vars) | trim %}
     
     <header class="titlebar chrome-target align-{{ alignment }}" data-component-id="{{ component_id }}"{% if combined_styles %} style="{{ combined_styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
@@ -725,8 +731,8 @@
             {% endif %}
         {% endif %}
     {% endif %}
-    
-    {{ vars | join(' ') }}
+
+    {{ vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
 {%- endmacro %}
 
 {% macro build_accordion_vars(component, tokens) -%}
@@ -819,8 +825,8 @@
             {% endif %}
         {% endif %}
     {% endif %}
-    
-    {{ vars | join(' ') }}
+
+    {{ vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
 {%- endmacro %}
 
 {#-=============== THE NEW STYLE BUILDER MACRO ===============-#}
@@ -943,29 +949,43 @@
         {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
         {% set _ = styles.append('display: inline-block;') %}
         {% set _ = styles.append('box-sizing: border-box;') %}
-        {% if width_mode == 'fit' %}
-            {# Fit to content - auto width, no flex grow/shrink #}
-            {% set _ = styles.append('width: auto;') %}
-            {% set _ = styles.append('flex: 0 1 auto;') %}
-        {% elif width_mode == '25' %}
-            {# 25% width #}
-            {% set _ = styles.append('width: 25%;') %}
-            {% set _ = styles.append('flex: 0 1 25%;') %}
-            {% set _ = styles.append('max-width: 25%;') %}
-        {% elif width_mode == '50' %}
-            {# 50% width #}
-            {% set _ = styles.append('width: 50%;') %}
-            {% set _ = styles.append('flex: 0 1 50%;') %}
-            {% set _ = styles.append('max-width: 50%;') %}
-        {% elif width_mode == '75' %}
-            {# 75% width #}
-            {% set _ = styles.append('width: 75%;') %}
-            {% set _ = styles.append('flex: 0 1 75%;') %}
-            {% set _ = styles.append('max-width: 75%;') %}
-        {% elif width_mode == 'stretch' %}
-            {# Stretch to fill - 100% width, flex grow and shrink #}
-            {% set _ = styles.append('width: 100%;') %}
-            {% set _ = styles.append('flex: 1 1 100%;') %}
+
+        {% if layout_direction == 'column' %}
+            {# Column context: use explicit width percentages (flex-grow controls height in column) #}
+            {% if width_mode == 'fit' %}
+                {% set _ = styles.append('width: auto;') %}
+            {% elif width_mode == '25' %}
+                {% set _ = styles.append('width: 25%;') %}
+            {% elif width_mode == '50' %}
+                {% set _ = styles.append('width: 50%;') %}
+            {% elif width_mode == '75' %}
+                {% set _ = styles.append('width: 75%;') %}
+            {% elif width_mode == 'stretch' %}
+                {% set _ = styles.append('width: 100%;') %}
+            {% endif %}
+        {% else %}
+            {# Row context: use flex-grow weights for gap handling #}
+            {% if width_mode == 'fit' %}
+                {# Fit to content - auto width, no flex grow/shrink #}
+                {% set _ = styles.append('width: auto;') %}
+                {% set _ = styles.append('flex: 0 0 auto;') %}
+            {% elif width_mode == '25' %}
+                {# 25% - flex-grow weight 1 (ratio 1:4), handles gap automatically #}
+                {% set _ = styles.append('flex: 1 1 0%;') %}
+                {% set _ = styles.append('min-width: 0;') %}
+            {% elif width_mode == '50' %}
+                {# 50% - flex-grow weight 2 (ratio 2:4), handles gap automatically #}
+                {% set _ = styles.append('flex: 2 1 0%;') %}
+                {% set _ = styles.append('min-width: 0;') %}
+            {% elif width_mode == '75' %}
+                {# 75% - flex-grow weight 3 (ratio 3:4), handles gap automatically #}
+                {% set _ = styles.append('flex: 3 1 0%;') %}
+                {% set _ = styles.append('min-width: 0;') %}
+            {% elif width_mode == 'stretch' %}
+                {# Stretch to fill - flex-grow weight 4 (full width) #}
+                {% set _ = styles.append('flex: 4 1 0%;') %}
+                {% set _ = styles.append('min-width: 0;') %}
+            {% endif %}
         {% endif %}
     {% endif %}
     
@@ -977,7 +997,7 @@
         {% set _ = styles.append('box-sizing: border-box;') %}
     {% endif %}
 
-    {{ styles | join(' ') }}
+    {{ styles | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
 {%- endmacro %}
 
 {#-=============== FLEX LAYOUT STYLES BUILDER ===============-#}
@@ -1000,16 +1020,27 @@
         {% set _ = styles.append('gap: ' ~ tokens.spacing[gap] ~ ';') %}
     {% endif %}
     
-    {# Alignment #}
-    {% set default_align = 'center' if orientation == 'row' else 'stretch' %}
-    {% set align = layout.align | default(default_align) %}
-    {% if align %}
-        {% set _ = styles.append('align-items: ' ~ align ~ ';') %}
+    {# Alignment - for row: justify-content (horizontal), for column: align-items (vertical) #}
+    {% if orientation == 'row' %}
+        {# Row: align controls horizontal positioning via justify-content #}
+        {% set align = layout.align | default('start') %}
+        {% if align %}
+            {% set _ = styles.append('justify-content: ' ~ align ~ ';') %}
+        {% endif %}
+        {# Vertical alignment for row children defaults to stretch #}
+        {% set _ = styles.append('align-items: stretch;') %}
+    {% else %}
+        {# Column: align controls horizontal alignment of children via align-items #}
+        {# Default to 'center' instead of 'stretch' so widthMode works properly #}
+        {% set align = layout.align | default('center') %}
+        {% if align %}
+            {% set _ = styles.append('align-items: ' ~ align ~ ';') %}
+        {% endif %}
     {% endif %}
     
     {# Flex wrap #}
     {% set wrap = layout.wrap | default('nowrap') %}
     {% set _ = styles.append('flex-wrap: ' ~ wrap ~ ';') %}
-    
-    {{ styles | join(' ') }}
+
+    {{ styles | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
 {%- endmacro %}

@@ -83,22 +83,26 @@
                 </div>
                 <!-- Draggable Separator -->
                 <div class="resizer" id="resizer">&mdash;&mdash;&mdash;</div>
-                <!-- Preview area -->
-                <div id="preview" class="preview-area">
-                    <div class="preview-placeholder">
-                        <h3>Live Preview</h3>
-                        <p>Your rendered HTML will appear here.</p>
-                    </div>
-                </div>
+                <!-- Preview area (iframe for style isolation) -->
+                <iframe id="preview-frame"
+                        src="/preview-frame"
+                        class="preview-area"
+                        title="Live Preview"
+                        sandbox="allow-scripts allow-same-origin"></iframe>
             </div>
         </div>
     </div>
 
-    <!-- Load js-yaml for YAML parsing on client side -->
-    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <!-- Load js-yaml for YAML parsing on client side (local copy, loads synchronously before modules) -->
+    <script src="{{ url_for('static', filename='js/js-yaml.min.js') }}"></script>
     <script>
-        // Make js-yaml available globally
-        window.jsyaml = jsyaml;
+        // Make js-yaml available globally - verify it loaded
+        if (typeof jsyaml !== 'undefined') {
+            window.jsyaml = jsyaml;
+            console.log('[Init] js-yaml loaded successfully');
+        } else {
+            console.error('[Init] js-yaml failed to load!');
+        }
         // Pass sprite path from Flask
         window.SPRITE_PATH = "{{ url_for('static', filename='icon-sprite.svg') }}";
     </script>

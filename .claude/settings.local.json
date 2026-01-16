@@ -5,7 +5,9 @@
       "WebSearch",
       "WebFetch(domain:colorhunt.co)",
       "Bash(npm test:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(python:*)",
+      "Bash(node --check:*)"
     ],
     "deny": [],
     "ask": []

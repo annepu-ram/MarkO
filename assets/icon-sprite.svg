@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;">
+<symbol id="icon-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" /></symbol>
+<symbol id="icon-rows" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M3 12h18" /></symbol>
+<symbol id="icon-columns" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M12 3v18" /></symbol>
+<symbol id="icon-layout-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1" />
+  <rect width="7" height="7" x="14" y="3" rx="1" />
+  <rect width="7" height="7" x="14" y="14" rx="1" />
+  <rect width="7" height="7" x="3" y="14" rx="1" /></symbol>
+<symbol id="icon-clipboard-list" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="M12 11h4" />
+  <path d="M12 16h4" />
+  <path d="M8 11h.01" />
+  <path d="M8 16h.01" /></symbol>
+<symbol id="icon-heading-1" viewBox="0 0 24 24"><path d="M4 12h8" />
+  <path d="M4 18V6" />
+  <path d="M12 18V6" />
+  <path d="m17 12 3-2v8" /></symbol>
+<symbol id="icon-pilcrow" viewBox="0 0 24 24"><path d="M13 4v16" />
+  <path d="M17 4v16" />
+  <path d="M19 4H9.5a4.5 4.5 0 0 0 0 9H13" /></symbol>
+<symbol id="icon-type" viewBox="0 0 24 24"><path d="M12 4v16" />
+  <path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2" />
+  <path d="M9 20h6" /></symbol>
+<symbol id="icon-closed-captioning" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="5" rx="2" ry="2" />
+  <path d="M7 15h4M15 15h2M7 11h2M13 11h4" /></symbol>
+<symbol id="icon-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+  <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></symbol>
+<symbol id="icon-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></symbol>
+<symbol id="icon-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+  <circle cx="9" cy="9" r="2" />
+  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></symbol>
+<symbol id="icon-video" viewBox="0 0 24 24"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+  <rect x="2" y="6" width="14" height="12" rx="2" /></symbol>
+<symbol id="icon-film" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M7 3v18" />
+  <path d="M3 7.5h4" />
+  <path d="M3 12h18" />
+  <path d="M3 16.5h4" />
+  <path d="M17 3v18" />
+  <path d="M17 7.5h4" />
+  <path d="M17 16.5h4" /></symbol>
+<symbol id="icon-mouse-pointer-square" viewBox="0 0 24 24"><path d="M12.586 12.586 19 19" />
+  <path d="M3.688 3.037a.497.497 0 0 0-.651.651l6.5 15.999a.501.501 0 0 0 .947-.062l1.569-6.083a2 2 0 0 1 1.448-1.479l6.124-1.579a.5.5 0 0 0 .063-.947z" /></symbol>
+<symbol id="icon-credit-card" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" />
+  <line x1="2" x2="22" y1="10" y2="10" /></symbol>
+<symbol id="icon-folder-tabs" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></symbol>
+<symbol id="icon-chevrons-down-up" viewBox="0 0 24 24"><path d="m7 15 5 5 5-5" />
+  <path d="m7 9 5-5 5 5" /></symbol>
+<symbol id="icon-gallery-horizontal" viewBox="0 0 24 24"><path d="M2 3v18" />
+  <rect width="12" height="18" x="6" y="3" rx="2" />
+  <path d="M22 3v18" /></symbol>
+<symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" /></symbol>
+<symbol id="icon-wrap-text" viewBox="0 0 24 24"><path d="m16 16-3 3 3 3" />
+  <path d="M3 12h14.5a1 1 0 0 1 0 7H13" />
+  <path d="M3 19h6" />
+  <path d="M3 5h18" /></symbol>
+<symbol id="icon-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+<symbol id="icon-check-square" viewBox="0 0 24 24"><path d="M21 10.656V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.344" />
+  <path d="m9 11 3 3L22 4" /></symbol>
+<symbol id="icon-circle-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <circle cx="12" cy="12" r="1" /></symbol>
+<symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M8 2v4" />
+  <path d="M16 2v4" />
+  <rect width="18" height="18" x="3" y="4" rx="2" />
+  <path d="M3 10h18" /></symbol>
+<symbol id="icon-layout" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M3 9h18" />
+  <path d="M9 21V9" /></symbol>
+<symbol id="icon-settings" viewBox="0 0 24 24"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+  <circle cx="12" cy="12" r="3" /></symbol>
+<symbol id="icon-square" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" /></symbol>
+<symbol id="icon-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />
+  <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" />
+  <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" /></symbol>
+<symbol id="icon-sliders" viewBox="0 0 24 24"><path d="M10 8h4" />
+  <path d="M12 21v-9" />
+  <path d="M12 8V3" />
+  <path d="M17 16h4" />
+  <path d="M19 12V3" />
+  <path d="M19 21v-5" />
+  <path d="M3 14h4" />
+  <path d="M5 10V3" />
+  <path d="M5 21v-7" /></symbol>
+<symbol id="icon-edit-2" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /></symbol>
+<symbol id="icon-file-plus" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+  <path d="M9 15h6" />
+  <path d="M12 18v-6" /></symbol>
+<symbol id="icon-edit" viewBox="0 0 24 24"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+  <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" /></symbol>
+<symbol id="icon-box" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+  <path d="m3.3 7 8.7 5 8.7-5" />
+  <path d="M12 22V12" /></symbol>
+<symbol id="icon-maximize" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3" />
+  <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+  <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+  <path d="M16 21h3a2 2 0 0 0 2-2v-3" /></symbol>
+<symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 15V3" />
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+  <path d="m7 10 5 5 5-5" /></symbol>
+<symbol id="icon-help-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+  <path d="M12 17h.01" /></symbol>
+<symbol id="icon-trash-2" viewBox="0 0 24 24"><path d="M10 11v6" />
+  <path d="M14 11v6" />
+  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+  <path d="M3 6h18" />
+  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></symbol>
+<symbol id="icon-chevrons-down" viewBox="0 0 24 24"><path d="m7 6 5 5 5-5" />
+  <path d="m7 13 5 5 5-5" /></symbol>
+<symbol id="icon-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /></symbol>
+<symbol id="icon-grid" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M3 9h18" />
+  <path d="M3 15h18" />
+  <path d="M9 3v18" />
+  <path d="M15 3v18" /></symbol>
+<symbol id="icon-clear-canvas" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <path d="m15 9-6 6" />
+  <path d="m9 9 6 6" /></symbol>
+<symbol id="icon-layout-row" viewBox="0 0 512 512"><g fill="currentColor" fill-rule="nonzero">
+    <g>
+            <rect x="30" y="100" width="460" height="280" stroke="currentcolor" stroke-width="30" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    		<rect x="70" y="160" width="100" height="160" stroke="currentcolor" stroke-width="8" fill="currentcolor" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    		<rect x="210.857" y="160" width="100" height="160" stroke="currentcolor" stroke-width="8" fill="currentcolor" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    		<rect x="350.714" y="160" width="100" height="160" stroke="currentcolor" stroke-width="8" fill="currentcolor" stroke-linecap="round" stroke-linejoin="round"/>
+    </g></g></symbol>
+<symbol id="icon-layout-column" viewBox="0 0 35 35"><g fill="currentColor" fill-rule="nonzero">
+    <g>
+           <g>
+            <rect x="1" y="3" width="33" height="30" stroke-width="2" fill="none" stoke="currentcolor" stroke-linecap="round" stroke-linejoin="round"/>
+    		<rect x="5" y="20" width="25" height="8" stroke-linecap="round" stroke-linejoin="round"/>
+    		<rect x="5" y="7" width="25" height="8" stroke-linecap="round" stroke-linejoin="round"/>
+            
+    </g>
+    </g></g></symbol>
+<symbol id="icon-swift-sites" viewBox="0 0 24 24"><path fill="none" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" d="m22.999 10c0 4.397-1.021 7.169-1.063 7.285-.104.275-.324.492-.602.591-.122.043-2.895 1.005-8.335 1.113v2.011h3.001c.553 0 1 .447 1 1s-.447 1-1 1h-8c-.553 0-1-.447-1-1s.447-1 1-1h3v-2.011c-5.44-.108-8.214-1.07-8.336-1.113-.277-.099-.498-.315-.602-.591-.043-.116-1.063-2.888-1.063-7.285s1.021-7.169 1.063-7.285c.104-.275.324.492.602-.591.129-.046 3.232-1.124 9.335-1.124.724 0 1.405.015 2.043.042.552.023.98.489.957 1.041s-.484.997-1.041.957c-.612-.025-1.265-.04-1.959-.04-4.427 0-7.18.6-8.209.875-.263.904-.791 3.101-.791 6.125s.528 5.219.792 6.125c1.026.274 3.78.875 8.208.875s7.18-.6 8.209-.875c.263-.904.791-3.101.791-6.125 0-.553.447-1 1-1s1 .447 1 1zm-9.238-3.958c.554-.552 1.092-1.069 1.598-1.541.973-.901 1.978-1.777 3.073-2.678.924-.755 2.174-1.431 3.671.065 1.547 1.547.771 2.844.054 3.686-.572.697-1.509 1.804-2.647 3.035-.475.51-1.006 1.067-1.559 1.623.099 1.081-.378 2.161-1.474 3.256-1.269 1.269-3.514 1.508-5.021 1.508-.771 0-1.348-.062-1.506-.081-.458-.056-.818-.416-.874-.874-.056-.466-.49-4.61 1.427-6.527 1.097-1.097 2.177-1.573 3.259-1.473zm1.302 2.887c-1.234-1.234-1.912-1.234-3.146 0-.828.828-.951 2.807-.911 4.061 1.416.053 3.288-.145 4.058-.914 1.235-1.235 1.235-1.911 0-3.146zm.695-2.045c.239.183.479.391.719.631.241.241.449.48.632.719.327-.339.644-.672.936-.985 1.104-1.193 2.013-2.269 2.58-2.959.366-.43.376-.579.376-.578.025-.255-.423-.748-.709-.712.004 0-.149.009-.591.37-1.062.873-2.038 1.724-2.979 2.596-.309.288-.633.597-.963.918z" /></symbol>
+</svg>

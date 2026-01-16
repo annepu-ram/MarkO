@@ -1,7 +1,8 @@
-from flask import render_template_string
-from jinja2 import TemplateSyntaxError
+from flask import render_template_string, current_app
+from jinja2 import TemplateSyntaxError, Environment, FileSystemLoader
 import traceback
 import copy
+import os
 
 def deep_merge(base, override):
     """
@@ -199,14 +200,27 @@ def render_yaml_structure(structure, tokens=None, defaults=None):
     # The main template string that will contain the logic to render components
     # It imports the component macros and then iterates through the structure.
     # Pass path information for component ID generation
-    template = """
+    template_str = """
         {% import 'macros/_components.html' as components %}
         {% for component in structure %}
             {{ components.render_component(component, tokens, [loop.index0]) }}
         {% endfor %}
     """
     try:
-        return render_template_string(template, structure=merged_structure, tokens=tokens)
+        # Create Jinja2 environment with whitespace trimming to avoid empty lines in inline styles
+        templates_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+        env = Environment(
+            loader=FileSystemLoader(templates_dir),
+            trim_blocks=True,      # Remove first newline after block tag
+            lstrip_blocks=True     # Strip leading whitespace before block tags
+        )
+
+        # Add custom filters from Flask app if available
+        if current_app:
+            env.filters.update(current_app.jinja_env.filters)
+
+        template = env.from_string(template_str)
+        return template.render(structure=merged_structure, tokens=tokens)
     except TemplateSyntaxError as e:
         # Provide detailed error information for template syntax errors
         error_msg = f"Template Syntax Error in {e.filename or 'template'} at line {e.lineno}: {e.message}"

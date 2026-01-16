@@ -11,9 +11,16 @@ export function getYamlStructureFromEditor() {
     const editor = document.getElementById('codeEditor');
     if (!editor) return null;
 
+    // Check for empty content
+    if (!editor.value || editor.value.trim() === '') {
+        return [];
+    }
+
     try {
-        if (typeof jsyaml !== 'undefined') {
-            return jsyaml.load(editor.value) || [];
+        // Check both global and window.jsyaml (module scripts may not see bare globals)
+        const yaml = typeof jsyaml !== 'undefined' ? jsyaml : window.jsyaml;
+        if (yaml) {
+            return yaml.load(editor.value) || [];
         }
         console.warn('YAML parser not available');
         return null;
@@ -74,8 +81,10 @@ export function updateComponentByPath(structure, path, newComponent) {
  */
 export function generateYamlFromStructure(structure) {
     try {
-        if (typeof jsyaml !== 'undefined') {
-            return jsyaml.dump(structure, {
+        // Check both global and window.jsyaml (module scripts may not see bare globals)
+        const yaml = typeof jsyaml !== 'undefined' ? jsyaml : window.jsyaml;
+        if (yaml) {
+            return yaml.dump(structure, {
                 indent: 2,
                 lineWidth: -1,
                 noRefs: true,

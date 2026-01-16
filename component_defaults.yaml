@@ -5,10 +5,10 @@ page:
     image: ''
   layout:
     padding:
-      top: md
-      right: md
-      bottom: md
-      left: md
+      top: none
+      right: none
+      bottom: none
+      left: none
     margin:
       top: none
       right: none
@@ -26,13 +26,13 @@ layout-row:
     minHeight: auto
     maxHeight: auto
   spacing:
-    paddingBlock: none
-    paddingInline: none
-    marginBlock: none
-    marginInline: none
+    paddingBlock: sm
+    paddingInline: sm
+    marginBlock: sm
+    marginInline: sm
   background:
     color: '#ffffff'
-    transparency: 100
+    transparency: 0
     image: ''
   appearance:
     border:
@@ -53,13 +53,13 @@ layout-column:
     minHeight: auto
     maxHeight: auto
   spacing:
-    paddingBlock: none
-    paddingInline: none
-    marginBlock: none
-    marginInline: none
+    paddingBlock: sm
+    paddingInline: sm
+    marginBlock: sm
+    marginInline: sm
   background:
     color: '#ffffff'
-    transparency: 100
+    transparency: 0
     image: ''
   appearance:
     border:
@@ -93,6 +93,8 @@ titlebar:
   layout:
     alignment: left
     height: 60
+  scroll:
+    shrinkPercentage: 30
   appearance:
     background:
       color: '#ffffff'

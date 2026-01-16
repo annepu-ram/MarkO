@@ -440,31 +440,49 @@ details[open] .accordion-summary::after {
 }
 
 .titlebar.scrolled {
-    padding: calc(1rem * var(--shrink-scale, 0.5)) 1rem;
+    padding: calc(1rem * var(--shrink-scale, 0.3)) 1rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    height: calc(var(--base-height, 6rem) * var(--shrink-scale, 0.5));
+    height: calc(var(--base-height, 6rem) * var(--shrink-scale, 0.3));
 }
 
 .titlebar.scrolled .titlebar-brand {
-    gap: calc(1rem * var(--shrink-scale, 0.5));
+    gap: calc(1rem * var(--shrink-scale, 0.3));
 }
 
 .titlebar.scrolled .titlebar-logo {
-    max-height: calc((var(--base-height, 6rem) - 2rem) * var(--shrink-scale, 0.5));
+    max-height: calc((var(--base-height, 6rem) - 2rem) * var(--shrink-scale, 0.3));
 }
 
 .titlebar.scrolled .titlebar-title {
-    font-size: calc(var(--title-font-size, 1.5rem) * var(--shrink-scale, 0.5));
+    font-size: calc(var(--title-font-size, 1.5rem) * var(--shrink-scale, 0.3));
 }
 
-.titlebar.scrolled .titlebar-nav .titlebar-link {
-    font-size: calc(var(--menu-font-size, 1.6rem) * var(--shrink-scale, 0.5));
-    padding: calc(0.5rem * var(--shrink-scale, 0.5)) calc(1rem * var(--shrink-scale, 0.5));
+/* Note: Nav links intentionally NOT shrunk on scroll - only logo and title shrink */
+
+/* Clone titlebar - fixed position at top, hidden by default */
+.titlebar-clone {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
 }
 
-.titlebar.scrolled .titlebar-nav {
-    gap: calc(1rem * var(--shrink-scale, 0.5));
+/* Show clone when original scrolls out of view */
+.titlebar-clone.visible {
+    opacity: 1;
+    pointer-events: auto;
 }
+
+/* Ensure clone doesn't show chrome overlay styles */
+.titlebar-clone::before,
+.titlebar-clone::after {
+    display: none !important;
+}
+
 @media (max-width: 768px) {
     .titlebar-nav {
         display: none;

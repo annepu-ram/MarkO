@@ -16,30 +16,30 @@
         spacing: { marginBlock: lg }
         layout:
           widthMode: stretch  # Test width mode: stretch (default)
+
+    - name: heading
+      properties:
+            text: Heading with Fit Width Mode
+            level: 2
+            typography: { size: xl, weight: semibold, color: '#374151' }
+            spacing: { marginBlock: md }
+            layout:
+              widthMode: fit  # Test width mode: fit
     
     - name: heading
       properties:
-        text: Heading with Fit Width Mode
-        level: 2
-        typography: { size: xl, weight: semibold, color: '#374151' }
-        spacing: { marginBlock: md }
-        layout:
-          widthMode: fit  # Test width mode: fit
-    
-    - name: heading
-      properties:
-        text: Heading with Percentage Width Mode
-        level: 3
-        typography: { size: lg, weight: medium, color: '#4b5563' }
-        spacing: { marginBlock: sm }
-        layout:
-          widthMode: percentage  # Test width mode: percentage
-          width: 50%
-    
+            text: Heading with Percentage Width Mode
+            level: 3
+            typography: { size: lg, weight: medium, color: '#4b5563' }
+            spacing: { marginBlock: sm }
+            layout:
+              widthMode: percentage  # Test width mode: percentage
+              width: 50%
+        
     - name: br
       properties: { size: md }
-    
-    # Test Paragraph Component
+ 
+        # Test Paragraph Component
     - name: paragraph
       properties:
         text: |
@@ -58,16 +58,16 @@
         spacing: { marginBlock: sm }
         layout:
           widthMode: fit
-    
+        
     - name: br
       properties: { size: md }
-    
-    # Test Eyebrow Component
+        
+        # Test Eyebrow Component
     - name: eyebrow
       properties:
         text: |
-          Featured Insight
-          Multiple Lines
+              Featured Insight
+              Multiple Lines
         typography: { size: xs, weight: semibold, transform: uppercase, letterSpacing: wide, color: '#6366f1' }
         spacing: { marginBlock: xs }
         layout:
@@ -75,12 +75,12 @@
     
     - name: eyebrow
       properties:
-        text: Eyebrow with Fit Width
-        typography: { size: xs, weight: semibold, transform: uppercase, color: '#8b5cf6' }
-        spacing: { marginBlock: xs }
-        layout:
-          widthMode: fit
-    
+            text: Eyebrow with Fit Width
+            typography: { size: xs, weight: semibold, transform: uppercase, color: '#8b5cf6' }
+            spacing: { marginBlock: xs }
+            layout:
+              widthMode: fit
+        
     - name: br
       properties: { size: md }
     
@@ -94,14 +94,14 @@
         spacing: { marginBlock: xs }
         layout:
           widthMode: stretch
-    
+
     - name: caption
       properties:
-        text: Caption with fit width mode
-        typography: { size: sm, align: left, color: '#9ca3af' }
-        spacing: { marginBlock: xs }
-        layout:
-          widthMode: fit
+            text: Caption with fit width mode
+            typography: { size: sm, align: left, color: '#9ca3af' }
+            spacing: { marginBlock: xs }
+            layout:
+              widthMode: fit
     
     - name: br
       properties: { size: lg }
@@ -122,19 +122,19 @@
           padding: { block: md, inline: md }
         layout:
           widthMode: stretch
-    
+
     - name: blockquote
       properties:
-        quote: Short quote with fit width
-        cite: Anonymous
-        typography: { size: md, weight: medium, color: '#374151' }
-        spacing: { marginBlock: md }
-        appearance:
-          border: { accentColor: '#10b981' }
-          background: { color: '#ecfdf5' }
-          padding: { block: sm, inline: sm }
-        layout:
-          widthMode: fit
+            quote: Short quote with fit width
+            cite: Anonymous
+            typography: { size: md, weight: medium, color: '#374151' }
+            spacing: { marginBlock: md }
+            appearance:
+              border: { accentColor: '#10b981' }
+              background: { color: '#ecfdf5' }
+              padding: { block: sm, inline: sm }
+            layout:
+              widthMode: fit
     
     # Test blockquote with 'text' property fallback
     - name: blockquote
@@ -146,7 +146,7 @@
         cite: Fallback Test
         typography: { size: md, color: '#4b5563' }
         spacing: { marginBlock: md }
-        appearance:
+        appearance: 
           border: { accentColor: '#f59e0b' }
           background: { color: '#fffbeb' }
           padding: { block: sm, inline: sm }
@@ -190,7 +190,7 @@
         spacing: { marginBlock: sm }
         layout:
           widthMode: stretch
-    
+
     - name: link
       properties:
         text: Link with fit width mode
@@ -210,7 +210,7 @@
       properties:
         layout: { align: start, gap: md, wrap: wrap }
         spacing: { paddingBlock: md, paddingInline: md }
-        appearance:
+      appearance: 
           background: { color: '#f3f4f6' }
           border: { width: 1, style: solid, color: '#d1d5db' }
           radius: md

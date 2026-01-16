@@ -91,6 +91,11 @@ def get_schema_tokens():
 def index():
     return render_template('index.html')
 
+@app.route('/preview-frame')
+def preview_frame():
+    """Serve the preview iframe content"""
+    return render_template('preview_frame.html')
+
 @app.route('/render', methods=['POST'])
 def render_from_yaml():
     try:
@@ -120,6 +125,33 @@ def render_from_yaml():
             details = f"{error_message}\n\nFull traceback:\n{error_trace}"
         
         return jsonify({'error': 'An unexpected error occurred during rendering.', 'details': details}), 500
+
+@app.after_request
+def add_security_headers(response):
+    """Add security headers to all responses"""
+    # Restrict iframe embedding to same origin only (prevents clickjacking)
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+
+    # Content Security Policy
+    # - default-src 'self': Only allow resources from same origin
+    # - script-src 'self': Only allow scripts from same origin
+    # - style-src 'self' 'unsafe-inline': Allow same-origin styles and inline styles (needed for component styling)
+    # - img-src 'self' data: https:: Allow images from same origin, data URIs, and HTTPS sources
+    # - frame-src 'self': Only allow same-origin frames
+    # - frame-ancestors 'self': Prevent this page from being embedded elsewhere
+    response.headers['Content-Security-Policy'] = (
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data: https:; "
+        "frame-src 'self'; "
+        "frame-ancestors 'self';"
+    )
+
+    # Prevent MIME type sniffing
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)

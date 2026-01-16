@@ -209,6 +209,10 @@ function initializeSidebarResizer(sidebarResizer, sidebar) {
         document.body.style.cursor = 'ew-resize'; // Change cursor globally
         sidebar.style.userSelect = 'none'; // Prevent text selection during resize
         sidebar.style.pointerEvents = 'none'; // Prevent interaction with sidebar content
+
+        // Block iframe pointer events to prevent mouse getting trapped during resize
+        const iframe = document.getElementById('preview-frame');
+        if (iframe) iframe.style.pointerEvents = 'none';
     };
 
     const resize = (e) => {
@@ -233,6 +237,10 @@ function initializeSidebarResizer(sidebarResizer, sidebar) {
         sidebar.style.userSelect = ''; // Restore user select
         sidebar.style.pointerEvents = ''; // Restore pointer events
         localStorage.setItem('sidebarWidth', sidebar.offsetWidth);
+
+        // Restore iframe pointer events
+        const iframe = document.getElementById('preview-frame');
+        if (iframe) iframe.style.pointerEvents = '';
     };
 
     sidebarResizer.addEventListener('mousedown', startResizing);
@@ -253,6 +261,10 @@ function initializeResizer(resizer, editorWrapper) {
     const handleMouseUp = () => {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
+
+        // Restore iframe pointer events
+        const iframe = document.getElementById('preview-frame');
+        if (iframe) iframe.style.pointerEvents = '';
     };
 
     resizer.addEventListener('mousedown', event => {
@@ -261,6 +273,10 @@ function initializeResizer(resizer, editorWrapper) {
         initialMouseY = event.clientY;
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseup', handleMouseUp);
+
+        // Block iframe pointer events during resize
+        const iframe = document.getElementById('preview-frame');
+        if (iframe) iframe.style.pointerEvents = 'none';
     });
 }
 
