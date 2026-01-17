@@ -385,6 +385,7 @@
             document.body.insertAdjacentElement('afterbegin', clone);
         }
 
+        // Setup mobile menu toggle for original titlebar
         const mobileMenuButton = titlebarElement.querySelector('.mobile-menu-button');
         const navLinks = titlebarElement.querySelector('.titlebar-nav');
 
@@ -392,6 +393,17 @@
             mobileMenuButton.addEventListener('click', (e) => {
                 e.stopPropagation();
                 navLinks.classList.toggle('active');
+            });
+        }
+
+        // Setup mobile menu toggle for cloned titlebar
+        const cloneMobileMenuButton = clone.querySelector('.mobile-menu-button');
+        const cloneNavLinks = clone.querySelector('.titlebar-nav');
+
+        if (cloneMobileMenuButton && cloneNavLinks) {
+            cloneMobileMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                cloneNavLinks.classList.toggle('active');
             });
         }
 

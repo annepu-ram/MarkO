@@ -408,10 +408,10 @@
     {% set alignment = layout.alignment | default('left') %}
     {% set links = navigation.links | default([]) %}
     {% set styles = build_styles(component, tokens) %}
-    
+
     {# Generate CSS variables for typography and layout #}
     {% set vars = [] %}
-    
+
     {# Layout height #}
     {% if layout.height %}
         {% set height_value = layout.height %}
@@ -423,11 +423,11 @@
     {% set shrink_pct = scroll.shrinkPercentage | default(30) %}
     {% set shrink_scale = 1 - (shrink_pct / 100) %}
     {% set _ = vars.append('--shrink-scale: ' ~ shrink_scale ~ ';') %}
-    
+
     {# Typography #}
     {% if properties.typography %}
         {% set typo = properties.typography %}
-        
+
         {# Title typography #}
         {% if typo.title %}
             {% set title = typo.title %}
@@ -453,7 +453,7 @@
                 {% set _ = vars.append('--titlebar-title-color: ' ~ title.color ~ ';') %}
             {% endif %}
         {% endif %}
-        
+
         {# Menu/Link typography #}
         {% if typo.menu %}
             {% set menu = typo.menu %}
@@ -480,7 +480,7 @@
             {% endif %}
         {% endif %}
     {% endif %}
-    
+
     {# Focus colors #}
     {% if properties.appearance and properties.appearance.focus %}
         {% set focus = properties.appearance.focus %}
@@ -491,11 +491,11 @@
             {% set _ = vars.append('--titlebar-link-hover-color: ' ~ focus.color ~ ';') %}
         {% endif %}
     {% endif %}
-    
+
     {# Combine styles and CSS variables #}
     {% set css_vars = vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') %}
     {% set combined_styles = (styles ~ ' ' ~ css_vars) | trim %}
-    
+
     <header class="titlebar chrome-target align-{{ alignment }}" data-component-id="{{ component_id }}"{% if combined_styles %} style="{{ combined_styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         <div class="titlebar-branding">
             {% if branding.showLogo and branding.logoUrl %}
@@ -505,6 +505,11 @@
                 <span class="titlebar-title">{{ branding.title }}</span>
             {% endif %}
         </div>
+        <button type="button" class="mobile-menu-button" aria-label="Toggle menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
         <nav class="titlebar-nav">
             {% for link in links %}
                 <a href="{{ link.href }}" class="titlebar-link">{{ link.label }}</a>
