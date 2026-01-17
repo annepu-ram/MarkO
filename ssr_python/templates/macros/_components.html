@@ -418,10 +418,10 @@
         {% set _ = vars.append('--base-height: ' ~ height_value ~ 'px;') %}
     {% endif %}
 
-    {# Scroll shrink percentage (convert percentage to decimal: 30% -> 0.3) #}
+    {# Scroll shrink percentage (shrink BY percentage: 30% means retain 70% -> scale 0.7) #}
     {% set scroll = properties.scroll | default({}) %}
     {% set shrink_pct = scroll.shrinkPercentage | default(30) %}
-    {% set shrink_scale = shrink_pct / 100 %}
+    {% set shrink_scale = 1 - (shrink_pct / 100) %}
     {% set _ = vars.append('--shrink-scale: ' ~ shrink_scale ~ ';') %}
     
     {# Typography #}
