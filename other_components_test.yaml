@@ -1,0 +1,78 @@
+# Test file for other layout and interactive components
+- name: heading
+  properties:
+    text: Tabs Component
+    level: 2
+    typography: { align: center }
+    spacing: { marginBlock: lg }
+
+- name: tabs
+  properties:
+    layout:
+      orientation: horizontal
+    tabs:
+      - title: Tab 1
+      components:
+        - name: paragraph
+          properties:
+            text: This is the content for the first tab.
+      - title: Tab 2
+      components:
+        - name: paragraph
+          properties:
+            text: This is the content for the second tab. It is a bit longer to see how it wraps.
+      - title: Tab 3
+      components:
+        - name: paragraph
+          properties:
+            text: This is the third tab.
+
+- name: heading
+  properties:
+    text: Accordion Component
+    level: 2
+    typography: { align: center }
+    spacing: { marginBlock: lg }
+
+- name: accordion
+  properties:
+    behavior:
+      allowMultipleOpen: false
+    items:
+      - title: Question 1?
+        content: This is the answer to the first question.
+      - title: Another Question?
+        content: |
+          This is a longer answer with a line break.
+          It demonstrates multi-line content support.
+      - title: Final Question?
+        content: This is the final answer in the accordion.
+
+- name: heading
+  properties:
+    text: Hamburger and Break Components
+    level: 2
+    typography: { align: center }
+    spacing: { marginBlock: lg }
+
+- name: paragraph
+  properties:
+    text: This is some text before the break.
+
+- name: br
+  properties:
+    size: xl
+
+- name: paragraph
+  properties:
+    text: This is some text after the break. The hamburger menu is below.
+
+- name: hamburger
+    label: Main Menu
+    links:
+      - label: Home
+        href: '#home'
+      - label: About
+        href: '#about'
+      - label: Contact
+        href: '#contact'

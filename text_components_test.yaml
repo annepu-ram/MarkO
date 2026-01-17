@@ -1,0 +1,235 @@
+# Comprehensive test file for all text components with new features
+- name: page
+  properties:
+    background: { color: '#ffffff' }
+    layout:
+      padding: { top: md, right: md, bottom: md, left: md }
+  components:
+    # Test Heading Component
+    - name: heading
+      properties:
+        text: |
+          This is a Multiline Heading
+          With Line Breaks
+        level: 1
+        typography: { size: xxxl, weight: bold, color: '#111827' }
+        spacing: { marginBlock: lg }
+        layout:
+          widthMode: stretch  # Test width mode: stretch (default)
+
+    - name: heading
+      properties:
+            text: Heading with Fit Width Mode
+            level: 2
+            typography: { size: xl, weight: semibold, color: '#374151' }
+            spacing: { marginBlock: md }
+            layout:
+              widthMode: fit  # Test width mode: fit
+    
+    - name: heading
+      properties:
+            text: Heading with Percentage Width Mode
+            level: 3
+            typography: { size: lg, weight: medium, color: '#4b5563' }
+            spacing: { marginBlock: sm }
+            layout:
+              widthMode: percentage  # Test width mode: percentage
+              width: 50%
+        
+    - name: br
+      properties: { size: md }
+ 
+        # Test Paragraph Component
+    - name: paragraph
+      properties:
+        text: |
+          This is a multiline paragraph.
+          It spans multiple lines.
+          Each line should be separated by a line break.
+        typography: { size: md, lineHeight: 1.6, color: '#1f2937' }
+        spacing: { marginBlock: md }
+        layout:
+          widthMode: stretch
+    
+    - name: paragraph
+      properties:
+        text: This paragraph uses fit width mode and should only be as wide as its content.
+        typography: { size: sm, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+        layout:
+          widthMode: fit
+        
+    - name: br
+      properties: { size: md }
+        
+        # Test Eyebrow Component
+    - name: eyebrow
+      properties:
+        text: |
+              Featured Insight
+              Multiple Lines
+        typography: { size: xs, weight: semibold, transform: uppercase, letterSpacing: wide, color: '#6366f1' }
+        spacing: { marginBlock: xs }
+        layout:
+          widthMode: stretch
+    
+    - name: eyebrow
+      properties:
+            text: Eyebrow with Fit Width
+            typography: { size: xs, weight: semibold, transform: uppercase, color: '#8b5cf6' }
+            spacing: { marginBlock: xs }
+            layout:
+              widthMode: fit
+        
+    - name: br
+      properties: { size: md }
+    
+    # Test Caption Component
+    - name: caption
+      properties:
+        text: |
+          Photo by Jane Doe
+          Captured on location
+        typography: { size: sm, align: center, color: '#6b7280' }
+        spacing: { marginBlock: xs }
+        layout:
+          widthMode: stretch
+
+    - name: caption
+      properties:
+            text: Caption with fit width mode
+            typography: { size: sm, align: left, color: '#9ca3af' }
+            spacing: { marginBlock: xs }
+            layout:
+              widthMode: fit
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Test Blockquote Component
+    - name: blockquote
+      properties:
+        quote: |
+          Design is intelligence made visible.
+          It's not just what it looks like and feels like.
+          Design is how it works.
+        cite: Steve Jobs
+        typography: { size: lg, lineHeight: 1.6, weight: medium, align: center, color: '#111827' }
+        spacing: { marginBlock: lg }
+        appearance:
+          border: { accentColor: '#6366f1' }
+          background: { color: '#f9fafb' }
+          padding: { block: md, inline: md }
+        layout:
+          widthMode: stretch
+
+    - name: blockquote
+      properties:
+            quote: Short quote with fit width
+            cite: Anonymous
+            typography: { size: md, weight: medium, color: '#374151' }
+            spacing: { marginBlock: md }
+            appearance:
+              border: { accentColor: '#10b981' }
+              background: { color: '#ecfdf5' }
+              padding: { block: sm, inline: sm }
+            layout:
+              widthMode: fit
+    
+    # Test blockquote with 'text' property fallback
+    - name: blockquote
+      properties:
+        text: |
+          This blockquote uses the 'text' property
+          instead of 'quote' property.
+          It should still render correctly.
+        cite: Fallback Test
+        typography: { size: md, color: '#4b5563' }
+        spacing: { marginBlock: md }
+        appearance: 
+          border: { accentColor: '#f59e0b' }
+          background: { color: '#fffbeb' }
+          padding: { block: sm, inline: sm }
+        layout:
+          widthMode: stretch
+    
+    - name: br
+      properties: { size: lg }
+    
+    # Test Link Component
+    - name: link
+      properties:
+        text: Link with underline and left alignment
+        href: '#test1'
+        underline: true
+        textAlign: left
+        typography: { size: md, color: '#2563eb', weight: medium }
+        spacing: { marginBlock: sm }
+        layout:
+          widthMode: stretch
+    
+    - name: link
+      properties:
+        text: Link with no underline and center alignment
+        href: '#test2'
+        underline: false
+        textAlign: center
+        typography: { size: md, color: '#7c3aed', weight: medium }
+        spacing: { marginBlock: sm }
+        layout:
+          widthMode: stretch
+    
+    - name: link
+      properties:
+        text: Link with arrow and right alignment
+        href: '#test3'
+        underline: true
+        textAlign: right
+        appearance: { showArrow: true }
+        typography: { size: md, color: '#059669', weight: medium }
+        spacing: { marginBlock: sm }
+        layout:
+          widthMode: stretch
+
+    - name: link
+      properties:
+        text: Link with fit width mode
+        href: '#test4'
+        underline: true
+        textAlign: left
+        typography: { size: sm, color: '#dc2626', weight: semibold }
+        spacing: { marginBlock: sm }
+        layout:
+          widthMode: fit
+    
+    - name: br
+      properties: { size: xl }
+    
+    # Test all components in a flex container to verify width modes
+    - name: layout-row
+      properties:
+        layout: { align: start, gap: md, wrap: wrap }
+        spacing: { paddingBlock: md, paddingInline: md }
+      appearance: 
+          background: { color: '#f3f4f6' }
+          border: { width: 1, style: solid, color: '#d1d5db' }
+          radius: md
+      components:
+        - name: heading
+          properties:
+            text: Fit Width
+            level: 4
+            typography: { size: md, weight: bold, color: '#1f2937' }
+            layout: { widthMode: fit }
+        
+        - name: paragraph
+          properties:
+            text: This paragraph should stretch to fill remaining space in the row.
+            typography: { size: sm, color: '#4b5563' }
+            layout: { widthMode: stretch }
+        
+        - name: eyebrow
+          properties:
+            text: FIT
+            typography: { size: xs, weight: bold, transform: uppercase, color: '#6366f1' }
+            layout: { widthMode: fit }

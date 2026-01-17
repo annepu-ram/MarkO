@@ -1,0 +1,175 @@
+- name: page
+  properties:
+    background:
+      color: '#f8f9fa'
+    layout:
+      padding:
+        top: none
+        right: none
+        bottom: none
+        left: none
+  components:
+  - name: titlebar
+    properties:
+      branding:
+        title: Swift Logistics
+        logoUrl: https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=100
+      appearance:
+        background:
+          color: '#ffffff'
+      navigation:
+        links:
+        - label: Home
+          href: '#home'
+        - label: Services
+          href: '#services'
+        - label: Tracking
+          href: '#tracking'
+        - label: Contact
+          href: '#contact'
+  - name: image
+    properties:
+      source:
+        url: https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+        altText: Logistics warehouse with shipping containers
+      presentation:
+        height: 400px
+        fit: cover
+        cornerStyle: none
+      spacing:
+        marginBlock: sm
+        marginInline: none
+      layout:
+        widthMode: stretch
+    components:
+    - name: heading
+      properties:
+        text: Efficient & Reliable Logistics Solutions
+        typography:
+          color: '#ffffff'
+          align: center
+        appearance:
+          background:
+            color: rgba(0, 0, 0, 0.5)
+          padding:
+            block: md
+            inline: md
+          radius: sm
+        level: 1
+  - name: heading
+    properties:
+      text: Our Services
+      typography:
+        align: center
+      spacing:
+        marginBlock: lg
+      level: 2
+  - name: tabs
+    properties:
+      layout:
+        orientation: horizontal
+      tabs:
+      - title: Air Freight
+        content: ''
+      - title: Sea Freight
+        content: ''
+      - title: Land Transport
+        content: ''
+  - name: columnsgrid
+    properties:
+      layout:
+        columns: 3
+        gap: md
+    columns:
+    - components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=600
+            altText: Airplane taking off
+          presentation:
+            height: 200px
+            fit: cover
+            cornerStyle: sm
+          layout:
+            widthMode: stretch
+      - name: heading
+        properties:
+          text: Air Freight
+          level: 3
+      - name: paragraph
+        properties:
+          text: Fast and reliable air freight services for your urgent shipping needs.
+          typography:
+            align: center
+    - components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=600
+            altText: Cargo ship at port
+          presentation:
+            height: 200px
+            fit: cover
+            cornerStyle: sm
+          layout:
+            widthMode: stretch
+      - name: heading
+        properties:
+          text: Sea Freight
+          level: 3
+      - name: paragraph
+        properties:
+          text: Cost-effective sea freight solutions for large shipments.
+          typography:
+            align: center
+    - components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=600
+            altText: Trucks on highway
+          presentation:
+            height: 200px
+            fit: cover
+            cornerStyle: sm
+          layout:
+            widthMode: stretch
+      - name: heading
+        properties:
+          text: Land Transport
+          level: 3
+      - name: paragraph
+        properties:
+          text: Comprehensive road and rail transport across the country.
+          typography:
+            align: center
+  - name: heading
+    properties:
+      text: Why Choose Us?
+      typography:
+        align: center
+      spacing:
+        marginBlock: lg
+      level: 2
+  - name: accordion
+    properties:
+      items:
+      - title: Global Network
+        content: Our extensive network of partners ensures your shipments reach any destination worldwide with reliable service.
+      - title: Advanced Tracking
+        content: Real-time tracking of your shipments from origin to destination. Track your packages online or via our mobile app.
+      - title: 24/7 Support
+        content: Our dedicated team is available around the clock to assist you with any queries or concerns about your shipments.
+      behavior:
+        allowMultipleOpen: false
+  - name: video
+    properties:
+      source:
+        url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+      playback:
+        controls: true
+        autoplay: false
+        muted: false
+      spacing:
+        marginBlock: lg

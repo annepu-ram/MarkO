@@ -1,0 +1,935 @@
+- name: page
+  properties:
+    backgroundColor: '#f5f5f5'
+  components:
+    - name: image
+      properties:
+        source:
+          url: >-
+            https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+          altText: Modern workspace with laptop and coffee
+        presentation:
+          height: auto
+          fit: cover
+          cornerStyle: none
+        spacing:
+          marginBlock: none
+          marginInline: none
+        layout:
+          widthMode: stretch
+      components:
+        - name: heading
+          properties:
+            text: Build Something Amazing
+            typography:
+              color: '#ffffff'
+              weight: bold
+              size: xl
+              align: center
+            level: 1
+            layout:
+              widthMode: stretch
+            spacing:
+              marginBlock: lg
+        - name: paragraph
+          properties:
+            text: >-
+              Launch your next big idea with cutting-edge tools and expert
+              guidance. We're here to help you succeed.
+            typography:
+              color: '#ffffff'
+              size: lg
+              align: center
+              weight: normal
+            layout:
+              widthMode: stretch
+            spacing:
+              marginBlock: md
+        - name: button
+          properties:
+            text: Get Started Now
+            appearance:
+              background:
+                color: '#2563eb'
+              border:
+                color: '#1d4ed8'
+              padding:
+                block: md
+                inline: lg
+            typography:
+              color: '#ffffff'
+              weight: semibold
+            layout:
+              widthMode: fit
+            spacing:
+              marginBlock: md
+              marginInline: xs
+    - name: heading
+      properties:
+        text: Why Our Platform Stands Out
+        typography:
+          color: '#2d2d2d'
+          align: center
+          weight: bold
+          size: lg
+        level: 2
+        spacing:
+          marginBlock: lg
+    - name: paragraph
+      properties:
+        text: Discover the features that make us the industry leader
+        typography:
+          color: '#6b7280'
+          align: center
+          size: md
+        spacing:
+          marginBlock: md
+    - name: layout-row
+      properties:
+        spacing:
+          marginBlock: lg
+          marginInline: none
+          paddingBlock: lg
+          paddingInline: lg
+        layout:
+          gap: lg
+        background:
+          color: '#ffffff'
+        appearance:
+          border:
+            width: 1
+            style: solid
+            color: '#e5e7eb'
+          radius: md
+          shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+      components:
+        - name: image
+          properties:
+            source:
+              url: >-
+                https://images.pexels.com/photos/3560044/pexels-photo-3560044.jpeg?auto=compress&cs=tinysrgb&w=600
+              altText: Dashboard analytics
+            presentation:
+              height: 300px
+              fit: cover
+              cornerStyle: md
+            layout:
+              widthMode: fit
+        - name: layout-column
+          properties:
+            spacing:
+              marginBlock: none
+          components:
+            - name: heading
+              properties:
+                text: Advanced Analytics
+                typography:
+                  color: '#2d2d2d'
+                  weight: bold
+                  size: lg
+                level: 3
+            - name: paragraph
+              properties:
+                text: >-
+                  Real-time insights and comprehensive data visualization help
+                  you make informed decisions. Track metrics that matter and
+                  optimize your strategy with actionable intelligence.
+                typography:
+                  color: '#6b7280'
+                  size: md
+                spacing:
+                  marginBlock: md
+            - name: button
+              properties:
+                text: Learn More
+                appearance:
+                  background:
+                    color: '#7a9b7f'
+                  border:
+                    color: '#6b8f70'
+                  padding:
+                    block: sm
+                    inline: md
+                typography:
+                  color: '#ffffff'
+                  weight: semibold
+                layout:
+                  widthMode: fit
+                spacing:
+                  marginBlock: md
+                  marginInline: xs
+    - name: layout-row
+      properties:
+        spacing:
+          marginBlock: lg
+          marginInline: none
+          paddingBlock: lg
+          paddingInline: lg
+        layout:
+          gap: lg
+        background:
+          color: '#ffffff'
+        appearance:
+          border:
+            width: 1
+            style: solid
+            color: '#e5e7eb'
+          radius: md
+          shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+      components:
+        - name: layout-column
+          properties:
+            spacing:
+              marginBlock: none
+          components:
+            - name: heading
+              properties:
+                text: Seamless Integration
+                typography:
+                  color: '#2d2d2d'
+                  weight: bold
+                  size: lg
+                level: 3
+            - name: paragraph
+              properties:
+                text: >-
+                  Connect with your favorite tools and services effortlessly.
+                  Our API and integrations work with 500+ popular applications,
+                  streamlining your workflow.
+                typography:
+                  color: '#6b7280'
+                  size: md
+                spacing:
+                  marginBlock: md
+            - name: button
+              properties:
+                text: Explore Integrations
+                appearance:
+                  background:
+                    color: '#2563eb'
+                  border:
+                    color: '#1d4ed8'
+                  padding:
+                    block: sm
+                    inline: md
+                typography:
+                  color: '#ffffff'
+                  weight: semibold
+                layout:
+                  widthMode: fit
+                spacing:
+                  marginBlock: md
+                  marginInline: xs
+        - name: image
+          properties:
+            source:
+              url: >-
+                https://images.pexels.com/photos/5244002/pexels-photo-5244002.jpeg
+              altText: Integration workflow
+            presentation:
+              height: 300px
+              fit: cover
+              cornerStyle: md
+            overlay:
+              enabled: false
+              color: rgba(0,0,0,0.5)
+              opacity: 0.5
+            spacing:
+              marginBlock: sm
+              marginInline: none
+            appearance:
+              radius: none
+              padding:
+                block: none
+                inline: none
+            layout:
+              widthMode: fit
+    - name: layout-row
+      properties:
+        spacing:
+          marginBlock: lg
+          marginInline: none
+          paddingBlock: lg
+          paddingInline: lg
+        layout:
+          gap: lg
+        background:
+          color: '#ffffff'
+        appearance:
+          border:
+            width: 1
+            style: solid
+            color: '#e5e7eb'
+          radius: md
+          shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+      components:
+        - name: image
+          properties:
+            source:
+              url: >-
+                https://images.pexels.com/photos/3194519/pexels-photo-3194519.jpeg?auto=compress&cs=tinysrgb&w=600
+              altText: Security features
+            presentation:
+              height: 300px
+              fit: cover
+              cornerStyle: md
+            layout:
+              widthMode: fit
+        - name: layout-column
+          properties:
+            spacing:
+              marginBlock: none
+          components:
+            - name: heading
+              properties:
+                text: Enterprise Security
+                typography:
+                  color: '#2d2d2d'
+                  weight: bold
+                  size: lg
+                level: 3
+            - name: paragraph
+              properties:
+                text: >-
+                  Bank-grade encryption and compliance with industry standards
+                  ensure your data stays secure. We take privacy seriously with
+                  regular audits and 24/7 monitoring.
+                typography:
+                  color: '#6b7280'
+                  size: md
+                spacing:
+                  marginBlock: md
+            - name: button
+              properties:
+                text: View Security Details
+                appearance:
+                  background:
+                    color: '#7a9b7f'
+                  border:
+                    color: '#6b8f70'
+                  padding:
+                    block: sm
+                    inline: md
+                typography:
+                  color: '#ffffff'
+                  weight: semibold
+                layout:
+                  widthMode: fit
+                spacing:
+                  marginBlock: md
+                  marginInline: xs
+    - name: heading
+      properties:
+        text: Our Core Services
+        typography:
+          color: '#2d2d2d'
+          align: center
+          weight: bold
+          size: lg
+        level: 2
+        spacing:
+          marginBlock: lg
+          marginInline: none
+    - name: columnsgrid
+      properties:
+        layout:
+          columns: 4
+          gap: md
+        spacing:
+          marginBlock: lg
+      columns:
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: >-
+                    https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg
+                  altText: Consulting service
+                presentation:
+                  height: 200px
+                  fit: cover
+                  cornerStyle: md
+                overlay:
+                  enabled: false
+                  color: rgba(0,0,0,0.5)
+                  opacity: 0.5
+                spacing:
+                  marginBlock: sm
+                  marginInline: none
+                appearance:
+                  radius: none
+                  padding:
+                    block: none
+                    inline: none
+                layout:
+                  widthMode: stretch
+            - name: heading
+              properties:
+                text: Strategy Consulting
+                typography:
+                  color: '#2d2d2d'
+                  align: center
+                  weight: bold
+                level: 3
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: >-
+                  Expert guidance to define your roadmap and achieve strategic
+                  goals.
+                typography:
+                  color: '#6b7280'
+                  align: center
+                  size: sm
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: >-
+                    https://images.pexels.com/photos/8720270/pexels-photo-8720270.jpeg
+                  altText: Development service
+                presentation:
+                  height: 200px
+                  fit: cover
+                  cornerStyle: md
+                overlay:
+                  enabled: false
+                  color: rgba(0,0,0,0.5)
+                  opacity: 0.5
+                spacing:
+                  marginBlock: sm
+                  marginInline: none
+                appearance:
+                  radius: none
+                  padding:
+                    block: none
+                    inline: none
+                layout:
+                  widthMode: stretch
+            - name: heading
+              properties:
+                text: Custom Development
+                typography:
+                  color: '#2d2d2d'
+                  align: center
+                  weight: bold
+                level: 3
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: >-
+                  Tailored solutions built with modern technology and best
+                  practices.
+                typography:
+                  color: '#6b7280'
+                  align: center
+                  size: sm
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: >-
+                    https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400&h=300
+                  altText: Support service
+                presentation:
+                  height: 200px
+                  fit: cover
+                  cornerStyle: md
+                layout:
+                  widthMode: stretch
+            - name: heading
+              properties:
+                text: 24/7 Support
+                typography:
+                  color: '#2d2d2d'
+                  align: center
+                  weight: bold
+                level: 3
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: >-
+                  Dedicated support team available round the clock for your
+                  peace of mind.
+                typography:
+                  color: '#6b7280'
+                  align: center
+                  size: sm
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: >-
+                    https://images.pexels.com/photos/3862632/pexels-photo-3862632.jpeg?auto=compress&cs=tinysrgb&w=400&h=300
+                  altText: Training service
+                presentation:
+                  height: 200px
+                  fit: cover
+                  cornerStyle: md
+                layout:
+                  widthMode: stretch
+            - name: heading
+              properties:
+                text: Training Programs
+                typography:
+                  color: '#2d2d2d'
+                  align: center
+                  weight: bold
+                level: 3
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: >-
+                  Comprehensive training to maximize team productivity and
+                  adoption.
+                typography:
+                  color: '#6b7280'
+                  align: center
+                  size: sm
+    - name: heading
+      properties:
+        text: What Our Clients Say
+        typography:
+          color: '#2d2d2d'
+          align: center
+          weight: bold
+          size: lg
+        level: 2
+        spacing:
+          marginBlock: lg
+    - name: columnsgrid
+      properties:
+        layout:
+          columns: 3
+          gap: md
+        spacing:
+          marginBlock: lg
+      columns:
+        - components:
+            - name: paragraph
+              properties:
+                text: >-
+                  "This platform transformed how we manage our operations. The
+                  intuitive interface and powerful features saved us countless
+                  hours." 
+                typography:
+                  color: '#6b7280'
+                  size: sm
+                  align: center
+            - name: heading
+              properties:
+                text: Sarah Johnson
+                typography:
+                  color: '#2d2d2d'
+                  weight: bold
+                  align: center
+                  size: sm
+                level: 4
+                spacing:
+                  marginBlock: sm
+            - name: paragraph
+              properties:
+                text: CEO, Tech Innovations Inc.
+                typography:
+                  color: '#8b8b8b'
+                  size: xs
+                  align: center
+        - components:
+            - name: paragraph
+              properties:
+                text: >-
+                  "Outstanding support team and reliable service. They went
+                  above and beyond to ensure our success."
+                typography:
+                  color: '#6b7280'
+                  size: sm
+                  align: center
+            - name: heading
+              properties:
+                text: Michael Chen
+                typography:
+                  color: '#2d2d2d'
+                  weight: bold
+                  align: center
+                  size: sm
+                level: 4
+                spacing:
+                  marginBlock: sm
+            - name: paragraph
+              properties:
+                text: Product Manager, Growth Labs
+                typography:
+                  color: '#8b8b8b'
+                  size: xs
+                  align: center
+        - components:
+            - name: paragraph
+              properties:
+                text: >-
+                  "The ROI was immediate. We saw a 40% improvement in efficiency
+                  within the first month."
+                typography:
+                  color: '#6b7280'
+                  size: sm
+                  align: center
+            - name: heading
+              properties:
+                text: Emily Rodriguez
+                typography:
+                  color: '#2d2d2d'
+                  weight: bold
+                  align: center
+                  size: sm
+                level: 4
+                spacing:
+                  marginBlock: sm
+            - name: paragraph
+              properties:
+                text: Operations Director, Digital Ventures
+                typography:
+                  color: '#8b8b8b'
+                  size: xs
+                  align: center
+    - name: heading
+      properties:
+        text: Simple, Transparent Pricing
+        typography:
+          color: '#2d2d2d'
+          align: center
+          weight: bold
+          size: lg
+        level: 2
+        spacing:
+          marginBlock: lg
+    - name: columnsgrid
+      properties:
+        layout:
+          columns: 3
+          gap: md
+        spacing:
+          marginBlock: lg
+      columns:
+        - components:
+            - name: heading
+              properties:
+                text: Starter
+                typography:
+                  color: '#2d2d2d'
+                  align: center
+                  weight: bold
+                  size: md
+                level: 3
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: $29/month
+                typography:
+                  color: '#7a9b7f'
+                  align: center
+                  weight: bold
+                  size: lg
+                spacing:
+                  marginBlock: sm
+            - name: paragraph
+              properties:
+                text: Perfect for individuals and small projects
+                typography:
+                  color: '#6b7280'
+                  align: center
+                  size: sm
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: |-
+                  ✓ Up to 10 projects
+                  ✓ Basic analytics
+                  ✓ Email support
+                  ✓ 1GB storage
+                typography:
+                  color: '#6b7280'
+                  size: sm
+                spacing:
+                  marginBlock: md
+            - name: button
+              properties:
+                text: Start Free Trial
+                appearance:
+                  background:
+                    color: '#ffffff'
+                  border:
+                    color: '#2563eb'
+                  padding:
+                    block: sm
+                    inline: md
+                typography:
+                  color: '#2563eb'
+                  weight: semibold
+                layout:
+                  widthMode: fit
+                spacing:
+                  marginBlock: md
+                  marginInline: xs
+        - components:
+            - name: heading
+              properties:
+                text: Professional
+                typography:
+                  color: '#ffffff'
+                  align: center
+                  weight: bold
+                  size: md
+                level: 3
+                appearance:
+                  backgroundColor: '#2d2d2d'
+                  borderRadius: sm
+                spacing:
+                  marginBlock: md
+                  paddingBlock: md
+                  paddingInline: md
+            - name: paragraph
+              properties:
+                text: $79/month
+                typography:
+                  color: '#7a9b7f'
+                  align: center
+                  weight: bold
+                  size: lg
+                spacing:
+                  marginBlock: sm
+            - name: paragraph
+              properties:
+                text: Most popular for growing teams
+                typography:
+                  color: '#6b7280'
+                  align: center
+                  size: sm
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: |-
+                  ✓ Unlimited projects
+                  ✓ Advanced analytics
+                  ✓ Priority support
+                  ✓ 50GB storage
+                  ✓ Team collaboration
+                typography:
+                  color: '#6b7280'
+                  size: sm
+                spacing:
+                  marginBlock: md
+            - name: button
+              properties:
+                text: Get Started
+                appearance:
+                  background:
+                    color: '#2563eb'
+                  border:
+                    color: '#1d4ed8'
+                  padding:
+                    block: sm
+                    inline: md
+                typography:
+                  color: '#ffffff'
+                  weight: semibold
+                layout:
+                  widthMode: fit
+                spacing:
+                  marginBlock: md
+                  marginInline: xs
+        - components:
+            - name: heading
+              properties:
+                text: Enterprise
+                typography:
+                  color: '#2d2d2d'
+                  align: center
+                  weight: bold
+                  size: md
+                level: 3
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: Custom pricing
+                typography:
+                  color: '#7a9b7f'
+                  align: center
+                  weight: bold
+                  size: lg
+                spacing:
+                  marginBlock: sm
+            - name: paragraph
+              properties:
+                text: For large organizations
+                typography:
+                  color: '#6b7280'
+                  align: center
+                  size: sm
+                spacing:
+                  marginBlock: md
+            - name: paragraph
+              properties:
+                text: |-
+                  ✓ Everything in Professional
+                  ✓ Custom integrations
+                  ✓ Dedicated account manager
+                  ✓ SLA guarantees
+                  ✓ Advanced security
+                typography:
+                  color: '#6b7280'
+                  size: sm
+                spacing:
+                  marginBlock: md
+            - name: button
+              properties:
+                text: Contact Sales
+                appearance:
+                  background:
+                    color: '#ffffff'
+                  border:
+                    color: '#2d2d2d'
+                  padding:
+                    block: sm
+                    inline: md
+                typography:
+                  color: '#2d2d2d'
+                  weight: semibold
+                layout:
+                  widthMode: fit
+                spacing:
+                  marginBlock: md
+                  marginInline: xs
+    - name: heading
+      properties:
+        text: Frequently Asked Questions
+        typography:
+          color: '#2d2d2d'
+          align: center
+          weight: bold
+          size: lg
+        level: 2
+        spacing:
+          marginBlock: lg
+    - name: accordion
+      properties:
+        items:
+          - title: What makes your platform different from competitors?
+            content: >-
+              Our platform combines ease of use with powerful features. We
+              invest heavily in user experience, ensuring that even complex
+              tasks become simple. Plus, our support team genuinely cares about
+              your success.
+          - title: Can I switch plans at any time?
+            content: >-
+              Yes, absolutely! You can upgrade or downgrade your plan at any
+              time. Changes take effect immediately, and we'll adjust your
+              billing accordingly.
+          - title: Do you offer a free trial?
+            content: >-
+              We offer a 14-day free trial for all plans. No credit card
+              required to start. You'll get full access to all features during
+              the trial period.
+          - title: Is my data secure?
+            content: >-
+              Security is our top priority. We use enterprise-grade encryption,
+              regular security audits, and comply with GDPR, SOC 2, and other
+              industry standards.
+          - title: What support options are available?
+            content: >-
+              We offer email support for all plans, with priority support for
+              Professional and Enterprise users. Enterprise customers also get a
+              dedicated account manager.
+          - title: Can I export my data?
+            content: >-
+              Yes, you can export your data at any time in multiple formats. We
+              believe in data portability and ensure you're never locked in.
+        behavior:
+          allowMultipleOpen: false
+        spacing:
+          marginBlock: lg
+    - name: heading
+      properties:
+        text: Ready to Transform Your Business?
+        typography:
+          color: '#2d2d2d'
+          align: center
+          weight: bold
+          size: lg
+        level: 2
+        spacing:
+          marginBlock: lg
+    - name: paragraph
+      properties:
+        text: >-
+          Join thousands of successful businesses using our platform. Start your
+          free trial today, no credit card required.
+        typography:
+          color: '#6b7280'
+          align: center
+          size: md
+        spacing:
+          marginBlock: md
+    - name: layout-row
+      properties:
+        spacing:
+          marginBlock: lg
+          marginInline: none
+          paddingBlock: lg
+          paddingInline: lg
+        layout:
+          gap: md
+          align: center
+        background:
+          color: '#f0f4f8'
+        appearance:
+          border:
+            width: 1
+            style: solid
+            color: '#e0e7ff'
+          radius: md
+      components:
+        - name: button
+          properties:
+            text: Start Free Trial
+            appearance:
+              background:
+                color: '#2563eb'
+              border:
+                color: '#1d4ed8'
+              padding:
+                block: md
+                inline: lg
+            typography:
+              color: '#ffffff'
+              weight: semibold
+            layout:
+              widthMode: fit
+            spacing:
+              marginBlock: none
+              marginInline: sm
+        - name: button
+          properties:
+            text: Schedule Demo
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                color: '#2563eb'
+              padding:
+                block: md
+                inline: lg
+            typography:
+              color: '#2563eb'
+              weight: semibold
+            layout:
+              widthMode: fit
+            spacing:
+              marginBlock: none
+              marginInline: sm

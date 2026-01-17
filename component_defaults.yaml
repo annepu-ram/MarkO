@@ -1,0 +1,589 @@
+page:
+  background:
+    color: '#ffffff'
+    transparency: 100
+    image: ''
+  layout:
+    padding:
+      top: none
+      right: none
+      bottom: none
+      left: none
+    margin:
+      top: none
+      right: none
+      bottom: none
+      left: none
+layout-row:
+  layout:
+    tag: section
+    align: stretch
+    gap: md
+    wrap: nowrap
+    width: auto
+    minWidth: auto
+    maxWidth: auto
+    minHeight: auto
+    maxHeight: auto
+  spacing:
+    paddingBlock: sm
+    paddingInline: sm
+    marginBlock: sm
+    marginInline: sm
+  background:
+    color: '#ffffff'
+    transparency: 0
+    image: ''
+  appearance:
+    border:
+      width: 0
+      style: solid
+      color: '#000000'
+    radius: none
+    shadow: none
+layout-column:
+  layout:
+    tag: section
+    align: start
+    gap: md
+    wrap: nowrap
+    width: auto
+    minWidth: auto
+    maxWidth: auto
+    minHeight: auto
+    maxHeight: auto
+  spacing:
+    paddingBlock: sm
+    paddingInline: sm
+    marginBlock: sm
+    marginInline: sm
+  background:
+    color: '#ffffff'
+    transparency: 0
+    image: ''
+  appearance:
+    border:
+      width: 0
+      style: solid
+      color: '#000000'
+    radius: none
+    shadow: none
+columnsgrid:
+  layout:
+    columns: 2
+    gap: md
+    align: center
+  responsive:
+    breakpoints:
+      md: 2
+      sm: 1
+titlebar:
+  branding:
+    showLogo: true
+    logoUrl: https://via.placeholder.com/50x40
+    title: Website Title
+  navigation:
+    links:
+    - label: Home
+      href: '#home'
+    - label: About
+      href: '#about'
+    - label: Contact
+      href: '#contact'
+  layout:
+    alignment: left
+    height: 60
+  scroll:
+    shrinkPercentage: 30
+  appearance:
+    background:
+      color: '#ffffff'
+      transparency: 100
+    border:
+      width: 1
+      style: solid
+      color: '#dddddd'
+    focus:
+      background: '#f0f0f0'
+  typography:
+    title:
+      size: 24
+      weight: bold
+      color: '#111827'
+    menu:
+      size: 16
+      weight: medium
+      color: '#333333'
+heading:
+  text: |
+    Elevate your message
+    with a bold statement
+  level: 2
+  typography:
+    size: xl
+    weight: bold
+    lineHeight: 1.2
+    transform: none
+    letterSpacing: normal
+    align: center
+    color: '#111827'
+  appearance:
+    background:
+      color: '#ffffff'
+      transparency: 100
+    radius: none
+    padding:
+      block: none
+      inline: none
+  spacing:
+    marginBlock: md
+    marginInline: none
+  layout:
+    widthMode: stretch
+paragraph:
+  text: |
+    Tell your story across multiple lines.
+    Continue the narrative with more detail here.
+  typography:
+    size: md
+    lineHeight: 1.6
+    transform: none
+    letterSpacing: normal
+    align: left
+    color: '#1f2937'
+    weight: regular
+  spacing:
+    marginBlock: sm
+    marginInline: none
+  layout:
+    widthMode: stretch
+  appearance:
+    background:
+      color: '#ffffff'
+      transparency: 100
+    radius: none
+    padding:
+      block: none
+      inline: none
+eyebrow:
+  text: |
+    Featured insight
+    Highlights at a glance
+  typography:
+    size: xs
+    weight: semibold
+    transform: uppercase
+    letterSpacing: wide
+    align: left
+    color: '#6366f1'
+  spacing:
+    marginBlock: xs
+    marginInline: none
+  layout:
+    widthMode: stretch
+  appearance:
+    background:
+      color: '#ffffff'
+      transparency: 100
+    radius: none
+    padding:
+      block: none
+      inline: none
+caption:
+  text: |
+    Photo by Jane Doe
+    Captured on location
+  typography:
+    size: sm
+    lineHeight: 1.4
+    transform: none
+    align: center
+    color: '#6b7280'
+  spacing:
+    marginBlock: xs
+    marginInline: none
+  layout:
+    widthMode: stretch
+  appearance:
+    background:
+      color: '#ffffff'
+      transparency: 100
+    radius: none
+    padding:
+      block: none
+      inline: none
+blockquote:
+  quote: |
+    Design is intelligence made visible.
+    Share a thought worth repeating.
+  cite: Alina Wheeler
+  typography:
+    size: lg
+    lineHeight: 1.6
+    weight: medium
+    transform: none
+    align: center
+    color: '#111827'
+  spacing:
+    marginBlock: lg
+    marginInline: none
+  appearance:
+    border:
+      accentColor: '#6366f1'
+    background:
+      color: '#ffffff'
+      transparency: 100
+    radius: none
+    padding:
+      block: md
+      inline: md
+  layout:
+    widthMode: stretch
+image:
+  source:
+    url: https://via.placeholder.com/150
+    altText: Placeholder image
+  presentation:
+    height: auto
+    fit: cover
+    cornerStyle: none
+  overlay:
+    enabled: false
+    color: rgba(0,0,0,0.5)
+    opacity: 0.5
+  spacing:
+    marginBlock: sm
+    marginInline: none
+  appearance:
+    radius: none
+    padding:
+      block: none
+      inline: none
+  layout:
+    widthMode: stretch
+video:
+  source:
+    url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  playback:
+    controls: true
+    autoplay: false
+    muted: false
+  spacing:
+    marginBlock: md
+    marginInline: none
+gif:
+  source:
+    url: https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif
+    altText: Animated GIF
+  presentation:
+    fit: cover
+    cornerStyle: none
+  overlay:
+    enabled: false
+    color: rgba(0,0,0,0.5)
+    opacity: 0.5
+  spacing:
+    marginBlock: sm
+    marginInline: none
+  appearance:
+    radius: none
+    padding:
+      block: none
+      inline: none
+  layout:
+    widthMode: stretch
+textbox:
+  label:
+    text: Textbox Label
+    show: true
+    typography:
+      size: sm
+      weight: medium
+      color: '#374151'
+  field:
+    placeholder: Enter text...
+    initialValue: ''
+    helperText: ''
+    required: false
+  appearance:
+    border:
+      width: 1
+      style: solid
+      color: '#cccccc'
+    background:
+      color: '#ffffff'
+      transparency: 100
+    radius: none
+    icon:
+      position: none
+    padding:
+      block: sm
+      inline: sm
+  typography:
+    color: '#000000'
+  spacing:
+    marginBlock: sm
+    marginInline: none
+  layout: {}
+textarea:
+  label:
+    text: Textarea Label
+    show: true
+    typography:
+      size: sm
+      weight: medium
+      color: '#374151'
+  field:
+    placeholder: Enter text...
+    rows: 3
+    helperText: ''
+    required: false
+  appearance:
+    border:
+      width: 1
+      style: solid
+      color: '#cccccc'
+    background:
+      color: '#ffffff'
+      transparency: 100
+    radius: none
+    padding:
+      block: sm
+      inline: sm
+  typography:
+    color: '#000000'
+  spacing:
+    marginBlock: sm
+    marginInline: none
+  layout: {}
+button:
+  text: Click Me
+  action:
+    type: inlineScript
+    value: alert("Clicked!")
+  appearance:
+    background:
+      color: '#ffffff'
+      transparency: 100
+    border:
+      width: 1
+      style: solid
+      color: '#1d4ed8'
+    radius: sm
+    iconPlacement: none
+    padding:
+      block: sm
+      inline: md
+  typography:
+    weight: semibold
+    color: '#ffffff'
+  spacing:
+    marginBlock: sm
+    marginInline: xs
+    paddingBlock: none
+    paddingInline: none
+dropdown:
+  label:
+    text: Dropdown Label
+    show: true
+    typography:
+      size: sm
+      weight: medium
+      color: '#374151'
+  field:
+    placeholder: Choose an option
+    selected: ''
+    options: 'Option 1
+
+      Option 2
+
+      Option 3'
+  appearance:
+    border:
+      width: 1
+      style: solid
+      color: '#cccccc'
+    background:
+      color: '#ffffff'
+      transparency: 100
+    radius: none
+calendar:
+  display:
+    month: 8
+    year: 2024
+  appearance:
+    showWeekNumbers: false
+checkbox:
+  label:
+    text: Checkbox Label
+    typography:
+      size: sm
+      weight: medium
+      color: rgba(55,65,81,1)
+  field:
+    text: Check me
+    checked: false
+    required: false
+  appearance:
+    color: '#2563eb'
+radio:
+  label:
+    text: Radio Label
+    typography:
+      size: sm
+      weight: medium
+      color: rgba(55,65,81,1)
+  field:
+    text: Select me
+    groupName: radio1
+    value: option1
+    checked: false
+  appearance:
+    color: '#2563eb'
+accordion:
+  items:
+  - title: Click to expand
+    content: |
+      Add your content here.
+      Supports multiple lines.
+  behavior:
+    allowMultipleOpen: false
+  typography:
+    title:
+      size: lg
+      weight: semibold
+      color: '#000000'
+    content:
+      size: md
+      weight: regular
+      color: '#000000'
+  layout:
+    widthMode: stretch
+  appearance:
+    titleBackground:
+      color: '#ffffff'
+    border:
+      width: 1
+      style: solid
+      color: '#d1d5db'
+      position: bottom
+    contentBackground:
+      color: '#ffffff'
+      transparency: 100
+    radius: sm
+    padding:
+      block: sm
+      inline: sm
+  spacing:
+    marginBlock: md
+    marginInline: none
+tabs:
+  layout:
+    orientation: horizontal
+    widthMode: stretch
+  typography:
+    label:
+      size: md
+      weight: semibold
+      active:
+        color: '#000000'
+      inactive:
+        color: '#6b7280'
+  appearance:
+    tab:
+      background:
+        active: '#ffffff'
+        inactive: '#ffffff'
+      border:
+        width: 2
+        style: solid
+        position: lower
+    content:
+      background:
+        color: '#ffffff'
+        transparency: 100
+      border:
+        color: '#d1d5db'
+        width: 1
+        style: solid
+      padding:
+        block: md
+        inline: md
+  spacing:
+    marginBlock: md
+    marginInline: none
+  tabs:
+    - title: Tab 1
+      components:
+        - name: paragraph
+          properties:
+            text: Tab 1 content
+hamburger:
+  label: Menu
+  links:
+  - label: Home
+    href: '#home'
+  - label: About
+    href: '#about'
+br:
+  size: md
+link:
+  text: Click Me
+  href: '#'
+  appearance:
+    color: rgba(0,0,238,1)
+    underline: true
+    showArrow: false
+  typography:
+    size: md
+    weight: regular
+  spacing:
+    marginBlock: xs
+    marginInline: xs
+    paddingBlock: none
+    paddingInline: none
+form:
+  layout:
+    direction: column
+    gap: md
+  submit:
+    buttonText: Submit
+    show: true
+carousel:
+  behavior:
+    autoplay: true
+    delay: 3000
+    loop: true
+  navigation:
+    showArrows: true
+    showDots: true
+  spacing:
+    marginBlock: lg
+    marginInline: none
+  slides:
+  - components:
+    - name: image
+      properties:
+        source:
+          url: https://via.placeholder.com/800x400?text=Slide+1
+          altText: Slide 1
+    - name: heading
+      properties:
+        text: First Slide
+        level: 3
+  - components:
+    - name: image
+      properties:
+        source:
+          url: https://via.placeholder.com/800x400?text=Slide+2
+          altText: Slide 2
+    - name: paragraph
+      properties:
+        text: Second slide with some text.
+  - components:
+    - name: image
+      properties:
+        source:
+          url: https://via.placeholder.com/800x400?text=Slide+3
+          altText: Slide 3
+

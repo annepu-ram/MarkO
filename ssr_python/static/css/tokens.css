@@ -1,0 +1,49 @@
+/* CSS Design Tokens - Auto-generated from tokens.yaml */
+/* DO NOT EDIT MANUALLY - Regenerate with: python generate_tokens_css.py */
+
+:root {
+    /* Spacing Scale */
+    --spacing-none: 0;
+    --spacing-xxs: 0.3rem;
+    --spacing-xs: 0.6rem;
+    --spacing-sm: 1.2rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 5rem;
+    --spacing-xxl: 8rem;
+    --spacing-xxxl: 12rem;
+    --spacing-auto: auto;
+
+    /* Typography Sizes */
+    --font-size-xxs: 0.9rem;
+    --font-size-xs: 1.1rem;
+    --font-size-sm: 1.4rem;
+    --font-size-md: 1.8rem;
+    --font-size-lg: 2.2rem;
+    --font-size-xl: 3rem;
+    --font-size-xxl: 4.5rem;
+    --font-size-xxxl: 6rem;
+    --font-size-auto: auto;
+
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+
+    /* Border Radius */
+    --border-radius-none: 0;
+    --border-radius-sm: 0.3rem;
+    --border-radius-md: 0.75rem;
+    --border-radius-lg: 1.5rem;
+    --border-radius-pill: 9999px;
+
+    /* Letter Spacing */
+    --letter-spacing-normal: normal;
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+
+}

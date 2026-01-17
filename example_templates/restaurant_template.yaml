@@ -1,0 +1,144 @@
+- name: page
+  properties:
+    background:
+      color: '#fffaf0'
+  components:
+  - name: titlebar
+    properties:
+      branding:
+        title: The Chef's Table
+        logoUrl: https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=100
+      appearance:
+        background:
+          color: '#ffffff'
+      navigation:
+        links:
+        - label: Home
+          href: '#home'
+        - label: Menu
+          href: '#menu'
+        - label: Reservations
+          href: '#reservations'
+        - label: Contact
+          href: '#contact'
+  - name: image
+    properties:
+      source:
+        url: https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+        altText: A beautifully plated gourmet dish
+      presentation:
+        height: 400px
+        fit: cover
+        cornerStyle: none
+      spacing:
+        marginBlock: none
+        marginInline: none
+      layout:
+        widthMode: stretch
+    components:
+    - name: heading
+      properties:
+        text: The Chef's Table
+        typography:
+          color: '#ffffff'
+        level: 1
+    - name: button
+      properties:
+        text: Make a Reservation
+  - name: heading
+    properties:
+      text: A Culinary Journey
+      typography:
+        align: center
+        color: '#FF4500'
+      level: 1
+  - name: paragraph
+    properties:
+      text: Experience the finest in seasonal and locally-sourced cuisine.
+      typography:
+        align: center
+        size: lg
+      spacing:
+        marginBlock: md
+  - name: heading
+    properties:
+      text: Our Menu
+      typography:
+        align: center
+        color: '#FF4500'
+      spacing:
+        marginBlock: lg
+      level: 2
+  - name: tabs
+    properties:
+      layout:
+        orientation: horizontal
+      tabs:
+      - title: Appetizers
+        content: ''
+      - title: Main Courses
+        content: ''
+      - title: Desserts
+        content: ''
+  - name: heading
+    properties:
+      text: Frequently Asked Questions
+      typography:
+        align: center
+        color: '#FF4500'
+      spacing:
+        marginBlock: lg
+      level: 2
+  - name: accordion
+    properties:
+      items:
+      - title: Do you take reservations?
+        content: Yes, we highly recommend making a reservation, especially on weekends. You can book a table through our website or by calling us directly.
+      - title: What is the dress code?
+        content: We have a smart casual dress code. We kindly ask that you refrain from wearing sportswear, shorts, or flip-flops.
+      - title: Do you accommodate dietary restrictions?
+        content: Absolutely! We offer vegetarian, vegan, and gluten-free options. Please inform your server of any allergies or dietary requirements.
+      behavior:
+        allowMultipleOpen: false
+  - name: heading
+    properties:
+      text: Make a Reservation
+      typography:
+        align: center
+        color: '#FF4500'
+      spacing:
+        marginBlock: lg
+      level: 2
+  - name: calendar
+    properties:
+      display:
+        month: 8
+        year: 2024
+  - name: dropdown
+    properties:
+      field:
+        options: |
+          1 person
+          2 people
+          3 people
+          4 people
+          5+ people
+      spacing:
+        marginBlock: md
+  - name: button
+    properties:
+      text: Book Your Table
+  - name: heading
+    properties:
+      text: Contact & Location
+      typography:
+        align: center
+        color: '#FF4500'
+      spacing:
+        marginBlock: lg
+      level: 2
+  - name: paragraph
+    properties:
+      text: '456 Culinary Ave | Phone: 555-5678 | Open Daily: 5pm - 10pm'
+      typography:
+        align: center

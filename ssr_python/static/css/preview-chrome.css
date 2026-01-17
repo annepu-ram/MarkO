@@ -1,0 +1,168 @@
+/**
+ * Preview Chrome Styles
+ *
+ * Selection and hover styles for components rendered in the preview iframe.
+ * These styles are isolated from the main application UI.
+ */
+
+/* CSS Custom Properties for chrome colors */
+:root {
+    --color-secondary: #6366f1;  /* Indigo - hover border */
+    --color-danger: #ef4444;     /* Red - selected border */
+    --color-primary: #1f2937;    /* Dark gray - labels */
+    --color-base: #ffffff;       /* White - label text */
+    --color-success: #10b981;    /* Green - column labels */
+    --color-neutral: #6b7280;    /* Gray - placeholder text */
+}
+
+/* Target component - selection border via ::before pseudo-element */
+.chrome-target {
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.chrome-target::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px dashed var(--color-secondary);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+/* Hover state */
+.chrome-target:hover::before {
+    border-color: var(--color-secondary);
+    opacity: 1;
+}
+
+/* Selected state */
+.chrome-target.selected::before {
+    border-color: var(--color-danger);
+    opacity: 1;
+}
+
+/* Form element wrapper - special handling for buttons, inputs, etc. */
+.form-element-wrapper {
+    display: inline-flex !important;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Pseudo-element border for form elements (same as chrome-target) */
+.form-element-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 2px dashed var(--color-secondary);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 999;
+    box-sizing: border-box;
+}
+
+/* Hover state for form elements */
+.form-element-wrapper:hover::before {
+    border-color: var(--color-secondary);
+    opacity: 1;
+}
+
+/* Selected state for form elements */
+.form-element-wrapper.selected::before {
+    border-color: var(--color-danger);
+    opacity: 1;
+}
+
+/* Form elements inside wrapper should not expand beyond their content */
+.form-element-wrapper > button,
+.form-element-wrapper > input,
+.form-element-wrapper > textarea,
+.form-element-wrapper > select,
+.form-element-wrapper > div {
+    flex-grow: 0;
+}
+
+/* Label - absolutely positioned above component */
+.chrome-label {
+    position: absolute;
+    top: 0rem;
+    left: 0;
+    background: var(--color-primary);
+    color: var(--color-base);
+    padding: 0rem 0.8rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    pointer-events: auto;
+    z-index: 1001;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+}
+
+/* Delete button - absolutely positioned above component */
+.chrome-delete {
+    position: absolute;
+    top: 0rem;
+    right: 0;
+    background: var(--color-danger);
+    color: var(--color-base);
+    border: none;
+    border-radius: 9999px;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 1001;
+    pointer-events: auto;
+    font-family: inherit;
+    line-height: 1;
+}
+
+.chrome-delete:hover,
+.chrome-delete:focus-visible {
+    background: color-mix(in srgb, var(--color-danger) 85%, var(--color-primary) 15%);
+    transform: scale(1.05);
+}
+
+.chrome-delete:focus-visible {
+    outline: 2px solid var(--color-base);
+    outline-offset: 2px;
+}
+
+/* Page component - no chrome overlay, just basic styling */
+.page {
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Column label */
+.column-label {
+    position: absolute;
+    top: -0.8rem;
+    right: 1rem;
+    background: var(--color-success);
+    color: var(--color-base);
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Column placeholder */
+.column-placeholder {
+    color: color-mix(in srgb, var(--color-neutral) 50%, var(--color-base) 50%);
+    font-style: italic;
+    text-align: center;
+    padding: 2rem 1rem;
+}

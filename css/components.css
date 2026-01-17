@@ -1,0 +1,501 @@
+.layout-row,
+.layout-column {
+    width: 100%;
+    position: relative;
+}
+
+.layout-row__content,
+.layout-column__content {
+    width: 100%;
+}
+/* --- Custom Tabs Component --- */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.tabs input[type="radio"] {
+  display: none;
+}
+
+.tabs label {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  padding: 0.8rem 1.6rem;
+  /* Inline styles from renderer will override these defaults */
+}
+
+.tabs .content {
+  order: 99;
+  flex-grow: 1;
+  width: 100%;
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+  /* Inline styles from renderer will override padding/borders */
+}
+
+.tabs input[type="radio"]:checked + label {
+  background-color: var(--active-bg, #ffffff) !important;
+  color: var(--active-color, #000000) !important;
+}
+
+/* Dynamic border color based on position */
+.tabs input[type="radio"]:checked + label[style*="--border-position: upper"] {
+  border-top-color: var(--active-color, #000000) !important;
+}
+
+.tabs input[type="radio"]:checked + label[style*="--border-position: lower"] {
+  border-bottom-color: var(--active-color, #000000) !important;
+}
+
+.tabs input[type="radio"]:checked + label[style*="--border-position: full"] {
+  border-color: var(--active-color, #000000) !important;
+}
+
+.tabs input[type="radio"]:checked + label + .content {
+  display: block;
+}
+
+/* Vertical orientation support */
+.tabs[data-orientation="vertical"] {
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.tabs[data-orientation="vertical"] label {
+  writing-mode: horizontal-tb;
+  flex-shrink: 0;
+}
+
+.tabs[data-orientation="vertical"] .content {
+  order: initial;
+  flex-grow: 1;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Custom Accordion --- */
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Accordion styling is applied via inline styles from renderer */
+/* CSS here handles only layout/behavior, not appearance */
+
+.accordion-summary {
+    /* Typography, padding, and background applied via inline styles */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.accordion-summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion-summary::after {
+    content: '+';
+    font-size: 1.8rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+details[open] summary::after {
+    transform: rotate(45deg);
+}
+
+details .card-body {
+    padding: 0;
+}
+
+
+
+/* --- Titlebar Component --- */
+.titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    height: var(--base-height, 6rem);
+}
+
+.titlebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.3s ease-in-out, gap 0.3s ease-in-out;
+}
+
+.titlebar-brand.align-right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.titlebar-brand.align-right .titlebar-title {
+    text-align: right;
+}
+.titlebar-logo {
+    max-height: calc(var(--base-height, 6rem) - 2rem);
+    height: auto;
+    width: auto;
+    transition: max-height 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.titlebar-title {
+    font-size: var(--title-font-size, 1.5rem);
+    font-weight: var(--title-font-weight, 700);
+    color: var(--titlebar-title-color, inherit);
+    margin: 0;
+    transition: font-size 0.3s ease-in-out;
+}
+
+.titlebar-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.titlebar-link {
+    color: var(--titlebar-link-color, #333);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-size: var(--menu-font-size, 1.6rem);
+    font-weight: var(--menu-font-weight, 500);
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.titlebar-link:hover,
+.titlebar-link:focus {
+    background-color: var(--titlebar-link-hover-bg, #f0f0f0);
+    color: var(--titlebar-link-hover-color, #000);
+}
+
+.mobile-menu-button {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.mobile-menu-button .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+.titlebar-left {
+    justify-content: flex-start;
+}
+
+.titlebar-center {
+    justify-content: center;
+}
+
+.titlebar-right {
+    justify-content: flex-end;
+}
+
+.titlebar.scrolled {
+    padding: calc(1rem * var(--shrink-scale, 0.5)) 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: calc(var(--base-height, 6rem) * var(--shrink-scale, 0.5));
+}
+
+.titlebar.scrolled .titlebar-brand {
+    gap: calc(1rem * var(--shrink-scale, 0.5));
+}
+
+.titlebar.scrolled .titlebar-logo {
+    max-height: calc((var(--base-height, 6rem) - 2rem) * var(--shrink-scale, 0.5));
+}
+
+.titlebar.scrolled .titlebar-title {
+    font-size: calc(var(--title-font-size, 1.5rem) * var(--shrink-scale, 0.5));
+}
+
+.titlebar.scrolled .titlebar-link {
+    font-size: calc(var(--menu-font-size, 1.6rem) * var(--shrink-scale, 0.5));
+    padding: calc(0.5rem * var(--shrink-scale, 0.5)) calc(1rem * var(--shrink-scale, 0.5));
+}
+
+.titlebar.scrolled .titlebar-nav {
+    gap: calc(1rem * var(--shrink-scale, 0.5));
+}
+@media (max-width: 768px) {
+    .titlebar-nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: var(--base-height, 6rem);
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
+        padding: 1rem;
+    }
+
+    .titlebar-nav.active {
+        display: flex;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+    }
+}
+
+.code-editor-container {
+    display: grid;
+    grid-template-columns: 50px 20px 1fr;
+    grid-template-areas: "numbers folding editor";
+    background: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Image & GIF Nested Components --- */
+/* Behaves like page container - simple flex column without centering constraints */
+.image-nested-components {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.image-nested-components > * {
+    pointer-events: auto;
+}
+
+/* --- Form Elements --- */
+label {
+    font-weight: 500;
+    color: #374151;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 4px;
+}
+
+button, .button {
+    /* Styling applied via inline styles from renderer */
+    /* This ensures component properties take precedence */
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+button:hover, .button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active, .button:active {
+    transform: translateY(0);
+}
+
+button:focus-visible, .button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+button.secondary, .button.secondary {
+    /* Secondary button styling via inline styles */
+}
+
+/* --- Form Elements Focus States --- */
+/* Textbox: border visible only on focus */
+input[type="text"] {
+    outline: none;
+}
+
+input[type="text"]:focus {
+    border-color: var(--focus-border-color, #2563eb) !important;
+}
+
+/* Textarea: border visible only on focus */
+textarea {
+    outline: none;
+    resize: vertical;
+}
+
+textarea:focus {
+    border-color: var(--focus-border-color, #2563eb) !important;
+}
+
+/* Dropdown: standard focus state */
+select {
+    outline: none;
+}
+
+select:focus {
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* --- Grid System --- */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.col {
+    box-sizing: border-box;
+    min-width: 0; /* Prevent flex items from overflowing */
+}
+
+/* Mobile responsive: stack columns vertically */
+@media (max-width: 767px) {
+    .col {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+    }
+}
+
+/* --- Carousel Component --- */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.carousel-controls button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 1;
+}
+
+.carousel-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.carousel-dots span.active {
+    background-color: #333;
+}
+
+.carousel-fade .carousel-slide {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-fade .carousel-slide.active {
+    opacity: 1;
+}
+
+.link-arrow::after {
+    content: '\2192'; /* Unicode right arrow */
+    margin-left: 0.5em;
+}
+/* --- Text Component Enhancements --- */
+.text-heading {
+    margin: 0;
+}
+
+.text-eyebrow {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.text-caption {
+    font-size: 0.9rem;
+}
+
+.text-blockquote,
+.text-blockquote blockquote {
+    font-style: italic;
+}
+
+.text-blockquote {
+    margin: 2rem 0;
+    padding-left: 1.2rem;
+    border-left: 4px solid var(--blockquote-border, currentColor);
+}
+
+.blockquote-citation {
+    display: block;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    opacity: 0.75;
+}
+
+
+

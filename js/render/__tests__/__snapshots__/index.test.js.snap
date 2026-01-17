@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateComponentInnerHTML should generate correct HTML for heading with center alignment 1`] = `"<h1 style="color: red; display: inline-block; box-sizing: border-box; width: 100%; width: 100%; flex: 1 1 100%; max-width: 100%;">Main Title</h1>"`;
+
+exports[`generateComponentInnerHTML should generate correct HTML for image 1`] = `"<div style="display: inline-block; box-sizing: border-box; width: 100%; width: 100%; flex: 1 1 100%; max-width: 100%; position: relative;"><img src="https://via.placeholder.com/150" alt="" style="width: 100%; height: auto; object-fit: cover;"></div>"`;
+
+exports[`generateComponentInnerHTML should generate correct HTML for paragraph 1`] = `"<p style="font-size: 1.6rem; display: inline-block; box-sizing: border-box; width: 100%; width: 100%; flex: 1 1 100%; max-width: 100%;">Some text.</p>"`;
+
+exports[`generateComponentInnerHTML should generate correct HTML for textbox 1`] = `"<div style="width: 100%; margin-bottom: 1rem;"><label for="input_1678886400000_4fzzzxjyl" style="">Name</label><input type="text" id="input_1678886400000_4fzzzxjyl" placeholder="Enter name" value="" style="background-color: rgba(255,255,255,1);color: #000000;border: 1px solid transparent;border-radius: 0px;width: 100%;box-sizing: border-box;padding-block: 0.8rem;padding-inline: 0.8rem;transition: all 0.2s ease;--focus-border-color: #cccccc;" /></div>"`;
+
+exports[`generateComponentInnerHTML should handle unknown component type 1`] = `"<div style="color: #ef4444; font-style: italic;">Unknown component: unknown</div>"`;
+
+exports[`renderLayoutContainer integration renders layout-row preview chrome with spacing 1`] = `
+"<section class="layout-row chrome-target" style="width: 100%; position: relative; box-sizing: border-box; padding-top: 1.6rem; padding-bottom: 1.6rem; padding-left: 2.4rem; padding-right: 2.4rem; min-height: 160px; background-color: #f0f4f8; border: none;" data-component-id="comp_1678886400000_zk00000yt"><span class="chrome-label">layout-row</span><button type="button" class="chrome-delete" data-component-id="comp_1678886400000_zk00000yt" aria-label="Delete layout-row">&#10006;</button>
+            <div class="layout-row__content" style="display: flex; flex-direction: row; gap: 1.6rem; align-items: center; flex-wrap: nowrap;"></div>
+        </section>"
+`;
+
+exports[`renderSimpleComponent should register titlebar for initialization in preview mode 1`] = `
+"<div class="chrome-target" data-component-id="comp_1678886400000_4fzzzxjyl" style="position: relative;"><span class="chrome-label">titlebar</span><button type="button" class="chrome-delete" data-component-id="comp_1678886400000_4fzzzxjyl" aria-label="Delete titlebar">&#10006;</button>
+        <nav class="titlebar  " style="--base-height: 6rem; --title-font-size: 2.4rem; --menu-font-size: 1.6rem; --title-font-weight: 700; --menu-font-weight: 500; --shrink-scale: 0.5;" data-base-height="60" data-logo-position="left" id="titlebar_1678886400000">
+
+            <div class="titlebar-brand">
+                
+            </div>n
+            <button type="button" class="mobile-menu-button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>n
+            <div class="titlebar-nav">
+                
+            </div>
+        </nav>
+    </div>"
+`;
+
+exports[`renderSimpleComponent should return raw HTML in export mode 1`] = `"<p style="display: inline-block; box-sizing: border-box; width: 100%; width: 100%; flex: 1 1 100%; max-width: 100%;">Hello</p>"`;
+
+exports[`renderSimpleComponent should wrap component in rendered-component div in preview mode 1`] = `"<p style="display: inline-block; box-sizing: border-box; width: 100%; width: 100%; flex: 1 1 100%; max-width: 100%; position: relative;" class="chrome-target" data-component-id="comp_1678886400000_4fzzzxjyl"><span class="chrome-label">paragraph</span><button type="button" class="chrome-delete" data-component-id="comp_1678886400000_4fzzzxjyl" aria-label="Delete paragraph">&#10006;</button>Hello</p>"`;

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Sites - AI Page Builder</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+</head>
+<body>
+    <div id="svgSpriteRoot" hidden></div>
+    <!-- Main application container -->
+    <div id="appContainer" class="app-container">
+        <!-- Sidebar for components and properties -->
+        <div class="sidebar">
+            <!-- Vertical Navigation Bar -->
+            <nav class="sidebar-nav" role="tablist" aria-label="Sidebar navigation">
+                <button id="componentsNavBtn" class="sidebar-nav-item active" type="button" role="tab" aria-selected="true" data-target="componentsPanel" aria-controls="componentsPanel" title="Design">
+                    <svg class="sidebar-nav-icon" aria-hidden="true"><use href="#icon-grid"></use></svg>
+                    <span class="sidebar-nav-label">Design</span>
+                </button>
+                <button id="propertiesNavBtn" class="sidebar-nav-item" type="button" role="tab" aria-selected="false" data-target="propertiesPanel" aria-controls="propertiesPanel" title="Properties">
+                    <svg class="sidebar-nav-icon" aria-hidden="true"><use href="#icon-settings"></use></svg>
+                    <span class="sidebar-nav-label">Properties</span>
+                </button>
+            </nav>
+
+            <!-- Panel Container -->
+            <div class="sidebar-panels-container">
+                <!-- Components/Design Section -->
+                <div id="componentsPanel" class="components-section sidebar-panel active" role="tabpanel" aria-labelledby="componentsNavBtn" aria-hidden="false">
+                    <div class="component-tree-section">
+                        <h3 class="tree-header">Page Structure</h3>
+                        <div id="componentTree" class="component-tree">
+                            <p class="tree-empty">No components</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Properties Section -->
+                <div id="propertiesPanel" class="properties-section sidebar-panel" role="tabpanel" aria-labelledby="propertiesNavBtn" aria-hidden="true">
+                    <div id="propertiesContent">
+                        <p class="properties-empty-state">
+                            Select a component in the preview to edit its properties.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Resizer Handle -->
+        <div class="sidebar-resizer" id="sidebarResizer"></div>
+
+        <!-- Main content area for the code editor and preview -->
+        <div class="main-canvas">
+            <div class="canvas-header">
+                <div class="header-brand">
+                    <h2>
+                        <svg class="icon-logo" aria-hidden="true"><use href="#icon-swift-sites"></use></svg>
+                        Swift Sites
+                    </h2>
+                    <span class="header-subtitle">AI Page Builder</span>
+                </div>
+                <!-- Action buttons -->
+                <div class="header-actions">
+                    <button id="clearBtn" class="btn" title="Clear Canvas"><svg class="icon" aria-hidden="true"><use href="#icon-clear-canvas"></use></svg><span>Clear</span></button>
+                    <button id="fullscreenBtn" class="btn" title="Fullscreen Preview"><svg class="icon icon-maximize" aria-hidden="true"><use href="#icon-maximize"></use></svg><span>Preview</span></button>
+                    <button id="exportBtn" class="btn btn-primary" title="Export HTML"><svg class="icon icon-download" aria-hidden="true"><use href="#icon-download"></use></svg><span>Export</span></button>
+                </div>
+            </div>
+            <div class="canvas-content">
+                <!-- YAML editor with line numbers -->
+                <div class="editor-wrapper" id="editorWrapper">
+                    <div class="line-numbers" id="lineNumbers"></div>
+                    <textarea id="codeEditor" class="code-editor" placeholder="Enter YAML..." spellcheck="false"></textarea>
+                </div>
+                <!-- Draggable Separator -->
+                <div class="resizer" id="resizer">&mdash;&mdash;&mdash;</div>
+                <!-- Preview area (iframe for style isolation) -->
+                <iframe id="preview-frame"
+                        src="/preview-frame"
+                        class="preview-area"
+                        title="Live Preview"
+                        sandbox="allow-scripts allow-same-origin"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load js-yaml for YAML parsing on client side (local copy, loads synchronously before modules) -->
+    <script src="{{ url_for('static', filename='js/js-yaml.min.js') }}"></script>
+    <script>
+        // Make js-yaml available globally - verify it loaded
+        if (typeof jsyaml !== 'undefined') {
+            window.jsyaml = jsyaml;
+            console.log('[Init] js-yaml loaded successfully');
+        } else {
+            console.error('[Init] js-yaml failed to load!');
+        }
+        // Pass sprite path from Flask
+        window.SPRITE_PATH = "{{ url_for('static', filename='icon-sprite.svg') }}";
+    </script>
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
