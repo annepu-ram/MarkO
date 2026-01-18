@@ -2,6 +2,84 @@ import { getComponentSchema, getComponentDefaults, getSchemaTokens } from './met
 import { deepClone, deepMerge, getNestedValue, setNestedValue } from './utils/object.js';
 import { customRenderers } from './customRenderers.js';
 
+// Map group IDs to icons for accordion sections (matching wireframe)
+const sectionIcons = {
+    content: 'icon-type',        // Lucide: type
+    typography: 'icon-text',     // Lucide: text (different from type)
+    layout: 'icon-layout',       // Lucide: layout
+    sizing: 'icon-layout',
+    spacing: 'icon-move',        // Lucide: move
+    background: 'icon-paintbrush', // Lucide: paintbrush
+    appearance: 'icon-paintbrush', // Lucide: paintbrush (same as background)
+    branding: 'icon-image',
+    navigation: 'icon-link',
+    behavior: 'icon-settings',
+    items: 'icon-layers',
+    default: 'icon-box'
+};
+
+// Map component names to icons
+const componentIcons = {
+    page: 'icon-layout',
+    'layout-row': 'icon-layout',
+    'layout-column': 'icon-layout',
+    columnsgrid: 'icon-grid',
+    titlebar: 'icon-menu',
+    heading: 'icon-type',
+    paragraph: 'icon-type',
+    eyebrow: 'icon-type',
+    caption: 'icon-type',
+    blockquote: 'icon-type',
+    image: 'icon-image',
+    video: 'icon-video',
+    gif: 'icon-image',
+    textbox: 'icon-edit',
+    textarea: 'icon-edit',
+    button: 'icon-box',
+    dropdown: 'icon-chevron-down',
+    calendar: 'icon-calendar',
+    checkbox: 'icon-check-square',
+    radio: 'icon-circle-dot',
+    accordion: 'icon-layers',
+    tabs: 'icon-layout',
+    hamburger: 'icon-menu',
+    link: 'icon-link',
+    form: 'icon-edit',
+    carousel: 'icon-image',
+    default: 'icon-box'
+};
+
+// Map component names to category labels
+const componentCategories = {
+    page: 'Page Container',
+    'layout-row': 'Layout',
+    'layout-column': 'Layout',
+    columnsgrid: 'Layout',
+    titlebar: 'Navigation',
+    heading: 'Typography',
+    paragraph: 'Typography',
+    eyebrow: 'Typography',
+    caption: 'Typography',
+    blockquote: 'Typography',
+    image: 'Media',
+    video: 'Media',
+    gif: 'Media',
+    textbox: 'Form Input',
+    textarea: 'Form Input',
+    button: 'UI Element',
+    dropdown: 'Form Input',
+    calendar: 'Form Input',
+    checkbox: 'Form Input',
+    radio: 'Form Input',
+    accordion: 'Interactive',
+    tabs: 'Interactive',
+    hamburger: 'Navigation',
+    link: 'Typography',
+    form: 'Form Container',
+    carousel: 'Interactive',
+    default: 'Component'
+};
+
 let activeComponentName = null;
 let activeFieldMeta = new Map();
 let activeComponentId = null;
@@ -244,6 +322,103 @@ const renderRangeInput = ({ field, value, fieldId }) => {
 };
 
 /**
+ * Render token pills for select fields with few options
+ */
+const renderTokenPills = ({ field, value, fieldId }) => {
+    const container = document.createElement('div');
+    container.className = 'token-pills';
+    container.id = fieldId;
+
+    let options = [];
+    if (Array.isArray(field.options)) {
+        options = field.options.map(opt => typeof opt === 'object' ? opt : { value: opt, label: opt });
+    } else if (field.tokens) {
+        options = getTokenOptions(field.tokens).map(opt =>
+            typeof opt === 'object' ? opt : { value: opt, label: opt }
+        );
+    }
+
+    options.forEach(option => {
+        const pill = document.createElement('span');
+        pill.className = 'token-pill';
+        pill.dataset.value = option.value ?? option;
+        pill.textContent = option.label ?? option.value ?? option;
+
+        if ((value ?? '') === pill.dataset.value) {
+            pill.classList.add('active');
+        }
+
+        pill.onclick = () => {
+            container.querySelectorAll('.token-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+        };
+
+        container.appendChild(pill);
+    });
+
+    return container;
+};
+
+/**
+ * Render color input with swatch preview
+ */
+const renderColorInputWithSwatch = ({ field, value, fieldId }) => {
+    const container = document.createElement('div');
+    container.className = 'color-input-row';
+
+    // Color swatch
+    const swatch = document.createElement('div');
+    swatch.className = 'color-input-swatch';
+    let hexValue = value || '#000000';
+    if (hexValue.startsWith('rgba')) {
+        const matches = hexValue.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (matches) {
+            const r = parseInt(matches[1]).toString(16).padStart(2, '0');
+            const g = parseInt(matches[2]).toString(16).padStart(2, '0');
+            const b = parseInt(matches[3]).toString(16).padStart(2, '0');
+            hexValue = `#${r}${g}${b}`;
+        }
+    }
+    swatch.style.background = hexValue;
+
+    // Hidden color picker
+    const colorPicker = document.createElement('input');
+    colorPicker.type = 'color';
+    colorPicker.style.display = 'none';
+    colorPicker.value = hexValue;
+
+    // Text input
+    const textInput = document.createElement('input');
+    textInput.type = 'text';
+    textInput.id = fieldId;
+    textInput.className = 'prop-input';
+    textInput.value = hexValue;
+
+    // Sync swatch click -> color picker
+    swatch.onclick = () => colorPicker.click();
+
+    // Sync color picker -> text + swatch
+    colorPicker.oninput = (e) => {
+        textInput.value = e.target.value;
+        swatch.style.background = e.target.value;
+    };
+
+    // Sync text input -> swatch
+    textInput.oninput = (e) => {
+        if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
+            swatch.style.background = e.target.value;
+            colorPicker.value = e.target.value;
+        }
+    };
+
+    container.appendChild(swatch);
+    container.appendChild(colorPicker);
+    container.appendChild(textInput);
+
+    return container;
+};
+
+/**
  * Create field wrapper
  */
 const createFieldWrapper = (field, fieldId) => {
@@ -255,6 +430,39 @@ const createFieldWrapper = (field, fieldId) => {
     label.textContent = field.label || field.path;
     wrapper.appendChild(label);
     return { wrapper, label };
+};
+
+/**
+ * Update the properties header with component info
+ */
+const updatePropertiesHeader = (component) => {
+    const header = document.getElementById('propertiesHeader');
+    const titleEl = document.getElementById('propertiesTitle');
+    const subtitleEl = document.getElementById('propertiesSubtitle');
+    const iconContainer = document.getElementById('propertiesIcon');
+
+    if (!header) return;
+
+    if (component && component.name) {
+        header.style.display = 'flex';
+
+        // Format component name for display (e.g., "layout-row" -> "Layout Row")
+        const displayName = component.name
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+
+        if (titleEl) titleEl.textContent = displayName;
+        if (subtitleEl) subtitleEl.textContent = componentCategories[component.name] || componentCategories.default;
+
+        // Update icon
+        if (iconContainer) {
+            const iconName = componentIcons[component.name] || componentIcons.default;
+            iconContainer.innerHTML = `<svg aria-hidden="true"><use href="#${iconName}"></use></svg>`;
+        }
+    } else {
+        header.style.display = 'none';
+    }
 };
 
 /**
@@ -271,8 +479,12 @@ export function renderPropertiesPanel(component, componentId, path) {
     activePath = path;
     activeFieldMeta.clear();
 
+    // Update header with component info
+    updatePropertiesHeader(component);
+
     if (!component || !componentId) {
         propertiesContent.innerHTML = '<p class="properties-empty-state">Select a component to edit.</p>';
+        updatePropertiesHeader(null);  // Hide header when no component
         return;
     }
 
@@ -304,21 +516,52 @@ export function renderPropertiesPanel(component, componentId, path) {
     formContainer.className = 'properties-form-content';
 
     schema.groups?.forEach(group => {
-        const groupEl = document.createElement('div');
-        groupEl.className = 'property-group';
-        const heading = document.createElement('h4');
-        heading.textContent = group.label || group.id;
-        groupEl.appendChild(heading);
+        // Create accordion section
+        const sectionEl = document.createElement('div');
+        sectionEl.className = 'prop-section';
+        sectionEl.dataset.groupId = group.id;
+
+        // Create accordion header
+        const header = document.createElement('div');
+        header.className = 'prop-section-header';
+        header.onclick = () => sectionEl.classList.toggle('collapsed');
+
+        // Section title with icon
+        const titleSpan = document.createElement('span');
+        titleSpan.className = 'prop-section-title';
+
+        const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        iconSvg.setAttribute('aria-hidden', 'true');
+        const iconUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        iconUse.setAttributeNS('http://www.w3.org/1999/xlink', 'href',
+            `#${sectionIcons[group.id] || sectionIcons.default}`);
+        iconSvg.appendChild(iconUse);
+        titleSpan.appendChild(iconSvg);
+        titleSpan.appendChild(document.createTextNode(group.label || group.id));
+
+        // Toggle chevron
+        const toggleSpan = document.createElement('span');
+        toggleSpan.className = 'prop-section-toggle';
+        const chevronSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        chevronSvg.setAttribute('aria-hidden', 'true');
+        const chevronUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+        chevronUse.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#icon-chevron-down');
+        chevronSvg.appendChild(chevronUse);
+        toggleSpan.appendChild(chevronSvg);
+
+        header.appendChild(titleSpan);
+        header.appendChild(toggleSpan);
+        sectionEl.appendChild(header);
+
+        // Section content
+        const contentEl = document.createElement('div');
+        contentEl.className = 'prop-section-content';
 
         group.fields?.forEach(field => {
             const pathSegments = pathToSegments(field.path);
             const target = determineFieldTarget(field, component);
-            // Note: defaults is the properties object directly (not wrapped in a 'properties' key)
             const defaultValue = getNestedValue(defaults || {}, pathSegments);
             const currentValue = resolvePropertyValue(component, pathSegments, defaults || {}, target);
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:312',message:'renderPropertiesPanel field values',data:{fieldPath:field.path,fieldType:field.type,defaultValue,currentValue,target},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-            // #endregion
             const fieldId = `prop_${componentId}_${field.path.replace(/[^a-z0-9]/gi, '_')}`;
 
             const { wrapper } = createFieldWrapper(field, fieldId);
@@ -331,9 +574,9 @@ export function renderPropertiesPanel(component, componentId, path) {
                     if (field.renderer && customRenderers[field.renderer]) {
                         customEditorInstance = customRenderers[field.renderer].render({ value: currentValue });
                         wrapper.appendChild(customEditorInstance.element);
-                        activeFieldMeta.set(field.path, { 
-                            field, 
-                            target, 
+                        activeFieldMeta.set(field.path, {
+                            field,
+                            target,
                             defaultValue,
                             customSerializer: customEditorInstance.serialize
                         });
@@ -360,9 +603,23 @@ export function renderPropertiesPanel(component, componentId, path) {
                     break;
 
                 case 'select':
-                    control = renderSelect({ field, value: currentValue, fieldId });
+                    // Get options to determine if we should use pills or dropdown
+                    let selectOptions = [];
+                    if (Array.isArray(field.options)) {
+                        selectOptions = field.options;
+                    } else if (field.tokens) {
+                        selectOptions = getTokenOptions(field.tokens);
+                    }
+
+                    // Use token pills for small option sets (≤ 6 options), dropdown otherwise
+                    if (selectOptions.length > 0 && selectOptions.length <= 6) {
+                        control = renderTokenPills({ field, value: currentValue, fieldId });
+                        activeFieldMeta.set(field.path, { field, target, defaultValue, isTokenPills: true });
+                    } else {
+                        control = renderSelect({ field, value: currentValue, fieldId });
+                        activeFieldMeta.set(field.path, { field, target, defaultValue });
+                    }
                     wrapper.appendChild(control);
-                    activeFieldMeta.set(field.path, { field, target, defaultValue });
                     break;
 
                 case 'checkbox':
@@ -373,7 +630,7 @@ export function renderPropertiesPanel(component, componentId, path) {
                     break;
 
                 case 'color':
-                    control = renderColorInput({ field, value: currentValue, fieldId });
+                    control = renderColorInputWithSwatch({ field, value: currentValue, fieldId });
                     wrapper.appendChild(control);
                     activeFieldMeta.set(field.path, { field, target, defaultValue });
                     break;
@@ -389,10 +646,11 @@ export function renderPropertiesPanel(component, componentId, path) {
                     return;
             }
 
-            groupEl.appendChild(wrapper);
+            contentEl.appendChild(wrapper);
         });
 
-        formContainer.appendChild(groupEl);
+        sectionEl.appendChild(contentEl);
+        formContainer.appendChild(sectionEl);
     });
 
     // Append form content to scrollable wrapper
@@ -416,6 +674,9 @@ export function clearPropertiesPanel() {
     if (propertiesContent) {
         propertiesContent.innerHTML = '<p class="properties-empty-state">Select a component to edit.</p>';
     }
+    // Hide the properties header
+    updatePropertiesHeader(null);
+
     activeComponentName = null;
     activeComponentId = null;
     activePath = null;
@@ -445,13 +706,13 @@ export function collectPropertyValues() {
     // #endregion
 
     activeFieldMeta.forEach((meta, fieldPath) => {
-        const { field, target, defaultValue, customSerializer } = meta;
+        const { field, target, defaultValue, customSerializer, isTokenPills } = meta;
         let value;
 
         // Handle custom fields with serializers
         if (field.type === 'custom' && customSerializer) {
             value = customSerializer();
-            
+
             // Apply to correct destination based on target
             if (target === 'component') {
                 const pathSegments = pathToSegments(fieldPath);
@@ -471,11 +732,14 @@ export function collectPropertyValues() {
             return;
         }
 
-        // Get value from control using helper
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:458',message:'collectPropertyValues before getValueFromControl',data:{fieldPath,fieldType:field.type,controlValue:control.value,controlChecked:control.checked},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-        // #endregion
-        value = getValueFromControl(control, field);
+        // Handle token pills - get value from active pill
+        if (isTokenPills && control.classList?.contains('token-pills')) {
+            const activePill = control.querySelector('.token-pill.active');
+            value = activePill ? activePill.dataset.value : '';
+        } else {
+            // Get value from control using helper
+            value = getValueFromControl(control, field);
+        }
         // #region agent log
         fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:460',message:'collectPropertyValues after getValueFromControl',data:{fieldPath,value,valueType:typeof value},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
         // #endregion
@@ -491,27 +755,18 @@ export function collectPropertyValues() {
         }
 
         if (target === 'component') {
-            // Apply component-level standard fields
-            if (!valuesAreEqual(value, defaultValue)) {
-                const pathSegments = pathToSegments(fieldPath);
-                setNestedValue(componentUpdates, pathSegments, value === undefined ? null : value);
+            // Apply component-level standard fields - always include the value
+            const pathSegments = pathToSegments(fieldPath);
+            if (value !== undefined) {
+                setNestedValue(componentUpdates, pathSegments, value);
             }
             return;
         }
 
-        // Only set value if it differs from default (properties-level)
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:480',message:'collectPropertyValues before setNestedValue',data:{fieldPath,value,defaultValue,areEqual:valuesAreEqual(value,defaultValue),updatedPropsBefore:JSON.stringify(updatedProperties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-        // #endregion
-        if (!valuesAreEqual(value, defaultValue)) {
-            const pathSegments = pathToSegments(fieldPath);
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:483',message:'collectPropertyValues calling setNestedValue',data:{pathSegments,value,updatedPropsBefore:JSON.stringify(updatedProperties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-            // #endregion
-            setNestedValue(updatedProperties, pathSegments, value === undefined ? null : value);
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:485',message:'collectPropertyValues after setNestedValue',data:{updatedPropsAfter:JSON.stringify(updatedProperties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-            // #endregion
+        // Always include properties-level values - let merge in main.js handle defaults
+        const pathSegments = pathToSegments(fieldPath);
+        if (value !== undefined && value !== null) {
+            setNestedValue(updatedProperties, pathSegments, value);
         }
     });
     // #region agent log

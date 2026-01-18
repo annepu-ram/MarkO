@@ -390,6 +390,47 @@ The following metadata files must stay synchronized:
 
 ## Recent Fixes (January 2025)
 
+### Responsive Font Sizing
+- **Added:** CSS `clamp()` for fluid responsive typography in `preview_frame.html`
+- Root font-size scales with viewport: `clamp(12px, 1vw + 8px, 18px)`
+- Component fonts use `rem` units, automatically scaling with viewport changes
+- UI fonts remain fixed (only preview content is responsive)
+
+### Properties Panel Value Collection Fix
+- **Fixed:** Property changes not applying when value equals default
+- **Root cause:** `collectPropertyValues()` in `propertiesPanel.js` was skipping values that matched defaults
+- **Solution:** Always include collected values; let `main.js` merge handle defaults
+- Example: Setting heading size to "xl" (default) when current was "lg" now works correctly
+
+### Token & Schema Consistency Fixes
+- **Fixed:** Token name mismatch `borderRadius` → `borderRadiusScale` in `component_schemas.yaml`
+- **Fixed:** Titlebar schema path `layout.shrinkPercent` → `scroll.shrinkPercentage` to match macro and defaults
+- **Added:** Missing `appearance.focus.color` to titlebar defaults
+
+### letterSpacing CSS Rendering
+- **Added:** `letter-spacing` CSS generation in `build_styles()` macro
+- Uses `tokens.letter_spacing` mapping: `normal`, `tight`, `wide`, `wider`
+- All text components now render letterSpacing property correctly
+
+### Typography Property Standardization
+All text components now have consistent typography properties:
+
+| Property | heading | paragraph | eyebrow | caption | blockquote | link |
+|----------|:-------:|:---------:|:-------:|:-------:|:----------:|:----:|
+| size | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| weight | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| align | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| color | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| lineHeight | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| transform | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| letterSpacing | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+
+Both `component_schemas.yaml` and `component_defaults.yaml` updated for consistency.
+
+### Viewport Switching Fix
+- **Fixed:** Replaced inline `onclick` handlers with `data-viewport` attributes
+- **Fixed:** Horizontal scrollbar by changing `overflow-x` to `hidden` on app container
+
 ### Component Selection & Properties Panel Fix
 - **Fixed:** YAML parser not loading in ES modules - downloaded `js-yaml.min.js` locally to `static/js/` and updated loading in `index.html`
 - **Fixed:** Properties panel not displaying when clicking components in iframe - fixed `window.jsyaml` access pattern in `yamlUtils.js` and `ssr_app.js`
@@ -484,6 +525,36 @@ The client-side rendering version exists in the root directory:
 | Rendering | Browser (JavaScript) | Server (Python/Jinja2) |
 | Preview Isolation | Same document | Iframe |
 | Communication | Direct DOM | postMessage API |
+
+---
+
+## Design Tokens Reference
+
+### Typography Tokens (`tokens.yaml`)
+
+| Token | Values |
+|-------|--------|
+| `typography_sizes` | xxs, xs, sm, md, lg, xl, xxl, xxxl, auto |
+| `font_weights` | light, regular, medium, semibold, bold, extrabold |
+| `letter_spacing` | normal, tight, wide, wider |
+
+### Spacing Tokens
+
+| Token | Values |
+|-------|--------|
+| `spacing` | none, xxs, xs, sm, md, lg, xl, xxl, xxxl, auto |
+| `border_radius` | none, xs, sm, md, lg, xl, xxl, pill |
+
+### Schema Token References (`schema_tokens.yaml`)
+
+When adding schema fields that reference tokens, use these token names:
+- `typographySizes` - Font size dropdown
+- `fontWeights` - Font weight dropdown
+- `spacingScale` - Padding/margin dropdowns
+- `gapScale` - Gap between items
+- `borderRadiusScale` - Border radius dropdown
+- `letterSpacingMap` - Letter spacing dropdown
+- `alignmentHorizontal` - Text alignment (left, center, right, justify)
 
 ---
 

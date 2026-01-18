@@ -105,6 +105,7 @@ titlebar:
       color: '#dddddd'
     focus:
       background: '#f0f0f0'
+      color: '#111827'
   typography:
     title:
       size: 24
@@ -146,12 +147,12 @@ paragraph:
     Continue the narrative with more detail here.
   typography:
     size: md
+    weight: regular
+    align: left
+    color: '#1f2937'
     lineHeight: 1.6
     transform: none
     letterSpacing: normal
-    align: left
-    color: '#1f2937'
-    weight: regular
   spacing:
     marginBlock: sm
     marginInline: none
@@ -172,10 +173,11 @@ eyebrow:
   typography:
     size: xs
     weight: semibold
-    transform: uppercase
-    letterSpacing: wide
     align: left
     color: '#6366f1'
+    lineHeight: 1.4
+    transform: uppercase
+    letterSpacing: wide
   spacing:
     marginBlock: xs
     marginInline: none
@@ -195,10 +197,12 @@ caption:
     Captured on location
   typography:
     size: sm
-    lineHeight: 1.4
-    transform: none
+    weight: regular
     align: center
     color: '#6b7280'
+    lineHeight: 1.4
+    transform: none
+    letterSpacing: normal
   spacing:
     marginBlock: xs
     marginInline: none
@@ -219,11 +223,12 @@ blockquote:
   cite: Alina Wheeler
   typography:
     size: lg
-    lineHeight: 1.6
     weight: medium
-    transform: none
     align: center
     color: '#111827'
+    lineHeight: 1.6
+    transform: none
+    letterSpacing: normal
   spacing:
     marginBlock: lg
     marginInline: none
@@ -537,6 +542,11 @@ link:
   typography:
     size: md
     weight: regular
+    align: left
+    color: rgba(0,0,238,1)
+    lineHeight: 1.5
+    transform: none
+    letterSpacing: normal
   spacing:
     marginBlock: xs
     marginInline: xs

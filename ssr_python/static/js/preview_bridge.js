@@ -5,7 +5,9 @@
  * - Receiving content updates from parent via postMessage
  * - Relaying click events to parent for component selection
  * - Managing selection highlighting
- * - Initializing interactive components (carousel, accordion, tabs)
+ *
+ * Component initialization (carousel, accordion, tabs, titlebar) is handled by
+ * swift-sites-runtime.js which is included in the preview frame.
  *
  * SECURITY: All postMessage communication validates origin to prevent XSS attacks.
  */
@@ -83,9 +85,9 @@
         }
 
         // Clean up existing titlebar clones before updating
-        document.querySelectorAll('.titlebar-clone').forEach(clone => {
-            clone.remove();
-        });
+        if (typeof SwiftSites !== 'undefined') {
+            SwiftSites.cleanupTitlebarClones();
+        }
 
         // Update content (HTML comes from trusted Flask server)
         container.innerHTML = data.html;
@@ -96,8 +98,11 @@
         // Notify parent of available components
         notifyParentOfComponents();
 
-        // Initialize interactive components
-        initializeInteractiveComponents();
+        // Initialize interactive components via runtime
+        if (typeof SwiftSites !== 'undefined') {
+            SwiftSites.reset();
+            SwiftSites.init();
+        }
     }
 
     /**
@@ -195,222 +200,6 @@
         } else {
             console.log('[Preview Bridge] No component found at click target');
         }
-    }
-
-    /**
-     * Initialize interactive components (carousel, accordion, tabs, titlebar)
-     */
-    function initializeInteractiveComponents() {
-        // Initialize carousels
-        document.querySelectorAll('.carousel').forEach(carousel => {
-            initializeCarousel(carousel);
-        });
-
-        // Initialize accordions
-        document.querySelectorAll('.accordion-container').forEach(accordion => {
-            initializeAccordion(accordion);
-        });
-
-        // Initialize tabs
-        document.querySelectorAll('.tabs').forEach(tabs => {
-            initializeTabs(tabs);
-        });
-
-        // Initialize titlebars
-        document.querySelectorAll('.titlebar').forEach(titlebar => {
-            initializeTitlebar(titlebar);
-        });
-    }
-
-    /**
-     * Initialize carousel functionality
-     */
-    function initializeCarousel(carouselElement) {
-        if (!carouselElement || carouselElement.dataset.initialized === 'true') return;
-        carouselElement.dataset.initialized = 'true';
-
-        const slidesContainer = carouselElement.querySelector('.carousel-slides');
-        const slides = carouselElement.querySelectorAll('.carousel-slide');
-        const prevButton = carouselElement.querySelector('.prev');
-        const nextButton = carouselElement.querySelector('.next');
-        const dots = carouselElement.querySelectorAll('.carousel-dots span');
-        const totalSlides = slides.length;
-
-        if (totalSlides < 2) return;
-
-        let currentIndex = 0;
-        let autoplayInterval = null;
-
-        const autoplay = carouselElement.dataset.autoplay === 'true';
-        const delay = parseInt(carouselElement.dataset.delay, 10) || 3000;
-
-        function updateCarousel() {
-            if (slidesContainer) {
-                slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-            }
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateCarousel();
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateCarousel();
-        }
-
-        function startAutoplay() {
-            if (autoplay) {
-                stopAutoplay();
-                autoplayInterval = setInterval(nextSlide, delay);
-            }
-        }
-
-        function stopAutoplay() {
-            clearInterval(autoplayInterval);
-        }
-
-        if (nextButton) {
-            nextButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                nextSlide();
-                startAutoplay();
-            });
-        }
-
-        if (prevButton) {
-            prevButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                prevSlide();
-                startAutoplay();
-            });
-        }
-
-        dots.forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                e.stopPropagation();
-                currentIndex = parseInt(e.target.dataset.slideTo, 10);
-                updateCarousel();
-                startAutoplay();
-            });
-        });
-
-        carouselElement.addEventListener('mouseenter', stopAutoplay);
-        carouselElement.addEventListener('mouseleave', startAutoplay);
-
-        updateCarousel();
-        startAutoplay();
-    }
-
-    /**
-     * Initialize accordion functionality
-     */
-    function initializeAccordion(accordionContainer) {
-        if (!accordionContainer || accordionContainer.dataset.initialized === 'true') return;
-        accordionContainer.dataset.initialized = 'true';
-
-        const allowMultiple = accordionContainer.dataset.allowMultiple === 'true';
-
-        if (!allowMultiple) {
-            const details = accordionContainer.querySelectorAll('details.accordion');
-
-            details.forEach(detail => {
-                detail.addEventListener('toggle', () => {
-                    if (detail.open) {
-                        details.forEach(other => {
-                            if (other !== detail && other.open) {
-                                other.open = false;
-                            }
-                        });
-                    }
-                });
-            });
-        }
-    }
-
-    /**
-     * Initialize tabs functionality
-     */
-    function initializeTabs(tabsContainer) {
-        if (!tabsContainer || tabsContainer.dataset.initialized === 'true') return;
-        tabsContainer.dataset.initialized = 'true';
-
-        const tabButtons = tabsContainer.querySelectorAll('.tab-label');
-        const tabContents = tabsContainer.querySelectorAll('.tab-content');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const targetId = button.dataset.tab;
-
-                // Update active states
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-
-                button.classList.add('active');
-                const targetContent = tabsContainer.querySelector(`#${targetId}`);
-                if (targetContent) {
-                    targetContent.classList.add('active');
-                }
-            });
-        });
-    }
-
-    /**
-     * Initialize titlebar functionality with clone for sticky behavior
-     */
-    function initializeTitlebar(titlebarElement) {
-        if (!titlebarElement || titlebarElement.dataset.initialized === 'true') return;
-        titlebarElement.dataset.initialized = 'true';
-
-        // Find the page component parent to insert clone
-        const pageComponent = titlebarElement.closest('.page');
-
-        // Create clone for sticky behavior
-        const clone = titlebarElement.cloneNode(true);
-        clone.classList.add('titlebar-clone');
-        clone.classList.remove('chrome-target'); // Don't make clone selectable
-        clone.removeAttribute('data-component-id'); // Remove component ID from clone
-        clone.dataset.initialized = 'true'; // Mark as initialized
-        clone.style.cssText = titlebarElement.style.cssText; // Copy inline styles
-
-        // Insert clone at the beginning of page component (or body if no page)
-        if (pageComponent) {
-            pageComponent.insertAdjacentElement('afterbegin', clone);
-        } else {
-            document.body.insertAdjacentElement('afterbegin', clone);
-        }
-
-        const mobileMenuButton = titlebarElement.querySelector('.mobile-menu-button');
-        const navLinks = titlebarElement.querySelector('.titlebar-nav');
-
-        if (mobileMenuButton && navLinks) {
-            mobileMenuButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                navLinks.classList.toggle('active');
-            });
-        }
-
-        // Handle scroll effect - show clone when original out of view
-        function handleScroll() {
-            const scrolled = window.scrollY > 50;
-            titlebarElement.classList.toggle('scrolled', scrolled);
-            clone.classList.toggle('scrolled', scrolled);
-
-            // Check if original titlebar is out of view
-            const rect = titlebarElement.getBoundingClientRect();
-            const isOutOfView = rect.bottom < 0;
-
-            // Show/hide clone based on original visibility
-            clone.classList.toggle('visible', isOutOfView);
-        }
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
     }
 
     // Handshake state - track if parent acknowledged our IFRAME_READY

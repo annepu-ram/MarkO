@@ -27,7 +27,7 @@ export async function loadSvgSprite({
     }
 
     try {
-        const response = await fetch(spritePath, { cache: 'force-cache' });
+        const response = await fetch(spritePath, { cache: 'no-cache' });
         if (!response.ok) {
             throw new Error(`Failed to fetch sprite: ${response.status} ${response.statusText}`);
         }

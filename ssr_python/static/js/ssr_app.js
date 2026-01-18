@@ -1,4 +1,3 @@
-import { componentInitializers } from './component_interactions.js';
 import { ComponentPathMapBuilder } from './pathMapBuilder.js';
 
 // Create a singleton instance of the path map builder
@@ -117,20 +116,11 @@ export function clearSelectionInIframe() {
     }, TRUSTED_ORIGIN);
 }
 
-// Function to initialize all interactive components in the preview
-// Note: With iframe, components are initialized inside the iframe by preview_bridge.js
+// Legacy function - components are now initialized by swift-sites-runtime.js
+// inside the iframe via preview_bridge.js
 export const initializeAllComponents = () => {
-    // Legacy: For non-iframe mode (kept for backwards compatibility)
-    const preview = document.getElementById('preview');
-    if (!preview) return;
-
-    for (const componentName in componentInitializers) {
-        const initializer = componentInitializers[componentName];
-        const elements = preview.querySelectorAll(`[data-component-type="${componentName}"]`);
-        elements.forEach(element => {
-            initializer(element, {});
-        });
-    }
+    // No-op: Component initialization is handled by the runtime
+    console.log('[SSR App] initializeAllComponents is deprecated - using swift-sites-runtime.js');
 };
 
 /**

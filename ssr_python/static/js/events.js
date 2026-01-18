@@ -1,6 +1,123 @@
 import { debounce } from './utils/timing.js';
-import { initializeAllComponents } from './ssr_app.js';
-import { componentInitializers } from './component_interactions.js';
+
+// Track current open panel
+let currentPanel = 'layers'; // Start with layers open
+
+/**
+ * Toggle a sidebar slide-out panel
+ * @param {string} panelName - Name of the panel (layers, editor, settings)
+ */
+export function togglePanel(panelName) {
+    const panel = document.getElementById(panelName + 'Panel');
+    const btn = document.querySelector(`[data-panel="${panelName}"]`);
+
+    if (!panel || !btn) return;
+
+    // Close current panel if different
+    if (currentPanel && currentPanel !== panelName) {
+        const currentPanelEl = document.getElementById(currentPanel + 'Panel');
+        const currentBtn = document.querySelector(`[data-panel="${currentPanel}"]`);
+        if (currentPanelEl) currentPanelEl.classList.remove('open');
+        if (currentBtn) currentBtn.classList.remove('active');
+    }
+
+    // Toggle clicked panel
+    if (currentPanel === panelName) {
+        panel.classList.remove('open');
+        btn.classList.remove('active');
+        currentPanel = null;
+    } else {
+        panel.classList.add('open');
+        btn.classList.add('active');
+        currentPanel = panelName;
+    }
+}
+
+/**
+ * Close the currently open panel
+ */
+export function closePanel() {
+    if (currentPanel) {
+        const panel = document.getElementById(currentPanel + 'Panel');
+        const btn = document.querySelector(`[data-panel="${currentPanel}"]`);
+        if (panel) panel.classList.remove('open');
+        if (btn) btn.classList.remove('active');
+        currentPanel = null;
+    }
+}
+
+/**
+ * Set the viewport size (desktop, tablet, mobile)
+ * @param {HTMLElement} btn - The clicked button
+ * @param {string} size - Size mode (desktop, tablet, mobile)
+ */
+export function setViewport(btn, size) {
+    document.querySelectorAll('.viewport-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const deviceFrame = document.getElementById('deviceFrame');
+    if (deviceFrame) {
+        deviceFrame.className = 'device-frame ' + size;
+    }
+}
+
+/**
+ * Toggle mobile sidebar
+ */
+export function toggleMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('mobileOverlay');
+
+    if (sidebar) {
+        sidebar.classList.toggle('open');
+    }
+    if (overlay) {
+        // Show overlay when sidebar opens
+        if (sidebar?.classList.contains('open')) {
+            overlay.classList.add('open');
+        } else {
+            overlay.classList.remove('open');
+        }
+    }
+}
+
+/**
+ * Close mobile sidebar
+ */
+export function closeMobileSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('mobileOverlay');
+
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+}
+
+/**
+ * Toggle properties panel on mobile
+ * @param {boolean} show - Whether to show or hide the panel
+ */
+export function toggleMobileProperties(show) {
+    const properties = document.getElementById('propertiesPanel');
+    const overlay = document.getElementById('mobileOverlay');
+
+    if (properties) {
+        if (show) {
+            properties.classList.add('open');
+            if (overlay) overlay.classList.add('open');
+        } else {
+            properties.classList.remove('open');
+            if (overlay) overlay.classList.remove('open');
+        }
+    }
+}
+
+// Make functions available globally for onclick handlers
+window.togglePanel = togglePanel;
+window.closePanel = closePanel;
+window.setViewport = setViewport;
+window.toggleMobileSidebar = toggleMobileSidebar;
+window.closeMobileSidebar = closeMobileSidebar;
+window.toggleMobileProperties = toggleMobileProperties;
 
 export function initializeEvents(dom, actions) {
     const {
@@ -31,7 +148,6 @@ export function initializeEvents(dom, actions) {
 
     if (preview) {
         preview.addEventListener('click', actions.handlePreviewClick);
-        initializeAllComponents(componentInitializers);
     }
 
     if (exportButton) {
@@ -65,6 +181,38 @@ export function initializeEvents(dom, actions) {
         });
     }
 
+    // Setup viewport button handlers
+    const viewportBtns = document.querySelectorAll('.viewport-btn[data-viewport]');
+    viewportBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const size = btn.dataset.viewport;
+            if (size) {
+                setViewport(btn, size);
+            }
+        });
+    });
+
+    // Setup sidebar button click handlers (new design)
+    const sidebarBtns = document.querySelectorAll('.sidebar-btn[data-panel]');
+    sidebarBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const panelName = btn.dataset.panel;
+            if (panelName) {
+                togglePanel(panelName);
+            }
+        });
+    });
+
+    // Setup panel close button handlers
+    const closeBtns = document.querySelectorAll('.panel-close');
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closePanel();
+        });
+    });
+
+    // Legacy sidebar nav items (for backwards compatibility)
     if (Array.isArray(sidebarNavItems) && sidebarNavItems.length > 0 && Array.isArray(sidebarPanels) && sidebarPanels.length > 0) {
         const activateNavItem = targetId => {
             sidebarNavItems.forEach(navItem => {
@@ -103,6 +251,29 @@ export function initializeEvents(dom, actions) {
             if (event.target.classList.contains('properties-apply-button')) {
                 actions.applySelectedComponentProperties();
             }
+        });
+    }
+
+    // Mobile menu button
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMobileSidebar);
+    }
+
+    // Mobile overlay click closes all panels
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    if (mobileOverlay) {
+        mobileOverlay.addEventListener('click', () => {
+            closeMobileSidebar();
+            toggleMobileProperties(false);
+        });
+    }
+
+    // Properties close button
+    const propertiesCloseBtn = document.getElementById('propertiesCloseBtn');
+    if (propertiesCloseBtn) {
+        propertiesCloseBtn.addEventListener('click', () => {
+            toggleMobileProperties(false);
         });
     }
 }

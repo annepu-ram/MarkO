@@ -942,6 +942,7 @@
         {% if typo.align %}{% set _ = styles.append('text-align: ' ~ typo.align ~ ';') %}{% endif %}
         {% if typo.lineHeight %}{% set _ = styles.append('line-height: ' ~ typo.lineHeight ~ ';') %}{% endif %}
         {% if typo.transform %}{% set _ = styles.append('text-transform: ' ~ typo.transform ~ ';') %}{% endif %}
+        {% if typo.letterSpacing and tokens and tokens.letter_spacing and typo.letterSpacing in tokens.letter_spacing %}{% set _ = styles.append('letter-spacing: ' ~ tokens.letter_spacing[typo.letterSpacing] ~ ';') %}{% endif %}
     {% endif %}
     
     {# Width Mode Support for Text Components and Images #}
