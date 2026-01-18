@@ -390,6 +390,10 @@ details[open] .accordion-summary::after {
     flex-direction: column;
     gap: 4px;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    z-index: 10;
 }
 
 .mobile-menu-button .bar {
@@ -401,6 +405,11 @@ details[open] .accordion-summary::after {
 }
 
 /* Titlebar Alignment Variants */
+
+/* Left Alignment (default) */
+.titlebar.align-left {
+    justify-content: space-between;
+}
 
 /* Right Alignment */
 .titlebar.align-right {
@@ -494,6 +503,7 @@ details[open] .accordion-summary::after {
         background-color: #fff;
         border-top: 1px solid #ddd;
         padding: 1rem;
+        z-index: 999;
     }
 
     .titlebar-nav.active {
@@ -502,6 +512,156 @@ details[open] .accordion-summary::after {
 
     .mobile-menu-button {
         display: flex;
+    }
+
+    /* Left alignment: hamburger on left (between brand and nav) */
+    .titlebar.align-left {
+        justify-content: space-between;
+    }
+
+    .titlebar.align-left .mobile-menu-button {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .titlebar.align-left .titlebar-branding {
+        order: 1;
+    }
+
+    .titlebar.align-left .titlebar-nav {
+        order: 3;
+        left: 0;
+    }
+
+    /* Right alignment: hamburger on right (before brand) */
+    .titlebar.align-right {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .titlebar.align-right .mobile-menu-button {
+        order: 3;
+        margin-left: auto;
+    }
+
+    .titlebar.align-right .titlebar-branding {
+        order: 1;
+    }
+
+    .titlebar.align-right .titlebar-nav {
+        order: 2;
+        right: 0;
+        left: auto;
+    }
+
+    /* Center alignment: hamburger on left */
+    .titlebar.align-center {
+        flex-direction: row;
+        justify-content: space-between;
+        height: var(--base-height, 6rem);
+        padding-bottom: 0;
+    }
+
+    .titlebar.align-center .titlebar-branding {
+        order: 1;
+        margin-bottom: 0;
+        width: auto;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .titlebar.align-center .mobile-menu-button {
+        order: 0;
+        margin-right: auto;
+    }
+
+    .titlebar.align-center .titlebar-nav {
+        order: 2;
+        left: 0;
+        justify-content: flex-start;
+    }
+}
+
+/* Tablet view (769px to 1024px) - same behavior as mobile */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .titlebar-nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: var(--base-height, 6rem);
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
+        padding: 1rem;
+        z-index: 999;
+    }
+
+    .titlebar-nav.active {
+        display: flex;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+    }
+
+    /* Left alignment: hamburger on left */
+    .titlebar.align-left .mobile-menu-button {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .titlebar.align-left .titlebar-branding {
+        order: 1;
+    }
+
+    .titlebar.align-left .titlebar-nav {
+        order: 3;
+        left: 0;
+    }
+
+    /* Right alignment: hamburger on right */
+    .titlebar.align-right {
+        flex-direction: row;
+    }
+
+    .titlebar.align-right .mobile-menu-button {
+        order: 3;
+        margin-left: auto;
+    }
+
+    .titlebar.align-right .titlebar-branding {
+        order: 1;
+    }
+
+    .titlebar.align-right .titlebar-nav {
+        order: 2;
+        right: 0;
+        left: auto;
+    }
+
+    /* Center alignment: hamburger on left */
+    .titlebar.align-center {
+        flex-direction: row;
+        height: var(--base-height, 6rem);
+        padding-bottom: 0;
+    }
+
+    .titlebar.align-center .titlebar-branding {
+        order: 1;
+        margin-bottom: 0;
+        width: auto;
+        flex: 1;
+    }
+
+    .titlebar.align-center .mobile-menu-button {
+        order: 0;
+        margin-right: auto;
+    }
+
+    .titlebar.align-center .titlebar-nav {
+        order: 2;
+        left: 0;
     }
 }
 
