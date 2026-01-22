@@ -59,12 +59,70 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 
 ## Design Tokens
 
-**Spacing:** `none`, `xs`, `sm`, `md`, `lg`, `xl`, `auto`
-**Typography:** `xxs`, `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `xxxl`
-**Weights:** `light`, `regular`, `medium`, `semibold`, `bold`, `extrabold`
-**Radius:** `none`, `sm`, `md`, `lg`, `pill`
-**Letter Spacing:** `normal`, `tight`, `wide`, `wider`
-**Alignment:** `left`, `center`, `right`, `justify`
+### Spacing Scale (8px Grid)
+
+| Token | Desktop | Use Case |
+|-------|---------|----------|
+| `none` | 0 | Reset margins, no spacing |
+| `xxs` | 4px | Tight icon gaps |
+| `xs` | 8px | Inline elements, tight groups |
+| `sm` | 16px | Component padding (buttons, cards) |
+| `md` | 24px | Default gap between elements |
+| `lg` | 32px | Section padding |
+| `xl` | 48px | Large section separation |
+| `xxl` | 64px | Hero section padding |
+| `xxxl` | 96px | Page section breaks |
+| `auto` | auto | Automatic spacing |
+
+### Typography Sizes
+
+| Token | Use Case | Recommended For |
+|-------|----------|-----------------|
+| `xxs` | Fine print, legal text | Caption (footnotes), metadata |
+| `xs` | Captions, labels, helper text | Eyebrow, Caption |
+| `sm` | Secondary body text | Paragraph (secondary), descriptions |
+| `md` | Body text (default) | Paragraph, Button text |
+| `lg` | H4 headings, emphasized text | Heading level 4, blockquote |
+| `xl` | H3 headings, section titles | Heading level 3 |
+| `xxl` | H2 headings, major sections | Heading level 2 |
+| `xxxl` | H1 hero headlines, page titles | Heading level 1, Hero text |
+| `auto` | Inherit from parent | Special cases |
+
+### Font Weights
+
+| Token | Value | Use Case |
+|-------|-------|----------|
+| `light` | 300 | Delicate, elegant text |
+| `regular` | 400 | Body text (default) |
+| `medium` | 500 | Slightly emphasized text |
+| `semibold` | 600 | Subheadings, labels, eyebrows |
+| `bold` | 700 | Headlines, CTAs, emphasis |
+| `extrabold` | 800 | Hero text, high impact |
+
+### Letter Spacing
+
+| Token | Value | Use Case |
+|-------|-------|----------|
+| `normal` | 0 | Body text (default) |
+| `tight` | -0.025em | Large headlines (xl/xxl/xxxl sizes) |
+| `wide` | 0.025em | Small text readability (xs/xxs) |
+| `wider` | 0.05em | **ALWAYS use for UPPERCASE text** |
+
+**Important:** All caps text (like eyebrows with `transform: uppercase`) should use `wider` letter spacing for readability.
+
+### Border Radius
+
+| Token | Use Case |
+|-------|----------|
+| `none` | Square corners |
+| `sm` | Subtle rounding (inputs, small cards) |
+| `md` | Standard rounding (cards, buttons) |
+| `lg` | Prominent rounding (hero images, modals) |
+| `pill` | Fully rounded (pills, tags, circular buttons) |
+
+### Text Alignment
+
+`left`, `center`, `right`, `justify`
 
 ## Width Mode Property (Text & Media Components)
 

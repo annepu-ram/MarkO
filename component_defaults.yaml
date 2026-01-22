@@ -94,7 +94,7 @@ titlebar:
     alignment: left
     height: 60
   scroll:
-    shrinkPercentage: 30
+    shrinkPercentage: 70
   appearance:
     background:
       color: '#ffffff'
@@ -249,7 +249,8 @@ image:
     url: https://via.placeholder.com/150
     altText: Placeholder image
   presentation:
-    height: auto
+    width: "100"
+    minHeight: 200
     fit: cover
     cornerStyle: none
   overlay:

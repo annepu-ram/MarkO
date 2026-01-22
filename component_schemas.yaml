@@ -879,9 +879,13 @@ image:
   - id: presentation
     label: Presentation
     fields:
-    - path: presentation.height
+    - path: presentation.width
+      type: select
+      label: Width
+      tokens: widthPercentages
+    - path: presentation.minHeight
       type: text
-      label: Height (px or auto)
+      label: Min Height (px)
     - path: presentation.fit
       type: select
       label: Object Fit

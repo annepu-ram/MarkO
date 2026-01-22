@@ -9,6 +9,7 @@ import { loadSvgSprite } from './sprite.js';
 import { deepMerge } from './utils/object.js';
 import { initComponentTree, buildTreeFromStructure, renderTree, highlightTreeItem, clearTreeSelection } from './componentTree.js';
 import { debounce } from './utils/timing.js';
+import { yamlStorage } from './yamlStorage.js';
 
 // Create singleton selection manager instance
 export const selectionManager = new SelectionManager();
@@ -156,6 +157,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 historyManager.push(yamlContent);
             }
 
+            // Save to sessionStorage for persistence across tab refresh
+            yamlStorage.save(yamlContent);
+
             // Store current selection before re-render
             const currentSelection = selectionManager.getSelection();
 
@@ -174,6 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 clearPropertiesPanel();
                 clearTreeSelection();
                 historyManager.clear();
+                yamlStorage.clear(); // Clear sessionStorage
                 renderPreview('').then(() => {
                     updateComponentTree();
                 });
@@ -306,7 +311,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateLineNumbers(dom.editor, dom.lineNumbers);
     });
 
-    // 6. Initialize history with current editor content
+    // 6. Load persisted YAML from sessionStorage (survives tab refresh)
+    const storedYaml = yamlStorage.load();
+    if (storedYaml) {
+        console.log('[Main] Restored YAML from sessionStorage');
+        dom.editor.value = storedYaml;
+        updateLineNumbers(dom.editor, dom.lineNumbers);
+    }
+
+    // 7. Initialize history with current editor content
     if (dom.editor.value) {
         historyManager.push(dom.editor.value);
         renderPreview(dom.editor.value).then(() => {

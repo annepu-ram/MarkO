@@ -299,7 +299,8 @@
     {% set properties = component.properties | default({}) %}
     {% set styles = build_styles(component, tokens, layout_direction=parent_direction) %}
     {% if name == 'heading' %}
-        <h{{ properties.level | default(2) }} class="chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</h{{ properties.level | default(2) }}>
+        {% set size = properties.size | default('md') %}
+        <h{{ properties.level | default(2) }} class="heading chrome-target" data-component-id="{{ component_id }}" data-size="{{ size }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</h{{ properties.level | default(2) }}>
     {% elif name == 'paragraph' %}
         <p class="chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
     {% elif name == 'eyebrow' %}
@@ -342,14 +343,23 @@
     {% set presentation = properties.presentation | default({}) %}
     {% set has_children = component.components and component.components | length > 0 %}
     {% set base_styles = build_styles(component, tokens, layout_direction=parent_direction) %}
-    {% set extra_styles = 'position: relative;' %}
-    {% if presentation.height %}
-        {% set extra_styles = extra_styles ~ ' height: ' ~ presentation.height ~ ';' %}
-    {% endif %}
-    <div class="image-container chrome-target" data-component-id="{{ component_id }}" style="{{ base_styles }} {{ extra_styles }}">
-        <img src="{{ source.url }}" alt="{{ source.altText | default('') }}" style="width: 100%; height: 100%; object-fit: {{ presentation.fit | default('cover') }};">
+
+    {# Width handling #}
+    {% set width_value = presentation.width | default('100') %}
+    {% set width_style = 'width: ' ~ width_value ~ '%;' %}
+
+    {# Height handling - always use min-height to allow growth based on content #}
+    {% set min_height = presentation.minHeight | default(200) %}
+    {% set height_style = 'min-height: ' ~ min_height ~ 'px;' %}
+
+    {% set extra_styles = 'position: relative; ' ~ width_style ~ ' ' ~ height_style %}
+
+    <div class="image-container chrome-target"
+         data-component-id="{{ component_id }}"
+         style="{{ base_styles }} {{ extra_styles }}">
+        <img class="image-bg" src="{{ source.url }}" alt="{{ source.altText | default('') }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ presentation.fit | default('cover') }};">
         {% if has_children %}
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div class="image-content" style="position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word;">
                 {% for child in component.components | default([]) %}
                     {% set child_path = path + ['components', loop.index0] %}
                     {{ render_component(child, tokens, child_path) }}
@@ -418,10 +428,10 @@
         {% set _ = vars.append('--base-height: ' ~ height_value ~ 'px;') %}
     {% endif %}
 
-    {# Scroll shrink percentage (shrink BY percentage: 30% means retain 70% -> scale 0.7) #}
+    {# Scroll shrink percentage (shrink TO percentage: 70% means shrink to 70% of original size) #}
     {% set scroll = properties.scroll | default({}) %}
-    {% set shrink_pct = scroll.shrinkPercentage | default(30) %}
-    {% set shrink_scale = 1 - (shrink_pct / 100) %}
+    {% set shrink_pct = scroll.shrinkPercentage | default(70) %}
+    {% set shrink_scale = shrink_pct / 100 %}
     {% set _ = vars.append('--shrink-scale: ' ~ shrink_scale ~ ';') %}
 
     {# Typography #}

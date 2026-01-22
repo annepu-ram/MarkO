@@ -26,6 +26,8 @@
       layout:
         alignment: center
         height: 70
+      scroll:
+        shrinkPercentage: 70
       appearance:
         background:
           color: '#ffffff'
@@ -53,7 +55,8 @@
         url: https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
         altText: Freshly baked artisanal bread spread
       presentation:
-        height: 600px
+        width: "100"
+        minHeight: 400
         fit: cover
         cornerStyle: none
       spacing:
@@ -97,7 +100,7 @@
             Experience the warmth and comfort of traditional baking.
           typography:
             color: '#ffffff'
-            size: xl
+            size: lg
             align: center
             weight: regular
           spacing:
@@ -161,7 +164,7 @@
         align: center
         gap: md
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: md
       background:
         color: '#ffffff'
@@ -171,10 +174,10 @@
       properties:
         text: Welcome to The Golden Loaf
         typography:
-          size: sm
+          size: xs
           weight: bold
           transform: uppercase
-          letterSpacing: wide
+          letterSpacing: wider
           color: '#c7926b'
           align: center
         spacing:
@@ -198,11 +201,11 @@
           Every bite tells a story of tradition, quality, and love.
         typography:
           color: '#6b4f4b'
-          size: md
+          size: lg
           align: center
           lineHeight: '1.6'
         spacing:
-          marginBlock: md
+          marginBlock: sm
         layout:
           widthMode: 75
   
@@ -211,9 +214,9 @@
     properties:
       layout:
         align: center
-        gap: xl
+        gap: lg
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: md
       background:
         color: '#fdf8f2'
@@ -229,7 +232,7 @@
           size: xxl
           weight: bold
         spacing:
-          marginBlock: md
+          marginBlock: sm
     
     # Card 1: Image Left (25%) - Text Right (75%)
     - name: layout-row
@@ -254,7 +257,8 @@
             url: https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600
             altText: Fresh baked bread straight from the oven
           presentation:
-            height: 250px
+            width: "100"
+            minHeight: 250
             fit: cover
             cornerStyle: md
           layout:
@@ -277,7 +281,7 @@
               size: xs
               weight: bold
               transform: uppercase
-              letterSpacing: wide
+              letterSpacing: wider
               color: '#c7926b'
             spacing:
               marginBlock: none
@@ -287,7 +291,7 @@
             level: 3
             typography:
               color: '#8B4513'
-              size: lg
+              size: xl
               weight: bold
             spacing:
               marginBlock: xs
@@ -339,7 +343,7 @@
               size: xs
               weight: bold
               transform: uppercase
-              letterSpacing: wide
+              letterSpacing: wider
               color: '#c7926b'
             spacing:
               marginBlock: none
@@ -349,7 +353,7 @@
             level: 3
             typography:
               color: '#8B4513'
-              size: lg
+              size: xl
               weight: bold
             spacing:
               marginBlock: xs
@@ -427,7 +431,7 @@
               size: xs
               weight: bold
               transform: uppercase
-              letterSpacing: wide
+              letterSpacing: wider
               color: '#c7926b'
             spacing:
               marginBlock: none
@@ -437,7 +441,7 @@
             level: 3
             typography:
               color: '#8B4513'
-              size: lg
+              size: xl
               weight: bold
             spacing:
               marginBlock: xs
@@ -529,9 +533,9 @@
     properties:
       layout:
         align: center
-        gap: lg
+        gap: md
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: md
     components:
     - name: heading
@@ -544,7 +548,7 @@
           size: xxl
           weight: bold
         spacing:
-          marginBlock: md
+          marginBlock: sm
     - name: columnsgrid
       properties:
         layout:
@@ -579,7 +583,7 @@
               level: 3
               typography:
                 color: '#ffffff'
-                size: lg
+                size: xl
                 weight: bold
                 align: center
               spacing:
@@ -633,7 +637,7 @@
               level: 3
               typography:
                 color: '#ffffff'
-                size: lg
+                size: xl
                 weight: bold
                 align: center
               spacing:
@@ -687,7 +691,7 @@
               level: 3
               typography:
                 color: '#ffffff'
-                size: lg
+                size: xl
                 weight: bold
                 align: center
               spacing:
@@ -728,7 +732,7 @@
         align: center
         gap: md
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: md
       background:
         color: '#ffffff'
@@ -744,7 +748,7 @@
           size: xxl
           weight: bold
         spacing:
-          marginBlock: md
+          marginBlock: sm
     - name: paragraph
       properties:
         text: See our bakers in action and the beautiful creations that come out of our ovens daily.
@@ -838,7 +842,7 @@
         align: center
         gap: md
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: md
     components:
     - name: heading
@@ -851,7 +855,7 @@
           size: xxl
           weight: bold
         spacing:
-          marginBlock: md
+          marginBlock: sm
     - name: tabs
       properties:
         layout:
@@ -1252,10 +1256,10 @@
     properties:
       layout:
         align: center
-        gap: xl
+        gap: lg
         wrap: wrap
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: lg
       background:
         color: '#ffffff'
@@ -1284,10 +1288,10 @@
         properties:
           text: Our Story
           typography:
-            size: sm
+            size: xs
             weight: bold
             transform: uppercase
-            letterSpacing: wide
+            letterSpacing: wider
             color: '#c7926b'
           spacing:
             marginBlock: none
@@ -1308,7 +1312,7 @@
             to bring the joy of traditional, artisanal baking to our community.
             We believe in using only the finest locally-sourced ingredients,
             time-honored techniques, and a whole lot of love.
-            
+
             Every loaf, pastry, and cake that leaves our ovens is a piece of our heart.
             Our master bakers wake before dawn to ensure you get the freshest products
             possible, made with care and attention to detail.
@@ -1317,7 +1321,7 @@
             size: md
             lineHeight: '1.6'
           spacing:
-            marginBlock: md
+            marginBlock: sm
   
   # FAQ Accordion Section
   - name: layout-column
@@ -1326,7 +1330,7 @@
         align: center
         gap: md
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: md
     components:
     - name: heading
@@ -1339,7 +1343,7 @@
           size: xxl
           weight: bold
         spacing:
-          marginBlock: md
+          marginBlock: sm
     - name: accordion
       properties:
         behavior:
@@ -1412,7 +1416,7 @@
         align: center
         gap: md
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: md
       background:
         color: '#ffffff'
@@ -1428,7 +1432,7 @@
           size: xxl
           weight: bold
         spacing:
-          marginBlock: md
+          marginBlock: sm
     - name: columnsgrid
       properties:
         layout:
@@ -1515,7 +1519,7 @@
         align: center
         gap: md
       spacing:
-        paddingBlock: xl
+        paddingBlock: lg
         paddingInline: md
       background:
         color: '#8B4513'
@@ -1531,7 +1535,7 @@
           size: xxl
           weight: bold
         spacing:
-          marginBlock: md
+          marginBlock: sm
     - name: paragraph
       properties:
         text: Have a question or want to place a custom order? We'd love to hear from you!

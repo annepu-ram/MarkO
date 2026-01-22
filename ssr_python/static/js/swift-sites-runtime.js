@@ -277,14 +277,15 @@
                 document.body.insertAdjacentElement('afterbegin', clone);
             }
 
-            // Mobile menu toggle
+            // Mobile menu toggle with hamburger/X animation
             const mobileMenuButton = titlebarElement.querySelector('.mobile-menu-button');
             const navLinks = titlebarElement.querySelector('.titlebar-nav');
 
             if (mobileMenuButton && navLinks) {
                 mobileMenuButton.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    navLinks.classList.toggle('active');
+                    const isOpen = navLinks.classList.toggle('active');
+                    mobileMenuButton.classList.toggle('open', isOpen);
                 });
             }
 
@@ -295,7 +296,8 @@
             if (cloneMobileMenuButton && cloneNavLinks) {
                 cloneMobileMenuButton.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    cloneNavLinks.classList.toggle('active');
+                    const isOpen = cloneNavLinks.classList.toggle('active');
+                    cloneMobileMenuButton.classList.toggle('open', isOpen);
                 });
             }
 
