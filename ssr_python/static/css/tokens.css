@@ -15,15 +15,17 @@
     --spacing-xxxl: clamp(3rem, 2.4rem + 3vw, 6rem);              /* 48-96px */
     --spacing-auto: auto;
 
-    /* Typography Sizes - Fluid with double scaling (root + token) */
-    --font-size-xxs: clamp(0.7rem, 0.6rem + 0.3vw, 0.9rem);
-    --font-size-xs: clamp(0.85rem, 0.75rem + 0.35vw, 1.1rem);
-    --font-size-sm: clamp(1.1rem, 0.95rem + 0.45vw, 1.4rem);
-    --font-size-md: clamp(1.4rem, 1.2rem + 0.6vw, 1.8rem);
-    --font-size-lg: clamp(1.7rem, 1.45rem + 0.75vw, 2.2rem);
-    --font-size-xl: clamp(2.2rem, 1.8rem + 1.2vw, 3rem);
-    --font-size-xxl: clamp(3rem, 2.4rem + 2.1vw, 4.5rem);
-    --font-size-xxxl: clamp(4rem, 3.2rem + 2.8vw, 6rem);
+    /* Typography Sizes - Fluid responsive with step-down scaling */
+    /* Scales smoothly between mobile (400px) and desktop (1200px) viewport */
+    /* Larger sizes step down more aggressively on mobile */
+    --font-size-xxs: 0.9rem;                                       /* static - no scaling */
+    --font-size-xs: 1.1rem;                                        /* static - no scaling */
+    --font-size-sm: clamp(1.1rem, 0.037vw + 0.95rem, 1.4rem);     /* XS → SM */
+    --font-size-md: clamp(1.4rem, 0.05vw + 1.2rem, 1.8rem);       /* SM → MD */
+    --font-size-lg: clamp(1.8rem, 0.05vw + 1.6rem, 2.2rem);       /* MD → LG */
+    --font-size-xl: clamp(1.8rem, 0.15vw + 1.2rem, 3rem);         /* MD → XL */
+    --font-size-xxl: clamp(2.2rem, 0.287vw + 1.05rem, 4.5rem);    /* LG → XXL */
+    --font-size-xxxl: clamp(3rem, 0.375vw + 1.5rem, 6rem);        /* XL → XXXL */
     --font-size-auto: auto;
 
     /* Font Weights */

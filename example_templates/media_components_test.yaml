@@ -1014,8 +1014,6 @@
                 appearance:
                   cornerStyle: none
                   minHeight: 6.25
-                layout:
-                  widthMode: fit
 
             - name: image
               properties:
@@ -1025,8 +1023,6 @@
                 appearance:
                   cornerStyle: sm
                   minHeight: 6.25
-                layout:
-                  widthMode: fit
 
             - name: image
               properties:
@@ -1036,8 +1032,6 @@
                 appearance:
                   cornerStyle: md
                   minHeight: 6.25
-                layout:
-                  widthMode: fit
 
             - name: image
               properties:
@@ -1047,8 +1041,6 @@
                 appearance:
                   cornerStyle: lg
                   minHeight: 6.25
-                layout:
-                  widthMode: fit
 
             - name: image
               properties:
@@ -1058,8 +1050,6 @@
                 appearance:
                   cornerStyle: xl
                   minHeight: 6.25
-                layout:
-                  widthMode: fit
 
             - name: image
               properties:
@@ -1069,8 +1059,6 @@
                 appearance:
                   cornerStyle: pill
                   minHeight: 6.25
-                layout:
-                  widthMode: fit
 
     # ========================================
     # SECTION 6: WIDTH MODE TESTS
@@ -1357,8 +1345,6 @@
                 appearance:
                   minHeight: 9.375
                   cornerStyle: md
-                layout:
-                  widthMode: fit
             - name: image
               properties:
                 source:
@@ -1367,8 +1353,6 @@
                 appearance:
                   minHeight: 9.375
                   cornerStyle: md
-                layout:
-                  widthMode: fit
             - name: image
               properties:
                 source:
@@ -1377,8 +1361,6 @@
                 appearance:
                   minHeight: 9.375
                   cornerStyle: md
-                layout:
-                  widthMode: fit
             - name: image
               properties:
                 source:
@@ -1387,8 +1369,6 @@
                 appearance:
                   minHeight: 9.375
                   cornerStyle: md
-                layout:
-                  widthMode: fit
             - name: image
               properties:
                 source:
@@ -1397,8 +1377,6 @@
                 appearance:
                   minHeight: 9.375
                   cornerStyle: md
-                layout:
-                  widthMode: fit
             - name: image
               properties:
                 source:
@@ -1407,8 +1385,6 @@
                 appearance:
                   minHeight: 9.375
                   cornerStyle: md
-                layout:
-                  widthMode: fit
 
         - name: br
           properties:
@@ -1615,7 +1591,7 @@
               marginInline: none
             appearance:
               background:
-                type: ""
+                type: solid
                 color: "#ffffff"
                 transparency: 0
               border:
@@ -1635,7 +1611,7 @@
                 appearance:
                   background:
                     color: '#ffffff'
-                    type: ""
+                    type: solid
                     transparency: 0
                   border:
                     width: 1
@@ -1686,7 +1662,7 @@
                 appearance:
                   background:
                     color: '#ffffff'
-                    type: ""
+                    type: solid
                     transparency: 0
                   border:
                     width: 1
@@ -1737,7 +1713,7 @@
                 appearance:
                   background:
                     color: '#ffffff'
-                    type: ""
+                    type: solid
                     transparency: 0
                   border:
                     width: 1
@@ -1788,7 +1764,7 @@
                 appearance:
                   background:
                     color: '#ffffff'
-                    type: ""
+                    type: solid
                     transparency: 0
                   border:
                     width: 1
@@ -1839,7 +1815,7 @@
                 appearance:
                   background:
                     color: '#ffffff'
-                    type: ""
+                    type: solid
                     transparency: 0
                   border:
                     width: 1

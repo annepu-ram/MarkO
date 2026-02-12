@@ -1,0 +1,388 @@
+# Services Card-Based Hero - Construction Style
+# Full-width hero image with overlaid text and numbered service cards
+# Perfect for: Construction, architecture, real estate, engineering, agencies
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary "#1e2a4a"
+        secondary: &color-secondary "#6b7280"
+        accent: &color-accent "#d4a846"
+        background: &color-background "#eef0f3"
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
+  components:
+  # Navigation
+  - name: titlebar
+    properties:
+      branding:
+        showLogo: false
+        title: "CONSTRUCTY"
+      navigation:
+        links:
+        - label: Home
+          href: '#home'
+        - label: About Us
+          href: '#about'
+        - label: Service
+          href: '#service'
+        - label: Blog
+          href: '#blog'
+        - label: Contact Us
+          href: '#contact'
+      layout:
+        alignment: left
+        height: 64
+      scroll:
+        shrinkPercentage: 70
+      appearance:
+        background:
+          color: 'rgba(255,255,255,0.95)'
+          transparency: 100
+        border:
+          width: 0
+          style: solid
+          color: transparent
+        focus:
+          background: *color-background
+          color: *color-primary
+      typography:
+        title:
+          size: 18
+          weight: bold
+          color: *color-primary
+        menu:
+          size: 14
+          weight: medium
+          color: *color-primary
+
+  # Hero with Background Image + Overlay Text
+  - name: image
+    properties:
+      source:
+        url: https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=1600
+        altText: Construction site with heavy machinery
+      appearance:
+        minHeight: 37.5
+        fit: cover
+        cornerStyle: none
+      layout:
+        widthMode: stretch
+      spacing:
+        marginBlock: none
+    components:
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+          gap: sm
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+        appearance:
+          background:
+            color: 'linear-gradient(to right, rgba(238,240,243,0.92) 0%, rgba(238,240,243,0.7) 45%, rgba(238,240,243,0.1) 70%)'
+            transparency: 100
+      components:
+      # Eyebrow
+      - name: eyebrow
+        properties:
+          text: "LET' US BUILD YOUR DREAM HOUSE"
+          typography:
+            color: *color-primary
+            size: xs
+            weight: semibold
+            letterSpacing: wider
+            transform: uppercase
+          spacing:
+            marginBlock: none
+
+      # Main Headline
+      - name: heading
+        properties:
+          text: "We're The Best"
+          level: 1
+          typography:
+            color: *color-primary
+            size: xxxl
+            weight: bold
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+
+      - name: heading
+        properties:
+          text: "Construction Company"
+          level: 1
+          typography:
+            color: *color-primary
+            size: xxxl
+            weight: bold
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+
+      # Description
+      - name: paragraph
+        properties:
+          text: |
+            Sed ut perspiciatis undewre omnis iste natus errorut perspiciatiis
+            undis iperspiciatiis undewre omnis iste natus errste natus atus
+            erroruerspiciati.
+          typography:
+            color: *color-secondary
+            size: md
+            lineHeight: '1.6'
+          spacing:
+            marginBlock: md
+          layout:
+            widthMode: 50
+
+  # Service Cards Row
+  - name: layout-row
+    properties:
+      layout:
+        align: stretch
+        horizontalAlign: space-evenly
+        wrap: wrap
+      spacing:
+        paddingBlock: none
+        paddingInline: lg
+        marginBlock: none
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+    components:
+    # Card 01 - Active State (dark navy)
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+          gap: sm
+          widthMode: "25"
+        appearance:
+          background:
+            color: *color-primary
+            transparency: 100
+          radius: md
+          shadow: elevated
+          shadowColor: *color-primary
+          padding:
+            block: lg
+            inline: md
+      components:
+      - name: heading
+        properties:
+          text: "01"
+          level: 2
+          typography:
+            color: 'rgba(255,255,255,0.25)'
+            size: xxxl
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: heading
+        properties:
+          text: "Architecture Design"
+          level: 3
+          typography:
+            color: *color-background
+            size: md
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Sed ut perspiciatiis undewre omnis iste natus errorne omnis lut."
+          typography:
+            color: 'rgba(255,255,255,0.6)'
+            size: sm
+            lineHeight: '1.5'
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Learn More ——"
+          typography:
+            color: *color-accent
+            size: sm
+            weight: semibold
+          spacing:
+            marginBlock: sm
+
+    # Card 02
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+          gap: sm
+          widthMode: "25"
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+          radius: md
+          shadow: soft
+          padding:
+            block: lg
+            inline: md
+      components:
+      - name: heading
+        properties:
+          text: "02"
+          level: 2
+          typography:
+            color: 'rgba(30,42,74,0.15)'
+            size: xxxl
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: heading
+        properties:
+          text: "New Buildings"
+          level: 3
+          typography:
+            color: *color-primary
+            size: md
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Sed ut perspiciatiis undewre omnis iste natus errorne omnis lut."
+          typography:
+            color: *color-secondary
+            size: sm
+            lineHeight: '1.5'
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Learn More ——"
+          typography:
+            color: *color-accent
+            size: sm
+            weight: semibold
+          spacing:
+            marginBlock: sm
+
+    # Card 03
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+          gap: sm
+          widthMode: "25"
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+          radius: md
+          shadow: soft
+          padding:
+            block: lg
+            inline: md
+      components:
+      - name: heading
+        properties:
+          text: "03"
+          level: 2
+          typography:
+            color: 'rgba(30,42,74,0.15)'
+            size: xxxl
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: heading
+        properties:
+          text: "Full Project"
+          level: 3
+          typography:
+            color: *color-primary
+            size: md
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Sed ut perspiciatiis undewre omnis iste natus errorne omnis lut."
+          typography:
+            color: *color-secondary
+            size: sm
+            lineHeight: '1.5'
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Learn More ——"
+          typography:
+            color: *color-accent
+            size: sm
+            weight: semibold
+          spacing:
+            marginBlock: sm
+
+    # Card 04
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+          gap: sm
+          widthMode: "25"
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+          radius: md
+          shadow: soft
+          padding:
+            block: lg
+            inline: md
+      components:
+      - name: heading
+        properties:
+          text: "04"
+          level: 2
+          typography:
+            color: 'rgba(30,42,74,0.15)'
+            size: xxxl
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: heading
+        properties:
+          text: "Renovation"
+          level: 3
+          typography:
+            color: *color-primary
+            size: md
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Sed ut perspiciatiis undewre omnis iste natus errorne omnis lut."
+          typography:
+            color: *color-secondary
+            size: sm
+            lineHeight: '1.5'
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Learn More ——"
+          typography:
+            color: *color-accent
+            size: sm
+            weight: semibold
+          spacing:
+            marginBlock: sm

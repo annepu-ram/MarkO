@@ -269,5 +269,53 @@ function applyUpdatesToNode(node, updates, doc) {
     }
 }
 
+/**
+ * Replace specific property values with YAML aliases (for theme color swatches).
+ * After updateComponentPropertiesInDocument sets plain values, this replaces
+ * tagged fields with alias nodes pointing to the theme color anchors.
+ * @param {Document} doc - YAML Document
+ * @param {Array} componentPath - Path to component
+ * @param {object} aliases - Map of fieldPath -> anchorName (e.g., { 'typography.color': 'color-primary' })
+ */
+export function replacePropertiesWithAliases(doc, componentPath, aliases) {
+    if (!doc || !componentPath || !aliases || Object.keys(aliases).length === 0) return;
+
+    // Find theme colors node (where anchors are defined)
+    const pageNode = doc.contents.items[0];
+    if (!pageNode) return;
+    const themeColors = pageNode.get('properties', true)?.get('theme', true)?.get('colors', true);
+    if (!themeColors || !YAML.isMap(themeColors)) return;
+
+    // Build anchor-name -> node map
+    const anchorMap = new Map();
+    for (const pair of themeColors.items) {
+        if (YAML.isPair(pair) && YAML.isScalar(pair.value) && pair.value.anchor) {
+            anchorMap.set(pair.value.anchor, pair.value);
+        }
+    }
+
+    // Navigate to the component's properties
+    const componentNode = navigateToComponent(doc, componentPath);
+    if (!componentNode) return;
+    const propsNode = componentNode.get('properties', true);
+    if (!propsNode || !YAML.isMap(propsNode)) return;
+
+    // For each alias, navigate the dot-path and replace with alias node
+    for (const [fieldPath, anchorName] of Object.entries(aliases)) {
+        const anchorNode = anchorMap.get(anchorName);
+        if (!anchorNode) continue;
+
+        const segments = fieldPath.split('.');
+        let node = propsNode;
+        for (let i = 0; i < segments.length - 1; i++) {
+            node = node.get(segments[i], true);
+            if (!node || !YAML.isMap(node)) break;
+        }
+        if (node && YAML.isMap(node)) {
+            node.set(segments[segments.length - 1], doc.createAlias(anchorNode));
+        }
+    }
+}
+
 // Re-export for advanced usage (Document API, type checks)
 export { YAML, parseDocument, stringifyDocument };

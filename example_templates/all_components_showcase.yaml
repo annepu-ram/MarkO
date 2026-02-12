@@ -431,8 +431,6 @@
                   properties:
                     text: "Standard Link"
                     href: "#"
-                    layout:
-                      widthMode: fit
                     appearance:
                       color: '#6366f1'
                       underline: true
@@ -444,8 +442,6 @@
                   properties:
                     text: "Link with Arrow"
                     href: "#"
-                    layout:
-                      widthMode: fit
                     appearance:
                       color: '#6366f1'
                       underline: false
@@ -457,8 +453,6 @@
                   properties:
                     text: "Bold Link"
                     href: "#"
-                    layout:
-                      widthMode: fit
                     appearance:
                       color: '#0ea5e9'
                       underline: true

@@ -68,7 +68,6 @@
         color: '#ffffff'
         weight: semibold
       layout:
-        widthMode: fit
       spacing:
         marginBlock: md
         marginInline: auto
@@ -268,7 +267,6 @@
         color: '#ffffff'
         weight: semibold
       layout:
-        widthMode: fit
       spacing:
         marginBlock: md
         marginInline: auto

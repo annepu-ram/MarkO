@@ -59,6 +59,14 @@ const COLOR_THEMES = [
     { name: 'Digital Realm', category: 'Mood', colors: { background: '#0A0A1A', primary: '#E6E6FF', secondary: '#14142D', accent: '#00FFFF' }},
 ];
 
+// Shared theme color config — single source of truth for color keys, anchor names, and labels
+export const THEME_COLOR_CONFIG = [
+    { key: 'primary', anchor: 'color-primary', label: 'Primary' },
+    { key: 'secondary', anchor: 'color-secondary', label: 'Secondary' },
+    { key: 'accent', anchor: 'color-accent', label: 'Accent' },
+    { key: 'background', anchor: 'color-background', label: 'Background' },
+];
+
 // Font options
 const FONT_OPTIONS = [
     { value: 'Georgia, serif', label: 'Georgia' },
@@ -346,10 +354,9 @@ export async function applyTheme() {
         // Set anchors on the color scalar values
         const colorsNode = themeNode.get('colors', true);
         if (YAML.isMap(colorsNode)) {
-            setAnchorOnScalar(colorsNode, 'primary', 'color-primary');
-            setAnchorOnScalar(colorsNode, 'secondary', 'color-secondary');
-            setAnchorOnScalar(colorsNode, 'accent', 'color-accent');
-            setAnchorOnScalar(colorsNode, 'background', 'color-background');
+            for (const tc of THEME_COLOR_CONFIG) {
+                setAnchorOnScalar(colorsNode, tc.key, tc.anchor);
+            }
         }
 
         // Set anchors on font scalar values

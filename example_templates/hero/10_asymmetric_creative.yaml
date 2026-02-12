@@ -4,95 +4,59 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#ffffff"
+        secondary: &color-secondary "#808080"
+        accent: &color-accent "#ff3366"
+        accent-dark: &color-accent-dark "#ff1a53"
+        background: &color-background "#0d0d0d"
+        muted: &color-muted "#404040"
+        surface: &color-surface "#1a1a1a"
     appearance:
       background:
-        color: '#0d0d0d'
+        color: *color-background
         transparency: 100
   components:
   # Creative Navigation
-  - name: layout-row
+  - name: titlebar
     properties:
+      branding:
+        showLogo: false
+        title: "VOID"
+      navigation:
+        links:
+        - label: Work
+          href: '#work'
+        - label: About
+          href: '#about'
+        - label: Contact
+          href: '#contact'
       layout:
-        align: center
-        horizontalAlign: space-evenly
-      spacing:
-        paddingBlock: lg
-        paddingInline: xl
-      background:
-        color: '#0d0d0d'
-        transparency: 100
-    components:
-    - name: heading
-      properties:
-        text: "VOID"
-        level: 3
-        typography:
-          color: '#ffffff'
-          size: lg
+        alignment: left
+        height: 64
+      scroll:
+        shrinkPercentage: 70
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        border:
+          width: 0
+          style: solid
+          color: transparent
+        focus:
+          background: *color-surface
+          color: *color-primary
+      typography:
+        title:
+          size: 20
           weight: bold
-          letterSpacing: wider
-        spacing:
-          marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: paragraph
-        properties:
-          text: "01"
-          typography:
-            color: '#404040'
-            size: xs
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Work"
-          typography:
-            color: '#ffffff'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: paragraph
-        properties:
-          text: "02"
-          typography:
-            color: '#404040'
-            size: xs
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "About"
-          typography:
-            color: '#666666'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: paragraph
-        properties:
-          text: "03"
-          typography:
-            color: '#404040'
-            size: xs
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Contact"
-          typography:
-            color: '#666666'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
+          color: *color-primary
+        menu:
+          size: 14
+          weight: medium
+          color: *color-primary
 
   # Asymmetric Hero Layout
   - name: layout-row
@@ -105,7 +69,7 @@
         paddingBlock: none
         paddingInline: none
       background:
-        color: '#0d0d0d'
+        color: *color-background
         transparency: 100
     components:
     # Left Content Area
@@ -114,11 +78,10 @@
         layout:
           align: start
           horizontalAlign: space-evenly
+          widthMode: "40"
         spacing:
           paddingBlock: xxxl
           paddingInline: xl
-        appearance:
-          widthMode: 40
       components:
       # Year / Index
       - name: layout-row
@@ -129,9 +92,9 @@
         components:
         - name: paragraph
           properties:
-            text: "©2025"
+            text: "©2026"
             typography:
-              color: '#404040'
+              color: *color-muted
               size: xs
               weight: medium
             spacing:
@@ -140,7 +103,7 @@
           properties:
             text: "—"
             typography:
-              color: '#404040'
+              color: *color-muted
               size: xs
             spacing:
               marginBlock: none
@@ -148,7 +111,7 @@
           properties:
             text: "CREATIVE STUDIO"
             typography:
-              color: '#404040'
+              color: *color-muted
               size: xs
               weight: medium
               letterSpacing: wide
@@ -167,7 +130,7 @@
             text: "WE"
             level: 1
             typography:
-              color: '#ffffff'
+              color: *color-primary
               size: xxxl
               weight: bold
               lineHeight: '0.85'
@@ -178,7 +141,7 @@
             text: "CREATE"
             level: 1
             typography:
-              color: '#ffffff'
+              color: *color-primary
               size: xxxl
               weight: bold
               lineHeight: '0.85'
@@ -189,7 +152,7 @@
             text: "BOLD"
             level: 1
             typography:
-              color: '#ff3366'
+              color: *color-accent
               size: xxxl
               weight: bold
               lineHeight: '0.85'
@@ -204,13 +167,13 @@
             who believe in pushing boundaries. We don't follow trends—
             we set them.
           typography:
-            color: '#808080'
+            color: *color-secondary
             size: md
             lineHeight: '1.7'
           spacing:
             marginBlock: md
           layout:
-            widthMode: 75
+            widthMode: "75"
 
       # Stats in Creative Layout
       - name: layout-row
@@ -232,7 +195,7 @@
               text: "147"
               level: 2
               typography:
-                color: '#ffffff'
+                color: *color-primary
                 size: xxl
                 weight: bold
               spacing:
@@ -241,7 +204,7 @@
             properties:
               text: "Projects"
               typography:
-                color: '#404040'
+                color: *color-muted
                 size: xs
                 weight: medium
                 letterSpacing: wide
@@ -259,7 +222,7 @@
               text: "23"
               level: 2
               typography:
-                color: '#ffffff'
+                color: *color-primary
                 size: xxl
                 weight: bold
               spacing:
@@ -268,7 +231,7 @@
             properties:
               text: "Awards"
               typography:
-                color: '#404040'
+                color: *color-muted
                 size: xs
                 weight: medium
                 letterSpacing: wide
@@ -282,8 +245,11 @@
           text: "Explore Our Work"
           appearance:
             background:
-              color: '#ff3366'
-              transparency: 100
+              type: gradient
+              gradient:
+                colorStart: *color-accent
+                colorEnd: *color-accent-dark
+                direction: to right
             border:
               width: 0
               style: solid
@@ -291,14 +257,15 @@
             padding:
               block: md
               inline: xl
+            shadow: medium
+            shadowColor: *color-accent
           typography:
-            color: '#ffffff'
+            color: *color-primary
             weight: semibold
             size: sm
           spacing:
             marginBlock: lg
           layout:
-            widthMode: fit
 
     # Right Image Area - Asymmetric
     - name: layout-column
@@ -306,11 +273,10 @@
         layout:
           align: end
           horizontalAlign: space-evenly
+          widthMode: "60"
         spacing:
           paddingBlock: lg
           paddingInline: lg
-        appearance:
-          widthMode: 60
       components:
       # Main Image - Offset
       - name: image
@@ -322,6 +288,9 @@
             minHeight: 31.25
             fit: cover
             cornerStyle: none
+            shadow: elevated
+            shadowColor: *color-accent
+            hoverEffect: zoom
           layout:
             widthMode: stretch
           spacing:
@@ -343,6 +312,9 @@
               minHeight: 12.5
               fit: cover
               cornerStyle: none
+              hoverEffect: zoom
+            layout:
+              widthMode: "50"
             spacing:
               marginBlock: none
         - name: layout-column
@@ -350,12 +322,13 @@
             layout:
               align: start
               horizontalAlign: space-evenly
+              widthMode: "50"
           components:
           - name: paragraph
             properties:
               text: "LATEST PROJECT"
               typography:
-                color: '#404040'
+                color: *color-muted
                 size: xxs
                 weight: bold
                 letterSpacing: wider
@@ -367,7 +340,7 @@
               text: "Nike Air Max"
               level: 3
               typography:
-                color: '#ffffff'
+                color: *color-primary
                 size: lg
                 weight: bold
               spacing:
@@ -376,7 +349,7 @@
             properties:
               text: "Brand Campaign"
               typography:
-                color: '#808080'
+                color: *color-secondary
                 size: sm
               spacing:
                 marginBlock: none
@@ -384,7 +357,7 @@
             properties:
               text: "View Case Study →"
               typography:
-                color: '#ff3366'
+                color: *color-accent
                 size: sm
                 weight: medium
               spacing:
@@ -400,14 +373,14 @@
         paddingBlock: lg
         paddingInline: none
       background:
-        color: '#ff3366'
+        color: *color-accent
         transparency: 100
     components:
     - name: paragraph
       properties:
         text: "STRATEGY"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
           weight: bold
           letterSpacing: wider
@@ -417,7 +390,7 @@
       properties:
         text: "•"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
         spacing:
           marginBlock: none
@@ -425,7 +398,7 @@
       properties:
         text: "DESIGN"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
           weight: bold
           letterSpacing: wider
@@ -435,7 +408,7 @@
       properties:
         text: "•"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
         spacing:
           marginBlock: none
@@ -443,7 +416,7 @@
       properties:
         text: "DEVELOPMENT"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
           weight: bold
           letterSpacing: wider
@@ -453,7 +426,7 @@
       properties:
         text: "•"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
         spacing:
           marginBlock: none
@@ -461,7 +434,7 @@
       properties:
         text: "BRANDING"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
           weight: bold
           letterSpacing: wider
@@ -471,7 +444,7 @@
       properties:
         text: "•"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
         spacing:
           marginBlock: none
@@ -479,7 +452,7 @@
       properties:
         text: "MOTION"
         typography:
-          color: '#0d0d0d'
+          color: *color-background
           size: sm
           weight: bold
           letterSpacing: wider

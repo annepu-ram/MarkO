@@ -463,6 +463,35 @@ const yamlText = stringifyDocument(doc);  // Anchors preserved!
 - **Example:** `primary: &color-primary '#1e293b'` with `color: *color-primary`
 - Theme colors flow through YAML anchors, automatically updating all references
 
+### Themes Panel Refactoring (February 2026)
+- **Added:** `THEME_COLOR_CONFIG` exported constant — single source of truth for color keys, anchor names, and labels
+- **Changed:** Apply button moved from scrollable `panel-content` to a fixed `themesFooter` element (stays visible while scrolling)
+- **Changed:** `applyTheme()` now uses `THEME_COLOR_CONFIG` to iterate color anchors instead of hardcoded calls
+- **Changed:** `attachThemePanelEvents()` accepts both `container` and `footer` params to attach Apply button listener
+
+```javascript
+// Shared config used by themesPanel.js and potentially other modules
+export const THEME_COLOR_CONFIG = [
+    { key: 'primary', anchor: 'color-primary', label: 'Primary' },
+    { key: 'secondary', anchor: 'color-secondary', label: 'Secondary' },
+    { key: 'accent', anchor: 'color-accent', label: 'Accent' },
+    { key: 'background', anchor: 'color-background', label: 'Background' },
+];
+```
+
+**Panel HTML structure (in index.html):**
+```html
+<div class="sidebar-panel" id="themesPanel">
+    <div class="panel-header">...</div>
+    <div class="panel-content" id="themesContent">
+        <!-- Scrollable theme list -->
+    </div>
+    <div class="panel-footer" id="themesFooter">
+        <!-- Fixed Apply button rendered here by JS -->
+    </div>
+</div>
+```
+
 ### Gradient Background Support
 - **Added:** Gradient backgrounds for buttons, sections, and layout components
 - **Structure:**
@@ -1079,7 +1108,70 @@ Pre-built templates in `example_templates/` directory:
 | Template | Description |
 |----------|-------------|
 | `bookstore_template.yaml` | Full bookstore website with navigation, hero, new arrivals, second-hand books (50% off), children's hard board books, arts & crafts, testimonials, newsletter, and footer |
+| `freshchoice_template.yaml` | Patisserie/bakery/cafe website with navigation, store info bar, hero banner, shop categories (4-column grid), food items with "Add to Bag" buttons, signature cakes, beverages, about/story section, testimonials, location CTA, and footer. Uses Indian Rupee pricing. |
 
 ---
 
-**Last Updated:** February 7, 2026
+### Theme Color Swatches in Properties Panel
+- **Added:** Quick-pick theme color swatches below every `color` type field in the Properties Panel
+- **Source:** Reads current theme from `getCurrentTheme()` and iterates `THEME_COLOR_CONFIG` (imported from `themesPanel.js`)
+- **Behavior:** Clicking a swatch sets the color value and stores the YAML anchor name in `data-yaml-alias`
+- **Alias preservation:** When collecting property values, if a color field has `dataset.yamlAlias`, the alias (e.g., `*color-primary`) is preserved in YAML instead of the literal hex value
+- **Files Modified:**
+  - `propertiesPanel.js` — Imports `getCurrentTheme` and `THEME_COLOR_CONFIG` from `themesPanel.js`, renders `.color-theme-picks` row below color inputs
+  - `style.css` — Added `.color-theme-picks` and `.color-theme-pick` styles (20x20px rounded buttons with accent hover)
+
+```
+┌─────────────────────────────────────┐
+│  Color                              │
+│  [██] [#4C4637              ]       │
+│  (●)(●)(●)(●)  ← theme swatches    │
+│  Pri Sec Acc Bg                     │
+└─────────────────────────────────────┘
+```
+
+**Key code pattern (`propertiesPanel.js`):**
+```javascript
+for (const tc of THEME_COLOR_CONFIG) {
+    const color = theme.colors[tc.key];
+    pick.onclick = () => {
+        textInput.value = color;
+        swatch.style.background = color;
+        colorPicker.value = color;
+        textInput.dataset.yamlAlias = tc.anchor;  // Preserves *color-primary in YAML
+    };
+}
+```
+
+### Layout-Column Gap Property
+- **Added:** `gap` property to `layout-column` component
+- **Default:** `none` (no gap between children)
+- **Schema:** `layout.gap` field with `gapScale` tokens (none, xxs, xs, sm, md, lg, xl, xxl, xxxl)
+- **Rendering:** `build_flex_styles()` macro outputs `gap` CSS + `--layout-gap` CSS variable
+- **Files Modified:**
+  - `component_defaults.yaml` — Added `gap: none` under `layout-column.layout`
+  - `component_schemas.yaml` — Added `layout.gap` select field with `gapScale` tokens
+  - `_components.html` — `build_flex_styles()` macro reads `layout.gap`, maps to `tokens.spacing`, outputs CSS
+
+```yaml
+# Usage in YAML:
+- name: layout-column
+  properties:
+    layout:
+      gap: md           # Adds gap between child components
+      horizontalAlign: center
+```
+
+```jinja2
+{# In build_flex_styles() macro: #}
+{% set gap_token = layout.gap | default('none') %}
+{% if gap_token != 'none' %}
+    {% set gap_value = tokens.spacing[gap_token] %}
+    gap: {{ gap_value }};
+    --layout-gap: {{ gap_value }};
+{% endif %}
+```
+
+---
+
+**Last Updated:** February 8, 2026

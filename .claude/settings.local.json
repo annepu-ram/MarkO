@@ -16,7 +16,19 @@
       "Bash(git stash:*)",
       "Bash(curl:*)",
       "WebFetch(domain:www.pexels.com)",
-      "WebFetch(domain:pixabay.com)"
+      "WebFetch(domain:pixabay.com)",
+      "Bash(wc:*)",
+      "WebFetch(domain:www.paperstreet.com)",
+      "WebFetch(domain:www.perfectafternoon.com)",
+      "Bash(powershell:*)",
+      "Bash(grep:*)",
+      "Bash(for f in 02_split_screen.yaml 03_dark_mode.yaml 04_gradient_glassmorphism.yaml 05_bold_typography.yaml)",
+      "Bash(do python -c \"import yaml; yaml.safe_load\\(open\\(''$f'', ''r'', encoding=''utf-8''\\)\\)\")",
+      "Bash(echo:*)",
+      "Bash(done)",
+      "Bash(for f in 06_storytelling_narrative.yaml 08_magazine_editorial.yaml 09_card_based.yaml 10_asymmetric_creative.yaml)",
+      "Bash(timeout:*)",
+      "Bash(ls -la \"c:\\\\Users\\\\sannepu\\\\python vibe coding\\\\example_templates\\\\hero\"\" | grep -i \"08 \")"
     ],
     "deny": [],
     "ask": []

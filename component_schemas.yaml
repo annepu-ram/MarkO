@@ -52,11 +52,11 @@ page:
     fields:
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
 layout-row:
   groups:
@@ -102,27 +102,31 @@ layout-row:
       options:
       - nowrap
       - wrap
+    - path: layout.gap
+      type: select
+      label: Gap
+      tokens: gapScale
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Vertical)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Horizontal)
+      label: Margin (Left+Right)
       tokens: spacingScale
   - id: appearance
     label: Appearance
     fields:
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.background.type
       type: select
@@ -192,6 +196,9 @@ layout-row:
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
 layout-column:
   groups:
   - id: layout
@@ -209,16 +216,26 @@ layout-column:
       type: select
       label: Horizontal Align
       options:
-        - value: center
-          label: Center
-        - value: space-between
-          label: Space Between
         - value: left
           label: Left
-        - value: space-around
-          label: Space Around
+        - value: center
+          label: Center
         - value: right
           label: Right
+    - path: layout.verticalAlign
+      type: select
+      label: Vertical Align
+      options:
+        - value: top
+          label: Top
+        - value: center
+          label: Center
+        - value: bottom
+          label: Bottom
+        - value: space-between
+          label: Space Between
+        - value: space-around
+          label: Space Around
         - value: space-evenly
           label: Space Evenly
     - path: layout.wrap
@@ -227,6 +244,10 @@ layout-column:
       options:
       - nowrap
       - wrap
+    - path: layout.gap
+      type: select
+      label: Gap
+      tokens: gapScale
     - path: layout.widthMode
       type: select
       label: Width
@@ -236,22 +257,22 @@ layout-column:
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Vertical)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Horizontal)
+      label: Margin (Left+Right)
       tokens: spacingScale
   - id: appearance
     label: Appearance
     fields:
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.background.type
       type: select
@@ -321,6 +342,9 @@ layout-column:
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
 columnsgrid:
   groups:
   - id: layout
@@ -365,26 +389,29 @@ columnsgrid:
     fields:
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.shadow
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Vertical)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Horizontal)
+      label: Margin (Left+Right)
       tokens: spacingScale
 titlebar:
   groups:
@@ -612,22 +639,22 @@ heading:
       tokens: borderRadiusScale
     - path: appearance.padding.block
       type: select
-      label: Padding (Top & Bottom)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Left & Right)
+      label: Padding (Left+Right)
       tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Top & Bottom)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Left & Right)
+      label: Margin (Left+Right)
       tokens: spacingScale
 paragraph:
   groups:
@@ -728,22 +755,22 @@ paragraph:
       tokens: borderRadiusScale
     - path: appearance.padding.block
       type: select
-      label: Padding (Top & Bottom)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Left & Right)
+      label: Padding (Left+Right)
       tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Top & Bottom)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Left & Right)
+      label: Margin (Left+Right)
       tokens: spacingScale
 eyebrow:
   groups:
@@ -844,22 +871,22 @@ eyebrow:
       tokens: borderRadiusScale
     - path: appearance.padding.block
       type: select
-      label: Padding (Top & Bottom)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Left & Right)
+      label: Padding (Left+Right)
       tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Top & Bottom)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Left & Right)
+      label: Margin (Left+Right)
       tokens: spacingScale
 blockquote:
   groups:
@@ -966,26 +993,29 @@ blockquote:
       tokens: borderRadiusScale
     - path: appearance.padding.block
       type: select
-      label: Padding (Top & Bottom)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Left & Right)
+      label: Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.shadow
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Top & Bottom)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Left & Right)
+      label: Margin (Left+Right)
       tokens: spacingScale
 caption:
   groups:
@@ -1086,22 +1116,22 @@ caption:
       tokens: borderRadiusScale
     - path: appearance.padding.block
       type: select
-      label: Padding (Top & Bottom)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Left & Right)
+      label: Padding (Left+Right)
       tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Top & Bottom)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Left & Right)
+      label: Margin (Left+Right)
       tokens: spacingScale
 image:
   groups:
@@ -1121,6 +1151,16 @@ image:
       type: select
       label: Width
       tokens: widthPercentages
+    - path: layout.horizontalAlign
+      type: select
+      label: Content Align
+      options:
+        - value: left
+          label: Left
+        - value: center
+          label: Center
+        - value: right
+          label: Right
   - id: appearance
     label: Appearance
     fields:
@@ -1158,6 +1198,9 @@ image:
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
     - path: appearance.hoverEffect
       type: select
       label: Hover Effect
@@ -1167,11 +1210,11 @@ image:
       label: Lazy Load
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.overlay.enabled
       type: checkbox
@@ -1185,6 +1228,17 @@ image:
       min: 0
       max: 100
       unit: '%'
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Left+Right)
+      tokens: spacingScale
 video:
   groups:
   - id: source
@@ -1216,6 +1270,9 @@ video:
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
   - id: playback
     label: Playback
     fields:
@@ -1242,11 +1299,11 @@ video:
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Vertical)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Horizontal)
+      label: Margin (Left+Right)
       tokens: spacingScale
 gif:
   groups:
@@ -1303,6 +1360,9 @@ gif:
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
     - path: appearance.hoverEffect
       type: select
       label: Hover Effect
@@ -1312,11 +1372,11 @@ gif:
       label: Lazy Load
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.overlay.enabled
       type: checkbox
@@ -1330,6 +1390,17 @@ gif:
       min: 0
       max: 100
       unit: '%'
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Left+Right)
+      tokens: spacingScale
 textbox:
   groups:
   - id: label
@@ -1427,6 +1498,24 @@ textbox:
     - path: typography.color
       type: color
       label: Text Color
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      tokens: widthPercentages
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Left+Right)
+      tokens: spacingScale
 textarea:
   groups:
   - id: label
@@ -1515,6 +1604,24 @@ textarea:
     - path: typography.color
       type: color
       label: Text Color
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      tokens: widthPercentages
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Left+Right)
+      tokens: spacingScale
 button:
   groups:
   - id: content
@@ -1605,13 +1712,16 @@ button:
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.iconPlacement
       type: select
@@ -1620,16 +1730,23 @@ button:
       - none
       - left
       - right
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      tokens: widthPercentages
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Vertical)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Horizontal)
+      label: Margin (Left+Right)
       tokens: spacingScale
   - id: typography
     label: Typography
@@ -1902,26 +2019,29 @@ accordion:
       tokens: borderRadiusScale
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.shadow
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Vertical)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Horizontal)
+      label: Margin (Left+Right)
       tokens: spacingScale
   - id: layout
     label: Layout
@@ -2028,26 +2148,29 @@ tabs:
           label: None
     - path: appearance.content.padding.block
       type: select
-      label: Content Padding (Top & Bottom)
+      label: Content Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.content.padding.inline
       type: select
-      label: Content Padding (Left & Right)
+      label: Content Padding (Left+Right)
       tokens: spacingScale
     - path: appearance.shadow
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Top & Bottom)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Left & Right)
+      label: Margin (Left+Right)
       tokens: spacingScale
 hamburger:
   groups:
@@ -2091,11 +2214,11 @@ link:
       label: Show Arrow
     - path: appearance.padding.block
       type: select
-      label: Padding (Vertical)
+      label: Padding (Top+Bottom)
       tokens: spacingScale
     - path: appearance.padding.inline
       type: select
-      label: Padding (Horizontal)
+      label: Padding (Left+Right)
       tokens: spacingScale
   - id: typography
     label: Typography
@@ -2142,11 +2265,11 @@ link:
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Vertical)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Horizontal)
+      label: Margin (Left+Right)
       tokens: spacingScale
 form:
   groups:
@@ -2191,6 +2314,9 @@ form:
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
 carousel:
   groups:
   - id: behavior
@@ -2301,6 +2427,9 @@ carousel:
       type: select
       label: Shadow
       tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color
   - id: slides
     label: Slides
     fields:
@@ -2398,15 +2527,21 @@ video-background:
       type: select
       label: Content Padding
       tokens: spacingScale
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      tokens: widthPercentages
   - id: spacing
     label: Spacing
     fields:
     - path: spacing.marginBlock
       type: select
-      label: Margin (Top & Bottom)
+      label: Margin (Top+Bottom)
       tokens: spacingScale
     - path: spacing.marginInline
       type: select
-      label: Margin (Left & Right)
+      label: Margin (Left+Right)
       tokens: spacingScale
-

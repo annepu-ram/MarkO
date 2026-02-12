@@ -648,7 +648,7 @@
             layout: { widthMode: 50 }
         - name: layout-column
           properties:
-            layout: { align: start, horizontalAlign: space-evenly }
+            layout: { align: start, horizontalAlign: space-evenly, widthMode: "50" }
           components:
             - name: eyebrow
               properties:
@@ -774,7 +774,7 @@
       components:
         - name: layout-column
           properties:
-            layout: { align: start, horizontalAlign: space-evenly }
+            layout: { align: start, horizontalAlign: space-evenly, widthMode: "50" }
           components:
             - name: heading
               properties:
@@ -787,7 +787,7 @@
                 typography: { size: md, color: *color-background }
         - name: form
           properties:
-            layout: { direction: row, horizontalAlign: space-evenly }
+            layout: { direction: row, horizontalAlign: space-evenly, widthMode: "50" }
             submit: { show: false }
           components:
             - name: textbox
@@ -816,7 +816,7 @@
       components:
         - name: layout-column
           properties:
-            layout: { align: start, horizontalAlign: space-evenly }
+            layout: { align: start, horizontalAlign: space-evenly, widthMode: "25" }
           components:
             - name: heading
               properties:
@@ -832,7 +832,7 @@
                 typography: { size: sm, color: *color-background, lineHeight: '1.7' }
         - name: layout-column
           properties:
-            layout: { align: start, horizontalAlign: space-evenly }
+            layout: { align: start, horizontalAlign: space-evenly, widthMode: "25" }
           components:
             - name: heading
               properties:
@@ -848,7 +848,7 @@
                 typography: { size: sm, color: *color-background, lineHeight: '1.7' }
         - name: layout-column
           properties:
-            layout: { align: start, horizontalAlign: space-evenly }
+            layout: { align: start, horizontalAlign: space-evenly, widthMode: "25" }
           components:
             - name: heading
               properties:
@@ -864,7 +864,7 @@
                 typography: { size: sm, color: *color-background, lineHeight: '1.7' }
         - name: layout-column
           properties:
-            layout: { align: start, horizontalAlign: space-evenly }
+            layout: { align: start, horizontalAlign: space-evenly, widthMode: "25" }
           components:
             - name: heading
               properties:

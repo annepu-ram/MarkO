@@ -35,6 +35,7 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 | **Border radius** | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `pill` |
 | **Hover effects** | `none`, `zoom`, `lift` |
 | **Width modes** | `fit`, `25`, `50`, `75`, `stretch` |
+| **⚠️ Width mode location** | `layout.widthMode: "50"` (NOT `appearance`!) |
 
 ### Container Components (can nest other components)
 `page`, `layout-row`, `layout-column`, `columnsgrid`, `form`, `image`, `gif`, `video-background`
@@ -170,7 +171,15 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 | `dramatic` | Heavy emphasis | Hero elements, CTAs |
 | `retro` | Hard-edge brutalist (4px 4px 0 0) | Neo-brutalism, playful UI |
 
-**Components supporting shadow:** layout-row, layout-column, columnsgrid, image, gif, video, button, accordion, tabs, carousel, form, blockquote
+**Shadow Color (`appearance.shadowColor`):** Optional hex color to tint the shadow. Sets a `--shadow-rgb` CSS variable that overrides the default shadow color. When omitted, shadows use their default gray/black tones.
+
+```yaml
+appearance:
+  shadow: medium
+  shadowColor: '#6366f1'    # Purple-tinted shadow
+```
+
+**Components supporting shadow + shadowColor:** layout-row, layout-column, columnsgrid, image, gif, video, button, accordion, tabs, carousel, form, blockquote
 
 ### Text Alignment
 
@@ -184,11 +193,11 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 
 | Value | Description | Behavior |
 |-------|-------------|----------|
-| `fit` | Fit to content | Component shrinks to its natural content width |
+| `fit` | Fit to content (default for text/buttons) | Component shrinks to its natural content width |
 | `25` | 25% width | Component takes 25% of parent container width |
 | `50` | 50% width | Component takes 50% of parent container width |
 | `75` | 75% width | Component takes 75% of parent container width |
-| `stretch` | Full width (default) | Component stretches to fill available width |
+| `stretch` | Full width (default for media/containers) | Component stretches to fill available width |
 
 **Example:**
 ```yaml
@@ -285,9 +294,9 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 ```yaml
 - name: layout-row
   properties:
-    layout: { tag: section, horizontalAlign: center, verticalAlign: center, wrap: wrap }
+    layout: { tag: section, horizontalAlign: center, verticalAlign: center, wrap: wrap, gap: sm }
     spacing: { paddingBlock: md, marginBlock: lg }
-    appearance: { background: { color: '#ffffff' }, border: { width: 1, style: solid, color: '#e5e7eb' }, radius: md, shadow: none }
+    appearance: { background: { color: '#ffffff' }, border: { width: 1, style: solid, color: '#e5e7eb' }, radius: md, shadow: none, shadowColor: '' }
   components: [...]
 ```
 
@@ -297,7 +306,93 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 | `wrap` | Children wrap to next line when space insufficient |
 | `nowrap` | Children stay on single line, may squeeze or overflow |
 
-**Note:** Use `wrap: wrap` to allow children to wrap to the next line when they exceed the row width. Children with `widthMode` (25%, 50%, etc.) will respect their width and wrap correctly. For distribution-style spacing, use `horizontalAlign` with values like `space-between`, `space-evenly`, or `space-around`.
+**Gap Property (layout-row and layout-column):**
+| Value | Size |
+|-------|------|
+| `none` | No gap |
+| `xxs` | Extra extra small |
+| `xs` | Extra small |
+| `sm` | Small (default for layout-row) |
+| `md` | Medium |
+| `lg` | Large |
+| `xl` | Extra large |
+| `xxl` | Extra extra large |
+| `xxxl` | Extra extra extra large |
+
+**Note:** `layout-row` defaults to `gap: sm` so children have spacing between them. Use `gap: none` to remove spacing, or increase to `md`, `lg`, etc. for more space. Use `wrap: wrap` to allow children to wrap to the next line when they exceed the row width. Children with `widthMode` (25%, 50%, etc.) will respect their width and wrap correctly. For distribution-style spacing, use `horizontalAlign` with values like `space-between`, `space-evenly`, or `space-around`.
+
+**⚠️ CRITICAL: Preventing Horizontal Overflow in layout-row**
+
+By default, media and container components have `widthMode: stretch` which renders as `flex: 1 0 100%` (100% basis, no shrink), while text and button components default to `widthMode: fit`. When multiple media/container children are placed in a `layout-row` without explicit width modes, **each child tries to be 100% wide, causing horizontal overflow and scrollbars**.
+
+**Rule:** Always set explicit `widthMode` on children of a `layout-row` to prevent overflow. Divide 100% by the number of side-by-side children.
+
+| Children Count | widthMode per child | Use case |
+|----------------|---------------------|----------|
+| 2 side-by-side | `50` each | Split screen, two-column layouts |
+| 3 side-by-side | `33` each | Three-column cards, stats rows |
+| 4 side-by-side | `25` each | Four-column grids, award rows |
+| Variable size  | `fit` each | Navigation items, tags, badges |
+| Stacked (vertical) | `stretch` + `wrap: wrap` | Full-width rows that wrap |
+
+**⚠️ CRITICAL: Where to set widthMode**
+
+**ALL components MUST use `layout.widthMode`** - the rendering engine ONLY reads this property path.
+
+| Component Type | Correct Path | ❌ WRONG Path |
+|----------------|--------------|---------------|
+| layout-column | `layout.widthMode: "50"` | ~~`appearance.widthMode: 50`~~ |
+| layout-row | `layout.widthMode: "50"` | ~~`appearance.widthMode: 50`~~ |
+| image, gif | `layout.widthMode: "50"` | ~~`appearance.widthMode: 50`~~ |
+| text components | `layout.widthMode: "50"` | ~~`appearance.widthMode: 50`~~ |
+
+**Why:** The Jinja2 rendering engine in `_components.html` only reads `properties.layout.widthMode` (line 1455). If widthMode is under `appearance`, it defaults to `'stretch'` which causes 100% width and horizontal overflow in rows.
+
+**Examples:**
+```yaml
+# ✅ CORRECT: 3 cards side-by-side (33% each)
+- name: layout-row
+  properties:
+    layout: { horizontalAlign: space-evenly }
+  components:
+    - name: layout-column
+      properties:
+        layout: { widthMode: "33" }
+      components: [...]
+    - name: layout-column
+      properties:
+        layout: { widthMode: "33" }
+      components: [...]
+    - name: layout-column
+      properties:
+        layout: { widthMode: "33" }
+      components: [...]
+
+# ✅ CORRECT: 2 columns split screen
+- name: layout-row
+  properties:
+    layout: { horizontalAlign: space-evenly }
+  components:
+    - name: layout-column
+      properties:
+        layout: { widthMode: "50" }
+      components: [...]
+    - name: image
+      properties:
+        layout: { widthMode: "50" }
+
+# ❌ WRONG: No widthMode — causes horizontal overflow!
+- name: layout-row
+  properties:
+    layout: { horizontalAlign: space-evenly }
+  components:
+    - name: layout-column
+      components: [...]    # defaults to stretch (100%) → overflow
+    - name: layout-column
+      components: [...]    # defaults to stretch (100%) → overflow
+```
+
+**Valid widthMode values (all as strings in YAML):** `"fit"`, `"16"`, `"25"`, `"33"`, `"50"`, `"66"`, `"75"`, `"83"`, `"stretch"`. Always quote numeric values in YAML (e.g., `widthMode: "50"` not `widthMode: 50`).
 
 **layout-column** - Vertical flex
 ```yaml
@@ -378,7 +473,7 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
     quote: Great quote here
     cite: Jane Doe
     typography: { size: xl, weight: medium, color: '#111827' }
-    appearance: { border: { accentColor: '#6366f1' }, background: { color: '#ffffff' }, shadow: none }
+    appearance: { border: { accentColor: '#6366f1' }, background: { color: '#ffffff' }, shadow: none, shadowColor: '' }
 ```
 
 **Accent Color System:** The `accentColor` property flows through a CSS variable (`--blockquote-border`) to style:
@@ -405,6 +500,7 @@ Changing `accentColor` updates all four elements automatically.
       cornerStyle: md            # none, xs, sm, md, lg, xl, xxl, pill
       filter: none               # none, grayscale, sepia, blur, brighten, darken, saturate
       shadow: medium             # none, soft, medium, elevated, dramatic, retro
+      shadowColor: ''            # hex color to tint shadow (e.g. '#6366f1'), empty = default
       hoverEffect: zoom          # none, zoom, lift
       lazy: true                 # Lazy loading
       overlay:
@@ -427,6 +523,7 @@ Changing `accentColor` updates all four elements automatically.
       cornerStyle: none          # none, xs, sm, md, lg, xl, xxl, pill
       filter: none               # none, grayscale, sepia, blur, brighten, darken, saturate
       shadow: none               # none, soft, medium, elevated, dramatic, retro
+      shadowColor: ''            # hex color to tint shadow, empty = default
       overlay:
         enabled: false
         color: 'rgba(0,0,0,0.5)'
@@ -632,6 +729,7 @@ Changing `accentColor` updates all four elements automatically.
       ariaLabel: "Image carousel"
     appearance:
       shadow: none                               # none, soft, medium, elevated, dramatic, retro
+      shadowColor: ''                            # hex color to tint shadow, empty = default
     spacing: { marginBlock: lg }
   slides:                                        # ← AT COMPONENT LEVEL (not inside properties)
     - components:
@@ -978,6 +1076,7 @@ appearance:
   border: { width: 1, style: solid, color: '#ccc' }
   radius: md              # token: none, sm, md, lg, pill
   shadow: medium            # token: none, soft, medium, elevated, dramatic, retro
+  shadowColor: '#6366f1'   # hex color to tint shadow (sets --shadow-rgb CSS variable)
   padding:
     block: md             # top + bottom padding (token)
     inline: md            # left + right padding (token)
@@ -988,11 +1087,26 @@ layout:
   horizontalAlign: center # flexbox alignment or distribution (center, left, right, space-between, space-evenly, space-around)
   verticalAlign: center   # flexbox vertical alignment (layout-row only)
   wrap: wrap              # flex-wrap (wrap or nowrap)
+  gap: sm                 # spacing between children (none, xxs, xs, sm, md, lg, xl, xxl, xxxl)
 ```
 
 ---
 
 ## Property Validation
+
+**Never use empty strings for property values.** An empty string (`""` or `''`) is invalid for all properties. If you don't want to set a property, omit it entirely — the default from `component_defaults.yaml` will apply. Empty strings are treated as "not specified" by the rendering engine and will be replaced with defaults.
+
+```yaml
+# WRONG - empty strings
+level: ""
+horizontalAlign: ""
+type: ""
+
+# CORRECT - omit the property or use a valid value
+level: 2
+horizontalAlign: center
+type: solid
+```
 
 **Token-based properties are validated:**
 - Invalid spacing values (e.g., `huge` instead of `lg`) will throw errors
@@ -1141,6 +1255,22 @@ Use these patterns to create visual rhythm:
 - Default properties from `component_defaults.yaml` are merged automatically
 - Only non-default values need to be specified in YAML
 - Properties panel shows complete values (defaults + custom)
+
+### Component widthMode Defaults
+
+**Text and Form Components** (default `widthMode: fit`):
+- `heading`, `paragraph`, `eyebrow`, `caption`, `blockquote`, `link`
+- `button`, `textbox`, `textarea`
+- These components shrink to fit their content width by default
+- Use explicit `widthMode: stretch` or percentage values when full width is needed
+
+**Media and Container Components** (default `widthMode: stretch`):
+- `image`, `gif`, `video`, `video-background`
+- `layout-column`, `accordion`, `tabs`, `carousel`
+- These components stretch to fill their parent container by default
+- Use explicit `widthMode: fit` or percentage values to constrain width
+
+**Rationale:** This aligns with Figma's auto-sizing behavior where text/buttons naturally fit content while media/containers fill available space. This reduces YAML verbosity and matches designer expectations.
 
 ---
 

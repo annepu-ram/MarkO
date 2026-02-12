@@ -13,6 +13,7 @@ layout-row:
     horizontalAlign: space-evenly
     verticalAlign: stretch
     wrap: nowrap
+    gap: sm
   spacing:
     marginBlock: none
     marginInline: none
@@ -30,11 +31,14 @@ layout-row:
       color: '#000000'
     radius: none
     shadow: none
+    shadowColor: ''
 layout-column:
   layout:
     tag: section
     horizontalAlign: center
+    verticalAlign: space-between
     wrap: nowrap
+    gap: none
     widthMode: stretch
   spacing:
     marginBlock: none
@@ -53,6 +57,7 @@ layout-column:
       color: '#000000'
     radius: none
     shadow: none
+    shadowColor: ''
 columnsgrid:
   layout:
     columns: 2
@@ -67,6 +72,7 @@ columnsgrid:
       block: none
       inline: none
     shadow: none
+    shadowColor: ''
   spacing:
     marginBlock: none
     marginInline: none
@@ -133,7 +139,7 @@ heading:
     marginBlock: md
     marginInline: none
   layout:
-    widthMode: stretch
+    widthMode: fit
 paragraph:
   text: |
     Tell your story across multiple lines.
@@ -150,7 +156,7 @@ paragraph:
     marginBlock: sm
     marginInline: none
   layout:
-    widthMode: stretch
+    widthMode: fit
   appearance:
     background:
       color: '#ffffff'
@@ -175,7 +181,7 @@ eyebrow:
     marginBlock: xs
     marginInline: none
   layout:
-    widthMode: stretch
+    widthMode: fit
   appearance:
     background:
       color: '#ffffff'
@@ -200,7 +206,7 @@ caption:
     marginBlock: xs
     marginInline: none
   layout:
-    widthMode: stretch
+    widthMode: fit
   appearance:
     background:
       color: '#ffffff'
@@ -236,8 +242,9 @@ blockquote:
       block: md
       inline: md
     shadow: none
+    shadowColor: ''
   layout:
-    widthMode: stretch
+    widthMode: fit
 image:
   source:
     url: https://via.placeholder.com/150
@@ -250,6 +257,7 @@ image:
     objectPosition: center
     filter: none
     shadow: none
+    shadowColor: ''
     hoverEffect: none
     lazy: true
     overlay:
@@ -264,6 +272,7 @@ image:
     marginInline: none
   layout:
     widthMode: stretch
+    horizontalAlign: center
 video:
   source:
     url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
@@ -271,6 +280,7 @@ video:
     aspectRatio: '16/9'
     height: 400
     shadow: none
+    shadowColor: ''
   playback:
     controls: true
     autoplay: false
@@ -295,6 +305,7 @@ gif:
     objectPosition: center
     filter: none
     shadow: none
+    shadowColor: ''
     hoverEffect: none
     lazy: true
     overlay:
@@ -347,7 +358,8 @@ textbox:
   spacing:
     marginBlock: sm
     marginInline: none
-  layout: {}
+  layout:
+    widthMode: fit
 textarea:
   label:
     text: Textarea Label
@@ -384,7 +396,8 @@ textarea:
   spacing:
     marginBlock: sm
     marginInline: none
-  layout: {}
+  layout:
+    widthMode: fit
 button:
   text: Click Me
   action:
@@ -400,6 +413,7 @@ button:
       color: '#1d4ed8'
     radius: sm
     shadow: none
+    shadowColor: ''
     iconPlacement: none
     padding:
       block: sm
@@ -415,6 +429,8 @@ button:
   spacing:
     marginBlock: sm
     marginInline: xs
+  layout:
+    widthMode: fit
 dropdown:
   label:
     text: Dropdown Label
@@ -509,6 +525,7 @@ accordion:
       block: sm
       inline: sm
     shadow: none
+    shadowColor: ''
   spacing:
     marginBlock: md
     marginInline: none
@@ -545,6 +562,7 @@ tabs:
         block: md
         inline: md
     shadow: none
+    shadowColor: ''
   spacing:
     marginBlock: md
     marginInline: none
@@ -583,6 +601,8 @@ link:
   spacing:
     marginBlock: xs
     marginInline: xs
+  layout:
+    widthMode: fit
 form:
   layout:
     direction: column
@@ -592,6 +612,7 @@ form:
     show: true
   appearance:
     shadow: none
+    shadowColor: ''
 carousel:
   behavior:
     autoplay: true
@@ -617,6 +638,7 @@ carousel:
     ariaLabel: 'Image carousel'
   appearance:
     shadow: none
+    shadowColor: ''
   spacing:
     marginBlock: lg
     marginInline: none

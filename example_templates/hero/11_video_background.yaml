@@ -4,9 +4,16 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#ffffff"
+        secondary: &color-secondary "#ef4444"
+        accent: &color-accent "#fbbf24"
+        accent-dark: &color-accent-dark "#f59e0b"
+        background: &color-background "#000000"
     appearance:
       background:
-        color: '#000000'
+        color: *color-background
         transparency: 100
   components:
   # Hero with Carousel Background (simulating video)
@@ -33,6 +40,7 @@
             minHeight: 100vh
             fit: cover
             cornerStyle: none
+            hoverEffect: zoom
           layout:
             widthMode: stretch
           spacing:
@@ -57,12 +65,24 @@
               layout:
                 align: center
                 horizontalAlign: space-evenly
+              appearance:
+                background:
+                  color: rgba(239,68,68,0.15)
+                  transparency: 100
+                radius: pill
+                border:
+                  width: 1
+                  style: solid
+                  color: rgba(239,68,68,0.3)
+                padding:
+                  block: xs
+                  inline: md
             components:
             - name: paragraph
               properties:
                 text: "●"
                 typography:
-                  color: '#ef4444'
+                  color: *color-secondary
                   size: sm
                 spacing:
                   marginBlock: none
@@ -70,7 +90,7 @@
               properties:
                 text: "LIVE EVENT"
                 typography:
-                  color: '#ffffff'
+                  color: *color-primary
                   size: xs
                   weight: bold
                   letterSpacing: wider
@@ -83,7 +103,7 @@
               text: "ELECTRIC NIGHTS"
               level: 1
               typography:
-                color: '#ffffff'
+                color: *color-primary
                 size: xxxl
                 weight: bold
                 align: center
@@ -92,10 +112,10 @@
                 marginBlock: none
           - name: heading
             properties:
-              text: "FESTIVAL 2025"
+              text: "FESTIVAL 2026"
               level: 2
               typography:
-                color: '#fbbf24'
+                color: *color-accent
                 size: xxl
                 weight: bold
                 align: center
@@ -128,8 +148,11 @@
                 text: "Get Tickets"
                 appearance:
                   background:
-                    color: '#fbbf24'
-                    transparency: 100
+                    type: gradient
+                    gradient:
+                      colorStart: *color-accent
+                      colorEnd: *color-accent-dark
+                      direction: to right
                   border:
                     width: 0
                     style: solid
@@ -137,8 +160,10 @@
                   padding:
                     block: md
                     inline: xl
+                  shadow: medium
+                  shadowColor: *color-accent
                 typography:
-                  color: '#000000'
+                  color: *color-background
                   weight: bold
                   size: md
                 spacing:
@@ -153,12 +178,12 @@
                   border:
                     width: 2
                     style: solid
-                    color: '#ffffff'
+                    color: *color-primary
                   padding:
                     block: md
                     inline: xl
                 typography:
-                  color: '#ffffff'
+                  color: *color-primary
                   weight: semibold
                   size: md
                 spacing:
@@ -177,13 +202,14 @@
                 layout:
                   align: center
                   horizontalAlign: space-evenly
+                appearance:
               components:
               - name: heading
                 properties:
                   text: "127"
                   level: 2
                   typography:
-                    color: '#ffffff'
+                    color: *color-primary
                     size: xxl
                     weight: bold
                     align: center
@@ -203,23 +229,25 @@
               properties:
                 text: ":"
                 typography:
-                  color: '#fbbf24'
+                  color: *color-accent
                   size: xxl
                   weight: bold
                 spacing:
                   marginBlock: none
+                layout:
             - name: layout-column
               properties:
                 layout:
                   align: center
                   horizontalAlign: space-evenly
+                appearance:
               components:
               - name: heading
                 properties:
                   text: "14"
                   level: 2
                   typography:
-                    color: '#ffffff'
+                    color: *color-primary
                     size: xxl
                     weight: bold
                     align: center
@@ -239,23 +267,25 @@
               properties:
                 text: ":"
                 typography:
-                  color: '#fbbf24'
+                  color: *color-accent
                   size: xxl
                   weight: bold
                 spacing:
                   marginBlock: none
+                layout:
             - name: layout-column
               properties:
                 layout:
                   align: center
                   horizontalAlign: space-evenly
+                appearance:
               components:
               - name: heading
                 properties:
                   text: "32"
                   level: 2
                   typography:
-                    color: '#ffffff'
+                    color: *color-primary
                     size: xxl
                     weight: bold
                     align: center
@@ -281,6 +311,7 @@
             minHeight: 100vh
             fit: cover
             cornerStyle: none
+            hoverEffect: zoom
           layout:
             widthMode: stretch
           spacing:
@@ -309,7 +340,7 @@
               properties:
                 text: "●"
                 typography:
-                  color: '#ef4444'
+                  color: *color-secondary
                   size: sm
                 spacing:
                   marginBlock: none
@@ -317,7 +348,7 @@
               properties:
                 text: "LIVE EVENT"
                 typography:
-                  color: '#ffffff'
+                  color: *color-primary
                   size: xs
                   weight: bold
                   letterSpacing: wider
@@ -329,7 +360,7 @@
               text: "ELECTRIC NIGHTS"
               level: 1
               typography:
-                color: '#ffffff'
+                color: *color-primary
                 size: xxxl
                 weight: bold
                 align: center
@@ -338,10 +369,10 @@
                 marginBlock: none
           - name: heading
             properties:
-              text: "FESTIVAL 2025"
+              text: "FESTIVAL 2026"
               level: 2
               typography:
-                color: '#fbbf24'
+                color: *color-accent
                 size: xxl
                 weight: bold
                 align: center

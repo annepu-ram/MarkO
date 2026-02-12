@@ -82,8 +82,8 @@ image_filters:
 
 shadows:
   none: 'none'
-  soft: '0 2px 8px -2px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.06)'
-  medium: '0 4px 12px -2px rgba(0,0,0,0.12), 0 2px 6px -2px rgba(0,0,0,0.08)'
-  elevated: '0 12px 24px -4px rgba(0,0,0,0.15), 0 4px 8px -2px rgba(0,0,0,0.1)'
-  dramatic: '0 20px 40px -8px rgba(0,0,0,0.25), 0 8px 16px -4px rgba(0,0,0,0.15)'
-  retro: '4px 4px 0 0 #1e293b'
+  soft: 'rgb(var(--shadow-rgb, 60 64 67) / 0.3) 0px 1px 2px 0px, rgb(var(--shadow-rgb, 60 64 67) / 0.15) 0px 1px 3px 1px'
+  medium: 'rgb(var(--shadow-rgb, 0 0 0) / 0.12) 0px 4px 12px -2px, rgb(var(--shadow-rgb, 0 0 0) / 0.08) 0px 2px 6px -2px'
+  elevated: 'rgb(var(--shadow-rgb, 0 0 0) / 0.15) 0px 12px 24px -4px, rgb(var(--shadow-rgb, 0 0 0) / 0.1) 0px 4px 8px -2px'
+  dramatic: 'rgb(var(--shadow-rgb, 0 0 0) / 0.25) 0px 20px 40px -8px, rgb(var(--shadow-rgb, 0 0 0) / 0.15) 0px 8px 16px -4px'
+  retro: '4px 4px 0 0 rgb(var(--shadow-rgb, 30 41 59))'

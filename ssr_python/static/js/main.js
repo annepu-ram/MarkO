@@ -3,7 +3,7 @@ import { renderPreview } from './ssr_app.js';
 import { SelectionManager } from './selectionManager.js';
 import { loadMetadata, getComponentDefaults } from './metadataLoader.js';
 import { renderPropertiesPanel, clearPropertiesPanel, collectPropertyValues, getActiveComponentInfo } from './propertiesPanel.js';
-import { getYamlStructureFromEditor, getYamlDocumentFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, generateYamlFromDocument, updateYamlEditor, updateComponentPropertiesInDocument, navigateToComponent } from './yamlUtils.js';
+import { getYamlStructureFromEditor, getYamlDocumentFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, generateYamlFromDocument, updateYamlEditor, updateComponentPropertiesInDocument, navigateToComponent, replacePropertiesWithAliases } from './yamlUtils.js';
 import { historyManager } from './historyManager.js';
 import { loadSvgSprite } from './sprite.js';
 import { deepMerge } from './utils/object.js';
@@ -234,6 +234,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Use Document API to update properties while preserving anchors
             // This modifies the document in place
             updateComponentPropertiesInDocument(yamlDoc, activeInfo.path, collectedValues.properties);
+
+            // Replace tagged color values with YAML aliases (theme swatch selections)
+            if (collectedValues.aliases && Object.keys(collectedValues.aliases).length > 0) {
+                replacePropertiesWithAliases(yamlDoc, activeInfo.path, collectedValues.aliases);
+            }
 
             // Handle component-level updates (tabs, items, etc.) separately
             // These are typically arrays that need full replacement

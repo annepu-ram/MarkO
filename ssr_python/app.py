@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from renderer import render_yaml_structure, transparency_to_hex
+from renderer import render_yaml_structure, transparency_to_hex, hex_to_rgb
 import yaml
 import os
 import random
@@ -14,6 +14,7 @@ app = Flask(__name__)
 
 # Register custom Jinja2 filters (defined in renderer.py)
 app.template_filter('transparency_to_hex')(transparency_to_hex)
+app.template_filter('hex_to_rgb')(hex_to_rgb)
 
 # Get the directory where this app.py file is located
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

@@ -1,6 +1,17 @@
 import { getComponentSchema, getComponentDefaults, getSchemaTokens } from './metadataLoader.js';
 import { deepClone, deepMerge, getNestedValue, setNestedValue } from './utils/object.js';
 import { customRenderers } from './customRenderers.js';
+import { getCurrentTheme, THEME_COLOR_CONFIG } from './themesPanel.js';
+
+// Consistent empty-state markup (matches index.html initial state)
+const NO_SELECTION_HTML = `
+    <div class="no-selection">
+        <div class="no-selection-icon">
+            <svg aria-hidden="true"><use href="#icon-layers"></use></svg>
+        </div>
+        <div class="no-selection-text">No component selected</div>
+        <div class="no-selection-hint">Click a component in the preview to edit its properties</div>
+    </div>`;
 
 // Map group IDs to icons for accordion sections (matching wireframe)
 const sectionIcons = {
@@ -397,7 +408,7 @@ const renderColorInputWithSwatch = ({ field, value, fieldId }) => {
     const container = document.createElement('div');
     container.className = 'color-input-row';
 
-    // Color swatch
+    // Color swatch (positioned relative for color picker overlay)
     const swatch = document.createElement('div');
     swatch.className = 'color-input-swatch';
     let hexValue = value || '#000000';
@@ -412,11 +423,14 @@ const renderColorInputWithSwatch = ({ field, value, fieldId }) => {
     }
     swatch.style.background = hexValue;
 
-    // Hidden color picker
+    // Color picker overlaid on swatch (positioned so dialog opens near it)
     const colorPicker = document.createElement('input');
     colorPicker.type = 'color';
-    colorPicker.style.display = 'none';
+    colorPicker.className = 'color-picker-overlay';
     colorPicker.value = hexValue;
+
+    // Place color picker inside swatch so dialog anchors to it
+    swatch.appendChild(colorPicker);
 
     // Text input
     const textInput = document.createElement('input');
@@ -424,18 +438,19 @@ const renderColorInputWithSwatch = ({ field, value, fieldId }) => {
     textInput.id = fieldId;
     textInput.className = 'prop-input';
     textInput.value = hexValue;
-
-    // Sync swatch click -> color picker
-    swatch.onclick = () => colorPicker.click();
+    textInput.spellcheck = false;
+    textInput.autocomplete = 'off';
 
     // Sync color picker -> text + swatch
     colorPicker.oninput = (e) => {
+        delete textInput.dataset.yamlAlias;
         textInput.value = e.target.value;
         swatch.style.background = e.target.value;
     };
 
     // Sync text input -> swatch
     textInput.oninput = (e) => {
+        delete textInput.dataset.yamlAlias;
         if (/^#[0-9A-Fa-f]{6}$/.test(e.target.value)) {
             swatch.style.background = e.target.value;
             colorPicker.value = e.target.value;
@@ -443,8 +458,40 @@ const renderColorInputWithSwatch = ({ field, value, fieldId }) => {
     };
 
     container.appendChild(swatch);
-    container.appendChild(colorPicker);
     container.appendChild(textInput);
+
+    // Theme color quick-pick swatches
+    try {
+        const theme = getCurrentTheme();
+        if (theme && theme.colors) {
+            const themeRow = document.createElement('div');
+            themeRow.className = 'color-theme-picks';
+
+            for (const tc of THEME_COLOR_CONFIG) {
+                const color = theme.colors[tc.key];
+                if (!color) continue;
+
+                const pick = document.createElement('button');
+                pick.type = 'button';
+                pick.className = 'color-theme-pick';
+                pick.style.background = color;
+                pick.title = `${tc.label}: ${color}`;
+                pick.onclick = () => {
+                    textInput.value = color;
+                    swatch.style.background = color;
+                    colorPicker.value = color;
+                    textInput.dataset.yamlAlias = tc.anchor;
+                };
+                themeRow.appendChild(pick);
+            }
+
+            if (themeRow.children.length > 0) {
+                container.appendChild(themeRow);
+            }
+        }
+    } catch (err) {
+        console.warn('[Props] Theme swatches error:', err);
+    }
 
     return container;
 };
@@ -528,7 +575,7 @@ export function renderPropertiesPanel(component, componentId, path) {
     updatePropertiesHeader(component);
 
     if (!component || !componentId) {
-        propertiesContent.innerHTML = '<p class="properties-empty-state">Select a component to edit.</p>';
+        propertiesContent.innerHTML = NO_SELECTION_HTML;
         updatePropertiesHeader(null);  // Hide header when no component
         return;
     }
@@ -711,7 +758,7 @@ export function renderPropertiesPanel(component, componentId, path) {
 export function clearPropertiesPanel() {
     const propertiesContent = document.getElementById('propertiesContent');
     if (propertiesContent) {
-        propertiesContent.innerHTML = '<p class="properties-empty-state">Select a component to edit.</p>';
+        propertiesContent.innerHTML = NO_SELECTION_HTML;
     }
     // Hide the properties header
     updatePropertiesHeader(null);
@@ -740,6 +787,7 @@ export function collectPropertyValues() {
     // Separate objects for component-level and properties-level updates
     const updatedProperties = {};
     const componentUpdates = {};
+    const aliases = {};
 
     activeFieldMeta.forEach((meta, fieldPath) => {
         const { field, target, defaultValue, customSerializer, isTokenPills } = meta;
@@ -773,6 +821,11 @@ export function collectPropertyValues() {
 
         if (!control) {
             return;
+        }
+
+        // Collect alias info for color fields with theme swatch selection
+        if (field.type === 'color' && control.dataset?.yamlAlias) {
+            aliases[fieldPath] = control.dataset.yamlAlias;
         }
 
         // Handle token pills - get value from active pill
@@ -812,7 +865,8 @@ export function collectPropertyValues() {
 
     return {
         properties: updatedProperties,
-        component: componentUpdates
+        component: componentUpdates,
+        aliases
     };
 }
 

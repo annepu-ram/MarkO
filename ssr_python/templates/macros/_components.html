@@ -12,9 +12,9 @@
     {% if name == 'page' %}
         {{ render_page(component, tokens, path, component_id) }}
     {% elif name == 'layout-row' %}
-        {{ render_layout_row(component, tokens, path, component_id) }}
+        {{ render_layout_row(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'layout-column' %}
-        {{ render_layout_column(component, tokens, path, component_id) }}
+        {{ render_layout_column(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'columnsgrid' %}
         {{ render_columnsgrid(component, tokens, path, component_id) }}
     {% elif name == 'form' %}
@@ -183,13 +183,13 @@
     </div>
 {% endmacro %}
 
-{% macro render_layout_row(component, tokens, path, component_id) %}
+{% macro render_layout_row(component, tokens, path, component_id, parent_direction='row') %}
     {% set properties = component.properties | default({}) %}
     {% set layout_props = properties.layout | default({}) %}
     {% set tag = layout_props.tag | default('section') %}
-    
-    {# Outer wrapper styles: box model properties #}
-    {% set outer_styles = build_styles(component, tokens, part='outer') %}
+
+    {# Outer wrapper styles: box model properties (pass parent_direction so width mode uses correct context) #}
+    {% set outer_styles = build_styles(component, tokens, part='outer', layout_direction=parent_direction) %}
     
     {# Inner wrapper styles: flex layout properties #}
     {% set inner_styles = build_flex_styles(component, tokens, 'row') %}
@@ -204,7 +204,7 @@
     </{{ tag }}>
 {% endmacro %}
 
-{% macro render_layout_column(component, tokens, path, component_id) %}
+{% macro render_layout_column(component, tokens, path, component_id, parent_direction='row') %}
     {% set properties = component.properties | default({}) %}
     {% set layout_props = properties.layout | default({}) %}
     {% set spacing_props = properties.spacing | default({}) %}
@@ -218,8 +218,8 @@
         {% set margin_inline_value = tokens.spacing[margin_inline_token] %}
     {% endif %}
 
-    {# Outer wrapper styles: box model properties #}
-    {% set outer_styles = build_styles(component, tokens, part='outer') %}
+    {# Outer wrapper styles: box model properties (pass parent_direction so width mode uses correct context) #}
+    {% set outer_styles = build_styles(component, tokens, part='outer', layout_direction=parent_direction) %}
 
     {# Add CSS variable for margin-aware width calculation #}
     {% set outer_styles = outer_styles ~ ' --margin-inline: ' ~ margin_inline_value ~ ';' %}
@@ -263,7 +263,8 @@
                 {% set column = columns[col_index] if col_index < columns | length else {} %}
                 {% set column_components = column.components | default([]) %}
 
-                <div class="columnsgrid__col" style="position: relative; flex: 1 1 0; min-width: 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column;">
+                {% set col_justify = 'space-between' if v_align == 'stretch' else v_align_css %}
+                <div class="columnsgrid__col" style="position: relative; flex: 1 1 0; min-width: 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: {{ col_justify }};">
                     <div class="column-label">Col {{ col_index + 1 }}</div>
                     
                     {% if column_components | length > 0 %}
@@ -359,7 +360,7 @@
     {% set size = typo.size | default('sm') %}
     {% set color = typo.color | default('#666666') %}
     {% set align = typo.align | default('center') %}
-    {% set size_value = tokens.typography_sizes[size] if tokens.typography_sizes and size in tokens.typography_sizes else '0.875rem' %}
+    {% set size_value = 'var(--font-size-' ~ size ~ ')' %}
     <figcaption class="media-caption" style="font-size: {{ size_value }}; color: {{ color }}; text-align: {{ align }}; padding: 0.5rem 0;">
         {{ caption_props.text }}
     </figcaption>
@@ -376,6 +377,11 @@
 
     {# Width mode for responsive CSS (used as data attribute) #}
     {% set width_mode = layout.widthMode | default('stretch') %}
+
+    {# Horizontal alignment for child content #}
+    {% set h_align = layout.horizontalAlign | default('center') %}
+    {% set h_align_map = {'left': 'flex-start', 'center': 'center', 'right': 'flex-end'} %}
+    {% set h_align_css = h_align_map[h_align] | default('center') %}
 
     {# Width handling moved to CSS via data-width-mode attribute #}
     {# No inline width styles - CSS handles both row and column contexts #}
@@ -395,16 +401,9 @@
     {% set max_has_unit = 'vh' in max_height_str or 'px' in max_height_str or 'em' in max_height_str or '%' in max_height_str %}
     {% set max_height_css = max_height_str if max_has_unit else (max_height_raw ~ 'rem') %}
 
-    {% if has_children %}
-        {% set height_style = 'height: auto;' %}
-        {% if max_height_raw and max_height_raw != 0 %}
-            {% set height_style = height_style ~ ' max-height: ' ~ max_height_css ~ ';' %}
-        {% endif %}
-    {% else %}
-        {% set height_style = 'min-height: ' ~ min_height_css ~ ';' %}
-        {% if max_height_raw and max_height_raw != 0 %}
-            {% set height_style = height_style ~ ' max-height: ' ~ max_height_css ~ ';' %}
-        {% endif %}
+    {% set height_style = 'min-height: ' ~ min_height_css ~ ';' %}
+    {% if max_height_raw and max_height_raw != 0 %}
+        {% set height_style = height_style ~ ' max-height: ' ~ max_height_css ~ ';' %}
     {% endif %}
 
     {# Object position #}
@@ -423,6 +422,9 @@
     {% set shadow_style = '' %}
     {% if shadow_value != 'none' and tokens.shadows and shadow_value in tokens.shadows %}
         {% set shadow_style = 'box-shadow: ' ~ tokens.shadows[shadow_value] ~ ';' %}
+    {% endif %}
+    {% if appearance.shadowColor %}
+        {% set shadow_style = '--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ '; ' ~ shadow_style %}
     {% endif %}
 
     {# Corner style / border radius #}
@@ -467,7 +469,7 @@
 
         {# Content: relative positioned, can push container height beyond min-height #}
         {% if has_children %}
-            <div class="image-content" style="position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word; padding: 1rem;">
+            <div class="image-content" style="position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: {{ h_align_css }}; width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word; padding: 1rem;">
                 {% for child in component.components | default([]) %}
                     {% set child_path = path + ['components', loop.index0] %}
                     {{ render_component(child, tokens, child_path) }}
@@ -536,6 +538,9 @@
     {% set shadow_style = '' %}
     {% if shadow_value != 'none' and tokens.shadows and shadow_value in tokens.shadows %}
         {% set shadow_style = 'box-shadow: ' ~ tokens.shadows[shadow_value] ~ ';' %}
+    {% endif %}
+    {% if appearance.shadowColor %}
+        {% set shadow_style = '--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ '; ' ~ shadow_style %}
     {% endif %}
 
     <figure class="gif-container chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ styles }} position: relative; {{ shadow_style }} {{ radius_style }}">
@@ -676,7 +681,7 @@
             {% set title = typo.title %}
             {% if title.size %}
                 {% if tokens and tokens.typography_sizes and title.size in tokens.typography_sizes %}
-                    {% set _ = vars.append('--title-font-size: ' ~ tokens.typography_sizes[title.size] ~ ';') %}
+                    {% set _ = vars.append('--title-font-size: var(--font-size-' ~ title.size ~ ');') %}
                 {% else %}
                     {# Assume numeric value in px #}
                     {% set _ = vars.append('--title-font-size: ' ~ title.size ~ 'px;') %}
@@ -702,7 +707,7 @@
             {% set menu = typo.menu %}
             {% if menu.size %}
                 {% if tokens and tokens.typography_sizes and menu.size in tokens.typography_sizes %}
-                    {% set _ = vars.append('--menu-font-size: ' ~ tokens.typography_sizes[menu.size] ~ ';') %}
+                    {% set _ = vars.append('--menu-font-size: var(--font-size-' ~ menu.size ~ ');') %}
                 {% else %}
                     {# Assume numeric value in px #}
                     {% set _ = vars.append('--menu-font-size: ' ~ menu.size ~ 'px;') %}
@@ -1055,6 +1060,9 @@
     {% if props.appearance and props.appearance.shadow and props.appearance.shadow != 'none' and tokens and tokens.shadows and props.appearance.shadow in tokens.shadows %}
         {% set _ = vars.append('box-shadow: ' ~ tokens.shadows[props.appearance.shadow] ~ ';') %}
     {% endif %}
+    {% if props.appearance and props.appearance.shadowColor %}
+        {% set _ = vars.append('--shadow-rgb: ' ~ (props.appearance.shadowColor | hex_to_rgb) ~ ';') %}
+    {% endif %}
 
     {{ vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
 {%- endmacro %}
@@ -1078,7 +1086,7 @@
     {% if props.typography and props.typography.title %}
         {% set title = props.typography.title %}
         {% if title.size and tokens and tokens.typography_sizes and title.size in tokens.typography_sizes %}
-            {% set _ = vars.append('--accordion-title-font-size: ' ~ tokens.typography_sizes[title.size] ~ ';') %}
+            {% set _ = vars.append('--accordion-title-font-size: var(--font-size-' ~ title.size ~ ');') %}
         {% endif %}
         {% if title.weight and tokens and tokens.font_weights and title.weight in tokens.font_weights %}
             {% set _ = vars.append('--accordion-title-font-weight: ' ~ tokens.font_weights[title.weight] ~ ';') %}
@@ -1092,7 +1100,7 @@
     {% if props.typography and props.typography.content %}
         {% set content_typo = props.typography.content %}
         {% if content_typo.size and tokens and tokens.typography_sizes and content_typo.size in tokens.typography_sizes %}
-            {% set _ = vars.append('--accordion-content-font-size: ' ~ tokens.typography_sizes[content_typo.size] ~ ';') %}
+            {% set _ = vars.append('--accordion-content-font-size: var(--font-size-' ~ content_typo.size ~ ');') %}
         {% endif %}
         {% if content_typo.weight and tokens and tokens.font_weights and content_typo.weight in tokens.font_weights %}
             {% set _ = vars.append('--accordion-content-font-weight: ' ~ tokens.font_weights[content_typo.weight] ~ ';') %}
@@ -1152,6 +1160,9 @@
         {% if appearance.shadow and appearance.shadow != 'none' and tokens and tokens.shadows and appearance.shadow in tokens.shadows %}
             {% set _ = vars.append('box-shadow: ' ~ tokens.shadows[appearance.shadow] ~ ';') %}
         {% endif %}
+        {% if appearance.shadowColor %}
+            {% set _ = vars.append('--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ ';') %}
+        {% endif %}
     {% endif %}
 
     {{ vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
@@ -1166,11 +1177,11 @@
     {# --- Sub-part specific styling (for complex components) --- #}
     {% if part == 'accordion_title' %}
         {% set typo = props.typography.title | default({}) if props.typography else {} %}
-        {% if typo.size and tokens and tokens.typography_sizes and typo.size in tokens.typography_sizes %}{% set _ = styles.append('font-size: ' ~ tokens.typography_sizes[typo.size] ~ ';') %}{% endif %}
+        {% if typo.size and tokens and tokens.typography_sizes and typo.size in tokens.typography_sizes %}{% set _ = styles.append('font-size: var(--font-size-' ~ typo.size ~ ');') %}{% endif %}
         {% if typo.weight and tokens and tokens.font_weights and typo.weight in tokens.font_weights %}{% set _ = styles.append('font-weight: ' ~ tokens.font_weights[typo.weight] ~ ';') %}{% endif %}
     {% elif part == 'accordion_content' %}
         {% set typo = props.typography.content | default({}) if props.typography else {} %}
-        {% if typo.size and tokens and tokens.typography_sizes and typo.size in tokens.typography_sizes %}{% set _ = styles.append('font-size: ' ~ tokens.typography_sizes[typo.size] ~ ';') %}{% endif %}
+        {% if typo.size and tokens and tokens.typography_sizes and typo.size in tokens.typography_sizes %}{% set _ = styles.append('font-size: var(--font-size-' ~ typo.size ~ ');') %}{% endif %}
         {% if typo.weight and tokens and tokens.font_weights and typo.weight in tokens.font_weights %}{% set _ = styles.append('font-weight: ' ~ tokens.font_weights[typo.weight] ~ ';') %}{% endif %}
     {% endif %}
 
@@ -1192,13 +1203,19 @@
             {% if layout.wrap %}{% set _ = styles.append('flex-wrap: ' ~ layout.wrap ~ ';') %}{% endif %}
         {% endif %}
 
-        {# Columnsgrid specific properties #}
-        {% if component.name == 'columnsgrid' %}
-             {% set _ = styles.append('--cols: ' ~ (layout.columns | default(2)) ~ ';') %}
-             {% if props.responsive and props.responsive.breakpoints %}
-                {% if props.responsive.breakpoints.md %}{% set _ = styles.append('--cols-md: ' ~ props.responsive.breakpoints.md ~ ';') %}{% endif %}
-                {% if props.responsive.breakpoints.sm %}{% set _ = styles.append('--cols-sm: ' ~ props.responsive.breakpoints.sm ~ ';') %}{% endif %}
-             {% endif %}
+    {% endif %}
+
+    {# Columnsgrid CSS variables — must run even for part='outer' since they cascade to children #}
+    {% if component.name == 'columnsgrid' and props.layout %}
+        {% set layout = props.layout %}
+        {% set _ = styles.append('--cols: ' ~ (layout.columns | default(2)) ~ ';') %}
+        {% set cg_gap_token = layout.gap | default('md') %}
+        {% if tokens and tokens.spacing and cg_gap_token in tokens.spacing %}
+            {% set _ = styles.append('--columnsgrid-gap: ' ~ tokens.spacing[cg_gap_token] ~ ';') %}
+        {% endif %}
+        {% if props.responsive and props.responsive.breakpoints %}
+            {% if props.responsive.breakpoints.md %}{% set _ = styles.append('--cols-md: ' ~ props.responsive.breakpoints.md ~ ';') %}{% endif %}
+            {% if props.responsive.breakpoints.sm %}{% set _ = styles.append('--cols-sm: ' ~ props.responsive.breakpoints.sm ~ ';') %}{% endif %}
         {% endif %}
     {% endif %}
 
@@ -1252,6 +1269,14 @@
                 {% set color_end = bg.gradient.colorEnd | default('#000000') %}
                 {% set _ = styles.append('background-image: linear-gradient(' ~ direction ~ ', ' ~ color_start ~ ', ' ~ color_end ~ ');') %}
             {% endif %}
+
+            {# Add background image if URL is provided #}
+            {% if bg.image %}
+                {% set _ = styles.append('background-image: url(' ~ bg.image ~ ');') %}
+                {% set _ = styles.append('background-size: cover;') %}
+                {% set _ = styles.append('background-position: center;') %}
+                {% set _ = styles.append('background-repeat: no-repeat;') %}
+            {% endif %}
         {% endif %}
         {% if appearance.border %}
             {% set border = appearance.border %}
@@ -1267,6 +1292,8 @@
         {% endif %}
         {% if appearance.radius and tokens and tokens.border_radius and appearance.radius in tokens.border_radius %}{% set _ = styles.append('border-radius: ' ~ tokens.border_radius[appearance.radius] ~ ';') %}{% endif %}
         {% if appearance.shadow and appearance.shadow != 'none' and tokens and tokens.shadows and appearance.shadow in tokens.shadows %}{% set _ = styles.append('box-shadow: ' ~ tokens.shadows[appearance.shadow] ~ ';') %}{% endif %}
+        {% if appearance.shadowColor %}{% set _ = styles.append('--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ ';') %}{% endif %}
+        {% if appearance.backdropBlur and appearance.backdropBlur != 'none' %}{% set _ = styles.append('backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px); -webkit-backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px);') %}{% endif %}
         {# Handle appearance padding (for older YAML structures) #}
         {% if appearance.padding %}
             {% set padding = appearance.padding %}
@@ -1288,7 +1315,7 @@
     {# Typography #}
     {% if props.typography and not part %} {# Avoid re-applying if already handled in sub-part #}
         {% set typo = props.typography %}
-        {% if typo.size and tokens and tokens.typography_sizes and typo.size in tokens.typography_sizes %}{% set _ = styles.append('font-size: ' ~ tokens.typography_sizes[typo.size] ~ ';') %}{% endif %}
+        {% if typo.size and tokens and tokens.typography_sizes and typo.size in tokens.typography_sizes %}{% set _ = styles.append('font-size: var(--font-size-' ~ typo.size ~ ');') %}{% endif %}
         {% if typo.weight and tokens and tokens.font_weights and typo.weight in tokens.font_weights %}{% set _ = styles.append('font-weight: ' ~ tokens.font_weights[typo.weight] ~ ';') %}{% endif %}
         {% if typo.color %}{% set _ = styles.append('color: ' ~ typo.color ~ ';') %}{% endif %}
         {% if typo.align %}{% set _ = styles.append('text-align: ' ~ typo.align ~ ';') %}{% endif %}
@@ -1300,7 +1327,7 @@
     
     {# Width Mode Support for Text Components #}
     {% if component.name in ['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote', 'link'] %}
-        {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
+        {% set width_mode = props.layout.widthMode | default('fit') if props.layout else 'fit' %}
         {% set _ = styles.append('display: inline-block;') %}
         {% set _ = styles.append('box-sizing: border-box;') %}
 
@@ -1511,7 +1538,7 @@
         'space-around': 'space-around',
         'space-evenly': 'space-evenly'
     } %}
-    {% set v_align_css = {'top': 'flex-start', 'center': 'center', 'bottom': 'flex-end', 'stretch': 'stretch', 'baseline': 'baseline'} %}
+    {% set v_align_css = {'top': 'flex-start', 'center': 'center', 'bottom': 'flex-end', 'stretch': 'stretch', 'baseline': 'baseline', 'space-between': 'space-between', 'space-around': 'space-around', 'space-evenly': 'space-evenly'} %}
 
     {% if orientation == 'row' %}
         {# Row: horizontalAlign → justify-content, verticalAlign → align-items #}
@@ -1527,15 +1554,24 @@
         {% set v_align = layout.verticalAlign | default('stretch') %}
         {% set _ = styles.append('align-items: ' ~ v_align_css.get(v_align, 'stretch') ~ ';') %}
     {% else %}
-        {# Column: horizontalAlign → justify-content (for vertical distribution), align-items from horizontalAlign for cross-axis #}
+        {# Column: horizontalAlign → align-items (cross-axis), verticalAlign → justify-content (main-axis) #}
         {% set h_align = layout.horizontalAlign | default('center') %}
-        {% set _ = styles.append('justify-content: ' ~ h_align_css.get(h_align, h_align) ~ ';') %}
+        {% set v_align = layout.verticalAlign | default('space-between') %}
         {% set _ = styles.append('align-items: ' ~ h_align_css.get(h_align, 'center') ~ ';') %}
+        {% set _ = styles.append('justify-content: ' ~ v_align_css.get(v_align, 'space-between') ~ ';') %}
     {% endif %}
     
     {# Flex wrap #}
     {% set wrap = layout.wrap | default('nowrap') %}
     {% set _ = styles.append('flex-wrap: ' ~ wrap ~ ';') %}
+
+    {# Gap between children #}
+    {% set gap_token = layout.gap | default('none') %}
+    {% if gap_token != 'none' %}
+        {% set gap_value = tokens.spacing[gap_token] if tokens and tokens.spacing and gap_token in tokens.spacing else '0' %}
+        {% set _ = styles.append('gap: ' ~ gap_value ~ ';') %}
+        {% set _ = styles.append('--layout-gap: ' ~ gap_value ~ ';') %}
+    {% endif %}
 
     {{ styles | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
 {%- endmacro %}

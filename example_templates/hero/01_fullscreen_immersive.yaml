@@ -4,9 +4,15 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#ffffff"
+        secondary: &color-secondary "#0a0a0a"
+        accent: &color-accent "#ffffff"
+        background: &color-background "#0a0a0a"
     appearance:
       background:
-        color: '#0a0a0a'
+        color: *color-background
         transparency: 100
   components:
   # Full-Screen Hero with Centered Content
@@ -19,6 +25,7 @@
         minHeight: 100vh
         fit: cover
         cornerStyle: none
+        hoverEffect: zoom
       spacing:
         marginBlock: none
         marginInline: none
@@ -50,7 +57,7 @@
           properties:
             text: "DISCOVER THE EXTRAORDINARY"
             typography:
-              color: '#ffffff'
+              color: *color-primary
               size: xs
               weight: medium
               letterSpacing: wider
@@ -62,6 +69,7 @@
                 color: rgba(255,255,255,0.15)
                 transparency: 100
               radius: pill
+              shadow: medium
               padding:
                 block: xs
                 inline: md
@@ -72,7 +80,7 @@
           text: "Explore Beyond Horizons"
           level: 1
           typography:
-            color: '#ffffff'
+            color: *color-primary
             size: xxxl
             weight: bold
             align: center
@@ -114,7 +122,7 @@
             text: Start Your Journey
             appearance:
               background:
-                color: '#ffffff'
+                color: *color-accent
                 transparency: 100
               border:
                 width: 0
@@ -124,7 +132,7 @@
                 block: md
                 inline: xl
             typography:
-              color: '#0a0a0a'
+              color: *color-secondary
               weight: semibold
               size: md
             spacing:
@@ -139,12 +147,12 @@
               border:
                 width: 2
                 style: solid
-                color: '#ffffff'
+                color: *color-primary
               padding:
                 block: md
                 inline: xl
             typography:
-              color: '#ffffff'
+              color: *color-primary
               weight: semibold
               size: md
             spacing:

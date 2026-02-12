@@ -4,87 +4,67 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#3d4a3f"
+        secondary: &color-secondary "#7c8c7e"
+        accent: &color-accent "#5c6b5e"
+        background: &color-background "#f7f5f2"
+        accent-dark: &color-accent-dark "#4a5c4c"
+        focus-bg: &color-focus-bg "#e8e5e0"
+        muted: &color-muted "#9cab9e"
+        surface: &color-surface "#eee9e0"
+        surface-light: &color-surface-light "#ffffff"
     appearance:
       background:
-        color: '#f7f5f2'
+        type: gradient
+        gradient:
+          colorStart: *color-background
+          colorEnd: *color-surface
+          direction: 'to bottom right'
         transparency: 100
   components:
   # Minimal Navigation
-  - name: layout-row
+  - name: titlebar
     properties:
+      branding:
+        showLogo: false
+        title: "serenity"
+      navigation:
+        links:
+        - label: Programs
+          href: '#programs'
+        - label: Teachers
+          href: '#teachers'
+        - label: About
+          href: '#about'
+        - label: Start Free
+          href: '#start'
       layout:
-        align: center
-        horizontalAlign: space-evenly
-      spacing:
-        paddingBlock: md
-        paddingInline: xl
-      background:
-        color: '#f7f5f2'
-        transparency: 100
-    components:
-    - name: heading
-      properties:
-        text: "serenity"
-        level: 3
-        typography:
-          color: '#5c6b5e'
-          size: lg
+        alignment: left
+        height: 56
+      scroll:
+        shrinkPercentage: 70
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        border:
+          width: 0
+          style: solid
+          color: transparent
+        focus:
+          background: *color-focus-bg
+          color: *color-accent
+      typography:
+        title:
+          size: 20
           weight: medium
-        spacing:
-          marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: link
-        properties:
-          text: "Programs"
-          typography:
-            color: '#7c8c7e'
-            size: sm
-            weight: regular
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Teachers"
-          typography:
-            color: '#7c8c7e'
-            size: sm
-            weight: regular
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "About"
-          typography:
-            color: '#7c8c7e'
-            size: sm
-            weight: regular
-          spacing:
-            marginBlock: none
-      - name: button
-        properties:
-          text: "Start Free"
-          appearance:
-            background:
-              color: '#5c6b5e'
-              transparency: 100
-            border:
-              width: 0
-              style: solid
-              color: transparent
-            padding:
-              block: xs
-              inline: md
-          typography:
-            color: '#ffffff'
-            weight: medium
-            size: sm
-          spacing:
-            marginBlock: none
+          color: *color-accent
+        menu:
+          size: 14
+          weight: regular
+          color: *color-secondary
 
   # Hero Section
   - name: layout-row
@@ -94,11 +74,12 @@
         horizontalAlign: space-evenly
         wrap: wrap
       spacing:
-        paddingBlock: xxl
+        paddingBlock: xxxl
         paddingInline: xl
-      background:
-        color: '#f7f5f2'
-        transparency: 100
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
     components:
     # Left Content
     - name: layout-column
@@ -113,11 +94,11 @@
           widthMode: 45
       components:
       # Small Tag
-      - name: paragraph
+      - name: eyebrow
         properties:
           text: "FIND YOUR CALM"
           typography:
-            color: '#9cab9e'
+            color: *color-muted
             size: xs
             weight: medium
             letterSpacing: wider
@@ -131,7 +112,7 @@
           text: "Be kind to"
           level: 1
           typography:
-            color: '#3d4a3f'
+            color: *color-primary
             size: xxxl
             weight: medium
             lineHeight: '1.15'
@@ -143,7 +124,7 @@
           text: "your mind"
           level: 1
           typography:
-            color: '#5c6b5e'
+            color: *color-accent
             size: xxxl
             weight: medium
             lineHeight: '1.15'
@@ -158,7 +139,7 @@
             find peace in the chaos, sleep better, and live more mindfully.
             Start with just 5 minutes a day.
           typography:
-            color: '#7c8c7e'
+            color: *color-secondary
             size: lg
             lineHeight: '1.8'
             weight: light
@@ -179,53 +160,59 @@
           properties:
             text: "500+ meditations"
             typography:
-              color: '#5c6b5e'
+              color: *color-accent
               size: sm
               weight: medium
             spacing:
               marginBlock: none
             appearance:
               background:
-                color: '#e8e5e0'
+                color: *color-focus-bg
                 transparency: 100
               radius: pill
               padding:
                 block: xs
                 inline: md
+              shadow: soft
+              shadowColor: *color-accent
         - name: paragraph
           properties:
             text: "Sleep stories"
             typography:
-              color: '#5c6b5e'
+              color: *color-accent
               size: sm
               weight: medium
             spacing:
               marginBlock: none
             appearance:
               background:
-                color: '#e8e5e0'
+                color: *color-focus-bg
                 transparency: 100
               radius: pill
               padding:
                 block: xs
                 inline: md
+              shadow: soft
+              shadowColor: *color-accent
         - name: paragraph
           properties:
             text: "Breathwork"
             typography:
-              color: '#5c6b5e'
+              color: *color-accent
               size: sm
               weight: medium
             spacing:
               marginBlock: none
             appearance:
               background:
-                color: '#e8e5e0'
+                color: *color-focus-bg
                 transparency: 100
               radius: pill
               padding:
                 block: xs
                 inline: md
+              shadow: soft
+              shadowColor: *color-accent
 
       # Soft CTA
       - name: layout-row
@@ -241,8 +228,11 @@
             text: "Start Your Journey"
             appearance:
               background:
-                color: '#5c6b5e'
-                transparency: 100
+                type: gradient
+                gradient:
+                  colorStart: *color-accent
+                  colorEnd: *color-accent-dark
+                  direction: to right
               border:
                 width: 0
                 style: solid
@@ -250,8 +240,30 @@
               padding:
                 block: md
                 inline: xl
+              shadow: medium
+              shadowColor: *color-accent
             typography:
-              color: '#ffffff'
+              color: *color-surface-light
+              weight: medium
+              size: md
+            spacing:
+              marginBlock: none
+        - name: button
+          properties:
+            text: "Try Free for 7 Days"
+            appearance:
+              background:
+                color: transparent
+                transparency: 0
+              border:
+                width: 1
+                style: solid
+                color: *color-accent
+              padding:
+                block: md
+                inline: xl
+            typography:
+              color: *color-accent
               weight: medium
               size: md
             spacing:
@@ -260,7 +272,7 @@
           properties:
             text: "Learn more"
             typography:
-              color: '#7c8c7e'
+              color: *color-secondary
               size: md
               weight: medium
             spacing:
@@ -279,7 +291,7 @@
           properties:
             text: "Join 2M+ people finding their calm"
             typography:
-              color: '#9cab9e'
+              color: *color-muted
               size: sm
             spacing:
               marginBlock: none
@@ -302,6 +314,9 @@
             minHeight: 34.375
             fit: cover
             cornerStyle: xl
+            shadow: soft
+            shadowColor: *color-accent
+            hoverEffect: zoom
           layout:
             widthMode: stretch
           spacing:
@@ -316,9 +331,10 @@
       spacing:
         paddingBlock: lg
         paddingInline: xl
-      background:
-        color: '#e8e5e0'
-        transparency: 100
+      appearance:
+        background:
+          color: *color-focus-bg
+          transparency: 100
     components:
     - name: blockquote
       properties:
@@ -327,13 +343,13 @@
         typography:
           size: lg
           weight: light
-          color: '#5c6b5e'
+          color: *color-accent
         appearance:
           background:
             color: transparent
             transparency: 0
           border:
-            accentColor: transparent
+            accentColor: *color-accent
             width: 0
             style: solid
             position: left

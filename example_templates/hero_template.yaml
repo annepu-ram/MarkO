@@ -76,7 +76,6 @@
               color: '#ffffff'
               weight: semibold
             layout:
-              widthMode: fit
             spacing:
               marginBlock: md
               marginInline: xs
@@ -130,9 +129,11 @@
               fit: cover
               cornerStyle: md
             layout:
-              widthMode: fit
+              widthMode: "40"
         - name: layout-column
           properties:
+            layout:
+              widthMode: "60"
             spacing:
               marginBlock: none
           components:
@@ -170,8 +171,7 @@
                   color: '#ffffff'
                   weight: semibold
                 layout:
-                  widthMode: fit
-                spacing:
+                    spacing:
                   marginBlock: md
                   marginInline: xs
     - name: layout-row
@@ -195,6 +195,8 @@
       components:
         - name: layout-column
           properties:
+            layout:
+              widthMode: "60"
             spacing:
               marginBlock: none
           components:
@@ -232,8 +234,7 @@
                   color: '#ffffff'
                   weight: semibold
                 layout:
-                  widthMode: fit
-                spacing:
+                    spacing:
                   marginBlock: md
                   marginInline: xs
         - name: image
@@ -259,7 +260,7 @@
                 block: none
                 inline: none
             layout:
-              widthMode: fit
+              widthMode: "40"
     - name: layout-row
       properties:
         spacing:
@@ -290,9 +291,11 @@
               fit: cover
               cornerStyle: md
             layout:
-              widthMode: fit
+              widthMode: "40"
         - name: layout-column
           properties:
+            layout:
+              widthMode: "60"
             spacing:
               marginBlock: none
           components:
@@ -330,8 +333,7 @@
                   color: '#ffffff'
                   weight: semibold
                 layout:
-                  widthMode: fit
-                spacing:
+                    spacing:
                   marginBlock: md
                   marginInline: xs
     - name: heading
@@ -687,8 +689,7 @@
                   color: *color-primary
                   weight: semibold
                 layout:
-                  widthMode: fit
-                spacing:
+                    spacing:
                   marginBlock: md
                   marginInline: xs
         - components:
@@ -755,8 +756,7 @@
                   color: '#ffffff'
                   weight: semibold
                 layout:
-                  widthMode: fit
-                spacing:
+                    spacing:
                   marginBlock: md
                   marginInline: xs
         - components:
@@ -818,8 +818,7 @@
                   color: *color-primary
                   weight: semibold
                 layout:
-                  widthMode: fit
-                spacing:
+                    spacing:
                   marginBlock: md
                   marginInline: xs
     - name: heading
@@ -938,7 +937,6 @@
               color: '#ffffff'
               weight: semibold
             layout:
-              widthMode: fit
             spacing:
               marginBlock: none
               marginInline: sm
@@ -957,7 +955,6 @@
               color: *color-primary
               weight: semibold
             layout:
-              widthMode: fit
             spacing:
               marginBlock: none
               marginInline: sm

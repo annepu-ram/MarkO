@@ -4,264 +4,370 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#ffffff"
+        secondary: &color-secondary "#1a1a1a"
+        accent: &color-accent "#d4af37"
+        background: &color-background "#1a1a1a"
+        accent-dark: &color-accent-dark "#b8941f"
     appearance:
       background:
-        color: '#1a1a1a'
+        color: *color-background
         transparency: 100
   components:
-  # Full-Width Cinematic Hero
-  - name: image
-    properties:
-      source:
-        url: https://images.pexels.com/photos/1076758/pexels-photo-1076758.jpeg?auto=compress&cs=tinysrgb&w=1920
-        altText: Person standing on mountain peak at sunrise
-      appearance:
-        minHeight: 100vh
-        fit: cover
-        cornerStyle: none
-      spacing:
-        marginBlock: none
-        marginInline: none
-      layout:
-        widthMode: stretch
-    components:
-    # Gradient Overlay with Story Content
-    - name: layout-column
+    # Full-Width Cinematic Hero
+    - name: image
       properties:
-        layout:
-          align: start
-          horizontalAlign: space-evenly
-        spacing:
-          paddingBlock: xxxl
-          paddingInline: xl
+        source:
+          url: https://images.pexels.com/photos/1076758/pexels-photo-1076758.jpeg?auto=compress&cs=tinysrgb&w=1920
+          altText: Person standing on mountain peak at sunrise
         appearance:
-          background:
-            color: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)
-            transparency: 100
-      components:
-      # Chapter / Story Marker
-      - name: layout-row
-        properties:
-          layout:
-            align: center
-            horizontalAlign: space-evenly
-        components:
-        - name: paragraph
-          properties:
-            text: "—"
-            typography:
-              color: '#d4af37'
-              size: lg
-              weight: bold
-            spacing:
-              marginBlock: none
-        - name: paragraph
-          properties:
-            text: "CHAPTER ONE"
-            typography:
-              color: '#d4af37'
-              size: xs
-              weight: bold
-              letterSpacing: wider
-              transform: uppercase
-            spacing:
-              marginBlock: none
-
-      # Emotional Headline
-      - name: heading
-        properties:
-          text: "Every summit begins with a single step"
-          level: 1
-          typography:
-            color: '#ffffff'
-            size: xxxl
-            weight: bold
-            lineHeight: '1.15'
-          spacing:
-            marginBlock: none
+          minHeight: 100vh
+          fit: cover
+          cornerStyle: none
+          hoverEffect: zoom
+        spacing:
+          marginBlock: none
+          marginInline: none
         layout:
-          widthMode: 50
-
-      # Story Excerpt
-      - name: paragraph
-        properties:
-          text: |
-            In the quiet moments before dawn, when the world still sleeps,
-            they begin their journey. Not for glory. Not for recognition.
-            But for the pure, unfiltered experience of being alive.
-          typography:
-            color: rgba(255,255,255,0.8)
-            size: lg
-            lineHeight: '1.8'
-            weight: light
-          spacing:
-            marginBlock: md
-          layout:
-            widthMode: 40
-
-      # Story Meta
-      - name: layout-row
-        properties:
-          layout:
-            align: center
-            horizontalAlign: space-evenly
-          spacing:
-            marginBlock: lg
-        components:
+          widthMode: stretch
+      components:
+        # Gradient Overlay with Story Content
         - name: layout-column
           properties:
             layout:
               align: start
               horizontalAlign: space-evenly
-          components:
-          - name: paragraph
-            properties:
-              text: "LOCATION"
-              typography:
-                color: rgba(255,255,255,0.5)
-                size: xxs
-                weight: medium
-                letterSpacing: wide
-                transform: uppercase
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "Patagonia, Chile"
-              typography:
-                color: '#ffffff'
-                size: sm
-                weight: medium
-              spacing:
-                marginBlock: none
-        - name: layout-column
-          properties:
-            layout:
-              align: start
-              horizontalAlign: space-evenly
-          components:
-          - name: paragraph
-            properties:
-              text: "ELEVATION"
-              typography:
-                color: rgba(255,255,255,0.5)
-                size: xxs
-                weight: medium
-                letterSpacing: wide
-                transform: uppercase
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "4,892 meters"
-              typography:
-                color: '#ffffff'
-                size: sm
-                weight: medium
-              spacing:
-                marginBlock: none
-        - name: layout-column
-          properties:
-            layout:
-              align: start
-              horizontalAlign: space-evenly
-          components:
-          - name: paragraph
-            properties:
-              text: "EXPEDITION"
-              typography:
-                color: rgba(255,255,255,0.5)
-                size: xxs
-                weight: medium
-                letterSpacing: wide
-                transform: uppercase
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "12 Days"
-              typography:
-                color: '#ffffff'
-                size: sm
-                weight: medium
-              spacing:
-                marginBlock: none
-
-      # CTA - Subtle & Elegant
-      - name: layout-row
-        properties:
-          layout:
-            align: center
-            horizontalAlign: space-evenly
-          spacing:
-            marginBlock: xl
-        components:
-        - name: button
-          properties:
-            text: "Begin the Journey"
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
             appearance:
               background:
-                color: '#d4af37'
+                color: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%,
+                  transparent 100%)
                 transparency: 100
-              border:
-                width: 0
-                style: solid
-                color: transparent
-              padding:
-                block: md
-                inline: xl
-            typography:
-              color: '#1a1a1a'
-              weight: semibold
-              size: md
-            spacing:
-              marginBlock: none
-        - name: button
-          properties:
-            text: "Watch Documentary"
-            appearance:
-              background:
-                color: transparent
-                transparency: 0
-              border:
-                width: 1
-                style: solid
-                color: rgba(255,255,255,0.4)
-              padding:
-                block: md
-                inline: xl
-            typography:
-              color: '#ffffff'
-              weight: medium
-              size: md
-            spacing:
-              marginBlock: none
+          components:
+            # Chapter / Story Marker
+            - name: layout-row
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: left
+                  tag: section
+                  verticalAlign: stretch
+                  wrap: wrap
+                spacing:
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    type: solid
+                    color: "#ffffff"
+                    transparency: 0
+                  border:
+                    width: 0
+                    style: solid
+                    color: "#000000"
+                  radius: none
+                  shadow: none
+                  shadowColor: "#000000"
+              components:
+                - name: paragraph
+                  properties:
+                    text: "—"
+                    typography:
+                      color: "#d4af37"
+                      size: lg
+                      weight: bold
+                      align: left
+                      lineHeight: "1.6"
+                      transform: none
+                      letterSpacing: normal
+                    spacing:
+                      marginBlock: none
+                      marginInline: none
+                    layout:
+                    appearance:
+                      background:
+                        type: solid
+                        color: "#ffffff"
+                        transparency: 0
+                      radius: none
+                      padding:
+                        block: none
+                        inline: none
+                - name: paragraph
+                  properties:
+                    text: "CHAPTER ONE"
+                    typography:
+                      color: "#d4af37"
+                      size: xl
+                      weight: bold
+                      letterSpacing: wider
+                      transform: uppercase
+                      align: left
+                      lineHeight: "1.6"
+                    spacing:
+                      marginBlock: none
+                      marginInline: none
+                    layout:
+                    appearance:
+                      background:
+                        type: solid
+                        color: "#ffffff"
+                        transparency: 0
+                      radius: none
+                      padding:
+                        block: none
+                        inline: none
 
-      # Bottom Quote
-      - name: layout-column
-        properties:
-          layout:
-            align: start
-            horizontalAlign: space-evenly
-          spacing:
-            marginBlock: xxl
-        components:
-        - name: blockquote
-          properties:
-            quote: "The mountains are calling and I must go."
-            cite: "— John Muir"
-            typography:
-              size: md
-              weight: light
-              color: rgba(255,255,255,0.7)
-            appearance:
-              background:
-                color: transparent
-                transparency: 0
-              border:
-                accentColor: '#d4af37'
-                width: 2
-                style: solid
-                position: left
-            spacing:
-              marginBlock: none
+            # Emotional Headline
+            - name: heading
+              properties:
+                text: "Every summit begins with a single step"
+                level: 2
+                layout:
+                  widthMode: "50"
+                typography:
+                  color: *color-accent
+                  size: xxxl
+                  weight: bold
+                  lineHeight: '1.15'
+                  letterSpacing: tight
+                  align: center
+                  transform: none
+                spacing:
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  background:
+                    type: solid
+                    color: "#ffffff"
+                    transparency: 0
+                  radius: none
+                  padding:
+                    block: none
+                    inline: none
+
+            # Story Excerpt
+            - name: paragraph
+              properties:
+                text: |
+                  In the quiet moments before dawn, when the world still sleeps,
+                  they begin their journey. Not for glory. Not for recognition.
+                  But for the pure, unfiltered experience of being alive.
+                layout:
+                  widthMode: "40"
+                typography:
+                  color: "#ffffff"
+                  size: lg
+                  lineHeight: '1.8'
+                  weight: semibold
+                  align: left
+                  transform: none
+                  letterSpacing: normal
+                spacing:
+                  marginBlock: md
+                  marginInline: none
+                appearance:
+                  background:
+                    type: solid
+                    color: "#ffffff"
+                    transparency: 0
+                  radius: none
+                  padding:
+                    block: none
+                    inline: none
+
+            # Story Meta
+            - name: layout-row
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: space-evenly
+                spacing:
+                  marginBlock: lg
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "33"
+                      align: start
+                      horizontalAlign: space-evenly
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "LOCATION"
+                        typography:
+                          color: rgba(255,255,255,0.5)
+                          size: xxs
+                          weight: medium
+                          letterSpacing: wide
+                          transform: uppercase
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: "Patagonia, Chile"
+                        typography:
+                          color: *color-primary
+                          size: sm
+                          weight: medium
+                        spacing:
+                          marginBlock: none
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "33"
+                      align: start
+                      horizontalAlign: space-evenly
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "ELEVATION"
+                        typography:
+                          color: rgba(255,255,255,0.5)
+                          size: xxs
+                          weight: medium
+                          letterSpacing: wide
+                          transform: uppercase
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: "4,892 meters"
+                        typography:
+                          color: *color-primary
+                          size: sm
+                          weight: medium
+                        spacing:
+                          marginBlock: none
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "33"
+                      align: start
+                      horizontalAlign: space-evenly
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "EXPEDITION"
+                        typography:
+                          color: rgba(255,255,255,0.5)
+                          size: xxs
+                          weight: medium
+                          letterSpacing: wide
+                          transform: uppercase
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: "12 Days"
+                        typography:
+                          color: *color-primary
+                          size: sm
+                          weight: medium
+                        spacing:
+                          marginBlock: none
+
+            # CTA - Subtle & Elegant
+            - name: layout-row
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: space-evenly
+                spacing:
+                  marginBlock: xl
+              components:
+                - name: button
+                  properties:
+                    text: "Begin the Journey"
+                    appearance:
+                      background:
+                        type: gradient
+                        gradient:
+                          colorStart: *color-accent
+                          colorEnd: *color-accent-dark
+                          direction: to right
+                      border:
+                        width: 0
+                        style: solid
+                        color: transparent
+                      padding:
+                        block: md
+                        inline: xl
+                      shadow: medium
+                      shadowColor: *color-accent
+                    typography:
+                      color: *color-secondary
+                      weight: semibold
+                      size: md
+                    spacing:
+                      marginBlock: none
+                - name: button
+                  properties:
+                    text: "Watch Documentary"
+                    appearance:
+                      background:
+                        color: transparent
+                        transparency: 0
+                      border:
+                        width: 1
+                        style: solid
+                        color: rgba(255,255,255,0.4)
+                      padding:
+                        block: md
+                        inline: xl
+                    typography:
+                      color: *color-primary
+                      weight: medium
+                      size: md
+                    spacing:
+                      marginBlock: none
+
+            # Bottom Quote
+            - name: layout-column
+              properties:
+                layout:
+                  align: start
+                  horizontalAlign: space-evenly
+                spacing:
+                  marginBlock: xxl
+              components:
+                - name: blockquote
+                  properties:
+                    quote: "The mountains are calling and I must go."
+                    cite: " John Muir"
+                    typography:
+                      size: md
+                      weight: light
+                      color: "#ffffff"
+                      align: center
+                      lineHeight: "1.6"
+                      transform: none
+                      letterSpacing: normal
+                    appearance:
+                      background:
+                        color: transparent
+                        transparency: 0
+                        type: solid
+                      border:
+                        accentColor: "#d4af37"
+                        width: 2
+                        style: solid
+                        position: left
+                      radius: none
+                      padding:
+                        block: md
+                        inline: md
+                      shadow: none
+                      shadowColor: "#000000"
+                    spacing:
+                      marginBlock: none
+                      marginInline: none
+                    layout:
+                      widthMode: stretch

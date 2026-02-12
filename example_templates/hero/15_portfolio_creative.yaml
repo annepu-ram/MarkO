@@ -4,64 +4,63 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#ffffff"
+        secondary: &color-secondary "#8f8f9d"
+        accent: &color-accent "#e879f9"
+        background: &color-background "#1a1a2e"
+        accent-alt: &color-accent-alt "#c084fc"
+        dark: &color-dark "#16162a"
+        divider: &color-divider "#3f3f5a"
+        muted: &color-muted "#4a4a5a"
+        surface: &color-surface "#2a2a3e"
+        surface-alt: &color-surface-alt "#16213e"
+        tag-available: &color-tag-available "#10b981"
     appearance:
       background:
-        color: '#1a1a2e'
+        color: *color-background
         transparency: 100
   components:
   # Minimal Name Header
-  - name: layout-row
+  - name: titlebar
     properties:
+      branding:
+        showLogo: false
+        title: "ALEX CHEN"
+      navigation:
+        links:
+        - label: Work
+          href: '#work'
+        - label: About
+          href: '#about'
+        - label: Contact
+          href: '#contact'
       layout:
-        align: center
-        horizontalAlign: space-evenly
-      spacing:
-        paddingBlock: lg
-        paddingInline: xl
-      background:
-        color: '#1a1a2e'
-        transparency: 100
-    components:
-    - name: paragraph
-      properties:
-        text: "ALEX CHEN"
-        typography:
-          color: '#ffffff'
-          size: sm
+        alignment: left
+        height: 60
+      scroll:
+        shrinkPercentage: 70
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        border:
+          width: 0
+          style: solid
+          color: transparent
+        focus:
+          background: *color-surface
+          color: *color-accent
+      typography:
+        title:
+          size: 14
           weight: medium
-          letterSpacing: wider
-        spacing:
-          marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: link
-        properties:
-          text: "Work"
-          typography:
-            color: '#8f8f9d'
-            size: sm
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "About"
-          typography:
-            color: '#8f8f9d'
-            size: sm
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Contact"
-          typography:
-            color: '#8f8f9d'
-            size: sm
-          spacing:
-            marginBlock: none
+          color: *color-primary
+        menu:
+          size: 14
+          weight: regular
+          color: *color-secondary
 
   # Hero Section
   - name: layout-column
@@ -70,11 +69,16 @@
         align: center
         horizontalAlign: space-evenly
       spacing:
-        paddingBlock: xxl
+        paddingBlock: xxxl
         paddingInline: xl
-      background:
-        color: '#1a1a2e'
-        transparency: 100
+      appearance:
+        background:
+          type: gradient
+          gradient:
+            colorStart: *color-background
+            colorEnd: *color-surface-alt
+            direction: to bottom
+          transparency: 100
     components:
     # Availability Badge
     - name: layout-row
@@ -99,7 +103,7 @@
         properties:
           text: "●"
           typography:
-            color: '#10b981'
+            color: *color-tag-available
             size: xs
           spacing:
             marginBlock: none
@@ -107,7 +111,7 @@
         properties:
           text: "Available for freelance"
           typography:
-            color: '#10b981'
+            color: *color-tag-available
             size: sm
             weight: medium
           spacing:
@@ -119,7 +123,7 @@
         text: "Digital Product"
         level: 1
         typography:
-          color: '#ffffff'
+          color: *color-primary
           size: xxxl
           weight: bold
           align: center
@@ -132,7 +136,7 @@
         text: "Designer"
         level: 1
         typography:
-          color: '#e879f9'
+          color: *color-accent
           size: xxxl
           weight: bold
           align: center
@@ -148,7 +152,7 @@
           with their audience. Currently designing at Spotify, previously
           at Google and Airbnb.
         typography:
-          color: '#8f8f9d'
+          color: *color-secondary
           size: lg
           align: center
           lineHeight: '1.7'
@@ -170,7 +174,7 @@
         properties:
           text: "Dribbble"
           typography:
-            color: '#e879f9'
+            color: *color-accent
             size: sm
             weight: medium
           spacing:
@@ -179,7 +183,7 @@
         properties:
           text: "/"
           typography:
-            color: '#3f3f5a'
+            color: *color-divider
             size: sm
           spacing:
             marginBlock: none
@@ -187,7 +191,7 @@
         properties:
           text: "LinkedIn"
           typography:
-            color: '#e879f9'
+            color: *color-accent
             size: sm
             weight: medium
           spacing:
@@ -196,7 +200,7 @@
         properties:
           text: "/"
           typography:
-            color: '#3f3f5a'
+            color: *color-divider
             size: sm
           spacing:
             marginBlock: none
@@ -204,7 +208,7 @@
         properties:
           text: "Twitter"
           typography:
-            color: '#e879f9'
+            color: *color-accent
             size: sm
             weight: medium
           spacing:
@@ -213,7 +217,7 @@
         properties:
           text: "/"
           typography:
-            color: '#3f3f5a'
+            color: *color-divider
             size: sm
           spacing:
             marginBlock: none
@@ -221,7 +225,7 @@
         properties:
           text: "Email"
           typography:
-            color: '#e879f9'
+            color: *color-accent
             size: sm
             weight: medium
           spacing:
@@ -240,7 +244,7 @@
         properties:
           text: "SELECTED WORK"
           typography:
-            color: '#4a4a5a'
+            color: *color-muted
             size: xs
             weight: medium
             letterSpacing: wider
@@ -265,6 +269,9 @@
               minHeight: 17.5
               fit: cover
               cornerStyle: lg
+              shadow: elevated
+              shadowColor: *color-accent
+              hoverEffect: zoom
             layout:
               widthMode: 48
             spacing:
@@ -298,7 +305,7 @@
                 text: "Artist Dashboard Redesign"
                 level: 3
                 typography:
-                  color: '#ffffff'
+                  color: *color-primary
                   size: lg
                   weight: semibold
                 spacing:
@@ -321,6 +328,9 @@
               minHeight: 17.5
               fit: cover
               cornerStyle: lg
+              shadow: elevated
+              shadowColor: *color-accent
+              hoverEffect: zoom
             layout:
               widthMode: 48
             spacing:
@@ -354,7 +364,7 @@
                 text: "Experience Booking Flow"
                 level: 3
                 typography:
-                  color: '#ffffff'
+                  color: *color-primary
                   size: lg
                   weight: semibold
                 spacing:
@@ -374,8 +384,11 @@
         text: "View All Projects →"
         appearance:
           background:
-            color: '#e879f9'
-            transparency: 100
+            type: gradient
+            gradient:
+              colorStart: *color-accent
+              colorEnd: *color-accent-alt
+              direction: to right
           border:
             width: 0
             style: solid
@@ -383,14 +396,15 @@
           padding:
             block: md
             inline: xl
+          shadow: medium
+          shadowColor: *color-accent
         typography:
-          color: '#1a1a2e'
+          color: *color-background
           weight: semibold
           size: md
         spacing:
           marginBlock: md
         layout:
-          widthMode: fit
 
   # Stats Bar
   - name: layout-row
@@ -403,7 +417,7 @@
         paddingBlock: lg
         paddingInline: xl
       background:
-        color: '#16162a'
+        color: *color-dark
         transparency: 100
     components:
     - name: layout-column
@@ -417,7 +431,7 @@
           text: "8+"
           level: 3
           typography:
-            color: '#ffffff'
+            color: *color-primary
             size: xl
             weight: bold
             align: center
@@ -427,7 +441,7 @@
         properties:
           text: "Years Experience"
           typography:
-            color: '#8f8f9d'
+            color: *color-secondary
             size: xs
             align: center
           spacing:
@@ -443,7 +457,7 @@
           text: "50+"
           level: 3
           typography:
-            color: '#ffffff'
+            color: *color-primary
             size: xl
             weight: bold
             align: center
@@ -453,7 +467,7 @@
         properties:
           text: "Projects Shipped"
           typography:
-            color: '#8f8f9d'
+            color: *color-secondary
             size: xs
             align: center
           spacing:
@@ -469,7 +483,7 @@
           text: "3"
           level: 3
           typography:
-            color: '#ffffff'
+            color: *color-primary
             size: xl
             weight: bold
             align: center
@@ -479,7 +493,7 @@
         properties:
           text: "Design Awards"
           typography:
-            color: '#8f8f9d'
+            color: *color-secondary
             size: xs
             align: center
           spacing:
@@ -495,7 +509,7 @@
           text: "12"
           level: 3
           typography:
-            color: '#ffffff'
+            color: *color-primary
             size: xl
             weight: bold
             align: center
@@ -505,7 +519,7 @@
         properties:
           text: "Happy Clients"
           typography:
-            color: '#8f8f9d'
+            color: *color-secondary
             size: xs
             align: center
           spacing:

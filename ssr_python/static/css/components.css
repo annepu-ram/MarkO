@@ -9,7 +9,18 @@
 .layout-row__content,
 .layout-column__content {
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
+}
+
+/* Flex gap fallback for older browsers (pre-2020) */
+@supports not (gap: 1rem) {
+    .layout-column__content > * + * {
+        margin-top: var(--layout-gap, 0);
+    }
+    .layout-row__content > * + * {
+        margin-left: var(--layout-gap, 0);
+    }
 }
 
 /* Horizontal scroll for nowrap layout-row */
@@ -905,36 +916,40 @@ select:focus {
     min-width: 0; /* Prevent flex items from overflowing */
 }
 
-/* ColumnsGrid Responsive Breakpoints */
+/* ColumnsGrid Responsive Breakpoints
+   Uses --cols-md (tablet) and --cols-sm (mobile) CSS variables
+   set by build_styles in _components.html.
+   Formula: each column = (100% - gap * (N-1)) / N */
 
-/* Tablet: max 2 columns (481px - 768px) */
+/* Tablet (481px – 768px): use --cols-md, default 2 */
 @media (min-width: 481px) and (max-width: 768px) {
-    .columnsgrid__col {
-        flex: 0 0 calc(50% - var(--columnsgrid-gap, 1rem) / 2) !important;
-        max-width: calc(50% - var(--columnsgrid-gap, 1rem) / 2);
-    }
-
     .columnsgrid__row {
         flex-wrap: wrap;
         row-gap: var(--columnsgrid-gap, 1rem);
+    }
+
+    .columnsgrid__col {
+        flex: 0 0 calc(
+            (100% - var(--columnsgrid-gap, 1rem) * (var(--cols-md, 2) - 1))
+            / var(--cols-md, 2)
+        ) !important;
+        max-width: calc(100% / var(--cols-md, 2));
     }
 }
 
-/* Mobile: single column stack (480px and below) */
+/* Mobile (480px and below): use --cols-sm, default 1 */
 @media (max-width: 480px) {
-    .columnsgrid__col {
-        flex: 0 0 100% !important;
-        max-width: 100%;
-    }
-
     .columnsgrid__row {
         flex-wrap: wrap;
         row-gap: var(--columnsgrid-gap, 1rem);
     }
 
-    .col {
-        width: 100% !important;
-        flex: 0 0 100% !important;
+    .columnsgrid__col {
+        flex: 0 0 calc(
+            (100% - var(--columnsgrid-gap, 1rem) * (var(--cols-sm, 1) - 1))
+            / var(--cols-sm, 1)
+        ) !important;
+        max-width: calc(100% / var(--cols-sm, 1));
     }
 }
 

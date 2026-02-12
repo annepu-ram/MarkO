@@ -1,15 +1,26 @@
 # Gradient Glassmorphism Hero
-# A vibrant, modern hero with gradient backgrounds and frosted glass effects
-# Perfect for: Fintech, web3, modern apps, creative portfolios
+# True glassmorphism with backdrop-filter blur, frosted glass panels on vibrant gradients
+# Perfect for: Fintech, web3, modern SaaS, creative portfolios
+#
+# KEY: Glassmorphism needs a colorful, varied background for blur to be visible.
+# Uses a vivid multi-color gradient so frosted glass panels create a visible frosted effect.
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#ffffff"
+        secondary: &color-secondary "#e0e7ff"
+        accent: &color-accent "#818cf8"
+        background: &color-background "#0f0720"
     appearance:
       background:
-        color: '#0f0f23'
+        color: *color-background
         transparency: 100
   components:
-  # Gradient Background Hero
+
+  # Vivid multi-color gradient background — the key to visible glassmorphism
+  # Bright contrasting colors create the frosted effect when blurred
   - name: layout-column
     properties:
       layout:
@@ -19,10 +30,11 @@
         paddingBlock: none
         paddingInline: none
       background:
-        color: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)
+        color: linear-gradient(135deg, #667eea 0%, #764ba2 20%, #f093fb 40%, #f5576c 60%, #4facfe 80%, #00f2fe 100%)
         transparency: 100
     components:
-    # Hero Content Container
+
+    # Inner content container
     - name: layout-column
       properties:
         layout:
@@ -32,7 +44,8 @@
           paddingBlock: xxxl
           paddingInline: lg
       components:
-      # Floating Badge with Glass Effect
+
+      # Floating glass badge
       - name: layout-row
         properties:
           layout:
@@ -42,20 +55,21 @@
             background:
               color: rgba(255,255,255,0.15)
               transparency: 100
+            backdropBlur: 16
             radius: pill
             border:
               width: 1
               style: solid
-              color: rgba(255,255,255,0.25)
+              color: rgba(255,255,255,0.3)
             padding:
               block: xs
               inline: md
         components:
         - name: paragraph
           properties:
-            text: "Powered by AI"
+            text: "Introducing Aurora Pay"
             typography:
-              color: '#ffffff'
+              color: *color-primary
               size: sm
               weight: medium
             spacing:
@@ -66,16 +80,16 @@
         properties:
           text: "Your finances, reimagined"
           level: 1
+          layout:
+            widthMode: "75"
           typography:
-            color: '#ffffff'
+            color: *color-primary
             size: xxxl
             weight: bold
             align: center
             lineHeight: '1.1'
           spacing:
             marginBlock: none
-        layout:
-          widthMode: 75
 
       # Subheadline
       - name: paragraph
@@ -83,140 +97,128 @@
           text: |
             Experience the next generation of personal finance. Smart insights,
             seamless transactions, and complete control — all in one beautiful app.
+          layout:
+            widthMode: "50"
           typography:
-            color: rgba(255,255,255,0.85)
+            color: *color-secondary
             size: lg
             align: center
             lineHeight: '1.6'
           spacing:
             marginBlock: md
-          layout:
-            widthMode: 50
 
-      # Glass Card - Feature Highlight
-      - name: layout-row
+      # Main frosted glass card — feature highlights
+      - name: layout-column
         properties:
           layout:
             align: center
             horizontalAlign: space-evenly
-            wrap: wrap
+            widthMode: "83"
           spacing:
+            paddingBlock: lg
+            paddingInline: lg
             marginBlock: lg
+          appearance:
+            background:
+              color: rgba(255,255,255,0.12)
+              transparency: 100
+            backdropBlur: 20
+            radius: lg
+            border:
+              width: 1
+              style: solid
+              color: rgba(255,255,255,0.25)
+            shadow: soft
         components:
-        # Glass Card 1
-        - name: layout-column
+        # Stats row inside glass card
+        - name: layout-row
           properties:
             layout:
               align: center
               horizontalAlign: space-evenly
-            spacing:
-              paddingBlock: lg
-              paddingInline: lg
-            appearance:
-              background:
-                color: rgba(255,255,255,0.1)
-                transparency: 100
-              radius: lg
-              border:
-                width: 1
-                style: solid
-                color: rgba(255,255,255,0.2)
+              wrap: wrap
           components:
-          - name: paragraph
+          # Stat 1
+          - name: layout-column
             properties:
-              text: "128-bit"
-              typography:
-                color: '#ffffff'
-                size: xl
-                weight: bold
+              layout:
+                widthMode: "33"
                 align: center
-              spacing:
-                marginBlock: none
-          - name: paragraph
+                horizontalAlign: space-evenly
+            components:
+            - name: paragraph
+              properties:
+                text: "128-bit"
+                typography:
+                  color: *color-primary
+                  size: xl
+                  weight: bold
+                  align: center
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "Encryption"
+                typography:
+                  color: rgba(255,255,255,0.7)
+                  size: sm
+                  align: center
+                spacing:
+                  marginBlock: none
+          # Stat 2
+          - name: layout-column
             properties:
-              text: "Encryption"
-              typography:
-                color: rgba(255,255,255,0.7)
-                size: sm
+              layout:
+                widthMode: "33"
                 align: center
-              spacing:
-                marginBlock: none
-        # Glass Card 2
-        - name: layout-column
-          properties:
-            layout:
-              align: center
-              horizontalAlign: space-evenly
-            spacing:
-              paddingBlock: lg
-              paddingInline: lg
-            appearance:
-              background:
-                color: rgba(255,255,255,0.1)
-                transparency: 100
-              radius: lg
-              border:
-                width: 1
-                style: solid
-                color: rgba(255,255,255,0.2)
-          components:
-          - name: paragraph
+                horizontalAlign: space-evenly
+            components:
+            - name: paragraph
+              properties:
+                text: "0%"
+                typography:
+                  color: *color-primary
+                  size: xl
+                  weight: bold
+                  align: center
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "Hidden Fees"
+                typography:
+                  color: rgba(255,255,255,0.7)
+                  size: sm
+                  align: center
+                spacing:
+                  marginBlock: none
+          # Stat 3
+          - name: layout-column
             properties:
-              text: "0%"
-              typography:
-                color: '#ffffff'
-                size: xl
-                weight: bold
+              layout:
+                widthMode: "33"
                 align: center
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "Hidden Fees"
-              typography:
-                color: rgba(255,255,255,0.7)
-                size: sm
-                align: center
-              spacing:
-                marginBlock: none
-        # Glass Card 3
-        - name: layout-column
-          properties:
-            layout:
-              align: center
-              horizontalAlign: space-evenly
-            spacing:
-              paddingBlock: lg
-              paddingInline: lg
-            appearance:
-              background:
-                color: rgba(255,255,255,0.1)
-                transparency: 100
-              radius: lg
-              border:
-                width: 1
-                style: solid
-                color: rgba(255,255,255,0.2)
-          components:
-          - name: paragraph
-            properties:
-              text: "24/7"
-              typography:
-                color: '#ffffff'
-                size: xl
-                weight: bold
-                align: center
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "Support"
-              typography:
-                color: rgba(255,255,255,0.7)
-                size: sm
-                align: center
-              spacing:
-                marginBlock: none
+                horizontalAlign: space-evenly
+            components:
+            - name: paragraph
+              properties:
+                text: "24/7"
+                typography:
+                  color: *color-primary
+                  size: xl
+                  weight: bold
+                  align: center
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "Support"
+                typography:
+                  color: rgba(255,255,255,0.7)
+                  size: sm
+                  align: center
+                spacing:
+                  marginBlock: none
 
       # CTA Buttons
       - name: layout-row
@@ -233,17 +235,20 @@
             text: "Download App"
             appearance:
               background:
-                color: '#ffffff'
+                color: rgba(255,255,255,0.2)
                 transparency: 100
+              backdropBlur: 12
               border:
-                width: 0
+                width: 1
                 style: solid
-                color: transparent
+                color: rgba(255,255,255,0.4)
               padding:
                 block: md
                 inline: xl
+              radius: pill
+              shadow: soft
             typography:
-              color: '#7c3aed'
+              color: *color-primary
               weight: bold
               size: md
             spacing:
@@ -253,51 +258,65 @@
             text: "Watch Demo"
             appearance:
               background:
-                color: rgba(255,255,255,0.15)
+                color: rgba(255,255,255,0.1)
                 transparency: 100
+              backdropBlur: 8
               border:
                 width: 1
                 style: solid
-                color: rgba(255,255,255,0.3)
+                color: rgba(255,255,255,0.25)
               padding:
                 block: md
                 inline: xl
+              radius: pill
             typography:
-              color: '#ffffff'
+              color: *color-primary
               weight: semibold
               size: md
             spacing:
               marginBlock: none
 
-      # App Store Badges
-      - name: layout-row
+      # App availability note
+      - name: paragraph
+        properties:
+          text: "Available on iOS and Android"
+          typography:
+            color: rgba(255,255,255,0.6)
+            size: sm
+          spacing:
+            marginBlock: md
+
+      # Phone mockup in glass frame
+      - name: layout-column
         properties:
           layout:
             align: center
-            horizontalAlign: space-evenly
-          spacing:
-            marginBlock: md
-        components:
-        - name: paragraph
-          properties:
-            text: "Available on iOS and Android"
-            typography:
-              color: rgba(255,255,255,0.6)
-              size: sm
-            spacing:
-              marginBlock: none
-
-      # Phone Mockup
-      - name: image
-        properties:
-          source:
-            url: https://images.pexels.com/photos/6289028/pexels-photo-6289028.jpeg?auto=compress&cs=tinysrgb&w=800
-            altText: Finance app on smartphone
-          appearance:
-            minHeight: 28.125
-            fit: contain
-            cornerStyle: xl
-          layout:
-            widthMode: fit
+            horizontalAlign: none
+            widthMode: "50"
           spacing:
             marginBlock: lg
+          appearance:
+            background:
+              color: rgba(255,255,255,0.1)
+              transparency: 100
+            backdropBlur: 14
+            radius: lg
+            border:
+              width: 1
+              style: solid
+              color: rgba(255,255,255,0.2)
+        components:
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/6289028/pexels-photo-6289028.jpeg?auto=compress&cs=tinysrgb&w=800
+              altText: Finance app on smartphone
+            appearance:
+              minHeight: 28.125
+              fit: contain
+              cornerStyle: lg
+              hoverEffect: lift
+            layout:
+              widthMode: stretch
+            spacing:
+              marginBlock: none

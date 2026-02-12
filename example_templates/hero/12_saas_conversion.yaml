@@ -1,394 +1,75 @@
-# SaaS Conversion Hero
-# A high-converting, trust-focused hero optimized for B2B SaaS
-# Perfect for: SaaS products, B2B software, productivity tools, enterprise
+# SaaS Conversion Hero - OpenBank Style
+# A clean, professional fintech hero with split layout and visual card grid
+# Perfect for: Fintech, SaaS products, B2B software, banking apps
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#1a1a1a"
+        secondary: &color-secondary "#6b7280"
+        accent: &color-accent "#2d5a4a"
+        background: &color-background "#f8f6f1"
+        card-bg: &color-card-bg "#e8e4db"
+        focus-bg: &color-focus-bg "#ece9e2"
+        muted: &color-muted "#7c8c7e"
+        nav-text: &color-nav-text "#374151"
+        rating: &color-rating "#f59e0b"
+        success-bg: &color-success-bg "#d4f0e0"
+        surface: &color-surface "#ffffff"
     appearance:
       background:
-        color: '#ffffff'
+        color: *color-background
         transparency: 100
   components:
-  # Navigation with CTA
-  - name: layout-row
+  # Navigation
+  - name: titlebar
     properties:
+      branding:
+        showLogo: true
+        logoUrl: https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=50&h=50
+        title: "OpenBank"
+      navigation:
+        links:
+        - label: Features
+          href: '#features'
+        - label: Use cases
+          href: '#usecases'
+        - label: Pricing
+          href: '#pricing'
+        - label: Blog
+          href: '#blog'
+        - label: How it works
+          href: '#howitworks'
+        - label: Sign up
+          href: '#signup'
       layout:
-        align: center
-        horizontalAlign: space-evenly
-      spacing:
-        paddingBlock: sm
-        paddingInline: lg
-      background:
-        color: '#ffffff'
-        transparency: 100
+        alignment: left
+        height: 72
+      scroll:
+        shrinkPercentage: 70
       appearance:
+        background:
+          color: *color-background
+          transparency: 100
         border:
-          width: 1
+          width: 0
           style: solid
-          color: '#f3f4f6'
-          position: bottom
-    components:
-    - name: heading
-      properties:
-        text: "Workflow"
-        level: 3
-        typography:
-          color: '#111827'
-          size: md
-          weight: bold
-        spacing:
-          marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: link
-        properties:
-          text: "Product"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Solutions"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Pricing"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Docs"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: link
-        properties:
-          text: "Sign in"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: button
-        properties:
-          text: "Start Free Trial"
-          appearance:
-            background:
-              color: '#4f46e5'
-              transparency: 100
-            border:
-              width: 0
-              style: solid
-              color: transparent
-            padding:
-              block: xs
-              inline: md
-          typography:
-            color: '#ffffff'
-            weight: semibold
-            size: sm
-          spacing:
-            marginBlock: none
+          color: transparent
+        focus:
+          background: *color-focus-bg
+          color: *color-accent
+      typography:
+        title:
+          size: 20
+          weight: semibold
+          color: *color-primary
+        menu:
+          size: 14
+          weight: medium
+          color: *color-nav-text
 
-  # Hero Content
-  - name: layout-column
-    properties:
-      layout:
-        align: center
-        horizontalAlign: space-evenly
-      spacing:
-        paddingBlock: xxl
-        paddingInline: lg
-      background:
-        color: '#fafafa'
-        transparency: 100
-    components:
-    # Social Proof Banner
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-        appearance:
-          background:
-            color: '#ffffff'
-            transparency: 100
-          radius: pill
-          border:
-            width: 1
-            style: solid
-            color: '#e5e7eb'
-          padding:
-            block: xs
-            inline: md
-          shadow: '0 1px 2px rgba(0,0,0,0.05)'
-      components:
-      - name: layout-row
-        properties:
-          layout:
-            align: center
-            horizontalAlign: none
-        components:
-        - name: paragraph
-          properties:
-            text: "★★★★★"
-            typography:
-              color: '#fbbf24'
-              size: sm
-            spacing:
-              marginBlock: none
-      - name: paragraph
-        properties:
-          text: "Rated 4.9/5 from 2,000+ reviews"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-
-    # Main Headline
-    - name: heading
-      properties:
-        text: "Automate your workflow,"
-        level: 1
-        typography:
-          color: '#111827'
-          size: xxxl
-          weight: bold
-          align: center
-          lineHeight: '1.1'
-        spacing:
-          marginBlock: none
-
-    - name: heading
-      properties:
-        text: "amplify your results"
-        level: 1
-        typography:
-          color: '#4f46e5'
-          size: xxxl
-          weight: bold
-          align: center
-          lineHeight: '1.1'
-        spacing:
-          marginBlock: none
-
-    # Value Proposition
-    - name: paragraph
-      properties:
-        text: |
-          The all-in-one platform that helps teams move faster. Automate repetitive tasks,
-          collaborate in real-time, and ship products 10x faster than before.
-        typography:
-          color: '#6b7280'
-          size: lg
-          align: center
-          lineHeight: '1.6'
-        spacing:
-          marginBlock: md
-        layout:
-          widthMode: 50
-
-    # CTA with Social Proof
-    - name: layout-column
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-        spacing:
-          marginBlock: md
-      components:
-      - name: layout-row
-        properties:
-          layout:
-            align: center
-            horizontalAlign: space-evenly
-            wrap: wrap
-        components:
-        - name: textbox
-          properties:
-            label:
-              show: false
-            field:
-              placeholder: "Enter your work email"
-            appearance:
-              background:
-                color: '#ffffff'
-                transparency: 100
-              border:
-                width: 1
-                style: solid
-                color: '#d1d5db'
-              radius: md
-              padding:
-                block: sm
-                inline: md
-            layout:
-              widthMode: fit
-        - name: button
-          properties:
-            text: "Start Free Trial →"
-            appearance:
-              background:
-                color: '#4f46e5'
-                transparency: 100
-              border:
-                width: 0
-                style: solid
-                color: transparent
-              padding:
-                block: sm
-                inline: lg
-            typography:
-              color: '#ffffff'
-              weight: semibold
-              size: md
-            spacing:
-              marginBlock: none
-
-      - name: paragraph
-        properties:
-          text: "No credit card required  •  14-day free trial  •  Cancel anytime"
-          typography:
-            color: '#9ca3af'
-            size: xs
-          spacing:
-            marginBlock: none
-
-    # Trust Logos
-    - name: layout-column
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-        spacing:
-          marginBlock: lg
-      components:
-      - name: paragraph
-        properties:
-          text: "TRUSTED BY 10,000+ COMPANIES WORLDWIDE"
-          typography:
-            color: '#9ca3af'
-            size: xxs
-            weight: semibold
-            letterSpacing: wider
-            align: center
-          spacing:
-            marginBlock: none
-      - name: layout-row
-        properties:
-          layout:
-            align: center
-            horizontalAlign: space-evenly
-            wrap: wrap
-        components:
-        - name: paragraph
-          properties:
-            text: "GOOGLE"
-            typography:
-              color: '#d1d5db'
-              size: md
-              weight: bold
-            spacing:
-              marginBlock: none
-        - name: paragraph
-          properties:
-            text: "MICROSOFT"
-            typography:
-              color: '#d1d5db'
-              size: md
-              weight: bold
-            spacing:
-              marginBlock: none
-        - name: paragraph
-          properties:
-            text: "SPOTIFY"
-            typography:
-              color: '#d1d5db'
-              size: md
-              weight: bold
-            spacing:
-              marginBlock: none
-        - name: paragraph
-          properties:
-            text: "AIRBNB"
-            typography:
-              color: '#d1d5db'
-              size: md
-              weight: bold
-            spacing:
-              marginBlock: none
-        - name: paragraph
-          properties:
-            text: "SLACK"
-            typography:
-              color: '#d1d5db'
-              size: md
-              weight: bold
-            spacing:
-              marginBlock: none
-
-    # Product Screenshot
-    - name: layout-column
-      properties:
-        layout:
-          align: center
-          horizontalAlign: none
-        spacing:
-          marginBlock: lg
-        appearance:
-          background:
-            color: '#ffffff'
-            transparency: 100
-          radius: xl
-          border:
-            width: 1
-            style: solid
-            color: '#e5e7eb'
-          shadow: '0 25px 50px -12px rgba(0,0,0,0.15)'
-      components:
-      - name: image
-        properties:
-          source:
-            url: https://images.pexels.com/photos/3184311/pexels-photo-3184311.jpeg?auto=compress&cs=tinysrgb&w=1200
-            altText: Team using the product dashboard
-          appearance:
-            minHeight: 28.125
-            fit: cover
-            cornerStyle: lg
-          layout:
-            widthMode: stretch
-          spacing:
-            marginBlock: none
-
-  # Feature Highlights Bar
+  # Hero Section - Split Layout
   - name: layout-row
     properties:
       layout:
@@ -396,105 +77,311 @@
         horizontalAlign: space-evenly
         wrap: wrap
       spacing:
-        paddingBlock: lg
-        paddingInline: lg
-      background:
-        color: '#ffffff'
-        transparency: 100
+        paddingBlock: xxxl
+        paddingInline: xl
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
     components:
-    - name: layout-row
+    # Left Content
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+          gap: sm
+        appearance:
+          widthMode: 45
+      components:
+      # Eyebrow with dash
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: none
+        components:
+        - name: paragraph
+          properties:
+            text: "—"
+            typography:
+              color: *color-accent
+              size: md
+              weight: bold
+            spacing:
+              marginBlock: none
+        - name: eyebrow
+          properties:
+            text: "TRY IT NOW!"
+            typography:
+              color: *color-accent
+              size: xs
+              weight: semibold
+              letterSpacing: wider
+              transform: uppercase
+            spacing:
+              marginBlock: none
+
+      # Main Headline
+      - name: heading
+        properties:
+          text: "Instant Payment with"
+          level: 1
+          typography:
+            color: *color-primary
+            size: xxxl
+            weight: bold
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+
+      - name: heading
+        properties:
+          text: "Open Banking"
+          level: 1
+          typography:
+            color: *color-accent
+            size: xxxl
+            weight: bold
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+
+      # Description
+      - name: paragraph
+        properties:
+          text: |
+            Our advanced technology and secure systems
+            provide a safe and reliable way to transfer funds,
+            allowing you to improved efficiency.
+          typography:
+            color: *color-secondary
+            size: md
+            lineHeight: '1.7'
+          spacing:
+            marginBlock: md
+
+      # CTA Button
+      - name: button
+        properties:
+          text: "Get demo account"
+          appearance:
+            background:
+              color: *color-accent
+              transparency: 100
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            padding:
+              block: md
+              inline: xl
+            radius: pill
+          typography:
+            color: *color-surface
+            weight: semibold
+            size: md
+          spacing:
+            marginBlock: sm
+          layout:
+
+      # Star Rating + Review Count
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: sm
+        components:
+        - name: paragraph
+          properties:
+            text: "★★★★★"
+            typography:
+              color: *color-rating
+              size: md
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "4.8"
+            typography:
+              color: *color-rating
+              size: md
+              weight: bold
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "from 500+ reviews"
+            typography:
+              color: *color-secondary
+              size: sm
+            spacing:
+              marginBlock: none
+
+    # Right Side - 2x2 Visual Card Grid
+    - name: layout-column
       properties:
         layout:
           align: center
           horizontalAlign: space-evenly
+          gap: sm
+        appearance:
+          widthMode: 50
       components:
-      - name: paragraph
+      # Top Row
+      - name: layout-row
         properties:
-          text: "✓"
-          typography:
-            color: '#10b981'
-            size: md
-            weight: bold
-          spacing:
-            marginBlock: none
-      - name: paragraph
+          layout:
+            align: stretch
+            horizontalAlign: space-evenly
+        components:
+        # Credit Cards Image
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/4482900/pexels-photo-4482900.jpeg?auto=compress&cs=tinysrgb&w=600
+              altText: Credit cards stacked
+            appearance:
+              minHeight: 15
+              fit: cover
+              cornerStyle: xl
+              hoverEffect: zoom
+            spacing:
+              marginBlock: none
+
+        # Successful Transaction Card
+        - name: layout-column
+          properties:
+            layout:
+              align: center
+              horizontalAlign: space-evenly
+              gap: xs
+            appearance:
+              background:
+                color: *color-card-bg
+                transparency: 100
+              radius: xl
+              padding:
+                block: lg
+                inline: md
+          components:
+          - name: paragraph
+            properties:
+              text: "✓"
+              typography:
+                color: *color-accent
+                size: xl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+              appearance:
+                background:
+                  color: *color-success-bg
+                  transparency: 100
+                radius: pill
+                padding:
+                  block: xs
+                  inline: xs
+          - name: heading
+            properties:
+              text: "Successful"
+              level: 3
+              typography:
+                color: *color-primary
+                size: md
+                weight: semibold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "Transaction"
+              level: 3
+              typography:
+                color: *color-primary
+                size: md
+                weight: semibold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Date: Mar 20, 2024"
+              typography:
+                color: *color-muted
+                size: xs
+                align: center
+              spacing:
+                marginBlock: none
+
+      # Bottom Row
+      - name: layout-row
         properties:
-          text: "SOC 2 Certified"
-          typography:
-            color: '#374151'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: paragraph
-        properties:
-          text: "✓"
-          typography:
-            color: '#10b981'
-            size: md
-            weight: bold
-          spacing:
-            marginBlock: none
-      - name: paragraph
-        properties:
-          text: "99.99% Uptime"
-          typography:
-            color: '#374151'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: paragraph
-        properties:
-          text: "✓"
-          typography:
-            color: '#10b981'
-            size: md
-            weight: bold
-          spacing:
-            marginBlock: none
-      - name: paragraph
-        properties:
-          text: "24/7 Support"
-          typography:
-            color: '#374151'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: paragraph
-        properties:
-          text: "✓"
-          typography:
-            color: '#10b981'
-            size: md
-            weight: bold
-          spacing:
-            marginBlock: none
-      - name: paragraph
-        properties:
-          text: "GDPR Compliant"
-          typography:
-            color: '#374151'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
+          layout:
+            align: stretch
+            horizontalAlign: space-evenly
+        components:
+        # $25,000 Card
+        - name: layout-column
+          properties:
+            layout:
+              align: center
+              horizontalAlign: space-evenly
+              gap: xs
+            appearance:
+              background:
+                color: *color-accent
+                transparency: 100
+              radius: xl
+              padding:
+                block: xl
+                inline: md
+          components:
+          - name: paragraph
+            properties:
+              text: "▲"
+              typography:
+                color: *color-surface
+                size: md
+                align: center
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "$25,000"
+              level: 2
+              typography:
+                color: *color-surface
+                size: xxl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Sent to Jack"
+              typography:
+                color: 'rgba(255,255,255,0.7)'
+                size: sm
+                align: center
+              spacing:
+                marginBlock: none
+
+        # Payment Terminal Image
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/4482933/pexels-photo-4482933.jpeg?auto=compress&cs=tinysrgb&w=600
+              altText: Mobile payment at terminal
+            appearance:
+              minHeight: 15
+              fit: cover
+              cornerStyle: xl
+              hoverEffect: zoom
+            spacing:
+              marginBlock: none

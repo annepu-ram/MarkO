@@ -1,118 +1,220 @@
-# Card-Based Hero
-# A modern, modular hero with featured cards and visual hierarchy
-# Perfect for: News sites, content platforms, dashboards, portfolios
+# Card-Based Hero (Bento Grid)
+# Modern bento-style card grid with asymmetric layout, vibrant colors, and interactive elements
+# Perfect for: SaaS platforms, content sites, creative portfolios, product showcases
+#
+# 2026 Design Trends Applied:
+# - Bento grid with varied card sizes for visual hierarchy
+# - Vibrant Y2K-inspired color palette with neon gradients
+# - Interactive hover effects (zoom, lift, glow)
+# - Bold typography with dynamic sizing
+# - 3D depth using shadows and overlays
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#0f0f23"
+        secondary: &color-secondary "#6b7280"
+        accent: &color-accent "#ff006e"
+        accent-neon: &color-accent-neon "#fb5607"
+        accent-blue: &color-accent-blue "#3a86ff"
+        accent-purple: &color-accent-purple "#8338ec"
+        accent-cyan: &color-accent-cyan "#06ffa5"
+        background: &color-background "#fafafa"
+        surface: &color-surface "#ffffff"
+        muted: &color-muted "#9ca3af"
     appearance:
       background:
-        color: '#f3f4f6'
+        color: *color-background
         transparency: 100
   components:
-  # Navigation
-  - name: layout-row
-    properties:
-      layout:
-        align: center
-        horizontalAlign: space-evenly
-      spacing:
-        paddingBlock: md
-        paddingInline: lg
-      background:
-        color: '#ffffff'
-        transparency: 100
-      appearance:
-        shadow: '0 1px 3px rgba(0,0,0,0.1)'
-    components:
-    - name: heading
-      properties:
-        text: "DISCOVER"
-        level: 3
-        typography:
-          color: '#111827'
-          size: md
-          weight: bold
-        spacing:
-          marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-      components:
-      - name: link
-        properties:
-          text: "Trending"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Technology"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Design"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Culture"
-          typography:
-            color: '#6b7280'
-            size: sm
-            weight: medium
-          spacing:
-            marginBlock: none
 
-  # Hero Card Grid
+  # Compact Navigation
+  - name: titlebar
+    properties:
+      branding:
+        showLogo: false
+        title: "NEXUS"
+      navigation:
+        links:
+        - label: Products
+          href: '#products'
+        - label: Features
+          href: '#features'
+        - label: Pricing
+          href: '#pricing'
+        - label: Docs
+          href: '#docs'
+      layout:
+        alignment: left
+        height: 56
+      scroll:
+        shrinkPercentage: 70
+      appearance:
+        background:
+          color: *color-surface
+          transparency: 100
+        border:
+          width: 1
+          style: solid
+          color: rgba(0,0,0,0.08)
+        focus:
+          color: *color-accent
+      typography:
+        title:
+          size: 18
+          weight: bold
+          color: *color-primary
+        menu:
+          size: 14
+          weight: medium
+          color: *color-secondary
+
+  # Bento Grid Hero Container
   - name: layout-column
     properties:
       layout:
         align: center
         horizontalAlign: space-evenly
       spacing:
-        paddingBlock: lg
+        paddingBlock: xl
         paddingInline: lg
-      background:
-        color: '#f3f4f6'
-        transparency: 100
     components:
-    # Top Row - Large Feature + 2 Small Cards
+
+    # Section Title
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+          widthMode: "83"
+        spacing:
+          marginBlock: md
+      components:
+      - name: heading
+        properties:
+          text: "Build Faster. Ship Smarter."
+          level: 1
+          typography:
+            color: *color-primary
+            size: xxxl
+            weight: bold
+            align: center
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Powerful tools and seamless workflows for modern teams. Experience the future of productivity."
+          typography:
+            color: *color-secondary
+            size: lg
+            align: center
+            lineHeight: '1.6'
+          spacing:
+            marginBlock: sm
+          layout:
+            widthMode: "66"
+
+    # Bento Grid - Row 1 (Large + 2 Medium)
     - name: layout-row
       properties:
         layout:
           align: stretch
           horizontalAlign: space-evenly
           wrap: wrap
+        spacing:
+          marginBlock: md
       components:
-      # Large Feature Card
-      - name: image
+
+      # LARGE CARD - Main Feature (50% width)
+      - name: layout-column
         properties:
-          source:
-            url: https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1200
-            altText: Woman working with technology
-          appearance:
-            minHeight: 28.125
-            fit: cover
-            cornerStyle: lg
           layout:
-            widthMode: 65
+            align: start
+            horizontalAlign: space-evenly
+            widthMode: "50"
           spacing:
-            marginBlock: none
+            paddingBlock: xl
+            paddingInline: lg
+          appearance:
+            background:
+              type: gradient
+              gradient:
+                colorStart: *color-accent
+                colorEnd: *color-accent-neon
+                direction: to bottom right
+              transparency: 100
+            radius: lg
+            shadow: elevated
+            shadowColor: *color-accent
         components:
+        - name: eyebrow
+          properties:
+            text: "AI-POWERED"
+            typography:
+              color: rgba(255,255,255,0.8)
+              size: xs
+              weight: bold
+              letterSpacing: wider
+              transform: uppercase
+            spacing:
+              marginBlock: none
+        - name: heading
+          properties:
+            text: "Instant Code Generation"
+            level: 2
+            typography:
+              color: *color-surface
+              size: xxl
+              weight: bold
+              lineHeight: '1.2'
+            spacing:
+              marginBlock: sm
+        - name: paragraph
+          properties:
+            text: "Transform your ideas into production-ready code in seconds. Our AI understands context and generates clean, optimized code."
+            typography:
+              color: rgba(255,255,255,0.9)
+              size: md
+              lineHeight: '1.6'
+            spacing:
+              marginBlock: md
+        - name: button
+          properties:
+            text: "Try AI Assistant →"
+            appearance:
+              background:
+                color: rgba(255,255,255,0.2)
+                transparency: 100
+              backdropBlur: 12
+              border:
+                width: 1
+                style: solid
+                color: rgba(255,255,255,0.3)
+              padding:
+                block: sm
+                inline: lg
+              radius: pill
+            typography:
+              color: *color-surface
+              weight: semibold
+              size: sm
+            spacing:
+              marginBlock: none
+            layout:
+
+      # Right Column - 2 Medium Stacked Cards
+      - name: layout-column
+        properties:
+          layout:
+            align: stretch
+            horizontalAlign: space-evenly
+            widthMode: "50"
+            gap: md
+        components:
+
+        # MEDIUM CARD 1 - Collaboration
         - name: layout-column
           properties:
             layout:
@@ -123,67 +225,36 @@
               paddingInline: lg
             appearance:
               background:
-                color: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)
+                type: gradient
+                gradient:
+                  colorStart: *color-accent-blue
+                  colorEnd: *color-accent-purple
+                  direction: to right
                 transparency: 100
+              radius: lg
+              shadow: medium
+              shadowColor: *color-accent-blue
           components:
-          - name: layout-row
-            properties:
-              layout:
-                align: center
-                horizontalAlign: space-evenly
-              spacing:
-                marginBlock: xxl
-            components:
-            - name: paragraph
-              properties:
-                text: "FEATURED"
-                typography:
-                  color: '#ffffff'
-                  size: xxs
-                  weight: bold
-                  letterSpacing: wide
-                  transform: uppercase
-                spacing:
-                  marginBlock: none
-                appearance:
-                  background:
-                    color: '#ef4444'
-                    transparency: 100
-                  radius: sm
-                  padding:
-                    block: xxs
-                    inline: xs
-            - name: paragraph
-              properties:
-                text: "TECHNOLOGY"
-                typography:
-                  color: rgba(255,255,255,0.7)
-                  size: xxs
-                  weight: medium
-                  letterSpacing: wide
-                  transform: uppercase
-                spacing:
-                  marginBlock: none
           - name: heading
             properties:
-              text: "The Future of AI-Powered Design Tools"
-              level: 2
+              text: "Real-Time Collaboration"
+              level: 3
               typography:
-                color: '#ffffff'
-                size: xl
+                color: *color-surface
+                size: lg
                 weight: bold
-                lineHeight: '1.2'
+                lineHeight: '1.3'
               spacing:
                 marginBlock: none
           - name: paragraph
             properties:
-              text: "How machine learning is revolutionizing the creative industry and what it means for designers."
+              text: "Work together seamlessly with live cursors, instant sync, and built-in video chat."
               typography:
-                color: rgba(255,255,255,0.8)
+                color: rgba(255,255,255,0.85)
                 size: sm
                 lineHeight: '1.5'
               spacing:
-                marginBlock: xs
+                marginBlock: sm
           - name: layout-row
             properties:
               layout:
@@ -192,7 +263,78 @@
             components:
             - name: paragraph
               properties:
-                text: "By Sarah Chen"
+                text: "→"
+                typography:
+                  color: *color-surface
+                  size: xl
+                  weight: bold
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "Learn more"
+                typography:
+                  color: rgba(255,255,255,0.9)
+                  size: sm
+                  weight: medium
+                spacing:
+                  marginBlock: none
+
+        # MEDIUM CARD 2 - Security
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+            appearance:
+              background:
+                color: *color-primary
+                transparency: 100
+              radius: lg
+              shadow: medium
+              shadowColor: *color-accent-purple
+          components:
+          - name: heading
+            properties:
+              text: "Enterprise Security"
+              level: 3
+              typography:
+                color: *color-surface
+                size: lg
+                weight: bold
+                lineHeight: '1.3'
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Bank-grade encryption, SOC 2 certified, and GDPR compliant. Your data is safe with us."
+              typography:
+                color: rgba(255,255,255,0.75)
+                size: sm
+                lineHeight: '1.5'
+              spacing:
+                marginBlock: sm
+          - name: layout-row
+            properties:
+              layout:
+                align: center
+                horizontalAlign: space-evenly
+            components:
+            - name: paragraph
+              properties:
+                text: "✓"
+                typography:
+                  color: *color-accent-cyan
+                  size: lg
+                  weight: bold
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "SOC 2 Certified"
                 typography:
                   color: rgba(255,255,255,0.6)
                   size: xs
@@ -203,333 +345,276 @@
               properties:
                 text: "•"
                 typography:
-                  color: rgba(255,255,255,0.4)
+                  color: rgba(255,255,255,0.3)
                   size: xs
                 spacing:
                   marginBlock: none
             - name: paragraph
               properties:
-                text: "5 min read"
+                text: "256-bit Encryption"
                 typography:
                   color: rgba(255,255,255,0.6)
                   size: xs
+                  weight: medium
                 spacing:
                   marginBlock: none
 
-      # Right Column - 2 Stacked Cards
+    # Bento Grid - Row 2 (3 Small Cards)
+    - name: layout-row
+      properties:
+        layout:
+          align: stretch
+          horizontalAlign: space-evenly
+          wrap: wrap
+      components:
+
+      # SMALL CARD 1 - Performance
       - name: layout-column
         properties:
           layout:
-            align: stretch
+            align: center
             horizontalAlign: space-evenly
+            widthMode: "33"
+          spacing:
+            paddingBlock: lg
+            paddingInline: md
           appearance:
-            widthMode: 33
+            background:
+              color: *color-surface
+              transparency: 100
+            radius: lg
+            shadow: soft
+            border:
+              width: 1
+              style: solid
+              color: rgba(0,0,0,0.08)
         components:
-        # Card 1
-        - name: layout-column
+        - name: heading
           properties:
-            layout:
-              align: start
-              horizontalAlign: space-evenly
+            text: "⚡"
+            level: 3
+            typography:
+              size: xxxl
+              align: center
             spacing:
-              paddingBlock: md
-              paddingInline: md
-            background:
-              color: '#ffffff'
-              transparency: 100
-            appearance:
-              radius: lg
-              shadow: '0 1px 3px rgba(0,0,0,0.1)'
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600
-                altText: Team meeting
-              appearance:
-                minHeight: 7.5
-                fit: cover
-                cornerStyle: md
-              layout:
-                widthMode: stretch
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "BUSINESS"
-              typography:
-                color: '#10b981'
-                size: xxs
-                weight: bold
-                letterSpacing: wide
-                transform: uppercase
-              spacing:
-                marginBlock: none
-          - name: heading
-            properties:
-              text: "Remote Work Revolution: What's Next?"
-              level: 3
-              typography:
-                color: '#111827'
-                size: md
-                weight: semibold
-                lineHeight: '1.3'
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "3 min read"
-              typography:
-                color: '#9ca3af'
-                size: xs
-              spacing:
-                marginBlock: none
-        # Card 2
-        - name: layout-column
+              marginBlock: none
+        - name: heading
           properties:
-            layout:
-              align: start
-              horizontalAlign: space-evenly
+            text: "Lightning Fast"
+            level: 4
+            typography:
+              color: *color-primary
+              size: md
+              weight: bold
+              align: center
             spacing:
-              paddingBlock: md
-              paddingInline: md
-            background:
-              color: '#ffffff'
-              transparency: 100
-            appearance:
-              radius: lg
-              shadow: '0 1px 3px rgba(0,0,0,0.1)'
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=600
-                altText: Creative workspace
-              appearance:
-                minHeight: 7.5
-                fit: cover
-                cornerStyle: md
-              layout:
-                widthMode: stretch
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "DESIGN"
-              typography:
-                color: '#8b5cf6'
-                size: xxs
-                weight: bold
-                letterSpacing: wide
-                transform: uppercase
-              spacing:
-                marginBlock: none
-          - name: heading
-            properties:
-              text: "Minimalism vs Maximalism in 2025"
-              level: 3
-              typography:
-                color: '#111827'
-                size: md
-                weight: semibold
-                lineHeight: '1.3'
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "4 min read"
-              typography:
-                color: '#9ca3af'
-                size: xs
-              spacing:
-                marginBlock: none
+              marginBlock: sm
+        - name: paragraph
+          properties:
+            text: "Sub-100ms response times. Optimized for speed and performance."
+            typography:
+              color: *color-secondary
+              size: sm
+              align: center
+              lineHeight: '1.5'
+            spacing:
+              marginBlock: none
 
-    # Bottom Row - 3 Equal Cards
-    - name: columnsgrid
+      # SMALL CARD 2 - Analytics
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            widthMode: "33"
+          spacing:
+            paddingBlock: lg
+            paddingInline: md
+          appearance:
+            background:
+              color: *color-surface
+              transparency: 100
+            radius: lg
+            shadow: soft
+            border:
+              width: 1
+              style: solid
+              color: rgba(0,0,0,0.08)
+        components:
+        - name: heading
+          properties:
+            text: "📊"
+            level: 3
+            typography:
+              size: xxxl
+              align: center
+            spacing:
+              marginBlock: none
+        - name: heading
+          properties:
+            text: "Deep Analytics"
+            level: 4
+            typography:
+              color: *color-primary
+              size: md
+              weight: bold
+              align: center
+            spacing:
+              marginBlock: sm
+        - name: paragraph
+          properties:
+            text: "Actionable insights with real-time dashboards and custom reports."
+            typography:
+              color: *color-secondary
+              size: sm
+              align: center
+              lineHeight: '1.5'
+            spacing:
+              marginBlock: none
+
+      # SMALL CARD 3 - Integrations
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            widthMode: "33"
+          spacing:
+            paddingBlock: lg
+            paddingInline: md
+          appearance:
+            background:
+              color: *color-surface
+              transparency: 100
+            radius: lg
+            shadow: soft
+            border:
+              width: 1
+              style: solid
+              color: rgba(0,0,0,0.08)
+        components:
+        - name: heading
+          properties:
+            text: "🔗"
+            level: 3
+            typography:
+              size: xxxl
+              align: center
+            spacing:
+              marginBlock: none
+        - name: heading
+          properties:
+            text: "100+ Integrations"
+            level: 4
+            typography:
+              color: *color-primary
+              size: md
+              weight: bold
+              align: center
+            spacing:
+              marginBlock: sm
+        - name: paragraph
+          properties:
+            text: "Connect with your favorite tools. Works with Slack, GitHub, Figma, and more."
+            typography:
+              color: *color-secondary
+              size: sm
+              align: center
+              lineHeight: '1.5'
+            spacing:
+              marginBlock: none
+
+    # Bottom CTA Section
+    - name: layout-column
       properties:
         layout:
-          columns: 3
-          gap: md
-          verticalAlign: stretch
-        responsive:
-          breakpoints:
-            md: 2
-            sm: 1
-      columns:
-      - components:
-        - name: layout-column
+          align: center
+          horizontalAlign: space-evenly
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+          marginBlock: lg
+        appearance:
+          background:
+            type: gradient
+            gradient:
+              colorStart: *color-accent-cyan
+              colorEnd: *color-accent-blue
+              direction: to right
+            transparency: 100
+          radius: lg
+          shadow: dramatic
+          shadowColor: *color-accent-cyan
+      components:
+      - name: heading
+        properties:
+          text: "Ready to get started?"
+          level: 2
+          typography:
+            color: *color-primary
+            size: xxl
+            weight: bold
+            align: center
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Join 10,000+ teams building faster with Nexus."
+          typography:
+            color: rgba(15,15,35,0.8)
+            size: md
+            align: center
+          spacing:
+            marginBlock: md
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+        components:
+        - name: button
           properties:
-            layout:
-              align: start
-              horizontalAlign: space-evenly
-            spacing:
-              paddingBlock: md
-              paddingInline: md
-            background:
-              color: '#ffffff'
-              transparency: 100
+            text: "Start Free Trial"
             appearance:
-              radius: lg
-              shadow: '0 1px 3px rgba(0,0,0,0.1)'
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=600
-                altText: Startup office
-              appearance:
-                minHeight: 9.375
-                fit: cover
-                cornerStyle: md
-              layout:
-                widthMode: stretch
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "STARTUPS"
-              typography:
-                color: '#f59e0b'
-                size: xxs
-                weight: bold
-                letterSpacing: wide
-                transform: uppercase
-              spacing:
-                marginBlock: none
-          - name: heading
-            properties:
-              text: "10 Startups That Will Change Everything"
-              level: 3
-              typography:
-                color: '#111827'
-                size: md
-                weight: semibold
-                lineHeight: '1.3'
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "6 min read"
-              typography:
-                color: '#9ca3af'
-                size: xs
-              spacing:
-                marginBlock: none
-      - components:
-        - name: layout-column
+              background:
+                color: *color-primary
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              padding:
+                block: md
+                inline: xl
+              radius: pill
+              shadow: medium
+              shadowColor: *color-primary
+            typography:
+              color: *color-surface
+              weight: bold
+              size: md
+            spacing:
+              marginBlock: none
+        - name: button
           properties:
-            layout:
-              align: start
-              horizontalAlign: space-evenly
-            spacing:
-              paddingBlock: md
-              paddingInline: md
-            background:
-              color: '#ffffff'
-              transparency: 100
+            text: "Schedule Demo"
             appearance:
-              radius: lg
-              shadow: '0 1px 3px rgba(0,0,0,0.1)'
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=600
-                altText: Data visualization
-              appearance:
-                minHeight: 9.375
-                fit: cover
-                cornerStyle: md
-              layout:
-                widthMode: stretch
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "DATA"
-              typography:
-                color: '#3b82f6'
-                size: xxs
-                weight: bold
-                letterSpacing: wide
-                transform: uppercase
-              spacing:
-                marginBlock: none
-          - name: heading
-            properties:
-              text: "Understanding Big Data in Simple Terms"
-              level: 3
-              typography:
-                color: '#111827'
-                size: md
-                weight: semibold
-                lineHeight: '1.3'
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "4 min read"
-              typography:
-                color: '#9ca3af'
-                size: xs
-              spacing:
-                marginBlock: none
-      - components:
-        - name: layout-column
-          properties:
-            layout:
-              align: start
-              horizontalAlign: space-evenly
+              background:
+                color: rgba(255,255,255,0.2)
+                transparency: 100
+              backdropBlur: 8
+              border:
+                width: 1
+                style: solid
+                color: rgba(15,15,35,0.2)
+              padding:
+                block: md
+                inline: xl
+              radius: pill
+            typography:
+              color: *color-primary
+              weight: semibold
+              size: md
             spacing:
-              paddingBlock: md
-              paddingInline: md
-            background:
-              color: '#ffffff'
-              transparency: 100
-            appearance:
-              radius: lg
-              shadow: '0 1px 3px rgba(0,0,0,0.1)'
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600
-                altText: Sustainable workspace
-              appearance:
-                minHeight: 9.375
-                fit: cover
-                cornerStyle: md
-              layout:
-                widthMode: stretch
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "SUSTAINABILITY"
-              typography:
-                color: '#059669'
-                size: xxs
-                weight: bold
-                letterSpacing: wide
-                transform: uppercase
-              spacing:
-                marginBlock: none
-          - name: heading
-            properties:
-              text: "Green Tech: Building a Sustainable Future"
-              level: 3
-              typography:
-                color: '#111827'
-                size: md
-                weight: semibold
-                lineHeight: '1.3'
-              spacing:
-                marginBlock: none
-          - name: paragraph
-            properties:
-              text: "5 min read"
-              typography:
-                color: '#9ca3af'
-                size: xs
-              spacing:
-                marginBlock: none
+              marginBlock: none

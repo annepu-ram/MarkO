@@ -32,6 +32,22 @@ def transparency_to_hex(transparency):
         return 'ff'  # Default to fully opaque on error
 
 
+def hex_to_rgb(hex_color):
+    """Convert hex color (#3C4043) to space-separated RGB (60 64 67) for CSS rgb()."""
+    if not hex_color or not isinstance(hex_color, str):
+        return '0 0 0'
+    hex_color = hex_color.lstrip('#')
+    if len(hex_color) == 3:
+        hex_color = ''.join(c * 2 for c in hex_color)
+    if len(hex_color) != 6:
+        return '0 0 0'
+    try:
+        r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
+        return f'{r} {g} {b}'
+    except ValueError:
+        return '0 0 0'
+
+
 # ============================================================================
 # Deep Merge & Validation
 # ============================================================================
@@ -40,12 +56,17 @@ def deep_merge(base, override):
     """
     Deep merge two dictionaries. Override values take precedence.
     Arrays are replaced, not merged.
+    None and empty string values in override are skipped (preserves base defaults).
     """
+    if override is None or override == '':
+        return copy.deepcopy(base) if isinstance(base, dict) else base
     if not isinstance(base, dict) or not isinstance(override, dict):
         return override
-    
+
     result = copy.deepcopy(base)
     for key, value in override.items():
+        if value is None or value == '':
+            continue  # Skip None/empty values, preserve defaults
         if key in result and isinstance(result[key], dict) and isinstance(value, dict):
             result[key] = deep_merge(result[key], value)
         else:

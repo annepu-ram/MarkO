@@ -4,81 +4,82 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary "#1a1a1a"
+        secondary: &color-secondary "#666666"
+        accent: &color-accent "#ff4d4d"
+        background: &color-background "#f5f5f0"
+        focus-bg: &color-focus-bg "#e5e5e0"
+        muted: &color-muted "#999999"
+        primary-light: &color-primary-light "#333333"
+        surface: &color-surface "#ede8df"
+        surface-light: &color-surface-light "#ffffff"
     appearance:
       background:
-        color: '#f5f5f0'
+        type: gradient
+        gradient:
+          colorStart: *color-background
+          colorEnd: *color-surface
+          direction: to bottom
         transparency: 100
   components:
   # Minimal Navigation
-  - name: layout-row
+  - name: titlebar
     properties:
+      branding:
+        showLogo: false
+        title: "STUDIO"
+      navigation:
+        links:
+        - label: Work
+          href: '#work'
+        - label: About
+          href: '#about'
+        - label: Contact
+          href: '#contact'
       layout:
-        horizontalAlign: center
-        verticalAlign: center
-        horizontalAlign: space-evenly
-      spacing:
-        paddingBlock: md
-        paddingInline: lg
+        alignment: left
+        height: 60
+      scroll:
+        shrinkPercentage: 70
       appearance:
         background:
-          color: '#f5f5f0'
+          color: *color-background
           transparency: 100
-    components:
-    - name: heading
-      properties:
-        text: "STUDIO"
-        level: 3
-        typography:
-          color: '#1a1a1a'
-          size: md
+        border:
+          width: 0
+          style: solid
+          color: transparent
+        focus:
+          background: *color-focus-bg
+          color: *color-primary
+      typography:
+        title:
+          size: 16
           weight: bold
-          letterSpacing: wider
-        spacing:
-          marginBlock: none
-    - name: layout-row
-      properties:
-        layout:
-          horizontalAlign: center
-          verticalAlign: center
-          horizontalAlign: space-evenly
-      components:
-      - name: link
-        properties:
-          text: "Work"
-          typography:
-            color: '#666666'
-            size: sm
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "About"
-          typography:
-            color: '#666666'
-            size: sm
-          spacing:
-            marginBlock: none
-      - name: link
-        properties:
-          text: "Contact"
-          typography:
-            color: '#666666'
-            size: sm
-          spacing:
-            marginBlock: none
+          color: *color-primary
+        menu:
+          size: 14
+          weight: regular
+          color: *color-secondary
 
   # Hero Section - Typography Focused
   - name: layout-column
     properties:
       layout:
         horizontalAlign: left
-        horizontalAlign: space-evenly
+        gap: md
       spacing:
         paddingBlock: xxxl
         paddingInline: xl
       appearance:
         background:
-          color: '#f5f5f0'
+          type: gradient
+          gradient:
+            colorStart: *color-background
+            colorEnd: *color-surface
+            direction: to bottom right
           transparency: 100
     components:
     # Small Intro Text
@@ -86,7 +87,7 @@
       properties:
         text: "We are a creative studio"
         typography:
-          color: '#999999'
+          color: *color-muted
           size: md
           weight: regular
           letterSpacing: wide
@@ -98,17 +99,17 @@
       properties:
         layout:
           horizontalAlign: left
-          horizontalAlign: none
       components:
       - name: heading
         properties:
           text: "We design"
           level: 1
           typography:
-            color: '#1a1a1a'
+            color: *color-primary
             size: xxxl
             weight: bold
             lineHeight: '0.95'
+            letterSpacing: tight
           spacing:
             marginBlock: none
       - name: heading
@@ -116,10 +117,11 @@
           text: "experiences that"
           level: 1
           typography:
-            color: '#1a1a1a'
+            color: *color-primary
             size: xxxl
             weight: bold
             lineHeight: '0.95'
+            letterSpacing: tight
           spacing:
             marginBlock: none
       - name: heading
@@ -127,10 +129,11 @@
           text: "matter."
           level: 1
           typography:
-            color: '#ff4d4d'
+            color: *color-accent
             size: xxxl
             weight: bold
             lineHeight: '0.95'
+            letterSpacing: tight
           spacing:
             marginBlock: none
 
@@ -138,9 +141,8 @@
     - name: layout-row
       properties:
         layout:
-          horizontalAlign: left
+          horizontalAlign: right
           verticalAlign: top
-          horizontalAlign: space-evenly
           wrap: wrap
         spacing:
           marginBlock: xl
@@ -148,8 +150,8 @@
       - name: layout-column
         properties:
           layout:
+            widthMode: "50"
             horizontalAlign: left
-            horizontalAlign: none
           spacing:
             paddingBlock: none
         components:
@@ -157,8 +159,9 @@
       - name: layout-column
         properties:
           layout:
+            widthMode: "50"
             horizontalAlign: left
-            horizontalAlign: space-evenly
+            gap: md
           spacing:
             paddingBlock: none
         components:
@@ -168,44 +171,76 @@
               We're a team of designers, developers, and strategists
               who believe in the power of thoughtful design. We create
               digital experiences that connect brands with people.
+            layout:
+              widthMode: "75"
             typography:
-              color: '#666666'
+              color: *color-secondary
               size: lg
               lineHeight: '1.7'
             spacing:
               marginBlock: none
-            layout:
-              widthMode: 75
-        - name: button
+        - name: layout-row
           properties:
-            text: "View Our Work →"
-            appearance:
-              background:
-                color: '#1a1a1a'
-                transparency: 100
-              border:
-                width: 0
-                style: solid
-                color: transparent
-              padding:
-                block: md
-                inline: lg
-            typography:
-              color: '#ffffff'
-              weight: medium
-              size: md
-            spacing:
-              marginBlock: md
             layout:
-              widthMode: fit
+              horizontalAlign: left
+              verticalAlign: center
+            spacing:
+              marginBlock: none
+          components:
+          - name: button
+            properties:
+              text: "View Our Work →"
+              layout:
+              appearance:
+                background:
+                  type: gradient
+                  gradient:
+                    colorStart: *color-primary
+                    colorEnd: *color-primary-light
+                    direction: to right
+                border:
+                  width: 0
+                  style: solid
+                  color: transparent
+                padding:
+                  block: md
+                  inline: lg
+                shadow: medium
+                shadowColor: *color-accent
+              typography:
+                color: *color-surface-light
+                weight: medium
+                size: md
+              spacing:
+                marginBlock: none
+          - name: button
+            properties:
+              text: "Meet the Team"
+              layout:
+              appearance:
+                background:
+                  color: transparent
+                  transparency: 0
+                border:
+                  width: 2
+                  style: solid
+                  color: *color-primary
+                padding:
+                  block: md
+                  inline: lg
+              typography:
+                color: *color-primary
+                weight: medium
+                size: md
+              spacing:
+                marginBlock: none
 
     # Awards / Recognition Row
     - name: layout-row
       properties:
         layout:
-          horizontalAlign: left
-          verticalAlign: top
           horizontalAlign: space-evenly
+          verticalAlign: top
           wrap: wrap
         spacing:
           marginBlock: xl
@@ -214,20 +249,27 @@
           border:
             width: 1
             style: solid
-            color: '#e5e5e0'
+            color: *color-focus-bg
             position: top
       components:
       - name: layout-column
         properties:
           layout:
+            widthMode: "25"
             horizontalAlign: left
-            horizontalAlign: space-evenly
+          appearance:
+            radius: md
+            shadow: soft
+            shadowColor: *color-accent
+            padding:
+              block: sm
+              inline: md
         components:
         - name: paragraph
           properties:
-            text: "2024"
+            text: "2026"
             typography:
-              color: '#999999'
+              color: *color-muted
               size: xs
               weight: medium
             spacing:
@@ -236,7 +278,7 @@
           properties:
             text: "Awwwards SOTD"
             typography:
-              color: '#1a1a1a'
+              color: *color-primary
               size: sm
               weight: semibold
             spacing:
@@ -244,14 +286,21 @@
       - name: layout-column
         properties:
           layout:
+            widthMode: "25"
             horizontalAlign: left
-            horizontalAlign: space-evenly
+          appearance:
+            radius: md
+            shadow: soft
+            shadowColor: *color-accent
+            padding:
+              block: sm
+              inline: md
         components:
         - name: paragraph
           properties:
-            text: "2024"
+            text: "2026"
             typography:
-              color: '#999999'
+              color: *color-muted
               size: xs
               weight: medium
             spacing:
@@ -260,7 +309,7 @@
           properties:
             text: "FWA of the Day"
             typography:
-              color: '#1a1a1a'
+              color: *color-primary
               size: sm
               weight: semibold
             spacing:
@@ -268,14 +317,21 @@
       - name: layout-column
         properties:
           layout:
+            widthMode: "25"
             horizontalAlign: left
-            horizontalAlign: space-evenly
+          appearance:
+            radius: md
+            shadow: soft
+            shadowColor: *color-accent
+            padding:
+              block: sm
+              inline: md
         components:
         - name: paragraph
           properties:
-            text: "2023"
+            text: "2025"
             typography:
-              color: '#999999'
+              color: *color-muted
               size: xs
               weight: medium
             spacing:
@@ -284,7 +340,7 @@
           properties:
             text: "CSS Design Awards"
             typography:
-              color: '#1a1a1a'
+              color: *color-primary
               size: sm
               weight: semibold
             spacing:
@@ -292,14 +348,21 @@
       - name: layout-column
         properties:
           layout:
+            widthMode: "25"
             horizontalAlign: left
-            horizontalAlign: space-evenly
+          appearance:
+            radius: md
+            shadow: soft
+            shadowColor: *color-accent
+            padding:
+              block: sm
+              inline: md
         components:
         - name: paragraph
           properties:
-            text: "2023"
+            text: "2025"
             typography:
-              color: '#999999'
+              color: *color-muted
               size: xs
               weight: medium
             spacing:
@@ -308,7 +371,7 @@
           properties:
             text: "Webby Honoree"
             typography:
-              color: '#1a1a1a'
+              color: *color-primary
               size: sm
               weight: semibold
             spacing:
