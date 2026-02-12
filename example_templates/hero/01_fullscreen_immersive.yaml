@@ -1,0 +1,181 @@
+# Full-Screen Immersive Hero
+# A dramatic, full-screen hero with stunning background imagery
+# Perfect for: Travel, hospitality, luxury brands, creative agencies
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#0a0a0a'
+        transparency: 100
+  components:
+  # Full-Screen Hero with Centered Content
+  - name: image
+    properties:
+      source:
+        url: https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1920
+        altText: Majestic mountain landscape at golden hour
+      appearance:
+        minHeight: 100vh
+        fit: cover
+        cornerStyle: none
+      spacing:
+        marginBlock: none
+        marginInline: none
+      layout:
+        widthMode: stretch
+    components:
+    # Dark Gradient Overlay for Text Readability
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: lg
+        appearance:
+          background:
+            color: rgba(0,0,0,0.45)
+            transparency: 100
+      components:
+      # Eyebrow Badge
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "DISCOVER THE EXTRAORDINARY"
+            typography:
+              color: '#ffffff'
+              size: xs
+              weight: medium
+              letterSpacing: wider
+              transform: uppercase
+            spacing:
+              marginBlock: none
+            appearance:
+              background:
+                color: rgba(255,255,255,0.15)
+                transparency: 100
+              radius: pill
+              padding:
+                block: xs
+                inline: md
+
+      # Main Headline - Large & Impactful
+      - name: heading
+        properties:
+          text: "Explore Beyond Horizons"
+          level: 1
+          typography:
+            color: '#ffffff'
+            size: xxxl
+            weight: bold
+            align: center
+            letterSpacing: tight
+          spacing:
+            marginBlock: none
+        layout:
+          widthMode: 75
+
+      # Sub-headline
+      - name: paragraph
+        properties:
+          text: |
+            Embark on journeys that transform. From snow-capped peaks to endless coastlines,
+            discover destinations that speak to your soul and awaken your sense of wonder.
+          typography:
+            color: rgba(255,255,255,0.9)
+            size: lg
+            align: center
+            lineHeight: '1.7'
+            weight: light
+          spacing:
+            marginBlock: md
+          layout:
+            widthMode: 50
+
+      # CTA Buttons
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+          spacing:
+            marginBlock: lg
+        components:
+        - name: button
+          properties:
+            text: Start Your Journey
+            appearance:
+              background:
+                color: '#ffffff'
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              padding:
+                block: md
+                inline: xl
+            typography:
+              color: '#0a0a0a'
+              weight: semibold
+              size: md
+            spacing:
+              marginBlock: none
+        - name: button
+          properties:
+            text: Watch Film
+            appearance:
+              background:
+                color: transparent
+                transparency: 0
+              border:
+                width: 2
+                style: solid
+                color: '#ffffff'
+              padding:
+                block: md
+                inline: xl
+            typography:
+              color: '#ffffff'
+              weight: semibold
+              size: md
+            spacing:
+              marginBlock: none
+
+      # Scroll Indicator
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: xl
+        components:
+        - name: paragraph
+          properties:
+            text: "Scroll to explore"
+            typography:
+              color: rgba(255,255,255,0.6)
+              size: xs
+              align: center
+              weight: light
+              letterSpacing: wide
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "↓"
+            typography:
+              color: rgba(255,255,255,0.6)
+              size: lg
+              align: center
+            spacing:
+              marginBlock: none

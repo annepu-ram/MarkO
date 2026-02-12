@@ -15,68 +15,42 @@
     --color-neutral: #6b7280;    /* Gray - placeholder text */
 }
 
-/* Target component - selection border via ::before pseudo-element */
+/* Target component - selection border via outline (doesn't affect layout) */
 .chrome-target {
-    position: relative;
-    box-sizing: border-box;
     cursor: pointer;
-}
-
-.chrome-target::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border: 2px dashed var(--color-secondary);
-    pointer-events: none;
-    opacity: 0;
-    z-index: 999;
-    box-sizing: border-box;
+    outline: 2px dashed transparent;
+    outline-offset: -2px;
+    transition: outline-color 0.15s ease;
 }
 
 /* Hover state */
-.chrome-target:hover::before {
-    border-color: var(--color-secondary);
-    opacity: 1;
+.chrome-target:hover {
+    outline-color: var(--color-secondary);
 }
 
 /* Selected state */
-.chrome-target.selected::before {
-    border-color: var(--color-danger);
-    opacity: 1;
+.chrome-target.selected {
+    outline-color: var(--color-danger);
 }
 
 /* Form element wrapper - special handling for buttons, inputs, etc. */
 .form-element-wrapper {
     display: inline-flex !important;
     align-items: center;
-    position: relative;
-    box-sizing: border-box;
     cursor: pointer;
-    overflow: hidden;
-}
-
-/* Pseudo-element border for form elements (same as chrome-target) */
-.form-element-wrapper::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border: 2px dashed var(--color-secondary);
-    pointer-events: none;
-    opacity: 0;
-    z-index: 999;
-    box-sizing: border-box;
+    outline: 2px dashed transparent;
+    outline-offset: -2px;
+    transition: outline-color 0.15s ease;
 }
 
 /* Hover state for form elements */
-.form-element-wrapper:hover::before {
-    border-color: var(--color-secondary);
-    opacity: 1;
+.form-element-wrapper:hover {
+    outline-color: var(--color-secondary);
 }
 
 /* Selected state for form elements */
-.form-element-wrapper.selected::before {
-    border-color: var(--color-danger);
-    opacity: 1;
+.form-element-wrapper.selected {
+    outline-color: var(--color-danger);
 }
 
 /* Form elements inside wrapper should not expand beyond their content */

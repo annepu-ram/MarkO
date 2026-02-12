@@ -1,0 +1,487 @@
+# Asymmetric Creative Hero
+# A bold, unconventional layout with overlapping elements and creative tension
+# Perfect for: Creative agencies, artists, photographers, avant-garde brands
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#0d0d0d'
+        transparency: 100
+  components:
+  # Creative Navigation
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: lg
+        paddingInline: xl
+      background:
+        color: '#0d0d0d'
+        transparency: 100
+    components:
+    - name: heading
+      properties:
+        text: "VOID"
+        level: 3
+        typography:
+          color: '#ffffff'
+          size: lg
+          weight: bold
+          letterSpacing: wider
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: paragraph
+        properties:
+          text: "01"
+          typography:
+            color: '#404040'
+            size: xs
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Work"
+          typography:
+            color: '#ffffff'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "02"
+          typography:
+            color: '#404040'
+            size: xs
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "About"
+          typography:
+            color: '#666666'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "03"
+          typography:
+            color: '#404040'
+            size: xs
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Contact"
+          typography:
+            color: '#666666'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+
+  # Asymmetric Hero Layout
+  - name: layout-row
+    properties:
+      layout:
+        align: start
+        horizontalAlign: none
+        wrap: wrap
+      spacing:
+        paddingBlock: none
+        paddingInline: none
+      background:
+        color: '#0d0d0d'
+        transparency: 100
+    components:
+    # Left Content Area
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+        appearance:
+          widthMode: 40
+      components:
+      # Year / Index
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "©2025"
+            typography:
+              color: '#404040'
+              size: xs
+              weight: medium
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "—"
+            typography:
+              color: '#404040'
+              size: xs
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "CREATIVE STUDIO"
+            typography:
+              color: '#404040'
+              size: xs
+              weight: medium
+              letterSpacing: wide
+            spacing:
+              marginBlock: none
+
+      # Big Rotated Typography
+      - name: layout-column
+        properties:
+          layout:
+            align: start
+            horizontalAlign: none
+        components:
+        - name: heading
+          properties:
+            text: "WE"
+            level: 1
+            typography:
+              color: '#ffffff'
+              size: xxxl
+              weight: bold
+              lineHeight: '0.85'
+            spacing:
+              marginBlock: none
+        - name: heading
+          properties:
+            text: "CREATE"
+            level: 1
+            typography:
+              color: '#ffffff'
+              size: xxxl
+              weight: bold
+              lineHeight: '0.85'
+            spacing:
+              marginBlock: none
+        - name: heading
+          properties:
+            text: "BOLD"
+            level: 1
+            typography:
+              color: '#ff3366'
+              size: xxxl
+              weight: bold
+              lineHeight: '0.85'
+            spacing:
+              marginBlock: none
+
+      # Description
+      - name: paragraph
+        properties:
+          text: |
+            We're a collective of designers, developers, and dreamers
+            who believe in pushing boundaries. We don't follow trends—
+            we set them.
+          typography:
+            color: '#808080'
+            size: md
+            lineHeight: '1.7'
+          spacing:
+            marginBlock: md
+          layout:
+            widthMode: 75
+
+      # Stats in Creative Layout
+      - name: layout-row
+        properties:
+          layout:
+            align: start
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: lg
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: none
+          components:
+          - name: heading
+            properties:
+              text: "147"
+              level: 2
+              typography:
+                color: '#ffffff'
+                size: xxl
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Projects"
+              typography:
+                color: '#404040'
+                size: xs
+                weight: medium
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: none
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: none
+          components:
+          - name: heading
+            properties:
+              text: "23"
+              level: 2
+              typography:
+                color: '#ffffff'
+                size: xxl
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Awards"
+              typography:
+                color: '#404040'
+                size: xs
+                weight: medium
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: none
+
+      # CTA Button
+      - name: button
+        properties:
+          text: "Explore Our Work"
+          appearance:
+            background:
+              color: '#ff3366'
+              transparency: 100
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            padding:
+              block: md
+              inline: xl
+          typography:
+            color: '#ffffff'
+            weight: semibold
+            size: sm
+          spacing:
+            marginBlock: lg
+          layout:
+            widthMode: fit
+
+    # Right Image Area - Asymmetric
+    - name: layout-column
+      properties:
+        layout:
+          align: end
+          horizontalAlign: space-evenly
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
+        appearance:
+          widthMode: 60
+      components:
+      # Main Image - Offset
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1200
+            altText: Creative team in action
+          appearance:
+            minHeight: 31.25
+            fit: cover
+            cornerStyle: none
+          layout:
+            widthMode: stretch
+          spacing:
+            marginBlock: none
+
+      # Small Floating Element
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400
+              altText: Design detail
+            appearance:
+              minHeight: 12.5
+              fit: cover
+              cornerStyle: none
+            spacing:
+              marginBlock: none
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+          components:
+          - name: paragraph
+            properties:
+              text: "LATEST PROJECT"
+              typography:
+                color: '#404040'
+                size: xxs
+                weight: bold
+                letterSpacing: wider
+                transform: uppercase
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "Nike Air Max"
+              level: 3
+              typography:
+                color: '#ffffff'
+                size: lg
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Brand Campaign"
+              typography:
+                color: '#808080'
+                size: sm
+              spacing:
+                marginBlock: none
+          - name: link
+            properties:
+              text: "View Case Study →"
+              typography:
+                color: '#ff3366'
+                size: sm
+                weight: medium
+              spacing:
+                marginBlock: sm
+
+  # Scrolling Text Marquee
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: lg
+        paddingInline: none
+      background:
+        color: '#ff3366'
+        transparency: 100
+    components:
+    - name: paragraph
+      properties:
+        text: "STRATEGY"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+          weight: bold
+          letterSpacing: wider
+        spacing:
+          marginBlock: none
+    - name: paragraph
+      properties:
+        text: "•"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+        spacing:
+          marginBlock: none
+    - name: paragraph
+      properties:
+        text: "DESIGN"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+          weight: bold
+          letterSpacing: wider
+        spacing:
+          marginBlock: none
+    - name: paragraph
+      properties:
+        text: "•"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+        spacing:
+          marginBlock: none
+    - name: paragraph
+      properties:
+        text: "DEVELOPMENT"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+          weight: bold
+          letterSpacing: wider
+        spacing:
+          marginBlock: none
+    - name: paragraph
+      properties:
+        text: "•"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+        spacing:
+          marginBlock: none
+    - name: paragraph
+      properties:
+        text: "BRANDING"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+          weight: bold
+          letterSpacing: wider
+        spacing:
+          marginBlock: none
+    - name: paragraph
+      properties:
+        text: "•"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+        spacing:
+          marginBlock: none
+    - name: paragraph
+      properties:
+        text: "MOTION"
+        typography:
+          color: '#0d0d0d'
+          size: sm
+          weight: bold
+          letterSpacing: wider
+        spacing:
+          marginBlock: none

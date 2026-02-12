@@ -1,40 +1,29 @@
 page:
-  background:
-    color: '#ffffff'
-    transparency: 100
-    image: ''
-  layout:
+  appearance:
     padding:
-      top: none
-      right: none
-      bottom: none
-      left: none
-    margin:
-      top: none
-      right: none
-      bottom: none
-      left: none
+      block: none
+      inline: none
+    background:
+      color: '#ffffff'
+      transparency: 100
+      image: ''
 layout-row:
   layout:
     tag: section
-    align: stretch
-    gap: md
+    horizontalAlign: space-evenly
+    verticalAlign: stretch
     wrap: nowrap
-    width: auto
-    minWidth: auto
-    maxWidth: auto
-    minHeight: auto
-    maxHeight: auto
   spacing:
-    paddingBlock: sm
-    paddingInline: sm
-    marginBlock: sm
-    marginInline: sm
-  background:
-    color: '#ffffff'
-    transparency: 0
-    image: ''
+    marginBlock: none
+    marginInline: none
   appearance:
+    padding:
+      block: sm
+      inline: sm
+    background:
+      color: '#ffffff'
+      transparency: 0
+      image: ''
     border:
       width: 0
       style: solid
@@ -44,24 +33,20 @@ layout-row:
 layout-column:
   layout:
     tag: section
-    align: start
-    gap: md
+    horizontalAlign: center
     wrap: nowrap
-    width: auto
-    minWidth: auto
-    maxWidth: auto
-    minHeight: auto
-    maxHeight: auto
+    widthMode: stretch
   spacing:
-    paddingBlock: sm
-    paddingInline: sm
-    marginBlock: sm
-    marginInline: sm
-  background:
-    color: '#ffffff'
-    transparency: 0
-    image: ''
+    marginBlock: none
+    marginInline: none
   appearance:
+    padding:
+      block: sm
+      inline: sm
+    background:
+      color: '#ffffff'
+      transparency: 0
+      image: ''
     border:
       width: 0
       style: solid
@@ -72,11 +57,19 @@ columnsgrid:
   layout:
     columns: 2
     gap: md
-    align: center
+    verticalAlign: center
   responsive:
     breakpoints:
       md: 2
       sm: 1
+  appearance:
+    padding:
+      block: none
+      inline: none
+    shadow: none
+  spacing:
+    marginBlock: none
+    marginInline: none
 titlebar:
   branding:
     showLogo: true
@@ -131,7 +124,7 @@ heading:
   appearance:
     background:
       color: '#ffffff'
-      transparency: 100
+      transparency: 0
     radius: none
     padding:
       block: none
@@ -161,7 +154,7 @@ paragraph:
   appearance:
     background:
       color: '#ffffff'
-      transparency: 100
+      transparency: 0
     radius: none
     padding:
       block: none
@@ -186,7 +179,7 @@ eyebrow:
   appearance:
     background:
       color: '#ffffff'
-      transparency: 100
+      transparency: 0
     radius: none
     padding:
       block: none
@@ -211,7 +204,7 @@ caption:
   appearance:
     background:
       color: '#ffffff'
-      transparency: 100
+      transparency: 0
     radius: none
     padding:
       block: none
@@ -222,7 +215,7 @@ blockquote:
     Share a thought worth repeating.
   cite: Alina Wheeler
   typography:
-    size: lg
+    size: xl
     weight: medium
     align: center
     color: '#111827'
@@ -237,65 +230,83 @@ blockquote:
       accentColor: '#6366f1'
     background:
       color: '#ffffff'
-      transparency: 100
+      transparency: 0
     radius: none
     padding:
       block: md
       inline: md
+    shadow: none
   layout:
     widthMode: stretch
 image:
   source:
     url: https://via.placeholder.com/150
     altText: Placeholder image
-  presentation:
-    width: "100"
-    minHeight: 200
+  appearance:
+    minHeight: 12.5
+    maxHeight: 0
     fit: cover
     cornerStyle: none
-  overlay:
-    enabled: false
-    color: rgba(0,0,0,0.5)
-    opacity: 0.5
-  spacing:
-    marginBlock: sm
-    marginInline: none
-  appearance:
-    radius: none
+    objectPosition: center
+    filter: none
+    shadow: none
+    hoverEffect: none
+    lazy: true
+    overlay:
+      enabled: false
+      color: rgba(0,0,0,0.5)
+      opacity: 0.5
     padding:
       block: none
       inline: none
+  spacing:
+    marginBlock: sm
+    marginInline: none
   layout:
     widthMode: stretch
 video:
   source:
     url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+  appearance:
+    aspectRatio: '16/9'
+    height: 400
+    shadow: none
   playback:
     controls: true
     autoplay: false
     muted: false
+    loop: false
+  poster:
+    url: ''
   spacing:
     marginBlock: md
     marginInline: none
+  layout:
+    widthMode: stretch
 gif:
   source:
     url: https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif
     altText: Animated GIF
-  presentation:
+  appearance:
+    minHeight: 12.5
+    maxHeight: 0
     fit: cover
     cornerStyle: none
-  overlay:
-    enabled: false
-    color: rgba(0,0,0,0.5)
-    opacity: 0.5
-  spacing:
-    marginBlock: sm
-    marginInline: none
-  appearance:
-    radius: none
+    objectPosition: center
+    filter: none
+    shadow: none
+    hoverEffect: none
+    lazy: true
+    overlay:
+      enabled: false
+      color: rgba(0,0,0,0.5)
+      opacity: 0.5
     padding:
       block: none
       inline: none
+  spacing:
+    marginBlock: sm
+    marginInline: none
   layout:
     widthMode: stretch
 textbox:
@@ -326,7 +337,13 @@ textbox:
       block: sm
       inline: sm
   typography:
+    size: md
+    weight: regular
+    align: left
     color: '#000000'
+    lineHeight: 1.5
+    transform: none
+    letterSpacing: normal
   spacing:
     marginBlock: sm
     marginInline: none
@@ -357,7 +374,13 @@ textarea:
       block: sm
       inline: sm
   typography:
+    size: md
+    weight: regular
+    align: left
     color: '#000000'
+    lineHeight: 1.5
+    transform: none
+    letterSpacing: normal
   spacing:
     marginBlock: sm
     marginInline: none
@@ -376,18 +399,22 @@ button:
       style: solid
       color: '#1d4ed8'
     radius: sm
+    shadow: none
     iconPlacement: none
     padding:
       block: sm
       inline: md
   typography:
+    size: md
     weight: semibold
+    align: center
     color: '#ffffff'
+    lineHeight: 1.5
+    transform: none
+    letterSpacing: normal
   spacing:
     marginBlock: sm
     marginInline: xs
-    paddingBlock: none
-    paddingInline: none
 dropdown:
   label:
     text: Dropdown Label
@@ -449,9 +476,10 @@ radio:
 accordion:
   items:
   - title: Click to expand
-    content: |
-      Add your content here.
-      Supports multiple lines.
+    components:
+    - name: paragraph
+      properties:
+        text: Add your content here using nested components.
   behavior:
     allowMultipleOpen: false
   typography:
@@ -480,6 +508,7 @@ accordion:
     padding:
       block: sm
       inline: sm
+    shadow: none
   spacing:
     marginBlock: md
     marginInline: none
@@ -515,6 +544,7 @@ tabs:
       padding:
         block: md
         inline: md
+    shadow: none
   spacing:
     marginBlock: md
     marginInline: none
@@ -537,9 +567,11 @@ link:
   text: Click Me
   href: '#'
   appearance:
-    color: rgba(0,0,238,1)
     underline: true
     showArrow: false
+    padding:
+      block: none
+      inline: none
   typography:
     size: md
     weight: regular
@@ -551,23 +583,40 @@ link:
   spacing:
     marginBlock: xs
     marginInline: xs
-    paddingBlock: none
-    paddingInline: none
 form:
   layout:
     direction: column
-    gap: md
+    horizontalAlign: space-evenly
   submit:
     buttonText: Submit
     show: true
+  appearance:
+    shadow: none
 carousel:
   behavior:
     autoplay: true
     delay: 3000
     loop: true
+    pauseOnHover: true
+    swipeEnabled: true
+    swipeThreshold: 50
+    keyboardNavigation: true
+  animation:
+    effect: slide
+    duration: 300
   navigation:
     showArrows: true
     showDots: true
+    arrowStyle: chevron
+    arrowPosition: inside
+  indicators:
+    style: dots
+    position: bottom
+  accessibility:
+    showPauseButton: true
+    ariaLabel: 'Image carousel'
+  appearance:
+    shadow: none
   spacing:
     marginBlock: lg
     marginInline: none
@@ -597,4 +646,31 @@ carousel:
         source:
           url: https://via.placeholder.com/800x400?text=Slide+3
           altText: Slide 3
+video-background:
+  source:
+    url: ''
+    poster: ''
+  appearance:
+    aspectRatio: '16/9'
+    minHeight: 400
+    objectFit: cover
+    objectPosition: center
+    overlay:
+      enabled: true
+      color: 'rgba(0,0,0,0.4)'
+      opacity: 40
+  playback:
+    autoplay: true
+    loop: true
+    muted: true
+    playsinline: true
+  content:
+    verticalAlign: center
+    horizontalAlign: center
+    padding: md
+  spacing:
+    marginBlock: none
+    marginInline: none
+  layout:
+    widthMode: stretch
 

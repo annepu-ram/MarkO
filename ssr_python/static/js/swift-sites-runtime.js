@@ -50,46 +50,85 @@
 
             const slidesContainer = carouselElement.querySelector('.carousel-slides');
             const slides = carouselElement.querySelectorAll('.carousel-slide');
-            const prevButton = carouselElement.querySelector('.prev');
-            const nextButton = carouselElement.querySelector('.next');
-            const dotsContainer = carouselElement.querySelector('.carousel-dots');
-            const dots = carouselElement.querySelectorAll('.carousel-dots span');
+            // Support both old and new button selectors
+            const prevButton = carouselElement.querySelector('.carousel-prev') || carouselElement.querySelector('.prev');
+            const nextButton = carouselElement.querySelector('.carousel-next') || carouselElement.querySelector('.next');
+            // Support both old dots and new indicators
+            const indicatorsContainer = carouselElement.querySelector('.carousel-indicators') || carouselElement.querySelector('.carousel-dots');
+            const indicators = carouselElement.querySelectorAll('.carousel-indicator') || carouselElement.querySelectorAll('.carousel-dots span');
+            const pauseButton = carouselElement.querySelector('.carousel-pause');
             const totalSlides = slides.length;
 
             if (totalSlides < 2) {
                 if (prevButton) prevButton.style.display = 'none';
                 if (nextButton) nextButton.style.display = 'none';
-                if (dotsContainer) dotsContainer.style.display = 'none';
+                if (indicatorsContainer) indicatorsContainer.style.display = 'none';
+                if (pauseButton) pauseButton.style.display = 'none';
                 return;
             }
 
             let currentIndex = 0;
             let autoplayInterval = null;
+            let isPaused = false;
 
+            // Read configuration from data attributes
             const autoplay = carouselElement.dataset.autoplay === 'true';
             const delay = parseInt(carouselElement.dataset.delay, 10) || 3000;
+            const loop = carouselElement.dataset.loop !== 'false'; // Default true
+            const pauseOnHover = carouselElement.dataset.pauseOnHover !== 'false'; // Default true
+            const swipeEnabled = carouselElement.dataset.swipeEnabled !== 'false'; // Default true
+            const swipeThreshold = parseInt(carouselElement.dataset.swipeThreshold, 10) || 50;
+            const keyboardNav = carouselElement.dataset.keyboardNav !== 'false'; // Default true
+            const animDuration = parseInt(carouselElement.dataset.animationDuration, 10) || 300;
+
+            // Set CSS variable for animation duration
+            carouselElement.style.setProperty('--carousel-duration', `${animDuration}ms`);
+
+            // Check if fade transition
+            const isFade = carouselElement.classList.contains('carousel-fade');
 
             function updateCarousel() {
-                if (slidesContainer) {
+                // For slide transition
+                if (!isFade && slidesContainer) {
                     slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
                 }
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentIndex);
+
+                // Update active slide class (for fade and accessibility)
+                slides.forEach((slide, index) => {
+                    const isActive = index === currentIndex;
+                    slide.classList.toggle('active', isActive);
+                    slide.setAttribute('aria-hidden', !isActive);
+                });
+
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    const isActive = index === currentIndex;
+                    indicator.classList.toggle('active', isActive);
+                    indicator.setAttribute('aria-selected', isActive);
                 });
             }
 
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % totalSlides;
+            function goToSlide(index) {
+                if (loop) {
+                    currentIndex = ((index % totalSlides) + totalSlides) % totalSlides;
+                } else {
+                    currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
+                }
                 updateCarousel();
+            }
+
+            function nextSlide() {
+                if (!loop && currentIndex >= totalSlides - 1) return;
+                goToSlide(currentIndex + 1);
             }
 
             function prevSlide() {
-                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-                updateCarousel();
+                if (!loop && currentIndex <= 0) return;
+                goToSlide(currentIndex - 1);
             }
 
             function startAutoplay() {
-                if (autoplay) {
+                if (autoplay && !isPaused) {
                     stopAutoplay();
                     autoplayInterval = setInterval(nextSlide, delay);
                 }
@@ -102,6 +141,29 @@
                 }
             }
 
+            // Pause button functionality (WCAG 2.2.2)
+            if (pauseButton) {
+                const pauseIcon = pauseButton.querySelector('.pause-icon');
+                const playIcon = pauseButton.querySelector('.play-icon');
+
+                pauseButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    isPaused = !isPaused;
+                    pauseButton.dataset.playing = !isPaused;
+                    pauseButton.setAttribute('aria-label', isPaused ? 'Play carousel' : 'Pause carousel');
+
+                    if (pauseIcon) pauseIcon.style.display = isPaused ? 'none' : 'inline';
+                    if (playIcon) playIcon.style.display = isPaused ? 'inline' : 'none';
+
+                    if (isPaused) {
+                        stopAutoplay();
+                    } else {
+                        startAutoplay();
+                    }
+                });
+            }
+
+            // Navigation button handlers
             if (nextButton) {
                 nextButton.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -118,20 +180,134 @@
                 });
             }
 
-            dots.forEach(dot => {
-                dot.addEventListener('click', (e) => {
+            // Indicator click handlers
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const slideIndex = parseInt(e.target.dataset.slideTo, 10);
-                    if (!isNaN(slideIndex)) {
-                        currentIndex = slideIndex;
-                        updateCarousel();
-                        startAutoplay();
-                    }
+                    goToSlide(index);
+                    startAutoplay();
                 });
             });
 
-            carouselElement.addEventListener('mouseenter', stopAutoplay);
-            carouselElement.addEventListener('mouseleave', startAutoplay);
+            // Pause on hover
+            if (pauseOnHover && autoplay) {
+                carouselElement.addEventListener('mouseenter', () => {
+                    if (!isPaused) stopAutoplay();
+                });
+                carouselElement.addEventListener('mouseleave', () => {
+                    if (!isPaused) startAutoplay();
+                });
+            }
+
+            // Touch swipe support
+            if (swipeEnabled && slidesContainer) {
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let isSwiping = false;
+
+                slidesContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                    isSwiping = true;
+
+                    // Pause autoplay during swipe
+                    if (autoplay && !isPaused) {
+                        stopAutoplay();
+                    }
+                }, { passive: true });
+
+                slidesContainer.addEventListener('touchmove', (e) => {
+                    if (!isSwiping) return;
+
+                    // Calculate horizontal vs vertical movement
+                    const deltaX = Math.abs(e.changedTouches[0].screenX - touchStartX);
+                    const deltaY = Math.abs(e.changedTouches[0].screenY - touchStartY);
+
+                    // If horizontal movement is greater, prevent vertical scroll
+                    if (deltaX > deltaY && deltaX > 10) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+
+                slidesContainer.addEventListener('touchend', (e) => {
+                    if (!isSwiping) return;
+                    isSwiping = false;
+
+                    const touchEndX = e.changedTouches[0].screenX;
+                    const swipeDistance = touchEndX - touchStartX;
+
+                    // Check if swipe distance exceeds threshold
+                    if (Math.abs(swipeDistance) >= swipeThreshold) {
+                        if (swipeDistance < 0) {
+                            // Swipe left - go to next slide
+                            nextSlide();
+                        } else {
+                            // Swipe right - go to previous slide
+                            prevSlide();
+                        }
+                    }
+
+                    // Resume autoplay after swipe
+                    if (autoplay && !isPaused) {
+                        startAutoplay();
+                    }
+                }, { passive: true });
+
+                // Cancel swipe if touch leaves element
+                slidesContainer.addEventListener('touchcancel', () => {
+                    isSwiping = false;
+                    if (autoplay && !isPaused) {
+                        startAutoplay();
+                    }
+                }, { passive: true });
+            }
+
+            // Keyboard navigation support
+            if (keyboardNav) {
+                // Make carousel focusable
+                carouselElement.setAttribute('tabindex', '0');
+
+                carouselElement.addEventListener('keydown', (e) => {
+                    switch (e.key) {
+                        case 'ArrowLeft':
+                            e.preventDefault();
+                            prevSlide();
+                            startAutoplay();
+                            break;
+                        case 'ArrowRight':
+                            e.preventDefault();
+                            nextSlide();
+                            startAutoplay();
+                            break;
+                        case 'Home':
+                            e.preventDefault();
+                            goToSlide(0);
+                            startAutoplay();
+                            break;
+                        case 'End':
+                            e.preventDefault();
+                            goToSlide(totalSlides - 1);
+                            startAutoplay();
+                            break;
+                        case ' ':  // Spacebar
+                        case 'Enter':
+                            // Toggle play/pause if pause button exists
+                            if (pauseButton && autoplay) {
+                                e.preventDefault();
+                                pauseButton.click();
+                            }
+                            break;
+                    }
+                });
+
+                // Add focus styles
+                carouselElement.addEventListener('focus', () => {
+                    carouselElement.classList.add('carousel-focused');
+                });
+                carouselElement.addEventListener('blur', () => {
+                    carouselElement.classList.remove('carousel-focused');
+                });
+            }
 
             updateCarousel();
             startAutoplay();

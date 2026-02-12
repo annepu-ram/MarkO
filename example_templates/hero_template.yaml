@@ -1,6 +1,23 @@
 - name: page
   properties:
-    backgroundColor: '#f5f5f5'
+    theme:
+      fonts:
+        headingMain: &font-heading-main 'system-ui, sans-serif'
+        headingLevel2: &font-heading-level2 'system-ui, sans-serif'
+        content: &font-content 'system-ui, sans-serif'
+      colors:
+        # 60-30-10 Color System:
+        # Primary (30%) = TEXT - all headings, paragraphs, body text
+        # Secondary (10%) = UI elements, section highlights, regular buttons
+        # Accent (CTAs only) = Call-to-action buttons like "Get Started", "Start Free Trial"
+        # Background (60%) = Page base, content areas
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#f5f5f5'
+    appearance:
+      background:
+        color: *color-background
   components:
     - name: image
       properties:
@@ -8,8 +25,7 @@
           url: >-
             https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
           altText: Modern workspace with laptop and coffee
-        presentation:
-          height: auto
+        appearance:
           fit: cover
           cornerStyle: none
         spacing:
@@ -50,9 +66,9 @@
             text: Get Started Now
             appearance:
               background:
-                color: '#2563eb'
+                color: *color-primary
               border:
-                color: '#1d4ed8'
+                color: *color-secondary
               padding:
                 block: md
                 inline: lg
@@ -68,7 +84,7 @@
       properties:
         text: Why Our Platform Stands Out
         typography:
-          color: '#2d2d2d'
+          color: *color-primary
           align: center
           weight: bold
           size: lg
@@ -79,7 +95,7 @@
       properties:
         text: Discover the features that make us the industry leader
         typography:
-          color: '#6b7280'
+          color: *color-secondary
           align: center
           size: md
         spacing:
@@ -92,7 +108,7 @@
           paddingBlock: lg
           paddingInline: lg
         layout:
-          gap: lg
+          horizontalAlign: space-evenly
         background:
           color: '#ffffff'
         appearance:
@@ -109,8 +125,8 @@
               url: >-
                 https://images.pexels.com/photos/3560044/pexels-photo-3560044.jpeg?auto=compress&cs=tinysrgb&w=600
               altText: Dashboard analytics
-            presentation:
-              height: 300px
+            appearance:
+              minHeight: 18.75
               fit: cover
               cornerStyle: md
             layout:
@@ -124,7 +140,7 @@
               properties:
                 text: Advanced Analytics
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   weight: bold
                   size: lg
                 level: 3
@@ -135,7 +151,7 @@
                   you make informed decisions. Track metrics that matter and
                   optimize your strategy with actionable intelligence.
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: md
                 spacing:
                   marginBlock: md
@@ -144,9 +160,9 @@
                 text: Learn More
                 appearance:
                   background:
-                    color: '#7a9b7f'
+                    color: *color-secondary
                   border:
-                    color: '#6b8f70'
+                    color: *color-secondary
                   padding:
                     block: sm
                     inline: md
@@ -166,7 +182,7 @@
           paddingBlock: lg
           paddingInline: lg
         layout:
-          gap: lg
+          horizontalAlign: space-evenly
         background:
           color: '#ffffff'
         appearance:
@@ -186,7 +202,7 @@
               properties:
                 text: Seamless Integration
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   weight: bold
                   size: lg
                 level: 3
@@ -197,7 +213,7 @@
                   Our API and integrations work with 500+ popular applications,
                   streamlining your workflow.
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: md
                 spacing:
                   marginBlock: md
@@ -206,9 +222,9 @@
                 text: Explore Integrations
                 appearance:
                   background:
-                    color: '#2563eb'
+                    color: *color-primary
                   border:
-                    color: '#1d4ed8'
+                    color: *color-secondary
                   padding:
                     block: sm
                     inline: md
@@ -226,8 +242,8 @@
               url: >-
                 https://images.pexels.com/photos/5244002/pexels-photo-5244002.jpeg
               altText: Integration workflow
-            presentation:
-              height: 300px
+            appearance:
+              minHeight: 18.75
               fit: cover
               cornerStyle: md
             overlay:
@@ -252,7 +268,7 @@
           paddingBlock: lg
           paddingInline: lg
         layout:
-          gap: lg
+          horizontalAlign: space-evenly
         background:
           color: '#ffffff'
         appearance:
@@ -269,8 +285,8 @@
               url: >-
                 https://images.pexels.com/photos/3194519/pexels-photo-3194519.jpeg?auto=compress&cs=tinysrgb&w=600
               altText: Security features
-            presentation:
-              height: 300px
+            appearance:
+              minHeight: 18.75
               fit: cover
               cornerStyle: md
             layout:
@@ -284,7 +300,7 @@
               properties:
                 text: Enterprise Security
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   weight: bold
                   size: lg
                 level: 3
@@ -295,7 +311,7 @@
                   ensure your data stays secure. We take privacy seriously with
                   regular audits and 24/7 monitoring.
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: md
                 spacing:
                   marginBlock: md
@@ -304,9 +320,9 @@
                 text: View Security Details
                 appearance:
                   background:
-                    color: '#7a9b7f'
+                    color: *color-secondary
                   border:
-                    color: '#6b8f70'
+                    color: *color-secondary
                   padding:
                     block: sm
                     inline: md
@@ -322,7 +338,7 @@
       properties:
         text: Our Core Services
         typography:
-          color: '#2d2d2d'
+          color: *color-primary
           align: center
           weight: bold
           size: lg
@@ -345,8 +361,8 @@
                   url: >-
                     https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg
                   altText: Consulting service
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 overlay:
@@ -367,7 +383,7 @@
               properties:
                 text: Strategy Consulting
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   align: center
                   weight: bold
                 level: 3
@@ -379,7 +395,7 @@
                   Expert guidance to define your roadmap and achieve strategic
                   goals.
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   align: center
                   size: sm
         - components:
@@ -389,8 +405,8 @@
                   url: >-
                     https://images.pexels.com/photos/8720270/pexels-photo-8720270.jpeg
                   altText: Development service
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 overlay:
@@ -411,7 +427,7 @@
               properties:
                 text: Custom Development
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   align: center
                   weight: bold
                 level: 3
@@ -423,7 +439,7 @@
                   Tailored solutions built with modern technology and best
                   practices.
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   align: center
                   size: sm
         - components:
@@ -433,8 +449,8 @@
                   url: >-
                     https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400&h=300
                   altText: Support service
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -443,7 +459,7 @@
               properties:
                 text: 24/7 Support
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   align: center
                   weight: bold
                 level: 3
@@ -455,7 +471,7 @@
                   Dedicated support team available round the clock for your
                   peace of mind.
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   align: center
                   size: sm
         - components:
@@ -465,8 +481,8 @@
                   url: >-
                     https://images.pexels.com/photos/3862632/pexels-photo-3862632.jpeg?auto=compress&cs=tinysrgb&w=400&h=300
                   altText: Training service
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -475,7 +491,7 @@
               properties:
                 text: Training Programs
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   align: center
                   weight: bold
                 level: 3
@@ -487,14 +503,14 @@
                   Comprehensive training to maximize team productivity and
                   adoption.
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   align: center
                   size: sm
     - name: heading
       properties:
         text: What Our Clients Say
         typography:
-          color: '#2d2d2d'
+          color: *color-primary
           align: center
           weight: bold
           size: lg
@@ -517,14 +533,14 @@
                   intuitive interface and powerful features saved us countless
                   hours." 
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: sm
                   align: center
             - name: heading
               properties:
                 text: Sarah Johnson
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   weight: bold
                   align: center
                   size: sm
@@ -535,7 +551,7 @@
               properties:
                 text: CEO, Tech Innovations Inc.
                 typography:
-                  color: '#8b8b8b'
+                  color: *color-secondary
                   size: xs
                   align: center
         - components:
@@ -545,14 +561,14 @@
                   "Outstanding support team and reliable service. They went
                   above and beyond to ensure our success."
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: sm
                   align: center
             - name: heading
               properties:
                 text: Michael Chen
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   weight: bold
                   align: center
                   size: sm
@@ -563,7 +579,7 @@
               properties:
                 text: Product Manager, Growth Labs
                 typography:
-                  color: '#8b8b8b'
+                  color: *color-secondary
                   size: xs
                   align: center
         - components:
@@ -573,14 +589,14 @@
                   "The ROI was immediate. We saw a 40% improvement in efficiency
                   within the first month."
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: sm
                   align: center
             - name: heading
               properties:
                 text: Emily Rodriguez
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   weight: bold
                   align: center
                   size: sm
@@ -591,14 +607,14 @@
               properties:
                 text: Operations Director, Digital Ventures
                 typography:
-                  color: '#8b8b8b'
+                  color: *color-secondary
                   size: xs
                   align: center
     - name: heading
       properties:
         text: Simple, Transparent Pricing
         typography:
-          color: '#2d2d2d'
+          color: *color-primary
           align: center
           weight: bold
           size: lg
@@ -618,7 +634,7 @@
               properties:
                 text: Starter
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   align: center
                   weight: bold
                   size: md
@@ -629,7 +645,7 @@
               properties:
                 text: $29/month
                 typography:
-                  color: '#7a9b7f'
+                  color: *color-secondary
                   align: center
                   weight: bold
                   size: lg
@@ -639,7 +655,7 @@
               properties:
                 text: Perfect for individuals and small projects
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   align: center
                   size: sm
                 spacing:
@@ -652,7 +668,7 @@
                   ✓ Email support
                   ✓ 1GB storage
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: sm
                 spacing:
                   marginBlock: md
@@ -663,12 +679,12 @@
                   background:
                     color: '#ffffff'
                   border:
-                    color: '#2563eb'
+                    color: *color-primary
                   padding:
                     block: sm
                     inline: md
                 typography:
-                  color: '#2563eb'
+                  color: *color-primary
                   weight: semibold
                 layout:
                   widthMode: fit
@@ -696,7 +712,7 @@
               properties:
                 text: $79/month
                 typography:
-                  color: '#7a9b7f'
+                  color: *color-secondary
                   align: center
                   weight: bold
                   size: lg
@@ -706,7 +722,7 @@
               properties:
                 text: Most popular for growing teams
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   align: center
                   size: sm
                 spacing:
@@ -720,7 +736,7 @@
                   ✓ 50GB storage
                   ✓ Team collaboration
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: sm
                 spacing:
                   marginBlock: md
@@ -729,9 +745,9 @@
                 text: Get Started
                 appearance:
                   background:
-                    color: '#2563eb'
+                    color: *color-primary
                   border:
-                    color: '#1d4ed8'
+                    color: *color-secondary
                   padding:
                     block: sm
                     inline: md
@@ -748,7 +764,7 @@
               properties:
                 text: Enterprise
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   align: center
                   weight: bold
                   size: md
@@ -759,7 +775,7 @@
               properties:
                 text: Custom pricing
                 typography:
-                  color: '#7a9b7f'
+                  color: *color-secondary
                   align: center
                   weight: bold
                   size: lg
@@ -769,7 +785,7 @@
               properties:
                 text: For large organizations
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   align: center
                   size: sm
                 spacing:
@@ -783,7 +799,7 @@
                   ✓ SLA guarantees
                   ✓ Advanced security
                 typography:
-                  color: '#6b7280'
+                  color: *color-secondary
                   size: sm
                 spacing:
                   marginBlock: md
@@ -794,12 +810,12 @@
                   background:
                     color: '#ffffff'
                   border:
-                    color: '#2d2d2d'
+                    color: *color-primary
                   padding:
                     block: sm
                     inline: md
                 typography:
-                  color: '#2d2d2d'
+                  color: *color-primary
                   weight: semibold
                 layout:
                   widthMode: fit
@@ -810,7 +826,7 @@
       properties:
         text: Frequently Asked Questions
         typography:
-          color: '#2d2d2d'
+          color: *color-primary
           align: center
           weight: bold
           size: lg
@@ -852,13 +868,25 @@
               believe in data portability and ensure you're never locked in.
         behavior:
           allowMultipleOpen: false
+        typography:
+          title:
+            color: *color-primary
+          content:
+            color: *color-primary
+        appearance:
+          titleBackground:
+            color: *color-background
+          border:
+            color: *color-secondary
+          contentBackground:
+            color: *color-background
         spacing:
           marginBlock: lg
     - name: heading
       properties:
         text: Ready to Transform Your Business?
         typography:
-          color: '#2d2d2d'
+          color: *color-primary
           align: center
           weight: bold
           size: lg
@@ -871,7 +899,7 @@
           Join thousands of successful businesses using our platform. Start your
           free trial today, no credit card required.
         typography:
-          color: '#6b7280'
+          color: *color-secondary
           align: center
           size: md
         spacing:
@@ -884,7 +912,7 @@
           paddingBlock: lg
           paddingInline: lg
         layout:
-          gap: md
+          horizontalAlign: space-evenly
           align: center
         background:
           color: '#f0f4f8'
@@ -900,9 +928,9 @@
             text: Start Free Trial
             appearance:
               background:
-                color: '#2563eb'
+                color: *color-primary
               border:
-                color: '#1d4ed8'
+                color: *color-secondary
               padding:
                 block: md
                 inline: lg
@@ -921,12 +949,12 @@
               background:
                 color: '#ffffff'
               border:
-                color: '#2563eb'
+                color: *color-primary
               padding:
                 block: md
                 inline: lg
             typography:
-              color: '#2563eb'
+              color: *color-primary
               weight: semibold
             layout:
               widthMode: fit

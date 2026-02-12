@@ -4,6 +4,38 @@ import traceback
 import copy
 import os
 
+
+# ============================================================================
+# Custom Jinja2 Filters
+# ============================================================================
+
+def transparency_to_hex(transparency):
+    """
+    Convert transparency (0-100) to hex alpha (00-ff).
+    Used as a Jinja2 filter in _components.html for background colors.
+
+    0 = fully transparent (00)
+    100 = fully opaque (ff)
+    """
+    if transparency is None:
+        return 'ff'  # Default to fully opaque
+
+    try:
+        trans_int = int(transparency)
+        # Clamp to 0-100
+        trans_int = max(0, min(100, trans_int))
+        # Convert to 0-255 range
+        alpha = int(trans_int * 255 / 100)
+        # Convert to hex (00-ff)
+        return format(alpha, '02x')
+    except (ValueError, TypeError):
+        return 'ff'  # Default to fully opaque on error
+
+
+# ============================================================================
+# Deep Merge & Validation
+# ============================================================================
+
 def deep_merge(base, override):
     """
     Deep merge two dictionaries. Override values take precedence.

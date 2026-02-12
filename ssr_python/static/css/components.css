@@ -12,6 +12,64 @@
     box-sizing: border-box;
 }
 
+/* Horizontal scroll for nowrap layout-row */
+.layout-row__content[data-wrap="nowrap"] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* Smooth iOS scroll */
+    scrollbar-width: auto; /* Firefox - ensure scrollbar is visible */
+}
+
+/* Custom scrollbar styling for nowrap rows */
+.layout-row__content[data-wrap="nowrap"]::-webkit-scrollbar {
+    height: 6px;
+}
+
+.layout-row__content[data-wrap="nowrap"]::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.layout-row__content[data-wrap="nowrap"]::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.layout-row__content[data-wrap="nowrap"]::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Prevent children from shrinking in nowrap rows - enables horizontal scroll */
+.layout-row__content[data-wrap="nowrap"] > * {
+    flex-shrink: 0;
+}
+
+/* Buttons in nowrap rows need a minimum width */
+.layout-row__content[data-wrap="nowrap"] > button,
+.layout-row__content[data-wrap="nowrap"] > .button {
+    min-width: max-content;
+}
+
+/* ===================================
+   LAYOUT-COLUMN WIDTH MODES
+   Margin-aware: deducts column's own margins from width
+   Formula: calc(percentage - marginInline * 2)
+   Ensures 25%+75% with margins still fits in one row
+
+   NOTE: Width modes now handled by inline styles in _components.html build_styles macro.
+   CSS rules below are kept as fallback but inline styles take precedence.
+   =================================== */
+.layout-column[data-width-mode] {
+    box-sizing: border-box;
+    min-width: 0; /* Allow shrinking below content size */
+}
+
+/* CSS width rules removed - now handled by inline styles for consistency with text components
+.layout-column[data-width-mode="fit"] { flex: 0 0 auto; }
+.layout-column[data-width-mode="16"] { ... }
+etc.
+*/
+
 /* Page Component */
 .page-placeholder {
     display: flex;
@@ -785,6 +843,7 @@ button, .button {
     cursor: pointer;
     outline: none;
     transition: all 0.2s ease;
+    white-space: nowrap; /* Prevent text wrapping in buttons */
 }
 
 button:hover, .button:hover {
@@ -851,12 +910,13 @@ select:focus {
 /* Tablet: max 2 columns (481px - 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
     .columnsgrid__col {
-        flex: 0 0 calc(50% - 0.5rem) !important;
-        max-width: calc(50% - 0.5rem);
+        flex: 0 0 calc(50% - var(--columnsgrid-gap, 1rem) / 2) !important;
+        max-width: calc(50% - var(--columnsgrid-gap, 1rem) / 2);
     }
 
     .columnsgrid__row {
         flex-wrap: wrap;
+        row-gap: var(--columnsgrid-gap, 1rem);
     }
 }
 
@@ -869,6 +929,7 @@ select:focus {
 
     .columnsgrid__row {
         flex-wrap: wrap;
+        row-gap: var(--columnsgrid-gap, 1rem);
     }
 
     .col {
@@ -976,7 +1037,7 @@ select:focus {
 /* Blockquote Component - Enhanced Styling */
 .text-blockquote {
     margin: 2rem 0;
-    padding: 1.5rem 2rem 1.5rem 2.5rem;
+    padding: 1.5rem 2rem 1.5rem 3.5rem; /* Increased left padding for larger quote */
     position: relative;
     border-left: 5px solid var(--blockquote-border, #3b82f6);
     background: linear-gradient(
@@ -992,34 +1053,36 @@ select:focus {
     margin: 0;
     padding: 0;
     position: relative;
-    font-size: 1.1em;
-    line-height: 1.6;
+    font-size: 1.25em; /* Increased from 1.1em */
+    line-height: 1.7; /* Increased from 1.6 */
     color: inherit;
 }
 
-/* Large opening quotation mark */
+/* Large opening quotation mark - more prominent */
 .text-blockquote blockquote::before {
     content: '"';
     position: absolute;
-    left: -1.5rem;
-    top: -0.5rem;
-    font-size: 4rem;
+    left: -2.5rem; /* Adjusted for larger size */
+    top: -1rem; /* Adjusted for larger size */
+    font-size: 6rem; /* Increased from 4rem */
     line-height: 1;
     font-family: Georgia, serif;
     color: var(--blockquote-border, #3b82f6);
-    opacity: 0.3;
+    opacity: 0.4; /* Increased from 0.3 */
     font-weight: bold;
 }
 
-/* Closing quotation mark */
+/* Closing quotation mark - positioned at bottom-right */
 .text-blockquote blockquote::after {
     content: '"';
-    font-size: 1.5rem;
+    position: absolute;
+    right: -0.5rem;
+    bottom: -1.5rem;
+    font-size: 4rem; /* Increased from 1.5rem */
     line-height: 1;
     font-family: Georgia, serif;
     color: var(--blockquote-border, #3b82f6);
-    opacity: 0.5;
-    margin-left: 0.25rem;
+    opacity: 0.25; /* Subtle but visible */
     font-weight: bold;
 }
 
@@ -1212,7 +1275,8 @@ a.link-arrow:hover::after {
     position: relative;
     display: block;
     box-sizing: border-box;
-    overflow: hidden;
+    /* Note: overflow: hidden removed to allow chrome selection border (::before with inset: -2px) to show.
+       Individual wrappers (.image-wrapper, .video-wrapper, .gif-wrapper) handle overflow clipping for rounded corners. */
 }
 
 /* Image container - dynamic height based on content */
@@ -1257,17 +1321,44 @@ a.link-arrow:hover::after {
     object-fit: cover;
 }
 
+/* Fit mode - image uses natural dimensions */
+.image-container[data-width-mode="fit"] img:not(.image-bg),
+.gif-container[data-width-mode="fit"] img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .video-container iframe {
     display: block;
     width: 100%;
     border: none;
 }
 
-/* Mobile responsive - image container */
+/* ===================================
+   WIDTH MODE - RESPONSIVE FLEX BEHAVIOR
+
+   NOTE: Width modes now handled by inline styles in _components.html build_styles macro.
+   Responsive behavior has been removed to match text component behavior (consistent width at all viewports).
+
+   The CSS rules below have been removed:
+   - Mobile-first responsive breakpoints
+   - Tablet (481-768px) responsive rules
+   - Desktop (769px+) responsive rules
+   - Column context width rules
+
+   All width handling is now via inline styles for consistency across all component types.
+   =================================== */
+
+/* Base styles for image/gif containers - inline styles handle width */
+.image-container[data-width-mode],
+.gif-container[data-width-mode] {
+    box-sizing: border-box;
+}
+
+/* Mobile responsive - image container content */
 @media (max-width: 480px) {
-    .image-container {
-        width: 100% !important; /* Override inline width on mobile */
-    }
 
     .image-container .image-content {
         padding: var(--spacing-sm);
@@ -1363,5 +1454,333 @@ a.link-arrow:hover::after {
 
 .hamburger-menu .mobile-menu-button:hover {
     background: #e5e7eb;
+}
+
+/* =====================================================
+   IMAGE HOVER EFFECTS
+   Uses --base-filter CSS variable to combine with existing filters
+   ===================================================== */
+
+/* Zoom effect */
+.image-hover-zoom img {
+    transition: transform 0.3s ease;
+}
+.image-hover-zoom:hover img {
+    transform: scale(1.05);
+}
+
+/* Lift effect (elevates with shadow) */
+.image-hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.image-hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -8px rgb(0 0 0 / 0.2);
+}
+
+/* =====================================================
+   MEDIA CAPTION STYLES
+   ===================================================== */
+
+/* Caption base styles */
+.media-caption {
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Image/GIF wrapper for aspect ratio */
+.image-wrapper,
+.gif-wrapper,
+.video-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Caption overlay positioning */
+.image-caption-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 1rem;
+    z-index: 2;
+}
+
+/* =====================================================
+   ENHANCED CAROUSEL STYLES
+   ===================================================== */
+
+/* Carousel wrapper - navigation positioning */
+.carousel-navigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.carousel-navigation button {
+    pointer-events: auto;
+}
+
+/* Arrow positions */
+.carousel-arrows-inside .carousel-prev,
+.carousel-arrows-inside .carousel-next {
+    position: relative;
+    left: auto;
+    right: auto;
+}
+
+.carousel-arrows-outside {
+    width: calc(100% + 6rem);
+    left: -3rem;
+}
+
+/* Circle arrow style */
+.carousel-arrow-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid #ccc !important;
+    color: #333 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.carousel-arrow-circle:hover {
+    background: rgba(255, 255, 255, 1) !important;
+}
+
+/* Carousel fade transition */
+.carousel-fade .carousel-slides {
+    position: relative;
+}
+
+.carousel-fade .carousel-slide {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: opacity var(--carousel-duration, 300ms) ease;
+}
+
+.carousel-fade .carousel-slide.active {
+    opacity: 1;
+    position: relative;
+}
+
+/* Pause button for accessibility (WCAG 2.2.2) */
+.carousel-pause {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: background 0.2s;
+}
+
+.carousel-pause:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Indicator styles */
+.carousel-indicators {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+    padding: 0.5rem;
+}
+
+.carousel-indicators-bottom {
+    bottom: 1rem;
+}
+
+.carousel-indicators-top {
+    top: 1rem;
+    bottom: auto;
+}
+
+/* Dot indicators (default) */
+.carousel-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    padding: 0;
+    font-size: 0;
+}
+
+.carousel-indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.carousel-indicator.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+/* Dash indicators */
+.carousel-indicators-dashes .carousel-indicator {
+    width: 24px;
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* Number indicators */
+.carousel-indicators-numbers .carousel-indicator {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.carousel-indicators-numbers .carousel-indicator.active {
+    background: white;
+    font-weight: bold;
+}
+
+/* Touch swipe support */
+.carousel-slides {
+    touch-action: pan-y pinch-zoom; /* Allow vertical scroll, prevent horizontal browser gestures */
+    -webkit-overflow-scrolling: touch;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Visual feedback during swipe */
+.carousel-slide {
+    will-change: transform;
+}
+
+/* Keyboard focus styles */
+.carousel:focus {
+    outline: none;
+}
+
+.carousel.carousel-focused {
+    outline: 2px solid var(--focus-color, #2563eb);
+    outline-offset: 2px;
+}
+
+/* Screen reader only helper */
+.carousel .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Mobile responsive carousel */
+@media (max-width: 768px) {
+    .carousel-arrows-outside {
+        width: 100%;
+        left: 0;
+        padding: 0 0.5rem;
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        padding: 0.75rem;
+        font-size: 1.25rem;
+    }
+
+    .carousel-pause {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.375rem 0.5rem;
+    }
+}
+
+/* =====================================================
+   VIDEO BACKGROUND COMPONENT
+   ===================================================== */
+
+.video-background-container {
+    display: block;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background video - fills container */
+.video-background-container .video-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+/* Overlay layer */
+.video-background-container .video-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Content layer */
+.video-background-container .video-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure nested content is readable */
+.video-background-container .video-content > * {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Placeholder styling */
+.video-background-container .video-placeholder {
+    min-height: 200px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .video-background-container {
+        min-height: 300px !important;
+    }
+
+    .video-background-container .video-content {
+        padding: var(--spacing-sm, 1rem) !important;
+    }
 }
 

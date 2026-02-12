@@ -3,44 +3,60 @@ page:
   - id: background
     label: Background
     fields:
-    - path: background.color
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
+    - path: appearance.background.color
       type: color
       label: Background Color
-    - path: background.transparency
+      showWhen:
+        field: appearance.background.type
+        value: color
+    - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
-    - path: background.image
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.image
       type: text
       label: Background Image URL
-  - id: layout
-    label: Layout
+  - id: spacing
+    label: Spacing
     fields:
-    - path: layout.padding.top
+    - path: appearance.padding.block
       type: select
-      label: Padding Top
+      label: Padding (Vertical)
       tokens: spacingScale
-    - path: layout.padding.right
+    - path: appearance.padding.inline
       type: select
-      label: Padding Right
-      tokens: spacingScale
-    - path: layout.padding.bottom
-      type: select
-      label: Padding Bottom
-      tokens: spacingScale
-    - path: layout.padding.left
-      type: select
-      label: Padding Left
-      tokens: spacingScale
-    - path: layout.margin.top
-      type: select
-      label: Margin Top
-      tokens: spacingScale
-    - path: layout.margin.bottom
-      type: select
-      label: Margin Bottom
+      label: Padding (Horizontal)
       tokens: spacingScale
 layout-row:
   groups:
@@ -55,53 +71,40 @@ layout-row:
       - div
       - main
       - article
-    - path: layout.align
+    - path: layout.horizontalAlign
       type: select
-      label: Align Items
+      label: Horizontal Align
       options:
-      - start
+        - value: center
+          label: Center
+        - value: space-between
+          label: Space Between
+        - value: left
+          label: Left
+        - value: space-around
+          label: Space Around
+        - value: right
+          label: Right
+        - value: space-evenly
+          label: Space Evenly
+    - path: layout.verticalAlign
+      type: select
+      label: Vertical Align
+      options:
+      - top
       - center
-      - end
+      - bottom
       - stretch
+      - baseline
     - path: layout.wrap
       type: select
       label: Wrap Children
       options:
       - nowrap
       - wrap
-    - path: layout.gap
-      type: select
-      label: Gap Between Items
-      tokens: gapScale
-  - id: sizing
-    label: Sizing
-    fields:
-    - path: layout.width
-      type: text
-      label: Width
-    - path: layout.minWidth
-      type: text
-      label: Min Width
-    - path: layout.maxWidth
-      type: text
-      label: Max Width
-    - path: layout.minHeight
-      type: text
-      label: Min Height
-    - path: layout.maxHeight
-      type: text
-      label: Max Height
   - id: spacing
     label: Spacing
     fields:
-    - path: spacing.paddingBlock
-      type: select
-      label: Padding (Vertical)
-      tokens: spacingScale
-    - path: spacing.paddingInline
-      type: select
-      label: Padding (Horizontal)
-      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Vertical)
@@ -110,24 +113,61 @@ layout-row:
       type: select
       label: Margin (Horizontal)
       tokens: spacingScale
-  - id: background
-    label: Background
+  - id: appearance
+    label: Appearance
     fields:
-    - path: background.color
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
+    - path: appearance.background.color
       type: color
       label: Background Color
-    - path: background.transparency
+      showWhen:
+        field: appearance.background.type
+        value: color
+    - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
-    - path: background.image
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.image
       type: text
       label: Background Image URL
-  - id: appearance
-    label: Appearance
-    fields:
     - path: appearance.border.width
       type: number
       label: Border Width (px)
@@ -149,8 +189,9 @@ layout-row:
       label: Border Radius
       tokens: borderRadiusScale
     - path: appearance.shadow
-      type: text
+      type: select
       label: Shadow
+      tokens: shadowScale
 layout-column:
   groups:
   - id: layout
@@ -164,53 +205,35 @@ layout-column:
       - div
       - main
       - article
-    - path: layout.align
+    - path: layout.horizontalAlign
       type: select
-      label: Align Items
+      label: Horizontal Align
       options:
-      - start
-      - center
-      - end
-      - stretch
+        - value: center
+          label: Center
+        - value: space-between
+          label: Space Between
+        - value: left
+          label: Left
+        - value: space-around
+          label: Space Around
+        - value: right
+          label: Right
+        - value: space-evenly
+          label: Space Evenly
     - path: layout.wrap
       type: select
       label: Wrap Children
       options:
       - nowrap
       - wrap
-    - path: layout.gap
+    - path: layout.widthMode
       type: select
-      label: Gap Between Items
-      tokens: gapScale
-  - id: sizing
-    label: Sizing
-    fields:
-    - path: layout.width
-      type: text
       label: Width
-    - path: layout.minWidth
-      type: text
-      label: Min Width
-    - path: layout.maxWidth
-      type: text
-      label: Max Width
-    - path: layout.minHeight
-      type: text
-      label: Min Height
-    - path: layout.maxHeight
-      type: text
-      label: Max Height
+      tokens: widthPercentages
   - id: spacing
     label: Spacing
     fields:
-    - path: spacing.paddingBlock
-      type: select
-      label: Padding (Vertical)
-      tokens: spacingScale
-    - path: spacing.paddingInline
-      type: select
-      label: Padding (Horizontal)
-      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Vertical)
@@ -219,24 +242,61 @@ layout-column:
       type: select
       label: Margin (Horizontal)
       tokens: spacingScale
-  - id: background
-    label: Background
+  - id: appearance
+    label: Appearance
     fields:
-    - path: background.color
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
+    - path: appearance.background.color
       type: color
       label: Background Color
-    - path: background.transparency
+      showWhen:
+        field: appearance.background.type
+        value: color
+    - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
-    - path: background.image
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.image
       type: text
       label: Background Image URL
-  - id: appearance
-    label: Appearance
-    fields:
     - path: appearance.border.width
       type: number
       label: Border Width (px)
@@ -258,8 +318,9 @@ layout-column:
       label: Border Radius
       tokens: borderRadiusScale
     - path: appearance.shadow
-      type: text
+      type: select
       label: Shadow
+      tokens: shadowScale
 columnsgrid:
   groups:
   - id: layout
@@ -274,26 +335,57 @@ columnsgrid:
       type: select
       label: Gap
       tokens: gapScale
-    - path: layout.align
+    - path: layout.verticalAlign
       type: select
-      label: Alignment
+      label: Vertical Align
       options:
-      - stretch
-      - start
-      - center
+        - value: stretch
+          label: Stretch
+        - value: top
+          label: Top
+        - value: center
+          label: Center
+        - value: bottom
+          label: Bottom
   - id: responsive
     label: Responsive
     fields:
     - path: responsive.breakpoints.md
       type: number
-      label: Columns at Medium Width
+      label: Columns at Tablet Layout
       min: 1
       max: 4
     - path: responsive.breakpoints.sm
       type: number
-      label: Columns at Small Width
+      label: Columns at Phone Layout
       min: 1
       max: 3
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Vertical)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Horizontal)
+      tokens: spacingScale
 titlebar:
   groups:
   - id: branding
@@ -335,15 +427,47 @@ titlebar:
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.border.width
       type: number
       label: Border Width (px)
@@ -437,29 +561,51 @@ heading:
     - path: layout.widthMode
       type: select
       label: Width
-      options:
-      - value: fit
-        label: Fit to content
-      - value: '25'
-        label: 25%
-      - value: '50'
-        label: 50%
-      - value: '75'
-        label: 75%
-      - value: stretch
-        label: Stretch
+      tokens: widthPercentages
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -531,29 +677,51 @@ paragraph:
     - path: layout.widthMode
       type: select
       label: Width
-      options:
-      - value: fit
-        label: Fit to content
-      - value: '25'
-        label: 25%
-      - value: '50'
-        label: 50%
-      - value: '75'
-        label: 75%
-      - value: stretch
-        label: Stretch
+      tokens: widthPercentages
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -625,29 +793,51 @@ eyebrow:
     - path: layout.widthMode
       type: select
       label: Width
-      options:
-      - value: fit
-        label: Fit to content
-      - value: '25'
-        label: 25%
-      - value: '50'
-        label: 50%
-      - value: '75'
-        label: 75%
-      - value: stretch
-        label: Stretch
+      tokens: widthPercentages
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -722,32 +912,54 @@ blockquote:
     - path: layout.widthMode
       type: select
       label: Width
-      options:
-      - value: fit
-        label: Fit to content
-      - value: '25'
-        label: 25%
-      - value: '50'
-        label: 50%
-      - value: '75'
-        label: 75%
-      - value: stretch
-        label: Stretch
+      tokens: widthPercentages
   - id: appearance
     label: Appearance
     fields:
     - path: appearance.border.accentColor
       type: color
       label: Accent Color
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -760,6 +972,10 @@ blockquote:
       type: select
       label: Padding (Left & Right)
       tokens: spacingScale
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
   - id: spacing
     label: Spacing
     fields:
@@ -819,29 +1035,51 @@ caption:
     - path: layout.widthMode
       type: select
       label: Width
-      options:
-      - value: fit
-        label: Fit to content
-      - value: '25'
-        label: 25%
-      - value: '50'
-        label: 50%
-      - value: '75'
-        label: 75%
-      - value: stretch
-        label: Stretch
+      tokens: widthPercentages
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -876,17 +1114,21 @@ image:
     - path: source.altText
       type: text
       label: Alt Text
-  - id: presentation
-    label: Presentation
+  - id: layout
+    label: Layout
     fields:
-    - path: presentation.width
+    - path: layout.widthMode
       type: select
       label: Width
       tokens: widthPercentages
-    - path: presentation.minHeight
-      type: text
-      label: Min Height (px)
-    - path: presentation.fit
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.objectPosition
+      type: select
+      label: Focus Point
+      tokens: objectPositions
+    - path: appearance.fit
       type: select
       label: Object Fit
       options:
@@ -894,16 +1136,55 @@ image:
       - contain
       - fill
       - none
-    - path: presentation.cornerStyle
+    - path: appearance.cornerStyle
       type: select
       label: Corners
       tokens: borderRadiusScale
-  - id: overlay
-    label: Overlay
-    fields:
-    - path: overlay.enabled
+    - path: appearance.minHeight
+      type: number
+      label: Min Height (rem)
+      min: 0
+      max: 100
+    - path: appearance.maxHeight
+      type: number
+      label: Max Height (rem)
+      min: 0
+      max: 100
+    - path: appearance.filter
+      type: select
+      label: Filter
+      tokens: imageFilters
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
+    - path: appearance.hoverEffect
+      type: select
+      label: Hover Effect
+      tokens: hoverEffects
+    - path: appearance.lazy
+      type: checkbox
+      label: Lazy Load
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
+    - path: appearance.overlay.enabled
       type: checkbox
       label: Enable Overlay
+    - path: appearance.overlay.color
+      type: color
+      label: Overlay Color
+    - path: appearance.overlay.opacity
+      type: range
+      label: Overlay Opacity
+      min: 0
+      max: 100
+      unit: '%'
 video:
   groups:
   - id: source
@@ -912,6 +1193,29 @@ video:
     - path: source.url
       type: text
       label: Video URL
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      tokens: widthPercentages
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.aspectRatio
+      type: select
+      label: Aspect Ratio
+      tokens: aspectRatios
+    - path: appearance.height
+      type: number
+      label: Height (px)
+      min: 100
+      max: 1000
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
   - id: playback
     label: Playback
     fields:
@@ -924,6 +1228,26 @@ video:
     - path: playback.muted
       type: checkbox
       label: Start Muted
+    - path: playback.loop
+      type: checkbox
+      label: Loop Video
+  - id: poster
+    label: Poster
+    fields:
+    - path: poster.url
+      type: text
+      label: Poster Image URL
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Vertical)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Horizontal)
+      tokens: spacingScale
 gif:
   groups:
   - id: source
@@ -932,15 +1256,80 @@ gif:
     - path: source.url
       type: text
       label: GIF URL
-  - id: presentation
-    label: Presentation
+    - path: source.altText
+      type: text
+      label: Alt Text
+  - id: layout
+    label: Layout
     fields:
-    - path: presentation.fit
+    - path: layout.widthMode
+      type: select
+      label: Width
+      tokens: widthPercentages
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.objectPosition
+      type: select
+      label: Focus Point
+      tokens: objectPositions
+    - path: appearance.fit
       type: select
       label: Fit
       options:
       - cover
       - contain
+      - fill
+      - none
+    - path: appearance.cornerStyle
+      type: select
+      label: Corners
+      tokens: borderRadiusScale
+    - path: appearance.minHeight
+      type: number
+      label: Min Height (rem)
+      min: 0
+      max: 100
+    - path: appearance.maxHeight
+      type: number
+      label: Max Height (rem)
+      min: 0
+      max: 100
+    - path: appearance.filter
+      type: select
+      label: Filter
+      tokens: imageFilters
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
+    - path: appearance.hoverEffect
+      type: select
+      label: Hover Effect
+      tokens: hoverEffects
+    - path: appearance.lazy
+      type: checkbox
+      label: Lazy Load
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
+    - path: appearance.overlay.enabled
+      type: checkbox
+      label: Enable Overlay
+    - path: appearance.overlay.color
+      type: color
+      label: Overlay Color
+    - path: appearance.overlay.opacity
+      type: range
+      label: Overlay Opacity
+      min: 0
+      max: 100
+      unit: '%'
 textbox:
   groups:
   - id: label
@@ -987,15 +1376,47 @@ textbox:
     - path: appearance.border.color
       type: color
       label: Border Color
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -1043,15 +1464,47 @@ textarea:
     - path: appearance.border.color
       type: color
       label: Border Color
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -1087,15 +1540,47 @@ button:
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
     - path: appearance.border.width
       type: number
       label: Border Width (px)
@@ -1116,6 +1601,10 @@ button:
       type: select
       label: Border Radius
       tokens: borderRadiusScale
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
     - path: appearance.padding.block
       type: select
       label: Padding (Vertical)
@@ -1179,21 +1668,53 @@ dropdown:
   - id: appearance
     label: Appearance
     fields:
-    - path: appearance.border.width
-      type: number
-      label: Border Width (px)
-    - path: appearance.border.color
-      type: color
-      label: Border Color
+    - path: appearance.background.type
+      type: select
+      label: Background Type
+      options:
+        - color
+        - gradient
     - path: appearance.background.color
       type: color
       label: Background Color
+      showWhen:
+        field: appearance.background.type
+        value: color
     - path: appearance.background.transparency
       type: range
       label: Background Transparency
       min: 0
       max: 100
       unit: '%'
+    - path: appearance.background.gradient.colorStart
+      type: color
+      label: Gradient Start
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.colorEnd
+      type: color
+      label: Gradient End
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.background.gradient.direction
+      type: select
+      label: Gradient Direction
+      options:
+        - to right
+        - to bottom
+        - to bottom right
+        - to top right
+      showWhen:
+        field: appearance.background.type
+        value: gradient
+    - path: appearance.border.width
+      type: number
+      label: Border Width (px)
+    - path: appearance.border.color
+      type: color
+      label: Border Color
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -1379,9 +1900,6 @@ accordion:
       type: select
       label: Border Radius
       tokens: borderRadiusScale
-  - id: spacing
-    label: Spacing
-    fields:
     - path: appearance.padding.block
       type: select
       label: Padding (Vertical)
@@ -1390,6 +1908,13 @@ accordion:
       type: select
       label: Padding (Horizontal)
       tokens: spacingScale
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
+  - id: spacing
+    label: Spacing
+    fields:
     - path: spacing.marginBlock
       type: select
       label: Margin (Vertical)
@@ -1403,18 +1928,8 @@ accordion:
     fields:
     - path: layout.widthMode
       type: select
-      label: Width Mode
-      options:
-      - value: fit
-        label: Fit to content
-      - value: '25'
-        label: 25%
-      - value: '50'
-        label: 50%
-      - value: '75'
-        label: 75%
-      - value: stretch
-        label: Stretch
+      label: Width
+      tokens: widthPercentages
 tabs:
   groups:
   - id: tabs
@@ -1436,17 +1951,7 @@ tabs:
     - path: layout.widthMode
       type: select
       label: Width
-      options:
-      - value: fit
-        label: Fit to content
-      - value: '25'
-        label: 25%
-      - value: '50'
-        label: 50%
-      - value: '75'
-        label: 75%
-      - value: stretch
-        label: Stretch
+      tokens: widthPercentages
   - id: typography
     label: Typography
     fields:
@@ -1529,6 +2034,10 @@ tabs:
       type: select
       label: Content Padding (Left & Right)
       tokens: spacingScale
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
   - id: spacing
     label: Spacing
     fields:
@@ -1574,15 +2083,20 @@ link:
   - id: appearance
     label: Appearance
     fields:
-    - path: appearance.color
-      type: color
-      label: Text Color
     - path: appearance.underline
       type: checkbox
       label: Underline
     - path: appearance.showArrow
       type: checkbox
       label: Show Arrow
+    - path: appearance.padding.block
+      type: select
+      label: Padding (Vertical)
+      tokens: spacingScale
+    - path: appearance.padding.inline
+      type: select
+      label: Padding (Horizontal)
+      tokens: spacingScale
   - id: typography
     label: Typography
     fields:
@@ -1616,6 +2130,24 @@ link:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      tokens: widthPercentages
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Vertical)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Horizontal)
+      tokens: spacingScale
 form:
   groups:
   - id: layout
@@ -1627,10 +2159,22 @@ form:
       options:
       - column
       - row
-    - path: layout.gap
+    - path: layout.horizontalAlign
       type: select
-      label: Field Gap
-      tokens: gapScale
+      label: Horizontal Align
+      options:
+        - value: center
+          label: Center
+        - value: space-between
+          label: Space Between
+        - value: left
+          label: Left
+        - value: space-around
+          label: Space Around
+        - value: right
+          label: Right
+        - value: space-evenly
+          label: Space Evenly
   - id: submit
     label: Submit Button
     fields:
@@ -1640,6 +2184,13 @@ form:
     - path: submit.buttonText
       type: text
       label: Button Text
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
 carousel:
   groups:
   - id: behavior
@@ -1652,22 +2203,210 @@ carousel:
       type: number
       label: Delay (ms)
       min: 1000
+      max: 10000
     - path: behavior.loop
       type: checkbox
       label: Loop Slides
+    - path: behavior.pauseOnHover
+      type: checkbox
+      label: Pause on Hover
+    - path: behavior.swipeEnabled
+      type: checkbox
+      label: Enable Touch Swipe
+    - path: behavior.swipeThreshold
+      type: number
+      label: Swipe Threshold (px)
+      min: 20
+      max: 150
+    - path: behavior.keyboardNavigation
+      type: checkbox
+      label: Keyboard Navigation
+  - id: animation
+    label: Animation
+    fields:
+    - path: animation.effect
+      type: select
+      label: Transition Effect
+      options:
+      - value: slide
+        label: Slide
+      - value: fade
+        label: Fade
+    - path: animation.duration
+      type: number
+      label: Duration (ms)
+      min: 100
+      max: 1000
   - id: navigation
     label: Navigation
     fields:
     - path: navigation.showArrows
       type: checkbox
       label: Show Arrows
+    - path: navigation.arrowStyle
+      type: select
+      label: Arrow Style
+      options:
+      - value: chevron
+        label: Chevron
+      - value: arrow
+        label: Arrow
+      - value: circle
+        label: Circle Buttons
+    - path: navigation.arrowPosition
+      type: select
+      label: Arrow Position
+      options:
+      - value: inside
+        label: Inside
+      - value: outside
+        label: Outside
     - path: navigation.showDots
       type: checkbox
-      label: Show Dots
+      label: Show Indicators
+  - id: indicators
+    label: Indicators
+    fields:
+    - path: indicators.style
+      type: select
+      label: Indicator Style
+      options:
+      - value: dots
+        label: Dots
+      - value: numbers
+        label: Numbers
+      - value: dashes
+        label: Dashes
+    - path: indicators.position
+      type: select
+      label: Position
+      options:
+      - value: bottom
+        label: Bottom
+      - value: top
+        label: Top
+  - id: accessibility
+    label: Accessibility
+    fields:
+    - path: accessibility.showPauseButton
+      type: checkbox
+      label: Show Pause Button (WCAG)
+    - path: accessibility.ariaLabel
+      type: text
+      label: ARIA Label
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
   - id: slides
     label: Slides
     fields:
     - path: slides
       type: custom
       renderer: carouselSlides
+video-background:
+  groups:
+  - id: source
+    label: Source
+    fields:
+    - path: source.url
+      type: text
+      label: Video URL (MP4/WebM)
+    - path: source.poster
+      type: text
+      label: Poster Image URL
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.aspectRatio
+      type: select
+      label: Aspect Ratio
+      tokens: aspectRatios
+    - path: appearance.minHeight
+      type: number
+      label: Min Height (px)
+      min: 100
+      max: 1000
+    - path: appearance.objectFit
+      type: select
+      label: Video Fit
+      options:
+      - value: cover
+        label: Cover
+      - value: contain
+        label: Contain
+      - value: fill
+        label: Fill
+    - path: appearance.objectPosition
+      type: select
+      label: Focus Point
+      tokens: objectPositions
+    - path: appearance.overlay.enabled
+      type: checkbox
+      label: Enable Overlay
+    - path: appearance.overlay.color
+      type: color
+      label: Overlay Color
+    - path: appearance.overlay.opacity
+      type: range
+      label: Overlay Opacity
+      min: 0
+      max: 100
+      unit: '%'
+  - id: playback
+    label: Playback
+    fields:
+    - path: playback.autoplay
+      type: checkbox
+      label: Autoplay
+    - path: playback.loop
+      type: checkbox
+      label: Loop
+    - path: playback.muted
+      type: checkbox
+      label: Muted (required for autoplay)
+    - path: playback.playsinline
+      type: checkbox
+      label: Play Inline (mobile)
+  - id: content
+    label: Content Layout
+    fields:
+    - path: content.verticalAlign
+      type: select
+      label: Vertical Alignment
+      options:
+      - value: start
+        label: Top
+      - value: center
+        label: Center
+      - value: end
+        label: Bottom
+    - path: content.horizontalAlign
+      type: select
+      label: Horizontal Alignment
+      options:
+      - value: left
+        label: Left
+      - value: center
+        label: Center
+      - value: right
+        label: Right
+    - path: content.padding
+      type: select
+      label: Content Padding
+      tokens: spacingScale
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin (Top & Bottom)
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin (Left & Right)
+      tokens: spacingScale
 

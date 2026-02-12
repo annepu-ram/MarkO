@@ -1,0 +1,355 @@
+# Dark Mode Hero
+# A sleek, modern dark-themed hero with high contrast elements
+# Perfect for: Tech companies, gaming, crypto, creative agencies
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#09090b'
+        transparency: 100
+  components:
+  # Navigation Bar
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: md
+        paddingInline: lg
+      background:
+        color: rgba(9,9,11,0.8)
+        transparency: 100
+    components:
+    - name: heading
+      properties:
+        text: "NEXUS"
+        level: 3
+        typography:
+          color: '#ffffff'
+          size: lg
+          weight: bold
+          letterSpacing: wide
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Features"
+          typography:
+            color: '#a1a1aa'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Pricing"
+          typography:
+            color: '#a1a1aa'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Docs"
+          typography:
+            color: '#a1a1aa'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: button
+        properties:
+          text: "Launch App"
+          appearance:
+            background:
+              color: '#8b5cf6'
+              transparency: 100
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            padding:
+              block: xs
+              inline: md
+          typography:
+            color: '#ffffff'
+            weight: semibold
+            size: sm
+          spacing:
+            marginBlock: none
+
+  # Hero Section
+  - name: layout-column
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: xxxl
+        paddingInline: lg
+      background:
+        color: '#09090b'
+        transparency: 100
+    components:
+    # Announcement Banner
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        appearance:
+          background:
+            color: rgba(139,92,246,0.1)
+            transparency: 100
+          radius: pill
+          border:
+            width: 1
+            style: solid
+            color: rgba(139,92,246,0.3)
+          padding:
+            block: xs
+            inline: md
+      components:
+      - name: paragraph
+        properties:
+          text: "Announcing our $50M Series B"
+          typography:
+            color: '#c4b5fd'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "→"
+          typography:
+            color: '#8b5cf6'
+            size: sm
+            weight: bold
+          spacing:
+            marginBlock: none
+
+    # Main Headline with Gradient
+    - name: heading
+      properties:
+        text: "The future of development is here"
+        level: 1
+        typography:
+          color: '#ffffff'
+          size: xxxl
+          weight: bold
+          align: center
+          lineHeight: '1.1'
+        spacing:
+          marginBlock: none
+      layout:
+        widthMode: 75
+
+    # Gradient Subtext
+    - name: paragraph
+      properties:
+        text: "Ship faster. Scale infinitely. Sleep better."
+        typography:
+          color: '#a78bfa'
+          size: xl
+          align: center
+          weight: medium
+        spacing:
+          marginBlock: none
+
+    # Description
+    - name: paragraph
+      properties:
+        text: |
+          Build, deploy, and scale applications with zero configuration.
+          Our platform handles infrastructure so you can focus on what matters most.
+        typography:
+          color: '#71717a'
+          size: lg
+          align: center
+          lineHeight: '1.6'
+        spacing:
+          marginBlock: md
+        layout:
+          widthMode: 50
+
+    # CTA Buttons
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+          wrap: wrap
+        spacing:
+          marginBlock: lg
+      components:
+      - name: button
+        properties:
+          text: "Start Building"
+          appearance:
+            background:
+              color: '#8b5cf6'
+              transparency: 100
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            padding:
+              block: md
+              inline: xl
+          typography:
+            color: '#ffffff'
+            weight: semibold
+            size: md
+          spacing:
+            marginBlock: none
+      - name: button
+        properties:
+          text: "View Demo"
+          appearance:
+            background:
+              color: transparent
+              transparency: 0
+            border:
+              width: 1
+              style: solid
+              color: '#3f3f46'
+            padding:
+              block: md
+              inline: xl
+          typography:
+            color: '#ffffff'
+            weight: semibold
+            size: md
+          spacing:
+            marginBlock: none
+
+    # Stats Row
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+          wrap: wrap
+        spacing:
+          marginBlock: xl
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: heading
+          properties:
+            text: "10M+"
+            level: 2
+            typography:
+              color: '#ffffff'
+              size: xxl
+              weight: bold
+              align: center
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Deployments"
+            typography:
+              color: '#71717a'
+              size: sm
+              align: center
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: heading
+          properties:
+            text: "99.99%"
+            level: 2
+            typography:
+              color: '#ffffff'
+              size: xxl
+              weight: bold
+              align: center
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Uptime SLA"
+            typography:
+              color: '#71717a'
+              size: sm
+              align: center
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: heading
+          properties:
+            text: "150ms"
+            level: 2
+            typography:
+              color: '#ffffff'
+              size: xxl
+              weight: bold
+              align: center
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Avg Response"
+            typography:
+              color: '#71717a'
+              size: sm
+              align: center
+            spacing:
+              marginBlock: none
+
+    # Code Preview / Product Screenshot
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: none
+        spacing:
+          marginBlock: lg
+        appearance:
+          background:
+            color: '#18181b'
+            transparency: 100
+          radius: lg
+          border:
+            width: 1
+            style: solid
+            color: '#27272a'
+      components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1200
+            altText: Developer working on code
+          appearance:
+            minHeight: 25
+            fit: cover
+            cornerStyle: lg
+          layout:
+            widthMode: stretch
+          spacing:
+            marginBlock: none

@@ -8,7 +8,7 @@
     /* Accent Colors */
     --accent: #9c9ef0;
     --accent-hover: #818cf8;
-    --accent-soft: rgba(99, 102, 241, 0.12);
+    --accent-soft: rgba(99, 102, 241, 0.2);
 
     /* Status Colors */
     --color-danger: #ef4444;
@@ -63,7 +63,7 @@
 
     /* Layout Dimensions */
     --sidebar-width: 56px;
-    --sidebar-panel-width: 280px;
+    --sidebar-panel-width: 350px;
     --properties-width: 300px;
     --header-height: 52px;
 }
@@ -81,7 +81,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: var(--bg-dark);
     color: var(--text);
     height: 100%;
@@ -202,8 +202,8 @@ body {
 }
 
 .sidebar-btn:hover {
-    color: var(--text-muted);
-    background: var(--bg-light);
+    color: var(--accent);
+    background: var(--accent-soft);
 }
 
 .sidebar-btn.active {
@@ -305,7 +305,7 @@ body {
 }
 
 .panel-header {
-    padding: 16px;
+    padding: 3.5% 4.5%;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -333,8 +333,8 @@ body {
 }
 
 .panel-close:hover {
-    color: var(--text);
-    background: var(--bg-light);
+    color: var(--accent);
+    background: var(--accent-soft);
 }
 
 .panel-close svg {
@@ -348,7 +348,7 @@ body {
 .panel-content {
     flex: 1;
     overflow-y: auto;
-    padding: 12px;
+    padding: 3.5%;
 }
 
 /* Editor panel is wider */
@@ -490,13 +490,14 @@ body {
 }
 
 .viewport-btn:hover {
-    color: var(--text);
-    background: var(--bg-hover);
+    color: var(--accent);
+    background: var(--accent-soft);
 }
 
 .viewport-btn.active {
-    background: var(--bg-light);
-    color: var(--text);
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent);
 }
 
 .header-actions {
@@ -651,9 +652,9 @@ h2 {
 
 .component-group-body {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
+    grid-template-columns: repeat(auto-fill, minmax(22%, 1fr));
+    gap: 3%;
+    padding: 3.5%;
     background: var(--bg-dark);
     max-height: 0;
     opacity: 0;
@@ -995,6 +996,11 @@ div.preview-area {
     margin-bottom: 14px;
 }
 
+/* Conditional field visibility (showWhen) */
+.property-item[data-hidden="true"] {
+    display: none;
+}
+
 .property-item label {
     display: block;
     font-size: 11px;
@@ -1181,7 +1187,7 @@ div.preview-area {
 }
 .property-group {
     margin-top: 0;
-    padding: 0 16px 16px;
+    padding: 0 5% 5%;
     background: transparent;
     border-radius: 0;
     border: none;
@@ -1431,6 +1437,55 @@ div.preview-area {
     white-space: nowrap;
 }
 
+/* Accordion Items Editor */
+.accordion-items-editor {
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.accordion-item-row {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+}
+
+.accordion-item-row input,
+.accordion-item-row textarea {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.4rem;
+    font-size: 1.4rem;
+}
+
+.accordion-item-row textarea {
+    resize: vertical;
+}
+
+.component-count-badge {
+    padding: 0.2rem 0.8rem;
+    border-radius: 1.2rem;
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+.component-count-badge.has-components {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.component-count-badge.no-components {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
 /* ==========================================
    COMPONENT TREE STYLES
    ========================================== */
@@ -1476,8 +1531,8 @@ div.preview-area {
 .tree-item-content {
     display: flex;
     align-items: center;
-    padding: 8px 10px;
-    gap: 8px;
+    padding: 2.5% 3%;
+    gap: 2.5%;
     border-radius: 6px;
     transition: background-color var(--transition-base);
 }
@@ -1485,6 +1540,8 @@ div.preview-area {
 .tree-item-content:hover {
     background-color: var(--bg-light);
     color: var(--text);
+    border-left: 3px solid var(--accent);
+    padding-left: 2%;
 }
 
 .tree-item.selected > .tree-item-content {
@@ -1542,7 +1599,7 @@ div.preview-area {
 
 .tree-children {
     display: block;
-    margin-left: 16px;
+    margin-left: 4.5%;
     border-left: 1px solid var(--border);
 }
 
@@ -1551,11 +1608,11 @@ div.preview-area {
    ========================================== */
 
 .properties-header {
-    padding: 14px 16px;
+    padding: 4.5% 5%;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 4%;
     background: var(--bg-medium);
 }
 
@@ -1644,7 +1701,7 @@ div.preview-area {
 }
 
 .prop-section-header {
-    padding: 12px 16px;
+    padding: 4% 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1654,6 +1711,8 @@ div.preview-area {
 
 .prop-section-header:hover {
     background: var(--bg-light);
+    border-left: 3px solid var(--accent);
+    padding-left: 4%;
 }
 
 .prop-section-title {
@@ -1693,7 +1752,7 @@ div.preview-area {
 }
 
 .prop-section-content {
-    padding: 0 16px 16px;
+    padding: 0 5% 5%;
 }
 
 .prop-section.collapsed .prop-section-content {
@@ -1731,6 +1790,7 @@ div.preview-area {
 .prop-input:focus {
     outline: none;
     border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(156, 158, 240, 0.15);
 }
 
 .prop-input::placeholder {
@@ -1756,8 +1816,9 @@ div.preview-area {
 }
 
 .token-pill:hover {
-    border-color: var(--border-light);
+    border-color: var(--accent);
     color: var(--text);
+    background: var(--accent-soft);
 }
 
 .token-pill.active {
@@ -1780,6 +1841,11 @@ div.preview-area {
     border: 2px solid var(--border);
     cursor: pointer;
     flex-shrink: 0;
+    transition: border-color var(--transition-fast);
+}
+
+.color-input-swatch:hover {
+    border-color: var(--accent);
 }
 
 .color-input-row .prop-input {
@@ -1960,4 +2026,233 @@ div.preview-area {
     .header-actions {
         gap: 4px;
     }
+}
+
+/* ====================================
+   THEMES PANEL
+   (Styled to match Properties Panel)
+   ==================================== */
+
+/* Theme panel sections */
+.theme-section {
+    margin-bottom: 4.5%;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4.5%;
+}
+
+.theme-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.theme-section-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+/* Font dropdowns */
+.theme-font-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.theme-font-row:last-child {
+    margin-bottom: 0;
+}
+
+.theme-font-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.theme-font-select {
+    width: 42%;
+    padding: 2.5% 3.5%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-dark);
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.theme-font-select:hover {
+    border-color: var(--accent);
+}
+
+.theme-font-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(156, 158, 240, 0.15);
+}
+
+/* Selected theme (editable) */
+.theme-selected-box {
+    background: var(--bg-dark);
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    padding: 3.5%;
+    margin-bottom: 4%;
+}
+
+.theme-selected-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.theme-selected-colors {
+    display: flex;
+    gap: 3.5%;
+}
+
+.theme-color-swatch-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.theme-color-swatch {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    position: relative;
+    transition: border-color var(--transition-fast);
+}
+
+.theme-color-swatch:hover {
+    border-color: var(--accent);
+}
+
+.theme-color-swatch input[type="color"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border: none;
+}
+
+.theme-color-label {
+    font-size: 10px;
+    text-align: center;
+    color: var(--text-dim);
+    margin-top: 4px;
+}
+
+/* Theme list (scrollable) */
+.theme-list {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-dark);
+}
+
+.theme-row {
+    display: flex;
+    align-items: center;
+    gap: 3%;
+    padding: 3% 3.5%;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.theme-row:hover {
+    background: var(--bg-light);
+    border-left: 3px solid var(--accent);
+    padding-left: 2.5%;
+}
+
+.theme-row.selected {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding-left: 2.5%;
+}
+
+.theme-row-colors {
+    display: flex;
+    gap: 4px;
+}
+
+.theme-row-pill {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-row-name {
+    font-size: 13px;
+    color: var(--text);
+}
+
+.theme-row.selected .theme-row-name {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+/* Panel footer - fixed at bottom of sidebar panel */
+.panel-footer {
+    flex-shrink: 0;
+    padding: 3.5% 4.5%;
+    border-top: 1px solid var(--border);
+    background: var(--bg-medium);
+}
+
+.theme-apply-btn {
+    width: 100%;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.theme-apply-btn:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.theme-apply-btn:active {
+    transform: scale(0.98);
+}
+
+/* Theme category grouping */
+.theme-category {
+    margin-bottom: 12px;
+}
+
+.theme-category:last-child {
+    margin-bottom: 0;
+}
+
+.theme-category-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    padding: 8px 0 4px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
 }

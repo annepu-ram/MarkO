@@ -191,7 +191,7 @@
                   block: lg
                   inline: lg
               layout:
-                gap: md
+                distribution: space-evenly
             components:
               - name: image
                 properties:
@@ -346,7 +346,7 @@
             - name: layout-row
               properties:
                 layout:
-                  gap: md
+                  distribution: space-evenly
                   align: center
                 spacing:
                   paddingBlock: md
@@ -361,7 +361,7 @@
                   properties:
                     layout:
                       align: start
-                      gap: sm
+                      distribution: space-evenly
                   components:
                     - name: heading
                       properties:

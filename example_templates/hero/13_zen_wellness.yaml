@@ -1,0 +1,343 @@
+# Zen Wellness Hero
+# A calm, serene hero with soft colors and peaceful imagery
+# Perfect for: Wellness apps, meditation, spas, yoga studios, health
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#f7f5f2'
+        transparency: 100
+  components:
+  # Minimal Navigation
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: md
+        paddingInline: xl
+      background:
+        color: '#f7f5f2'
+        transparency: 100
+    components:
+    - name: heading
+      properties:
+        text: "serenity"
+        level: 3
+        typography:
+          color: '#5c6b5e'
+          size: lg
+          weight: medium
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Programs"
+          typography:
+            color: '#7c8c7e'
+            size: sm
+            weight: regular
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Teachers"
+          typography:
+            color: '#7c8c7e'
+            size: sm
+            weight: regular
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "About"
+          typography:
+            color: '#7c8c7e'
+            size: sm
+            weight: regular
+          spacing:
+            marginBlock: none
+      - name: button
+        properties:
+          text: "Start Free"
+          appearance:
+            background:
+              color: '#5c6b5e'
+              transparency: 100
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            padding:
+              block: xs
+              inline: md
+          typography:
+            color: '#ffffff'
+            weight: medium
+            size: sm
+          spacing:
+            marginBlock: none
+
+  # Hero Section
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+        wrap: wrap
+      spacing:
+        paddingBlock: xxl
+        paddingInline: xl
+      background:
+        color: '#f7f5f2'
+        transparency: 100
+    components:
+    # Left Content
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+        spacing:
+          paddingBlock: lg
+          paddingInline: none
+        appearance:
+          widthMode: 45
+      components:
+      # Small Tag
+      - name: paragraph
+        properties:
+          text: "FIND YOUR CALM"
+          typography:
+            color: '#9cab9e'
+            size: xs
+            weight: medium
+            letterSpacing: wider
+            transform: uppercase
+          spacing:
+            marginBlock: none
+
+      # Main Headline - Gentle
+      - name: heading
+        properties:
+          text: "Be kind to"
+          level: 1
+          typography:
+            color: '#3d4a3f'
+            size: xxxl
+            weight: medium
+            lineHeight: '1.15'
+          spacing:
+            marginBlock: none
+
+      - name: heading
+        properties:
+          text: "your mind"
+          level: 1
+          typography:
+            color: '#5c6b5e'
+            size: xxxl
+            weight: medium
+            lineHeight: '1.15'
+          spacing:
+            marginBlock: none
+
+      # Gentle Description
+      - name: paragraph
+        properties:
+          text: |
+            Take a moment to breathe. Our guided meditations help you
+            find peace in the chaos, sleep better, and live more mindfully.
+            Start with just 5 minutes a day.
+          typography:
+            color: '#7c8c7e'
+            size: lg
+            lineHeight: '1.8'
+            weight: light
+          spacing:
+            marginBlock: md
+
+      # Features - Soft Pills
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+          spacing:
+            marginBlock: sm
+        components:
+        - name: paragraph
+          properties:
+            text: "500+ meditations"
+            typography:
+              color: '#5c6b5e'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+            appearance:
+              background:
+                color: '#e8e5e0'
+                transparency: 100
+              radius: pill
+              padding:
+                block: xs
+                inline: md
+        - name: paragraph
+          properties:
+            text: "Sleep stories"
+            typography:
+              color: '#5c6b5e'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+            appearance:
+              background:
+                color: '#e8e5e0'
+                transparency: 100
+              radius: pill
+              padding:
+                block: xs
+                inline: md
+        - name: paragraph
+          properties:
+            text: "Breathwork"
+            typography:
+              color: '#5c6b5e'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+            appearance:
+              background:
+                color: '#e8e5e0'
+                transparency: 100
+              radius: pill
+              padding:
+                block: xs
+                inline: md
+
+      # Soft CTA
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: lg
+        components:
+        - name: button
+          properties:
+            text: "Start Your Journey"
+            appearance:
+              background:
+                color: '#5c6b5e'
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              padding:
+                block: md
+                inline: xl
+            typography:
+              color: '#ffffff'
+              weight: medium
+              size: md
+            spacing:
+              marginBlock: none
+        - name: link
+          properties:
+            text: "Learn more"
+            typography:
+              color: '#7c8c7e'
+              size: md
+              weight: medium
+            spacing:
+              marginBlock: none
+
+      # User Count
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: md
+        components:
+        - name: paragraph
+          properties:
+            text: "Join 2M+ people finding their calm"
+            typography:
+              color: '#9cab9e'
+              size: sm
+            spacing:
+              marginBlock: none
+
+    # Right - Peaceful Image
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        appearance:
+          widthMode: 50
+      components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg?auto=compress&cs=tinysrgb&w=1200
+            altText: Person meditating in peaceful setting
+          appearance:
+            minHeight: 34.375
+            fit: cover
+            cornerStyle: xl
+          layout:
+            widthMode: stretch
+          spacing:
+            marginBlock: none
+
+  # Testimonial Banner
+  - name: layout-column
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: lg
+        paddingInline: xl
+      background:
+        color: '#e8e5e0'
+        transparency: 100
+    components:
+    - name: blockquote
+      properties:
+        quote: "This app has genuinely changed my life. I sleep better, stress less, and feel more present in every moment."
+        cite: "— Jessica M., practicing for 6 months"
+        typography:
+          size: lg
+          weight: light
+          color: '#5c6b5e'
+        appearance:
+          background:
+            color: transparent
+            transparency: 0
+          border:
+            accentColor: transparent
+            width: 0
+            style: solid
+            position: left
+        spacing:
+          marginBlock: none
+      layout:
+        widthMode: 50

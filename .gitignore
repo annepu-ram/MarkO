@@ -40,3 +40,12 @@ Thumbs.db
 node_modules/
 npm-debug.log
 yarn-error.log
+
+# Environment files (contain secrets)
+.env
+.env.local
+*.env
+
+# Log files
+ssr_python/logs/
+*.log

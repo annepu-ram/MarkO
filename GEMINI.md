@@ -82,7 +82,7 @@ YAML Editor → parseYamlContent() → State.yamlStructure
 **YAML Structure:**
 - Root: array with single `{ name: 'page', properties, components }` object
 - **Simple components**: `{ name, properties }` where properties contain typography, spacing, layout, appearance, content
-- **Container components**: Add nested structures like `components` (generic array), `columns` (grid columns), `tabs`, `slides`, `content.components`
+- **Container components**: Add nested structures like `components` (generic array), `columns` (grid columns), `tabs`, `slides`. Components with nested content: `page`, `layout-row`, `layout-column`, `columnsgrid`, `form`, `image`, `gif`, `video-background`
 
 **Metadata Files:**
 - `component_defaults.yaml`: Default properties for each component type (used on insertion)

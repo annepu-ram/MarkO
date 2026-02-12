@@ -30,6 +30,14 @@ export function togglePanel(panelName) {
         panel.classList.add('open');
         btn.classList.add('active');
         currentPanel = panelName;
+
+        // Render panel content when opening
+        if (panelName === 'themes' && window.renderThemesPanel) {
+            window.renderThemesPanel();
+        }
+        if (panelName === 'images' && window.renderImagesPanel) {
+            window.renderImagesPanel();
+        }
     }
 }
 

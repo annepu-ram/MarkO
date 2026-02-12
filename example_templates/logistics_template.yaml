@@ -1,7 +1,23 @@
 - name: page
   properties:
-    background:
-      color: '#f8f9fa'
+    theme:
+      fonts:
+        headingMain: &font-heading-main 'Helvetica, sans-serif'
+        headingLevel2: &font-heading-level2 'Helvetica, sans-serif'
+        content: &font-content 'Arial, sans-serif'
+      colors:
+        # 60-30-10 Color System:
+        # Primary (30%) = TEXT - all headings, paragraphs, body text
+        # Secondary (10%) = UI elements, section highlights, regular buttons
+        # Accent (CTAs only) = Call-to-action buttons like "Get Quote", "Track Shipment"
+        # Background (60%) = Page base, content areas
+        primary: &color-primary '#1a365d'
+        secondary: &color-secondary '#0d6efd'
+        accent: &color-accent '#198754'
+        background: &color-background '#f8f9fa'
+    appearance:
+      background:
+        color: *color-background
     layout:
       padding:
         top: none
@@ -16,7 +32,7 @@
         logoUrl: https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=100
       appearance:
         background:
-          color: '#ffffff'
+          color: *color-background
       navigation:
         links:
         - label: Home
@@ -32,8 +48,8 @@
       source:
         url: https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
         altText: Logistics warehouse with shipping containers
-      presentation:
-        height: 400px
+      appearance:
+        minHeight: 25
         fit: cover
         cornerStyle: none
       spacing:
@@ -61,6 +77,7 @@
       text: Our Services
       typography:
         align: center
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -68,6 +85,22 @@
     properties:
       layout:
         orientation: horizontal
+      typography:
+        label:
+          active:
+            color: *color-primary
+          inactive:
+            color: *color-secondary
+      appearance:
+        tab:
+          background:
+            active: *color-background
+            inactive: *color-secondary
+        content:
+          background:
+            color: *color-background
+          border:
+            color: *color-secondary
       tabs:
       - title: Air Freight
         content: ''
@@ -87,8 +120,8 @@
           source:
             url: https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&w=600
             altText: Airplane taking off
-          presentation:
-            height: 200px
+          appearance:
+            minHeight: 12.5
             fit: cover
             cornerStyle: sm
           layout:
@@ -97,19 +130,23 @@
         properties:
           text: Air Freight
           level: 3
+          typography:
+            color: *color-primary
+            weight: semibold
       - name: paragraph
         properties:
           text: Fast and reliable air freight services for your urgent shipping needs.
           typography:
             align: center
+            color: *color-primary
     - components:
       - name: image
         properties:
           source:
             url: https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=600
             altText: Cargo ship at port
-          presentation:
-            height: 200px
+          appearance:
+            minHeight: 12.5
             fit: cover
             cornerStyle: sm
           layout:
@@ -118,19 +155,23 @@
         properties:
           text: Sea Freight
           level: 3
+          typography:
+            color: *color-primary
+            weight: semibold
       - name: paragraph
         properties:
           text: Cost-effective sea freight solutions for large shipments.
           typography:
             align: center
+            color: *color-primary
     - components:
       - name: image
         properties:
           source:
             url: https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg?auto=compress&cs=tinysrgb&w=600
             altText: Trucks on highway
-          presentation:
-            height: 200px
+          appearance:
+            minHeight: 12.5
             fit: cover
             cornerStyle: sm
           layout:
@@ -139,16 +180,21 @@
         properties:
           text: Land Transport
           level: 3
+          typography:
+            color: *color-primary
+            weight: semibold
       - name: paragraph
         properties:
           text: Comprehensive road and rail transport across the country.
           typography:
             align: center
+            color: *color-primary
   - name: heading
     properties:
       text: Why Choose Us?
       typography:
         align: center
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -163,6 +209,18 @@
         content: Our dedicated team is available around the clock to assist you with any queries or concerns about your shipments.
       behavior:
         allowMultipleOpen: false
+      typography:
+        title:
+          color: *color-primary
+        content:
+          color: *color-primary
+      appearance:
+        titleBackground:
+          color: *color-background
+        border:
+          color: *color-secondary
+        contentBackground:
+          color: *color-background
   - name: video
     properties:
       source:

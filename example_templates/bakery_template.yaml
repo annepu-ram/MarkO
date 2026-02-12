@@ -1,8 +1,24 @@
 - name: page
   properties:
-    background:
-      color: '#fdf8f2'
-      transparency: 100
+    theme:
+      fonts:
+        headingMain: &font-heading-main 'Georgia, serif'
+        headingLevel2: &font-heading-level2 'Georgia, serif'
+        content: &font-content 'Georgia, serif'
+      colors:
+        # 60-30-10 Color System:
+        # Primary (30%) = TEXT - all headings, paragraphs, body text
+        # Secondary (10%) = UI elements, section highlights, regular buttons
+        # Accent (CTAs only) = Call-to-action buttons like "Order Now", "Shop Now"
+        # Background (60%) = Page base, content areas
+        primary: &color-primary '#5C4033'
+        secondary: &color-secondary '#c7926b'
+        accent: &color-accent '#B8510D'
+        background: &color-background '#fdf8f2'
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
   components:
   # Titlebar with latest schema
   - name: titlebar
@@ -30,23 +46,23 @@
         shrinkPercentage: 70
       appearance:
         background:
-          color: '#ffffff'
+          color: *color-background
           transparency: 100
         border:
           width: 0
           style: solid
-          color: '#e5e7eb'
+          color: *color-secondary
         focus:
-          background: '#f5f5f5'
+          background: *color-secondary
       typography:
         title:
           size: 28
           weight: bold
-          color: '#8B4513'
+          color: *color-primary
         menu:
           size: 16
           weight: medium
-          color: '#6b4f4b'
+          color: *color-primary
   
   # Hero Section
   - name: image
@@ -54,9 +70,8 @@
       source:
         url: https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
         altText: Freshly baked artisanal bread spread
-      presentation:
-        width: "100"
-        minHeight: 400
+      appearance:
+        minHeight: 25
         fit: cover
         cornerStyle: none
       spacing:
@@ -69,7 +84,7 @@
       properties:
         layout:
           align: center
-          gap: lg
+          horizontalAlign: space-evenly
         spacing:
           paddingBlock: xl
           paddingInline: md
@@ -111,7 +126,7 @@
         properties:
           layout:
             align: center
-            gap: md
+            horizontalAlign: space-evenly
             wrap: wrap
         components:
         - name: button
@@ -119,12 +134,12 @@
             text: View Our Menu
             appearance:
               background:
-                color: '#c7926b'
+                color: *color-accent
                 transparency: 100
               border:
                 width: 0
                 style: solid
-                color: '#a47551'
+                color: *color-accent
               padding:
                 block: md
                 inline: lg
@@ -145,12 +160,12 @@
               border:
                 width: 2
                 style: solid
-                color: '#c7926b'
+                color: *color-secondary
               padding:
                 block: md
                 inline: lg
             typography:
-              color: '#8B4513'
+              color: *color-secondary
               weight: semibold
               size: md
             spacing:
@@ -162,7 +177,7 @@
     properties:
       layout:
         align: center
-        gap: md
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md
@@ -178,7 +193,7 @@
           weight: bold
           transform: uppercase
           letterSpacing: wider
-          color: '#c7926b'
+          color: *color-primary
           align: center
         spacing:
           marginBlock: none
@@ -187,7 +202,7 @@
         text: Handcrafted with Passion
         level: 2
         typography:
-          color: '#8B4513'
+          color: *color-primary
           size: xxl
           weight: bold
           align: center
@@ -200,7 +215,7 @@
           using time-honored techniques and the finest locally-sourced ingredients.
           Every bite tells a story of tradition, quality, and love.
         typography:
-          color: '#6b4f4b'
+          color: *color-primary
           size: lg
           align: center
           lineHeight: '1.6'
@@ -214,12 +229,12 @@
     properties:
       layout:
         align: center
-        gap: lg
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md
       background:
-        color: '#fdf8f2'
+        color: *color-secondary
         transparency: 100
     components:
     - name: heading
@@ -228,7 +243,7 @@
         level: 2
         typography:
           align: center
-          color: '#8B4513'
+          color: *color-primary
           size: xxl
           weight: bold
         spacing:
@@ -239,7 +254,7 @@
       properties:
         layout:
           align: center
-          gap: lg
+          horizontalAlign: space-evenly
           wrap: wrap
         spacing:
           paddingBlock: lg
@@ -256,9 +271,8 @@
           source:
             url: https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600
             altText: Fresh baked bread straight from the oven
-          presentation:
-            width: "100"
-            minHeight: 250
+          appearance:
+            minHeight: 15.625
             fit: cover
             cornerStyle: md
           layout:
@@ -268,7 +282,8 @@
       - name: layout-column
         properties:
           layout:
-            gap: sm
+            widthMode: 75
+            horizontalAlign: space-evenly
             align: start
           spacing:
             paddingBlock: none
@@ -282,7 +297,7 @@
               weight: bold
               transform: uppercase
               letterSpacing: wider
-              color: '#c7926b'
+              color: *color-primary
             spacing:
               marginBlock: none
         - name: heading
@@ -290,7 +305,7 @@
             text: Locally Sourced & Organic
             level: 3
             typography:
-              color: '#8B4513'
+              color: *color-primary
               size: xl
               weight: bold
             spacing:
@@ -302,7 +317,7 @@
               free-range eggs, and European butter. Our commitment to quality ingredients
               means every bite is packed with authentic flavor and nutrition.
             typography:
-              color: '#6b4f4b'
+              color: *color-primary
               size: md
               lineHeight: '1.6'
             spacing:
@@ -315,7 +330,7 @@
       properties:
         layout:
           align: center
-          gap: lg
+          horizontalAlign: space-evenly
           wrap: wrap
         spacing:
           paddingBlock: lg
@@ -330,7 +345,8 @@
       - name: layout-column
         properties:
           layout:
-            gap: sm
+            widthMode: 75
+            horizontalAlign: space-evenly
             align: start
           spacing:
             paddingBlock: none
@@ -344,7 +360,7 @@
               weight: bold
               transform: uppercase
               letterSpacing: wider
-              color: '#c7926b'
+              color: *color-primary
             spacing:
               marginBlock: none
         - name: heading
@@ -352,7 +368,7 @@
             text: Time-Honored Techniques
             level: 3
             typography:
-              color: '#8B4513'
+              color: *color-primary
               size: xl
               weight: bold
             spacing:
@@ -364,7 +380,7 @@
               generations. Each loaf is hand-shaped and baked to perfection in our
               stone-lined ovens, ensuring the perfect crust and crumb every time.
             typography:
-              color: '#6b4f4b'
+              color: *color-primary
               size: md
               lineHeight: '1.6'
             spacing:
@@ -376,8 +392,8 @@
           source:
             url: https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=600
             altText: Baker shaping artisanal bread dough
-          presentation:
-            height: 250px
+          appearance:
+            minHeight: 15.625
             fit: cover
             cornerStyle: md
           layout:
@@ -390,7 +406,7 @@
       properties:
         layout:
           align: center
-          gap: lg
+          horizontalAlign: space-evenly
           wrap: wrap
         spacing:
           paddingBlock: lg
@@ -407,8 +423,8 @@
           source:
             url: https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=600
             altText: Variety of freshly baked pastries
-          presentation:
-            height: 250px
+          appearance:
+            minHeight: 15.625
             fit: cover
             cornerStyle: md
           layout:
@@ -418,7 +434,8 @@
       - name: layout-column
         properties:
           layout:
-            gap: sm
+            widthMode: 75
+            horizontalAlign: space-evenly
             align: start
           spacing:
             paddingBlock: none
@@ -432,7 +449,7 @@
               weight: bold
               transform: uppercase
               letterSpacing: wider
-              color: '#c7926b'
+              color: *color-primary
             spacing:
               marginBlock: none
         - name: heading
@@ -440,7 +457,7 @@
             text: Baked Before Dawn
             level: 3
             typography:
-              color: '#8B4513'
+              color: *color-primary
               size: xl
               weight: bold
             spacing:
@@ -452,7 +469,7 @@
               possible products. Nothing from yesterday, nothing frozen – just pure,
               fresh-baked goodness that arrives at your table while still warm.
             typography:
-              color: '#6b4f4b'
+              color: *color-primary
               size: md
               lineHeight: '1.6'
             spacing:
@@ -465,7 +482,7 @@
     properties:
       layout:
         align: start
-        gap: lg
+        horizontalAlign: space-evenly
         wrap: wrap
       spacing:
         paddingBlock: lg
@@ -491,7 +508,7 @@
           • Local ingredients
           • Award-winning
         typography:
-          color: '#8B4513'
+          color: *color-primary
           size: sm
           weight: medium
           lineHeight: '1.8'
@@ -503,7 +520,7 @@
           widthMode: 25
         appearance:
           background:
-            color: '#fdf8f2'
+            color: *color-secondary
             transparency: 100
           radius: sm
     - name: paragraph
@@ -516,7 +533,7 @@
           excellence. From our classic sourdough to our innovative seasonal pastries, each product reflects
           our dedication to the craft of baking and our love for the community we serve.
         typography:
-          color: '#6b4f4b'
+          color: *color-primary
           size: md
           weight: regular
           lineHeight: '1.7'
@@ -533,7 +550,7 @@
     properties:
       layout:
         align: center
-        gap: md
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md
@@ -544,7 +561,7 @@
         level: 2
         typography:
           align: center
-          color: '#8B4513'
+          color: *color-primary
           size: xxl
           weight: bold
         spacing:
@@ -553,8 +570,8 @@
       properties:
         layout:
           columns: 3
-          gap: lg
-          align: stretch
+          gap: md
+          verticalAlign: stretch
         responsive:
           breakpoints:
             md: 2
@@ -568,8 +585,9 @@
             source:
               url: https://images.pexels.com/photos/380954/pexels-photo-380954.jpeg?auto=compress&cs=tinysrgb&w=800
               altText: Flaky butter croissants
-            presentation:
-              height: 300px
+            appearance:
+              minHeight: 10
+              maxHeight: 15
               fit: cover
               cornerStyle: lg
             layout:
@@ -593,7 +611,7 @@
             text: Flaky, buttery, and simply irresistible. A true French classic baked fresh every morning.
             typography:
               align: center
-              color: '#6b4f4b'
+              color: *color-primary
               size: md
             spacing:
               marginBlock: sm
@@ -602,7 +620,7 @@
             text: Order Now
             appearance:
               background:
-                color: '#c7926b'
+                color: *color-accent
                 transparency: 100
               padding:
                 block: sm
@@ -622,8 +640,9 @@
             source:
               url: https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=800
               altText: Crusty sourdough bread loaf
-            presentation:
-              height: 300px
+            appearance:
+              minHeight: 10
+              maxHeight: 15
               fit: cover
               cornerStyle: lg
             layout:
@@ -647,7 +666,7 @@
             text: Our signature crusty sourdough with a tangy flavor and perfect crumb. Fermented for 48 hours.
             typography:
               align: center
-              color: '#6b4f4b'
+              color: *color-primary
               size: md
             spacing:
               marginBlock: sm
@@ -656,7 +675,7 @@
             text: Order Now
             appearance:
               background:
-                color: '#c7926b'
+                color: *color-accent
                 transparency: 100
               padding:
                 block: sm
@@ -676,8 +695,9 @@
             source:
               url: https://images.pexels.com/photos/1027811/pexels-photo-1027811.jpeg?auto=compress&cs=tinysrgb&w=800
               altText: Colorful decorated cupcakes
-            presentation:
-              height: 300px
+            appearance:
+              minHeight: 10
+              maxHeight: 15
               fit: cover
               cornerStyle: lg
             layout:
@@ -701,7 +721,7 @@
             text: Perfect for any celebration. Moist vanilla cake topped with creamy buttercream frosting.
             typography:
               align: center
-              color: '#6b4f4b'
+              color: *color-primary
               size: md
             spacing:
               marginBlock: sm
@@ -710,7 +730,7 @@
             text: Order Now
             appearance:
               background:
-                color: '#c7926b'
+                color: *color-accent
                 transparency: 100
               padding:
                 block: sm
@@ -724,13 +744,13 @@
               marginInline: auto
             layout:
               widthMode: fit
-  
+
   # Gallery Carousel Section
   - name: layout-column
     properties:
       layout:
         align: center
-        gap: md
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md
@@ -744,7 +764,7 @@
         level: 2
         typography:
           align: center
-          color: '#8B4513'
+          color: *color-primary
           size: xxl
           weight: bold
         spacing:
@@ -754,7 +774,7 @@
         text: See our bakers in action and the beautiful creations that come out of our ovens daily.
         typography:
           align: center
-          color: '#6b4f4b'
+          color: *color-primary
           size: md
         spacing:
           marginBlock: none
@@ -780,8 +800,8 @@
             source:
               url: https://images.pexels.com/photos/1854037/pexels-photo-1854037.jpeg?auto=compress&cs=tinysrgb&w=1200
               altText: Beautiful decorated wedding cake
-            presentation:
-              height: 500px
+            appearance:
+              minHeight: 31.25
               fit: cover
               cornerStyle: lg
             layout:
@@ -792,8 +812,8 @@
             source:
               url: https://images.pexels.com/photos/3218467/pexels-photo-3218467.jpeg?auto=compress&cs=tinysrgb&w=1200
               altText: Colorful macarons arranged beautifully
-            presentation:
-              height: 500px
+            appearance:
+              minHeight: 31.25
               fit: cover
               cornerStyle: lg
             layout:
@@ -804,8 +824,8 @@
             source:
               url: https://images.pexels.com/photos/1368498/pexels-photo-1368498.jpeg?auto=compress&cs=tinysrgb&w=1200
               altText: Assortment of artisanal pastries
-            presentation:
-              height: 500px
+            appearance:
+              minHeight: 31.25
               fit: cover
               cornerStyle: lg
             layout:
@@ -816,8 +836,8 @@
             source:
               url: https://images.pexels.com/photos/267951/pexels-photo-267951.jpeg?auto=compress&cs=tinysrgb&w=1200
               altText: Fresh cinnamon rolls with glaze
-            presentation:
-              height: 500px
+            appearance:
+              minHeight: 31.25
               fit: cover
               cornerStyle: lg
             layout:
@@ -828,8 +848,8 @@
             source:
               url: https://images.pexels.com/photos/236781/pexels-photo-236781.jpeg?auto=compress&cs=tinysrgb&w=1200
               altText: Baker kneading dough by hand
-            presentation:
-              height: 500px
+            appearance:
+              minHeight: 31.25
               fit: cover
               cornerStyle: lg
             layout:
@@ -840,7 +860,7 @@
     properties:
       layout:
         align: center
-        gap: md
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md
@@ -851,7 +871,7 @@
         level: 2
         typography:
           align: center
-          color: '#8B4513'
+          color: *color-primary
           size: xxl
           weight: bold
         spacing:
@@ -866,24 +886,24 @@
             size: md
             weight: semibold
             active:
-              color: '#8B4513'
+              color: *color-primary
             inactive:
-              color: '#6b7280'
+              color: *color-secondary
         appearance:
           tab:
             background:
-              active: '#ffffff'
-              inactive: '#f5f5f5'
+              active: *color-background
+              inactive: *color-secondary
             border:
               width: 2
               style: solid
               position: lower
           content:
             background:
-              color: '#ffffff'
+              color: *color-background
               transparency: 100
             border:
-              color: '#e5e7eb'
+              color: *color-secondary
               width: 1
               style: solid
             padding:
@@ -899,7 +919,7 @@
           properties:
             layout:
               columns: 4
-              gap: sm
+              gap: md
             responsive:
               breakpoints:
                 sm: 1
@@ -910,8 +930,8 @@
                 source:
                   url: https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Sourdough bread
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -921,7 +941,7 @@
                 text: Sourdough Loaf
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -929,7 +949,7 @@
               properties:
                 text: Traditional 48-hour fermented sourdough with a tangy flavor and perfect crust.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -937,8 +957,8 @@
                 source:
                   url: https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Baguette bread
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -948,7 +968,7 @@
                 text: French Baguette
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -956,7 +976,7 @@
               properties:
                 text: Crispy golden crust with a soft, airy interior. Baked fresh twice daily.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -964,8 +984,8 @@
                 source:
                   url: https://images.pexels.com/photos/380954/pexels-photo-380954.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Whole grain bread
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -975,7 +995,7 @@
                 text: Whole Grain Loaf
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -983,7 +1003,7 @@
               properties:
                 text: Nutty and hearty, packed with seeds and grains for maximum nutrition.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -991,8 +1011,8 @@
                 source:
                   url: https://images.pexels.com/photos/205961/pexels-photo-205961.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Rye bread
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1002,7 +1022,7 @@
                 text: Dark Rye Bread
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1010,7 +1030,7 @@
               properties:
                 text: Rich, dense rye bread with a deep flavor perfect for sandwiches.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
       - title: Cakes
         components:
@@ -1018,7 +1038,7 @@
           properties:
             layout:
               columns: 2
-              gap: lg
+              gap: md
             responsive:
               breakpoints:
                 sm: 1
@@ -1029,8 +1049,8 @@
                 source:
                   url: https://images.pexels.com/photos/1854037/pexels-photo-1854037.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Wedding cake
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1040,7 +1060,7 @@
                 text: Wedding Cakes
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1048,7 +1068,7 @@
               properties:
                 text: Elegant multi-tiered cakes customized to your vision. Available in various flavors.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -1056,8 +1076,8 @@
                 source:
                   url: https://images.pexels.com/photos/1027811/pexels-photo-1027811.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Birthday cupcakes
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1067,7 +1087,7 @@
                 text: Birthday Cakes
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1075,7 +1095,7 @@
               properties:
                 text: Fun and festive cakes for any celebration. Choose your favorite flavors and designs.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -1083,8 +1103,8 @@
                 source:
                   url: https://images.pexels.com/photos/3218467/pexels-photo-3218467.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Chocolate cake
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1094,7 +1114,7 @@
                 text: Chocolate Layer Cake
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1102,7 +1122,7 @@
               properties:
                 text: Rich chocolate cake with creamy frosting. A customer favorite!
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -1110,8 +1130,8 @@
                 source:
                   url: https://images.pexels.com/photos/1368498/pexels-photo-1368498.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Cheesecake
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1121,7 +1141,7 @@
                 text: New York Cheesecake
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1129,7 +1149,7 @@
               properties:
                 text: Creamy, dense cheesecake with a graham cracker crust. Simply divine.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
       - title: Pastries
         components:
@@ -1137,7 +1157,7 @@
           properties:
             layout:
               columns: 2
-              gap: lg
+              gap: md
             responsive:
               breakpoints:
                 sm: 1
@@ -1148,8 +1168,8 @@
                 source:
                   url: https://images.pexels.com/photos/380954/pexels-photo-380954.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Croissants
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1159,7 +1179,7 @@
                 text: Butter Croissants
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1167,7 +1187,7 @@
               properties:
                 text: Flaky, buttery layers that melt in your mouth. Baked fresh every morning.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -1175,8 +1195,8 @@
                 source:
                   url: https://images.pexels.com/photos/267951/pexels-photo-267951.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Cinnamon rolls
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1186,7 +1206,7 @@
                 text: Cinnamon Rolls
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1194,7 +1214,7 @@
               properties:
                 text: Warm, gooey rolls topped with cream cheese frosting. Perfect for breakfast.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -1202,8 +1222,8 @@
                 source:
                   url: https://images.pexels.com/photos/3218467/pexels-photo-3218467.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Macarons
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1213,7 +1233,7 @@
                 text: French Macarons
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1221,7 +1241,7 @@
               properties:
                 text: Delicate almond cookies in a variety of flavors and colors.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
           - components:
             - name: image
@@ -1229,8 +1249,8 @@
                 source:
                   url: https://images.pexels.com/photos/1368498/pexels-photo-1368498.jpeg?auto=compress&cs=tinysrgb&w=600
                   altText: Danish pastries
-                presentation:
-                  height: 200px
+                appearance:
+                  minHeight: 12.5
                   fit: cover
                   cornerStyle: md
                 layout:
@@ -1240,7 +1260,7 @@
                 text: Danish Pastries
                 level: 3
                 typography:
-                  color: '#8B4513'
+                  color: *color-primary
                   weight: semibold
                 spacing:
                   marginBlock: sm
@@ -1248,7 +1268,7 @@
               properties:
                 text: Buttery, flaky pastries filled with fruit preserves or cream cheese.
                 typography:
-                  color: '#6b4f4b'
+                  color: *color-primary
                   size: sm
   
   # Our Story Section
@@ -1256,7 +1276,7 @@
     properties:
       layout:
         align: center
-        gap: lg
+        horizontalAlign: space-evenly
         wrap: wrap
       spacing:
         paddingBlock: lg
@@ -1270,8 +1290,8 @@
         source:
           url: https://images.pexels.com/photos/236781/pexels-photo-236781.jpeg?auto=compress&cs=tinysrgb&w=800
           altText: Baker kneading dough by hand
-        presentation:
-          height: 400px
+        appearance:
+          minHeight: 25
           fit: cover
           cornerStyle: lg
         layout:
@@ -1279,7 +1299,7 @@
     - name: layout-column
       properties:
         layout:
-          gap: md
+          horizontalAlign: space-evenly
         spacing:
           paddingBlock: none
           paddingInline: none
@@ -1292,7 +1312,7 @@
             weight: bold
             transform: uppercase
             letterSpacing: wider
-            color: '#c7926b'
+            color: *color-primary
           spacing:
             marginBlock: none
       - name: heading
@@ -1300,7 +1320,7 @@
           text: Baked with Passion Since 2003
           level: 2
           typography:
-            color: '#8B4513'
+            color: *color-primary
             size: xxl
             weight: bold
           spacing:
@@ -1317,7 +1337,7 @@
             Our master bakers wake before dawn to ensure you get the freshest products
             possible, made with care and attention to detail.
           typography:
-            color: '#6b4f4b'
+            color: *color-primary
             size: md
             lineHeight: '1.6'
           spacing:
@@ -1328,7 +1348,7 @@
     properties:
       layout:
         align: center
-        gap: md
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md
@@ -1339,7 +1359,7 @@
         level: 2
         typography:
           align: center
-          color: '#8B4513'
+          color: *color-primary
           size: xxl
           weight: bold
         spacing:
@@ -1352,21 +1372,21 @@
           title:
             size: lg
             weight: semibold
-            color: '#8B4513'
+            color: *color-primary
           content:
             size: md
             weight: regular
-            color: '#6b4f4b'
+            color: *color-primary
         appearance:
           titleBackground:
-            color: '#ffffff'
+            color: *color-background
           border:
             width: 1
             style: solid
-            color: '#e5e7eb'
+            color: *color-secondary
             position: bottom
           contentBackground:
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
           radius: sm
           padding:
@@ -1379,42 +1399,60 @@
           widthMode: 75
       items:
       - title: What makes your bread different?
-        content: |
-          We use traditional fermentation methods, locally-sourced organic flour,
-          and bake everything fresh daily. Our sourdough is fermented for 48 hours,
-          giving it that distinctive tangy flavor and perfect texture.
+        components:
+        - name: paragraph
+          properties:
+            text: |
+              We use traditional fermentation methods, locally-sourced organic flour,
+              and bake everything fresh daily. Our sourdough is fermented for 48 hours,
+              giving it that distinctive tangy flavor and perfect texture.
       - title: Do you offer gluten-free options?
-        content: |
-          Yes! We have a selection of gluten-free breads and pastries made with
-          certified gluten-free ingredients. Please ask our staff about our daily
-          gluten-free offerings.
+        components:
+        - name: paragraph
+          properties:
+            text: |
+              Yes! We have a selection of gluten-free breads and pastries made with
+              certified gluten-free ingredients. Please ask our staff about our daily
+              gluten-free offerings.
       - title: Can I place custom orders?
-        content: |
-          Absolutely! We love creating custom cakes and pastries for weddings,
-          birthdays, anniversaries, and special events. Please contact us at least
-          48 hours in advance for custom orders.
+        components:
+        - name: paragraph
+          properties:
+            text: |
+              Absolutely! We love creating custom cakes and pastries for weddings,
+              birthdays, anniversaries, and special events. Please contact us at least
+              48 hours in advance for custom orders.
       - title: Where do you source your ingredients?
-        content: |
-          All our flour comes from organic farms within 50 miles of our bakery.
-          We use only free-range eggs from local farms and European butter for
-          our pastries. We're committed to supporting local agriculture.
+        components:
+        - name: paragraph
+          properties:
+            text: |
+              All our flour comes from organic farms within 50 miles of our bakery.
+              We use only free-range eggs from local farms and European butter for
+              our pastries. We're committed to supporting local agriculture.
       - title: Do you offer baking classes?
-        content: |
-          Yes! We offer monthly baking classes where you can learn traditional
-          techniques from our master bakers. Check our website or call us for
-          the current schedule and to reserve your spot.
+        components:
+        - name: paragraph
+          properties:
+            text: |
+              Yes! We offer monthly baking classes where you can learn traditional
+              techniques from our master bakers. Check our website or call us for
+              the current schedule and to reserve your spot.
       - title: What are your hours?
-        content: |
-          We're open Monday through Saturday from 6 AM to 7 PM, and Sundays
-          from 7 AM to 5 PM. We're closed on major holidays. Follow us on social
-          media for holiday hours and special announcements.
+        components:
+        - name: paragraph
+          properties:
+            text: |
+              We're open Monday through Saturday from 6 AM to 7 PM, and Sundays
+              from 7 AM to 5 PM. We're closed on major holidays. Follow us on social
+              media for holiday hours and special announcements.
   
   # Testimonials Section
   - name: layout-column
     properties:
       layout:
         align: center
-        gap: md
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md
@@ -1428,7 +1466,7 @@
         level: 2
         typography:
           align: center
-          color: '#8B4513'
+          color: *color-primary
           size: xxl
           weight: bold
         spacing:
@@ -1437,7 +1475,7 @@
       properties:
         layout:
           columns: 3
-          gap: lg
+          gap: md
         responsive:
           breakpoints:
             md: 2
@@ -1455,13 +1493,13 @@
             typography:
               size: md
               weight: regular
-              color: '#6b4f4b'
+              color: *color-primary
             appearance:
               background:
-                color: '#fdf8f2'
+                color: *color-background
                 transparency: 100
               border:
-                accentColor: '#c7926b'
+                accentColor: *color-secondary
                 width: 3
                 style: solid
                 position: left
@@ -1477,13 +1515,13 @@
             typography:
               size: md
               weight: regular
-              color: '#6b4f4b'
+              color: *color-primary
             appearance:
               background:
-                color: '#fdf8f2'
+                color: *color-background
                 transparency: 100
               border:
-                accentColor: '#c7926b'
+                accentColor: *color-secondary
                 width: 3
                 style: solid
                 position: left
@@ -1499,13 +1537,13 @@
             typography:
               size: md
               weight: regular
-              color: '#6b4f4b'
+              color: *color-primary
             appearance:
               background:
-                color: '#fdf8f2'
+                color: *color-background
                 transparency: 100
               border:
-                accentColor: '#c7926b'
+                accentColor: *color-secondary
                 width: 3
                 style: solid
                 position: left
@@ -1517,12 +1555,12 @@
     properties:
       layout:
         align: center
-        gap: md
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md
       background:
-        color: '#8B4513'
+        color: *color-primary
         transparency: 100
     components:
     - name: heading
@@ -1541,7 +1579,7 @@
         text: Have a question or want to place a custom order? We'd love to hear from you!
         typography:
           align: center
-          color: '#fdf8f2'
+          color: *color-background
           size: md
         spacing:
           marginBlock: none
@@ -1552,7 +1590,7 @@
       properties:
         layout:
           direction: column
-          gap: md
+          horizontalAlign: space-evenly
           widthMode: 75
         submit:
           show: true
@@ -1615,12 +1653,12 @@
           text: Send Message
           appearance:
             background:
-              color: '#c7926b'
+              color: *color-accent
               transparency: 100
             border:
               width: 0
               style: solid
-              color: '#a47551'
+              color: *color-accent
             padding:
               block: md
               inline: lg
@@ -1639,7 +1677,7 @@
     properties:
       layout:
         align: center
-        gap: sm
+        horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
         paddingInline: md

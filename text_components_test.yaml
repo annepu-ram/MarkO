@@ -208,7 +208,7 @@
     # Test all components in a flex container to verify width modes
     - name: layout-row
       properties:
-        layout: { align: start, gap: md, wrap: wrap }
+        layout: { align: start, distribution: space-evenly, wrap: wrap }
         spacing: { paddingBlock: md, paddingInline: md }
       appearance: 
           background: { color: '#f3f4f6' }

@@ -1,0 +1,242 @@
+# Split-Screen Hero
+# A modern 50/50 layout with content on one side and imagery on the other
+# Perfect for: SaaS products, apps, portfolios, startups
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#ffffff'
+        transparency: 100
+  components:
+  # Split-Screen Hero Container
+  - name: layout-row
+    properties:
+      layout:
+        align: stretch
+        horizontalAlign: none
+        wrap: wrap
+      spacing:
+        paddingBlock: none
+        paddingInline: none
+      background:
+        color: '#ffffff'
+        transparency: 100
+    components:
+    # Left Side - Content
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+        background:
+          color: '#fafafa'
+          transparency: 100
+        appearance:
+          widthMode: 50
+      components:
+      # Badge
+      - name: layout-row
+        properties:
+          layout:
+            align: start
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "NEW"
+            typography:
+              color: '#ffffff'
+              size: xxs
+              weight: bold
+              transform: uppercase
+            spacing:
+              marginBlock: none
+            appearance:
+              background:
+                color: '#6366f1'
+                transparency: 100
+              radius: sm
+              padding:
+                block: xxs
+                inline: xs
+        - name: paragraph
+          properties:
+            text: "Version 3.0 just launched"
+            typography:
+              color: '#6b7280'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+
+      # Main Headline
+      - name: heading
+        properties:
+          text: "Build products faster with AI-powered tools"
+          level: 1
+          typography:
+            color: '#111827'
+            size: xxxl
+            weight: bold
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+
+      # Description
+      - name: paragraph
+        properties:
+          text: |
+            Transform your workflow with intelligent automation. Our platform helps teams
+            ship 10x faster without compromising quality. Join 50,000+ developers already
+            building the future.
+          typography:
+            color: '#6b7280'
+            size: md
+            lineHeight: '1.7'
+          spacing:
+            marginBlock: sm
+
+      # Email Signup Form
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+          spacing:
+            marginBlock: md
+        components:
+        - name: textbox
+          properties:
+            label:
+              show: false
+            field:
+              placeholder: "Enter your email"
+            appearance:
+              background:
+                color: '#ffffff'
+                transparency: 100
+              border:
+                width: 1
+                style: solid
+                color: '#e5e7eb'
+              radius: md
+              padding:
+                block: sm
+                inline: md
+            layout:
+              widthMode: fit
+        - name: button
+          properties:
+            text: "Get Started Free"
+            appearance:
+              background:
+                color: '#111827'
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              padding:
+                block: sm
+                inline: lg
+            typography:
+              color: '#ffffff'
+              weight: semibold
+              size: sm
+            spacing:
+              marginBlock: none
+
+      # Trust Indicators
+      - name: paragraph
+        properties:
+          text: "No credit card required  •  14-day free trial  •  Cancel anytime"
+          typography:
+            color: '#9ca3af'
+            size: xs
+          spacing:
+            marginBlock: sm
+
+      # Social Proof - Logos
+      - name: layout-column
+        properties:
+          layout:
+            align: start
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: lg
+        components:
+        - name: paragraph
+          properties:
+            text: "Trusted by teams at"
+            typography:
+              color: '#9ca3af'
+              size: xs
+              weight: medium
+              transform: uppercase
+              letterSpacing: wide
+            spacing:
+              marginBlock: none
+        - name: layout-row
+          properties:
+            layout:
+              align: center
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+          - name: paragraph
+            properties:
+              text: "STRIPE"
+              typography:
+                color: '#d1d5db'
+                size: md
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "NOTION"
+              typography:
+                color: '#d1d5db'
+                size: md
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "FIGMA"
+              typography:
+                color: '#d1d5db'
+                size: md
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "LINEAR"
+              typography:
+                color: '#d1d5db'
+                size: md
+                weight: bold
+              spacing:
+                marginBlock: none
+
+    # Right Side - Image
+    - name: image
+      properties:
+        source:
+          url: https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1200
+          altText: Team collaborating on a project
+        appearance:
+          minHeight: 43.75
+          fit: cover
+          cornerStyle: none
+        layout:
+          widthMode: 50
+        spacing:
+          marginBlock: none
+          marginInline: none

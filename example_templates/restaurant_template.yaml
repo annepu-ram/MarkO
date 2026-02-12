@@ -1,7 +1,23 @@
 - name: page
   properties:
-    background:
-      color: '#fffaf0'
+    theme:
+      fonts:
+        headingMain: &font-heading-main 'Georgia, serif'
+        headingLevel2: &font-heading-level2 'Georgia, serif'
+        content: &font-content 'Georgia, serif'
+      colors:
+        # 60-30-10 Color System:
+        # Primary (30%) = TEXT - all headings, paragraphs, body text
+        # Secondary (10%) = UI elements, section highlights, regular buttons
+        # Accent (CTAs only) = Call-to-action buttons like "Book Your Table"
+        # Background (60%) = Page base, content areas
+        primary: &color-primary '#5C3D2E'
+        secondary: &color-secondary '#FF4500'
+        accent: &color-accent '#DAA520'
+        background: &color-background '#fffaf0'
+    appearance:
+      background:
+        color: *color-background
   components:
   - name: titlebar
     properties:
@@ -10,7 +26,7 @@
         logoUrl: https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=100
       appearance:
         background:
-          color: '#ffffff'
+          color: *color-background
       navigation:
         links:
         - label: Home
@@ -26,8 +42,8 @@
       source:
         url: https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
         altText: A beautifully plated gourmet dish
-      presentation:
-        height: 400px
+      appearance:
+        minHeight: 25
         fit: cover
         cornerStyle: none
       spacing:
@@ -45,12 +61,21 @@
     - name: button
       properties:
         text: Make a Reservation
+        appearance:
+          background:
+            color: *color-accent
+          padding:
+            block: md
+            inline: lg
+        typography:
+          color: '#ffffff'
+          weight: semibold
   - name: heading
     properties:
       text: A Culinary Journey
       typography:
         align: center
-        color: '#FF4500'
+        color: *color-primary
       level: 1
   - name: paragraph
     properties:
@@ -58,6 +83,7 @@
       typography:
         align: center
         size: lg
+        color: *color-primary
       spacing:
         marginBlock: md
   - name: heading
@@ -65,7 +91,7 @@
       text: Our Menu
       typography:
         align: center
-        color: '#FF4500'
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -73,6 +99,22 @@
     properties:
       layout:
         orientation: horizontal
+      typography:
+        label:
+          active:
+            color: *color-primary
+          inactive:
+            color: *color-secondary
+      appearance:
+        tab:
+          background:
+            active: *color-background
+            inactive: *color-secondary
+        content:
+          background:
+            color: *color-background
+          border:
+            color: *color-secondary
       tabs:
       - title: Appetizers
         content: ''
@@ -85,7 +127,7 @@
       text: Frequently Asked Questions
       typography:
         align: center
-        color: '#FF4500'
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -100,12 +142,24 @@
         content: Absolutely! We offer vegetarian, vegan, and gluten-free options. Please inform your server of any allergies or dietary requirements.
       behavior:
         allowMultipleOpen: false
+      typography:
+        title:
+          color: *color-primary
+        content:
+          color: *color-primary
+      appearance:
+        titleBackground:
+          color: *color-background
+        border:
+          color: *color-secondary
+        contentBackground:
+          color: *color-background
   - name: heading
     properties:
       text: Make a Reservation
       typography:
         align: center
-        color: '#FF4500'
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -128,12 +182,21 @@
   - name: button
     properties:
       text: Book Your Table
+      appearance:
+        background:
+          color: *color-accent
+        padding:
+          block: md
+          inline: lg
+      typography:
+        color: '#ffffff'
+        weight: semibold
   - name: heading
     properties:
       text: Contact & Location
       typography:
         align: center
-        color: '#FF4500'
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -142,3 +205,4 @@
       text: '456 Culinary Ave | Phone: 555-5678 | Open Daily: 5pm - 10pm'
       typography:
         align: center
+        color: *color-primary

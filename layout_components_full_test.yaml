@@ -16,7 +16,7 @@
         layout:
           tag: section
           align: center
-          gap: md
+          distribution: space-evenly
           wrap: nowrap
         spacing:
           marginBlock: md
@@ -54,7 +54,7 @@
         layout:
           tag: article
           align: stretch
-          gap: sm
+          distribution: space-evenly
         spacing:
           marginBlock: lg
           paddingBlock: md
@@ -91,7 +91,7 @@
       properties:
         layout:
           columns: 3
-          gap: md
+          distribution: space-evenly
         spacing:
           marginBlock: xl
           paddingBlock: md
@@ -145,7 +145,7 @@
       properties:
         layout:
           columns: 2
-          gap: lg
+          distribution: space-evenly
         spacing:
           marginBlock: md
       components: []
@@ -156,7 +156,7 @@
       properties:
         layout:
           direction: column
-          gap: md
+          distribution: space-evenly
         spacing:
           marginBlock: lg
           paddingBlock: lg
@@ -195,7 +195,7 @@
     - name: layout-column
       properties:
         layout:
-          gap: md
+          distribution: space-evenly
         spacing:
           marginBlock: xl
           paddingBlock: lg
@@ -217,7 +217,7 @@
         - name: layout-row
           properties:
             layout:
-              gap: sm
+              distribution: space-evenly
               align: center
             spacing:
               paddingBlock: md
@@ -247,7 +247,7 @@
     - name: layout-row
       properties:
         layout:
-          gap: sm
+          distribution: space-evenly
           wrap: wrap
         spacing:
           marginBlock: md
@@ -294,7 +294,7 @@
     - name: tabs
       properties:
         layout:
-          gap: md
+          distribution: space-evenly
         spacing:
           marginBlock: xl
         typography:
@@ -440,7 +440,7 @@
               properties:
                 layout:
                   align: center
-                  gap: sm
+                  distribution: space-evenly
                 spacing:
                   paddingBlock: lg
                 appearance:
@@ -475,7 +475,7 @@
               properties:
                 layout:
                   align: center
-                  gap: sm
+                  distribution: space-evenly
                 spacing:
                   paddingBlock: lg
                 appearance:
@@ -510,7 +510,7 @@
               properties:
                 layout:
                   align: center
-                  gap: sm
+                  distribution: space-evenly
                 spacing:
                   paddingBlock: lg
                 appearance:

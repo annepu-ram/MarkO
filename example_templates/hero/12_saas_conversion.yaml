@@ -1,0 +1,500 @@
+# SaaS Conversion Hero
+# A high-converting, trust-focused hero optimized for B2B SaaS
+# Perfect for: SaaS products, B2B software, productivity tools, enterprise
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#ffffff'
+        transparency: 100
+  components:
+  # Navigation with CTA
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: sm
+        paddingInline: lg
+      background:
+        color: '#ffffff'
+        transparency: 100
+      appearance:
+        border:
+          width: 1
+          style: solid
+          color: '#f3f4f6'
+          position: bottom
+    components:
+    - name: heading
+      properties:
+        text: "Workflow"
+        level: 3
+        typography:
+          color: '#111827'
+          size: md
+          weight: bold
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Product"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Solutions"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Pricing"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Docs"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Sign in"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: button
+        properties:
+          text: "Start Free Trial"
+          appearance:
+            background:
+              color: '#4f46e5'
+              transparency: 100
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            padding:
+              block: xs
+              inline: md
+          typography:
+            color: '#ffffff'
+            weight: semibold
+            size: sm
+          spacing:
+            marginBlock: none
+
+  # Hero Content
+  - name: layout-column
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: xxl
+        paddingInline: lg
+      background:
+        color: '#fafafa'
+        transparency: 100
+    components:
+    # Social Proof Banner
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        appearance:
+          background:
+            color: '#ffffff'
+            transparency: 100
+          radius: pill
+          border:
+            width: 1
+            style: solid
+            color: '#e5e7eb'
+          padding:
+            block: xs
+            inline: md
+          shadow: '0 1px 2px rgba(0,0,0,0.05)'
+      components:
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: none
+        components:
+        - name: paragraph
+          properties:
+            text: "★★★★★"
+            typography:
+              color: '#fbbf24'
+              size: sm
+            spacing:
+              marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Rated 4.9/5 from 2,000+ reviews"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+
+    # Main Headline
+    - name: heading
+      properties:
+        text: "Automate your workflow,"
+        level: 1
+        typography:
+          color: '#111827'
+          size: xxxl
+          weight: bold
+          align: center
+          lineHeight: '1.1'
+        spacing:
+          marginBlock: none
+
+    - name: heading
+      properties:
+        text: "amplify your results"
+        level: 1
+        typography:
+          color: '#4f46e5'
+          size: xxxl
+          weight: bold
+          align: center
+          lineHeight: '1.1'
+        spacing:
+          marginBlock: none
+
+    # Value Proposition
+    - name: paragraph
+      properties:
+        text: |
+          The all-in-one platform that helps teams move faster. Automate repetitive tasks,
+          collaborate in real-time, and ship products 10x faster than before.
+        typography:
+          color: '#6b7280'
+          size: lg
+          align: center
+          lineHeight: '1.6'
+        spacing:
+          marginBlock: md
+        layout:
+          widthMode: 50
+
+    # CTA with Social Proof
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        spacing:
+          marginBlock: md
+      components:
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+        components:
+        - name: textbox
+          properties:
+            label:
+              show: false
+            field:
+              placeholder: "Enter your work email"
+            appearance:
+              background:
+                color: '#ffffff'
+                transparency: 100
+              border:
+                width: 1
+                style: solid
+                color: '#d1d5db'
+              radius: md
+              padding:
+                block: sm
+                inline: md
+            layout:
+              widthMode: fit
+        - name: button
+          properties:
+            text: "Start Free Trial →"
+            appearance:
+              background:
+                color: '#4f46e5'
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              padding:
+                block: sm
+                inline: lg
+            typography:
+              color: '#ffffff'
+              weight: semibold
+              size: md
+            spacing:
+              marginBlock: none
+
+      - name: paragraph
+        properties:
+          text: "No credit card required  •  14-day free trial  •  Cancel anytime"
+          typography:
+            color: '#9ca3af'
+            size: xs
+          spacing:
+            marginBlock: none
+
+    # Trust Logos
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        spacing:
+          marginBlock: lg
+      components:
+      - name: paragraph
+        properties:
+          text: "TRUSTED BY 10,000+ COMPANIES WORLDWIDE"
+          typography:
+            color: '#9ca3af'
+            size: xxs
+            weight: semibold
+            letterSpacing: wider
+            align: center
+          spacing:
+            marginBlock: none
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+        components:
+        - name: paragraph
+          properties:
+            text: "GOOGLE"
+            typography:
+              color: '#d1d5db'
+              size: md
+              weight: bold
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "MICROSOFT"
+            typography:
+              color: '#d1d5db'
+              size: md
+              weight: bold
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "SPOTIFY"
+            typography:
+              color: '#d1d5db'
+              size: md
+              weight: bold
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "AIRBNB"
+            typography:
+              color: '#d1d5db'
+              size: md
+              weight: bold
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "SLACK"
+            typography:
+              color: '#d1d5db'
+              size: md
+              weight: bold
+            spacing:
+              marginBlock: none
+
+    # Product Screenshot
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: none
+        spacing:
+          marginBlock: lg
+        appearance:
+          background:
+            color: '#ffffff'
+            transparency: 100
+          radius: xl
+          border:
+            width: 1
+            style: solid
+            color: '#e5e7eb'
+          shadow: '0 25px 50px -12px rgba(0,0,0,0.15)'
+      components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/3184311/pexels-photo-3184311.jpeg?auto=compress&cs=tinysrgb&w=1200
+            altText: Team using the product dashboard
+          appearance:
+            minHeight: 28.125
+            fit: cover
+            cornerStyle: lg
+          layout:
+            widthMode: stretch
+          spacing:
+            marginBlock: none
+
+  # Feature Highlights Bar
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+        wrap: wrap
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      background:
+        color: '#ffffff'
+        transparency: 100
+    components:
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: paragraph
+        properties:
+          text: "✓"
+          typography:
+            color: '#10b981'
+            size: md
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "SOC 2 Certified"
+          typography:
+            color: '#374151'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: paragraph
+        properties:
+          text: "✓"
+          typography:
+            color: '#10b981'
+            size: md
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "99.99% Uptime"
+          typography:
+            color: '#374151'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: paragraph
+        properties:
+          text: "✓"
+          typography:
+            color: '#10b981'
+            size: md
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "24/7 Support"
+          typography:
+            color: '#374151'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: paragraph
+        properties:
+          text: "✓"
+          typography:
+            color: '#10b981'
+            size: md
+            weight: bold
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "GDPR Compliant"
+          typography:
+            color: '#374151'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none

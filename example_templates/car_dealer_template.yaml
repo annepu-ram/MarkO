@@ -1,31 +1,54 @@
 - name: page
   properties:
-    backgroundColor: '#f8f9fa'
+    theme:
+      fonts:
+        headingMain: &font-heading-main 'Helvetica, sans-serif'
+        headingLevel2: &font-heading-level2 'Helvetica, sans-serif'
+        content: &font-content 'Arial, sans-serif'
+      colors:
+        # 60-30-10 Color System:
+        # Primary (30%) = TEXT - all headings, paragraphs, body text
+        # Secondary (10%) = UI elements, section highlights, regular buttons
+        # Accent (CTAs only) = Call-to-action buttons like "View Details", "Contact Us"
+        # Background (60%) = Page base, content areas
+        primary: &color-primary '#343a40'
+        secondary: &color-secondary '#6c757d'
+        accent: &color-accent '#dc3545'
+        background: &color-background '#f8f9fa'
+    appearance:
+      background:
+        color: *color-background
   components:
   - name: titlebar
     properties:
-      title: Prestige Motors
-      logo: https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&w=100
-      backgroundColor: '#343a40'
+      branding:
+        title: Prestige Motors
+        logoUrl: https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&w=100
+      appearance:
+        background:
+          color: *color-primary
       typography:
         title:
-          color: '#ffffff'
-      links:
-      - text: Inventory
-        value: '#inventory'
-      - text: Financing
-        value: '#financing'
-      - text: About Us
-        value: '#about'
-      - text: Contact
-        value: '#contact'
+          color: *color-background
+        menu:
+          color: *color-background
+      navigation:
+        links:
+        - label: Inventory
+          href: '#inventory'
+        - label: Financing
+          href: '#financing'
+        - label: About Us
+          href: '#about'
+        - label: Contact
+          href: '#contact'
   - name: image
     properties:
       source:
         url: https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
         altText: Luxury sports car
-      presentation:
-        height: 400px
+      appearance:
+        minHeight: 25
         fit: cover
         cornerStyle: none
       spacing:
@@ -38,7 +61,7 @@
       text: Experience Luxury and Performance
       typography:
         align: center
-        color: '#343a40'
+        color: *color-primary
       level: 1
   - name: paragraph
     properties:
@@ -46,6 +69,7 @@
       typography:
         align: center
         size: lg
+        color: *color-primary
       spacing:
         marginBlock: md
   - name: heading
@@ -53,7 +77,7 @@
       text: Featured Vehicles
       typography:
         align: center
-        color: '#343a40'
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -80,8 +104,8 @@
           source:
             url: https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=800
             altText: Luxury Sedan
-          presentation:
-            height: 200px
+          appearance:
+            minHeight: 12.5
             fit: cover
             cornerStyle: sm
           layout:
@@ -90,20 +114,34 @@
         properties:
           text: 2023 Apex Sedan
           level: 3
+          typography:
+            color: *color-primary
+            weight: semibold
       - name: paragraph
         properties:
           text: $55,000 - Low mileage, fully loaded.
+          typography:
+            color: *color-primary
       - name: button
         properties:
           text: View Details
+          appearance:
+            background:
+              color: *color-accent
+            padding:
+              block: sm
+              inline: md
+          typography:
+            color: '#ffffff'
+            weight: semibold
     - components:
       - name: image
         properties:
           source:
             url: https://images.pexels.com/photos/1637859/pexels-photo-1637859.jpeg?auto=compress&cs=tinysrgb&w=800
             altText: Luxury SUV
-          presentation:
-            height: 200px
+          appearance:
+            minHeight: 12.5
             fit: cover
             cornerStyle: sm
           layout:
@@ -112,18 +150,32 @@
         properties:
           text: 2022 Nova SUV
           level: 3
+          typography:
+            color: *color-primary
+            weight: semibold
       - name: paragraph
         properties:
           text: $62,000 - Perfect for the family.
+          typography:
+            color: *color-primary
       - name: button
         properties:
           text: View Details
+          appearance:
+            background:
+              color: *color-accent
+            padding:
+              block: sm
+              inline: md
+          typography:
+            color: '#ffffff'
+            weight: semibold
   - name: heading
     properties:
       text: Financing Made Easy
       typography:
         align: center
-        color: '#343a40'
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -143,7 +195,7 @@
       text: Contact Us
       typography:
         align: center
-        color: '#343a40'
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 2
@@ -152,3 +204,4 @@
       text: Visit our showroom at 123 Prestige Lane, or give us a call at 555-1234.
       typography:
         align: center
+        color: *color-primary

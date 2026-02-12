@@ -41,6 +41,8 @@
         {{ render_titlebar(component, tokens, path, component_id) }}
     {% elif name == 'carousel' %}
         {{ render_carousel(component, tokens, path, component_id) }}
+    {% elif name == 'video-background' %}
+        {{ render_video_background(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'textbox' %}
         {{ render_textbox(component, tokens, path, component_id) }}
     {% elif name == 'textarea' %}
@@ -130,7 +132,7 @@
     {% set items = component['items'] | default([]) %}
     {% set border_position = properties.appearance.border.position | default('bottom') if properties.appearance and properties.appearance.border else 'bottom' %}
     {% set accordion_vars = build_accordion_vars(component, tokens) %}
-    <div class="accordion-container chrome-target" data-component-id="{{ component_id }}" data-component-type="accordion" data-allow-multiple="{{ behavior.allowMultipleOpen | default(false) }}"{% if accordion_vars %} style="{{ accordion_vars }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="accordion-container chrome-target" data-component-id="{{ component_id }}" data-component-type="accordion" data-allow-multiple="{{ 'true' if behavior.allowMultipleOpen else 'false' }}"{% if accordion_vars %} style="{{ accordion_vars }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% for item in items %}
             {% set item_index = loop.index0 %}
             {% set item_path = path + ['items', item_index] %}
@@ -193,7 +195,7 @@
     {% set inner_styles = build_flex_styles(component, tokens, 'row') %}
     
     <{{ tag }} class="layout-row chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
-        <div class="layout-row__content" style="{{ inner_styles }}">
+        <div class="layout-row__content" data-wrap="{{ layout_props.wrap | default('nowrap') }}" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}
                 {{ render_component(child, tokens, child_path, 'row') }}
@@ -205,15 +207,27 @@
 {% macro render_layout_column(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
     {% set layout_props = properties.layout | default({}) %}
+    {% set spacing_props = properties.spacing | default({}) %}
     {% set tag = layout_props.tag | default('section') %}
-    
+    {% set width_mode = layout_props.widthMode | default('stretch') %}
+
+    {# Get marginInline value for CSS variable (used in margin-aware width calculation) #}
+    {% set margin_inline_token = spacing_props.marginInline | default('none') %}
+    {% set margin_inline_value = '0px' %}
+    {% if tokens and tokens.spacing and margin_inline_token in tokens.spacing %}
+        {% set margin_inline_value = tokens.spacing[margin_inline_token] %}
+    {% endif %}
+
     {# Outer wrapper styles: box model properties #}
     {% set outer_styles = build_styles(component, tokens, part='outer') %}
-    
+
+    {# Add CSS variable for margin-aware width calculation #}
+    {% set outer_styles = outer_styles ~ ' --margin-inline: ' ~ margin_inline_value ~ ';' %}
+
     {# Inner wrapper styles: flex layout properties #}
     {% set inner_styles = build_flex_styles(component, tokens, 'column') %}
-    
-    <{{ tag }} class="layout-column chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+
+    <{{ tag }} class="layout-column chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ outer_styles }}">
         <div class="layout-column__content" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}
@@ -227,33 +241,35 @@
     {% set properties = component.properties | default({}) %}
     {% set layout_props = properties.layout | default({}) %}
     {% set columns = component.columns | default([]) %}
-    
+
     {# Column count #}
     {% set column_count = layout_props.columns | default(2) | int %}
-    
-    {# Gap spacing #}
+
+    {# Gap between columns #}
     {% set gap_token = layout_props.gap | default('md') %}
-    {% set gap_value = tokens.spacing[gap_token] if tokens and tokens.spacing and gap_token in tokens.spacing else '1rem' %}
-    
-    {# Calculate column width with gap using calc() formula: (100% - (gap × (n-1))) / n #}
-    {% set column_width = 'calc((100% - (' ~ gap_value ~ ' * ' ~ (column_count - 1) ~ ')) / ' ~ column_count ~ ')' %}
-    
+    {% set gap_value = tokens.spacing[gap_token] if tokens and tokens.spacing and gap_token in tokens.spacing else '1.5rem' %}
+
+    {# Vertical alignment of content within columns #}
+    {% set v_align = layout_props.verticalAlign | default('center') %}
+    {% set v_align_map = {'top': 'flex-start', 'center': 'center', 'bottom': 'flex-end', 'stretch': 'stretch'} %}
+    {% set v_align_css = v_align_map[v_align] | default('center') %}
+
     {# Outer container styles #}
     {% set outer_styles = build_styles(component, tokens, part='outer') %}
-    
+
     <div class="columnsgrid chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
-        <div class="columnsgrid__row" style="display: flex; gap: {{ gap_value }}; width: 100%; box-sizing: border-box;">
+        <div class="columnsgrid__row" style="display: flex; gap: {{ gap_value }}; align-items: {{ v_align_css }}; width: 100%; box-sizing: border-box; min-height: 0;">
             {% for col_index in range(column_count) %}
                 {% set column = columns[col_index] if col_index < columns | length else {} %}
                 {% set column_components = column.components | default([]) %}
-                
-                <div class="columnsgrid__col" style="position: relative; width: {{ column_width }}; flex: 0 0 {{ column_width }}; box-sizing: border-box; display: flex; flex-direction: column;">
+
+                <div class="columnsgrid__col" style="position: relative; flex: 1 1 0; min-width: 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column;">
                     <div class="column-label">Col {{ col_index + 1 }}</div>
                     
                     {% if column_components | length > 0 %}
                         {% for child in column_components %}
                             {% set child_path = path + ['columns', col_index, 'components', loop.index0] %}
-                            {{ render_component(child, tokens, child_path) }}
+                            {{ render_component(child, tokens, child_path, 'column') }}
                         {% endfor %}
                     {% else %}
                         <div class="column-placeholder">Drop components here...</div>
@@ -337,64 +353,281 @@
     {% endif %}
 {% endmacro %}
 
+{# Helper macro for media captions #}
+{% macro render_media_caption(caption_props, tokens) %}
+    {% set typo = caption_props.typography | default({}) %}
+    {% set size = typo.size | default('sm') %}
+    {% set color = typo.color | default('#666666') %}
+    {% set align = typo.align | default('center') %}
+    {% set size_value = tokens.typography_sizes[size] if tokens.typography_sizes and size in tokens.typography_sizes else '0.875rem' %}
+    <figcaption class="media-caption" style="font-size: {{ size_value }}; color: {{ color }}; text-align: {{ align }}; padding: 0.5rem 0;">
+        {{ caption_props.text }}
+    </figcaption>
+{% endmacro %}
+
 {% macro render_image(component, tokens, path, component_id, parent_direction='row') %}
     {% set properties = component.properties | default({}) %}
     {% set source = properties.source | default({}) %}
-    {% set presentation = properties.presentation | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set layout = properties.layout | default({}) %}
+    {% set overlay = appearance.overlay | default({}) %}
     {% set has_children = component.components and component.components | length > 0 %}
     {% set base_styles = build_styles(component, tokens, layout_direction=parent_direction) %}
 
-    {# Width handling #}
-    {% set width_value = presentation.width | default('100') %}
-    {% set width_style = 'width: ' ~ width_value ~ '%;' %}
+    {# Width mode for responsive CSS (used as data attribute) #}
+    {% set width_mode = layout.widthMode | default('stretch') %}
 
-    {# Height handling - always use min-height to allow growth based on content #}
-    {% set min_height = presentation.minHeight | default(200) %}
-    {% set height_style = 'min-height: ' ~ min_height ~ 'px;' %}
+    {# Width handling moved to CSS via data-width-mode attribute #}
+    {# No inline width styles - CSS handles both row and column contexts #}
+    {% set width_style = '' %}
 
-    {% set extra_styles = 'position: relative; ' ~ width_style ~ ' ' ~ height_style %}
+    {# Height handling - use rem for numbers, preserve units like vh/px if specified #}
+    {% set min_height_raw = appearance.minHeight | default(12.5) %}
+    {% set max_height_raw = appearance.maxHeight | default(0) %}
 
-    <div class="image-container chrome-target"
-         data-component-id="{{ component_id }}"
-         style="{{ base_styles }} {{ extra_styles }}">
-        <img class="image-bg" src="{{ source.url }}" alt="{{ source.altText | default('') }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ presentation.fit | default('cover') }};">
+    {# Check if minHeight already has a unit (string with vh, px, em, %) #}
+    {% set min_height_str = min_height_raw | string %}
+    {% set min_has_unit = 'vh' in min_height_str or 'px' in min_height_str or 'em' in min_height_str or '%' in min_height_str %}
+    {% set min_height_css = min_height_str if min_has_unit else (min_height_raw ~ 'rem') %}
+
+    {# Check if maxHeight already has a unit #}
+    {% set max_height_str = max_height_raw | string %}
+    {% set max_has_unit = 'vh' in max_height_str or 'px' in max_height_str or 'em' in max_height_str or '%' in max_height_str %}
+    {% set max_height_css = max_height_str if max_has_unit else (max_height_raw ~ 'rem') %}
+
+    {% if has_children %}
+        {% set height_style = 'height: auto;' %}
+        {% if max_height_raw and max_height_raw != 0 %}
+            {% set height_style = height_style ~ ' max-height: ' ~ max_height_css ~ ';' %}
+        {% endif %}
+    {% else %}
+        {% set height_style = 'min-height: ' ~ min_height_css ~ ';' %}
+        {% if max_height_raw and max_height_raw != 0 %}
+            {% set height_style = height_style ~ ' max-height: ' ~ max_height_css ~ ';' %}
+        {% endif %}
+    {% endif %}
+
+    {# Object position #}
+    {% set obj_position = appearance.objectPosition | default('center') %}
+
+    {# Filter effect - use CSS variable on container for combining with hover effects #}
+    {% set filter_value = appearance.filter | default('none') %}
+    {% set filter_var_style = '' %}
+    {% set filter_apply_style = 'filter: var(--base-filter, none);' %}
+    {% if filter_value != 'none' and tokens.image_filters and filter_value in tokens.image_filters %}
+        {% set filter_var_style = '--base-filter: ' ~ tokens.image_filters[filter_value] ~ ';' %}
+    {% endif %}
+
+    {# Shadow #}
+    {% set shadow_value = appearance.shadow | default('none') %}
+    {% set shadow_style = '' %}
+    {% if shadow_value != 'none' and tokens.shadows and shadow_value in tokens.shadows %}
+        {% set shadow_style = 'box-shadow: ' ~ tokens.shadows[shadow_value] ~ ';' %}
+    {% endif %}
+
+    {# Corner style / border radius #}
+    {% set corner_style = appearance.cornerStyle | default('none') %}
+    {% set radius_style = '' %}
+    {% if corner_style != 'none' and tokens.border_radius and corner_style in tokens.border_radius %}
+        {% set radius_style = 'border-radius: ' ~ tokens.border_radius[corner_style] ~ ';' %}
+    {% endif %}
+
+    {# Hover effect class #}
+    {% set hover_effect = appearance.hoverEffect | default('none') %}
+    {% set hover_class = '' %}
+    {% if hover_effect != 'none' %}
+        {% set hover_class = 'image-hover-' ~ hover_effect %}
+    {% endif %}
+
+    {# Lazy loading #}
+    {% set lazy_attr = 'lazy' if appearance.lazy | default(true) else 'eager' %}
+
+    {% set extra_styles = 'position: relative; ' ~ width_style ~ ' ' ~ shadow_style ~ ' ' ~ radius_style ~ ' ' ~ filter_var_style ~ ' ' ~ height_style %}
+
+    <figure class="image-container chrome-target {{ hover_class }}"
+            data-component-id="{{ component_id }}"
+            data-width-mode="{{ width_mode }}"
+            style="{{ base_styles }} {{ extra_styles }}">
+
+        {# Image wrapper: absolute positioned to fill container as background #}
+        <div class="image-wrapper" style="position: absolute; inset: 0; overflow: hidden; z-index: 0; {{ radius_style }}">
+            <img class="image-bg"
+                 src="{{ source.url }}"
+                 alt="{{ source.altText | default('') }}"
+                 loading="{{ lazy_attr }}"
+                 style="width: 100%; height: 100%; object-fit: {{ appearance.fit | default('cover') }}; object-position: {{ obj_position }}; {{ filter_apply_style }}">
+
+            {# Overlay #}
+            {% if overlay.enabled | default(false) %}
+                {% set overlay_color = overlay.color | default('rgba(0,0,0,0.5)') %}
+                {% set overlay_opacity = overlay.opacity | default(50) %}
+                <div class="image-overlay" style="position: absolute; inset: 0; background: {{ overlay_color }}; opacity: {{ overlay_opacity / 100 }};"></div>
+            {% endif %}
+        </div>
+
+        {# Content: relative positioned, can push container height beyond min-height #}
         {% if has_children %}
-            <div class="image-content" style="position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word;">
+            <div class="image-content" style="position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word; padding: 1rem;">
                 {% for child in component.components | default([]) %}
                     {% set child_path = path + ['components', loop.index0] %}
                     {{ render_component(child, tokens, child_path) }}
                 {% endfor %}
             </div>
         {% endif %}
-    </div>
+    </figure>
 {% endmacro %}
 
 {% macro render_video(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
     {% set source = properties.source | default({}) %}
-    {% set presentation = properties.presentation | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set playback = properties.playback | default({}) %}
+    {% set poster = properties.poster | default({}) %}
     {% set video_styles = build_styles(component, tokens) %}
-    {% if presentation.height %}
-        {% set video_styles = video_styles ~ ' height: ' ~ presentation.height ~ ';' %}
-    {% endif %}
-    <div class="video-container chrome-target" data-component-id="{{ component_id }}" style="{{ video_styles }} position: relative;">
-        <iframe src="{{ source.url }}" 
-                width="100%" 
-                height="{{ presentation.height | default('400px') }}" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-        </iframe>
-    </div>
+
+    {# Aspect ratio #}
+    {% set aspect_ratio = appearance.aspectRatio | default('16/9') %}
+    {% set aspect_style = 'aspect-ratio: ' ~ aspect_ratio ~ ';' %}
+
+    {# Height fallback #}
+    {% set height_value = appearance.height | default(400) %}
+
+    <figure class="video-container chrome-target" data-component-id="{{ component_id }}" style="{{ video_styles }} position: relative;">
+        <div class="video-wrapper" style="{{ aspect_style }} width: 100%; overflow: hidden;">
+            <iframe src="{{ source.url }}"
+                    style="width: 100%; height: 100%; border: none;"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </figure>
 {% endmacro %}
 
 {% macro render_gif(component, tokens, path, component_id, parent_direction='row') %}
     {% set properties = component.properties | default({}) %}
     {% set source = properties.source | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set layout = properties.layout | default({}) %}
+    {% set overlay = appearance.overlay | default({}) %}
     {% set styles = build_styles(component, tokens, layout_direction=parent_direction) %}
-    <div class="gif-container chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
-        <img src="{{ source.url }}" alt="{{ source.altText | default('') }}" style="width: 100%; height: auto;">
-    </div>
+
+    {# Width mode for responsive CSS (used as data attribute) #}
+    {% set width_mode = layout.widthMode | default('stretch') %}
+
+    {# Object position #}
+    {% set obj_position = appearance.objectPosition | default('center') %}
+
+    {# Corner style #}
+    {% set corner_style = appearance.cornerStyle | default('none') %}
+    {% set radius_style = '' %}
+    {% if corner_style != 'none' and tokens.border_radius and corner_style in tokens.border_radius %}
+        {% set radius_style = 'border-radius: ' ~ tokens.border_radius[corner_style] ~ ';' %}
+    {% endif %}
+
+    {# Filter effect - use CSS variable for combining with hover effects #}
+    {% set filter_value = appearance.filter | default('none') %}
+    {% set filter_style = '' %}
+    {% if filter_value != 'none' and tokens.image_filters and filter_value in tokens.image_filters %}
+        {% set filter_style = '--base-filter: ' ~ tokens.image_filters[filter_value] ~ '; filter: var(--base-filter);' %}
+    {% endif %}
+
+    {# Shadow #}
+    {% set shadow_value = appearance.shadow | default('none') %}
+    {% set shadow_style = '' %}
+    {% if shadow_value != 'none' and tokens.shadows and shadow_value in tokens.shadows %}
+        {% set shadow_style = 'box-shadow: ' ~ tokens.shadows[shadow_value] ~ ';' %}
+    {% endif %}
+
+    <figure class="gif-container chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ styles }} position: relative; {{ shadow_style }} {{ radius_style }}">
+        <div class="gif-wrapper" style="position: relative; overflow: hidden; {{ radius_style }}">
+            <img src="{{ source.url }}"
+                 alt="{{ source.altText | default('') }}"
+                 style="width: 100%; height: 100%; object-fit: {{ appearance.fit | default('cover') }}; object-position: {{ obj_position }}; {{ filter_style }}">
+
+            {# Overlay #}
+            {% if overlay.enabled | default(false) %}
+                {% set overlay_color = overlay.color | default('rgba(0,0,0,0.5)') %}
+                {% set overlay_opacity = overlay.opacity | default(50) %}
+                <div class="gif-overlay" style="position: absolute; inset: 0; background: {{ overlay_color }}; opacity: {{ overlay_opacity / 100 }};"></div>
+            {% endif %}
+        </div>
+    </figure>
+{% endmacro %}
+
+{% macro render_video_background(component, tokens, path, component_id, parent_direction='row') %}
+    {% set properties = component.properties | default({}) %}
+    {% set source = properties.source | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set playback = properties.playback | default({}) %}
+    {% set overlay = appearance.overlay | default({}) %}
+    {% set content = properties.content | default({}) %}
+    {% set has_children = component.components and component.components | length > 0 %}
+    {% set base_styles = build_styles(component, tokens, layout_direction=parent_direction) %}
+
+    {# Aspect ratio and min-height #}
+    {% set aspect_ratio = appearance.aspectRatio | default('16/9') %}
+    {% set min_height = appearance.minHeight | default(400) %}
+    {% set aspect_style = 'aspect-ratio: ' ~ aspect_ratio ~ '; min-height: ' ~ min_height ~ 'px;' %}
+
+    {# Video styles #}
+    {% set obj_fit = appearance.objectFit | default('cover') %}
+    {% set obj_position = appearance.objectPosition | default('center') %}
+
+    {# Content alignment #}
+    {% set v_align = content.verticalAlign | default('center') %}
+    {% set h_align = content.horizontalAlign | default('center') %}
+    {% set padding = content.padding | default('md') %}
+    {% set padding_value = tokens.spacing[padding] if tokens and tokens.spacing and padding in tokens.spacing else '2rem' %}
+
+    {# Map alignment values to CSS #}
+    {% set justify_map = {'start': 'flex-start', 'center': 'center', 'end': 'flex-end'} %}
+    {% set align_map = {'left': 'flex-start', 'center': 'center', 'right': 'flex-end'} %}
+    {% set justify_content = justify_map[v_align] | default('center') %}
+    {% set align_items = align_map[h_align] | default('center') %}
+
+    <figure class="video-background-container chrome-target"
+            data-component-id="{{ component_id }}"
+            data-component-type="video-background"
+            style="{{ base_styles }} {{ aspect_style }} position: relative; overflow: hidden;">
+
+        {# Background video #}
+        <video class="video-bg"
+               {% if source.url %}src="{{ source.url }}"{% endif %}
+               {% if source.poster %}poster="{{ source.poster }}"{% endif %}
+               {% if playback.autoplay | default(true) %}autoplay{% endif %}
+               {% if playback.loop | default(true) %}loop{% endif %}
+               {% if playback.muted | default(true) %}muted{% endif %}
+               playsinline
+               style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ obj_fit }}; object-position: {{ obj_position }}; z-index: 0;">
+            Your browser does not support the video tag.
+        </video>
+
+        {# Overlay layer #}
+        {% if overlay.enabled | default(true) %}
+            {% set overlay_color = overlay.color | default('rgba(0,0,0,0.4)') %}
+            {% set overlay_opacity = overlay.opacity | default(40) %}
+            <div class="video-overlay"
+                 style="position: absolute; inset: 0; background: {{ overlay_color }}; opacity: {{ overlay_opacity / 100 }}; z-index: 1; pointer-events: none;">
+            </div>
+        {% endif %}
+
+        {# Content layer for nested components #}
+        {% if has_children %}
+            <div class="video-content"
+                 style="position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: {{ justify_content }}; align-items: {{ align_items }}; width: 100%; height: 100%; padding: {{ padding_value }}; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word;">
+                {% for child in component.components | default([]) %}
+                    {% set child_path = path + ['components', loop.index0] %}
+                    {{ render_component(child, tokens, child_path) }}
+                {% endfor %}
+            </div>
+        {% else %}
+            {# Placeholder when no children #}
+            <div class="video-content video-placeholder"
+                 style="position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; padding: {{ padding_value }}; box-sizing: border-box; color: white; text-align: center;">
+                <span style="font-size: 1.5rem; opacity: 0.8;">Drop components here</span>
+            </div>
+        {% endif %}
+    </figure>
 {% endmacro %}
 
 {% macro render_button(component, tokens, path, component_id) %}
@@ -532,13 +765,62 @@
     {% set properties = component.properties | default({}) %}
     {% set slides = component.slides | default([]) %}
     {% set behavior = properties.behavior | default({}) %}
-    {% set carousel_id = 'carousel_' ~ range(1000, 9999) | random %}
+    {% set animation = properties.animation | default({}) %}
+    {% set navigation = properties.navigation | default({}) %}
+    {% set indicators = properties.indicators | default({}) %}
+    {% set a11y = properties.accessibility | default({}) %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="carousel chrome-target" data-component-id="{{ component_id }}" data-component-type="carousel" data-autoplay="{{ behavior.autoplay | default(false) }}" data-delay="{{ behavior.delay | default(3000) }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+
+    {# Animation class #}
+    {% set anim_effect = animation.effect | default('slide') %}
+    {% set anim_class = 'carousel-' ~ anim_effect %}
+
+    {# Arrow style and symbols #}
+    {% set arrow_style = navigation.arrowStyle | default('chevron') %}
+    {% set prev_symbol = '‹' if arrow_style == 'chevron' else '←' %}
+    {% set next_symbol = '›' if arrow_style == 'chevron' else '→' %}
+
+    {# Arrow position #}
+    {% set arrow_position = navigation.arrowPosition | default('inside') %}
+    {% set arrow_pos_class = 'carousel-arrows-' ~ arrow_position %}
+
+    {# Indicator style #}
+    {% set indicator_style = indicators.style | default('dots') %}
+    {% set indicator_pos = indicators.position | default('bottom') %}
+
+    {# Animation duration as CSS variable #}
+    {% set anim_duration = animation.duration | default(300) %}
+
+    <div class="carousel chrome-target {{ anim_class }}"
+         data-component-id="{{ component_id }}"
+         data-component-type="carousel"
+         data-autoplay="{{ 'true' if behavior.autoplay else 'false' }}"
+         data-delay="{{ behavior.delay | default(3000) }}"
+         data-loop="{{ 'true' if behavior.loop | default(true) else 'false' }}"
+         data-pause-on-hover="{{ 'true' if behavior.pauseOnHover | default(true) else 'false' }}"
+         data-swipe-enabled="{{ 'true' if behavior.swipeEnabled | default(true) else 'false' }}"
+         data-swipe-threshold="{{ behavior.swipeThreshold | default(50) }}"
+         data-keyboard-nav="{{ 'true' if behavior.keyboardNavigation | default(true) else 'false' }}"
+         data-animation-duration="{{ anim_duration }}"
+         aria-label="{{ a11y.ariaLabel | default('Image carousel') }}"
+         aria-roledescription="carousel"
+         style="{{ styles }} position: relative; --carousel-duration: {{ anim_duration }}ms;">
+
+        {# Pause button for accessibility (WCAG 2.2.2) #}
+        {% if a11y.showPauseButton | default(true) and behavior.autoplay | default(true) %}
+            <button class="carousel-pause" aria-label="Pause carousel" data-playing="true">
+                <span class="pause-icon">❚❚</span>
+                <span class="play-icon" style="display: none;">▶</span>
+            </button>
+        {% endif %}
+
         <div class="carousel-slides">
             {% for slide in slides %}
                 {% set slide_index = loop.index0 %}
-                <div class="carousel-slide {% if loop.first %}active{% endif %}">
+                <div class="carousel-slide {% if loop.first %}active{% endif %}"
+                     role="group"
+                     aria-roledescription="slide"
+                     aria-label="Slide {{ loop.index }} of {{ slides | length }}">
                     {% for child in slide.components | default([]) %}
                         {% set child_path = path + ['slides', slide_index, 'components', loop.index0] %}
                         {{ render_component(child, tokens, child_path) }}
@@ -546,8 +828,30 @@
                 </div>
             {% endfor %}
         </div>
-        <button class="carousel-prev">‹</button>
-        <button class="carousel-next">›</button>
+
+        {# Navigation arrows #}
+        {% if navigation.showArrows | default(true) %}
+            <div class="carousel-navigation {{ arrow_pos_class }}">
+                <button class="carousel-prev {% if arrow_style == 'circle' %}carousel-arrow-circle{% endif %}" aria-label="Previous slide">{{ prev_symbol }}</button>
+                <button class="carousel-next {% if arrow_style == 'circle' %}carousel-arrow-circle{% endif %}" aria-label="Next slide">{{ next_symbol }}</button>
+            </div>
+        {% endif %}
+
+        {# Indicators/dots #}
+        {% if navigation.showDots | default(true) %}
+            <div class="carousel-indicators carousel-indicators-{{ indicator_pos }} carousel-indicators-{{ indicator_style }}"
+                 role="tablist"
+                 aria-label="Slide indicators">
+                {% for slide in slides %}
+                    <button class="carousel-indicator {% if loop.first %}active{% endif %}"
+                            role="tab"
+                            aria-selected="{{ 'true' if loop.first else 'false' }}"
+                            aria-label="Go to slide {{ loop.index }}">
+                        {% if indicator_style == 'numbers' %}{{ loop.index }}{% endif %}
+                    </button>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 {% endmacro %}
 
@@ -747,6 +1051,11 @@
         {% endif %}
     {% endif %}
 
+    {# Shadow #}
+    {% if props.appearance and props.appearance.shadow and props.appearance.shadow != 'none' and tokens and tokens.shadows and props.appearance.shadow in tokens.shadows %}
+        {% set _ = vars.append('box-shadow: ' ~ tokens.shadows[props.appearance.shadow] ~ ';') %}
+    {% endif %}
+
     {{ vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
 {%- endmacro %}
 
@@ -758,10 +1067,10 @@
     {% if props.spacing %}
         {% set spacing = props.spacing %}
         {% if spacing.marginBlock and tokens and tokens.spacing and spacing.marginBlock in tokens.spacing %}
-            {% set _ = vars.append('--accordion-margin-block: var(--spacing-' ~ spacing.marginBlock ~ ');') %}
+            {% set _ = vars.append('--accordion-margin-block: ' ~ tokens.spacing[spacing.marginBlock] ~ ';') %}
         {% endif %}
         {% if spacing.marginInline and tokens and tokens.spacing and spacing.marginInline in tokens.spacing %}
-            {% set _ = vars.append('--accordion-margin-inline: var(--spacing-' ~ spacing.marginInline ~ ');') %}
+            {% set _ = vars.append('--accordion-margin-inline: ' ~ tokens.spacing[spacing.marginInline] ~ ';') %}
         {% endif %}
     {% endif %}
     
@@ -769,10 +1078,10 @@
     {% if props.typography and props.typography.title %}
         {% set title = props.typography.title %}
         {% if title.size and tokens and tokens.typography_sizes and title.size in tokens.typography_sizes %}
-            {% set _ = vars.append('--accordion-title-font-size: var(--font-size-' ~ title.size ~ ');') %}
+            {% set _ = vars.append('--accordion-title-font-size: ' ~ tokens.typography_sizes[title.size] ~ ';') %}
         {% endif %}
         {% if title.weight and tokens and tokens.font_weights and title.weight in tokens.font_weights %}
-            {% set _ = vars.append('--accordion-title-font-weight: var(--font-weight-' ~ title.weight ~ ');') %}
+            {% set _ = vars.append('--accordion-title-font-weight: ' ~ tokens.font_weights[title.weight] ~ ';') %}
         {% endif %}
         {% if title.color %}
             {% set _ = vars.append('--accordion-title-color: ' ~ title.color ~ ';') %}
@@ -783,10 +1092,10 @@
     {% if props.typography and props.typography.content %}
         {% set content_typo = props.typography.content %}
         {% if content_typo.size and tokens and tokens.typography_sizes and content_typo.size in tokens.typography_sizes %}
-            {% set _ = vars.append('--accordion-content-font-size: var(--font-size-' ~ content_typo.size ~ ');') %}
+            {% set _ = vars.append('--accordion-content-font-size: ' ~ tokens.typography_sizes[content_typo.size] ~ ';') %}
         {% endif %}
         {% if content_typo.weight and tokens and tokens.font_weights and content_typo.weight in tokens.font_weights %}
-            {% set _ = vars.append('--accordion-content-font-weight: var(--font-weight-' ~ content_typo.weight ~ ');') %}
+            {% set _ = vars.append('--accordion-content-font-weight: ' ~ tokens.font_weights[content_typo.weight] ~ ';') %}
         {% endif %}
         {% if content_typo.color %}
             {% set _ = vars.append('--accordion-content-color: ' ~ content_typo.color ~ ';') %}
@@ -797,7 +1106,7 @@
     {% if props.appearance %}
         {% set appearance = props.appearance %}
         {% if appearance.radius and tokens and tokens.border_radius and appearance.radius in tokens.border_radius %}
-            {% set _ = vars.append('--accordion-border-radius: var(--border-radius-' ~ appearance.radius ~ ');') %}
+            {% set _ = vars.append('--accordion-border-radius: ' ~ tokens.border_radius[appearance.radius] ~ ';') %}
         {% endif %}
         {% if appearance.border %}
             {% set border = appearance.border %}
@@ -839,6 +1148,10 @@
                 {% set _ = vars.append('--accordion-content-padding-inline: var(--spacing-' ~ padding.inline ~ ');') %}
             {% endif %}
         {% endif %}
+        {# Shadow #}
+        {% if appearance.shadow and appearance.shadow != 'none' and tokens and tokens.shadows and appearance.shadow in tokens.shadows %}
+            {% set _ = vars.append('box-shadow: ' ~ tokens.shadows[appearance.shadow] ~ ';') %}
+        {% endif %}
     {% endif %}
 
     {{ vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
@@ -875,7 +1188,7 @@
                 {% set _ = styles.append('flex-direction: ' ~ direction ~ ';') %}
             {% endif %}
             {% if layout.align %}{% set _ = styles.append('align-items: ' ~ layout.align ~ ';') %}{% endif %}
-            {% if layout.gap and tokens and tokens.spacing and layout.gap in tokens.spacing %}{% set _ = styles.append('gap: ' ~ tokens.spacing[layout.gap] ~ ';') %}{% endif %}
+            {% if layout.distribution and layout.distribution != 'none' %}{% set _ = styles.append('justify-content: ' ~ layout.distribution ~ ';') %}{% endif %}
             {% if layout.wrap %}{% set _ = styles.append('flex-wrap: ' ~ layout.wrap ~ ';') %}{% endif %}
         {% endif %}
 
@@ -910,26 +1223,50 @@
     {# Appearance (Background, Border, Radius, Shadow, Padding) #}
     {% if props.appearance %}
         {% set appearance = props.appearance %}
-        {% if appearance.background and appearance.background.color %}
-            {# Apply transparency by appending hex alpha to color #}
-            {% set bg_color = appearance.background.color %}
-            {% if appearance.background.transparency is defined %}
-                {% set alpha_hex = appearance.background.transparency | transparency_to_hex %}
-                {% set bg_color = bg_color ~ alpha_hex %}
+        {% if appearance.background %}
+            {% set bg = appearance.background %}
+            {% set bg_type = bg.type | default('color') %}
+
+            {# Determine the fallback background color #}
+            {% if bg_type == 'gradient' and bg.gradient %}
+                {% set fallback_color = bg.gradient.colorStart | default(bg.color) | default('#ffffff') %}
+            {% else %}
+                {% set fallback_color = bg.color | default('#ffffff') %}
             {% endif %}
-            {% set _ = styles.append('background-color: ' ~ bg_color ~ ';') %}
+
+            {# Apply transparency if defined #}
+            {% if bg.transparency is defined %}
+                {% set alpha_hex = bg.transparency | transparency_to_hex %}
+                {% set fallback_color = fallback_color ~ alpha_hex %}
+            {% endif %}
+
+            {# Always output background-color for fallback/compatibility #}
+            {% if bg_type == 'gradient' or bg.color %}
+                {% set _ = styles.append('background-color: ' ~ fallback_color ~ ';') %}
+            {% endif %}
+
+            {# Add gradient if type is gradient #}
+            {% if bg_type == 'gradient' and bg.gradient %}
+                {% set direction = bg.gradient.direction | default('to right') %}
+                {% set color_start = bg.gradient.colorStart | default('#ffffff') %}
+                {% set color_end = bg.gradient.colorEnd | default('#000000') %}
+                {% set _ = styles.append('background-image: linear-gradient(' ~ direction ~ ', ' ~ color_start ~ ', ' ~ color_end ~ ');') %}
+            {% endif %}
         {% endif %}
         {% if appearance.border %}
             {% set border = appearance.border %}
-            {% if border.style == 'none' or not border.width or border.width == 0 %}
-                {% set _ = styles.append('border: none;') %}
-            {% else %}
-                {% set border_style = border.style | default('solid') %}
-                {% set _ = styles.append('border: ' ~ border.width ~ 'px ' ~ border_style ~ ' ' ~ (border.color | default('#e5e7eb')) ~ ';') %}
+            {# Only set border styles if style or width is explicitly defined (not just accentColor) #}
+            {% if border.style is defined or border.width is defined %}
+                {% if border.style == 'none' or not border.width or border.width == 0 %}
+                    {% set _ = styles.append('border: none;') %}
+                {% else %}
+                    {% set border_style = border.style | default('solid') %}
+                    {% set _ = styles.append('border: ' ~ border.width ~ 'px ' ~ border_style ~ ' ' ~ (border.color | default('#e5e7eb')) ~ ';') %}
+                {% endif %}
             {% endif %}
         {% endif %}
         {% if appearance.radius and tokens and tokens.border_radius and appearance.radius in tokens.border_radius %}{% set _ = styles.append('border-radius: ' ~ tokens.border_radius[appearance.radius] ~ ';') %}{% endif %}
-        {% if appearance.shadow %}{% set _ = styles.append('box-shadow: ' ~ appearance.shadow ~ ';') %}{% endif %}
+        {% if appearance.shadow and appearance.shadow != 'none' and tokens and tokens.shadows and appearance.shadow in tokens.shadows %}{% set _ = styles.append('box-shadow: ' ~ tokens.shadows[appearance.shadow] ~ ';') %}{% endif %}
         {# Handle appearance padding (for older YAML structures) #}
         {% if appearance.padding %}
             {% set padding = appearance.padding %}
@@ -958,56 +1295,189 @@
         {% if typo.lineHeight %}{% set _ = styles.append('line-height: ' ~ typo.lineHeight ~ ';') %}{% endif %}
         {% if typo.transform %}{% set _ = styles.append('text-transform: ' ~ typo.transform ~ ';') %}{% endif %}
         {% if typo.letterSpacing and tokens and tokens.letter_spacing and typo.letterSpacing in tokens.letter_spacing %}{% set _ = styles.append('letter-spacing: ' ~ tokens.letter_spacing[typo.letterSpacing] ~ ';') %}{% endif %}
+        {% if typo.fontFamily %}{% set _ = styles.append('font-family: ' ~ typo.fontFamily ~ ';') %}{% endif %}
     {% endif %}
     
-    {# Width Mode Support for Text Components and Images #}
-    {% if component.name in ['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote', 'link', 'image', 'gif'] %}
+    {# Width Mode Support for Text Components #}
+    {% if component.name in ['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote', 'link'] %}
         {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
         {% set _ = styles.append('display: inline-block;') %}
         {% set _ = styles.append('box-sizing: border-box;') %}
 
         {% if layout_direction == 'column' %}
-            {# Column context: use explicit width percentages (flex-grow controls height in column) #}
+            {# Column context: use explicit width percentages #}
             {% if width_mode == 'fit' %}
                 {% set _ = styles.append('width: auto;') %}
+            {% elif width_mode == '16' %}
+                {% set _ = styles.append('width: 16.67%;') %}
             {% elif width_mode == '25' %}
                 {% set _ = styles.append('width: 25%;') %}
+            {% elif width_mode == '33' %}
+                {% set _ = styles.append('width: 33.33%;') %}
             {% elif width_mode == '50' %}
                 {% set _ = styles.append('width: 50%;') %}
+            {% elif width_mode == '66' %}
+                {% set _ = styles.append('width: 66.67%;') %}
             {% elif width_mode == '75' %}
                 {% set _ = styles.append('width: 75%;') %}
+            {% elif width_mode == '83' %}
+                {% set _ = styles.append('width: 83.33%;') %}
             {% elif width_mode == 'stretch' %}
                 {% set _ = styles.append('width: 100%;') %}
             {% endif %}
         {% else %}
-            {# Row context: use flex-grow weights for gap handling #}
+            {# Row context: use flex-basis percentages for wrapping support #}
             {% if width_mode == 'fit' %}
-                {# Fit to content - auto width, no flex grow/shrink #}
                 {% set _ = styles.append('width: auto;') %}
                 {% set _ = styles.append('flex: 0 0 auto;') %}
+            {% elif width_mode == '16' %}
+                {% set _ = styles.append('flex: 1 0 14%;') %}
+                {% set _ = styles.append('max-width: 16.67%;') %}
             {% elif width_mode == '25' %}
-                {# 25% - flex-grow weight 1 (ratio 1:4), handles gap automatically #}
-                {% set _ = styles.append('flex: 1 1 0%;') %}
-                {% set _ = styles.append('min-width: 0;') %}
+                {% set _ = styles.append('flex: 1 0 23%;') %}
+                {% set _ = styles.append('max-width: 25%;') %}
+            {% elif width_mode == '33' %}
+                {% set _ = styles.append('flex: 1 0 31%;') %}
+                {% set _ = styles.append('max-width: 33.33%;') %}
             {% elif width_mode == '50' %}
-                {# 50% - flex-grow weight 2 (ratio 2:4), handles gap automatically #}
-                {% set _ = styles.append('flex: 2 1 0%;') %}
-                {% set _ = styles.append('min-width: 0;') %}
+                {% set _ = styles.append('flex: 1 0 48%;') %}
+                {% set _ = styles.append('max-width: 50%;') %}
+            {% elif width_mode == '66' %}
+                {% set _ = styles.append('flex: 1 0 64%;') %}
+                {% set _ = styles.append('max-width: 66.67%;') %}
             {% elif width_mode == '75' %}
-                {# 75% - flex-grow weight 3 (ratio 3:4), handles gap automatically #}
-                {% set _ = styles.append('flex: 3 1 0%;') %}
-                {% set _ = styles.append('min-width: 0;') %}
+                {% set _ = styles.append('flex: 1 0 73%;') %}
+                {% set _ = styles.append('max-width: 75%;') %}
+            {% elif width_mode == '83' %}
+                {% set _ = styles.append('flex: 1 0 81%;') %}
+                {% set _ = styles.append('max-width: 83.33%;') %}
             {% elif width_mode == 'stretch' %}
-                {# Stretch to fill - flex-grow weight 4 (full width) #}
-                {% set _ = styles.append('flex: 4 1 0%;') %}
-                {% set _ = styles.append('min-width: 0;') %}
+                {% set _ = styles.append('flex: 0 0 100%;') %}
+                {% set _ = styles.append('min-width: 100%;') %}
             {% endif %}
         {% endif %}
     {% endif %}
-    
+
+    {# Width Mode Support for Image/GIF - Match Text Component Behavior #}
+    {% if component.name in ['image', 'gif'] %}
+        {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
+        {% set _ = styles.append('display: block;') %}
+        {% set _ = styles.append('box-sizing: border-box;') %}
+
+        {% if layout_direction == 'column' %}
+            {# Column context: use explicit width percentages #}
+            {% if width_mode == 'fit' %}
+                {% set _ = styles.append('width: auto;') %}
+            {% elif width_mode == '16' %}
+                {% set _ = styles.append('width: 16.67%;') %}
+            {% elif width_mode == '25' %}
+                {% set _ = styles.append('width: 25%;') %}
+            {% elif width_mode == '33' %}
+                {% set _ = styles.append('width: 33.33%;') %}
+            {% elif width_mode == '50' %}
+                {% set _ = styles.append('width: 50%;') %}
+            {% elif width_mode == '66' %}
+                {% set _ = styles.append('width: 66.67%;') %}
+            {% elif width_mode == '75' %}
+                {% set _ = styles.append('width: 75%;') %}
+            {% elif width_mode == '83' %}
+                {% set _ = styles.append('width: 83.33%;') %}
+            {% elif width_mode == 'stretch' %}
+                {% set _ = styles.append('width: 100%;') %}
+            {% endif %}
+        {% else %}
+            {# Row context: use flex-basis percentages for wrapping support #}
+            {% if width_mode == 'fit' %}
+                {% set _ = styles.append('width: auto;') %}
+                {% set _ = styles.append('flex: 0 0 auto;') %}
+            {% elif width_mode == '16' %}
+                {% set _ = styles.append('flex: 1 0 14%;') %}
+                {% set _ = styles.append('max-width: 16.67%;') %}
+            {% elif width_mode == '25' %}
+                {% set _ = styles.append('flex: 1 0 23%;') %}
+                {% set _ = styles.append('max-width: 25%;') %}
+            {% elif width_mode == '33' %}
+                {% set _ = styles.append('flex: 1 0 31%;') %}
+                {% set _ = styles.append('max-width: 33.33%;') %}
+            {% elif width_mode == '50' %}
+                {% set _ = styles.append('flex: 1 0 48%;') %}
+                {% set _ = styles.append('max-width: 50%;') %}
+            {% elif width_mode == '66' %}
+                {% set _ = styles.append('flex: 1 0 64%;') %}
+                {% set _ = styles.append('max-width: 66.67%;') %}
+            {% elif width_mode == '75' %}
+                {% set _ = styles.append('flex: 1 0 73%;') %}
+                {% set _ = styles.append('max-width: 75%;') %}
+            {% elif width_mode == '83' %}
+                {% set _ = styles.append('flex: 1 0 81%;') %}
+                {% set _ = styles.append('max-width: 83.33%;') %}
+            {% elif width_mode == 'stretch' %}
+                {% set _ = styles.append('flex: 0 0 100%;') %}
+                {% set _ = styles.append('min-width: 100%;') %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {# Width Mode Support for Layout-Column - Match Text Component Behavior #}
+    {% if component.name == 'layout-column' %}
+        {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
+
+        {% if layout_direction == 'column' %}
+            {# Column context: use explicit width percentages #}
+            {% if width_mode == 'fit' %}
+                {% set _ = styles.append('width: auto;') %}
+            {% elif width_mode == '16' %}
+                {% set _ = styles.append('width: 16.67%;') %}
+            {% elif width_mode == '25' %}
+                {% set _ = styles.append('width: 25%;') %}
+            {% elif width_mode == '33' %}
+                {% set _ = styles.append('width: 33.33%;') %}
+            {% elif width_mode == '50' %}
+                {% set _ = styles.append('width: 50%;') %}
+            {% elif width_mode == '66' %}
+                {% set _ = styles.append('width: 66.67%;') %}
+            {% elif width_mode == '75' %}
+                {% set _ = styles.append('width: 75%;') %}
+            {% elif width_mode == '83' %}
+                {% set _ = styles.append('width: 83.33%;') %}
+            {% elif width_mode == 'stretch' %}
+                {% set _ = styles.append('width: 100%;') %}
+            {% endif %}
+        {% else %}
+            {# Row context: use flex-basis percentages for wrapping support #}
+            {% if width_mode == 'fit' %}
+                {% set _ = styles.append('flex: 0 0 auto;') %}
+            {% elif width_mode == '16' %}
+                {% set _ = styles.append('flex: 1 0 14%;') %}
+                {% set _ = styles.append('max-width: 16.67%;') %}
+            {% elif width_mode == '25' %}
+                {% set _ = styles.append('flex: 1 0 23%;') %}
+                {% set _ = styles.append('max-width: 25%;') %}
+            {% elif width_mode == '33' %}
+                {% set _ = styles.append('flex: 1 0 31%;') %}
+                {% set _ = styles.append('max-width: 33.33%;') %}
+            {% elif width_mode == '50' %}
+                {% set _ = styles.append('flex: 1 0 48%;') %}
+                {% set _ = styles.append('max-width: 50%;') %}
+            {% elif width_mode == '66' %}
+                {% set _ = styles.append('flex: 1 0 64%;') %}
+                {% set _ = styles.append('max-width: 66.67%;') %}
+            {% elif width_mode == '75' %}
+                {% set _ = styles.append('flex: 1 0 73%;') %}
+                {% set _ = styles.append('max-width: 75%;') %}
+            {% elif width_mode == '83' %}
+                {% set _ = styles.append('flex: 1 0 81%;') %}
+                {% set _ = styles.append('max-width: 83.33%;') %}
+            {% elif width_mode == 'stretch' %}
+                {% set _ = styles.append('flex: 0 0 100%;') %}
+                {% set _ = styles.append('min-width: 100%;') %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
     {# Always add position relative for selection to work #}
     {% set _ = styles.append('position: relative;') %}
-    
+
     {# Add box-sizing: border-box for layout components to prevent overflow #}
     {% if component.name in ['page', 'layout-row', 'layout-column', 'columnsgrid', 'form'] %}
         {% set _ = styles.append('box-sizing: border-box;') %}
@@ -1030,28 +1500,37 @@
     {% set _ = styles.append('box-sizing: border-box;') %}
     {% set _ = styles.append('width: 100%;') %}
     
-    {# Gap - check both layout.gap and spacing.gap #}
-    {% set gap = layout.gap or spacing.gap %}
-    {% if gap and tokens and tokens.spacing and gap in tokens.spacing %}
-        {% set _ = styles.append('gap: ' ~ tokens.spacing[gap] ~ ';') %}
-    {% endif %}
-    
-    {# Alignment - for row: justify-content (horizontal), for column: align-items (vertical) #}
+    {# Value mappings for user-friendly names to CSS values #}
+    {# horizontalAlign now includes both alignment (left/center/right) and distribution (space-between/around/evenly) #}
+    {% set h_align_css = {
+        'left': 'flex-start',
+        'center': 'center',
+        'right': 'flex-end',
+        'stretch': 'stretch',
+        'space-between': 'space-between',
+        'space-around': 'space-around',
+        'space-evenly': 'space-evenly'
+    } %}
+    {% set v_align_css = {'top': 'flex-start', 'center': 'center', 'bottom': 'flex-end', 'stretch': 'stretch', 'baseline': 'baseline'} %}
+
     {% if orientation == 'row' %}
-        {# Row: align controls horizontal positioning via justify-content #}
-        {% set align = layout.align | default('start') %}
-        {% if align %}
-            {% set _ = styles.append('justify-content: ' ~ align ~ ';') %}
+        {# Row: horizontalAlign → justify-content, verticalAlign → align-items #}
+        {% set h_align = layout.horizontalAlign | default('space-evenly') %}
+        {# Use safe center for overflow protection - falls back to flex-start when content overflows #}
+        {% if h_align == 'center' %}
+            {% set _ = styles.append('justify-content: flex-start;') %}
+            {% set _ = styles.append('justify-content: safe center;') %}
+        {% else %}
+            {% set _ = styles.append('justify-content: ' ~ h_align_css.get(h_align, h_align) ~ ';') %}
         {% endif %}
-        {# Vertical alignment for row children defaults to stretch #}
-        {% set _ = styles.append('align-items: stretch;') %}
+
+        {% set v_align = layout.verticalAlign | default('stretch') %}
+        {% set _ = styles.append('align-items: ' ~ v_align_css.get(v_align, 'stretch') ~ ';') %}
     {% else %}
-        {# Column: align controls horizontal alignment of children via align-items #}
-        {# Default to 'center' instead of 'stretch' so widthMode works properly #}
-        {% set align = layout.align | default('center') %}
-        {% if align %}
-            {% set _ = styles.append('align-items: ' ~ align ~ ';') %}
-        {% endif %}
+        {# Column: horizontalAlign → justify-content (for vertical distribution), align-items from horizontalAlign for cross-axis #}
+        {% set h_align = layout.horizontalAlign | default('center') %}
+        {% set _ = styles.append('justify-content: ' ~ h_align_css.get(h_align, h_align) ~ ';') %}
+        {% set _ = styles.append('align-items: ' ~ h_align_css.get(h_align, 'center') ~ ';') %}
     {% endif %}
     
     {# Flex wrap #}

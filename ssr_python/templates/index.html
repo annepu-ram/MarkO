@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swift Sites - AI Page Builder</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/images-panel.css') }}">
 </head>
 <body>
     <div id="svgSpriteRoot" hidden></div>
@@ -78,10 +75,13 @@
                     <svg aria-hidden="true"><use href="#icon-code"></use></svg>
                     <span class="sidebar-btn-tooltip">Editor</span>
                 </button>
-                <div class="sidebar-spacer"></div>
-                <button class="sidebar-btn" data-panel="settings" title="Settings">
-                    <svg aria-hidden="true"><use href="#icon-settings"></use></svg>
-                    <span class="sidebar-btn-tooltip">Settings</span>
+                <button class="sidebar-btn" data-panel="themes" title="Themes">
+                    <svg aria-hidden="true"><use href="#icon-paintbrush"></use></svg>
+                    <span class="sidebar-btn-tooltip">Themes</span>
+                </button>
+                <button class="sidebar-btn" data-panel="images" title="Images">
+                    <svg aria-hidden="true"><use href="#icon-image"></use></svg>
+                    <span class="sidebar-btn-tooltip">Images</span>
                 </button>
             </nav>
         </aside>
@@ -122,16 +122,32 @@
             </div>
         </div>
 
-        <!-- Settings Panel -->
-        <div class="sidebar-panel" id="settingsPanel">
+        <!-- Themes Panel -->
+        <div class="sidebar-panel" id="themesPanel">
             <div class="panel-header">
-                <span class="panel-title">Settings</span>
+                <span class="panel-title">Themes</span>
                 <button class="panel-close" onclick="window.closePanel()">
                     <svg aria-hidden="true"><use href="#icon-x"></use></svg>
                 </button>
             </div>
-            <div class="panel-content">
-                <p style="color: var(--text-muted); font-size: 13px;">Site settings will appear here.</p>
+            <div class="panel-content" id="themesContent">
+                <!-- Dynamic content rendered by themesPanel.js -->
+            </div>
+            <div class="panel-footer" id="themesFooter">
+                <!-- Apply button rendered by themesPanel.js -->
+            </div>
+        </div>
+
+        <!-- Images Panel -->
+        <div class="sidebar-panel" id="imagesPanel">
+            <div class="panel-header">
+                <span class="panel-title">Images</span>
+                <button class="panel-close" onclick="window.closePanel()">
+                    <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                </button>
+            </div>
+            <div class="panel-content" id="imagesContent">
+                <!-- Dynamic content rendered by imagesPanel.js -->
             </div>
         </div>
 
@@ -175,19 +191,142 @@
         </aside>
     </div>
 
-    <!-- Load js-yaml for YAML parsing on client side (local copy, loads synchronously before modules) -->
-    <script src="{{ url_for('static', filename='js/js-yaml.min.js') }}"></script>
+    <!-- Global config before modules load -->
     <script>
-        // Make js-yaml available globally - verify it loaded
-        if (typeof jsyaml !== 'undefined') {
-            window.jsyaml = jsyaml;
-            console.log('[Init] js-yaml loaded successfully');
-        } else {
-            console.error('[Init] js-yaml failed to load!');
-        }
         // Pass sprite path from Flask
         window.SPRITE_PATH = "{{ url_for('static', filename='icon-sprite.svg') }}";
     </script>
+    <!-- YAML library loaded via ES module imports in yamlWrapper.js (eemeli/yaml replaces js-yaml) -->
     <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- LLM Chat Widget Initialization -->
+    <script type="module">
+        import { initChat } from '/static/js/chat.js';
+        import { selectionManager } from '/static/js/main.js';
+        import { getYamlStructureFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, updateYamlEditor } from '/static/js/yamlUtils.js';
+        import { renderPreview } from '/static/js/ssr_app.js';
+        import { historyManager } from '/static/js/historyManager.js';
+
+        // ES modules are deferred, so DOM is ready when this runs
+        // Small delay to ensure main.js has fully initialized
+        console.log('[Chat Init] Module loaded, waiting for main.js to initialize...');
+
+        setTimeout(() => {
+            console.log('[Chat Init] Starting chat widget initialization...');
+
+            try {
+                const chatUI = initChat({
+                    // Get current YAML from editor
+                    getCurrentYaml: () => {
+                        const editor = document.getElementById('codeEditor');
+                        return editor ? editor.value : '';
+                    },
+
+                    // Get selection context for targeted modifications
+                    getSelectionContext: () => {
+                        if (!selectionManager.selectedComponentId || !selectionManager.selectedPath) {
+                            return null;
+                        }
+
+                        // Get component name from YAML structure
+                        const structure = getYamlStructureFromEditor();
+                        const component = getComponentByPath(structure, selectionManager.selectedPath);
+
+                        return {
+                            id: selectionManager.selectedComponentId,
+                            path: selectionManager.selectedPath,
+                            name: component ? component.name : 'unknown'
+                        };
+                    },
+
+                    // Handle YAML apply from chat
+                    onYamlApply: async (yaml, action) => {
+                        console.log('[Chat] Applying YAML changes:', action);
+
+                        // Step 1: Validate YAML syntax before applying
+                        let parsedYaml;
+                        try {
+                            parsedYaml = window.jsyaml.load(yaml);
+                        } catch (e) {
+                            const errorMsg = e.message || 'Unknown parse error';
+                            throw new Error(`Invalid YAML syntax: ${errorMsg.split('\n')[0]}`);
+                        }
+
+                        // Step 2: Validate component structure (must have 'name' field)
+                        const validateComponent = (comp, path = 'root') => {
+                            if (Array.isArray(comp)) {
+                                comp.forEach((item, i) => validateComponent(item, `${path}[${i}]`));
+                            } else if (comp && typeof comp === 'object') {
+                                if (!comp.name) {
+                                    throw new Error(`Component at ${path} missing required "name" field`);
+                                }
+                            }
+                        };
+                        validateComponent(parsedYaml);
+
+                        const editor = document.getElementById('codeEditor');
+
+                        if (action === 'create') {
+                            // Full replacement - use the YAML directly
+                            editor.value = yaml;
+                        } else if (action === 'modify') {
+                            // Targeted modification
+                            const selection = selectionManager.selectedPath;
+
+                            if (selection && selection.length > 0) {
+                                let newComponent = parsedYaml;
+
+                                // Handle if LLM returned array (starts with -)
+                                if (Array.isArray(parsedYaml) && parsedYaml.length === 1) {
+                                    newComponent = parsedYaml[0];
+                                }
+
+                                // Get current structure and update at path
+                                const currentStructure = getYamlStructureFromEditor();
+                                if (!currentStructure) {
+                                    throw new Error('Cannot modify: editor has no valid YAML content');
+                                }
+
+                                const updatedStructure = updateComponentByPath(currentStructure, selection, newComponent);
+
+                                // Generate new YAML
+                                const newYaml = generateYamlFromStructure(updatedStructure);
+                                editor.value = newYaml;
+                            } else {
+                                // No selection - full replacement
+                                editor.value = yaml;
+                            }
+                        }
+
+                        // Push to history
+                        historyManager.push(editor.value);
+
+                        // Trigger render and catch render errors
+                        try {
+                            const structure = getYamlStructureFromEditor();
+                            await renderPreview(editor.value, structure);
+                        } catch (renderError) {
+                            // Render failed - rollback from history and throw
+                            historyManager.undo();
+                            const prevState = historyManager.getCurrentState();
+                            if (prevState) {
+                                editor.value = prevState;
+                            }
+                            throw new Error(`Render failed: ${renderError.message || 'Preview could not display the changes'}`);
+                        }
+
+                        console.log('[Chat] YAML applied and rendered successfully');
+                    }
+                });
+
+                // Selection changes are now handled via 'swift-selection-changed' event
+                // (see selectionManager.js and chat.js)
+
+                console.log('[Chat Init] Chat widget initialized successfully');
+            } catch (error) {
+                console.error('[Chat Init] Failed to initialize chat widget:', error);
+            }
+        }, 200);  // 200ms delay to ensure main.js is ready
+    </script>
 </body>
 </html>

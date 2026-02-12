@@ -322,12 +322,31 @@ const renderRangeInput = ({ field, value, fieldId }) => {
 };
 
 /**
+ * Evaluate showWhen condition for conditional field visibility
+ */
+const evaluateShowWhen = (field, resolvedProps) => {
+    if (!field.showWhen) return true;
+
+    const { field: conditionPath, value: expectedValue } = field.showWhen;
+    const pathSegments = pathToSegments(conditionPath);
+    const actualValue = getNestedValue(resolvedProps, pathSegments);
+
+    // Default to 'color' for background type if not set
+    const effectiveValue = actualValue !== undefined ? actualValue :
+        (conditionPath === 'appearance.background.type' ? 'color' : undefined);
+
+    return effectiveValue === expectedValue;
+};
+
+/**
  * Render token pills for select fields with few options
  */
 const renderTokenPills = ({ field, value, fieldId }) => {
     const container = document.createElement('div');
     container.className = 'token-pills';
     container.id = fieldId;
+    // Store field path for conditional visibility toggling
+    container.dataset.fieldPath = field.path;
 
     let options = [];
     if (Array.isArray(field.options)) {
@@ -351,6 +370,18 @@ const renderTokenPills = ({ field, value, fieldId }) => {
         pill.onclick = () => {
             container.querySelectorAll('.token-pill').forEach(p => p.classList.remove('active'));
             pill.classList.add('active');
+
+            // Toggle visibility of dependent fields
+            const propertiesContent = document.getElementById('propertiesContent');
+            if (propertiesContent && field.path) {
+                const dependentFields = propertiesContent.querySelectorAll(
+                    `[data-show-when-field="${field.path}"]`
+                );
+                dependentFields.forEach(wrapper => {
+                    const expectedValue = wrapper.dataset.showWhenValue;
+                    wrapper.dataset.hidden = (pill.dataset.value !== expectedValue);
+                });
+            }
         };
 
         container.appendChild(pill);
@@ -419,11 +450,25 @@ const renderColorInputWithSwatch = ({ field, value, fieldId }) => {
 };
 
 /**
- * Create field wrapper
+ * Create field wrapper with optional showWhen support
  */
-const createFieldWrapper = (field, fieldId) => {
+const createFieldWrapper = (field, fieldId, resolvedProps = null) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'property-item';
+    wrapper.dataset.fieldPath = field.path;
+
+    // Add showWhen data attributes for conditional visibility
+    if (field.showWhen) {
+        wrapper.dataset.showWhenField = field.showWhen.field;
+        wrapper.dataset.showWhenValue = field.showWhen.value;
+
+        // Set initial visibility based on resolved props
+        if (resolvedProps) {
+            const isVisible = evaluateShowWhen(field, resolvedProps);
+            wrapper.dataset.hidden = (!isVisible).toString();
+        }
+    }
+
     const label = document.createElement('label');
     label.className = 'property-label';
     label.htmlFor = fieldId;
@@ -495,16 +540,10 @@ export function renderPropertiesPanel(component, componentId, path) {
     }
 
     const defaults = getComponentDefaults(component.name);
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:285',message:'renderPropertiesPanel defaults loaded',data:{componentName:component.name,defaults:JSON.stringify(defaults),componentProps:JSON.stringify(component.properties)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-    // #endregion
     // Note: getComponentDefaults returns the properties object directly (not wrapped in a 'properties' key)
     // Merge defaults first, then component.properties on top
     // This ensures we have the full structure with defaults, then override with component values
     const resolvedProps = deepMerge({}, defaults || {}, component.properties || {});
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:293',message:'renderPropertiesPanel resolved properties',data:{resolvedProps:JSON.stringify(resolvedProps)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-    // #endregion
 
     propertiesContent.innerHTML = '';
     
@@ -564,7 +603,7 @@ export function renderPropertiesPanel(component, componentId, path) {
             const currentValue = resolvePropertyValue(component, pathSegments, defaults || {}, target);
             const fieldId = `prop_${componentId}_${field.path.replace(/[^a-z0-9]/gi, '_')}`;
 
-            const { wrapper } = createFieldWrapper(field, fieldId);
+            const { wrapper } = createFieldWrapper(field, fieldId, resolvedProps);
             let control;
             let customEditorInstance;
 
@@ -701,12 +740,16 @@ export function collectPropertyValues() {
     // Separate objects for component-level and properties-level updates
     const updatedProperties = {};
     const componentUpdates = {};
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:432',message:'collectPropertyValues entry',data:{activeComponentName,numFields:activeFieldMeta.size},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-    // #endregion
 
     activeFieldMeta.forEach((meta, fieldPath) => {
         const { field, target, defaultValue, customSerializer, isTokenPills } = meta;
+
+        // Skip hidden conditional fields
+        const fieldWrapper = propertiesContent.querySelector(`[data-field-path="${fieldPath}"]`);
+        if (fieldWrapper?.dataset.hidden === 'true') {
+            return; // Don't collect value for hidden field
+        }
+
         let value;
 
         // Handle custom fields with serializers
@@ -740,9 +783,6 @@ export function collectPropertyValues() {
             // Get value from control using helper
             value = getValueFromControl(control, field);
         }
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:460',message:'collectPropertyValues after getValueFromControl',data:{fieldPath,value,valueType:typeof value},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-        // #endregion
 
         // Handle empty strings for text fields - preserve if explicitly set
         if ((field.type === 'text' || field.type === 'textarea') && value === '') {
@@ -769,9 +809,6 @@ export function collectPropertyValues() {
             setNestedValue(updatedProperties, pathSegments, value);
         }
     });
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f73c7dd3-dc04-444a-a31b-ff398b1c3504',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'propertiesPanel.js:505',message:'collectPropertyValues final result',data:{finalProperties:JSON.stringify(updatedProperties),finalComponent:JSON.stringify(componentUpdates)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-    // #endregion
 
     return {
         properties: updatedProperties,

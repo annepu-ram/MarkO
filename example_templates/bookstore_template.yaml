@@ -1,0 +1,909 @@
+- name: page
+  properties:
+    theme:
+      fonts:
+        headingMain: &font-heading-main 'Georgia, serif'
+        headingLevel2: &font-heading-level2 'Georgia, serif'
+        content: &font-content 'Georgia, serif'
+      colors:
+        # 60-30-10 Color System:
+        # Primary (30%) = TEXT - all headings, paragraphs, body text
+        # Secondary (10%) = UI elements, section highlights, inverted section backgrounds
+        # Accent (CTAs only) = Call-to-action buttons like "Browse Collection", "Shop Now"
+        # Background (60%) = Page base, content areas
+        primary: &color-primary '#3d2c29'
+        secondary: &color-secondary '#d63031'
+        accent: &color-accent '#e17055'
+        background: &color-background '#faf7f2'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+    # Navigation
+    - name: titlebar
+      properties:
+        branding:
+          showLogo: true
+          logoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop'
+          title: 'The Book Nook'
+        navigation:
+          links:
+            - label: Home
+              href: '#home'
+            - label: New Arrivals
+              href: '#new'
+            - label: Second Hand
+              href: '#secondhand'
+            - label: Kids Books
+              href: '#kids'
+            - label: Arts & Crafts
+              href: '#crafts'
+            - label: Contact
+              href: '#contact'
+        layout: { alignment: left, height: 70 }
+        appearance:
+          background: { color: *color-secondary }
+          title: { color: *color-background }
+          link: { color: *color-background }
+
+    # Hero Section
+    - name: image
+      properties:
+        source:
+          url: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1920&q=80'
+          altText: 'Cozy bookstore interior with wooden shelves'
+        appearance: { minHeight: 37.5, fit: cover }
+        layout: { widthMode: stretch }
+      components:
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly }
+            spacing: { paddingBlock: xxxl, paddingInline: lg }
+          components:
+            - name: eyebrow
+              properties:
+                text: WELCOME TO
+                typography: { size: sm, weight: semibold, color: *color-background, transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: The Book Nook
+                level: 1
+                typography: { size: xxxl, weight: extrabold, color: *color-background, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Your neighborhood bookstore since 1985. Discover new stories, rediscover classics, and find unique arts & crafts supplies.
+                typography: { size: lg, color: *color-background, align: center }
+                layout: { widthMode: 75 }
+                spacing: { marginBlock: md }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-evenly, align: center }
+              components:
+                - name: button
+                  properties:
+                    text: Browse Collection
+                    appearance:
+                      background:
+                        type: gradient
+                        gradient:
+                          colorStart: *color-accent
+                          colorEnd: *color-secondary
+                          direction: to right
+                      padding: { block: md, inline: lg }
+                    typography: { color: *color-background, weight: semibold, size: md }
+                - name: button
+                  properties:
+                    text: Visit Us
+                    appearance: { background: { color: *color-background }, padding: { block: md, inline: lg } }
+                    typography: { color: *color-secondary, weight: semibold, size: md }
+
+    # New Arrivals Section
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance: { background: { color: *color-background, transparency: 100 } }
+      components:
+        - name: eyebrow
+          properties:
+            text: JUST IN
+            typography: { size: xs, weight: semibold, color: *color-primary, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: New Arrivals
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-secondary, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Fresh from the press - discover our latest additions to the collection
+            typography: { size: md, color: *color-secondary, align: center }
+            spacing: { marginBlock: md }
+        - name: columnsgrid
+          properties:
+            layout: { columns: 4, gap: md, verticalAlign: top }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+          columns:
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=80'
+                      altText: 'Fiction book with red cover'
+                    appearance: { minHeight: 17.5, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: The Midnight Library
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Matt Haig
+                    typography: { size: sm, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: $18.99
+                    typography: { size: lg, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&q=80'
+                      altText: 'Open book pages'
+                    appearance: { minHeight: 17.5, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: Atomic Habits
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: James Clear
+                    typography: { size: sm, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: $16.99
+                    typography: { size: lg, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&q=80'
+                      altText: 'Stack of colorful books'
+                    appearance: { minHeight: 17.5, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: Project Hail Mary
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Andy Weir
+                    typography: { size: sm, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: $19.99
+                    typography: { size: lg, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&q=80'
+                      altText: 'Book on wooden table'
+                    appearance: { minHeight: 17.5, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: The Thursday Murder Club
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Richard Osman
+                    typography: { size: sm, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: $15.99
+                    typography: { size: lg, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+
+    # Second Hand Books Section - 50% OFF
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance: { background: { color: *color-secondary, transparency: 100 } }
+      components:
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-evenly, align: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: 🏷️ SPECIAL OFFER
+                typography: { size: sm, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: Second Hand Books
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-background, align: center }
+            spacing: { marginBlock: sm }
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-evenly, align: center }
+            spacing: { marginBlock: sm }
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-primary
+                  colorEnd: *color-accent
+                  direction: to right
+              radius: pill
+              padding: { block: sm, inline: lg }
+          components:
+            - name: heading
+              properties:
+                text: 50% OFF
+                level: 3
+                typography: { size: xl, weight: extrabold, color: *color-background }
+            - name: paragraph
+              properties:
+                text: All Pre-Loved Books
+                typography: { size: md, weight: medium, color: *color-background }
+        - name: paragraph
+          properties:
+            text: Give a book a second life! All our pre-loved books are carefully selected and in great condition.
+            typography: { size: md, color: *color-background, align: center }
+            layout: { widthMode: 75 }
+            spacing: { marginBlock: md }
+        - name: columnsgrid
+          properties:
+            layout: { columns: 4, gap: md, verticalAlign: top }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+          columns:
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&q=80'
+                      altText: 'Vintage book collection'
+                    appearance: { minHeight: 15.625, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: Pride and Prejudice
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-background }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Jane Austen
+                    typography: { size: sm, color: *color-background }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-evenly, align: center }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: $4.99
+                        typography: { size: lg, weight: bold, color: *color-accent }
+                    - name: paragraph
+                      properties:
+                        text: $9.99
+                        typography: { size: sm, color: *color-background }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1476275466078-4007374efbbe?w=400&q=80'
+                      altText: 'Old books on shelf'
+                    appearance: { minHeight: 15.625, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: 1984
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-background }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: George Orwell
+                    typography: { size: sm, color: *color-background }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-evenly, align: center }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: $3.99
+                        typography: { size: lg, weight: bold, color: *color-accent }
+                    - name: paragraph
+                      properties:
+                        text: $7.99
+                        typography: { size: sm, color: *color-background }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&q=80'
+                      altText: 'Classic literature books'
+                    appearance: { minHeight: 15.625, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: To Kill a Mockingbird
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-background }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Harper Lee
+                    typography: { size: sm, color: *color-background }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-evenly, align: center }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: $5.49
+                        typography: { size: lg, weight: bold, color: *color-accent }
+                    - name: paragraph
+                      properties:
+                        text: $10.99
+                        typography: { size: sm, color: *color-background }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&q=80'
+                      altText: 'Book collection'
+                    appearance: { minHeight: 15.625, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: The Great Gatsby
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-background }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: F. Scott Fitzgerald
+                    typography: { size: sm, color: *color-background }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-evenly, align: center }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: $4.49
+                        typography: { size: lg, weight: bold, color: *color-accent }
+                    - name: paragraph
+                      properties:
+                        text: $8.99
+                        typography: { size: sm, color: *color-background }
+        - name: button
+          properties:
+            text: Browse All Second Hand Books
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-accent
+                  colorEnd: *color-accent
+                  direction: to right
+              padding: { block: md, inline: xl }
+            typography: { color: *color-secondary, weight: bold, size: md }
+            spacing: { marginBlock: lg }
+
+    # Children's Books Section
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance:
+          background:
+            type: gradient
+            gradient:
+              colorStart: *color-background
+              colorEnd: *color-accent
+              direction: to bottom
+      components:
+        - name: eyebrow
+          properties:
+            text: 📚 FOR LITTLE READERS
+            typography: { size: sm, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: Children's Hard Board Books
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-secondary, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Durable, colorful, and perfect for tiny hands. Our hard board books are designed to withstand the enthusiasm of young readers!
+            typography: { size: md, color: *color-secondary, align: center }
+            layout: { widthMode: 75 }
+            spacing: { marginBlock: md }
+        - name: columnsgrid
+          properties:
+            layout: { columns: 4, gap: md, verticalAlign: top }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+          columns:
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=400&q=80'
+                      altText: 'Colorful children books'
+                    appearance: { minHeight: 16.25, fit: cover, cornerStyle: lg }
+                - name: heading
+                  properties:
+                    text: The Very Hungry Caterpillar
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Eric Carle
+                    typography: { size: sm, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: Ages 0-3
+                    typography: { size: xs, color: *color-accent, weight: semibold }
+                - name: paragraph
+                  properties:
+                    text: $12.99
+                    typography: { size: lg, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=400&q=80'
+                      altText: 'Kids reading books'
+                    appearance: { minHeight: 16.25, fit: cover, cornerStyle: lg }
+                - name: heading
+                  properties:
+                    text: Goodnight Moon
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Margaret Wise Brown
+                    typography: { size: sm, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: Ages 0-3
+                    typography: { size: xs, color: *color-accent, weight: semibold }
+                - name: paragraph
+                  properties:
+                    text: $10.99
+                    typography: { size: lg, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?w=400&q=80'
+                      altText: 'Children book illustrations'
+                    appearance: { minHeight: 16.25, fit: cover, cornerStyle: lg }
+                - name: heading
+                  properties:
+                    text: Brown Bear, Brown Bear
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Bill Martin Jr
+                    typography: { size: sm, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: Ages 1-4
+                    typography: { size: xs, color: *color-accent, weight: semibold }
+                - name: paragraph
+                  properties:
+                    text: $11.99
+                    typography: { size: lg, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=80'
+                      altText: 'Stacked colorful books'
+                    appearance: { minHeight: 16.25, fit: cover, cornerStyle: lg }
+                - name: heading
+                  properties:
+                    text: Where's Spot?
+                    level: 3
+                    typography: { size: md, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Eric Hill
+                    typography: { size: sm, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: Ages 1-3
+                    typography: { size: xs, color: *color-accent, weight: semibold }
+                - name: paragraph
+                  properties:
+                    text: $9.99
+                    typography: { size: lg, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+
+    # Arts & Crafts Section
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance: { background: { color: *color-background, transparency: 100 } }
+      components:
+        - name: eyebrow
+          properties:
+            text: 🎨 GET CREATIVE
+            typography: { size: sm, weight: semibold, color: *color-secondary, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: Arts & Crafts Supplies
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-secondary, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: From sketchbooks to watercolors, find everything you need to unleash your creativity
+            typography: { size: md, color: *color-secondary, align: center }
+            layout: { widthMode: 75 }
+            spacing: { marginBlock: md }
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: md, verticalAlign: top }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+          columns:
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?w=600&h=400&fit=crop'
+                      altText: 'Watercolor paint set'
+                    appearance: { minHeight: 18.75, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: Watercolor Paint Sets
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Professional grade watercolors in vibrant colors. Perfect for beginners and experienced artists alike.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: From $14.99
+                    typography: { size: lg, weight: bold, color: *color-secondary }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.pexels.com/photos/1053687/pexels-photo-1053687.jpeg?w=600&h=400&fit=crop'
+                      altText: 'Sketchbooks and journals'
+                    appearance: { minHeight: 18.75, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: Sketchbooks & Journals
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Premium paper sketchbooks in various sizes. Ideal for drawing, journaling, and creative expression.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: From $8.99
+                    typography: { size: lg, weight: bold, color: *color-secondary }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.pexels.com/photos/1327711/pexels-photo-1327711.jpeg?w=600&h=400&fit=crop'
+                      altText: 'Colored pencils and markers'
+                    appearance: { minHeight: 18.75, fit: cover, cornerStyle: md }
+                - name: heading
+                  properties:
+                    text: Colored Pencils & Markers
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: High-quality coloring supplies for artists of all ages. Rich pigments that blend beautifully.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: From $12.99
+                    typography: { size: lg, weight: bold, color: *color-secondary }
+
+    # Craft Kits Row
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-evenly, align: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance: { background: { color: *color-background, transparency: 50 } }
+      components:
+        - name: image
+          properties:
+            source:
+              url: 'https://images.pexels.com/photos/3094035/pexels-photo-3094035.jpeg?w=600&h=500&fit=crop'
+              altText: 'DIY craft supplies'
+            appearance: { minHeight: 25, fit: cover, cornerStyle: lg }
+            layout: { widthMode: 50 }
+        - name: layout-column
+          properties:
+            layout: { align: start, horizontalAlign: space-evenly }
+          components:
+            - name: eyebrow
+              properties:
+                text: NEW ARRIVAL
+                typography: { size: xs, weight: bold, color: *color-primary, transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: DIY Craft Kits
+                level: 3
+                typography: { size: xl, weight: bold, color: *color-secondary }
+            - name: paragraph
+              properties:
+                text: |
+                  Everything you need in one box! Our curated craft kits include:
+
+                  • Scrapbooking Starter Kits
+                  • Calligraphy Sets
+                  • Paper Quilling Kits
+                  • Origami Collections
+                  • Bookbinding Supplies
+                typography: { size: md, color: *color-secondary, lineHeight: '1.8' }
+                spacing: { marginBlock: sm }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-evenly, align: center }
+              components:
+                - name: button
+                  properties:
+                    text: Shop Craft Kits
+                    appearance:
+                      background:
+                        type: gradient
+                        gradient:
+                          colorStart: *color-accent
+                          colorEnd: *color-secondary
+                          direction: to right
+                      padding: { block: md, inline: lg }
+                    typography: { color: *color-background, weight: semibold }
+                - name: paragraph
+                  properties:
+                    text: Starting at $24.99
+                    typography: { size: sm, color: *color-secondary, weight: medium }
+
+    # Testimonials Section
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance: { background: { color: *color-background, transparency: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: What Our Customers Say
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-secondary, align: center }
+            spacing: { marginBlock: md }
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: md, verticalAlign: stretch }
+            responsive: { breakpoints: { md: 1, sm: 1 } }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { align: start, horizontalAlign: space-evenly }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                    appearance: { background: { color: *color-background, transparency: 100 }, radius: md }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "⭐⭐⭐⭐⭐"
+                        typography: { size: md }
+                    - name: blockquote
+                      properties:
+                        quote: The second hand book section is a treasure trove! I found first editions at amazing prices. The staff really knows their books.
+                        cite: Sarah M.
+                        appearance: { border: { accentColor: *color-primary } }
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { align: start, horizontalAlign: space-evenly }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                    appearance: { background: { color: *color-background, transparency: 100 }, radius: md }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "⭐⭐⭐⭐⭐"
+                        typography: { size: md }
+                    - name: blockquote
+                      properties:
+                        quote: My kids absolutely love the hard board books from here. They're sturdy and the illustrations are beautiful. We visit every weekend!
+                        cite: David K.
+                        appearance: { border: { accentColor: *color-accent } }
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { align: start, horizontalAlign: space-evenly }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                    appearance: { background: { color: *color-background, transparency: 100 }, radius: md }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "⭐⭐⭐⭐⭐"
+                        typography: { size: md }
+                    - name: blockquote
+                      properties:
+                        quote: The arts and crafts section is incredible! Found everything I needed for my journaling hobby. Great quality and prices.
+                        cite: Emily R.
+                        appearance: { border: { accentColor: *color-secondary } }
+
+    # Newsletter Section
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-evenly, align: center }
+        spacing: { paddingBlock: xl, paddingInline: xl }
+        appearance:
+          background:
+            type: gradient
+            gradient:
+              colorStart: *color-accent
+              colorEnd: *color-secondary
+              direction: to bottom right
+      components:
+        - name: layout-column
+          properties:
+            layout: { align: start, horizontalAlign: space-evenly }
+          components:
+            - name: heading
+              properties:
+                text: Join Our Book Club
+                level: 3
+                typography: { size: xl, weight: bold, color: *color-background }
+            - name: paragraph
+              properties:
+                text: Get exclusive discounts, early access to sales, and book recommendations delivered to your inbox.
+                typography: { size: md, color: *color-background }
+        - name: form
+          properties:
+            layout: { direction: row, horizontalAlign: space-evenly }
+            submit: { show: false }
+          components:
+            - name: textbox
+              properties:
+                label: { show: false }
+                field: { placeholder: 'Enter your email address' }
+                appearance: { background: { color: *color-background }, border: { width: 0 } }
+            - name: button
+              properties:
+                text: Subscribe
+                appearance: { background: { color: *color-secondary }, padding: { block: md, inline: lg } }
+                typography: { color: *color-background, weight: semibold }
+
+    # Store Info & Footer
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-evenly, align: start, wrap: wrap }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance:
+          background:
+            type: gradient
+            gradient:
+              colorStart: *color-secondary
+              colorEnd: *color-secondary
+              direction: to bottom
+      components:
+        - name: layout-column
+          properties:
+            layout: { align: start, horizontalAlign: space-evenly }
+          components:
+            - name: heading
+              properties:
+                text: The Book Nook
+                level: 3
+                typography: { size: lg, weight: bold, color: *color-background }
+            - name: paragraph
+              properties:
+                text: |
+                  Your neighborhood bookstore since 1985.
+                  We believe in the magic of books and
+                  the joy of discovery.
+                typography: { size: sm, color: *color-background, lineHeight: '1.7' }
+        - name: layout-column
+          properties:
+            layout: { align: start, horizontalAlign: space-evenly }
+          components:
+            - name: heading
+              properties:
+                text: Visit Us
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-background }
+            - name: paragraph
+              properties:
+                text: |
+                  123 Main Street
+                  Downtown District
+                  City, State 12345
+                typography: { size: sm, color: *color-background, lineHeight: '1.7' }
+        - name: layout-column
+          properties:
+            layout: { align: start, horizontalAlign: space-evenly }
+          components:
+            - name: heading
+              properties:
+                text: Store Hours
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-background }
+            - name: paragraph
+              properties:
+                text: |
+                  Mon - Fri: 9am - 8pm
+                  Saturday: 10am - 6pm
+                  Sunday: 11am - 5pm
+                typography: { size: sm, color: *color-background, lineHeight: '1.7' }
+        - name: layout-column
+          properties:
+            layout: { align: start, horizontalAlign: space-evenly }
+          components:
+            - name: heading
+              properties:
+                text: Contact
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-background }
+            - name: paragraph
+              properties:
+                text: |
+                  Phone: (555) 123-4567
+                  Email: hello@booknook.com
+                typography: { size: sm, color: *color-background, lineHeight: '1.7' }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-evenly, align: center }
+                spacing: { marginBlock: sm }
+              components:
+                - name: link
+                  properties:
+                    text: Facebook
+                    href: '#'
+                    appearance: { color: *color-primary, underline: false }
+                    typography: { size: sm }
+                - name: link
+                  properties:
+                    text: Instagram
+                    href: '#'
+                    appearance: { color: *color-primary, underline: false }
+                    typography: { size: sm }
+
+    # Copyright Footer
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-evenly, align: center }
+        spacing: { paddingBlock: md, paddingInline: lg }
+        appearance: { background: { color: *color-secondary, transparency: 100 } }
+      components:
+        - name: paragraph
+          properties:
+            text: © 2025 The Book Nook. All rights reserved. Made with ❤️ for book lovers everywhere.
+            typography: { size: xs, color: *color-background, align: center }
+            layout: { widthMode: stretch }

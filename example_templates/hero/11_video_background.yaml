@@ -1,0 +1,350 @@
+# Video Background Style Hero
+# Simulated with a carousel for dynamic visual movement
+# Perfect for: Entertainment, events, music, nightlife, sports
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#000000'
+        transparency: 100
+  components:
+  # Hero with Carousel Background (simulating video)
+  - name: carousel
+    properties:
+      behavior:
+        autoplay: true
+        delay: 3000
+        loop: true
+      navigation:
+        showArrows: false
+        showDots: false
+      spacing:
+        marginBlock: none
+        marginInline: none
+    slides:
+    - components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1920
+            altText: Concert crowd with lights
+          appearance:
+            minHeight: 100vh
+            fit: cover
+            cornerStyle: none
+          layout:
+            widthMode: stretch
+          spacing:
+            marginBlock: none
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              align: center
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+            appearance:
+              background:
+                color: rgba(0,0,0,0.6)
+                transparency: 100
+          components:
+          # Live Badge
+          - name: layout-row
+            properties:
+              layout:
+                align: center
+                horizontalAlign: space-evenly
+            components:
+            - name: paragraph
+              properties:
+                text: "●"
+                typography:
+                  color: '#ef4444'
+                  size: sm
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "LIVE EVENT"
+                typography:
+                  color: '#ffffff'
+                  size: xs
+                  weight: bold
+                  letterSpacing: wider
+                  transform: uppercase
+                spacing:
+                  marginBlock: none
+          # Main Headline
+          - name: heading
+            properties:
+              text: "ELECTRIC NIGHTS"
+              level: 1
+              typography:
+                color: '#ffffff'
+                size: xxxl
+                weight: bold
+                align: center
+                letterSpacing: wide
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "FESTIVAL 2025"
+              level: 2
+              typography:
+                color: '#fbbf24'
+                size: xxl
+                weight: bold
+                align: center
+                letterSpacing: wide
+              spacing:
+                marginBlock: none
+          # Date & Location
+          - name: paragraph
+            properties:
+              text: "AUGUST 15-17  •  CENTRAL PARK, NYC"
+              typography:
+                color: rgba(255,255,255,0.8)
+                size: md
+                align: center
+                letterSpacing: wide
+              spacing:
+                marginBlock: md
+          # CTAs
+          - name: layout-row
+            properties:
+              layout:
+                align: center
+                horizontalAlign: space-evenly
+                wrap: wrap
+              spacing:
+                marginBlock: lg
+            components:
+            - name: button
+              properties:
+                text: "Get Tickets"
+                appearance:
+                  background:
+                    color: '#fbbf24'
+                    transparency: 100
+                  border:
+                    width: 0
+                    style: solid
+                    color: transparent
+                  padding:
+                    block: md
+                    inline: xl
+                typography:
+                  color: '#000000'
+                  weight: bold
+                  size: md
+                spacing:
+                  marginBlock: none
+            - name: button
+              properties:
+                text: "View Lineup"
+                appearance:
+                  background:
+                    color: transparent
+                    transparency: 0
+                  border:
+                    width: 2
+                    style: solid
+                    color: '#ffffff'
+                  padding:
+                    block: md
+                    inline: xl
+                typography:
+                  color: '#ffffff'
+                  weight: semibold
+                  size: md
+                spacing:
+                  marginBlock: none
+          # Countdown
+          - name: layout-row
+            properties:
+              layout:
+                align: center
+                horizontalAlign: space-evenly
+              spacing:
+                marginBlock: xl
+            components:
+            - name: layout-column
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: space-evenly
+              components:
+              - name: heading
+                properties:
+                  text: "127"
+                  level: 2
+                  typography:
+                    color: '#ffffff'
+                    size: xxl
+                    weight: bold
+                    align: center
+                  spacing:
+                    marginBlock: none
+              - name: paragraph
+                properties:
+                  text: "DAYS"
+                  typography:
+                    color: rgba(255,255,255,0.6)
+                    size: xs
+                    align: center
+                    letterSpacing: wide
+                  spacing:
+                    marginBlock: none
+            - name: paragraph
+              properties:
+                text: ":"
+                typography:
+                  color: '#fbbf24'
+                  size: xxl
+                  weight: bold
+                spacing:
+                  marginBlock: none
+            - name: layout-column
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: space-evenly
+              components:
+              - name: heading
+                properties:
+                  text: "14"
+                  level: 2
+                  typography:
+                    color: '#ffffff'
+                    size: xxl
+                    weight: bold
+                    align: center
+                  spacing:
+                    marginBlock: none
+              - name: paragraph
+                properties:
+                  text: "HOURS"
+                  typography:
+                    color: rgba(255,255,255,0.6)
+                    size: xs
+                    align: center
+                    letterSpacing: wide
+                  spacing:
+                    marginBlock: none
+            - name: paragraph
+              properties:
+                text: ":"
+                typography:
+                  color: '#fbbf24'
+                  size: xxl
+                  weight: bold
+                spacing:
+                  marginBlock: none
+            - name: layout-column
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: space-evenly
+              components:
+              - name: heading
+                properties:
+                  text: "32"
+                  level: 2
+                  typography:
+                    color: '#ffffff'
+                    size: xxl
+                    weight: bold
+                    align: center
+                  spacing:
+                    marginBlock: none
+              - name: paragraph
+                properties:
+                  text: "MINS"
+                  typography:
+                    color: rgba(255,255,255,0.6)
+                    size: xs
+                    align: center
+                    letterSpacing: wide
+                  spacing:
+                    marginBlock: none
+    - components:
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1920
+            altText: DJ performing on stage
+          appearance:
+            minHeight: 100vh
+            fit: cover
+            cornerStyle: none
+          layout:
+            widthMode: stretch
+          spacing:
+            marginBlock: none
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              align: center
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+            appearance:
+              background:
+                color: rgba(0,0,0,0.6)
+                transparency: 100
+          components:
+          - name: layout-row
+            properties:
+              layout:
+                align: center
+                horizontalAlign: space-evenly
+            components:
+            - name: paragraph
+              properties:
+                text: "●"
+                typography:
+                  color: '#ef4444'
+                  size: sm
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "LIVE EVENT"
+                typography:
+                  color: '#ffffff'
+                  size: xs
+                  weight: bold
+                  letterSpacing: wider
+                  transform: uppercase
+                spacing:
+                  marginBlock: none
+          - name: heading
+            properties:
+              text: "ELECTRIC NIGHTS"
+              level: 1
+              typography:
+                color: '#ffffff'
+                size: xxxl
+                weight: bold
+                align: center
+                letterSpacing: wide
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "FESTIVAL 2025"
+              level: 2
+              typography:
+                color: '#fbbf24'
+                size: xxl
+                weight: bold
+                align: center
+                letterSpacing: wide
+              spacing:
+                marginBlock: none

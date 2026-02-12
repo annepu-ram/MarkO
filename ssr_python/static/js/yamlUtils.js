@@ -1,7 +1,9 @@
 /**
  * YAML utility functions for SSR
+ * Uses eemeli/yaml via yamlWrapper for native anchor/alias support
  */
 import { deepClone } from './utils/object.js';
+import { parse, stringify, parseDocument, stringifyDocument, YAML } from './yamlWrapper.js';
 
 /**
  * Get YAML structure from editor
@@ -17,15 +19,35 @@ export function getYamlStructureFromEditor() {
     }
 
     try {
-        // Check both global and window.jsyaml (module scripts may not see bare globals)
-        const yaml = typeof jsyaml !== 'undefined' ? jsyaml : window.jsyaml;
-        if (yaml) {
-            return yaml.load(editor.value) || [];
-        }
-        console.warn('YAML parser not available');
-        return null;
+        return parse(editor.value);
     } catch (error) {
         console.error('Failed to parse YAML:', error);
+        return null;
+    }
+}
+
+/**
+ * Get YAML Document from editor (preserves anchors/aliases)
+ * Use this when you need to work with anchors
+ * @returns {Document|null} YAML Document or null on error
+ */
+export function getYamlDocumentFromEditor() {
+    const editor = document.getElementById('codeEditor');
+    if (!editor) return null;
+
+    if (!editor.value || editor.value.trim() === '') {
+        return null;
+    }
+
+    try {
+        const doc = parseDocument(editor.value);
+        if (doc.errors && doc.errors.length > 0) {
+            console.error('YAML parse errors:', doc.errors);
+            return null;
+        }
+        return doc;
+    } catch (error) {
+        console.error('Failed to parse YAML document:', error);
         return null;
     }
 }
@@ -81,21 +103,26 @@ export function updateComponentByPath(structure, path, newComponent) {
  */
 export function generateYamlFromStructure(structure) {
     try {
-        // Check both global and window.jsyaml (module scripts may not see bare globals)
-        const yaml = typeof jsyaml !== 'undefined' ? jsyaml : window.jsyaml;
-        if (yaml) {
-            return yaml.dump(structure, {
-                indent: 2,
-                lineWidth: -1,
-                noRefs: true,
-                sortKeys: false,
-                skipInvalid: true
-            });
-        }
-        console.warn('YAML parser not available');
-        return '';
+        return stringify(structure, {
+            indent: 2,
+            lineWidth: -1  // Unlimited line width
+        });
     } catch (error) {
         console.error('Failed to generate YAML:', error);
+        return '';
+    }
+}
+
+/**
+ * Generate YAML string from Document (preserves anchors/aliases)
+ * @param {Document} doc - YAML Document
+ * @returns {string} YAML string with anchors preserved
+ */
+export function generateYamlFromDocument(doc) {
+    try {
+        return stringifyDocument(doc);
+    } catch (error) {
+        console.error('Failed to stringify YAML document:', error);
         return '';
     }
 }
@@ -113,3 +140,134 @@ export function updateYamlEditor(yamlText) {
     }
 }
 
+/**
+ * Navigate to a component node in the YAML Document AST
+ * @param {Document} doc - YAML Document
+ * @param {Array} componentPath - Path to component (e.g., [0, 'components', 1])
+ * @returns {YAMLMap|null} Component node or null if not found
+ */
+export function navigateToComponent(doc, componentPath) {
+    if (!doc || !componentPath) {
+        return null;
+    }
+
+    let currentNode = doc.contents;
+    for (const segment of componentPath) {
+        if (!currentNode) {
+            console.error('[YAML] Could not navigate to path segment:', segment);
+            return null;
+        }
+
+        if (typeof segment === 'number') {
+            // Array index - currentNode should be a sequence
+            if (YAML.isSeq(currentNode)) {
+                currentNode = currentNode.items[segment];
+            } else if (Array.isArray(currentNode)) {
+                currentNode = currentNode[segment];
+            } else {
+                console.error('[YAML] Expected sequence at path segment:', segment);
+                return null;
+            }
+        } else {
+            // Object key - currentNode should be a map
+            if (YAML.isMap(currentNode)) {
+                currentNode = currentNode.get(segment, true);
+            } else if (typeof currentNode === 'object') {
+                currentNode = currentNode[segment];
+            } else {
+                console.error('[YAML] Expected map at path segment:', segment);
+                return null;
+            }
+        }
+    }
+
+    return currentNode && YAML.isMap(currentNode) ? currentNode : null;
+}
+
+/**
+ * Update a component's properties in the YAML Document AST
+ * This preserves anchors and aliases by modifying the document directly
+ * @param {Document} doc - YAML Document
+ * @param {Array} componentPath - Path to component (e.g., [0, 'components', 1])
+ * @param {object} propertyUpdates - Object with property updates to apply
+ * @returns {Document} Modified document (same reference)
+ */
+export function updateComponentPropertiesInDocument(doc, componentPath, propertyUpdates) {
+    if (!doc || !componentPath) {
+        console.error('[YAML] updateComponentPropertiesInDocument: missing doc or path');
+        return doc;
+    }
+
+    // Navigate to the component in the document
+    const componentNode = navigateToComponent(doc, componentPath);
+    if (!componentNode) {
+        console.error('[YAML] Component not found at path');
+        return doc;
+    }
+
+    // Get or create 'properties' map
+    let propsNode = componentNode.get('properties', true);
+    if (!propsNode) {
+        // Create properties map if it doesn't exist
+        componentNode.set('properties', {});
+        propsNode = componentNode.get('properties', true);
+    }
+
+    // Apply property updates recursively
+    applyUpdatesToNode(propsNode, propertyUpdates, doc);
+
+    return doc;
+}
+
+/**
+ * Recursively apply updates to a YAML node while preserving aliases
+ * @param {any} node - YAML node (Map, Seq, Scalar, or Alias)
+ * @param {any} updates - Updates to apply
+ * @param {Document} doc - Parent document for creating nodes
+ */
+function applyUpdatesToNode(node, updates, doc) {
+    if (!YAML.isMap(node) || typeof updates !== 'object' || updates === null) {
+        return;
+    }
+
+    for (const [key, value] of Object.entries(updates)) {
+        const existingNode = node.get(key, true);
+
+        if (value === null || value === undefined) {
+            // Remove the key
+            node.delete(key);
+        } else if (typeof value === 'object' && !Array.isArray(value)) {
+            // Nested object - recurse if existing is a map, otherwise replace
+            if (existingNode && YAML.isMap(existingNode)) {
+                applyUpdatesToNode(existingNode, value, doc);
+            } else if (existingNode && YAML.isAlias(existingNode)) {
+                // Don't overwrite aliases with objects - preserve the alias
+                // This handles the case where a theme color alias exists
+                console.log('[YAML] Preserving alias for key:', key);
+            } else {
+                // Create new nested structure
+                node.set(key, value);
+            }
+        } else if (Array.isArray(value)) {
+            // Arrays - replace entirely
+            node.set(key, value);
+        } else {
+            // Primitive value
+            if (existingNode && YAML.isAlias(existingNode)) {
+                // Check if this is a theme color alias we should preserve
+                // If the new value is the same as the resolved alias value, keep the alias
+                const resolvedValue = existingNode.resolve(doc);
+                if (resolvedValue === value) {
+                    console.log('[YAML] Keeping alias, value unchanged:', key, value);
+                    continue; // Don't overwrite - keep the alias
+                }
+                // Value changed - need to replace the alias with the new value
+                console.log('[YAML] Replacing alias with new value:', key, value);
+            }
+            node.set(key, value);
+        }
+    }
+}
+
+// Re-export for advanced usage (Document API, type checks)
+export { YAML, parseDocument, stringifyDocument };

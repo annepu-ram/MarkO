@@ -101,7 +101,12 @@ export class SelectionManager {
         // Highlight selected component
         this.highlightComponent(componentId);
 
-        // Notify listeners
+        // Dispatch custom event for multiple listeners (chat, etc.)
+        window.dispatchEvent(new CustomEvent('swift-selection-changed', {
+            detail: { componentId, path: [...path] }
+        }));
+
+        // Notify callback listener (for backwards compatibility)
         if (this.onSelectionChange) {
             this.onSelectionChange({
                 componentId,
@@ -117,6 +122,11 @@ export class SelectionManager {
         this.clearHighlight();
         this.selectedComponentId = null;
         this.selectedPath = null;
+
+        // Dispatch custom event for multiple listeners (chat, etc.)
+        window.dispatchEvent(new CustomEvent('swift-selection-changed', {
+            detail: { componentId: null, path: null }
+        }));
 
         if (this.onSelectionChange) {
             this.onSelectionChange(null);

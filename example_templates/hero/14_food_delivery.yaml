@@ -1,0 +1,580 @@
+# Food Delivery App Hero
+# A vibrant, appetite-inducing hero for food delivery services
+# Perfect for: Food delivery, restaurants, meal kits, food apps
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#fff8f0'
+        transparency: 100
+  components:
+  # Colorful Navigation
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: md
+        paddingInline: lg
+      background:
+        color: '#fff8f0'
+        transparency: 100
+    components:
+    - name: heading
+      properties:
+        text: "YUMMY"
+        level: 3
+        typography:
+          color: '#ff6b35'
+          size: lg
+          weight: bold
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Restaurants"
+          typography:
+            color: '#374151'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Cuisines"
+          typography:
+            color: '#374151'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Deals"
+          typography:
+            color: '#ff6b35'
+            size: sm
+            weight: bold
+          spacing:
+            marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Sign in"
+          typography:
+            color: '#374151'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: button
+        properties:
+          text: "Get the App"
+          appearance:
+            background:
+              color: '#ff6b35'
+              transparency: 100
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            padding:
+              block: xs
+              inline: md
+          typography:
+            color: '#ffffff'
+            weight: semibold
+            size: sm
+          spacing:
+            marginBlock: none
+
+  # Hero Section
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+        wrap: wrap
+      spacing:
+        paddingBlock: xl
+        paddingInline: xl
+      background:
+        color: '#fff8f0'
+        transparency: 100
+    components:
+    # Left Content
+    - name: layout-column
+      properties:
+        layout:
+          align: start
+          horizontalAlign: space-evenly
+        appearance:
+          widthMode: 50
+      components:
+      # Promo Badge
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+          appearance:
+            background:
+              color: '#fef3c7'
+              transparency: 100
+            radius: pill
+            padding:
+              block: xs
+              inline: md
+        components:
+        - name: paragraph
+          properties:
+            text: "🎉"
+            typography:
+              size: sm
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "FREE delivery on your first order!"
+            typography:
+              color: '#92400e'
+              size: sm
+              weight: semibold
+            spacing:
+              marginBlock: none
+
+      # Main Headline
+      - name: heading
+        properties:
+          text: "Craving"
+          level: 1
+          typography:
+            color: '#1f2937'
+            size: xxxl
+            weight: bold
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+
+      - name: heading
+        properties:
+          text: "something"
+          level: 1
+          typography:
+            color: '#1f2937'
+            size: xxxl
+            weight: bold
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+
+      - name: heading
+        properties:
+          text: "delicious?"
+          level: 1
+          typography:
+            color: '#ff6b35'
+            size: xxxl
+            weight: bold
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+
+      # Description
+      - name: paragraph
+        properties:
+          text: |
+            From sizzling burgers to authentic sushi, get your favorite food
+            delivered hot and fresh in under 30 minutes. 5,000+ restaurants at your fingertips.
+          typography:
+            color: '#6b7280'
+            size: lg
+            lineHeight: '1.6'
+          spacing:
+            marginBlock: md
+
+      # Search/Location Input
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+          spacing:
+            marginBlock: md
+          appearance:
+            background:
+              color: '#ffffff'
+              transparency: 100
+            radius: lg
+            border:
+              width: 2
+              style: solid
+              color: '#f3f4f6'
+            padding:
+              block: sm
+              inline: sm
+            shadow: '0 4px 12px rgba(0,0,0,0.08)'
+        components:
+        - name: textbox
+          properties:
+            label:
+              show: false
+            field:
+              placeholder: "📍 Enter your delivery address"
+            appearance:
+              background:
+                color: transparent
+                transparency: 0
+              border:
+                width: 0
+                style: solid
+                color: transparent
+            layout:
+              widthMode: fit
+        - name: button
+          properties:
+            text: "Find Food"
+            appearance:
+              background:
+                color: '#ff6b35'
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              padding:
+                block: sm
+                inline: lg
+            typography:
+              color: '#ffffff'
+              weight: semibold
+              size: md
+            spacing:
+              marginBlock: none
+
+      # Quick Stats
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+          spacing:
+            marginBlock: lg
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+          components:
+          - name: heading
+            properties:
+              text: "5,000+"
+              level: 3
+              typography:
+                color: '#ff6b35'
+                size: xl
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Restaurants"
+              typography:
+                color: '#9ca3af'
+                size: sm
+              spacing:
+                marginBlock: none
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+          components:
+          - name: heading
+            properties:
+              text: "25 min"
+              level: 3
+              typography:
+                color: '#ff6b35'
+                size: xl
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Avg delivery"
+              typography:
+                color: '#9ca3af'
+                size: sm
+              spacing:
+                marginBlock: none
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+          components:
+          - name: heading
+            properties:
+              text: "4.8★"
+              level: 3
+              typography:
+                color: '#ff6b35'
+                size: xl
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "App rating"
+              typography:
+                color: '#9ca3af'
+                size: sm
+              spacing:
+                marginBlock: none
+
+    # Right - Food Images Grid
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        appearance:
+          widthMode: 45
+      components:
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=600
+              altText: Delicious burger
+            appearance:
+              minHeight: 12.5
+              fit: cover
+              cornerStyle: lg
+            spacing:
+              marginBlock: none
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600
+              altText: Fresh sushi platter
+            appearance:
+              minHeight: 12.5
+              fit: cover
+              cornerStyle: lg
+            spacing:
+              marginBlock: none
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=600
+              altText: Pizza slice
+            appearance:
+              minHeight: 12.5
+              fit: cover
+              cornerStyle: lg
+            spacing:
+              marginBlock: none
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600
+              altText: Healthy salad bowl
+            appearance:
+              minHeight: 12.5
+              fit: cover
+              cornerStyle: lg
+            spacing:
+              marginBlock: none
+
+  # Cuisine Categories
+  - name: layout-column
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      background:
+        color: '#ffffff'
+        transparency: 100
+    components:
+    - name: paragraph
+      properties:
+        text: "POPULAR CUISINES"
+        typography:
+          color: '#9ca3af'
+          size: xs
+          weight: semibold
+          letterSpacing: wider
+          align: center
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+          wrap: wrap
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "🍕"
+            typography:
+              size: xxl
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Pizza"
+            typography:
+              color: '#374151'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "🍔"
+            typography:
+              size: xxl
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Burgers"
+            typography:
+              color: '#374151'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "🍣"
+            typography:
+              size: xxl
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Sushi"
+            typography:
+              color: '#374151'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "🌮"
+            typography:
+              size: xxl
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Mexican"
+            typography:
+              color: '#374151'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "🍜"
+            typography:
+              size: xxl
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Asian"
+            typography:
+              color: '#374151'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "🥗"
+            typography:
+              size: xxl
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Healthy"
+            typography:
+              color: '#374151'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none

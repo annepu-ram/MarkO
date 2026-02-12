@@ -1,0 +1,303 @@
+# Gradient Glassmorphism Hero
+# A vibrant, modern hero with gradient backgrounds and frosted glass effects
+# Perfect for: Fintech, web3, modern apps, creative portfolios
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#0f0f23'
+        transparency: 100
+  components:
+  # Gradient Background Hero
+  - name: layout-column
+    properties:
+      layout:
+        align: center
+        horizontalAlign: none
+      spacing:
+        paddingBlock: none
+        paddingInline: none
+      background:
+        color: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)
+        transparency: 100
+    components:
+    # Hero Content Container
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: lg
+      components:
+      # Floating Badge with Glass Effect
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+          appearance:
+            background:
+              color: rgba(255,255,255,0.15)
+              transparency: 100
+            radius: pill
+            border:
+              width: 1
+              style: solid
+              color: rgba(255,255,255,0.25)
+            padding:
+              block: xs
+              inline: md
+        components:
+        - name: paragraph
+          properties:
+            text: "Powered by AI"
+            typography:
+              color: '#ffffff'
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: none
+
+      # Main Headline
+      - name: heading
+        properties:
+          text: "Your finances, reimagined"
+          level: 1
+          typography:
+            color: '#ffffff'
+            size: xxxl
+            weight: bold
+            align: center
+            lineHeight: '1.1'
+          spacing:
+            marginBlock: none
+        layout:
+          widthMode: 75
+
+      # Subheadline
+      - name: paragraph
+        properties:
+          text: |
+            Experience the next generation of personal finance. Smart insights,
+            seamless transactions, and complete control — all in one beautiful app.
+          typography:
+            color: rgba(255,255,255,0.85)
+            size: lg
+            align: center
+            lineHeight: '1.6'
+          spacing:
+            marginBlock: md
+          layout:
+            widthMode: 50
+
+      # Glass Card - Feature Highlight
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+          spacing:
+            marginBlock: lg
+        components:
+        # Glass Card 1
+        - name: layout-column
+          properties:
+            layout:
+              align: center
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+            appearance:
+              background:
+                color: rgba(255,255,255,0.1)
+                transparency: 100
+              radius: lg
+              border:
+                width: 1
+                style: solid
+                color: rgba(255,255,255,0.2)
+          components:
+          - name: paragraph
+            properties:
+              text: "128-bit"
+              typography:
+                color: '#ffffff'
+                size: xl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Encryption"
+              typography:
+                color: rgba(255,255,255,0.7)
+                size: sm
+                align: center
+              spacing:
+                marginBlock: none
+        # Glass Card 2
+        - name: layout-column
+          properties:
+            layout:
+              align: center
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+            appearance:
+              background:
+                color: rgba(255,255,255,0.1)
+                transparency: 100
+              radius: lg
+              border:
+                width: 1
+                style: solid
+                color: rgba(255,255,255,0.2)
+          components:
+          - name: paragraph
+            properties:
+              text: "0%"
+              typography:
+                color: '#ffffff'
+                size: xl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Hidden Fees"
+              typography:
+                color: rgba(255,255,255,0.7)
+                size: sm
+                align: center
+              spacing:
+                marginBlock: none
+        # Glass Card 3
+        - name: layout-column
+          properties:
+            layout:
+              align: center
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+            appearance:
+              background:
+                color: rgba(255,255,255,0.1)
+                transparency: 100
+              radius: lg
+              border:
+                width: 1
+                style: solid
+                color: rgba(255,255,255,0.2)
+          components:
+          - name: paragraph
+            properties:
+              text: "24/7"
+              typography:
+                color: '#ffffff'
+                size: xl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Support"
+              typography:
+                color: rgba(255,255,255,0.7)
+                size: sm
+                align: center
+              spacing:
+                marginBlock: none
+
+      # CTA Buttons
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+            wrap: wrap
+          spacing:
+            marginBlock: lg
+        components:
+        - name: button
+          properties:
+            text: "Download App"
+            appearance:
+              background:
+                color: '#ffffff'
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              padding:
+                block: md
+                inline: xl
+            typography:
+              color: '#7c3aed'
+              weight: bold
+              size: md
+            spacing:
+              marginBlock: none
+        - name: button
+          properties:
+            text: "Watch Demo"
+            appearance:
+              background:
+                color: rgba(255,255,255,0.15)
+                transparency: 100
+              border:
+                width: 1
+                style: solid
+                color: rgba(255,255,255,0.3)
+              padding:
+                block: md
+                inline: xl
+            typography:
+              color: '#ffffff'
+              weight: semibold
+              size: md
+            spacing:
+              marginBlock: none
+
+      # App Store Badges
+      - name: layout-row
+        properties:
+          layout:
+            align: center
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: md
+        components:
+        - name: paragraph
+          properties:
+            text: "Available on iOS and Android"
+            typography:
+              color: rgba(255,255,255,0.6)
+              size: sm
+            spacing:
+              marginBlock: none
+
+      # Phone Mockup
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/6289028/pexels-photo-6289028.jpeg?auto=compress&cs=tinysrgb&w=800
+            altText: Finance app on smartphone
+          appearance:
+            minHeight: 28.125
+            fit: contain
+            cornerStyle: xl
+          layout:
+            widthMode: fit
+          spacing:
+            marginBlock: lg

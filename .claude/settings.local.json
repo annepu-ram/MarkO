@@ -9,7 +9,14 @@
       "Bash(python:*)",
       "Bash(node --check:*)",
       "Bash(tasklist:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(dir:*)",
+      "WebFetch(domain:mark.ie)",
+      "WebFetch(domain:wiryawanadipa.com)",
+      "Bash(git stash:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:pixabay.com)"
     ],
     "deny": [],
     "ask": []

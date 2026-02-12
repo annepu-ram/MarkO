@@ -1,0 +1,2096 @@
+# Media Components Test Template
+# Tests all 5 media components: image, gif, video, video-background, br
+# Verifies the new unified 'appearance' property structure
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#f8fafc'
+  components:
+    # ========================================
+    # TITLEBAR
+    # ========================================
+    - name: titlebar
+      properties:
+        branding:
+          showLogo: false
+          title: Media Components Test
+        navigation:
+          links:
+            - label: Images
+              href: '#images'
+            - label: GIFs
+              href: '#gifs'
+            - label: Video
+              href: '#video'
+            - label: Video BG
+              href: '#video-bg'
+        appearance:
+          background:
+            color: '#1e293b'
+          border:
+            width: 0
+        typography:
+          title:
+            color: '#ffffff'
+          menu:
+            color: '#e2e8f0'
+
+    # ========================================
+    # SECTION 1: IMAGE COMPONENTS
+    # ========================================
+    - name: layout-column
+      properties:
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#ffffff'
+      components:
+        - name: heading
+          properties:
+            text: Image Component Tests
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              align: center
+              color: '#1e293b'
+
+        - name: paragraph
+          properties:
+            text: Testing aspect ratios, filters, shadows, hover effects, and overlays
+            typography:
+              align: center
+              color: '#64748b'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Row 1: Aspect Ratios
+        - name: heading
+          properties:
+            text: Aspect Ratios
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400
+                  altText: Mountain landscape - 16:9
+                appearance:
+                  fit: cover
+                  minHeight: 9.375
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400
+                  altText: Nature - 4:3
+                appearance:
+                  fit: cover
+                  minHeight: 9.375
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518173946687-a4c036bc4359?w=400
+                  altText: Abstract - 1:1
+                appearance:
+                  fit: cover
+                  minHeight: 9.375
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400
+                  altText: Portrait - 9:16
+                appearance:
+                  fit: cover
+                  minHeight: 12.5
+                layout:
+                  widthMode: '25'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Row 2: Filters
+        - name: heading
+          properties:
+            text: Image Filters
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300
+                  altText: No filter
+                appearance:
+                  filter: none
+                  minHeight: 7.5
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300
+                  altText: Grayscale filter
+                appearance:
+                  filter: grayscale
+                  minHeight: 7.5
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300
+                  altText: Sepia filter
+                appearance:
+                  filter: sepia
+                  minHeight: 7.5
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300
+                  altText: Blur filter
+                appearance:
+                  filter: blur
+                  minHeight: 7.5
+                layout:
+                  widthMode: '25'
+
+        - name: br
+          properties:
+            size: md
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300
+                  altText: Brighten filter
+                appearance:
+                  filter: brighten
+                  minHeight: 7.5
+                layout:
+                  widthMode: '50'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300
+                  altText: Saturate filter
+                appearance:
+                  filter: saturate
+                  minHeight: 7.5
+                layout:
+                  widthMode: '50'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Row 3: Shadows
+        - name: heading
+          properties:
+            text: Box Shadows
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300
+                  altText: No shadow
+                appearance:
+                  shadow: none
+                  cornerStyle: md
+                  minHeight: 7.5
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300
+                  altText: Small shadow
+                appearance:
+                  shadow: sm
+                  cornerStyle: md
+                  minHeight: 7.5
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300
+                  altText: Medium shadow
+                appearance:
+                  shadow: md
+                  cornerStyle: md
+                  minHeight: 7.5
+                layout:
+                  widthMode: '25'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300
+                  altText: Large shadow
+                appearance:
+                  shadow: lg
+                  cornerStyle: md
+                  minHeight: 7.5
+                layout:
+                  widthMode: '25'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Row 4: Hover Effects
+        - name: heading
+          properties:
+            text: Hover Effects (hover over images)
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300
+                  altText: Zoom hover effect
+                appearance:
+                  hoverEffect: zoom
+                  cornerStyle: md
+                  minHeight: 7.5
+                layout:
+                  widthMode: '50'
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300
+                  altText: Lift hover effect
+                appearance:
+                  hoverEffect: lift
+                  cornerStyle: md
+                  shadow: md
+                  minHeight: 7.5
+                layout:
+                  widthMode: '50'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Row 5: Image with Overlay and Nested Content
+        - name: heading
+          properties:
+            text: Image with Overlay & Nested Content
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: image
+          properties:
+            source:
+              url: https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200
+              altText: Mountain with overlay
+            appearance:
+              fit: cover
+              minHeight: 18.75
+              overlay:
+                enabled: true
+                color: 'rgba(0,0,0,0.5)'
+                opacity: 50
+            layout:
+              widthMode: stretch
+          components:
+            - name: heading
+              properties:
+                text: Explore the Mountains
+                typography:
+                  color: '#ffffff'
+                  size: xxl
+                  weight: bold
+                  align: center
+            - name: paragraph
+              properties:
+                text: Discover breathtaking landscapes and unforgettable adventures
+                typography:
+                  color: '#e2e8f0'
+                  align: center
+            - name: button
+              properties:
+                text: Learn More
+                appearance:
+                  background:
+                    color: '#3b82f6'
+                  border:
+                    width: 0
+                  radius: md
+                typography:
+                  color: '#ffffff'
+
+        - name: br
+          properties:
+            size: xl
+
+        # Row 6: Multiple Images with Various Nested Components
+        - name: heading
+          properties:
+            text: Images with Various Nested Components
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: paragraph
+          properties:
+            text: Testing different component combinations nested inside images
+            typography:
+              color: '#64748b'
+
+        - name: br
+          properties:
+            size: md
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            # Image with eyebrow + heading + paragraph
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=600
+                  altText: Aurora borealis
+                appearance:
+                  fit: cover
+                  minHeight: 17.5
+                  cornerStyle: lg
+                  overlay:
+                    enabled: true
+                    color: 'rgba(0,0,0,0.6)'
+                    opacity: 60
+                layout:
+                  widthMode: '50'
+              components:
+                - name: eyebrow
+                  properties:
+                    text: FEATURED DESTINATION
+                    typography:
+                      size: xs
+                      weight: semibold
+                      transform: uppercase
+                      letterSpacing: wide
+                      color: '#94a3b8'
+                      align: left
+                - name: heading
+                  properties:
+                    text: Northern Lights
+                    level: 3
+                    typography:
+                      size: xl
+                      weight: bold
+                      color: '#ffffff'
+                      align: left
+                - name: paragraph
+                  properties:
+                    text: Experience the magical aurora borealis in Iceland's pristine wilderness.
+                    typography:
+                      size: sm
+                      color: '#cbd5e1'
+                      align: left
+
+            # Image with heading + multiple buttons
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600
+                  altText: Tropical beach
+                appearance:
+                  fit: cover
+                  minHeight: 17.5
+                  cornerStyle: lg
+                  overlay:
+                    enabled: true
+                    color: 'rgba(15, 23, 42, 0.7)'
+                    opacity: 70
+                layout:
+                  widthMode: '50'
+              components:
+                - name: heading
+                  properties:
+                    text: Paradise Awaits
+                    level: 3
+                    typography:
+                      size: xl
+                      weight: bold
+                      color: '#ffffff'
+                      align: center
+                - name: paragraph
+                  properties:
+                    text: Escape to crystal clear waters and white sandy beaches.
+                    typography:
+                      size: sm
+                      color: '#e2e8f0'
+                      align: center
+                - name: br
+                  properties:
+                    size: sm
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: space-evenly
+                      horizontalAlign: center
+                  components:
+                    - name: button
+                      properties:
+                        text: Book Now
+                        appearance:
+                          background:
+                            color: '#10b981'
+                          border:
+                            width: 0
+                          radius: md
+                        typography:
+                          color: '#ffffff'
+                          size: sm
+                    - name: button
+                      properties:
+                        text: View Gallery
+                        appearance:
+                          background:
+                            color: transparent
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          radius: md
+                        typography:
+                          color: '#ffffff'
+                          size: sm
+
+        - name: br
+          properties:
+            size: lg
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            # Image with link components
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?w=600
+                  altText: Desert landscape
+                appearance:
+                  fit: cover
+                  minHeight: 12.5
+                  cornerStyle: md
+                  hoverEffect: zoom
+                  overlay:
+                    enabled: true
+                    color: 'rgba(0,0,0,0.5)'
+                    opacity: 50
+                layout:
+                  widthMode: '50'
+              components:
+                - name: heading
+                  properties:
+                    text: Desert Adventure
+                    level: 4
+                    typography:
+                      size: lg
+                      weight: semibold
+                      color: '#ffffff'
+                      align: center
+                - name: link
+                  properties:
+                    text: Explore Tours →
+                    href: '#tours'
+                    typography:
+                      color: '#fbbf24'
+                      size: sm
+                      align: center
+                    appearance:
+                      underline: false
+
+            # Image with blockquote
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600
+                  altText: Misty mountains
+                appearance:
+                  fit: cover
+                  minHeight: 12.5
+                  cornerStyle: md
+                  filter: darken
+                  overlay:
+                    enabled: true
+                    color: 'rgba(30, 41, 59, 0.8)'
+                    opacity: 80
+                layout:
+                  widthMode: '50'
+              components:
+                - name: blockquote
+                  properties:
+                    quote: The mountains are calling and I must go.
+                    cite: John Muir
+                    typography:
+                      size: md
+                      weight: medium
+                      color: '#ffffff'
+                      align: center
+                    appearance:
+                      border:
+                        accentColor: '#60a5fa'
+                      background:
+                        transparency: 0
+
+        - name: br
+          properties:
+            size: lg
+
+        # Full-width image with complex nested layout
+        - name: heading
+          properties:
+            text: Full-Width Image with Complex Layout
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: image
+          properties:
+            source:
+              url: https://images.unsplash.com/photo-1542401886-65d6c61db217?w=1600
+              altText: City skyline at night
+            appearance:
+              fit: cover
+              minHeight: 21.875
+              overlay:
+                enabled: true
+                color: 'linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.3))'
+                opacity: 100
+            layout:
+              widthMode: stretch
+          components:
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-evenly
+                  horizontalAlign: left
+                  verticalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                    spacing:
+                      paddingInline: lg
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: URBAN EXPLORATION
+                        typography:
+                          size: xs
+                          weight: semibold
+                          transform: uppercase
+                          letterSpacing: wide
+                          color: '#60a5fa'
+                          align: left
+                    - name: heading
+                      properties:
+                        text: |
+                          Discover the City
+                          After Dark
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: bold
+                          color: '#ffffff'
+                          align: left
+                          lineHeight: 1.2
+                    - name: paragraph
+                      properties:
+                        text: Experience the vibrant nightlife, stunning skylines, and hidden gems that
+                          only come alive after sunset.
+                        typography:
+                          size: md
+                          color: '#cbd5e1'
+                          align: left
+                    - name: br
+                      properties:
+                        size: md
+                    - name: layout-row
+                      properties:
+                        layout:
+                          horizontalAlign: space-evenly
+                      components:
+                        - name: button
+                          properties:
+                            text: Start Exploring
+                            appearance:
+                              background:
+                                color: '#3b82f6'
+                              border:
+                                width: 0
+                              radius: md
+                            typography:
+                              color: '#ffffff'
+                              weight: semibold
+                        - name: button
+                          properties:
+                            text: Watch Video
+                            appearance:
+                              background:
+                                color: transparent
+                              border:
+                                width: 2
+                                style: solid
+                                color: '#60a5fa'
+                              radius: md
+                            typography:
+                              color: '#60a5fa'
+                              weight: semibold
+
+    # ========================================
+    # SECTION 2: GIF COMPONENTS
+    # ========================================
+    - name: layout-column
+      properties:
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#f1f5f9'
+      components:
+        - name: heading
+          properties:
+            text: GIF Component Tests
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              align: center
+              color: '#1e293b'
+
+        - name: paragraph
+          properties:
+            text: Testing animated GIFs with filters, shadows, and overlays
+            typography:
+              align: center
+              color: '#64748b'
+
+        - name: br
+          properties:
+            size: lg
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+              horizontalAlign: center
+          components:
+            - name: gif
+              properties:
+                source:
+                  url: https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif
+                  altText: Animated loading
+                appearance:
+                  fit: cover
+                  cornerStyle: lg
+                  shadow: md
+                layout:
+                  widthMode: '25'
+
+            - name: gif
+              properties:
+                source:
+                  url: https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif
+                  altText: Grayscale GIF
+                appearance:
+                  fit: cover
+                  cornerStyle: lg
+                  filter: grayscale
+                  shadow: md
+                layout:
+                  widthMode: '25'
+
+            - name: gif
+              properties:
+                source:
+                  url: https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif
+                  altText: Sepia GIF
+                appearance:
+                  fit: cover
+                  cornerStyle: lg
+                  filter: sepia
+                  shadow: md
+                layout:
+                  widthMode: '25'
+
+    # ========================================
+    # SECTION 3: VIDEO COMPONENT
+    # ========================================
+    - name: layout-column
+      properties:
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#ffffff'
+      components:
+        - name: heading
+          properties:
+            text: Video Component Test
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              align: center
+              color: '#1e293b'
+
+        - name: paragraph
+          properties:
+            text: Testing YouTube embed with different aspect ratios
+            typography:
+              align: center
+              color: '#64748b'
+
+        - name: br
+          properties:
+            size: lg
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: video
+              properties:
+                source:
+                  url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                appearance:
+                  aspectRatio: '16/9'
+                  height: 300
+                playback:
+                  controls: true
+                  autoplay: false
+                  muted: true
+                spacing:
+                  marginBlock: md
+                layout:
+                  widthMode: '50'
+
+            - name: video
+              properties:
+                source:
+                  url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                appearance:
+                  aspectRatio: '4/3'
+                  height: 300
+                playback:
+                  controls: true
+                  autoplay: false
+                  muted: true
+                spacing:
+                  marginBlock: md
+                layout:
+                  widthMode: '50'
+
+    # ========================================
+    # SECTION 4: VIDEO BACKGROUND COMPONENT
+    # ========================================
+    - name: video-background
+      properties:
+        source:
+          url: https://www.w3schools.com/html/mov_bbb.mp4
+          poster: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1920
+        appearance:
+          aspectRatio: '16/9'
+          minHeight: 31.25
+          objectFit: cover
+          objectPosition: center
+          overlay:
+            enabled: true
+            color: 'rgba(15, 23, 42, 0.7)'
+            opacity: 70
+        playback:
+          autoplay: true
+          loop: true
+          muted: true
+        content:
+          verticalAlign: center
+          horizontalAlign: center
+          padding: xl
+      components:
+        - name: eyebrow
+          properties:
+            text: VIDEO BACKGROUND COMPONENT
+            typography:
+              size: xs
+              weight: semibold
+              transform: uppercase
+              letterSpacing: wide
+              color: '#94a3b8'
+              align: center
+
+        - name: heading
+          properties:
+            text: |
+              Immersive Video Backgrounds
+              For Stunning Hero Sections
+            level: 1
+            typography:
+              size: xxxl
+              weight: bold
+              color: '#ffffff'
+              align: center
+              lineHeight: 1.2
+
+        - name: paragraph
+          properties:
+            text: Create engaging hero sections with auto-playing, looping video
+              backgrounds. Perfect for landing pages, product showcases, and
+              brand storytelling.
+            typography:
+              size: lg
+              color: '#cbd5e1'
+              align: center
+
+        - name: br
+          properties:
+            size: md
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              horizontalAlign: center
+          components:
+            - name: button
+              properties:
+                text: Get Started
+                appearance:
+                  background:
+                    color: '#3b82f6'
+                  border:
+                    width: 0
+                  radius: md
+                typography:
+                  color: '#ffffff'
+                  weight: semibold
+
+            - name: button
+              properties:
+                text: Learn More
+                appearance:
+                  background:
+                    color: transparent
+                  border:
+                    width: 2
+                    style: solid
+                    color: '#ffffff'
+                  radius: md
+                typography:
+                  color: '#ffffff'
+                  weight: semibold
+
+    # ========================================
+    # SECTION 5: CORNER STYLES
+    # ========================================
+    - name: layout-column
+      properties:
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#f8fafc'
+      components:
+        - name: heading
+          properties:
+            text: Corner Styles (Border Radius)
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              align: center
+              color: '#1e293b'
+
+        - name: br
+          properties:
+            size: lg
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+              horizontalAlign: center
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200
+                  altText: No radius
+                appearance:
+                  cornerStyle: none
+                  minHeight: 6.25
+                layout:
+                  widthMode: fit
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200
+                  altText: Small radius
+                appearance:
+                  cornerStyle: sm
+                  minHeight: 6.25
+                layout:
+                  widthMode: fit
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200
+                  altText: Medium radius
+                appearance:
+                  cornerStyle: md
+                  minHeight: 6.25
+                layout:
+                  widthMode: fit
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200
+                  altText: Large radius
+                appearance:
+                  cornerStyle: lg
+                  minHeight: 6.25
+                layout:
+                  widthMode: fit
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200
+                  altText: XL radius
+                appearance:
+                  cornerStyle: xl
+                  minHeight: 6.25
+                layout:
+                  widthMode: fit
+
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200
+                  altText: Pill radius
+                appearance:
+                  cornerStyle: pill
+                  minHeight: 6.25
+                layout:
+                  widthMode: fit
+
+    # ========================================
+    # SECTION 6: WIDTH MODE TESTS
+    # ========================================
+    - name: layout-column
+      properties:
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#f1f5f9'
+      components:
+        - name: heading
+          properties:
+            text: Width Mode Tests
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              align: center
+              color: '#1e293b'
+
+        - name: paragraph
+          properties:
+            text: Testing width modes with gap-aware calculations
+            typography:
+              align: center
+              color: '#64748b'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 1: Two 50% images in a row (should fit side by side)
+        - name: heading
+          properties:
+            text: "Row: Two 50% Images (should be side by side)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400
+                  altText: 50% width image 1
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: '50'
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400
+                  altText: 50% width image 2
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: '50'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 2: Two stretch (100%) images in a row (should wrap to separate lines)
+        - name: heading
+          properties:
+            text: "Row: Two 100% Images (should wrap to separate lines)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800
+                  altText: 100% width image 1
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: stretch
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800
+                  altText: 100% width image 2
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: stretch
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 3: Column context - stretch images should stack
+        - name: heading
+          properties:
+            text: "Column: Two 100% Images (should stack vertically)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: image
+          properties:
+            source:
+              url: https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800
+              altText: Column 100% width image 1
+            appearance:
+              minHeight: 9.375
+              cornerStyle: md
+            layout:
+              widthMode: stretch
+
+        - name: image
+          properties:
+            source:
+              url: https://images.unsplash.com/photo-1542401886-65d6c61db217?w=800
+              altText: Column 100% width image 2
+            appearance:
+              minHeight: 9.375
+              cornerStyle: md
+            layout:
+              widthMode: stretch
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 4: Four 25% images in a row (desktop only)
+        - name: heading
+          properties:
+            text: "Row: Four 25% Images (should fit in one row on desktop)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=200
+                  altText: 25% width image 1
+                appearance:
+                  minHeight: 7.5
+                  cornerStyle: md
+                layout:
+                  widthMode: '25'
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=200
+                  altText: 25% width image 2
+                appearance:
+                  minHeight: 7.5
+                  cornerStyle: md
+                layout:
+                  widthMode: '25'
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=200
+                  altText: 25% width image 3
+                appearance:
+                  minHeight: 7.5
+                  cornerStyle: md
+                layout:
+                  widthMode: '25'
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200
+                  altText: 25% width image 4
+                appearance:
+                  minHeight: 7.5
+                  cornerStyle: md
+                layout:
+                  widthMode: '25'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 5: Mixed width modes in a row
+        - name: heading
+          properties:
+            text: "Row: Mixed Widths (25% + 75%)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?w=200
+                  altText: 25% width image
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: '25'
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=600
+                  altText: 75% width image
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: '75'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 6: Horizontal Scroll (nowrap row)
+        - name: heading
+          properties:
+            text: "Row: Horizontal Scroll (nowrap - scroll to see more)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: paragraph
+          properties:
+            text: "This row has wrap: nowrap, so items overflow and become horizontally
+              scrollable"
+            typography:
+              size: sm
+              color: '#64748b'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: nowrap
+          components:
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300
+                  altText: Scroll image 1
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: fit
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300
+                  altText: Scroll image 2
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: fit
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300
+                  altText: Scroll image 3
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: fit
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=300
+                  altText: Scroll image 4
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: fit
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1519681393784-d120267933ba?w=300
+                  altText: Scroll image 5
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: fit
+            - name: image
+              properties:
+                source:
+                  url: https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300
+                  altText: Scroll image 6
+                appearance:
+                  minHeight: 9.375
+                  cornerStyle: md
+                layout:
+                  widthMode: fit
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 7: Horizontal Scroll with Buttons
+        - name: heading
+          properties:
+            text: "Row: Horizontal Scroll with Buttons (nowrap) ← scroll right →"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: nowrap
+          components:
+            - name: button
+              properties:
+                text: All Categories
+                appearance:
+                  background:
+                    color: '#3b82f6'
+                  border:
+                    width: 0
+                  radius: pill
+                typography:
+                  color: '#ffffff'
+                  size: sm
+            - name: button
+              properties:
+                text: Electronics
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Clothing & Fashion
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Home & Garden
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Sports & Outdoors
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Books & Media
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Toys & Games
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Health & Beauty
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Automotive & Tools
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Pet Supplies
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Food & Beverages
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+            - name: button
+              properties:
+                text: Office Supplies
+                appearance:
+                  background:
+                    color: '#f1f5f9'
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                  radius: pill
+                typography:
+                  color: '#334155'
+                  size: sm
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 8: Horizontal Scroll with Cards (using widthMode)
+        - name: heading
+          properties:
+            text: "Row: Horizontal Scroll with Cards (nowrap, 25% widthMode)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: nowrap
+              tag: section
+              horizontalAlign: stretch
+              verticalAlign: stretch
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+              marginBlock: none
+              marginInline: none
+            appearance:
+              background:
+                type: ""
+                color: "#ffffff"
+                transparency: 0
+              border:
+                width: 0
+                style: solid
+                color: "#000000"
+              radius: none
+              shadow: none
+          components:
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: xs
+                  paddingInline: xs
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    type: ""
+                    transparency: 0
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                    radius: lg
+                    style: solid
+                  radius: none
+                  shadow: none
+                layout:
+                  tag: section
+                  horizontalAlign: center
+                  wrap: nowrap
+                  horizontalAlign: space-evenly
+                  widthMode: '25'
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=250
+                      altText: Card image 1
+                    appearance:
+                      minHeight: 7.5
+                      cornerStyle: md
+                    layout:
+                      widthMode: stretch
+                - name: heading
+                  properties:
+                    text: Mountain Trek
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#1e293b'
+                - name: paragraph
+                  properties:
+                    text: $299 per person
+                    typography:
+                      size: sm
+                      color: '#64748b'
+
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: xs
+                  paddingInline: xs
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    type: ""
+                    transparency: 0
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                    radius: lg
+                    style: solid
+                  radius: none
+                  shadow: none
+                layout:
+                  tag: section
+                  horizontalAlign: center
+                  wrap: nowrap
+                  horizontalAlign: space-evenly
+                  widthMode: '25'
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=250
+                      altText: Card image 2
+                    appearance:
+                      minHeight: 7.5
+                      cornerStyle: md
+                    layout:
+                      widthMode: stretch
+                - name: heading
+                  properties:
+                    text: Beach Paradise
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#1e293b'
+                - name: paragraph
+                  properties:
+                    text: $449 per person
+                    typography:
+                      size: sm
+                      color: '#64748b'
+
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: xs
+                  paddingInline: xs
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    type: ""
+                    transparency: 0
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                    radius: lg
+                    style: solid
+                  radius: none
+                  shadow: none
+                layout:
+                  tag: section
+                  horizontalAlign: center
+                  wrap: nowrap
+                  horizontalAlign: space-evenly
+                  widthMode: '25'
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?w=250
+                      altText: Card image 3
+                    appearance:
+                      minHeight: 7.5
+                      cornerStyle: md
+                    layout:
+                      widthMode: stretch
+                - name: heading
+                  properties:
+                    text: Northern Lights
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#1e293b'
+                - name: paragraph
+                  properties:
+                    text: $599 per person
+                    typography:
+                      size: sm
+                      color: '#64748b'
+
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: xs
+                  paddingInline: xs
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    type: ""
+                    transparency: 0
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                    radius: lg
+                    style: solid
+                  radius: none
+                  shadow: none
+                layout:
+                  tag: section
+                  horizontalAlign: center
+                  wrap: nowrap
+                  horizontalAlign: space-evenly
+                  widthMode: '25'
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?w=250
+                      altText: Card image 4
+                    appearance:
+                      minHeight: 7.5
+                      cornerStyle: md
+                    layout:
+                      widthMode: stretch
+                - name: heading
+                  properties:
+                    text: Desert Safari
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#1e293b'
+                - name: paragraph
+                  properties:
+                    text: $349 per person
+                    typography:
+                      size: sm
+                      color: '#64748b'
+
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: xs
+                  paddingInline: none
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    type: ""
+                    transparency: 0
+                  border:
+                    width: 1
+                    color: '#e2e8f0'
+                    radius: lg
+                    style: solid
+                  radius: none
+                  shadow: none
+                layout:
+                  tag: section
+                  horizontalAlign: center
+                  wrap: nowrap
+                  horizontalAlign: space-evenly
+                  widthMode: '25'
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=250
+                      altText: Card image 5
+                    appearance:
+                      minHeight: 7.5
+                      cornerStyle: md
+                    layout:
+                      widthMode: stretch
+                - name: heading
+                  properties:
+                    text: Forest Retreat
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#1e293b'
+                - name: paragraph
+                  properties:
+                    text: $199 per person
+                    typography:
+                      size: sm
+                      color: '#64748b'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 9: 25%/75% Column Split
+        - name: heading
+          properties:
+            text: "Row: 25%/75% Column Split (sidebar + main content)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: md
+                  paddingInline: md
+                appearance:
+                  background:
+                    color: '#e0f2fe'
+                  border:
+                    width: 1
+                    color: '#7dd3fc'
+                    radius: md
+                layout:
+                  horizontalAlign: center
+                  widthMode: '25'
+              components:
+                - name: heading
+                  properties:
+                    text: Sidebar
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#0369a1'
+                - name: paragraph
+                  properties:
+                    text: 25% width column using widthMode
+                    typography:
+                      size: sm
+                      color: '#0284c7'
+
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: md
+                  paddingInline: md
+                appearance:
+                  background:
+                    color: '#fef3c7'
+                  border:
+                    width: 1
+                    color: '#fcd34d'
+                    radius: md
+                layout:
+                  horizontalAlign: center
+                  widthMode: '75'
+              components:
+                - name: heading
+                  properties:
+                    text: Main Content
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#b45309'
+                - name: paragraph
+                  properties:
+                    text: 75% width column using widthMode. Together with the 25% sidebar, they add up to 100% and fit perfectly side-by-side with gap-aware calculations.
+                    typography:
+                      size: sm
+                      color: '#d97706'
+
+        - name: br
+          properties:
+            size: lg
+
+        # Test 10: 33%/33%/33% Three Column Layout
+        - name: heading
+          properties:
+            text: "Row: Three Equal Columns (33% each)"
+            level: 3
+            typography:
+              size: lg
+              weight: semibold
+              color: '#334155'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+          components:
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: md
+                  paddingInline: md
+                appearance:
+                  background:
+                    color: '#dcfce7'
+                  border:
+                    width: 1
+                    color: '#86efac'
+                    radius: md
+                layout:
+                  horizontalAlign: center
+                  widthMode: '33'
+              components:
+                - name: heading
+                  properties:
+                    text: Column 1
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#166534'
+                - name: paragraph
+                  properties:
+                    text: First third
+                    typography:
+                      size: sm
+                      color: '#16a34a'
+
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: md
+                  paddingInline: md
+                appearance:
+                  background:
+                    color: '#fce7f3'
+                  border:
+                    width: 1
+                    color: '#f9a8d4'
+                    radius: md
+                layout:
+                  horizontalAlign: center
+                  widthMode: '33'
+              components:
+                - name: heading
+                  properties:
+                    text: Column 2
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#9d174d'
+                - name: paragraph
+                  properties:
+                    text: Second third
+                    typography:
+                      size: sm
+                      color: '#db2777'
+
+            - name: layout-column
+              properties:
+                spacing:
+                  paddingBlock: md
+                  paddingInline: md
+                appearance:
+                  background:
+                    color: '#e0e7ff'
+                  border:
+                    width: 1
+                    color: '#a5b4fc'
+                    radius: md
+                layout:
+                  horizontalAlign: center
+                  widthMode: '33'
+              components:
+                - name: heading
+                  properties:
+                    text: Column 3
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#3730a3'
+                - name: paragraph
+                  properties:
+                    text: Third third
+                    typography:
+                      size: sm
+                      color: '#6366f1'
+
+    # ========================================
+    # FOOTER
+    # ========================================
+    - name: layout-column
+      properties:
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#1e293b'
+      components:
+        - name: paragraph
+          properties:
+            text: Media Components Test Template - Swift Sites
+            typography:
+              align: center
+              color: '#94a3b8'
+              size: sm

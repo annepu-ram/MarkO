@@ -1,7 +1,23 @@
 - name: page
   properties:
-    background:
-      color: '#f0f4f8'
+    theme:
+      fonts:
+        headingMain: &font-heading-main 'Helvetica, sans-serif'
+        headingLevel2: &font-heading-level2 'Helvetica, sans-serif'
+        content: &font-content 'Arial, sans-serif'
+      colors:
+        # 60-30-10 Color System:
+        # Primary (30%) = TEXT - all headings, paragraphs, body text
+        # Secondary (10%) = UI elements, section highlights, regular buttons
+        # Accent (CTAs only) = Call-to-action buttons like "Register Now", "Submit"
+        # Background (60%) = Page base, content areas
+        primary: &color-primary '#1f2937'
+        secondary: &color-secondary '#007BFF'
+        accent: &color-accent '#28a745'
+        background: &color-background '#f0f4f8'
+    appearance:
+      background:
+        color: *color-background
   components:
   - name: titlebar
     properties:
@@ -10,7 +26,7 @@
         logoUrl: https://images.pexels.com/photos/2833037/pexels-photo-2833037.jpeg?auto=compress&cs=tinysrgb&w=100
       appearance:
         background:
-          color: '#ffffff'
+          color: *color-background
       navigation:
         links:
         - label: Home
@@ -26,7 +42,7 @@
       text: 'InnovateCon 2025: The Future of Technology'
       typography:
         align: center
-        color: '#007BFF'
+        color: *color-primary
       spacing:
         marginBlock: lg
       level: 1
@@ -42,12 +58,26 @@
   - name: button
     properties:
       text: Register Now
+      appearance:
+        background:
+          color: *color-accent
+        padding:
+          block: md
+          inline: lg
+      typography:
+        color: '#ffffff'
+        weight: semibold
+      layout:
+        widthMode: fit
+      spacing:
+        marginBlock: md
+        marginInline: auto
   - name: heading
     properties:
       text: Featured Speakers
       typography:
         align: center
-        color: '#343a40'
+        color: *color-secondary
       spacing:
         marginBlock: lg
       level: 2
@@ -63,8 +93,8 @@
           source:
             url: https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=400
             altText: Professional speaker portrait
-          presentation:
-            height: 250px
+          appearance:
+            minHeight: 15.625
             fit: cover
             cornerStyle: md
           layout:
@@ -82,8 +112,8 @@
           source:
             url: https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400
             altText: Professional speaker portrait
-          presentation:
-            height: 250px
+          appearance:
+            minHeight: 15.625
             fit: cover
             cornerStyle: md
           layout:
@@ -101,8 +131,8 @@
           source:
             url: https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=400
             altText: Professional speaker portrait
-          presentation:
-            height: 250px
+          appearance:
+            minHeight: 15.625
             fit: cover
             cornerStyle: md
           layout:
@@ -120,8 +150,8 @@
           source:
             url: https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=400
             altText: Professional speaker portrait
-          presentation:
-            height: 250px
+          appearance:
+            minHeight: 15.625
             fit: cover
             cornerStyle: md
           layout:
@@ -138,7 +168,7 @@
       text: Conference Schedule
       typography:
         align: center
-        color: '#343a40'
+        color: *color-secondary
       spacing:
         marginBlock: lg
       level: 2
@@ -146,6 +176,22 @@
     properties:
       layout:
         orientation: horizontal
+      typography:
+        label:
+          active:
+            color: *color-primary
+          inactive:
+            color: *color-secondary
+      appearance:
+        tab:
+          background:
+            active: *color-background
+            inactive: *color-secondary
+        content:
+          background:
+            color: *color-background
+          border:
+            color: *color-secondary
       tabs:
       - title: 'Day 1: Foundations'
         content: ''
@@ -158,7 +204,7 @@
       text: Frequently Asked Questions
       typography:
         align: center
-        color: '#343a40'
+        color: *color-secondary
       spacing:
         marginBlock: lg
       level: 2
@@ -173,12 +219,24 @@
         content: Free parking is available at the Metro Convention Center. We also recommend public transportation as the venue is well-connected.
       behavior:
         allowMultipleOpen: false
+      typography:
+        title:
+          color: *color-primary
+        content:
+          color: *color-primary
+      appearance:
+        titleBackground:
+          color: *color-background
+        border:
+          color: *color-secondary
+        contentBackground:
+          color: *color-background
   - name: heading
     properties:
       text: Register Your Interest
       typography:
         align: center
-        color: '#343a40'
+        color: *color-secondary
       spacing:
         marginBlock: lg
       level: 2
@@ -200,3 +258,17 @@
   - name: button
     properties:
       text: Submit
+      appearance:
+        background:
+          color: *color-accent
+        padding:
+          block: md
+          inline: lg
+      typography:
+        color: '#ffffff'
+        weight: semibold
+      layout:
+        widthMode: fit
+      spacing:
+        marginBlock: md
+        marginInline: auto

@@ -1,0 +1,2105 @@
+- name: page
+  properties:
+    appearance:
+      padding:
+        block: none
+        inline: none
+      background:
+        type: color
+        color: '#f8fafc'
+        transparency: 100
+  components:
+    # ===========================================
+    # TITLEBAR - NAVIGATION
+    # ===========================================
+    - name: titlebar
+      properties:
+        logo:
+          src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=50&h=50&fit=crop"
+          alt: "Swift Sites Logo"
+          size: md
+        title:
+          text: "Swift Sites"
+          visible: true
+        appearance:
+          background:
+            color: '#0f172a'
+            transparency: 100
+          padding:
+            block: sm
+            inline: lg
+        typography:
+          title:
+            size: lg
+            weight: semibold
+            color: '#ffffff'
+          link:
+            size: md
+            weight: medium
+            color: '#94a3b8'
+        scroll:
+          shrinkOnScroll: true
+          shrinkPercentage: 30
+      menu:
+        - text: "Text"
+          href: "#text-components"
+        - text: "Layout"
+          href: "#layout-components"
+        - text: "Media"
+          href: "#media-components"
+        - text: "GitHub"
+          href: "https://github.com"
+
+    # ===========================================
+    # SECTION 1: TEXT COMPONENTS
+    # ===========================================
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: center
+          wrap: nowrap
+        appearance:
+          padding:
+            block: lg
+            inline: md
+          background:
+            type: color
+            color: '#1e293b'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: center
+            appearance:
+              padding:
+                block: md
+                inline: md
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Text Components"
+                typography:
+                  size: sm
+                  weight: semibold
+                  align: center
+                  color: '#94a3b8'
+                  transform: uppercase
+                  letterSpacing: wide
+            - name: heading
+              level: 1
+              properties:
+                text: "Typography & Text Elements"
+                typography:
+                  size: xxxl
+                  weight: bold
+                  align: center
+                  color: '#ffffff'
+                  lineHeight: '1.2'
+            - name: paragraph
+              properties:
+                text: "A comprehensive showcase of all text components available in Swift Sites. Each component is designed for specific use cases and can be fully customized."
+                typography:
+                  size: lg
+                  weight: regular
+                  align: center
+                  color: '#cbd5e1'
+                  lineHeight: '1.6'
+
+    # --- Heading Variations ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#ffffff'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Headings"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+                  letterSpacing: wider
+            - name: heading
+              level: 1
+              properties:
+                text: "Heading Level 1 (H1)"
+                typography:
+                  size: xxxl
+                  weight: bold
+                  color: '#0f172a'
+            - name: heading
+              level: 2
+              properties:
+                text: "Heading Level 2 (H2)"
+                typography:
+                  size: xxl
+                  weight: bold
+                  color: '#1e293b'
+            - name: heading
+              level: 3
+              properties:
+                text: "Heading Level 3 (H3)"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#334155'
+            - name: heading
+              level: 4
+              properties:
+                text: "Heading Level 4 (H4)"
+                typography:
+                  size: lg
+                  weight: semibold
+                  color: '#475569'
+            - name: heading
+              level: 5
+              properties:
+                text: "Heading Level 5 (H5)"
+                typography:
+                  size: md
+                  weight: medium
+                  color: '#64748b'
+            - name: heading
+              level: 6
+              properties:
+                text: "Heading Level 6 (H6)"
+                typography:
+                  size: sm
+                  weight: medium
+                  color: '#94a3b8'
+
+    # --- Paragraph & Caption ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: wrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#f1f5f9'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: '50'
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: md
+                inline: md
+              background:
+                type: color
+                color: '#ffffff'
+                transparency: 100
+              radius: md
+          components:
+            - name: eyebrow
+              properties:
+                text: "Paragraph"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+            - name: paragraph
+              properties:
+                text: "This is a standard paragraph component. It's perfect for body text, descriptions, and longer content blocks. The paragraph component supports various typography options including size, weight, color, line height, and text alignment."
+                typography:
+                  size: md
+                  weight: regular
+                  color: '#374151'
+                  lineHeight: '1.7'
+            - name: paragraph
+              properties:
+                text: "Multiple paragraphs can be stacked to create flowing content sections. Each paragraph maintains consistent spacing and can be individually styled."
+                typography:
+                  size: md
+                  weight: regular
+                  color: '#6b7280'
+                  lineHeight: '1.7'
+
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: '50'
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: md
+                inline: md
+              background:
+                type: color
+                color: '#ffffff'
+                transparency: 100
+              radius: md
+          components:
+            - name: eyebrow
+              properties:
+                text: "Caption"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+            - name: caption
+              properties:
+                text: "Captions are smaller text elements, ideal for image descriptions, footnotes, or supplementary information."
+                typography:
+                  size: sm
+                  weight: regular
+                  color: '#6b7280'
+                  lineHeight: '1.5'
+            - name: caption
+              properties:
+                text: "They can also be styled with different weights and colors to create visual hierarchy within your content."
+                typography:
+                  size: sm
+                  weight: medium
+                  color: '#9ca3af'
+                  lineHeight: '1.5'
+
+    # --- Blockquote ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: center
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#ffffff'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: '75'
+              horizontalAlign: center
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Blockquote"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+                  align: center
+            - name: blockquote
+              properties:
+                quote: "Design is not just what it looks like and feels like. Design is how it works."
+                cite: "Steve Jobs"
+                typography:
+                  size: xl
+                  weight: medium
+                  color: '#1e293b'
+                  lineHeight: '1.6'
+                  align: center
+                appearance:
+                  border:
+                    accentColor: '#6366f1'
+                  padding:
+                    block: lg
+                    inline: lg
+                  background:
+                    type: color
+                    color: '#f8fafc'
+                    transparency: 100
+                  radius: md
+
+    # --- Links ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#f1f5f9'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: center
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Links"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+                  align: center
+            - name: heading
+              level: 3
+              properties:
+                text: "Link Component Variations"
+                typography:
+                  size: lg
+                  weight: semibold
+                  color: '#1e293b'
+                  align: center
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: center
+            appearance:
+              padding:
+                block: md
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                appearance:
+                  padding:
+                    block: sm
+                    inline: none
+                  background:
+                    transparency: 0
+              components:
+                - name: link
+                  properties:
+                    text: "Standard Link"
+                    href: "#"
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      color: '#6366f1'
+                      underline: true
+                      showArrow: false
+                    typography:
+                      size: md
+                      weight: medium
+                - name: link
+                  properties:
+                    text: "Link with Arrow"
+                    href: "#"
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      color: '#6366f1'
+                      underline: false
+                      showArrow: true
+                    typography:
+                      size: md
+                      weight: medium
+                - name: link
+                  properties:
+                    text: "Bold Link"
+                    href: "#"
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      color: '#0ea5e9'
+                      underline: true
+                      showArrow: false
+                    typography:
+                      size: md
+                      weight: bold
+
+            # Links with different widths demonstration
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: left
+                  verticalAlign: center
+                  wrap: wrap
+                appearance:
+                  padding:
+                    block: md
+                    inline: none
+                  background:
+                    transparency: 0
+              components:
+                - name: link
+                  properties:
+                    text: "33% Width Link - Demonstrates the new widthMode property on links"
+                    href: "#"
+                    layout:
+                      widthMode: '33'
+                    appearance:
+                      color: '#10b981'
+                      underline: true
+                      showArrow: true
+                    typography:
+                      size: md
+                      weight: medium
+                - name: link
+                  properties:
+                    text: "66% Width Link - Links now support all standardized width options"
+                    href: "#"
+                    layout:
+                      widthMode: '66'
+                    appearance:
+                      color: '#f59e0b'
+                      underline: true
+                      showArrow: true
+                    typography:
+                      size: md
+                      weight: medium
+
+    # ===========================================
+    # SECTION 2: LAYOUT COMPONENTS
+    # ===========================================
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: center
+          wrap: nowrap
+        appearance:
+          padding:
+            block: lg
+            inline: md
+          background:
+            type: gradient
+            gradient:
+              colorStart: '#6366f1'
+              colorEnd: '#8b5cf6'
+              direction: to right
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: center
+            appearance:
+              padding:
+                block: md
+                inline: md
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Layout Components"
+                typography:
+                  size: sm
+                  weight: semibold
+                  align: center
+                  color: '#e0e7ff'
+                  transform: uppercase
+                  letterSpacing: wide
+            - name: heading
+              level: 2
+              properties:
+                text: "Flexible Layout System"
+                typography:
+                  size: xxxl
+                  weight: bold
+                  align: center
+                  color: '#ffffff'
+                  lineHeight: '1.2'
+            - name: paragraph
+              properties:
+                text: "Create complex layouts using rows, columns, and grids. Each layout component offers alignment, spacing, and responsive options."
+                typography:
+                  size: lg
+                  weight: regular
+                  align: center
+                  color: '#e0e7ff'
+                  lineHeight: '1.6'
+
+    # --- Layout Row Demo ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#ffffff'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Layout Row"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "Horizontal Layout with Flexible Alignment"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "Layout rows arrange children horizontally with options for alignment, wrapping, and spacing."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: md
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-between
+                  verticalAlign: stretch
+                  wrap: wrap
+                appearance:
+                  padding:
+                    block: md
+                    inline: md
+                  background:
+                    type: color
+                    color: '#f1f5f9'
+                    transparency: 100
+                  radius: lg
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '25'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: md
+                        inline: sm
+                      background:
+                        type: color
+                        color: '#6366f1'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Column 1"
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "25% width"
+                        typography:
+                          size: sm
+                          color: '#e0e7ff'
+                          align: center
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '25'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: md
+                        inline: sm
+                      background:
+                        type: color
+                        color: '#8b5cf6'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Column 2"
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "25% width"
+                        typography:
+                          size: sm
+                          color: '#ede9fe'
+                          align: center
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '25'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: md
+                        inline: sm
+                      background:
+                        type: color
+                        color: '#a855f7'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Column 3"
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "25% width"
+                        typography:
+                          size: sm
+                          color: '#f3e8ff'
+                          align: center
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '25'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: md
+                        inline: sm
+                      background:
+                        type: color
+                        color: '#c084fc'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Column 4"
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "25% width"
+                        typography:
+                          size: sm
+                          color: '#faf5ff'
+                          align: center
+
+    # --- New Width Modes: 33% and 66% ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#f1f5f9'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "New Width Options"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#10b981'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "33% and 66% Width Modes"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "New standardized width options now include 33% and 66% for three-column layouts and asymmetric designs."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: md
+                inline: none
+              background:
+                transparency: 0
+          components:
+            # 33% + 33% + 33% Example
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-between
+                  verticalAlign: stretch
+                  wrap: wrap
+                appearance:
+                  padding:
+                    block: md
+                    inline: md
+                  background:
+                    type: color
+                    color: '#ffffff'
+                    transparency: 100
+                  radius: lg
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '33'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: md
+                        inline: sm
+                      background:
+                        type: color
+                        color: '#10b981'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Column A"
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "33% width"
+                        typography:
+                          size: sm
+                          color: '#d1fae5'
+                          align: center
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '33'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: md
+                        inline: sm
+                      background:
+                        type: color
+                        color: '#059669'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Column B"
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "33% width"
+                        typography:
+                          size: sm
+                          color: '#a7f3d0'
+                          align: center
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '33'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: md
+                        inline: sm
+                      background:
+                        type: color
+                        color: '#047857'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Column C"
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "33% width"
+                        typography:
+                          size: sm
+                          color: '#6ee7b7'
+                          align: center
+
+            # 66% + 33% Example
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-between
+                  verticalAlign: stretch
+                  wrap: wrap
+                appearance:
+                  padding:
+                    block: md
+                    inline: md
+                  background:
+                    type: color
+                    color: '#ffffff'
+                    transparency: 100
+                  radius: lg
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '66'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: lg
+                        inline: md
+                      background:
+                        type: color
+                        color: '#f59e0b'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Main Content Area"
+                        typography:
+                          size: lg
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "66% width - Perfect for main content with a sidebar"
+                        typography:
+                          size: md
+                          color: '#fef3c7'
+                          align: center
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '33'
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: lg
+                        inline: md
+                      background:
+                        type: color
+                        color: '#d97706'
+                        transparency: 100
+                      radius: md
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Sidebar"
+                        typography:
+                          size: lg
+                          weight: semibold
+                          color: '#ffffff'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "33% width"
+                        typography:
+                          size: md
+                          color: '#fde68a'
+                          align: center
+
+    # --- ColumnsGrid Demo ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#f1f5f9'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Columns Grid"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "Responsive Grid Layout"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "ColumnsGrid creates equal-width columns that automatically stack on smaller screens."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: md
+              verticalAlign: stretch
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            appearance:
+              padding:
+                block: md
+                inline: none
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: stretch
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: lg
+                        inline: md
+                      background:
+                        type: color
+                        color: '#ffffff'
+                        transparency: 100
+                      radius: lg
+                      border:
+                        width: 1
+                        style: solid
+                        color: '#e2e8f0'
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Feature One"
+                        typography:
+                          size: lg
+                          weight: semibold
+                          color: '#1e293b'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Grid column with automatic width distribution and responsive stacking."
+                        typography:
+                          size: sm
+                          color: '#64748b'
+                          align: center
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: stretch
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: lg
+                        inline: md
+                      background:
+                        type: color
+                        color: '#ffffff'
+                        transparency: 100
+                      radius: lg
+                      border:
+                        width: 1
+                        style: solid
+                        color: '#e2e8f0'
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Feature Two"
+                        typography:
+                          size: lg
+                          weight: semibold
+                          color: '#1e293b'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Configurable gap between columns and vertical alignment options."
+                        typography:
+                          size: sm
+                          color: '#64748b'
+                          align: center
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: stretch
+                      horizontalAlign: center
+                    appearance:
+                      padding:
+                        block: lg
+                        inline: md
+                      background:
+                        type: color
+                        color: '#ffffff'
+                        transparency: 100
+                      radius: lg
+                      border:
+                        width: 1
+                        style: solid
+                        color: '#e2e8f0'
+                  components:
+                    - name: heading
+                      level: 4
+                      properties:
+                        text: "Feature Three"
+                        typography:
+                          size: lg
+                          weight: semibold
+                          color: '#1e293b'
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Set breakpoints for tablet and mobile column counts."
+                        typography:
+                          size: sm
+                          color: '#64748b'
+                          align: center
+
+    # --- Tabs Demo ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#ffffff'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Tabs"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "Tabbed Content Sections"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "Organize content into switchable tabs with customizable styling."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: tabs
+          properties:
+            layout:
+              orientation: horizontal
+              widthMode: stretch
+            typography:
+              label:
+                size: md
+                weight: medium
+                active:
+                  color: '#6366f1'
+                inactive:
+                  color: '#64748b'
+            appearance:
+              tab:
+                background:
+                  active: '#ffffff'
+                  inactive: '#f1f5f9'
+                border:
+                  width: 2
+                  style: solid
+                  position: lower
+              content:
+                background:
+                  color: '#ffffff'
+                  transparency: 100
+                border:
+                  width: 1
+                  style: solid
+                  color: '#e2e8f0'
+                padding:
+                  block: lg
+                  inline: lg
+          tabs:
+            - title: Overview
+              components:
+                - name: heading
+                  level: 4
+                  properties:
+                    text: "Overview Tab"
+                    typography:
+                      size: lg
+                      weight: semibold
+                      color: '#1e293b'
+                - name: paragraph
+                  properties:
+                    text: "This is the first tab content. Tabs can contain any combination of components including text, images, and nested layouts."
+                    typography:
+                      size: md
+                      color: '#64748b'
+            - title: Features
+              components:
+                - name: heading
+                  level: 4
+                  properties:
+                    text: "Features Tab"
+                    typography:
+                      size: lg
+                      weight: semibold
+                      color: '#1e293b'
+                - name: paragraph
+                  properties:
+                    text: "Each tab maintains its own content and state. Switch between tabs to reveal different content sections."
+                    typography:
+                      size: md
+                      color: '#64748b'
+            - title: Details
+              components:
+                - name: heading
+                  level: 4
+                  properties:
+                    text: "Details Tab"
+                    typography:
+                      size: lg
+                      weight: semibold
+                      color: '#1e293b'
+                - name: paragraph
+                  properties:
+                    text: "Customize tab labels, colors, borders, and content padding to match your design system."
+                    typography:
+                      size: md
+                      color: '#64748b'
+
+    # --- Accordion Demo ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#f1f5f9'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Accordion"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#6366f1'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "Expandable Content Sections"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "Accordions display collapsible content panels, perfect for FAQs and organized information."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: md
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: accordion
+              properties:
+                behavior:
+                  allowMultipleOpen: false
+                layout:
+                  widthMode: stretch
+                typography:
+                  title:
+                    size: md
+                    weight: semibold
+                    color: '#1e293b'
+                  content:
+                    size: md
+                    weight: regular
+                    color: '#64748b'
+                appearance:
+                  titleBackground:
+                    color: '#ffffff'
+                  contentBackground:
+                    color: '#ffffff'
+                    transparency: 100
+                  border:
+                    width: 1
+                    style: solid
+                    color: '#e2e8f0'
+                    position: all
+                  radius: md
+                  padding:
+                    block: md
+                    inline: md
+              items:
+                - title: "What is Swift Sites?"
+                  content: "Swift Sites is a YAML-based website builder with server-side rendering. Users write YAML in an editor, and the application renders a live preview in an isolated iframe."
+                  open: true
+                - title: "How do I create layouts?"
+                  content: "Use layout-row for horizontal arrangements, layout-column for vertical stacking, and columnsgrid for responsive grid layouts. Each supports various alignment and spacing options."
+                - title: "Can I customize the styling?"
+                  content: "Yes! Every component supports typography, spacing, background colors, gradients, borders, and border-radius. Use the properties panel to adjust any setting."
+
+    # ===========================================
+    # SECTION 3: MEDIA COMPONENTS
+    # ===========================================
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: center
+          wrap: nowrap
+        appearance:
+          padding:
+            block: lg
+            inline: md
+          background:
+            type: gradient
+            gradient:
+              colorStart: '#0ea5e9'
+              colorEnd: '#06b6d4'
+              direction: to right
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: center
+            appearance:
+              padding:
+                block: md
+                inline: md
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Media Components"
+                typography:
+                  size: sm
+                  weight: semibold
+                  align: center
+                  color: '#e0f2fe'
+                  transform: uppercase
+                  letterSpacing: wide
+            - name: heading
+              level: 2
+              properties:
+                text: "Images, Videos & Carousels"
+                typography:
+                  size: xxxl
+                  weight: bold
+                  align: center
+                  color: '#ffffff'
+                  lineHeight: '1.2'
+            - name: paragraph
+              properties:
+                text: "Rich media components with filters, hover effects, overlays, and responsive behavior."
+                typography:
+                  size: lg
+                  weight: regular
+                  align: center
+                  color: '#e0f2fe'
+                  lineHeight: '1.6'
+
+    # --- Image Component Demo ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#ffffff'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Image"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#0ea5e9'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "Image Component with Effects"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "Images support filters, hover effects, shadows, overlays, and responsive sizing."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-between
+              verticalAlign: top
+              wrap: wrap
+            appearance:
+              padding:
+                block: md
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '25'
+                  horizontalAlign: center
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    transparency: 0
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop"
+                      altText: "Mountain landscape"
+                    layout:
+                      widthMode: stretch
+                    appearance:
+                      fit: cover
+                      cornerStyle: md
+                      filter: none
+                      shadow: md
+                      hoverEffect: zoom
+                      minHeight: 12
+                - name: caption
+                  properties:
+                    text: "Zoom on Hover"
+                    typography:
+                      size: sm
+                      color: '#64748b'
+                      align: center
+
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '25'
+                  horizontalAlign: center
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    transparency: 0
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop"
+                      altText: "Nature scene"
+                    layout:
+                      widthMode: stretch
+                    appearance:
+                      fit: cover
+                      cornerStyle: md
+                      filter: grayscale
+                      shadow: md
+                      hoverEffect: brighten
+                      minHeight: 12
+                - name: caption
+                  properties:
+                    text: "Grayscale Filter"
+                    typography:
+                      size: sm
+                      color: '#64748b'
+                      align: center
+
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '25'
+                  horizontalAlign: center
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    transparency: 0
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&h=300&fit=crop"
+                      altText: "Foggy mountains"
+                    layout:
+                      widthMode: stretch
+                    appearance:
+                      fit: cover
+                      cornerStyle: pill
+                      filter: none
+                      shadow: lg
+                      hoverEffect: lift
+                      minHeight: 12
+                - name: caption
+                  properties:
+                    text: "Pill Corners + Lift"
+                    typography:
+                      size: sm
+                      color: '#64748b'
+                      align: center
+
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '25'
+                  horizontalAlign: center
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    transparency: 0
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=400&h=300&fit=crop"
+                      altText: "Forest path"
+                    layout:
+                      widthMode: stretch
+                    appearance:
+                      fit: cover
+                      cornerStyle: md
+                      filter: saturate
+                      shadow: md
+                      hoverEffect: darken
+                      minHeight: 12
+                      overlay:
+                        enabled: true
+                        color: '#1e293b'
+                        opacity: 30
+                - name: caption
+                  properties:
+                    text: "Overlay Effect"
+                    typography:
+                      size: sm
+                      color: '#64748b'
+                      align: center
+
+    # --- Video Component Demo ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#f1f5f9'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Video"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#0ea5e9'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "Embedded Video Player"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "Embed YouTube, Vimeo, or direct video files with playback controls."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: '75'
+              horizontalAlign: center
+            appearance:
+              padding:
+                block: md
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: video
+              properties:
+                source:
+                  url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                appearance:
+                  aspectRatio: '16/9'
+                  height: 400
+                playback:
+                  controls: true
+                  autoplay: false
+                  muted: false
+                  loop: false
+
+    # --- GIF Component Demo ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#ffffff'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "GIF"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#0ea5e9'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "Animated GIF Support"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "Display animated GIFs with the same styling options as images."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: top
+              wrap: wrap
+            appearance:
+              padding:
+                block: md
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '50'
+                  horizontalAlign: center
+                appearance:
+                  padding:
+                    block: sm
+                    inline: md
+                  background:
+                    transparency: 0
+              components:
+                - name: gif
+                  properties:
+                    source:
+                      url: "https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif"
+                      altText: "Animated coding GIF"
+                    layout:
+                      widthMode: stretch
+                    appearance:
+                      fit: cover
+                      cornerStyle: lg
+                      shadow: md
+                      hoverEffect: zoom
+
+    # --- Carousel Demo ---
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: top
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#f1f5f9'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: left
+            appearance:
+              padding:
+                block: none
+                inline: none
+              background:
+                transparency: 0
+          components:
+            - name: eyebrow
+              properties:
+                text: "Carousel"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: '#0ea5e9'
+                  transform: uppercase
+            - name: heading
+              level: 3
+              properties:
+                text: "Image Carousel with Autoplay"
+                typography:
+                  size: xl
+                  weight: semibold
+                  color: '#1e293b'
+            - name: paragraph
+              properties:
+                text: "Showcase multiple images with navigation arrows, indicators, and touch swipe support."
+                typography:
+                  size: md
+                  color: '#64748b'
+
+        - name: carousel
+          properties:
+            behavior:
+              autoplay: true
+              delay: 4000
+              loop: true
+              pauseOnHover: true
+              swipeEnabled: true
+              swipeThreshold: 50
+              keyboardNavigation: true
+            animation:
+              effect: slide
+              duration: 300
+            navigation:
+              showArrows: true
+              arrowStyle: chevron
+              arrowPosition: inside
+              showDots: true
+            indicators:
+              style: dots
+              position: bottom
+            accessibility:
+              showPauseButton: true
+              ariaLabel: "Image carousel showcasing landscapes"
+          slides:
+            - image:
+                url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop"
+                alt: "Mountain peaks at sunset"
+            - image:
+                url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=600&fit=crop"
+                alt: "Sunlight through forest"
+            - image:
+                url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=600&fit=crop"
+                alt: "Foggy mountain valley"
+            - image:
+                url: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=1200&h=600&fit=crop"
+                alt: "Forest path in autumn"
+
+    # --- Video Background Demo ---
+    - name: video-background
+      properties:
+        source:
+          url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+          poster: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop"
+        appearance:
+          aspectRatio: '21/9'
+          minHeight: 400
+          objectFit: cover
+          objectPosition: center
+          overlay:
+            enabled: true
+            color: '#0f172a'
+            opacity: 60
+        playback:
+          autoplay: true
+          loop: true
+          muted: true
+        content:
+          verticalAlign: center
+          horizontalAlign: center
+          padding: xl
+        layout:
+          widthMode: stretch
+      components:
+        - name: eyebrow
+          properties:
+            text: "Video Background"
+            typography:
+              size: sm
+              weight: semibold
+              align: center
+              color: '#94a3b8'
+              transform: uppercase
+              letterSpacing: wide
+        - name: heading
+          level: 2
+          properties:
+            text: "Full-Width Video Background"
+            typography:
+              size: xxxl
+              weight: bold
+              align: center
+              color: '#ffffff'
+        - name: paragraph
+          properties:
+            text: "Create immersive hero sections with looping video backgrounds and overlay content."
+            typography:
+              size: lg
+              weight: regular
+              align: center
+              color: '#cbd5e1'
+        - name: button
+          properties:
+            text: "Learn More"
+            action:
+              type: link
+              value: "#"
+            typography:
+              weight: semibold
+              color: '#ffffff'
+            appearance:
+              background:
+                type: color
+                color: '#6366f1'
+                transparency: 100
+              radius: md
+              padding:
+                block: sm
+                inline: lg
+
+    # ===========================================
+    # FOOTER
+    # ===========================================
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: center
+          wrap: nowrap
+        appearance:
+          padding:
+            block: xl
+            inline: lg
+          background:
+            type: color
+            color: '#0f172a'
+            transparency: 100
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: stretch
+              horizontalAlign: center
+            appearance:
+              padding:
+                block: md
+                inline: md
+              background:
+                transparency: 0
+          components:
+            - name: heading
+              level: 3
+              properties:
+                text: "Swift Sites Component Showcase"
+                typography:
+                  size: lg
+                  weight: semibold
+                  align: center
+                  color: '#ffffff'
+            - name: paragraph
+              properties:
+                text: "All components demonstrated use the standardized property paths and support full customization via the properties panel."
+                typography:
+                  size: sm
+                  weight: regular
+                  align: center
+                  color: '#94a3b8'
+            - name: caption
+              properties:
+                text: "Built with Swift Sites - YAML-based website builder"
+                typography:
+                  size: xs
+                  color: '#64748b'
+                  align: center

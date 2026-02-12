@@ -3,13 +3,15 @@ import { renderPreview } from './ssr_app.js';
 import { SelectionManager } from './selectionManager.js';
 import { loadMetadata, getComponentDefaults } from './metadataLoader.js';
 import { renderPropertiesPanel, clearPropertiesPanel, collectPropertyValues, getActiveComponentInfo } from './propertiesPanel.js';
-import { getYamlStructureFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, updateYamlEditor } from './yamlUtils.js';
+import { getYamlStructureFromEditor, getYamlDocumentFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, generateYamlFromDocument, updateYamlEditor, updateComponentPropertiesInDocument, navigateToComponent } from './yamlUtils.js';
 import { historyManager } from './historyManager.js';
 import { loadSvgSprite } from './sprite.js';
 import { deepMerge } from './utils/object.js';
 import { initComponentTree, buildTreeFromStructure, renderTree, highlightTreeItem, clearTreeSelection } from './componentTree.js';
 import { debounce } from './utils/timing.js';
 import { yamlStorage } from './yamlStorage.js';
+import { renderThemesPanel, applyTheme } from './themesPanel.js';
+import { renderImagesPanel } from './imagesPanel.js';
 
 // Create singleton selection manager instance
 export const selectionManager = new SelectionManager();
@@ -68,6 +70,11 @@ function syncEditorScroll(editor, lineNumbers) {
 // 2. Initialize the app on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', async () => {
     const dom = getDomReferences();
+
+    // Expose panel functions globally for events.js
+    window.renderThemesPanel = renderThemesPanel;
+    window.applyTheme = applyTheme;
+    window.renderImagesPanel = renderImagesPanel;
 
     // Load SVG sprite first
     const spritePath = window.SPRITE_PATH || '/static/icon-sprite.svg';
@@ -196,7 +203,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            // Get current YAML structure
+            // Get current YAML Document (preserves anchors/aliases)
+            const yamlDoc = getYamlDocumentFromEditor();
+            if (!yamlDoc) {
+                console.error('Failed to parse YAML document');
+                return;
+            }
+
+            // Also get plain structure for component lookup and merge logic
             const yamlStructure = getYamlStructureFromEditor();
             if (!yamlStructure) {
                 console.error('Failed to parse YAML structure');
@@ -217,26 +231,24 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             }
 
-            // Create updated component with both component-level and properties updates
-            // Use deepMerge for properties to preserve unchanged values
-            // Merge defaults first to ensure we have the full structure, then merge collected values
-            // Note: getComponentDefaults returns the properties object directly (not wrapped in a 'properties' key)
-            const defaults = getComponentDefaults(currentComponent.name);
-            // Start with defaults, then merge current properties on top (so current overrides defaults)
-            const baseProperties = deepMerge({}, defaults || {}, currentComponent.properties || {});
-            // Merge collected values into baseProperties (preserves defaults that aren't being changed)
-            const finalProperties = deepMerge({}, baseProperties, collectedValues.properties);
-            const updatedComponent = {
-                ...currentComponent,
-                ...collectedValues.component,  // Apply component-level updates (tabs, items, etc.)
-                properties: finalProperties
-            };
+            // Use Document API to update properties while preserving anchors
+            // This modifies the document in place
+            updateComponentPropertiesInDocument(yamlDoc, activeInfo.path, collectedValues.properties);
 
-            // Update YAML structure
-            const updatedStructure = updateComponentByPath(yamlStructure, activeInfo.path, updatedComponent);
+            // Handle component-level updates (tabs, items, etc.) separately
+            // These are typically arrays that need full replacement
+            if (collectedValues.component && Object.keys(collectedValues.component).length > 0) {
+                // For component-level updates, we need to set them directly on the component node
+                const componentNode = navigateToComponent(yamlDoc, activeInfo.path);
+                if (componentNode) {
+                    for (const [key, value] of Object.entries(collectedValues.component)) {
+                        componentNode.set(key, value);
+                    }
+                }
+            }
 
-            // Generate YAML string
-            const yamlText = generateYamlFromStructure(updatedStructure);
+            // Generate YAML string from Document (preserves anchors!)
+            const yamlText = generateYamlFromDocument(yamlDoc);
             if (!yamlText) {
                 console.error('Failed to generate YAML');
                 return;
@@ -255,6 +267,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             };
 
             // Re-render preview (history already pushed above)
+            // Get fresh structure from the new YAML text
+            const updatedStructure = getYamlStructureFromEditor();
             await renderPreview(yamlText, updatedStructure);
 
             // Update component tree

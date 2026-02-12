@@ -1,0 +1,535 @@
+# Card-Based Hero
+# A modern, modular hero with featured cards and visual hierarchy
+# Perfect for: News sites, content platforms, dashboards, portfolios
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#f3f4f6'
+        transparency: 100
+  components:
+  # Navigation
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: md
+        paddingInline: lg
+      background:
+        color: '#ffffff'
+        transparency: 100
+      appearance:
+        shadow: '0 1px 3px rgba(0,0,0,0.1)'
+    components:
+    - name: heading
+      properties:
+        text: "DISCOVER"
+        level: 3
+        typography:
+          color: '#111827'
+          size: md
+          weight: bold
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Trending"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Technology"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Design"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Culture"
+          typography:
+            color: '#6b7280'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+
+  # Hero Card Grid
+  - name: layout-column
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      background:
+        color: '#f3f4f6'
+        transparency: 100
+    components:
+    # Top Row - Large Feature + 2 Small Cards
+    - name: layout-row
+      properties:
+        layout:
+          align: stretch
+          horizontalAlign: space-evenly
+          wrap: wrap
+      components:
+      # Large Feature Card
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1200
+            altText: Woman working with technology
+          appearance:
+            minHeight: 28.125
+            fit: cover
+            cornerStyle: lg
+          layout:
+            widthMode: 65
+          spacing:
+            marginBlock: none
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+            appearance:
+              background:
+                color: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)
+                transparency: 100
+          components:
+          - name: layout-row
+            properties:
+              layout:
+                align: center
+                horizontalAlign: space-evenly
+              spacing:
+                marginBlock: xxl
+            components:
+            - name: paragraph
+              properties:
+                text: "FEATURED"
+                typography:
+                  color: '#ffffff'
+                  size: xxs
+                  weight: bold
+                  letterSpacing: wide
+                  transform: uppercase
+                spacing:
+                  marginBlock: none
+                appearance:
+                  background:
+                    color: '#ef4444'
+                    transparency: 100
+                  radius: sm
+                  padding:
+                    block: xxs
+                    inline: xs
+            - name: paragraph
+              properties:
+                text: "TECHNOLOGY"
+                typography:
+                  color: rgba(255,255,255,0.7)
+                  size: xxs
+                  weight: medium
+                  letterSpacing: wide
+                  transform: uppercase
+                spacing:
+                  marginBlock: none
+          - name: heading
+            properties:
+              text: "The Future of AI-Powered Design Tools"
+              level: 2
+              typography:
+                color: '#ffffff'
+                size: xl
+                weight: bold
+                lineHeight: '1.2'
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "How machine learning is revolutionizing the creative industry and what it means for designers."
+              typography:
+                color: rgba(255,255,255,0.8)
+                size: sm
+                lineHeight: '1.5'
+              spacing:
+                marginBlock: xs
+          - name: layout-row
+            properties:
+              layout:
+                align: center
+                horizontalAlign: space-evenly
+            components:
+            - name: paragraph
+              properties:
+                text: "By Sarah Chen"
+                typography:
+                  color: rgba(255,255,255,0.6)
+                  size: xs
+                  weight: medium
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "•"
+                typography:
+                  color: rgba(255,255,255,0.4)
+                  size: xs
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "5 min read"
+                typography:
+                  color: rgba(255,255,255,0.6)
+                  size: xs
+                spacing:
+                  marginBlock: none
+
+      # Right Column - 2 Stacked Cards
+      - name: layout-column
+        properties:
+          layout:
+            align: stretch
+            horizontalAlign: space-evenly
+          appearance:
+            widthMode: 33
+        components:
+        # Card 1
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+            background:
+              color: '#ffffff'
+              transparency: 100
+            appearance:
+              radius: lg
+              shadow: '0 1px 3px rgba(0,0,0,0.1)'
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600
+                altText: Team meeting
+              appearance:
+                minHeight: 7.5
+                fit: cover
+                cornerStyle: md
+              layout:
+                widthMode: stretch
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "BUSINESS"
+              typography:
+                color: '#10b981'
+                size: xxs
+                weight: bold
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "Remote Work Revolution: What's Next?"
+              level: 3
+              typography:
+                color: '#111827'
+                size: md
+                weight: semibold
+                lineHeight: '1.3'
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "3 min read"
+              typography:
+                color: '#9ca3af'
+                size: xs
+              spacing:
+                marginBlock: none
+        # Card 2
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+            background:
+              color: '#ffffff'
+              transparency: 100
+            appearance:
+              radius: lg
+              shadow: '0 1px 3px rgba(0,0,0,0.1)'
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=600
+                altText: Creative workspace
+              appearance:
+                minHeight: 7.5
+                fit: cover
+                cornerStyle: md
+              layout:
+                widthMode: stretch
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "DESIGN"
+              typography:
+                color: '#8b5cf6'
+                size: xxs
+                weight: bold
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "Minimalism vs Maximalism in 2025"
+              level: 3
+              typography:
+                color: '#111827'
+                size: md
+                weight: semibold
+                lineHeight: '1.3'
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "4 min read"
+              typography:
+                color: '#9ca3af'
+                size: xs
+              spacing:
+                marginBlock: none
+
+    # Bottom Row - 3 Equal Cards
+    - name: columnsgrid
+      properties:
+        layout:
+          columns: 3
+          gap: md
+          verticalAlign: stretch
+        responsive:
+          breakpoints:
+            md: 2
+            sm: 1
+      columns:
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+            background:
+              color: '#ffffff'
+              transparency: 100
+            appearance:
+              radius: lg
+              shadow: '0 1px 3px rgba(0,0,0,0.1)'
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=600
+                altText: Startup office
+              appearance:
+                minHeight: 9.375
+                fit: cover
+                cornerStyle: md
+              layout:
+                widthMode: stretch
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "STARTUPS"
+              typography:
+                color: '#f59e0b'
+                size: xxs
+                weight: bold
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "10 Startups That Will Change Everything"
+              level: 3
+              typography:
+                color: '#111827'
+                size: md
+                weight: semibold
+                lineHeight: '1.3'
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "6 min read"
+              typography:
+                color: '#9ca3af'
+                size: xs
+              spacing:
+                marginBlock: none
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+            background:
+              color: '#ffffff'
+              transparency: 100
+            appearance:
+              radius: lg
+              shadow: '0 1px 3px rgba(0,0,0,0.1)'
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg?auto=compress&cs=tinysrgb&w=600
+                altText: Data visualization
+              appearance:
+                minHeight: 9.375
+                fit: cover
+                cornerStyle: md
+              layout:
+                widthMode: stretch
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "DATA"
+              typography:
+                color: '#3b82f6'
+                size: xxs
+                weight: bold
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "Understanding Big Data in Simple Terms"
+              level: 3
+              typography:
+                color: '#111827'
+                size: md
+                weight: semibold
+                lineHeight: '1.3'
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "4 min read"
+              typography:
+                color: '#9ca3af'
+                size: xs
+              spacing:
+                marginBlock: none
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              align: start
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+            background:
+              color: '#ffffff'
+              transparency: 100
+            appearance:
+              radius: lg
+              shadow: '0 1px 3px rgba(0,0,0,0.1)'
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600
+                altText: Sustainable workspace
+              appearance:
+                minHeight: 9.375
+                fit: cover
+                cornerStyle: md
+              layout:
+                widthMode: stretch
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "SUSTAINABILITY"
+              typography:
+                color: '#059669'
+                size: xxs
+                weight: bold
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: none
+          - name: heading
+            properties:
+              text: "Green Tech: Building a Sustainable Future"
+              level: 3
+              typography:
+                color: '#111827'
+                size: md
+                weight: semibold
+                lineHeight: '1.3'
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "5 min read"
+              typography:
+                color: '#9ca3af'
+                size: xs
+              spacing:
+                marginBlock: none

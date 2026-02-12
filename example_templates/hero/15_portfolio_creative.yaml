@@ -1,0 +1,512 @@
+# Portfolio Creative Hero
+# A personal, artistic hero for creative professionals
+# Perfect for: Designers, photographers, artists, freelancers
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#1a1a2e'
+        transparency: 100
+  components:
+  # Minimal Name Header
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: lg
+        paddingInline: xl
+      background:
+        color: '#1a1a2e'
+        transparency: 100
+    components:
+    - name: paragraph
+      properties:
+        text: "ALEX CHEN"
+        typography:
+          color: '#ffffff'
+          size: sm
+          weight: medium
+          letterSpacing: wider
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Work"
+          typography:
+            color: '#8f8f9d'
+            size: sm
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "About"
+          typography:
+            color: '#8f8f9d'
+            size: sm
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Contact"
+          typography:
+            color: '#8f8f9d'
+            size: sm
+          spacing:
+            marginBlock: none
+
+  # Hero Section
+  - name: layout-column
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: xxl
+        paddingInline: xl
+      background:
+        color: '#1a1a2e'
+        transparency: 100
+    components:
+    # Availability Badge
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        appearance:
+          background:
+            color: rgba(16,185,129,0.1)
+            transparency: 100
+          radius: pill
+          border:
+            width: 1
+            style: solid
+            color: rgba(16,185,129,0.3)
+          padding:
+            block: xs
+            inline: md
+      components:
+      - name: paragraph
+        properties:
+          text: "●"
+          typography:
+            color: '#10b981'
+            size: xs
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Available for freelance"
+          typography:
+            color: '#10b981'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+
+    # Large Title with Accent
+    - name: heading
+      properties:
+        text: "Digital Product"
+        level: 1
+        typography:
+          color: '#ffffff'
+          size: xxxl
+          weight: bold
+          align: center
+          lineHeight: '1.1'
+        spacing:
+          marginBlock: none
+
+    - name: heading
+      properties:
+        text: "Designer"
+        level: 1
+        typography:
+          color: '#e879f9'
+          size: xxxl
+          weight: bold
+          align: center
+          lineHeight: '1.1'
+        spacing:
+          marginBlock: none
+
+    # Intro Text
+    - name: paragraph
+      properties:
+        text: |
+          I craft meaningful digital experiences that connect brands
+          with their audience. Currently designing at Spotify, previously
+          at Google and Airbnb.
+        typography:
+          color: '#8f8f9d'
+          size: lg
+          align: center
+          lineHeight: '1.7'
+        spacing:
+          marginBlock: md
+        layout:
+          widthMode: 50
+
+    # Social Links
+    - name: layout-row
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        spacing:
+          marginBlock: md
+      components:
+      - name: link
+        properties:
+          text: "Dribbble"
+          typography:
+            color: '#e879f9'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "/"
+          typography:
+            color: '#3f3f5a'
+            size: sm
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "LinkedIn"
+          typography:
+            color: '#e879f9'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "/"
+          typography:
+            color: '#3f3f5a'
+            size: sm
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Twitter"
+          typography:
+            color: '#e879f9'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "/"
+          typography:
+            color: '#3f3f5a'
+            size: sm
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Email"
+          typography:
+            color: '#e879f9'
+            size: sm
+            weight: medium
+          spacing:
+            marginBlock: none
+
+    # Featured Work Grid
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+        spacing:
+          marginBlock: xl
+      components:
+      - name: paragraph
+        properties:
+          text: "SELECTED WORK"
+          typography:
+            color: '#4a4a5a'
+            size: xs
+            weight: medium
+            letterSpacing: wider
+            align: center
+          spacing:
+            marginBlock: none
+
+      - name: layout-row
+        properties:
+          layout:
+            align: stretch
+            horizontalAlign: space-evenly
+            wrap: wrap
+        components:
+        # Project 1
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/3182781/pexels-photo-3182781.jpeg?auto=compress&cs=tinysrgb&w=800
+              altText: Dashboard design project
+            appearance:
+              minHeight: 17.5
+              fit: cover
+              cornerStyle: lg
+            layout:
+              widthMode: 48
+            spacing:
+              marginBlock: none
+          components:
+          - name: layout-column
+            properties:
+              layout:
+                align: start
+                horizontalAlign: space-evenly
+              spacing:
+                paddingBlock: md
+                paddingInline: md
+              appearance:
+                background:
+                  color: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%)
+                  transparency: 100
+            components:
+            - name: paragraph
+              properties:
+                text: "SPOTIFY"
+                typography:
+                  color: rgba(255,255,255,0.6)
+                  size: xxs
+                  weight: bold
+                  letterSpacing: wide
+                spacing:
+                  marginBlock: xxl
+            - name: heading
+              properties:
+                text: "Artist Dashboard Redesign"
+                level: 3
+                typography:
+                  color: '#ffffff'
+                  size: lg
+                  weight: semibold
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "Product Design • 2024"
+                typography:
+                  color: rgba(255,255,255,0.5)
+                  size: xs
+                spacing:
+                  marginBlock: none
+        # Project 2
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800
+              altText: Mobile app design project
+            appearance:
+              minHeight: 17.5
+              fit: cover
+              cornerStyle: lg
+            layout:
+              widthMode: 48
+            spacing:
+              marginBlock: none
+          components:
+          - name: layout-column
+            properties:
+              layout:
+                align: start
+                horizontalAlign: space-evenly
+              spacing:
+                paddingBlock: md
+                paddingInline: md
+              appearance:
+                background:
+                  color: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%)
+                  transparency: 100
+            components:
+            - name: paragraph
+              properties:
+                text: "AIRBNB"
+                typography:
+                  color: rgba(255,255,255,0.6)
+                  size: xxs
+                  weight: bold
+                  letterSpacing: wide
+                spacing:
+                  marginBlock: xxl
+            - name: heading
+              properties:
+                text: "Experience Booking Flow"
+                level: 3
+                typography:
+                  color: '#ffffff'
+                  size: lg
+                  weight: semibold
+                spacing:
+                  marginBlock: none
+            - name: paragraph
+              properties:
+                text: "UX Design • 2023"
+                typography:
+                  color: rgba(255,255,255,0.5)
+                  size: xs
+                spacing:
+                  marginBlock: none
+
+    # CTA
+    - name: button
+      properties:
+        text: "View All Projects →"
+        appearance:
+          background:
+            color: '#e879f9'
+            transparency: 100
+          border:
+            width: 0
+            style: solid
+            color: transparent
+          padding:
+            block: md
+            inline: xl
+        typography:
+          color: '#1a1a2e'
+          weight: semibold
+          size: md
+        spacing:
+          marginBlock: md
+        layout:
+          widthMode: fit
+
+  # Stats Bar
+  - name: layout-row
+    properties:
+      layout:
+        align: center
+        horizontalAlign: space-evenly
+        wrap: wrap
+      spacing:
+        paddingBlock: lg
+        paddingInline: xl
+      background:
+        color: '#16162a'
+        transparency: 100
+    components:
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: heading
+        properties:
+          text: "8+"
+          level: 3
+          typography:
+            color: '#ffffff'
+            size: xl
+            weight: bold
+            align: center
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Years Experience"
+          typography:
+            color: '#8f8f9d'
+            size: xs
+            align: center
+          spacing:
+            marginBlock: none
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: heading
+        properties:
+          text: "50+"
+          level: 3
+          typography:
+            color: '#ffffff'
+            size: xl
+            weight: bold
+            align: center
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Projects Shipped"
+          typography:
+            color: '#8f8f9d'
+            size: xs
+            align: center
+          spacing:
+            marginBlock: none
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: heading
+        properties:
+          text: "3"
+          level: 3
+          typography:
+            color: '#ffffff'
+            size: xl
+            weight: bold
+            align: center
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Design Awards"
+          typography:
+            color: '#8f8f9d'
+            size: xs
+            align: center
+          spacing:
+            marginBlock: none
+    - name: layout-column
+      properties:
+        layout:
+          align: center
+          horizontalAlign: space-evenly
+      components:
+      - name: heading
+        properties:
+          text: "12"
+          level: 3
+          typography:
+            color: '#ffffff'
+            size: xl
+            weight: bold
+            align: center
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "Happy Clients"
+          typography:
+            color: '#8f8f9d'
+            size: xs
+            align: center
+          spacing:
+            marginBlock: none

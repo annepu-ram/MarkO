@@ -138,15 +138,67 @@ const renderSimpleListEditor = ({
 };
 
 /**
- * Renders a custom editor for accordion items (title + content).
+ * Renders an editor for accordion items (title + nested components).
+ * Content is added via nested components in YAML.
  */
-const renderAccordionItems = ({ value = [] } = {}) => renderSimpleListEditor({
-    value,
-    fields: ['title', 'content'],
-    addLabel: 'Add Item',
-    placeholders: { title: 'Item title', content: 'Item content' },
-    textareaFields: { content: 4 },
-});
+const renderAccordionItems = ({ value = [] } = {}) => {
+    const container = createElement('div', 'custom-editor accordion-items-editor');
+    const list = createElement('div', 'accordion-items-list');
+    container.appendChild(list);
+
+    const addRow = (item = { title: '', components: [] }) => {
+        const row = createElement('div', 'accordion-item-row');
+        row.style.cssText = 'display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.8rem;';
+
+        const titleInput = createInput({
+            type: 'text',
+            value: item.title || '',
+            placeholder: 'Item title',
+            dataset: { field: 'title' }
+        });
+        titleInput.style.cssText = 'flex: 1; font-size: 1.5rem; padding: 0.8rem;';
+
+        const removeButton = createElement('button', 'btn-remove', '×');
+        removeButton.type = 'button';
+        removeButton.title = 'Remove item';
+        removeButton.style.cssText = 'color: #dc2626; padding: 0.2rem 0.5rem; font-size: 1.8rem; line-height: 1; border: none; background: transparent; cursor: pointer;';
+        removeButton.onclick = () => row.remove();
+
+        row.appendChild(titleInput);
+        row.appendChild(removeButton);
+
+        // Store original components array
+        row.dataset.components = JSON.stringify(item.components || []);
+
+        list.appendChild(row);
+    };
+
+    // Initialize with existing items
+    (value || []).forEach(item => addRow(item));
+    if (list.children.length === 0) {
+        addRow();
+    }
+
+    const addButton = createElement('button', 'btn btn-small btn-primary', '+ Add Item');
+    addButton.type = 'button';
+    addButton.onclick = () => addRow();
+    addButton.style.cssText = 'margin-top: 0.8rem;';
+    container.appendChild(addButton);
+
+    const notice = createElement('p', 'helper-text',
+        'Add item content by nesting components in YAML.');
+    notice.style.cssText = 'margin-top: 1.2rem; color: #6b7280; font-size: 1.3rem; font-style: italic;';
+    container.appendChild(notice);
+
+    return {
+        element: container,
+        serialize: () => Array.from(list.children).map(row => {
+            const title = row.querySelector('[data-field="title"]').value.trim();
+            const components = JSON.parse(row.dataset.components || '[]');
+            return { title, components };
+        }).filter(item => item.title !== ''),
+    };
+};
 
 /**
  * Renders an advanced editor for tabs (titles only, components edited in YAML).
@@ -166,20 +218,15 @@ const renderTabsEditor = ({ value = [] } = {}) => {
             placeholder: 'Tab title',
             dataset: { field: 'title' }
         });
-        titleInput.style.cssText = 'flex: 1;';
+        titleInput.style.cssText = 'flex: 1; font-size: 1.5rem; padding: 0.8rem;';
 
-        const componentCount = createElement('span', 'component-count',
-            `${(tab.components || []).length} component${(tab.components || []).length !== 1 ? 's' : ''}`);
-        componentCount.style.cssText = 'color: #6b7280; font-size: 1.4rem; white-space: nowrap;';
-
-        const removeButton = createElement('button', 'btn btn-small', '×');
+        const removeButton = createElement('button', 'btn-remove', '×');
         removeButton.type = 'button';
         removeButton.title = 'Remove tab';
-        removeButton.style.cssText = 'color: #dc2626; padding: 0.4rem 0.8rem;';
+        removeButton.style.cssText = 'color: #dc2626; padding: 0.2rem 0.5rem; font-size: 1.8rem; line-height: 1; border: none; background: transparent; cursor: pointer;';
         removeButton.onclick = () => row.remove();
 
         row.appendChild(titleInput);
-        row.appendChild(componentCount);
         row.appendChild(removeButton);
 
         // Store original components array
@@ -198,14 +245,14 @@ const renderTabsEditor = ({ value = [] } = {}) => {
         addRow();
     }
 
-    const addButton = createElement('button', 'btn btn-small btn-secondary', '+ Add Tab');
+    const addButton = createElement('button', 'btn btn-small btn-primary', '+ Add Tab');
     addButton.type = 'button';
     addButton.onclick = () => addRow();
     addButton.style.cssText = 'margin-top: 0.8rem;';
     container.appendChild(addButton);
 
     const notice = createElement('p', 'helper-text',
-        'Note: Edit components within each tab directly in YAML.');
+        'Add tab content by nesting components in YAML.');
     notice.style.cssText = 'margin-top: 1.2rem; color: #6b7280; font-size: 1.3rem; font-style: italic;';
     container.appendChild(notice);
 

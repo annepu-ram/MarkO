@@ -32,7 +32,7 @@
     
     - name: layout-row
       properties:
-        layout: { align: stretch, gap: sm, wrap: wrap }
+        layout: { align: stretch, distribution: space-evenly, wrap: wrap }
         spacing: { paddingBlock: md, paddingInline: md, marginBlock: md }
         appearance:
           background: { color: '#ffffff' }
@@ -107,7 +107,7 @@
     
     - name: layout-row
       properties:
-        layout: { align: stretch, gap: sm, wrap: wrap }
+        layout: { align: stretch, distribution: space-evenly, wrap: wrap }
         spacing: { paddingBlock: md, paddingInline: md, marginBlock: md }
         appearance:
           background: { color: '#ffffff' }
@@ -177,7 +177,7 @@
     
     - name: layout-row
       properties:
-        layout: { align: center, gap: sm, wrap: wrap }
+        layout: { align: center, distribution: space-evenly, wrap: wrap }
         spacing: { paddingBlock: md, paddingInline: md, marginBlock: md }
         appearance:
           background: { color: '#ffffff' }
@@ -253,7 +253,7 @@
     
     - name: layout-row
       properties:
-        layout: { align: start, gap: md, wrap: wrap }
+        layout: { align: start, distribution: space-evenly, wrap: wrap }
         spacing: { paddingBlock: md, marginBlock: md }
       components:
         - name: blockquote
@@ -291,7 +291,7 @@
     
     - name: layout-row
       properties:
-        layout: { align: center, gap: sm, wrap: wrap }
+        layout: { align: center, distribution: space-evenly, wrap: wrap }
         spacing: { paddingBlock: md, paddingInline: md, marginBlock: md }
         appearance:
           background: { color: '#ffffff' }
@@ -343,7 +343,7 @@
     
     - name: layout-row
       properties:
-        layout: { align: start, gap: md, wrap: wrap }
+        layout: { align: start, distribution: space-evenly, wrap: wrap }
         spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
         appearance:
           background: { color: '#ffffff' }
@@ -352,7 +352,7 @@
       components:
         - name: layout-column
           properties:
-            layout: { align: start, gap: sm, widthMode: '25' }
+            layout: { align: start, distribution: space-evenly, widthMode: '25' }
             spacing: { paddingBlock: md, paddingInline: md }
             appearance:
               background: { color: '#f8fafc' }
@@ -373,7 +373,7 @@
         
         - name: layout-column
           properties:
-            layout: { align: start, gap: md, widthMode: '75' }
+            layout: { align: start, distribution: space-evenly, widthMode: '75' }
             spacing: { paddingBlock: md, paddingInline: md }
             appearance:
               background: { color: '#f8fafc' }

@@ -2,12 +2,51 @@
 
 Concise guide for LLMs to generate website YAML using Swift Sites components.
 
+---
+
+## ⚡ CRITICAL QUICK REFERENCE
+
+### Component Structure Rule
+```yaml
+- name: component-name
+  properties:           # ← All configuration HERE
+    spacing: {...}
+    typography: {...}
+    appearance: {...}
+  components: [...]     # ← Arrays at COMPONENT LEVEL
+```
+
+### Special Array Properties (NEVER inside properties)
+| Component | Array Property | Location |
+|-----------|----------------|----------|
+| accordion | `items:` | Component level (same as `properties:`) |
+| tabs | `tabs:` | Component level (same as `properties:`) |
+| carousel | `slides:` | Component level (same as `properties:`) |
+| columnsgrid | `columns:` | Component level (same as `properties:`) |
+| containers | `components:` | Component level (same as `properties:`) |
+
+### Valid Design Tokens
+| Property | Valid Values |
+|----------|-------------|
+| **Spacing** | `none`, `xxs`, `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `xxxl`, `auto` |
+| **Typography sizes** | `xxs`, `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `xxxl`, `auto` |
+| **Font weights** | `light`, `regular`, `medium`, `semibold`, `bold`, `extrabold` |
+| **Shadow** | `none`, `soft`, `medium`, `elevated`, `dramatic`, `retro` |
+| **Border radius** | `none`, `xs`, `sm`, `md`, `lg`, `xl`, `xxl`, `pill` |
+| **Hover effects** | `none`, `zoom`, `lift` |
+| **Width modes** | `fit`, `25`, `50`, `75`, `stretch` |
+
+### Container Components (can nest other components)
+`page`, `layout-row`, `layout-column`, `columnsgrid`, `form`, `image`, `gif`, `video-background`
+
+---
+
 ## Quick Start
 
 ```yaml
 - name: page
   properties:
-    background: { color: '#ffffff' }
+    appearance: { background: { color: '#ffffff' } }
   components:
     - name: heading
       properties:
@@ -18,7 +57,7 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 **Key Rules:**
 - YAML is the source of truth
 - Every component has: `name`, `properties`, optional `components`
-- Container components: `page`, `layout-row`, `layout-column`, `columnsgrid`, `form`, `image`, `gif`
+- Container components: `page`, `layout-row`, `layout-column`, `columnsgrid`, `form`, `image`, `gif`, `video-background`
 - Special array properties (`items`, `tabs`, `slides`, `columns`) are at **component level**, NOT inside `properties`
 
 ## Critical YAML Structure Rules
@@ -120,6 +159,19 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 | `lg` | Prominent rounding (hero images, modals) |
 | `pill` | Fully rounded (pills, tags, circular buttons) |
 
+### Shadow Scale
+
+| Token | Style | Use Case |
+|-------|-------|----------|
+| `none` | No shadow | Flat design, default |
+| `soft` | Subtle ambient shadow | Cards, subtle depth |
+| `medium` | Standard lifted shadow | Buttons, containers |
+| `elevated` | Prominent depth | Modals, popups |
+| `dramatic` | Heavy emphasis | Hero elements, CTAs |
+| `retro` | Hard-edge brutalist (4px 4px 0 0) | Neo-brutalism, playful UI |
+
+**Components supporting shadow:** layout-row, layout-column, columnsgrid, image, gif, video, button, accordion, tabs, carousel, form, blockquote
+
 ### Text Alignment
 
 `left`, `center`, `right`, `justify`
@@ -151,45 +203,70 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 - In `layout-row`: Uses flex-grow proportions (handles gap automatically)
 - In `layout-column`: Uses explicit percentage widths (centered by default)
 
-## Align Property (Layout Containers)
+## Horizontal and Vertical Align Properties (Layout Containers)
 
 **Applies to:** `layout-row`, `layout-column`
 
-**Property path:** `layout.align`
+### layout-row (horizontal flex)
 
-### For layout-row (horizontal flex)
-Controls **vertical alignment** of children (cross-axis):
+| Property | CSS Property | Description |
+|----------|--------------|-------------|
+| `layout.horizontalAlign` | `justify-content` | Controls horizontal distribution of children |
+| `layout.verticalAlign` | `align-items` | Controls vertical alignment of children |
 
-| Value | Description |
-|-------|-------------|
-| `start` | Align children to top |
-| `center` | Align children vertically centered |
-| `end` | Align children to bottom |
-| `stretch` | Stretch children to fill row height (default) |
+**Horizontal Align Values (layout-row):**
+| Value | CSS | Description |
+|-------|-----|-------------|
+| `left` | flex-start | Align children to start |
+| `center` | center | Center children horizontally |
+| `right` | flex-end | Align children to end |
+| `stretch` | stretch | Stretch to fill (default) |
 
-### For layout-column (vertical flex)
-Controls **horizontal alignment** of children (cross-axis):
+**Vertical Align Values (layout-row):**
+| Value | CSS | Description |
+|-------|-----|-------------|
+| `top` | flex-start | Align children to top |
+| `center` | center | Center children vertically |
+| `bottom` | flex-end | Align children to bottom |
+| `stretch` | stretch | Stretch children to fill height (default) |
+| `baseline` | baseline | Align children by text baseline |
 
-| Value | Description |
-|-------|-------------|
-| `start` | Align children to left |
-| `center` | Align children horizontally centered (default) |
-| `end` | Align children to right |
-| `stretch` | Stretch children to fill column width |
+### layout-column (vertical flex)
 
-**Example:**
+| Property | CSS Property | Description |
+|----------|--------------|-------------|
+| `layout.horizontalAlign` | `align-items` | Controls horizontal alignment of children |
+
+**Horizontal Align Values (layout-column):**
+| Value | CSS | Description |
+|-------|-----|-------------|
+| `left` | flex-start | Align children to left |
+| `center` | center | Center children horizontally (default) |
+| `right` | flex-end | Align children to right |
+| `stretch` | stretch | Stretch children to fill width |
+
+**⚠️ Note:** layout-column does NOT have `verticalAlign` since content naturally flows top-to-bottom.
+
+**Examples:**
 ```yaml
+# Row with children centered both ways
+- name: layout-row
+  properties:
+    layout: { horizontalAlign: center, verticalAlign: center }
+  components: [...]
+
+# Column with left-aligned children
 - name: layout-column
   properties:
-    layout: { align: center, gap: md }  # Children centered horizontally
+    layout: { horizontalAlign: left }
   components:
     - name: heading
       properties:
-        text: Centered Heading
-        layout: { widthMode: fit }  # Only as wide as text, centered
+        text: Left-Aligned Heading
+        layout: { widthMode: fit }
 ```
 
-**⚠️ Note:** If `align: stretch` is used on layout-column, `widthMode` will be overridden (children stretch to full width regardless of widthMode setting).
+**⚠️ Note:** If `horizontalAlign: stretch` is used on layout-column, `widthMode` will be overridden (children stretch to full width regardless of widthMode setting).
 
 ## Component Reference (27 Total)
 
@@ -199,8 +276,8 @@ Controls **horizontal alignment** of children (cross-axis):
 ```yaml
 - name: page
   properties:
-    background: { color: '#ffffff', transparency: 100 }
-    layout: { padding: { top: md, right: md, bottom: md, left: md } }
+    spacing: { paddingBlock: md, paddingInline: md }
+    appearance: { background: { color: '#ffffff', transparency: 100 } }
   components: [...]
 ```
 
@@ -208,18 +285,25 @@ Controls **horizontal alignment** of children (cross-axis):
 ```yaml
 - name: layout-row
   properties:
-    layout: { tag: section, align: center, gap: md, wrap: nowrap }
+    layout: { tag: section, horizontalAlign: center, verticalAlign: center, wrap: wrap }
     spacing: { paddingBlock: md, marginBlock: lg }
-    background: { color: '#ffffff' }
-    appearance: { border: { width: 1, style: solid, color: '#e5e7eb' }, radius: md }
+    appearance: { background: { color: '#ffffff' }, border: { width: 1, style: solid, color: '#e5e7eb' }, radius: md, shadow: none }
   components: [...]
 ```
+
+**Wrap Property:**
+| Value | Behavior |
+|-------|----------|
+| `wrap` | Children wrap to next line when space insufficient |
+| `nowrap` | Children stay on single line, may squeeze or overflow |
+
+**Note:** Use `wrap: wrap` to allow children to wrap to the next line when they exceed the row width. Children with `widthMode` (25%, 50%, etc.) will respect their width and wrap correctly. For distribution-style spacing, use `horizontalAlign` with values like `space-between`, `space-evenly`, or `space-around`.
 
 **layout-column** - Vertical flex
 ```yaml
 - name: layout-column
   properties:
-    layout: { tag: section, align: start, gap: md }
+    layout: { tag: section, horizontalAlign: center }
     spacing: { paddingBlock: md, marginBlock: lg }
   components: [...]
 ```
@@ -228,7 +312,7 @@ Controls **horizontal alignment** of children (cross-axis):
 ```yaml
 - name: columnsgrid
   properties:                                    # ← Configuration
-    layout: { columns: 3, gap: lg, align: center }
+    layout: { columns: 3, gap: lg, verticalAlign: center }
     responsive: { breakpoints: { md: 2, sm: 1 } }
     spacing: { marginBlock: lg }
   columns:                                       # ← AT COMPONENT LEVEL (not inside properties)
@@ -241,7 +325,7 @@ Controls **horizontal alignment** of children (cross-axis):
 ```yaml
 - name: form
   properties:
-    layout: { direction: column, gap: md }
+    layout: { direction: column }
     submit: { show: true, buttonText: Submit }
   components: [...]
 ```
@@ -293,47 +377,126 @@ Controls **horizontal alignment** of children (cross-axis):
   properties:
     quote: Great quote here
     cite: Jane Doe
-    appearance: { border: { accentColor: '#2563eb' }, background: { color: '#f9f9f9' } }
+    typography: { size: xl, weight: medium, color: '#111827' }
+    appearance: { border: { accentColor: '#6366f1' }, background: { color: '#ffffff' }, shadow: none }
 ```
 
-### Media (4)
+**Accent Color System:** The `accentColor` property flows through a CSS variable (`--blockquote-border`) to style:
+1. Left border (5px solid)
+2. Background gradient (8% tint)
+3. Quotation marks (::before/::after decorative quotes)
+4. Citation text color
 
-**image** - Display image
+Changing `accentColor` updates all four elements automatically.
+
+### Media (5)
+
+**image** - Display image with optional overlay content
 ```yaml
 - name: image
   properties:
     source: { url: 'https://...jpg', altText: 'Description' }
-    presentation: { height: 400px, fit: cover, cornerStyle: md }
+    appearance:
+      width: '100'               # Percentage: '100', '75', '50', '25'
+      minHeight: 200             # Minimum height in pixels
+      fit: cover                 # cover, contain, fill, none
+      aspectRatio: '16/9'        # auto, 16/9, 4/3, 1/1, 3/2, 21/9, 9/16
+      objectPosition: center     # center, top, bottom, left, right, top left, etc.
+      cornerStyle: md            # none, xs, sm, md, lg, xl, xxl, pill
+      filter: none               # none, grayscale, sepia, blur, brighten, darken, saturate
+      shadow: medium             # none, soft, medium, elevated, dramatic, retro
+      hoverEffect: zoom          # none, zoom, lift
+      lazy: true                 # Lazy loading
+      overlay:
+        enabled: false
+        color: 'rgba(0,0,0,0.5)'
+        opacity: 50
     layout: { widthMode: stretch }
-  components: [...]  # Optional overlay text
+  components: [...]              # Optional overlay content (text, buttons)
 ```
 
 **gif** - Animated GIF
 ```yaml
 - name: gif
   properties:
-    source: { url: 'https://...gif' }
-    presentation: { fit: cover }
+    source: { url: 'https://...gif', altText: 'Animation' }
+    appearance:
+      fit: cover                 # cover, contain, fill, none
+      aspectRatio: auto          # auto, 16/9, 4/3, 1/1, etc.
+      objectPosition: center     # center, top, bottom, left, right
+      cornerStyle: none          # none, xs, sm, md, lg, xl, xxl, pill
+      filter: none               # none, grayscale, sepia, blur, brighten, darken, saturate
+      shadow: none               # none, soft, medium, elevated, dramatic, retro
+      overlay:
+        enabled: false
+        color: 'rgba(0,0,0,0.5)'
+        opacity: 50
+    layout: { widthMode: stretch }
 ```
 
-**video** - YouTube embed
+**video** - YouTube/Vimeo embed
 ```yaml
 - name: video
   properties:
-    source: { url: 'https://www.youtube.com/embed/VIDEO_ID' }
-    playback: { controls: true, autoplay: false, muted: false }
+    source: { url: 'https://www.youtube.com/watch?v=VIDEO_ID' }
+    appearance:
+      aspectRatio: '16/9'        # 16/9, 4/3, 1/1, 21/9
+      height: 400                # Height in pixels
+    playback:
+      controls: true
+      autoplay: false
+      muted: false
+      loop: false
+    poster: { url: '' }          # Poster image URL
+    spacing: { marginBlock: md }
 ```
 
-**br** - Vertical break
+**video-background** - Full-width video background with overlay content
+```yaml
+- name: video-background
+  properties:
+    source:
+      url: 'https://example.com/video.mp4'  # Direct MP4/WebM URL
+      poster: ''                 # Fallback image while loading
+    appearance:
+      aspectRatio: '16/9'
+      minHeight: 400
+      objectFit: cover           # cover, contain, fill
+      objectPosition: center     # center, top, bottom, left, right
+      overlay:
+        enabled: true
+        color: 'rgba(0,0,0,0.4)'
+        opacity: 40
+    playback:
+      autoplay: true
+      loop: true
+      muted: true                # Required for autoplay
+      playsinline: true          # Important for mobile
+    content:
+      verticalAlign: center      # start, center, end
+      horizontalAlign: center    # left, center, right
+      padding: md
+    layout: { widthMode: stretch }
+  components:                    # Overlay content (headings, buttons, etc.)
+    - name: heading
+      properties:
+        text: Hero Title
+        typography: { color: '#ffffff', size: xxxl, align: center }
+    - name: button
+      properties:
+        text: Learn More
+```
+
+**br** - Vertical break/spacer
 ```yaml
 - name: br
   properties:
-    size: md
+    size: md                     # none, xs, sm, md, lg, xl
 ```
 
 ### Navigation (3)
 
-**titlebar** - Header/navbar
+**titlebar** - Header/navbar with sticky scroll behavior
 ```yaml
 - name: titlebar
   properties:
@@ -342,9 +505,21 @@ Controls **horizontal alignment** of children (cross-axis):
       links:
         - label: Home
           href: '#home'
+        - label: About
+          href: '#about'
     layout: { alignment: left, height: 60 }
-    appearance: { background: { color: '#ffffff' }, border: { width: 1, color: '#e5e7eb' } }
+    scroll:
+      shrinkPercentage: 30        # Logo/title shrink to 70% when scrolled (0-100)
+    appearance:
+      background: { color: '#ffffff' }
+      border: { width: 1, color: '#e5e7eb' }
+      focus: { color: '#2563eb' }  # Focus ring color for accessibility
 ```
+
+**Titlebar scroll behavior:**
+- Titlebar becomes sticky on scroll (uses clone-based approach)
+- Logo and title shrink by `shrinkPercentage` when scrolled (default: 30%)
+- Menu items do NOT shrink - only logo and title
 
 **link** - Hyperlink
 ```yaml
@@ -365,7 +540,7 @@ Controls **horizontal alignment** of children (cross-axis):
 
 ### Interactive (3)
 
-**accordion** - Expandable sections
+**accordion** - Expandable sections (supports nested components!)
 ```yaml
 - name: accordion
   properties:                                    # ← Configuration properties
@@ -381,12 +556,18 @@ Controls **horizontal alignment** of children (cross-axis):
     spacing: { marginBlock: md }
   items:                                         # ← AT COMPONENT LEVEL (not inside properties)
     - title: Question 1
-      content: |
-        Answer 1 with multiline support.
-        Use pipe operator for multiline text.
+      components:                                # ← Nested components for content
+        - name: paragraph
+          properties: { text: Answer 1 with formatting support. }
     - title: Question 2
-      content: Answer 2
+      components:
+        - name: paragraph
+          properties: { text: Answer with formatting and components }
+        - name: button
+          properties: { text: Learn More }
 ```
+
+**Accordion items use nested components for content.** Add paragraph, image, button, or any other component inside `components:` array.
 
 **⚠️ CRITICAL:** `items:` must be at the same indentation level as `properties:`, NOT inside it!
 
@@ -427,20 +608,42 @@ Controls **horizontal alignment** of children (cross-axis):
 ```yaml
 - name: carousel
   properties:                                    # ← Configuration properties
-    behavior: { autoplay: true, delay: 4000, loop: true }
-    navigation: { showArrows: true, showDots: true }
+    behavior:
+      autoplay: true
+      delay: 4000
+      loop: true
+      pauseOnHover: true
+      swipeEnabled: true
+      swipeThreshold: 50
+      keyboardNavigation: true
+    animation:
+      effect: slide                              # slide, fade
+      duration: 500
+    navigation:
+      showArrows: true
+      arrowStyle: default                        # default, minimal, bold
+      arrowPosition: inside                      # inside, outside
+      showDots: true
+    indicators:
+      style: dots                                # dots, dashes, numbers
+      position: bottom                           # bottom, top
+    accessibility:
+      showPauseButton: true
+      ariaLabel: "Image carousel"
+    appearance:
+      shadow: none                               # none, soft, medium, elevated, dramatic, retro
     spacing: { marginBlock: lg }
   slides:                                        # ← AT COMPONENT LEVEL (not inside properties)
     - components:
         - name: image
           properties:
             source: { url: 'https://...jpg', altText: 'Slide 1' }
-            presentation: { height: 500px, fit: cover, cornerStyle: lg }
+            appearance: { fit: cover, cornerStyle: lg, aspectRatio: '16/9' }
     - components:
         - name: image
           properties:
             source: { url: 'https://...jpg', altText: 'Slide 2' }
-            presentation: { height: 500px, fit: cover, cornerStyle: lg }
+            appearance: { fit: cover, cornerStyle: lg, aspectRatio: '16/9' }
 ```
 
 **⚠️ CRITICAL:** `slides:` must be at the same indentation level as `properties:`, NOT inside it!
@@ -513,11 +716,11 @@ Controls **horizontal alignment** of children (cross-axis):
 - name: image
   properties:
     source: { url: 'https://...jpg', altText: Background }
-    presentation: { height: 600px, fit: cover }
+    appearance: { minHeight: 600, fit: cover }
     layout: { widthMode: stretch }
   components:
     - name: layout-column
-      properties: { layout: { align: center }, spacing: { paddingBlock: xl } }
+      properties: { layout: { horizontalAlign: center }, spacing: { paddingBlock: xl } }
       components:
         - name: heading
           properties: { text: Welcome, level: 1, typography: { color: '#fff', size: xxxl, weight: bold } }
@@ -536,7 +739,7 @@ Controls **horizontal alignment** of children (cross-axis):
   columns:
     - components:
         - name: image
-          properties: { source: { url: '...' }, presentation: { height: 200px, fit: cover } }
+          properties: { source: { url: '...' }, appearance: { minHeight: 200, fit: cover } }
         - name: heading
           properties: { text: Feature 1, level: 3 }
         - name: paragraph
@@ -548,7 +751,7 @@ Controls **horizontal alignment** of children (cross-axis):
 ### Pricing Table
 ```yaml
 - name: columnsgrid
-  properties: { layout: { columns: 3, gap: md } }
+  properties: { layout: { columns: 3, gap: lg } }
   columns:
     - components:
         - name: heading
@@ -570,7 +773,7 @@ Controls **horizontal alignment** of children (cross-axis):
   columns:
     - components:
         - name: image
-          properties: { source: { url: '...' }, presentation: { height: 300px, fit: cover } }
+          properties: { source: { url: '...' }, appearance: { minHeight: 300, fit: cover } }
         - name: heading
           properties: { text: Name, level: 3, typography: { align: center, weight: bold } }
         - name: eyebrow
@@ -604,10 +807,9 @@ Controls **horizontal alignment** of children (cross-axis):
 ```yaml
 - name: layout-row
   properties:
-    layout: { align: center, gap: lg }
+    layout: { horizontalAlign: center, verticalAlign: center, gap: lg }
     spacing: { paddingBlock: xl, paddingInline: lg }
-    background: { color: '#f0f4f8' }
-    appearance: { radius: md }
+    appearance: { background: { color: '#f0f4f8' }, radius: md }
   components:
     - name: layout-column
       components:
@@ -626,126 +828,24 @@ Controls **horizontal alignment** of children (cross-axis):
       properties: { text: No spam, unsubscribe anytime, typography: { size: xs, color: '#999' } }
 ```
 
-### Before/After Comparison
-```yaml
-- name: layout-row
-  properties:
-    layout: { gap: lg, align: center }
-    spacing: { paddingBlock: lg }
-  components:
-    - name: layout-column
-      properties: { layout: { align: center } }
-      components:
-        - name: heading
-          properties: { text: Before, level: 3, typography: { color: '#ef4444', weight: bold } }
-        - name: paragraph
-          properties: { text: "✗ Manual entry" }
-        - name: paragraph
-          properties: { text: "✗ Error-prone" }
-        - name: image
-          properties: { source: { url: '...' }, presentation: { height: 200px, fit: cover } }
-    - name: layout-column
-      properties: { layout: { align: center } }
-      components:
-        - name: heading
-          properties: { text: After, level: 3, typography: { color: '#10b981', weight: bold } }
-        - name: paragraph
-          properties: { text: "✓ Automated" }
-        - name: paragraph
-          properties: { text: "✓ 99% accurate" }
-        - name: image
-          properties: { source: { url: '...' }, presentation: { height: 200px, fit: cover } }
-```
+### More Pattern Ideas
 
-### Features with Image
-```yaml
-- name: layout-row
-  properties:
-    layout: { gap: xl, align: center }
-    spacing: { paddingBlock: xl }
-  components:
-    - name: image
-      properties: { source: { url: '...' }, presentation: { height: 400px, fit: cover } }
-    - name: layout-column
-      components:
-        - name: heading
-          properties: { text: Why Choose Us, level: 3, typography: { weight: bold, size: lg } }
-        - name: paragraph
-          properties: { text: Description, spacing: { marginBlock: md } }
-        - name: layout-column
-          properties: { layout: { gap: md } }
-          components:
-            - name: layout-row
-              properties: { layout: { gap: md, align: start } }
-              components:
-                - name: paragraph
-                  properties: { text: "✓", typography: { size: lg, weight: bold, color: '#10b981' } }
-                - name: layout-column
-                  components:
-                    - name: heading
-                      properties: { text: Feature 1, level: 4, typography: { weight: semibold } }
-                    - name: paragraph
-                      properties: { text: Feature description, typography: { size: sm, color: '#666' } }
-```
+**Before/After Comparison:** Use Team Grid pattern with 2 columns. Add red `#ef4444` for "Before" heading, green `#10b981` for "After". Use ✗ and ✓ symbols in paragraphs.
 
-### CTA Banners (3 Variants)
+**Features with Image:** Use Hero Section pattern. Replace overlay content with a layout-row containing image + layout-column with feature list.
 
-**Blue Offer:**
-```yaml
-- name: layout-row
-  properties:
-    layout: { gap: md, align: center }
-    spacing: { paddingBlock: lg }
-    background: { color: '#2563eb' }
-    appearance: { radius: md }
-  components:
-    - name: heading
-      properties: { text: Limited Time, level: 3, typography: { color: '#fff', weight: bold } }
-    - name: paragraph
-      properties: { text: Get 50% off, typography: { color: '#e0e7ff' } }
-    - name: button
-      properties: { text: Claim Offer, appearance: { background: { color: '#fff' } }, typography: { color: '#2563eb' } }
-```
-
-**Warning/Alert:**
-```yaml
-- name: layout-row
-  properties:
-    layout: { gap: md, align: center }
-    spacing: { paddingBlock: lg }
-    background: { color: '#fbbf24' }
-    appearance: { radius: md, border: { width: 2, color: '#f59e0b' } }
-  components:
-    - name: heading
-      properties: { text: Important Notice, level: 3, typography: { color: '#78350f', weight: bold } }
-    - name: paragraph
-      properties: { text: Spots filling fast, typography: { color: '#92400e' } }
-    - name: button
-      properties: { text: Reserve Now, appearance: { background: { color: '#78350f' } } }
-```
-
-**Success/Confirmation:**
-```yaml
-- name: layout-row
-  properties:
-    layout: { gap: md, align: center }
-    spacing: { paddingBlock: lg }
-    background: { color: '#d1fae5' }
-    appearance: { radius: md, border: { width: 1, color: '#6ee7b7' } }
-  components:
-    - name: paragraph
-      properties: { text: "✓ Ready to go", typography: { color: '#065f46', weight: semibold } }
-    - name: button
-      properties: { text: Get Started, appearance: { background: { color: '#059669' } } }
-```
+**CTA Banner Variants:** Use Footer CTA pattern, change colors:
+- **Warning:** Yellow bg `#fbbf24`, brown text `#78350f`
+- **Success:** Green bg `#d1fae5`, dark green text `#065f46`
+- **Info:** Blue bg `#2563eb`, white text `#fff`
 
 ### Footer CTA
 ```yaml
 - name: layout-row
   properties:
-    layout: { gap: md, align: center, wrap: wrap }
+    layout: { horizontalAlign: center, verticalAlign: center, wrap: wrap }
     spacing: { paddingBlock: xl }
-    background: { color: '#1f2937' }
+    appearance: { background: { color: '#1f2937' } }
   components:
     - name: layout-column
       components:
@@ -754,7 +854,7 @@ Controls **horizontal alignment** of children (cross-axis):
         - name: paragraph
           properties: { text: Join thousands today, typography: { color: '#d1d5db' } }
     - name: layout-row
-      properties: { layout: { gap: md, align: center } }
+      properties: { layout: { horizontalAlign: center, verticalAlign: center } }
       components:
         - name: button
           properties: { text: Free Trial, appearance: { background: { color: '#2563eb' } } }
@@ -762,178 +862,9 @@ Controls **horizontal alignment** of children (cross-axis):
           properties: { text: Schedule Demo, appearance: { background: { color: '#fff' } }, typography: { color: '#1f2937' } }
 ```
 
-### FAQ Section with Accordion
-```yaml
-- name: layout-column
-  properties:
-    layout: { align: center, gap: md }
-    spacing: { paddingBlock: xl, paddingInline: md }
-  components:
-    - name: heading
-      properties:
-        text: Frequently Asked Questions
-        level: 2
-        typography: { align: center, color: '#1f2937', size: xxl, weight: bold }
-        spacing: { marginBlock: md }
-    - name: accordion
-      properties:                                # ← All config INSIDE properties
-        behavior: { allowMultipleOpen: false }
-        typography:
-          title: { size: lg, weight: semibold, color: '#1f2937' }
-          content: { size: md, weight: regular, color: '#4b5563' }
-        appearance:
-          titleBackground: { color: '#ffffff' }
-          contentBackground: { color: '#ffffff', transparency: 100 }
-          border: { width: 1, style: solid, color: '#e5e7eb', position: bottom }
-          radius: sm
-          padding: { block: md, inline: md }
-        spacing: { marginBlock: lg }
-        layout: { widthMode: 75 }
-      items:                                     # ← items AT COMPONENT LEVEL
-        - title: What is your refund policy?
-          content: |
-            We offer a 30-day money-back guarantee.
-            If you're not satisfied, we'll refund you fully.
-        - title: How do I get started?
-          content: |
-            Simply sign up for a free trial and follow
-            our onboarding guide. No credit card required.
-        - title: Do you offer support?
-          content: We provide 24/7 email support and live chat during business hours.
-```
+## Common Mistakes & Fixes
 
-### Tabbed Content Section
-```yaml
-- name: layout-column
-  properties:
-    layout: { align: center, gap: md }
-    spacing: { paddingBlock: xl, paddingInline: md }
-  components:
-    - name: heading
-      properties:
-        text: Our Services
-        level: 2
-        typography: { align: center, color: '#1f2937', size: xxl, weight: bold }
-        spacing: { marginBlock: md }
-    - name: tabs
-      properties:                                # ← All config INSIDE properties
-        layout: { orientation: horizontal, widthMode: stretch }
-        typography:
-          label:
-            size: md
-            weight: semibold
-            active: { color: '#2563eb' }
-            inactive: { color: '#6b7280' }
-        appearance:
-          tab:
-            background: { active: '#ffffff', inactive: '#f9fafb' }
-            border: { width: 2, style: solid, position: lower }
-          content:
-            background: { color: '#ffffff', transparency: 100 }
-            border: { color: '#e5e7eb', width: 1, style: solid }
-            padding: { block: lg, inline: lg }
-        spacing: { marginBlock: lg }
-      tabs:                                      # ← tabs AT COMPONENT LEVEL
-        - title: Design
-          components:
-            - name: heading
-              properties: { text: Custom Design Services, level: 3 }
-            - name: paragraph
-              properties:
-                text: |
-                  We create beautiful, user-friendly designs tailored to your brand.
-                  Our team of expert designers will work with you every step of the way.
-        - title: Development
-          components:
-            - name: heading
-              properties: { text: Full-Stack Development, level: 3 }
-            - name: paragraph
-              properties: { text: From frontend to backend, we build robust applications. }
-        - title: Marketing
-          components:
-            - name: heading
-              properties: { text: Digital Marketing, level: 3 }
-            - name: paragraph
-              properties: { text: Grow your business with our proven marketing strategies. }
-```
-
-### Image Carousel Gallery
-```yaml
-- name: layout-column
-  properties:
-    layout: { align: center, gap: md }
-    spacing: { paddingBlock: xl, paddingInline: md }
-    background: { color: '#ffffff', transparency: 100 }
-  components:
-    - name: heading
-      properties:
-        text: Our Work
-        level: 2
-        typography: { align: center, color: '#1f2937', size: xxl, weight: bold }
-        spacing: { marginBlock: md }
-    - name: carousel
-      properties:                                # ← All config INSIDE properties
-        behavior: { autoplay: true, delay: 4000, loop: true }
-        navigation: { showArrows: true, showDots: true }
-        spacing: { marginBlock: lg }
-      slides:                                    # ← slides AT COMPONENT LEVEL
-        - components:
-            - name: image
-              properties:
-                source: { url: 'https://...jpg', altText: 'Project 1' }
-                presentation: { height: 500px, fit: cover, cornerStyle: lg }
-        - components:
-            - name: image
-              properties:
-                source: { url: 'https://...jpg', altText: 'Project 2' }
-                presentation: { height: 500px, fit: cover, cornerStyle: lg }
-        - components:
-            - name: image
-              properties:
-                source: { url: 'https://...jpg', altText: 'Project 3' }
-                presentation: { height: 500px, fit: cover, cornerStyle: lg }
-```
-
-## YAML Structure Summary
-
-### Component-Level vs Properties-Level
-
-**Component Structure Pattern:**
-```yaml
-- name: component-name
-  properties:              # ← ALWAYS required for configuration
-    spacing: { ... }       # ← Inside properties ✅
-    typography: { ... }    # ← Inside properties ✅
-    appearance: { ... }    # ← Inside properties ✅
-    layout: { ... }        # ← Inside properties ✅
-    behavior: { ... }      # ← Inside properties ✅
-  components: [...]        # ← Component level ✅ (for containers)
-```
-
-**Components with Special Arrays:**
-```yaml
-# Accordion
-- name: accordion
-  properties: { behavior: {...}, typography: {...} }
-  items: [...]             # ← Component level ✅
-
-# Tabs
-- name: tabs
-  properties: { layout: {...}, typography: {...} }
-  tabs: [...]              # ← Component level ✅
-
-# Carousel
-- name: carousel
-  properties: { behavior: {...}, navigation: {...} }
-  slides: [...]            # ← Component level ✅
-
-# Columnsgrid
-- name: columnsgrid
-  properties: { layout: {...}, responsive: {...} }
-  columns: [...]           # ← Component level ✅
-```
-
-### Common Mistakes & Fixes
+> **📌 See Quick Reference Card at top of document for structure rules and valid tokens.**
 
 **❌ WRONG - items inside properties:**
 ```yaml
@@ -941,7 +872,7 @@ Controls **horizontal alignment** of children (cross-axis):
   properties:
     items:                 # ← WRONG! Will cause iteration error
       - title: Q1
-        content: A1
+        components: [...]
 ```
 
 **✅ CORRECT - items at component level:**
@@ -951,8 +882,18 @@ Controls **horizontal alignment** of children (cross-axis):
     behavior: { allowMultipleOpen: false }
   items:                   # ← CORRECT! At component level
     - title: Q1
-      content: A1
+      components:          # ← Use nested components for content
+        - name: paragraph
+          properties: { text: Answer 1 }
+    - title: Q2
+      components:
+        - name: paragraph
+          properties: { text: Rich answer with formatting }
+        - name: image
+          properties: { source: { url: 'https://example.com/img.jpg' } }
 ```
+
+**Accordion uses nested components for content.** Each item has a `title` and `components` array.
 
 **❌ WRONG - spacing outside properties:**
 ```yaml
@@ -1036,17 +977,17 @@ appearance:
     transparency: 100     # 0-100 (0=transparent, 100=opaque) - converts to hex alpha
   border: { width: 1, style: solid, color: '#ccc' }
   radius: md              # token: none, sm, md, lg, pill
-  shadow: "0 2px 8px rgba(0,0,0,0.1)"
+  shadow: medium            # token: none, soft, medium, elevated, dramatic, retro
   padding:
     block: md             # top + bottom padding (token)
     inline: md            # left + right padding (token)
 
 # Layout (containers)
 layout:
-  tag: section         # semantic HTML
-  align: center        # flexbox align
-  gap: md              # spacing between children
-  wrap: nowrap         # flex-wrap
+  tag: section            # semantic HTML
+  horizontalAlign: center # flexbox alignment or distribution (center, left, right, space-between, space-evenly, space-around)
+  verticalAlign: center   # flexbox vertical alignment (layout-row only)
+  wrap: wrap              # flex-wrap (wrap or nowrap)
 ```
 
 ---
@@ -1065,26 +1006,134 @@ Component 'heading' at [0]: Invalid value 'huge' for property 'spacing.marginBlo
 Must be one of: none, xs, sm, md, lg, xl, xxl, xxxl, auto
 ```
 
-## Transparency System
+## Transparency & Gradients
 
-**How transparency works:**
-- Transparency values (0-100) are converted to hex alpha
-- Appended to the color value automatically
-- Example: `color: '#3b82f6', transparency: 50` → `#3b82f680` (80 = 50% in hex)
-- Default transparency is `100` (fully opaque)
-- `0` = fully transparent, `100` = fully opaque
-
-**Transparency examples:**
+**Transparency:** Values 0-100 → hex alpha. `0` = transparent, `100` = opaque (default).
 ```yaml
-# Fully opaque white background
-background: { color: '#ffffff', transparency: 100 }  # → #ffffffff
-
-# 50% transparent blue background
-background: { color: '#2563eb', transparency: 50 }   # → #2563eb80
-
-# Fully transparent (invisible)
-background: { color: '#000000', transparency: 0 }    # → #00000000
+appearance: { background: { color: '#2563eb', transparency: 50 } }  # 50% transparent
 ```
+
+**Gradients:** Set `type: 'gradient'` with `colorStart`, `colorEnd`, `direction`.
+```yaml
+appearance:
+  background:
+    type: 'gradient'
+    color: '#ff6b6b'        # Fallback
+    gradient:
+      colorStart: '#ff6b6b'
+      colorEnd: '#4ecdc4'
+      direction: 'to right'  # to right, to bottom, to bottom right, to top right
+```
+
+## Themes (Color & Font)
+
+Page-level themes allow consistent colors and typography across all components using YAML anchors and aliases. Themes define reusable values that are referenced throughout the page.
+
+### The 60-30-10 Color Distribution Rule
+
+A professional color palette follows the 60-30-10 distribution for visual harmony:
+
+| Color | Coverage | Role | Usage |
+|-------|----------|------|-------|
+| **Background** | 60% | Neutral base | Page backgrounds, card backgrounds, content areas |
+| **Primary** | 30% | Text & branding | **Headings, body text**, brand elements, navigation |
+| **Secondary** | 10% | Support color | Section highlights, borders, regular buttons, UI elements |
+| **Accent** | CTAs only | High-visibility | **Call-to-action buttons ONLY**, critical links |
+
+**⚠️ Important Color Rules:**
+1. **Primary color is for TEXT** - Use it for headings, important text, and brand typography
+2. **Secondary color is for UI** - Section backgrounds, borders, regular buttons
+3. **Accent is ONLY for CTAs** - Reserve for "Buy Now", "Sign Up", "Get Started" buttons
+4. **Never use accent for decoration** - It loses impact if overused
+
+### Theme Structure
+
+Themes are defined at the page level under `properties.theme`:
+
+```yaml
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#F5FAF0'  # 60% - Page base
+        primary: &color-primary '#1A3A1A'        # 30% - Text color
+        secondary: &color-secondary '#E0EBD8'   # 10% - UI elements
+        accent: &color-accent '#2E8B57'          # CTAs only
+      fonts:
+        headingMain: &font-heading-main "'Playfair Display', serif"
+        headingLevel2: &font-heading-level2 "'Lato', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance:
+      background: { color: *color-background }
+  components: [...]
+```
+
+### Using Theme Colors Correctly
+
+**Standard section (light background):**
+```yaml
+- name: layout-column
+  properties:
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: heading
+      properties:
+        text: Our Services
+        typography: { color: *color-primary }   # Primary = text
+    - name: paragraph
+      properties:
+        text: Description text...
+        typography: { color: *color-primary }   # Primary = text
+    - name: button
+      properties:
+        text: Learn More
+        appearance: { background: { color: *color-secondary } }  # Secondary = regular button
+        typography: { color: *color-primary }
+    - name: button
+      properties:
+        text: Get Started Now            # CTA button!
+        appearance: { background: { color: *color-accent } }     # Accent = CTA only
+        typography: { color: *color-background }
+```
+
+### Creating Visual Interest: Inverted Sections
+
+**⚡ Key technique:** Swap background and primary colors to create eye-catching sections:
+
+```yaml
+# INVERTED SECTION - Primary becomes background, background becomes text
+- name: layout-column
+  properties:
+    appearance: { background: { color: *color-primary } }  # Dark background
+    spacing: { paddingBlock: xl }
+  components:
+    - name: heading
+      properties:
+        text: Why Choose Us?
+        typography: { color: *color-background }   # Light text on dark
+    - name: paragraph
+      properties:
+        text: We deliver excellence...
+        typography: { color: *color-background }   # Light text on dark
+    - name: button
+      properties:
+        text: Contact Us
+        appearance: { background: { color: *color-background } }  # Light button
+        typography: { color: *color-primary }      # Dark text
+```
+
+### Section Color Patterns
+
+Use these patterns to create visual rhythm:
+
+| Section Type | Background | Text Color | Button (Regular) | CTA Button |
+|--------------|------------|------------|------------------|------------|
+| **Standard** | `*color-background` | `*color-primary` | `*color-secondary` bg | `*color-accent` bg |
+| **Inverted** | `*color-primary` | `*color-background` | `*color-background` bg | `*color-accent` bg |
+| **Highlight** | `*color-secondary` | `*color-primary` | `*color-primary` bg | `*color-accent` bg |
+| **CTA Banner** | `*color-accent` | `*color-background` | `*color-background` bg | - |
+
+**Applying Section Color Patterns:** Use the table above. For each section, set `appearance.background.color` and `typography.color` using the appropriate `*color-*` alias. Alternate Standard → Inverted → Highlight sections for visual rhythm.
 
 ## SSR Implementation Notes
 
@@ -1095,36 +1144,6 @@ background: { color: '#000000', transparency: 0 }    # → #00000000
 
 ---
 
-## Validation & Error Prevention
+**Version:** 1.7 | **Last Updated:** February 2026
 
-**The renderer will throw errors for:**
-1. `items` inside `properties` (should be at component level)
-2. `tabs` inside `properties` (should be at component level)
-3. `slides` inside `properties` (should be at component level)
-4. `columns` inside `properties` (should be at component level)
-5. `spacing` outside `properties` (should be inside)
-6. Duplicate property keys (e.g., two `layout:` properties)
-7. Invalid token values (e.g., `spacing: huge` instead of `lg`)
-
-**Error message format:**
-```
-Iteration Error: 'builtin_function_or_method' object is not iterable
-
-This usually means you're trying to iterate over a method/function instead of calling it.
-```
-
-**Solution:** Check that array properties (`items`, `tabs`, `slides`, `columns`) are at component level, not inside `properties`.
-
----
-
-**Last Updated:** January 2025 | **Version:** 1.2 (SSR with Structure Fixes)
-
-**Changelog v1.2:**
-- ✅ Fixed accordion structure (`items` at component level)
-- ✅ Fixed tabs structure (`tabs` at component level)
-- ✅ Fixed carousel structure (`slides` at component level)
-- ✅ Added critical YAML structure rules section
-- ✅ Added common mistakes & fixes section
-- ✅ Added comprehensive structure examples
-- ✅ Added FAQ, Tabbed Content, and Carousel patterns
-- ✅ Updated all component examples with correct indentation
+> **⚠️ Common Error:** "Iteration Error" usually means array properties (`items`, `tabs`, `slides`, `columns`) are inside `properties:` instead of at component level. See Quick Reference Card at top.

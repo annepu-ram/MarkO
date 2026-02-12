@@ -199,7 +199,7 @@
     
     - name: layout-row
       properties:
-        layout: { align: start, gap: lg, wrap: wrap }
+        layout: { align: start, distribution: space-evenly, wrap: wrap }
         spacing: { paddingBlock: md }
       components:
         - name: blockquote

@@ -1,4 +1,5 @@
 import { ComponentPathMapBuilder } from './pathMapBuilder.js';
+import { parse } from './yamlWrapper.js';
 
 // Create a singleton instance of the path map builder
 export const pathMapBuilder = new ComponentPathMapBuilder();
@@ -134,19 +135,7 @@ function parseYaml(yamlContent) {
     }
 
     try {
-        // Check both global and window.jsyaml (module scripts may not see bare globals)
-        const yaml = typeof jsyaml !== 'undefined' ? jsyaml : window.jsyaml;
-        if (yaml) {
-            return yaml.load(yamlContent) || [];
-        }
-
-        // Fallback: try to parse as JSON if it's valid JSON
-        try {
-            return JSON.parse(yamlContent);
-        } catch (e) {
-            console.warn('YAML parser not available. Install js-yaml or load it via CDN.');
-            return null;
-        }
+        return parse(yamlContent);
     } catch (error) {
         console.error('Failed to parse YAML:', error);
         return null;

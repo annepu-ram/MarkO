@@ -1,0 +1,315 @@
+# Bold Typography Hero
+# A striking, typography-focused hero with minimal imagery
+# Perfect for: Creative agencies, portfolios, editorial, branding studios
+
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#f5f5f0'
+        transparency: 100
+  components:
+  # Minimal Navigation
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: center
+        verticalAlign: center
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: md
+        paddingInline: lg
+      appearance:
+        background:
+          color: '#f5f5f0'
+          transparency: 100
+    components:
+    - name: heading
+      properties:
+        text: "STUDIO"
+        level: 3
+        typography:
+          color: '#1a1a1a'
+          size: md
+          weight: bold
+          letterSpacing: wider
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+          verticalAlign: center
+          horizontalAlign: space-evenly
+      components:
+      - name: link
+        properties:
+          text: "Work"
+          typography:
+            color: '#666666'
+            size: sm
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "About"
+          typography:
+            color: '#666666'
+            size: sm
+          spacing:
+            marginBlock: none
+      - name: link
+        properties:
+          text: "Contact"
+          typography:
+            color: '#666666'
+            size: sm
+          spacing:
+            marginBlock: none
+
+  # Hero Section - Typography Focused
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: left
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: xxxl
+        paddingInline: xl
+      appearance:
+        background:
+          color: '#f5f5f0'
+          transparency: 100
+    components:
+    # Small Intro Text
+    - name: paragraph
+      properties:
+        text: "We are a creative studio"
+        typography:
+          color: '#999999'
+          size: md
+          weight: regular
+          letterSpacing: wide
+        spacing:
+          marginBlock: none
+
+    # Giant Headline - Multiple Lines
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: left
+          horizontalAlign: none
+      components:
+      - name: heading
+        properties:
+          text: "We design"
+          level: 1
+          typography:
+            color: '#1a1a1a'
+            size: xxxl
+            weight: bold
+            lineHeight: '0.95'
+          spacing:
+            marginBlock: none
+      - name: heading
+        properties:
+          text: "experiences that"
+          level: 1
+          typography:
+            color: '#1a1a1a'
+            size: xxxl
+            weight: bold
+            lineHeight: '0.95'
+          spacing:
+            marginBlock: none
+      - name: heading
+        properties:
+          text: "matter."
+          level: 1
+          typography:
+            color: '#ff4d4d'
+            size: xxxl
+            weight: bold
+            lineHeight: '0.95'
+          spacing:
+            marginBlock: none
+
+    # Description - Offset to the right
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: left
+          verticalAlign: top
+          horizontalAlign: space-evenly
+          wrap: wrap
+        spacing:
+          marginBlock: xl
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: left
+            horizontalAlign: none
+          spacing:
+            paddingBlock: none
+        components:
+        # Empty space / visual balance
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: left
+            horizontalAlign: space-evenly
+          spacing:
+            paddingBlock: none
+        components:
+        - name: paragraph
+          properties:
+            text: |
+              We're a team of designers, developers, and strategists
+              who believe in the power of thoughtful design. We create
+              digital experiences that connect brands with people.
+            typography:
+              color: '#666666'
+              size: lg
+              lineHeight: '1.7'
+            spacing:
+              marginBlock: none
+            layout:
+              widthMode: 75
+        - name: button
+          properties:
+            text: "View Our Work →"
+            appearance:
+              background:
+                color: '#1a1a1a'
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              padding:
+                block: md
+                inline: lg
+            typography:
+              color: '#ffffff'
+              weight: medium
+              size: md
+            spacing:
+              marginBlock: md
+            layout:
+              widthMode: fit
+
+    # Awards / Recognition Row
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: left
+          verticalAlign: top
+          horizontalAlign: space-evenly
+          wrap: wrap
+        spacing:
+          marginBlock: xl
+          paddingBlock: lg
+        appearance:
+          border:
+            width: 1
+            style: solid
+            color: '#e5e5e0'
+            position: top
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: left
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "2024"
+            typography:
+              color: '#999999'
+              size: xs
+              weight: medium
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Awwwards SOTD"
+            typography:
+              color: '#1a1a1a'
+              size: sm
+              weight: semibold
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: left
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "2024"
+            typography:
+              color: '#999999'
+              size: xs
+              weight: medium
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "FWA of the Day"
+            typography:
+              color: '#1a1a1a'
+              size: sm
+              weight: semibold
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: left
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "2023"
+            typography:
+              color: '#999999'
+              size: xs
+              weight: medium
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "CSS Design Awards"
+            typography:
+              color: '#1a1a1a'
+              size: sm
+              weight: semibold
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: left
+            horizontalAlign: space-evenly
+        components:
+        - name: paragraph
+          properties:
+            text: "2023"
+            typography:
+              color: '#999999'
+              size: xs
+              weight: medium
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Webby Honoree"
+            typography:
+              color: '#1a1a1a'
+              size: sm
+              weight: semibold
+            spacing:
+              marginBlock: none

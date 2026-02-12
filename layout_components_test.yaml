@@ -49,7 +49,7 @@
     # Main Content Area (Layout Row with two columns)
     - name: layout-row
       properties:
-        layout: { align: start, gap: xl }
+        layout: { align: start, distribution: space-evenly }
         appearance:
           border: { width: 1, style: dashed, color: '#dd6b20' }
           padding: { block: md, inline: md }
@@ -57,7 +57,7 @@
         # Left Column (70%)
         - name: layout-column
           properties:
-            layout: { widthMode: 70, gap: lg }
+            layout: { widthMode: 70, distribution: space-evenly }
             appearance:
               border: { width: 1, style: dotted, color: '#2b6cb0' }
               padding: { block: md, inline: md }
@@ -100,7 +100,7 @@
         # Right Column (30%)
         - name: layout-column
           properties:
-            layout: { widthMode: 30, gap: lg }
+            layout: { widthMode: 30, distribution: space-evenly }
             appearance:
               border: { width: 1, style: dotted, color: '#805ad5' }
               padding: { block: md, inline: md }
@@ -124,7 +124,7 @@
     # Form Section
     - name: form
       properties:
-        layout: { direction: column, gap: md }
+        layout: { direction: column, distribution: space-evenly }
         submit: { show: true, buttonText: 'Submit All The Things' }
         appearance:
           border: { width: 1, style: dashed, color: '#800080' }
@@ -151,7 +151,7 @@
     # Footer section
     - name: layout-row
       properties:
-        layout: { align: center, gap: xl }
+        layout: { align: center, distribution: space-evenly }
         spacing: { paddingBlock: xl }
         appearance:
           background: { color: '#2d3748' }
