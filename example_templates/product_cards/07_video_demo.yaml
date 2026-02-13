@@ -1,0 +1,62 @@
+# Product Card Variant: Video Demo
+# layout-column with a nested video (muted loop) and a "Buy Now" button
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#111827' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background: { color: '#1f2937' }
+          radius: lg
+          shadow: elevated
+          padding: { block: none, inline: none }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: video
+          properties:
+            source: { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }
+            appearance: { aspectRatio: '16/9', height: 300 }
+            playback: { controls: true, autoplay: false, muted: true, loop: true }
+            spacing: { marginBlock: none }
+            layout: { widthMode: stretch }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: xs }
+            appearance: { background: { transparency: 0 }, padding: { block: md, inline: md } }
+          components:
+            - name: eyebrow
+              properties:
+                text: WATCH IT IN ACTION
+                typography: { size: xxs, weight: semibold, color: '#818cf8', transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: ProCam 360 Action Camera
+                level: 3
+                typography: { size: xl, weight: bold, color: '#ffffff', align: left }
+                spacing: { marginBlock: xs }
+            - name: paragraph
+              properties:
+                text: |
+                  Capture every angle in stunning 8K. Waterproof to 30m.
+                  AI-powered stabilization for buttery smooth footage.
+                typography: { size: sm, color: '#9ca3af', align: left, lineHeight: "1.6" }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: heading
+                  properties:
+                    text: "$599.00"
+                    level: 4
+                    typography: { size: xl, weight: extrabold, color: '#ffffff', align: left }
+                    spacing: { marginBlock: none }
+                - name: button
+                  properties:
+                    text: Buy Now
+                    appearance: { background: { color: '#6366f1' }, radius: md, padding: { block: sm, inline: lg } }
+                    typography: { color: '#ffffff', weight: bold }

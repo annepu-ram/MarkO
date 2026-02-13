@@ -1,0 +1,56 @@
+# Hero Card Variant: Immersive Motion
+# video-background containing a centered layout-column with heading and button
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#000000' }
+  components:
+    - name: video-background
+      properties:
+        source:
+          url: 'https://cdn.pixabay.com/video/2024/06/04/214957_large.mp4'
+          poster: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200'
+        appearance:
+          minHeight: 600
+          objectFit: cover
+          overlay:
+            enabled: true
+            color: 'rgba(0,0,0,0.55)'
+            opacity: 55
+        playback:
+          autoplay: true
+          loop: true
+          muted: true
+          playsinline: true
+        content:
+          verticalAlign: center
+          horizontalAlign: center
+          padding: xl
+        layout: { widthMode: stretch }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: center, gap: md }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: eyebrow
+              properties:
+                text: EXPERIENCE THE FUTURE
+                typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Where Innovation Meets Imagination
+                level: 1
+                typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: tight }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Immerse yourself in a world of limitless possibilities.
+                typography: { size: lg, color: '#e2e8f0', align: center }
+                spacing: { marginBlock: md }
+            - name: button
+              properties:
+                text: Explore Now
+                appearance: { background: { color: '#6366f1' }, radius: pill, padding: { block: md, inline: xl } }
+                typography: { color: '#ffffff', weight: bold }

@@ -1,0 +1,134 @@
+# Hero Card Variant: The Standard Split
+# layout-row with layout-column (Text) and image
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#ffffff' }
+  components:
+    - name: layout-row
+      properties:
+        layout:
+          {
+            horizontalAlign: space-evenly,
+            verticalAlign: center,
+            wrap: nowrap,
+            gap: lg
+          }
+        spacing: { paddingBlock: xxl, paddingInline: xl }
+        appearance:
+          background: { color: '#f8fafc' }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "50", gap: md }
+            appearance:
+              background: { color: '#f8fafc', transparency: 0 }
+          components:
+            - name: eyebrow
+              properties:
+                text: WELCOME TO OUR PLATFORM
+                typography:
+                  {
+                    size: xs,
+                    weight: semibold,
+                    color: '#6366f1',
+                    transform: uppercase,
+                    letterSpacing: wider
+                  }
+            - name: heading
+              properties:
+                text: Build Something Amazing Today
+                level: 1
+                typography:
+                  {
+                    size: xxxl,
+                    weight: extrabold,
+                    color: '#111827',
+                    align: left,
+                    letterSpacing: tight
+                  }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: |
+                  Create beautiful, responsive websites in minutes.
+                  Our platform gives you everything you need to bring your vision to life.
+                typography: { size: md, color: '#4b5563', align: left, lineHeight: "1.7" }
+                spacing: { marginBlock: md }
+            - name: layout-row
+              properties:
+                layout:
+                  {
+                    horizontalAlign: center,
+                    verticalAlign: center,
+                    gap: none,
+                    wrap: wrap,
+                    tag: section
+                  }
+                appearance:
+                  {
+                    background: { transparency: 0, type: "", color: "#ffffff" },
+                    padding: { block: xs, inline: none },
+                    border: { width: 0, style: solid, color: "#000000" },
+                    radius: none,
+                    shadow: none,
+                    shadowColor: "#000000"
+                  }
+                spacing:
+                  marginBlock: none
+                  marginInline: none
+              components:
+                - name: button
+                  properties:
+                    text: Get Started Free
+                    appearance:
+                      {
+                        background: { color: '#6366f1', type: "", transparency: 100 },
+                        radius: md,
+                        border: { width: 1, style: solid, color: "#1d4ed8" },
+                        shadow: none,
+                        shadowColor: "#000000",
+                        padding: { block: sm, inline: sm },
+                        iconPlacement: none
+                      }
+                    typography: { color: '#ffffff', weight: semibold }
+                    action:
+                      type: inlineScript
+                      value: alert("Clicked!")
+                    layout:
+                      widthMode: "50"
+                    spacing:
+                      marginBlock: sm
+                      marginInline: xs
+                - name: button
+                  properties:
+                    text: Watch Demo
+                    appearance:
+                      {
+                        background: { color: '#ffffff', type: "", transparency: 100 },
+                        border: { width: 2, style: solid, color: '#6366f1' },
+                        radius: md,
+                        shadow: none,
+                        shadowColor: "#000000",
+                        padding: { block: sm, inline: sm },
+                        iconPlacement: none
+                      }
+                    typography: { color: '#6366f1', weight: semibold }
+                    action:
+                      type: inlineScript
+                      value: alert("Clicked!")
+                    layout:
+                      widthMode: fit
+                    spacing:
+                      marginBlock: sm
+                      marginInline: xs
+        - name: image
+          properties:
+            source:
+              {
+                url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800',
+                altText: 'Person working on laptop'
+              }
+            appearance: { minHeight: 25, fit: cover, cornerStyle: lg, shadow: elevated }
+            layout: { widthMode: "50" }

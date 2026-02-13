@@ -1,0 +1,131 @@
+# Story Card Variant: The Series Card
+# layout-column with a heading and a tabs component to navigate between "Part 1, Part 2, Part 3"
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: medium
+          padding: { block: lg, inline: lg }
+          border: { width: 1, style: solid, color: '#e5e7eb' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: eyebrow
+          properties:
+            text: "3-PART SERIES"
+            typography: { size: xxs, weight: bold, color: '#dc2626', transform: uppercase, letterSpacing: wider, align: center }
+            appearance:
+              background: { color: '#fef2f2', transparency: 100 }
+              radius: pill
+              padding: { block: xxs, inline: sm }
+        - name: heading
+          properties:
+            text: "Mastering Modern CSS: From Basics to Brilliance"
+            level: 3
+            typography: { size: xl, weight: bold, color: '#111827', align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: A comprehensive journey through CSS Grid, Flexbox, and Custom Properties.
+            typography: { size: sm, color: '#6b7280', align: center }
+        - name: tabs
+          properties:
+            layout: { orientation: horizontal, widthMode: stretch }
+            typography:
+              label:
+                size: sm
+                weight: semibold
+                active: { color: '#dc2626' }
+                inactive: { color: '#6b7280' }
+            appearance:
+              tab:
+                background: { active: '#ffffff', inactive: '#f9fafb' }
+                border: { width: 2, style: solid, position: lower }
+              content:
+                background: { color: '#ffffff' }
+                border: { color: '#e5e7eb', width: 1, style: solid }
+                padding: { block: md, inline: md }
+            spacing: { marginBlock: md }
+          tabs:
+            - title: "Part 1: Foundations"
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left, gap: sm }
+                    appearance: { background: { transparency: 0 } }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=600', altText: 'Code on screen' }
+                        appearance: { minHeight: 10, fit: cover, cornerStyle: md }
+                        layout: { widthMode: stretch }
+                    - name: paragraph
+                      properties:
+                        text: |
+                          Learn the fundamentals of CSS layout. We cover the box model,
+                          positioning, and how modern browsers render your styles. This
+                          foundation is critical for everything that follows.
+                        typography: { size: sm, color: '#4b5563', lineHeight: "1.7" }
+                    - name: link
+                      properties:
+                        text: Read Part 1
+                        href: '#'
+                        typography: { size: sm, weight: semibold, color: '#dc2626' }
+                        appearance: { showArrow: true, underline: false }
+            - title: "Part 2: Flexbox & Grid"
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left, gap: sm }
+                    appearance: { background: { transparency: 0 } }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600', altText: 'Grid layout code' }
+                        appearance: { minHeight: 10, fit: cover, cornerStyle: md }
+                        layout: { widthMode: stretch }
+                    - name: paragraph
+                      properties:
+                        text: |
+                          Dive deep into Flexbox for one-dimensional layouts and CSS Grid
+                          for two-dimensional mastery. Real-world examples from production
+                          websites you use every day.
+                        typography: { size: sm, color: '#4b5563', lineHeight: "1.7" }
+                    - name: link
+                      properties:
+                        text: Read Part 2
+                        href: '#'
+                        typography: { size: sm, weight: semibold, color: '#dc2626' }
+                        appearance: { showArrow: true, underline: false }
+            - title: "Part 3: Advanced"
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left, gap: sm }
+                    appearance: { background: { transparency: 0 } }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600', altText: 'Advanced coding' }
+                        appearance: { minHeight: 10, fit: cover, cornerStyle: md }
+                        layout: { widthMode: stretch }
+                    - name: paragraph
+                      properties:
+                        text: |
+                          CSS Custom Properties, Container Queries, and the new @layer
+                          at-rule. We explore the cutting edge of CSS that will define
+                          how we build layouts in 2026 and beyond.
+                        typography: { size: sm, color: '#4b5563', lineHeight: "1.7" }
+                    - name: link
+                      properties:
+                        text: Read Part 3
+                        href: '#'
+                        typography: { size: sm, weight: semibold, color: '#dc2626' }
+                        appearance: { showArrow: true, underline: false }

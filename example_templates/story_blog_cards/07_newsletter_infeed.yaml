@@ -1,0 +1,61 @@
+# Story Card Variant: The Newsletter In-Feed
+# layout-column with a heading, paragraph, and a form with a textbox for email signup
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        appearance:
+          background:
+            type: gradient
+            color: '#6366f1'
+            gradient:
+              colorStart: '#6366f1'
+              colorEnd: '#8b5cf6'
+              direction: 'to bottom right'
+          radius: lg
+          shadow: elevated
+          padding: { block: xl, inline: xl }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: heading
+          properties:
+            text: "Stay in the Loop"
+            level: 3
+            typography: { size: xl, weight: bold, color: '#ffffff', align: center }
+        - name: paragraph
+          properties:
+            text: |
+              Get weekly curated stories, exclusive insights, and early
+              access to new features. No spam, ever.
+            typography: { size: sm, color: '#e0e7ff', align: center, lineHeight: "1.7" }
+            layout: { widthMode: "75" }
+        - name: form
+          properties:
+            layout: { direction: row, horizontalAlign: center }
+            submit: { show: false }
+          components:
+            - name: textbox
+              properties:
+                label: { show: false }
+                field: { placeholder: 'Enter your email', required: true }
+                appearance:
+                  border: { width: 0 }
+                  background: { color: '#ffffff', transparency: 100 }
+                  radius: pill
+                layout: { widthMode: "50" }
+                spacing: { marginBlock: none }
+            - name: button
+              properties:
+                text: Subscribe
+                appearance: { background: { color: '#111827' }, radius: pill, padding: { block: sm, inline: lg } }
+                typography: { color: '#ffffff', weight: bold }
+                spacing: { marginBlock: none }
+        - name: caption
+          properties:
+            text: "Join 15,000+ readers. Unsubscribe anytime."
+            typography: { size: xs, color: '#c7d2fe', align: center }

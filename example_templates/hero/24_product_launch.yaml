@@ -1,0 +1,54 @@
+# Hero Card Variant: Product Launch
+# layout-row with a gif of the product and a layout-column containing a calendar input for "Book a Demo"
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#faf5ff' }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: xl }
+        spacing: { paddingBlock: xxl, paddingInline: xl }
+        appearance:
+          background: { color: '#faf5ff' }
+      components:
+        - name: gif
+          properties:
+            source: { url: 'https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif', altText: 'Product demo animation' }
+            appearance: { minHeight: 20, fit: cover, cornerStyle: lg, shadow: elevated }
+            layout: { widthMode: "50" }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "50", gap: md }
+            appearance:
+              background: { color: '#ffffff' }
+              radius: lg
+              shadow: soft
+              padding: { block: lg, inline: lg }
+          components:
+            - name: eyebrow
+              properties:
+                text: NEW PRODUCT LAUNCH
+                typography: { size: xs, weight: semibold, color: '#7c3aed', transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: See It in Action
+                level: 2
+                typography: { size: xxl, weight: extrabold, color: '#1e1b4b', align: left }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: |
+                  Our revolutionary platform is ready for you. Book a personalized
+                  demo with our team and discover what's possible.
+                typography: { size: md, color: '#4b5563', align: left, lineHeight: "1.7" }
+            - name: calendar
+              properties:
+                display: { month: 3, year: 2026 }
+            - name: button
+              properties:
+                text: Book a Demo
+                appearance: { background: { color: '#7c3aed' }, radius: md }
+                typography: { color: '#ffffff', weight: bold }
+                layout: { widthMode: stretch }

@@ -1,0 +1,62 @@
+# Story Card Variant: Editorial Card
+# layout-column with a full-bleed image, eyebrow (Category), heading, and paragraph (Excerpt)
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: left, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: soft
+          padding: { block: none, inline: none }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800', altText: 'AI and robotics' }
+            appearance: { minHeight: 18, fit: cover, cornerStyle: none, hoverEffect: zoom }
+            layout: { widthMode: stretch }
+            spacing: { marginBlock: none }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: xs }
+            appearance: { background: { transparency: 0 }, padding: { block: md, inline: md } }
+          components:
+            - name: eyebrow
+              properties:
+                text: TECHNOLOGY
+                typography: { size: xxs, weight: bold, color: '#2563eb', transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: The Future of AI-Powered Design Systems
+                level: 3
+                typography: { size: xl, weight: bold, color: '#111827', align: left, lineHeight: "1.3" }
+                spacing: { marginBlock: xs }
+            - name: paragraph
+              properties:
+                text: |
+                  How machine learning is reshaping the way we think about
+                  user interfaces and design workflows. A deep dive into
+                  the tools that are changing everything.
+                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.7" }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: caption
+                  properties:
+                    text: "5 min read"
+                    typography: { size: xs, color: '#9ca3af' }
+                - name: link
+                  properties:
+                    text: Read Article
+                    href: '#'
+                    typography: { size: sm, weight: semibold, color: '#2563eb' }
+                    appearance: { showArrow: true, underline: false }
+                    spacing: { marginBlock: none }

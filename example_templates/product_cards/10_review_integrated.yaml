@@ -1,0 +1,80 @@
+# Product Card Variant: Review-Integrated
+# layout-column with image, heading, and a layout-row showing star icons and a link to reviews
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: xs }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: soft
+          padding: { block: none, inline: none }
+          border: { width: 1, style: solid, color: '#e5e7eb' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600', altText: 'Luxury perfume bottle' }
+            appearance: { minHeight: 18, fit: cover, cornerStyle: none, hoverEffect: zoom }
+            layout: { widthMode: stretch }
+            spacing: { marginBlock: none }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: xs }
+            appearance: { background: { transparency: 0 }, padding: { block: md, inline: md } }
+          components:
+            - name: heading
+              properties:
+                text: Essence Noir Eau de Parfum
+                level: 3
+                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                spacing: { marginBlock: none }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: xs, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: paragraph
+                  properties:
+                    text: "4.8"
+                    typography: { size: sm, weight: bold, color: '#111827' }
+                    spacing: { marginBlock: none }
+                - name: paragraph
+                  properties:
+                    text: "(2,847 reviews)"
+                    typography: { size: xs, color: '#6b7280' }
+                    spacing: { marginBlock: none }
+                - name: link
+                  properties:
+                    text: Read Reviews
+                    href: '#reviews'
+                    typography: { size: xs, weight: semibold, color: '#2563eb' }
+                    appearance: { underline: false, showArrow: true }
+                    spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: |
+                  A captivating blend of dark rose, oud wood, and amber.
+                  Long-lasting scent that evolves throughout the day.
+                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.6" }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: heading
+                  properties:
+                    text: "$185.00"
+                    level: 4
+                    typography: { size: xl, weight: extrabold, color: '#111827', align: left }
+                    spacing: { marginBlock: none }
+                - name: button
+                  properties:
+                    text: Add to Cart
+                    appearance: { background: { color: '#111827' }, radius: md, padding: { block: sm, inline: md } }
+                    typography: { color: '#ffffff', weight: semibold }

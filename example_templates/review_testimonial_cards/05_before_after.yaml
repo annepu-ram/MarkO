@@ -1,0 +1,74 @@
+# Review Card Variant: Before & After
+# layout-row with two image components and a caption underneath each
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance: { background: { transparency: 0 } }
+      components:
+        - name: heading
+          properties:
+            text: Real Results, Real Impact
+            level: 2
+            typography: { size: xxl, weight: extrabold, color: '#111827', align: center }
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-evenly, verticalAlign: top, wrap: nowrap, gap: lg }
+            appearance:
+              background: { color: '#ffffff' }
+              radius: lg
+              shadow: medium
+              padding: { block: lg, inline: lg }
+          components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center, widthMode: "50", gap: sm }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: BEFORE
+                    typography: { size: xs, weight: bold, color: '#ef4444', transform: uppercase, letterSpacing: wider, align: center }
+                - name: image
+                  properties:
+                    source: { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500', altText: 'Before - cluttered dashboard' }
+                    appearance: { minHeight: 15, fit: cover, cornerStyle: md, filter: sepia }
+                    layout: { widthMode: stretch }
+                - name: caption
+                  properties:
+                    text: "Messy spreadsheets, scattered data, and slow decisions."
+                    typography: { size: sm, color: '#ef4444', align: center }
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center, widthMode: "50", gap: sm }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: AFTER
+                    typography: { size: xs, weight: bold, color: '#10b981', transform: uppercase, letterSpacing: wider, align: center }
+                - name: image
+                  properties:
+                    source: { url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500', altText: 'After - clean analytics dashboard' }
+                    appearance: { minHeight: 15, fit: cover, cornerStyle: md }
+                    layout: { widthMode: stretch }
+                - name: caption
+                  properties:
+                    text: "Clean dashboards, real-time insights, and 3x faster decisions."
+                    typography: { size: sm, color: '#10b981', align: center }
+        - name: blockquote
+          properties:
+            quote: The transformation was night and day. Our team couldn't believe how fast we could act on data.
+            cite: Operations Director, Fortune 500 Company
+            typography: { size: md, weight: medium, color: '#374151', align: center }
+            appearance:
+              border: { accentColor: '#10b981' }
+              background: { transparency: 0 }
+              padding: { block: md, inline: lg }
+            layout: { widthMode: "75" }

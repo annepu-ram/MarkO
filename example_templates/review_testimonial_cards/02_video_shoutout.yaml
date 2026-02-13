@@ -1,0 +1,73 @@
+# Review Card Variant: The Video Shoutout
+# layout-column with an embedded video testimonial and a paragraph transcript below
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f1f5f9' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: soft
+          padding: { block: none, inline: none }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: video
+          properties:
+            source: { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }
+            appearance: { aspectRatio: '16/9', height: 300 }
+            playback: { controls: true, autoplay: false, muted: false, loop: false }
+            spacing: { marginBlock: none }
+            layout: { widthMode: stretch }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: sm }
+            appearance: { background: { transparency: 0 }, padding: { block: md, inline: md } }
+          components:
+            - name: eyebrow
+              properties:
+                text: VIDEO TESTIMONIAL
+                typography: { size: xxs, weight: semibold, color: '#2563eb', transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: "How We Scaled to 1M Users"
+                level: 3
+                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                spacing: { marginBlock: xs }
+            - name: paragraph
+              properties:
+                text: |
+                  "We started using this platform when we had just 100 users.
+                  Within 18 months, we scaled to over a million. The infrastructure
+                  handled everything seamlessly, and the support team was incredible
+                  every step of the way."
+                typography: { size: sm, color: '#4b5563', align: left, lineHeight: "1.7" }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: image
+                  properties:
+                    source: { url: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100', altText: 'Sarah Johnson' }
+                    appearance: { minHeight: 3, maxHeight: 3, fit: cover, cornerStyle: pill }
+                    layout: { widthMode: fit }
+                    spacing: { marginBlock: none }
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left, gap: none }
+                    appearance: { background: { transparency: 0 } }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: Sarah Johnson
+                        typography: { size: sm, weight: bold, color: '#111827' }
+                        spacing: { marginBlock: none }
+                    - name: caption
+                      properties:
+                        text: CTO, RapidScale
+                        typography: { size: xs, color: '#6b7280' }

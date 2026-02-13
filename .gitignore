@@ -49,3 +49,4 @@ yarn-error.log
 # Log files
 ssr_python/logs/
 *.log
+nul

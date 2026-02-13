@@ -1,0 +1,83 @@
+# Dashboard Data Card 07 - "Data Filter Card"
+# A filter panel with dropdown, calendar, and search textbox.
+# Styled as a collapsible data filtering sidebar or toolbar.
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        headingMain: &font-heading-main "'Inter', sans-serif"
+        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#f8fafc'
+    spacing: { paddingBlock: xl, paddingInline: xl }
+    appearance:
+      background: { color: *color-background }
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          align: start
+          widthMode: "33"
+          gap: sm
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#ffffff'
+            transparency: 100
+          borderRadius: md
+          shadow: soft
+      components:
+        - name: heading
+          properties:
+            text: Filters
+            level: 3
+            typography:
+              size: md
+              weight: bold
+              color: *color-primary
+
+        - name: dropdown
+          properties:
+            label:
+              show: true
+              text: Department
+            field:
+              options: "All Departments\nEngineering\nDesign\nMarketing\nSales\nSupport"
+
+        - name: calendar
+          properties:
+            label:
+              show: true
+              text: Date Range
+            field:
+              value: "2026-02-01"
+
+        - name: textbox
+          properties:
+            label:
+              show: true
+              text: Search
+            field:
+              placeholder: "Search by name or ID..."
+              value: ""
+
+        - name: button
+          properties:
+            text: "Apply Filters"
+            appearance:
+              background:
+                color: *color-accent
+              padding: { block: sm, inline: md }
+              borderRadius: sm
+            typography:
+              color: '#ffffff'
+              weight: semibold
+              size: sm

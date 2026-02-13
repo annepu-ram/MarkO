@@ -1,0 +1,236 @@
+# 07 - The Mobile Bottom-Bar
+# layout-row with four centered button icons styled as a mobile navigation bar.
+# Designed for mobile viewport (390px width).
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        headingMain: &font-heading-main "'SF Pro Display', -apple-system, sans-serif"
+        headingLevel2: &font-heading-level2 "'SF Pro Display', -apple-system, sans-serif"
+        content: &font-content "'SF Pro Text', -apple-system, sans-serif"
+      colors:
+        primary: &color-primary '#1c1c1e'
+        secondary: &color-secondary '#8e8e93'
+        accent: &color-accent '#007aff'
+        background: &color-background '#f2f2f7'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # MOBILE HEADER
+    # ============================================
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-between, align: center, wrap: nowrap }
+        spacing: { paddingBlock: sm, paddingInline: md }
+        appearance:
+          background: { color: '#ffffff', transparency: 100 }
+          border: { width: 1, style: solid, color: '#e5e5ea' }
+      components:
+        - name: heading
+          properties:
+            text: Explore
+            level: 1
+            typography: { size: xxl, weight: bold, color: *color-primary }
+
+    # ============================================
+    # MOBILE CONTENT AREA
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: lg, paddingInline: md }
+        appearance: { background: { color: *color-background, transparency: 100 } }
+      components:
+
+        # Featured Card
+        - name: layout-column
+          properties:
+            layout: { align: start, horizontalAlign: space-evenly }
+            appearance:
+              background: { color: '#ffffff', transparency: 100 }
+              radius: lg
+              shadow: soft
+            spacing: { marginBlock: sm }
+          components:
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=500&q=80'
+                  altText: 'Scenic landscape view'
+                appearance: { minHeight: 12.5, fit: cover, cornerStyle: lg }
+                layout: { widthMode: stretch }
+            - name: layout-column
+              properties:
+                layout: { align: start, horizontalAlign: space-evenly }
+                spacing: { paddingBlock: md, paddingInline: md }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: FEATURED
+                    typography: { size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                - name: heading
+                  properties:
+                    text: Discover New Destinations
+                    level: 2
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+                - name: paragraph
+                  properties:
+                    text: Explore trending travel destinations and local experiences curated just for you.
+                    typography: { size: sm, color: *color-secondary, lineHeight: '1.6' }
+
+        # Quick Actions Grid
+        - name: columnsgrid
+          properties:
+            layout: { columns: 2, gap: sm, verticalAlign: stretch }
+            spacing: { marginBlock: sm }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { align: center, horizontalAlign: space-evenly }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                    appearance:
+                      background: { color: '#ffffff', transparency: 100 }
+                      radius: lg
+                      shadow: soft
+                  components:
+                    - name: heading
+                      properties:
+                        text: Nearby
+                        level: 3
+                        typography: { size: md, weight: semibold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: 12 places
+                        typography: { size: sm, color: *color-secondary, align: center }
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { align: center, horizontalAlign: space-evenly }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                    appearance:
+                      background: { color: '#ffffff', transparency: 100 }
+                      radius: lg
+                      shadow: soft
+                  components:
+                    - name: heading
+                      properties:
+                        text: Saved
+                        level: 3
+                        typography: { size: md, weight: semibold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: 8 items
+                        typography: { size: sm, color: *color-secondary, align: center }
+
+        # List Items
+        - name: layout-column
+          properties:
+            layout: { align: start, horizontalAlign: space-evenly }
+            spacing: { paddingBlock: md, paddingInline: md, marginBlock: sm }
+            appearance:
+              background: { color: '#ffffff', transparency: 100 }
+              radius: lg
+              shadow: soft
+          components:
+            - name: heading
+              properties:
+                text: Recent Activity
+                level: 3
+                typography: { size: md, weight: semibold, color: *color-primary }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: "Visited Golden Gate Park - 2 hours ago"
+                typography: { size: sm, color: *color-secondary }
+                spacing: { marginBlock: xs }
+            - name: paragraph
+              properties:
+                text: "Saved Fisherman's Wharf - Yesterday"
+                typography: { size: sm, color: *color-secondary }
+                spacing: { marginBlock: xs }
+            - name: paragraph
+              properties:
+                text: "Reviewed Blue Bottle Coffee - 3 days ago"
+                typography: { size: sm, color: *color-secondary }
+                spacing: { marginBlock: xs }
+
+    # ============================================
+    # MOBILE BOTTOM NAVIGATION BAR
+    # ============================================
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-evenly, align: center, wrap: nowrap }
+        spacing: { paddingBlock: sm, paddingInline: sm }
+        appearance:
+          background: { color: '#ffffff', transparency: 100 }
+          border: { width: 1, style: solid, color: '#e5e5ea' }
+      components:
+
+        # Home Tab
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly, widthMode: "25" }
+            spacing: { paddingBlock: xs }
+          components:
+            - name: button
+              properties:
+                text: Home
+                appearance:
+                  background: { color: '#ffffff', transparency: 0 }
+                  border: { width: 0, style: solid, color: '#ffffff' }
+                  padding: { block: xs, inline: xs }
+                typography: { size: xs, weight: medium, color: *color-secondary, align: center }
+                layout: { widthMode: stretch }
+
+        # Search Tab
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly, widthMode: "25" }
+            spacing: { paddingBlock: xs }
+          components:
+            - name: button
+              properties:
+                text: Search
+                appearance:
+                  background: { color: '#ffffff', transparency: 0 }
+                  border: { width: 0, style: solid, color: '#ffffff' }
+                  padding: { block: xs, inline: xs }
+                typography: { size: xs, weight: medium, color: *color-secondary, align: center }
+                layout: { widthMode: stretch }
+
+        # Explore Tab (Active)
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly, widthMode: "25" }
+            spacing: { paddingBlock: xs }
+          components:
+            - name: button
+              properties:
+                text: Explore
+                appearance:
+                  background: { color: '#ffffff', transparency: 0 }
+                  border: { width: 0, style: solid, color: '#ffffff' }
+                  padding: { block: xs, inline: xs }
+                typography: { size: xs, weight: semibold, color: *color-accent, align: center }
+                layout: { widthMode: stretch }
+
+        # Profile Tab
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly, widthMode: "25" }
+            spacing: { paddingBlock: xs }
+          components:
+            - name: button
+              properties:
+                text: Profile
+                appearance:
+                  background: { color: '#ffffff', transparency: 0 }
+                  border: { width: 0, style: solid, color: '#ffffff' }
+                  padding: { block: xs, inline: xs }
+                typography: { size: xs, weight: medium, color: *color-secondary, align: center }
+                layout: { widthMode: stretch }

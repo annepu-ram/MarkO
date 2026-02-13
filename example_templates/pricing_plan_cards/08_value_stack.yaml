@@ -1,0 +1,179 @@
+# Pricing Card Variant: The Value Stack
+# layout-column where each line is a layout-row containing a checkmark-style paragraph and a feature description
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#fafafa' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: medium
+          padding: { block: xl, inline: lg }
+          border: { width: 1, style: solid, color: '#e5e7eb' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        # Plan header
+        - name: heading
+          properties:
+            text: Pro Plan
+            level: 3
+            typography: { size: xl, weight: bold, color: '#111827', align: center }
+            spacing: { marginBlock: xs }
+        - name: heading
+          properties:
+            text: "$59/mo"
+            level: 2
+            typography: { size: xxl, weight: extrabold, color: '#059669', align: center }
+            spacing: { marginBlock: none }
+        - name: caption
+          properties:
+            text: "billed annually, or $69 monthly"
+            typography: { size: xs, color: '#9ca3af', align: center }
+        - name: br
+          properties:
+            size: md
+        # Value stack - feature rows with checkmarks
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+            appearance: { background: { transparency: 0 }, padding: { block: xs, inline: sm } }
+          components:
+            - name: paragraph
+              properties:
+                text: "\u2713"
+                typography: { size: md, weight: bold, color: '#059669' }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: "Unlimited projects and workspaces"
+                typography: { size: sm, color: '#374151' }
+                layout: { widthMode: stretch }
+                spacing: { marginBlock: none }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+            appearance: { background: { color: '#f0fdf4', transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
+          components:
+            - name: paragraph
+              properties:
+                text: "\u2713"
+                typography: { size: md, weight: bold, color: '#059669' }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: "Advanced analytics and custom reports"
+                typography: { size: sm, color: '#374151' }
+                layout: { widthMode: stretch }
+                spacing: { marginBlock: none }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+            appearance: { background: { transparency: 0 }, padding: { block: xs, inline: sm } }
+          components:
+            - name: paragraph
+              properties:
+                text: "\u2713"
+                typography: { size: md, weight: bold, color: '#059669' }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: "Priority email and chat support"
+                typography: { size: sm, color: '#374151' }
+                layout: { widthMode: stretch }
+                spacing: { marginBlock: none }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+            appearance: { background: { color: '#f0fdf4', transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
+          components:
+            - name: paragraph
+              properties:
+                text: "\u2713"
+                typography: { size: md, weight: bold, color: '#059669' }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: "Team collaboration with shared boards"
+                typography: { size: sm, color: '#374151' }
+                layout: { widthMode: stretch }
+                spacing: { marginBlock: none }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+            appearance: { background: { transparency: 0 }, padding: { block: xs, inline: sm } }
+          components:
+            - name: paragraph
+              properties:
+                text: "\u2713"
+                typography: { size: md, weight: bold, color: '#059669' }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: "API access and webhook integrations"
+                typography: { size: sm, color: '#374151' }
+                layout: { widthMode: stretch }
+                spacing: { marginBlock: none }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+            appearance: { background: { color: '#f0fdf4', transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
+          components:
+            - name: paragraph
+              properties:
+                text: "\u2713"
+                typography: { size: md, weight: bold, color: '#059669' }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: "50GB secure cloud storage"
+                typography: { size: sm, color: '#374151' }
+                layout: { widthMode: stretch }
+                spacing: { marginBlock: none }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+            appearance: { background: { transparency: 0 }, padding: { block: xs, inline: sm } }
+          components:
+            - name: paragraph
+              properties:
+                text: "\u2713"
+                typography: { size: md, weight: bold, color: '#059669' }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: "Custom branding and white-label options"
+                typography: { size: sm, color: '#374151' }
+                layout: { widthMode: stretch }
+                spacing: { marginBlock: none }
+
+        - name: br
+          properties:
+            size: md
+        # CTA button
+        - name: button
+          properties:
+            text: Get Pro Now
+            appearance:
+              background: { color: '#059669' }
+              radius: md
+              padding: { block: md }
+            typography: { color: '#ffffff', weight: bold }
+            layout: { widthMode: stretch }

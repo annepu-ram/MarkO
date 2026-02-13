@@ -1,0 +1,46 @@
+# Product Card Variant: The Quick-Add
+# layout-row (horizontal card) with a small image on the left and heading + button on the right
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: md }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: md
+          shadow: soft
+          border: { width: 1, style: solid, color: '#e5e7eb' }
+          padding: { block: sm, inline: sm }
+        spacing: { marginBlock: md, marginInline: lg }
+      components:
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', altText: 'Sunglasses' }
+            appearance: { minHeight: 6, fit: cover, cornerStyle: md }
+            layout: { widthMode: "25" }
+            spacing: { marginBlock: none }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "50", gap: xxs }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: heading
+              properties:
+                text: Aviator Classics
+                level: 4
+                typography: { size: md, weight: bold, color: '#111827', align: left }
+                spacing: { marginBlock: none }
+            - name: caption
+              properties:
+                text: "$149.00"
+                typography: { size: sm, weight: semibold, color: '#6b7280', align: left }
+        - name: button
+          properties:
+            text: "+ Add"
+            appearance: { background: { color: '#2563eb' }, radius: md, padding: { block: xs, inline: md } }
+            typography: { color: '#ffffff', weight: semibold }
+            layout: { widthMode: "25" }

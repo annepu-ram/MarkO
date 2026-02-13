@@ -1,0 +1,105 @@
+# Pricing Card Variant: The Enterprise Inquiry
+# layout-column with heading ("Custom"), paragraph ("For 100+ users"), feature highlights, and a CTA button
+# Designed for enterprise customers who need to contact sales
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f8fafc' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background:
+            type: gradient
+            gradient:
+              colorStart: '#0f172a'
+              colorEnd: '#1e3a5f'
+              direction: 'to bottom right'
+          radius: xl
+          shadow: dramatic
+          padding: { block: xl, inline: xl }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        # Badge
+        - name: eyebrow
+          properties:
+            text: ENTERPRISE
+            typography:
+              size: xxs
+              weight: bold
+              color: '#94a3b8'
+              align: center
+              transform: uppercase
+              letterSpacing: wider
+            spacing: { marginBlock: xxs }
+        # Plan title
+        - name: heading
+          properties:
+            text: Custom Pricing
+            level: 2
+            typography: { size: xxl, weight: extrabold, color: '#ffffff', align: center }
+            spacing: { marginBlock: xs }
+        # Subtitle
+        - name: paragraph
+          properties:
+            text: "Tailored solutions for organizations with 100+ users"
+            typography: { size: md, color: '#cbd5e1', align: center }
+            spacing: { marginBlock: xs }
+        - name: br
+          properties:
+            size: sm
+        # Feature highlights
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: xs }
+            appearance:
+              background: { color: '#1e293b', transparency: 100 }
+              radius: md
+              padding: { block: md, inline: md }
+          components:
+            - name: paragraph
+              properties:
+                text: "Dedicated account manager"
+                typography: { size: sm, color: '#e2e8f0' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "Custom SLA & uptime guarantees"
+                typography: { size: sm, color: '#e2e8f0' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "On-premise deployment options"
+                typography: { size: sm, color: '#e2e8f0' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "Advanced compliance & audit logs"
+                typography: { size: sm, color: '#e2e8f0' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "Unlimited seats & storage"
+                typography: { size: sm, color: '#e2e8f0' }
+                spacing: { marginBlock: xxs }
+        - name: br
+          properties:
+            size: md
+        # CTA button (implies opening contact form)
+        - name: button
+          properties:
+            text: Talk to Sales
+            appearance:
+              background: { color: '#3b82f6' }
+              radius: md
+              padding: { block: md, inline: xl }
+            typography: { color: '#ffffff', weight: bold, size: md }
+            layout: { widthMode: stretch }
+        # Secondary link
+        - name: caption
+          properties:
+            text: "No commitment required. Get a custom quote in 24 hours."
+            typography: { size: xs, color: '#64748b', align: center }
+            spacing: { marginBlock: xs }

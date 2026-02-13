@@ -1,0 +1,42 @@
+# Hero Card Variant: Centered Minimalist
+# layout-column (align: center) with an eyebrow, heading, and paragraph
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#ffffff' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        spacing: { paddingBlock: xxxl, paddingInline: xl }
+        appearance:
+          background: { color: '#ffffff' }
+          padding: { block: xxxl, inline: xl }
+      components:
+        - name: eyebrow
+          properties:
+            text: INTRODUCING V2.0
+            typography: { size: xs, weight: semibold, color: '#6366f1', transform: uppercase, letterSpacing: wider, align: center }
+        - name: heading
+          properties:
+            text: |
+              Less noise.
+              More clarity.
+            level: 1
+            typography: { size: xxxl, weight: extrabold, color: '#111827', align: center, letterSpacing: tight, lineHeight: "1.1" }
+            spacing: { marginBlock: md }
+            layout: { widthMode: "75" }
+        - name: paragraph
+          properties:
+            text: |
+              We believe great design speaks for itself. Our platform strips away
+              the unnecessary to reveal what truly matters.
+            typography: { size: lg, color: '#6b7280', align: center, lineHeight: "1.8" }
+            layout: { widthMode: "50" }
+            spacing: { marginBlock: lg }
+        - name: button
+          properties:
+            text: Experience Simplicity
+            appearance: { background: { color: '#111827' }, radius: pill, padding: { block: md, inline: xl } }
+            typography: { color: '#ffffff', weight: semibold }

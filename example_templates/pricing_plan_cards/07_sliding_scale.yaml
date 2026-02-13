@@ -1,0 +1,124 @@
+# Pricing Card Variant: The Sliding Scale
+# layout-column with a textbox (number input) representing user count, and caption showing calculated price
+# Interactive pricing calculator concept
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f0f4f8' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: medium
+          padding: { block: xl, inline: xl }
+          border: { width: 1, style: solid, color: '#e2e8f0' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        # Title
+        - name: heading
+          properties:
+            text: Pay Per Seat
+            level: 2
+            typography: { size: xxl, weight: bold, color: '#0f172a', align: center }
+            spacing: { marginBlock: xs }
+        - name: paragraph
+          properties:
+            text: "Only pay for what you need. Adjust your team size anytime."
+            typography: { size: sm, color: '#64748b', align: center }
+        - name: br
+          properties:
+            size: sm
+        # User count input
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: center, gap: xs }
+            appearance:
+              background: { color: '#f8fafc', transparency: 100 }
+              radius: md
+              padding: { block: md, inline: lg }
+              border: { width: 1, style: solid, color: '#e2e8f0' }
+          components:
+            - name: caption
+              properties:
+                text: "Number of team members"
+                typography: { size: xs, weight: semibold, color: '#475569', align: center, transform: uppercase, letterSpacing: wide }
+            - name: textbox
+              properties:
+                label:
+                  text: ""
+                  show: false
+                field:
+                  placeholder: "10"
+                  value: "10"
+                appearance:
+                  border: { width: 2, style: solid, color: '#3b82f6' }
+                  background: { color: '#ffffff', transparency: 100 }
+                  radius: md
+                typography:
+                  size: xxl
+                  weight: bold
+                  color: '#0f172a'
+                  align: center
+        - name: br
+          properties:
+            size: sm
+        # Calculated price display
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: center, gap: xxs }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: heading
+              properties:
+                text: "$120"
+                level: 2
+                typography: { size: xxxl, weight: extrabold, color: '#3b82f6', align: center }
+                spacing: { marginBlock: none }
+            - name: caption
+              properties:
+                text: "per month ($12/user)"
+                typography: { size: sm, color: '#94a3b8', align: center }
+        - name: br
+          properties:
+            size: xs
+        # Price breakdown
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-between, verticalAlign: center, gap: sm, wrap: nowrap }
+            appearance:
+              background: { color: '#f1f5f9', transparency: 100 }
+              radius: sm
+              padding: { block: sm, inline: md }
+          components:
+            - name: paragraph
+              properties:
+                text: "10 users x $12/user"
+                typography: { size: xs, color: '#64748b' }
+                layout: { widthMode: "50" }
+            - name: paragraph
+              properties:
+                text: "$120.00/mo"
+                typography: { size: xs, weight: semibold, color: '#334155', align: right }
+                layout: { widthMode: "50" }
+        - name: br
+          properties:
+            size: md
+        # CTA
+        - name: button
+          properties:
+            text: Start with 10 Users
+            appearance:
+              background: { color: '#3b82f6' }
+              radius: md
+              padding: { block: md }
+            typography: { color: '#ffffff', weight: bold }
+            layout: { widthMode: stretch }
+        - name: caption
+          properties:
+            text: "Volume discounts available for 50+ users"
+            typography: { size: xs, color: '#94a3b8', align: center }
+            spacing: { marginBlock: xs }

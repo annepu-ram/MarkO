@@ -1,0 +1,89 @@
+# Dashboard Data Card 02 - "Trend Indicator"
+# A layout-row pairing a large metric value with a colored trend badge.
+# Shows directional change at a glance.
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        headingMain: &font-heading-main "'Inter', sans-serif"
+        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#f8fafc'
+    spacing: { paddingBlock: xl, paddingInline: xl }
+    appearance:
+      background: { color: *color-background }
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          align: start
+          widthMode: "50"
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#ffffff'
+            transparency: 100
+          borderRadius: md
+          shadow: soft
+      components:
+        - name: caption
+          properties:
+            text: Active Users
+            typography:
+              size: xs
+              weight: semibold
+              color: *color-secondary
+              transform: uppercase
+              letterSpacing: wider
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: start
+              align: center
+              wrap: nowrap
+              gap: md
+            spacing:
+              marginBlock: sm
+          components:
+            - name: heading
+              properties:
+                text: "8,429"
+                level: 2
+                layout:
+                  widthMode: fit
+                typography:
+                  size: xxl
+                  weight: extrabold
+                  color: *color-primary
+            - name: eyebrow
+              properties:
+                text: "+12.5%"
+                layout:
+                  widthMode: fit
+                typography:
+                  size: sm
+                  weight: bold
+                  color: '#16a34a'
+                spacing:
+                  paddingBlock: xxs
+                  paddingInline: xs
+                appearance:
+                  background:
+                    color: '#dcfce7'
+                    transparency: 100
+                  borderRadius: pill
+        - name: paragraph
+          properties:
+            text: Compared to 7,494 last week
+            typography:
+              size: xs
+              weight: regular
+              color: *color-secondary

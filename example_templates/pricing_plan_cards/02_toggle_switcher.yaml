@@ -1,0 +1,160 @@
+# Pricing Card Variant: Toggle Switcher
+# layout-column with centered tabs (Monthly/Annual) that updates the pricing display
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f0f4f8' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: elevated
+          padding: { block: xl, inline: xl }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: heading
+          properties:
+            text: Choose Your Plan
+            level: 2
+            typography: { size: xxl, weight: extrabold, color: '#111827', align: center }
+        - name: paragraph
+          properties:
+            text: Start free, scale when you're ready.
+            typography: { size: md, color: '#6b7280', align: center }
+        - name: tabs
+          properties:
+            layout: { orientation: horizontal, widthMode: stretch }
+            typography:
+              label:
+                size: md
+                weight: bold
+                active: { color: '#ffffff' }
+                inactive: { color: '#6b7280' }
+            appearance:
+              tab:
+                background: { active: '#2563eb', inactive: '#f1f5f9' }
+                border: { width: 0, style: none, position: lower }
+              content:
+                background: { color: '#ffffff' }
+                border: { color: '#e5e7eb', width: 0, style: none }
+                padding: { block: lg, inline: lg }
+            spacing: { marginBlock: md }
+          tabs:
+            - title: Monthly
+              components:
+                - name: columnsgrid
+                  properties:
+                    layout: { columns: 3, gap: md, verticalAlign: top }
+                    responsive: { breakpoints: { md: 2, sm: 1 } }
+                  columns:
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout: { horizontalAlign: center, gap: sm }
+                            appearance:
+                              background: { color: '#f9fafb', transparency: 100 }
+                              radius: md
+                              padding: { block: lg, inline: md }
+                              border: { width: 1, style: solid, color: '#e5e7eb' }
+                          components:
+                            - name: heading
+                              properties: { text: Starter, level: 4, typography: { size: lg, weight: bold, color: '#111827', align: center } }
+                            - name: heading
+                              properties: { text: "$19/mo", level: 3, typography: { size: xxl, weight: extrabold, color: '#111827', align: center }, spacing: { marginBlock: xs } }
+                            - name: paragraph
+                              properties: { text: "5 projects\n10GB storage\nBasic support", typography: { size: sm, color: '#6b7280', align: center, lineHeight: "2" } }
+                            - name: button
+                              properties: { text: Start Free, appearance: { background: { color: '#ffffff' }, border: { width: 2, style: solid, color: '#2563eb' }, radius: md }, typography: { color: '#2563eb', weight: semibold }, layout: { widthMode: stretch } }
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout: { horizontalAlign: center, gap: sm }
+                            appearance:
+                              background: { color: '#2563eb', transparency: 100 }
+                              radius: md
+                              padding: { block: lg, inline: md }
+                              shadow: elevated
+                          components:
+                            - name: eyebrow
+                              properties: { text: MOST POPULAR, typography: { size: xxs, weight: bold, color: '#bfdbfe', transform: uppercase, letterSpacing: wider, align: center } }
+                            - name: heading
+                              properties: { text: Pro, level: 4, typography: { size: lg, weight: bold, color: '#ffffff', align: center } }
+                            - name: heading
+                              properties: { text: "$49/mo", level: 3, typography: { size: xxl, weight: extrabold, color: '#ffffff', align: center }, spacing: { marginBlock: xs } }
+                            - name: paragraph
+                              properties: { text: "Unlimited projects\n100GB storage\nPriority support", typography: { size: sm, color: '#dbeafe', align: center, lineHeight: "2" } }
+                            - name: button
+                              properties: { text: Get Pro, appearance: { background: { color: '#ffffff' }, radius: md }, typography: { color: '#2563eb', weight: bold }, layout: { widthMode: stretch } }
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout: { horizontalAlign: center, gap: sm }
+                            appearance:
+                              background: { color: '#f9fafb', transparency: 100 }
+                              radius: md
+                              padding: { block: lg, inline: md }
+                              border: { width: 1, style: solid, color: '#e5e7eb' }
+                          components:
+                            - name: heading
+                              properties: { text: Enterprise, level: 4, typography: { size: lg, weight: bold, color: '#111827', align: center } }
+                            - name: heading
+                              properties: { text: "$99/mo", level: 3, typography: { size: xxl, weight: extrabold, color: '#111827', align: center }, spacing: { marginBlock: xs } }
+                            - name: paragraph
+                              properties: { text: "Everything in Pro\nDedicated support\nCustom SLA", typography: { size: sm, color: '#6b7280', align: center, lineHeight: "2" } }
+                            - name: button
+                              properties: { text: Contact Sales, appearance: { background: { color: '#ffffff' }, border: { width: 2, style: solid, color: '#2563eb' }, radius: md }, typography: { color: '#2563eb', weight: semibold }, layout: { widthMode: stretch } }
+            - title: Annual (Save 20%)
+              components:
+                - name: columnsgrid
+                  properties:
+                    layout: { columns: 3, gap: md, verticalAlign: top }
+                    responsive: { breakpoints: { md: 2, sm: 1 } }
+                  columns:
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout: { horizontalAlign: center, gap: sm }
+                            appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md, padding: { block: lg, inline: md }, border: { width: 1, style: solid, color: '#e5e7eb' } }
+                          components:
+                            - name: heading
+                              properties: { text: Starter, level: 4, typography: { size: lg, weight: bold, color: '#111827', align: center } }
+                            - name: heading
+                              properties: { text: "$15/mo", level: 3, typography: { size: xxl, weight: extrabold, color: '#111827', align: center }, spacing: { marginBlock: xs } }
+                            - name: caption
+                              properties: { text: "billed annually at $180", typography: { size: xs, color: '#9ca3af', align: center } }
+                            - name: button
+                              properties: { text: Start Free, appearance: { background: { color: '#ffffff' }, border: { width: 2, style: solid, color: '#2563eb' }, radius: md }, typography: { color: '#2563eb', weight: semibold }, layout: { widthMode: stretch } }
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout: { horizontalAlign: center, gap: sm }
+                            appearance: { background: { color: '#2563eb', transparency: 100 }, radius: md, padding: { block: lg, inline: md }, shadow: elevated }
+                          components:
+                            - name: eyebrow
+                              properties: { text: MOST POPULAR, typography: { size: xxs, weight: bold, color: '#bfdbfe', transform: uppercase, letterSpacing: wider, align: center } }
+                            - name: heading
+                              properties: { text: Pro, level: 4, typography: { size: lg, weight: bold, color: '#ffffff', align: center } }
+                            - name: heading
+                              properties: { text: "$39/mo", level: 3, typography: { size: xxl, weight: extrabold, color: '#ffffff', align: center }, spacing: { marginBlock: xs } }
+                            - name: caption
+                              properties: { text: "billed annually at $468", typography: { size: xs, color: '#bfdbfe', align: center } }
+                            - name: button
+                              properties: { text: Get Pro, appearance: { background: { color: '#ffffff' }, radius: md }, typography: { color: '#2563eb', weight: bold }, layout: { widthMode: stretch } }
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout: { horizontalAlign: center, gap: sm }
+                            appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md, padding: { block: lg, inline: md }, border: { width: 1, style: solid, color: '#e5e7eb' } }
+                          components:
+                            - name: heading
+                              properties: { text: Enterprise, level: 4, typography: { size: lg, weight: bold, color: '#111827', align: center } }
+                            - name: heading
+                              properties: { text: "$79/mo", level: 3, typography: { size: xxl, weight: extrabold, color: '#111827', align: center }, spacing: { marginBlock: xs } }
+                            - name: caption
+                              properties: { text: "billed annually at $948", typography: { size: xs, color: '#9ca3af', align: center } }
+                            - name: button
+                              properties: { text: Contact Sales, appearance: { background: { color: '#ffffff' }, border: { width: 2, style: solid, color: '#2563eb' }, radius: md }, typography: { color: '#2563eb', weight: semibold }, layout: { widthMode: stretch } }

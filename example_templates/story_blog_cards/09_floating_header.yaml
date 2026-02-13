@@ -1,0 +1,53 @@
+# Story Card Variant: The Floating Header
+# layout-column where the image has a nested layout-column overlay containing the eyebrow and heading
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#1a1a2e' }
+  components:
+    - name: image
+      properties:
+        source: { url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800', altText: 'Space and technology' }
+        appearance:
+          minHeight: 25
+          fit: cover
+          cornerStyle: lg
+          overlay:
+            enabled: true
+            color: 'rgba(0,0,0,0.4)'
+            opacity: 40
+          hoverEffect: zoom
+        layout: { widthMode: stretch }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: sm }
+            appearance: { background: { transparency: 0 }, padding: { block: xl, inline: xl } }
+          components:
+            - name: eyebrow
+              properties:
+                text: SCIENCE & SPACE
+                typography: { size: xs, weight: bold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: |
+                  Beyond the Horizon: Humanity's
+                  Next Great Adventure
+                level: 2
+                typography: { size: xxl, weight: extrabold, color: '#ffffff', align: left, lineHeight: "1.2" }
+                layout: { widthMode: "75" }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: caption
+                  properties:
+                    text: "Dr. Neil Patel"
+                    typography: { size: sm, weight: medium, color: '#e2e8f0' }
+                - name: caption
+                  properties:
+                    text: "10 min read"
+                    typography: { size: sm, color: '#94a3b8' }

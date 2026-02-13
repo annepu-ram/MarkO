@@ -1,0 +1,123 @@
+# Pricing Card Variant: The Minimalist Link
+# layout-row with heading (Plan Name) and link ("See all features") - clean, minimal pricing row
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#fafafa' }
+  components:
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          verticalAlign: center
+          gap: md
+          wrap: nowrap
+        appearance:
+          background: { color: '#ffffff' }
+          radius: md
+          shadow: soft
+          padding: { block: md, inline: lg }
+          border: { width: 1, style: solid, color: '#e5e7eb' }
+        spacing: { marginBlock: md, marginInline: lg }
+      components:
+        # Left side: plan name and price
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: none, widthMode: "50" }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: heading
+              properties:
+                text: Starter Plan
+                level: 3
+                typography: { size: lg, weight: semibold, color: '#111827' }
+                spacing: { marginBlock: none }
+            - name: caption
+              properties:
+                text: "$9/mo - For individuals and freelancers"
+                typography: { size: sm, color: '#6b7280' }
+        # Right side: link
+        - name: link
+          properties:
+            text: "See all features"
+            href: '#features'
+            typography: { size: sm, weight: medium, color: '#2563eb' }
+            appearance: { showArrow: true }
+            layout: { widthMode: fit }
+
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          verticalAlign: center
+          gap: md
+          wrap: nowrap
+        appearance:
+          background: { color: '#ffffff' }
+          radius: md
+          shadow: soft
+          padding: { block: md, inline: lg }
+          border: { width: 1, style: solid, color: '#e5e7eb' }
+        spacing: { marginBlock: md, marginInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: none, widthMode: "50" }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: heading
+              properties:
+                text: Professional Plan
+                level: 3
+                typography: { size: lg, weight: semibold, color: '#111827' }
+                spacing: { marginBlock: none }
+            - name: caption
+              properties:
+                text: "$29/mo - For growing teams"
+                typography: { size: sm, color: '#6b7280' }
+        - name: link
+          properties:
+            text: "See all features"
+            href: '#features'
+            typography: { size: sm, weight: medium, color: '#2563eb' }
+            appearance: { showArrow: true }
+            layout: { widthMode: fit }
+
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          verticalAlign: center
+          gap: md
+          wrap: nowrap
+        appearance:
+          background: { color: '#ffffff' }
+          radius: md
+          shadow: soft
+          padding: { block: md, inline: lg }
+          border: { width: 2, style: solid, color: '#2563eb' }
+        spacing: { marginBlock: md, marginInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: none, widthMode: "50" }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: heading
+              properties:
+                text: Business Plan
+                level: 3
+                typography: { size: lg, weight: semibold, color: '#111827' }
+                spacing: { marginBlock: none }
+            - name: caption
+              properties:
+                text: "$79/mo - For scaling organizations"
+                typography: { size: sm, color: '#2563eb' }
+        - name: link
+          properties:
+            text: "See all features"
+            href: '#features'
+            typography: { size: sm, weight: medium, color: '#2563eb' }
+            appearance: { showArrow: true }
+            layout: { widthMode: fit }

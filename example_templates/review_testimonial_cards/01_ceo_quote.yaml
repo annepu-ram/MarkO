@@ -1,0 +1,50 @@
+# Review Card Variant: The CEO Quote
+# layout-column with a large blockquote, caption (Name/Title), and a small circular image
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f8fafc' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: medium
+          padding: { block: xl, inline: xl }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: blockquote
+          properties:
+            quote: |
+              This platform transformed our entire workflow. We went from
+              spending weeks on projects to shipping in days. It's not just
+              a tool — it's a competitive advantage.
+            cite: ''
+            typography: { size: lg, weight: medium, color: '#1e293b', align: center, lineHeight: "1.8" }
+            appearance:
+              border: { accentColor: '#6366f1' }
+              background: { transparency: 0 }
+              padding: { block: md, inline: md }
+            spacing: { marginBlock: sm }
+        - name: br
+          properties:
+            size: sm
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200', altText: 'CEO portrait' }
+            appearance: { minHeight: 5, maxHeight: 5, fit: cover, cornerStyle: pill }
+            layout: { widthMode: fit }
+            spacing: { marginBlock: xs }
+        - name: heading
+          properties:
+            text: Michael Chen
+            level: 4
+            typography: { size: md, weight: bold, color: '#111827', align: center }
+            spacing: { marginBlock: none }
+        - name: caption
+          properties:
+            text: CEO, TechForward Inc.
+            typography: { size: sm, color: '#6b7280', align: center }

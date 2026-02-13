@@ -1,0 +1,77 @@
+# Product Card Variant: Limited Drop
+# layout-column with an eyebrow (Sale tag), image, and a caption showing stock remaining
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#fef2f2' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: xs }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: soft
+          padding: { block: none, inline: none }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: left, verticalAlign: center, gap: xs, wrap: nowrap }
+            appearance:
+              background: { color: '#dc2626' }
+              padding: { block: xs, inline: sm }
+          components:
+            - name: eyebrow
+              properties:
+                text: LIMITED EDITION
+                typography: { size: xxs, weight: bold, color: '#ffffff', transform: uppercase, letterSpacing: wider }
+                spacing: { marginBlock: none }
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600', altText: 'Limited edition sneaker' }
+            appearance: { minHeight: 18, fit: cover }
+            layout: { widthMode: stretch }
+            spacing: { marginBlock: none }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: xs }
+            appearance: { background: { transparency: 0 }, padding: { block: md, inline: md } }
+          components:
+            - name: heading
+              properties:
+                text: Air Max Retro X
+                level: 3
+                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                spacing: { marginBlock: none }
+            - name: paragraph
+              properties:
+                text: Exclusive colorway. Once they're gone, they're gone.
+                typography: { size: sm, color: '#6b7280', align: left }
+                spacing: { marginBlock: xs }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: heading
+                  properties:
+                    text: "$189.99"
+                    level: 4
+                    typography: { size: xl, weight: extrabold, color: '#dc2626', align: left }
+                    spacing: { marginBlock: none }
+                - name: caption
+                  properties:
+                    text: "Only 12 left in stock"
+                    typography: { size: xs, weight: semibold, color: '#dc2626', align: right }
+                    appearance:
+                      background: { color: '#fef2f2', transparency: 100 }
+                      radius: pill
+                      padding: { block: xxs, inline: xs }
+            - name: button
+              properties:
+                text: Buy Now - Ships Today
+                appearance: { background: { color: '#dc2626' }, radius: md }
+                typography: { color: '#ffffff', weight: bold }
+                layout: { widthMode: stretch }

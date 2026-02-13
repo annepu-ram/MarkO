@@ -1,0 +1,114 @@
+# Pricing Card Variant: The Most Popular Ribbon
+# layout-column with an eyebrow ribbon at top, heading (Plan Name), price, feature list, and CTA button
+# Highlighted border and accent color make it stand out as the recommended plan
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f1f5f9' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: none }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: elevated
+          padding: { block: none, inline: none }
+          border: { width: 2, style: solid, color: '#7c3aed' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        # Ribbon banner at top
+        - name: eyebrow
+          properties:
+            text: MOST POPULAR
+            typography:
+              size: xs
+              weight: bold
+              color: '#ffffff'
+              align: center
+              transform: uppercase
+              letterSpacing: wider
+            appearance:
+              background: { color: '#7c3aed' }
+              padding: { block: xs, inline: none }
+            layout: { widthMode: stretch }
+        - name: br
+          properties:
+            size: md
+        # Plan name
+        - name: heading
+          properties:
+            text: Growth
+            level: 3
+            typography: { size: xl, weight: bold, color: '#1e1b4b', align: center }
+            spacing: { marginBlock: xxs }
+        # Price
+        - name: heading
+          properties:
+            text: "$79"
+            level: 2
+            typography: { size: xxxl, weight: extrabold, color: '#7c3aed', align: center }
+            spacing: { marginBlock: none }
+        - name: caption
+          properties:
+            text: per user / month
+            typography: { size: xs, color: '#94a3b8', align: center }
+        - name: br
+          properties:
+            size: sm
+        # Feature list
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: xxs }
+            appearance:
+              background: { transparency: 0 }
+              padding: { block: none, inline: lg }
+          components:
+            - name: paragraph
+              properties:
+                text: "Unlimited projects & workflows"
+                typography: { size: sm, color: '#334155' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "50 team members included"
+                typography: { size: sm, color: '#334155' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "Advanced reporting & analytics"
+                typography: { size: sm, color: '#334155' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "Priority support (24/7)"
+                typography: { size: sm, color: '#334155' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "Custom integrations via API"
+                typography: { size: sm, color: '#334155' }
+                spacing: { marginBlock: xxs }
+            - name: paragraph
+              properties:
+                text: "SSO & advanced security"
+                typography: { size: sm, color: '#334155' }
+                spacing: { marginBlock: xxs }
+        - name: br
+          properties:
+            size: md
+        # CTA button
+        - name: button
+          properties:
+            text: Start Free Trial
+            appearance:
+              background: { color: '#7c3aed' }
+              radius: md
+              padding: { block: md, inline: lg }
+            typography: { color: '#ffffff', weight: bold, size: md }
+            layout: { widthMode: stretch }
+            spacing: { marginInline: lg, marginBlock: sm }
+        - name: br
+          properties:
+            size: sm

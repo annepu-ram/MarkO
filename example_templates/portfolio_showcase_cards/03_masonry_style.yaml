@@ -1,0 +1,225 @@
+# 03 - Masonry Style
+# Columnsgrid with 3 columns where each card is a simple image and caption.
+# Different images with varying aspect ratios for a masonry-like effect.
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        headingMain: &font-heading-main "'Sora', sans-serif"
+        headingLevel2: &font-heading-level2 "'Sora', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1c1917'
+        secondary: &color-secondary '#44403c'
+        accent: &color-accent '#f97316'
+        background: &color-background '#fafaf9'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # SECTION HEADER
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance: { background: { color: *color-background } }
+      components:
+        - name: eyebrow
+          properties:
+            text: CREATIVE GALLERY
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: Selected Works
+            level: 1
+            typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center, letterSpacing: tight }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: A curated collection of projects spanning branding, editorial, and environmental design.
+            typography: { size: lg, color: *color-secondary, align: center }
+            layout: { widthMode: "75" }
+
+    # ============================================
+    # MASONRY GRID - 3 COLUMNS
+    # ============================================
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: md, verticalAlign: top }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      columns:
+
+        # Column 1 - Tall portrait + Square
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80'
+                  altText: 'Abstract geometric art with bold colors and shapes'
+                appearance:
+                  fit: cover
+                  cornerStyle: md
+                  hoverEffect: lift
+                  shadow: soft
+                  aspectRatio: '3/2'
+                layout: { widthMode: stretch }
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: left }
+                spacing: { paddingBlock: xs }
+              components:
+                - name: heading
+                  properties:
+                    text: Geometric Abstractions
+                    level: 4
+                    typography: { size: md, weight: semibold, color: *color-primary }
+                - name: caption
+                  properties:
+                    text: Digital Art / 2025
+                    typography: { size: xs, color: *color-secondary }
+            - name: br
+              properties: { size: md }
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&q=80'
+                  altText: 'Minimalist poster design with clean typography'
+                appearance:
+                  fit: cover
+                  cornerStyle: md
+                  hoverEffect: lift
+                  shadow: soft
+                  aspectRatio: '1/1'
+                layout: { widthMode: stretch }
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: left }
+                spacing: { paddingBlock: xs }
+              components:
+                - name: heading
+                  properties:
+                    text: Minimal Posters
+                    level: 4
+                    typography: { size: md, weight: semibold, color: *color-primary }
+                - name: caption
+                  properties:
+                    text: Print Design / 2024
+                    typography: { size: xs, color: *color-secondary }
+
+        # Column 2 - Wide landscape + Tall
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?w=600&q=80'
+                  altText: 'Mobile app interface design on multiple devices'
+                appearance:
+                  fit: cover
+                  cornerStyle: md
+                  hoverEffect: lift
+                  shadow: soft
+                  aspectRatio: '4/3'
+                layout: { widthMode: stretch }
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: left }
+                spacing: { paddingBlock: xs }
+              components:
+                - name: heading
+                  properties:
+                    text: Finova App Redesign
+                    level: 4
+                    typography: { size: md, weight: semibold, color: *color-primary }
+                - name: caption
+                  properties:
+                    text: UI/UX Design / 2025
+                    typography: { size: xs, color: *color-secondary }
+            - name: br
+              properties: { size: md }
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80'
+                  altText: 'Brand packaging design with earthy color palette'
+                appearance:
+                  fit: cover
+                  cornerStyle: md
+                  hoverEffect: lift
+                  shadow: soft
+                  aspectRatio: '3/2'
+                layout: { widthMode: stretch }
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: left }
+                spacing: { paddingBlock: xs }
+              components:
+                - name: heading
+                  properties:
+                    text: Terra Packaging
+                    level: 4
+                    typography: { size: md, weight: semibold, color: *color-primary }
+                - name: caption
+                  properties:
+                    text: Packaging / 2024
+                    typography: { size: xs, color: *color-secondary }
+
+        # Column 3 - Square + Wide
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80'
+                  altText: 'Portrait photography with dramatic studio lighting'
+                appearance:
+                  fit: cover
+                  cornerStyle: md
+                  hoverEffect: lift
+                  shadow: soft
+                  aspectRatio: '1/1'
+                layout: { widthMode: stretch }
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: left }
+                spacing: { paddingBlock: xs }
+              components:
+                - name: heading
+                  properties:
+                    text: Studio Portraits
+                    level: 4
+                    typography: { size: md, weight: semibold, color: *color-primary }
+                - name: caption
+                  properties:
+                    text: Photography / 2025
+                    typography: { size: xs, color: *color-secondary }
+            - name: br
+              properties: { size: md }
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80'
+                  altText: 'Architectural interior design with natural materials'
+                appearance:
+                  fit: cover
+                  cornerStyle: md
+                  hoverEffect: lift
+                  shadow: soft
+                  aspectRatio: '16/9'
+                layout: { widthMode: stretch }
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: left }
+                spacing: { paddingBlock: xs }
+              components:
+                - name: heading
+                  properties:
+                    text: Zenith Interiors
+                    level: 4
+                    typography: { size: md, weight: semibold, color: *color-primary }
+                - name: caption
+                  properties:
+                    text: Interior Design / 2025
+                    typography: { size: xs, color: *color-secondary }

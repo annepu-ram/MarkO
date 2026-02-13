@@ -1,0 +1,47 @@
+# Story Card Variant: Category Card
+# layout-column with a blurred image background and a centered heading
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: image
+      properties:
+        source: { url: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800', altText: 'Architecture' }
+        appearance:
+          minHeight: 20
+          fit: cover
+          cornerStyle: lg
+          overlay:
+            enabled: true
+            color: 'rgba(0,0,0,0.45)'
+            opacity: 45
+          hoverEffect: zoom
+        layout: { widthMode: stretch }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: center, gap: sm }
+            appearance: { background: { transparency: 0 }, padding: { block: xl, inline: lg } }
+          components:
+            - name: eyebrow
+              properties:
+                text: EXPLORE
+                typography: { size: xs, weight: bold, color: '#e2e8f0', transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Architecture
+                level: 2
+                typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: tight }
+                spacing: { marginBlock: xs }
+            - name: paragraph
+              properties:
+                text: "42 articles"
+                typography: { size: md, color: '#cbd5e1', align: center }
+            - name: button
+              properties:
+                text: Browse Collection
+                appearance: { background: { color: '#ffffff', transparency: 80 }, radius: pill, padding: { block: sm, inline: lg } }
+                typography: { color: '#111827', weight: semibold }

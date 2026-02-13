@@ -1,0 +1,96 @@
+# Review Card Variant: The Detailed Review
+# layout-column with a heading, paragraph, br, and a link to the verified purchase
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: left, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: soft
+          padding: { block: lg, inline: lg }
+          border: { width: 1, style: solid, color: '#e5e7eb' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: heading
+              properties:
+                text: "Exceeded All My Expectations"
+                level: 3
+                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                spacing: { marginBlock: none }
+            - name: eyebrow
+              properties:
+                text: VERIFIED PURCHASE
+                typography: { size: xxs, weight: bold, color: '#059669', transform: uppercase, letterSpacing: wider }
+                spacing: { marginBlock: none }
+                appearance:
+                  background: { color: '#f0fdf4', transparency: 100 }
+                  radius: pill
+                  padding: { block: xxs, inline: xs }
+        - name: paragraph
+          properties:
+            text: |
+              I've been using this product daily for the past 6 months and it has
+              fundamentally changed how I approach my work. The initial setup was
+              incredibly straightforward — I was up and running in under 15 minutes.
+
+              The feature set is comprehensive without being overwhelming. Every tool
+              feels purposeful and well-designed. The AI-powered suggestions have
+              saved me countless hours, and the collaboration features make working
+              with my distributed team feel seamless.
+
+              If I had to pick one area for improvement, it would be the mobile
+              experience — while functional, it doesn't quite match the desktop
+              polish. That said, updates are frequent and I've noticed improvements
+              with each release.
+            typography: { size: sm, color: '#4b5563', align: left, lineHeight: "1.8" }
+        - name: br
+          properties:
+            size: sm
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: image
+                  properties:
+                    source: { url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80', altText: 'Reviewer avatar' }
+                    appearance: { minHeight: 2.5, maxHeight: 2.5, fit: cover, cornerStyle: pill }
+                    layout: { widthMode: fit }
+                    spacing: { marginBlock: none }
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left, gap: none }
+                    appearance: { background: { transparency: 0 } }
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: Thomas Bradley
+                        typography: { size: sm, weight: bold, color: '#111827' }
+                        spacing: { marginBlock: none }
+                    - name: caption
+                      properties:
+                        text: "Purchased Feb 2026"
+                        typography: { size: xs, color: '#9ca3af' }
+            - name: link
+              properties:
+                text: "Helpful (47)"
+                href: '#'
+                typography: { size: sm, weight: medium, color: '#6b7280' }
+                appearance: { underline: false }
+                spacing: { marginBlock: none }

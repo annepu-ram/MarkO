@@ -1,0 +1,110 @@
+# Product Card Variant: Subscription Card
+# layout-column with tabs to toggle between Monthly/Yearly pricing before the button
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f0fdf4' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: medium
+          padding: { block: lg, inline: lg }
+          border: { width: 1, style: solid, color: '#bbf7d0' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600', altText: 'Premium coffee subscription' }
+            appearance: { minHeight: 12, fit: cover, cornerStyle: md }
+            layout: { widthMode: stretch }
+        - name: heading
+          properties:
+            text: Artisan Coffee Box
+            level: 3
+            typography: { size: xl, weight: bold, color: '#111827', align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: |
+              Hand-picked single-origin beans delivered fresh to your door.
+              Choose your frequency below.
+            typography: { size: sm, color: '#6b7280', align: center }
+        - name: tabs
+          properties:
+            layout: { orientation: horizontal, widthMode: stretch }
+            typography:
+              label:
+                size: sm
+                weight: semibold
+                active: { color: '#166534' }
+                inactive: { color: '#6b7280' }
+            appearance:
+              tab:
+                background: { active: '#f0fdf4', inactive: '#ffffff' }
+                border: { width: 2, style: solid, position: lower }
+              content:
+                background: { color: '#ffffff' }
+                border: { color: '#e5e7eb', width: 1, style: solid }
+                padding: { block: md, inline: md }
+          tabs:
+            - title: Monthly
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: xs }
+                    appearance: { background: { transparency: 0 } }
+                  components:
+                    - name: heading
+                      properties:
+                        text: "$34.99/mo"
+                        level: 4
+                        typography: { size: xxl, weight: extrabold, color: '#166534', align: center }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: |
+                          12oz bag of premium beans
+                          Free shipping every month
+                          Cancel anytime
+                        typography: { size: sm, color: '#6b7280', align: center }
+                    - name: button
+                      properties:
+                        text: Subscribe Monthly
+                        appearance: { background: { color: '#166534' }, radius: md }
+                        typography: { color: '#ffffff', weight: bold }
+                        layout: { widthMode: stretch }
+            - title: Yearly
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: xs }
+                    appearance: { background: { transparency: 0 } }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: SAVE 20%
+                        typography: { size: xxs, weight: bold, color: '#166534', transform: uppercase, letterSpacing: wider, align: center }
+                    - name: heading
+                      properties:
+                        text: "$27.99/mo"
+                        level: 4
+                        typography: { size: xxl, weight: extrabold, color: '#166534', align: center }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: |
+                          12oz bag of premium beans
+                          Free shipping + bonus bag quarterly
+                          Billed annually at $335.88
+                        typography: { size: sm, color: '#6b7280', align: center }
+                    - name: button
+                      properties:
+                        text: Subscribe Yearly
+                        appearance: { background: { color: '#166534' }, radius: md }
+                        typography: { color: '#ffffff', weight: bold }
+                        layout: { widthMode: stretch }

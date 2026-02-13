@@ -1,0 +1,95 @@
+# Hero Card Variant: Search Hero
+# layout-column centered over a video-background with a large textbox for site-wide search
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#000000' }
+  components:
+    - name: video-background
+      properties:
+        source:
+          url: 'https://cdn.pixabay.com/video/2020/05/25/40130_large.mp4'
+          poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200'
+        appearance:
+          minHeight: 500
+          objectFit: cover
+          overlay:
+            enabled: true
+            color: 'rgba(15,23,42,0.7)'
+            opacity: 70
+        playback:
+          autoplay: true
+          loop: true
+          muted: true
+          playsinline: true
+        content:
+          verticalAlign: center
+          horizontalAlign: center
+          padding: xl
+        layout: { widthMode: stretch }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: center, gap: md }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: heading
+              properties:
+                text: What are you looking for?
+                level: 1
+                typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: tight }
+            - name: paragraph
+              properties:
+                text: Search across thousands of resources, articles, and tools.
+                typography: { size: lg, color: '#cbd5e1', align: center }
+                spacing: { marginBlock: sm }
+            - name: form
+              properties:
+                layout: { direction: row, horizontalAlign: center }
+                submit: { show: false }
+              components:
+                - name: textbox
+                  properties:
+                    label: { show: false }
+                    field: { placeholder: 'Search anything...', required: false }
+                    appearance:
+                      border: { width: 0, color: '#ffffff' }
+                      background: { color: '#ffffff', transparency: 100 }
+                      radius: pill
+                    layout: { widthMode: "50" }
+                    spacing: { marginBlock: none }
+                - name: button
+                  properties:
+                    text: Search
+                    appearance: { background: { color: '#6366f1' }, radius: pill, padding: { block: sm, inline: lg } }
+                    typography: { color: '#ffffff', weight: bold }
+                    spacing: { marginBlock: none }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: center, verticalAlign: center, gap: md, wrap: wrap }
+                appearance: { background: { transparency: 0 } }
+                spacing: { marginBlock: md }
+              components:
+                - name: caption
+                  properties:
+                    text: "Popular:"
+                    typography: { size: xs, color: '#94a3b8' }
+                - name: link
+                  properties:
+                    text: Getting Started
+                    href: '#'
+                    typography: { size: xs, color: '#a5b4fc' }
+                    appearance: { underline: false }
+                - name: link
+                  properties:
+                    text: Templates
+                    href: '#'
+                    typography: { size: xs, color: '#a5b4fc' }
+                    appearance: { underline: false }
+                - name: link
+                  properties:
+                    text: API Docs
+                    href: '#'
+                    typography: { size: xs, color: '#a5b4fc' }
+                    appearance: { underline: false }

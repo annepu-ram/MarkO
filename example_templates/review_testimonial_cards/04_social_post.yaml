@@ -1,0 +1,73 @@
+# Review Card Variant: Social Post Style
+# layout-row with an image (avatar) and a layout-column containing heading (Username) and paragraph
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f1f5f9' }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: left, verticalAlign: top, wrap: nowrap, gap: md }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: soft
+          padding: { block: md, inline: md }
+          border: { width: 1, style: solid, color: '#e2e8f0' }
+        spacing: { marginBlock: md, marginInline: lg }
+      components:
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100', altText: 'User avatar' }
+            appearance: { minHeight: 3.5, maxHeight: 3.5, fit: cover, cornerStyle: pill }
+            layout: { widthMode: fit }
+            spacing: { marginBlock: none }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "75", gap: xs }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: xs, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: heading
+                  properties:
+                    text: "@rajpatel"
+                    level: 4
+                    typography: { size: md, weight: bold, color: '#0f172a', align: left }
+                    spacing: { marginBlock: none }
+                - name: caption
+                  properties:
+                    text: "2 hours ago"
+                    typography: { size: xs, color: '#94a3b8', align: left }
+            - name: paragraph
+              properties:
+                text: |
+                  Just shipped our new landing page using @SwiftSites and wow,
+                  the conversion rate jumped 40% overnight. This is the real deal.
+                  Highly recommended for any startup founder!
+                typography: { size: sm, color: '#334155', lineHeight: "1.7" }
+                spacing: { marginBlock: xs }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: md, wrap: nowrap }
+                appearance: { background: { transparency: 0 } }
+              components:
+                - name: caption
+                  properties:
+                    text: "142 likes"
+                    typography: { size: xs, color: '#94a3b8' }
+                - name: caption
+                  properties:
+                    text: "23 replies"
+                    typography: { size: xs, color: '#94a3b8' }
+                - name: link
+                  properties:
+                    text: Reply
+                    href: '#'
+                    typography: { size: xs, weight: semibold, color: '#2563eb' }
+                    appearance: { underline: false }
+                    spacing: { marginBlock: none }

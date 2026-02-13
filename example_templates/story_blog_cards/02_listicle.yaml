@@ -1,0 +1,53 @@
+# Story Card Variant: The Listicle
+# layout-row with a large number (using heading) on the left and layout-column content on the right
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#ffffff' }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: left, verticalAlign: top, wrap: nowrap, gap: md }
+        appearance:
+          background: { color: '#ffffff' }
+          padding: { block: md, inline: md }
+          border: { width: 0, style: solid, color: '#e5e7eb' }
+        spacing: { marginBlock: md, marginInline: lg }
+      components:
+        - name: heading
+          properties:
+            text: "01"
+            level: 2
+            typography: { size: xxxl, weight: extrabold, color: '#e0e7ff', align: center }
+            spacing: { marginBlock: none }
+            layout: { widthMode: fit }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "75", gap: xs }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: eyebrow
+              properties:
+                text: PRODUCTIVITY
+                typography: { size: xxs, weight: bold, color: '#6366f1', transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: Start Your Day with a Brain Dump
+                level: 3
+                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                spacing: { marginBlock: xs }
+            - name: paragraph
+              properties:
+                text: |
+                  Write down everything on your mind before you start work.
+                  This clears mental clutter and helps you prioritize what
+                  actually matters today.
+                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.7" }
+            - name: link
+              properties:
+                text: Continue Reading
+                href: '#'
+                typography: { size: sm, weight: semibold, color: '#6366f1' }
+                appearance: { showArrow: true, underline: false }
+                spacing: { marginBlock: xs }

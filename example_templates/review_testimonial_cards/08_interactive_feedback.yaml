@@ -1,0 +1,209 @@
+# Review Card Variant: Interactive Feedback
+# layout-column with a blockquote and an accordion labeled "Read full case study"
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f0fdf4' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: medium
+          padding: { block: lg, inline: lg }
+          border: { width: 1, style: solid, color: '#bbf7d0' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: eyebrow
+          properties:
+            text: CASE STUDY
+            typography:
+              {
+                size: xxs,
+                weight: bold,
+                color: '#059669',
+                transform: uppercase,
+                letterSpacing: wider
+              }
+        - name: blockquote
+          properties:
+            quote: |
+              We reduced our customer onboarding time from 2 weeks to just 3 days.
+              The impact on our retention rate was immediate and measurable.
+            cite: Head of Product, CloudSync
+            typography:
+              {
+                size: lg,
+                weight: medium,
+                color: '#065f46',
+                align: left,
+                lineHeight: "1.7"
+              }
+            appearance:
+              border: { accentColor: '#059669' }
+              background: { color: '#f0fdf4', transparency: 100 }
+              radius: md
+              padding: { block: md, inline: md }
+            spacing: { marginBlock: sm }
+        - name: layout-row
+          properties:
+            layout:
+              {
+                horizontalAlign: space-evenly,
+                verticalAlign: center,
+                gap: lg,
+                wrap: nowrap,
+                tag: section
+              }
+            appearance:
+              {
+                background: { transparency: 0, type: "", color: "#ffffff" },
+                padding: { block: sm, inline: sm },
+                border: { width: 0, style: solid, color: "#000000" },
+                radius: none,
+                shadow: none,
+                shadowColor: "#000000"
+              }
+            spacing:
+              marginBlock: none
+              marginInline: none
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  {
+                    horizontalAlign: center,
+                    gap: xxs,
+                    tag: section,
+                    verticalAlign: space-between,
+                    wrap: nowrap,
+                    widthMode: "16"
+                  }
+                appearance:
+                  {
+                    background: { transparency: 0, type: "", color: "#ffffff" },
+                    padding: { block: sm, inline: sm },
+                    border: { width: 0, style: solid, color: "#000000" },
+                    radius: none,
+                    shadow: none,
+                    shadowColor: "#000000"
+                  }
+                spacing:
+                  marginBlock: none
+                  marginInline: none
+              components:
+                - name: heading
+                  properties:
+                    text: "85%"
+                    level: 4
+                    typography: { size: xxl, weight: extrabold, color: '#059669', align: center }
+                    spacing: { marginBlock: none }
+                - name: caption
+                  properties:
+                    text: Faster Onboarding
+                    typography: { size: xs, color: '#6b7280', align: center }
+            - name: layout-column
+              properties:
+                layout:
+                  {
+                    horizontalAlign: center,
+                    gap: xxs,
+                    tag: section,
+                    verticalAlign: space-between,
+                    wrap: nowrap,
+                    widthMode: "16"
+                  }
+                appearance:
+                  {
+                    background: { transparency: 0, type: "", color: "#ffffff" },
+                    padding: { block: sm, inline: sm },
+                    border: { width: 0, style: solid, color: "#000000" },
+                    radius: none,
+                    shadow: none,
+                    shadowColor: "#000000"
+                  }
+                spacing:
+                  marginBlock: none
+                  marginInline: none
+              components:
+                - name: heading
+                  properties:
+                    text: "45%"
+                    level: 4
+                    typography: { size: xxl, weight: extrabold, color: '#059669', align: center }
+                    spacing: { marginBlock: none }
+                - name: caption
+                  properties:
+                    text: Higher Retention
+                    typography: { size: xs, color: '#6b7280', align: center }
+            - name: layout-column
+              properties:
+                layout:
+                  {
+                    horizontalAlign: center,
+                    gap: xxs,
+                    tag: section,
+                    verticalAlign: space-between,
+                    wrap: nowrap,
+                    widthMode: "16"
+                  }
+                appearance:
+                  {
+                    background: { transparency: 0, type: "", color: "#ffffff" },
+                    padding: { block: sm, inline: sm },
+                    border: { width: 0, style: solid, color: "#000000" },
+                    radius: none,
+                    shadow: none,
+                    shadowColor: "#000000"
+                  }
+                spacing:
+                  marginBlock: none
+                  marginInline: none
+              components:
+                - name: heading
+                  properties:
+                    text: "$2.1M"
+                    level: 4
+                    typography: { size: xxl, weight: extrabold, color: '#059669', align: center }
+                    spacing: { marginBlock: none }
+                - name: caption
+                  properties:
+                    text: Revenue Increase
+                    typography: { size: xs, color: '#6b7280', align: center }
+        - name: accordion
+          properties:
+            behavior: { allowMultipleOpen: false }
+            typography:
+              title: { size: md, weight: semibold, color: '#059669' }
+              content: { size: sm, weight: regular, color: '#4b5563' }
+            appearance:
+              titleBackground: { color: '#f0fdf4' }
+              border: { width: 1, style: solid, color: '#bbf7d0', position: all }
+              radius: md
+            spacing: { marginBlock: sm }
+          items:
+            - title: Read the Full Case Study
+              components:
+                - name: paragraph
+                  properties:
+                    text: |
+                      CloudSync, a B2B SaaS company with 500+ enterprise clients, was struggling with
+                      customer churn. Their onboarding process required multiple handoffs between teams
+                      and manual configuration steps that often took 2+ weeks to complete.
+
+                      After implementing our platform, they automated 80% of the onboarding workflow,
+                      reduced configuration from days to hours, and saw their NPS score jump from 32 to 71
+                      within the first quarter.
+
+                      Key wins included: automated environment provisioning, self-service configuration
+                      wizards, and real-time progress tracking for both the customer and internal teams.
+                    typography: { size: sm, color: '#4b5563', lineHeight: "1.8" }
+                - name: link
+                  properties:
+                    text: Download Full PDF Report
+                    href: '#'
+                    typography: { size: sm, weight: semibold, color: '#059669' }
+                    appearance: { showArrow: true, underline: false }

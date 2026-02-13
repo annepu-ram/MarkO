@@ -1,0 +1,95 @@
+# Pricing Card Variant: Benefit Summary
+# layout-column with an image (icon), heading (tier name), price, description, and a link to learn more
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f1f5f9' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: xl
+          shadow: medium
+          padding: { block: xl, inline: xl }
+          border: { width: 1, style: solid, color: '#e2e8f0' }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        # Icon image (representing the tier)
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1553729459-uj0f8crnrtp0?w=120&h=120&fit=crop', alt: 'Premium tier icon' }
+            appearance:
+              aspectRatio: '1/1'
+              radius: pill
+              shadow: soft
+              objectPosition: center
+            layout: { widthMode: "25" }
+        - name: br
+          properties:
+            size: xs
+        # Tier badge
+        - name: eyebrow
+          properties:
+            text: PREMIUM TIER
+            typography:
+              size: xxs
+              weight: bold
+              color: '#8b5cf6'
+              align: center
+              transform: uppercase
+              letterSpacing: wider
+            spacing: { marginBlock: xxs }
+        # Tier name
+        - name: heading
+          properties:
+            text: Scale
+            level: 2
+            typography: { size: xxl, weight: extrabold, color: '#1e1b4b', align: center }
+            spacing: { marginBlock: xxs }
+        # Price
+        - name: heading
+          properties:
+            text: "$149/mo"
+            level: 3
+            typography: { size: xl, weight: bold, color: '#8b5cf6', align: center }
+            spacing: { marginBlock: none }
+        - name: br
+          properties:
+            size: xs
+        # Benefit description
+        - name: paragraph
+          properties:
+            text: "Built for high-growth teams that need advanced automation, dedicated infrastructure, and white-glove onboarding. Includes everything in the Pro tier plus premium features."
+            typography: { size: sm, color: '#475569', align: center, lineHeight: '1.7' }
+            spacing: { marginBlock: sm }
+        # Key benefits
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: center, gap: xxs }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: caption
+              properties:
+                text: "100 team members included"
+                typography: { size: xs, color: '#64748b', align: center }
+            - name: caption
+              properties:
+                text: "500GB storage with CDN delivery"
+                typography: { size: xs, color: '#64748b', align: center }
+            - name: caption
+              properties:
+                text: "99.99% uptime SLA guarantee"
+                typography: { size: xs, color: '#64748b', align: center }
+        - name: br
+          properties:
+            size: md
+        # Learn more link
+        - name: link
+          properties:
+            text: "Learn more about this tier"
+            href: '#scale-details'
+            typography: { size: sm, weight: semibold, color: '#8b5cf6', align: center }
+            appearance: { showArrow: true }

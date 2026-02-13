@@ -1,0 +1,62 @@
+# Hero Card Variant: The Navigation Hero
+# layout-column that starts with a titlebar, followed by a large blockquote and a primary button
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#fefce8' }
+  components:
+    - name: titlebar
+      properties:
+        branding: { showLogo: true, logoUrl: 'https://via.placeholder.com/50x40/854d0e/fef3c7?text=Logo', title: 'Artisan Studio' }
+        navigation:
+          links:
+            - label: Work
+              href: '#work'
+            - label: About
+              href: '#about'
+            - label: Services
+              href: '#services'
+            - label: Contact
+              href: '#contact'
+        layout: { alignment: left, height: 70 }
+        appearance:
+          background: { color: '#fefce8', transparency: 100 }
+          border: { width: 1, color: '#fde68a' }
+        typography:
+          title: { size: 22, weight: bold, color: '#78350f' }
+          menu: { size: 15, weight: medium, color: '#92400e' }
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: lg }
+        spacing: { paddingBlock: xxxl, paddingInline: xl }
+        appearance:
+          background: { color: '#fefce8' }
+          padding: { block: xxxl, inline: xl }
+      components:
+        - name: blockquote
+          properties:
+            quote: |
+              Design is not just what it looks like and feels like.
+              Design is how it works.
+            cite: Steve Jobs
+            typography: { size: xxl, weight: medium, color: '#78350f', align: center, lineHeight: "1.6" }
+            appearance:
+              border: { accentColor: '#d97706' }
+              background: { color: '#fffbeb', transparency: 100 }
+              radius: lg
+              padding: { block: xl, inline: xl }
+            layout: { widthMode: "75" }
+            spacing: { marginBlock: lg }
+        - name: paragraph
+          properties:
+            text: |
+              We craft meaningful digital experiences that connect brands
+              with their audiences. Let's create something extraordinary together.
+            typography: { size: lg, color: '#92400e', align: center, lineHeight: "1.8" }
+            layout: { widthMode: "50" }
+        - name: button
+          properties:
+            text: Start a Project
+            appearance: { background: { color: '#d97706' }, radius: pill, padding: { block: md, inline: xl } }
+            typography: { color: '#ffffff', weight: bold }

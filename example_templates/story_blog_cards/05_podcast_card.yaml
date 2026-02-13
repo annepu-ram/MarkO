@@ -1,0 +1,51 @@
+# Story Card Variant: The Podcast Card
+# layout-row with an image (Album art), heading, and a button (Play icon)
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#111827' }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: md }
+        appearance:
+          background: { color: '#1f2937' }
+          radius: lg
+          shadow: elevated
+          padding: { block: md, inline: md }
+          border: { width: 1, style: solid, color: '#374151' }
+        spacing: { marginBlock: md, marginInline: lg }
+      components:
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300', altText: 'Podcast album art' }
+            appearance: { minHeight: 8, maxHeight: 8, fit: cover, cornerStyle: md, shadow: soft }
+            layout: { widthMode: "25" }
+            spacing: { marginBlock: none }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "50", gap: xs }
+            appearance: { background: { transparency: 0 } }
+          components:
+            - name: eyebrow
+              properties:
+                text: EPISODE 42
+                typography: { size: xxs, weight: semibold, color: '#818cf8', transform: uppercase, letterSpacing: wider }
+                spacing: { marginBlock: none }
+            - name: heading
+              properties:
+                text: "Building in Public: Why Transparency Wins"
+                level: 4
+                typography: { size: md, weight: bold, color: '#f1f5f9', align: left }
+                spacing: { marginBlock: none }
+            - name: caption
+              properties:
+                text: "The Startup Diaries - 38 min"
+                typography: { size: xs, color: '#94a3b8' }
+        - name: button
+          properties:
+            text: Play
+            appearance: { background: { color: '#6366f1' }, radius: pill, padding: { block: sm, inline: md } }
+            typography: { color: '#ffffff', weight: bold }
+            layout: { widthMode: "25" }

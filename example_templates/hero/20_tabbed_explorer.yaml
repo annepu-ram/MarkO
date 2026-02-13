@@ -1,0 +1,260 @@
+# Hero Card Variant: The Tabbed Explorer
+# layout-column with a tabs component to switch between different service categories
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#ffffff' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        spacing: { paddingBlock: xxl, paddingInline: xl }
+        appearance:
+          background: { color: '#0f172a' }
+          padding: { block: xl, inline: xl }
+      components:
+        - name: eyebrow
+          properties:
+            text: DISCOVER OUR SERVICES
+            typography:
+              {
+                size: xs,
+                weight: semibold,
+                color: '#818cf8',
+                transform: uppercase,
+                letterSpacing: wider,
+                align: center
+              }
+        - name: heading
+          properties:
+            text: Solutions for Every Challenge
+            level: 1
+            typography:
+              {
+                size: xxxl,
+                weight: extrabold,
+                color: '#ffffff',
+                align: center,
+                letterSpacing: tight
+              }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Explore our comprehensive suite of tools designed to accelerate your
+              success.
+            typography: { size: md, color: '#94a3b8', align: center }
+            spacing: { marginBlock: md }
+        - name: tabs
+          properties:
+            layout: { orientation: horizontal, widthMode: stretch }
+            typography:
+              label:
+                size: md
+                weight: semibold
+                active: { color: '#818cf8' }
+                inactive: { color: '#94a3b8' }
+            appearance:
+              tab:
+                background: { active: '#e9ecf1', inactive: '#fcfcfd' }
+                border: { width: 2, style: solid, position: lower }
+              content:
+                background: { color: '#1e293b', transparency: 100 }
+                border: { color: '#334155', width: 1, style: solid }
+                padding: { block: lg, inline: lg }
+              shadow: none
+              shadowColor: "#000000"
+            spacing: { marginBlock: md, marginInline: none }
+          tabs:
+            - title: Marketing
+              components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: space-evenly
+                      verticalAlign: center
+                      wrap: nowrap
+                      gap: lg
+                    appearance:
+                      background:
+                        transparency: 0
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          widthMode: "50"
+                          gap: sm
+                        appearance:
+                          background:
+                            transparency: 0
+                      components:
+                        - name: heading
+                          properties:
+                            text: Digital Marketing Suite
+                            level: 3
+                            typography:
+                              size: xl
+                              weight: bold
+                              color: "#ffffff"
+                              align: left
+                        - name: paragraph
+                          properties:
+                            text: >
+                              Drive traffic, generate leads, and convert
+                              customers
+
+                              with our AI-powered marketing tools.
+                            typography:
+                              size: md
+                              color: "#cbd5e1"
+                              align: left
+                        - name: button
+                          properties:
+                            text: Learn More
+                            appearance:
+                              background:
+                                color: "#818cf8"
+                              radius: md
+                            typography:
+                              color: "#ffffff"
+                              weight: semibold
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600
+                          altText: Marketing dashboard
+                        appearance:
+                          minHeight: 15
+                          fit: cover
+                          cornerStyle: md
+                        layout:
+                          widthMode: "50"
+            - title: Analytics
+              components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: space-evenly
+                      verticalAlign: center
+                      wrap: nowrap
+                      gap: lg
+                    appearance:
+                      background:
+                        transparency: 0
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          widthMode: "50"
+                          gap: sm
+                        appearance:
+                          background:
+                            transparency: 0
+                      components:
+                        - name: heading
+                          properties:
+                            text: Real-Time Analytics
+                            level: 3
+                            typography:
+                              size: xl
+                              weight: bold
+                              color: "#ffffff"
+                              align: left
+                        - name: paragraph
+                          properties:
+                            text: >
+                              Track every metric that matters with beautiful
+                              dashboards
+
+                              and actionable insights.
+                            typography:
+                              size: md
+                              color: "#cbd5e1"
+                              align: left
+                        - name: button
+                          properties:
+                            text: View Demo
+                            appearance:
+                              background:
+                                color: "#818cf8"
+                              radius: md
+                            typography:
+                              color: "#ffffff"
+                              weight: semibold
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600
+                          altText: Analytics charts
+                        appearance:
+                          minHeight: 15
+                          fit: cover
+                          cornerStyle: md
+                        layout:
+                          widthMode: "50"
+            - title: Automation
+              components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: space-evenly
+                      verticalAlign: center
+                      wrap: nowrap
+                      gap: lg
+                    appearance:
+                      background:
+                        transparency: 0
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          widthMode: "50"
+                          gap: sm
+                        appearance:
+                          background:
+                            transparency: 0
+                      components:
+                        - name: heading
+                          properties:
+                            text: Workflow Automation
+                            level: 3
+                            typography:
+                              size: xl
+                              weight: bold
+                              color: "#ffffff"
+                              align: left
+                        - name: paragraph
+                          properties:
+                            text: >
+                              Automate repetitive tasks and focus on what truly
+                              matters
+
+                              for your business growth.
+                            typography:
+                              size: md
+                              color: "#cbd5e1"
+                              align: left
+                        - name: button
+                          properties:
+                            text: Get Started
+                            appearance:
+                              background:
+                                color: "#818cf8"
+                              radius: md
+                            typography:
+                              color: "#ffffff"
+                              weight: semibold
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600
+                          altText: Automation workflow
+                        appearance:
+                          minHeight: 15
+                          fit: cover
+                          cornerStyle: md
+                        layout:
+                          widthMode: "50"

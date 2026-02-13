@@ -1,0 +1,128 @@
+# Hero Card Variant: The Story Starter
+# carousel containing three slides, each with a different image and heading overlay
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#000000' }
+  components:
+    - name: carousel
+      properties:
+        behavior:
+          autoplay: true
+          delay: 5000
+          loop: true
+          pauseOnHover: true
+          swipeEnabled: true
+          swipeThreshold: 50
+          keyboardNavigation: true
+        animation:
+          effect: fade
+          duration: 600
+        navigation:
+          showArrows: true
+          arrowStyle: chevron
+          arrowPosition: inside
+          showDots: true
+        indicators:
+          style: dashes
+          position: bottom
+        accessibility:
+          showPauseButton: true
+          ariaLabel: 'Story carousel'
+        spacing: { marginBlock: none }
+      slides:
+        - components:
+            - name: image
+              properties:
+                source: { url: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200', altText: 'Innovation lab' }
+                appearance:
+                  minHeight: 35
+                  fit: cover
+                  overlay:
+                    enabled: true
+                    color: 'rgba(0,0,0,0.5)'
+                    opacity: 50
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: sm }
+                    appearance: { background: { transparency: 0 }, padding: { block: xl, inline: xl } }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: CHAPTER ONE
+                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider, align: center }
+                    - name: heading
+                      properties:
+                        text: The Beginning of Something Big
+                        level: 1
+                        typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                    - name: paragraph
+                      properties:
+                        text: Every great journey starts with a single step.
+                        typography: { size: lg, color: '#e2e8f0', align: center }
+        - components:
+            - name: image
+              properties:
+                source: { url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200', altText: 'Team collaboration' }
+                appearance:
+                  minHeight: 35
+                  fit: cover
+                  overlay:
+                    enabled: true
+                    color: 'rgba(0,0,0,0.5)'
+                    opacity: 50
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: sm }
+                    appearance: { background: { transparency: 0 }, padding: { block: xl, inline: xl } }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: CHAPTER TWO
+                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider, align: center }
+                    - name: heading
+                      properties:
+                        text: Building Together, Growing Stronger
+                        level: 2
+                        typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                    - name: paragraph
+                      properties:
+                        text: Collaboration is the heartbeat of innovation.
+                        typography: { size: lg, color: '#e2e8f0', align: center }
+        - components:
+            - name: image
+              properties:
+                source: { url: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200', altText: 'Future technology' }
+                appearance:
+                  minHeight: 35
+                  fit: cover
+                  overlay:
+                    enabled: true
+                    color: 'rgba(0,0,0,0.5)'
+                    opacity: 50
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: sm }
+                    appearance: { background: { transparency: 0 }, padding: { block: xl, inline: xl } }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: CHAPTER THREE
+                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider, align: center }
+                    - name: heading
+                      properties:
+                        text: The Future Is Already Here
+                        level: 2
+                        typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                    - name: button
+                      properties:
+                        text: Start Your Story
+                        appearance: { background: { color: '#6366f1' }, radius: pill, padding: { block: md, inline: xl } }
+                        typography: { color: '#ffffff', weight: bold }

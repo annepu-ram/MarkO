@@ -1,0 +1,307 @@
+# 10 - The Language Switcher
+# layout-row in a titlebar-like header containing a dropdown for language
+# selection and a "Login" button. International site header pattern.
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        headingMain: &font-heading-main "'Manrope', sans-serif"
+        headingLevel2: &font-heading-level2 "'Manrope', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#059669'
+        background: &color-background '#ffffff'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # TOP UTILITY BAR (Language + Login)
+    # ============================================
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-between, align: center, wrap: nowrap }
+        spacing: { paddingBlock: xs, paddingInline: xl }
+        appearance:
+          background: { color: '#f8fafc', transparency: 100 }
+          border: { width: 1, style: solid, color: '#e2e8f0' }
+      components:
+
+        # Left Side - Contact Info
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-evenly, align: center }
+          components:
+            - name: paragraph
+              properties:
+                text: "support@globaltravel.com"
+                typography: { size: xs, weight: medium, color: *color-secondary }
+                spacing: { marginInline: sm }
+            - name: paragraph
+              properties:
+                text: "+1 (800) 555-0175"
+                typography: { size: xs, weight: medium, color: *color-secondary }
+                spacing: { marginInline: sm }
+
+        # Right Side - Language Switcher + Login
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-evenly, align: center }
+          components:
+            - name: dropdown
+              properties:
+                label: { text: 'Language', show: false }
+                field:
+                  placeholder: 'English (US)'
+                  selected: 'English (US)'
+                  options: |
+                    English (US)
+                    English (UK)
+                    Espanol
+                    Francais
+                    Deutsch
+                    Italiano
+                    Portugues
+                    Japanese
+                    Chinese (Simplified)
+                    Korean
+                appearance:
+                  border: { width: 1, style: solid, color: '#d1d5db' }
+                  background: { color: *color-background, transparency: 100 }
+                  radius: sm
+                spacing: { marginInline: sm }
+            - name: button
+              properties:
+                text: Login
+                appearance:
+                  background: { color: *color-background, transparency: 100 }
+                  border: { width: 1, style: solid, color: '#d1d5db' }
+                  padding: { block: xs, inline: md }
+                  radius: sm
+                typography: { color: *color-primary, weight: medium, size: xs }
+                spacing: { marginInline: xs }
+            - name: button
+              properties:
+                text: Sign Up
+                appearance:
+                  background: { color: *color-accent }
+                  padding: { block: xs, inline: md }
+                  radius: sm
+                typography: { color: *color-background, weight: semibold, size: xs }
+
+    # ============================================
+    # MAIN TITLEBAR
+    # ============================================
+    - name: titlebar
+      properties:
+        branding:
+          showLogo: true
+          logoUrl: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=60&h=60&fit=crop'
+          title: 'GlobalTravel'
+        navigation:
+          links:
+            - label: Destinations
+              href: '#destinations'
+            - label: Tours
+              href: '#tours'
+            - label: Hotels
+              href: '#hotels'
+            - label: Flights
+              href: '#flights'
+            - label: Travel Guides
+              href: '#guides'
+        layout: { alignment: left, height: 65 }
+        scroll:
+          shrinkPercentage: 70
+        appearance:
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, style: solid, color: '#e2e8f0' }
+          focus:
+            background: '#ecfdf5'
+            color: *color-accent
+        typography:
+          title: { size: 24, weight: bold, color: *color-primary }
+          menu: { size: 15, weight: medium, color: *color-secondary }
+
+    # ============================================
+    # HERO SECTION
+    # ============================================
+    - name: image
+      properties:
+        source:
+          url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80'
+          altText: 'Beautiful tropical beach with crystal clear water'
+        appearance: { minHeight: 31.25, fit: cover }
+        layout: { widthMode: stretch }
+      components:
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly }
+            spacing: { paddingBlock: xxxl, paddingInline: xl }
+          components:
+            - name: eyebrow
+              properties:
+                text: DISCOVER THE WORLD
+                typography: { size: sm, weight: bold, color: '#ffffff', transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: Your Next Adventure Awaits
+                level: 1
+                typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: tight }
+                spacing: { marginBlock: md }
+            - name: paragraph
+              properties:
+                text: Explore 195 countries, 10,000+ tours, and countless memories. Now available in 10 languages for travelers worldwide.
+                typography: { size: lg, color: '#e2e8f0', align: center }
+                layout: { widthMode: 75 }
+                spacing: { marginBlock: md }
+
+            # Search Form
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-evenly, align: center, wrap: nowrap }
+                appearance:
+                  background: { color: '#ffffff', transparency: 100 }
+                  radius: lg
+                  shadow: elevated
+                spacing: { paddingBlock: sm, paddingInline: sm }
+              components:
+                - name: form
+                  properties:
+                    layout: { direction: row, horizontalAlign: space-evenly }
+                    submit: { show: false }
+                  components:
+                    - name: textbox
+                      properties:
+                        label: { show: false }
+                        field: { placeholder: 'Where do you want to go?' }
+                        appearance:
+                          background: { color: '#f9fafb', transparency: 100 }
+                          border: { width: 1, style: solid, color: '#e5e7eb' }
+                          radius: md
+                        typography: { size: md, color: *color-primary }
+                        layout: { widthMode: stretch }
+                    - name: button
+                      properties:
+                        text: Search
+                        appearance:
+                          background: { color: *color-accent }
+                          padding: { block: sm, inline: xl }
+                          radius: md
+                        typography: { color: '#ffffff', weight: semibold, size: md }
+
+    # ============================================
+    # POPULAR DESTINATIONS
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+      components:
+        - name: heading
+          properties:
+            text: Popular Destinations
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+            spacing: { marginBlock: md }
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: md, verticalAlign: top }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+          columns:
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=500&q=80'
+                      altText: 'Paris, France - Eiffel Tower'
+                    appearance: { minHeight: 18.75, fit: cover, cornerStyle: lg, hoverEffect: zoom }
+                    layout: { widthMode: stretch }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, align: center }
+                    spacing: { marginBlock: sm }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Paris, France
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: paragraph
+                      properties:
+                        text: From $899
+                        typography: { size: md, weight: bold, color: *color-accent }
+                - name: paragraph
+                  properties:
+                    text: The City of Light beckons with iconic landmarks, world-class cuisine, and timeless romance.
+                    typography: { size: sm, color: *color-secondary, lineHeight: '1.6' }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=500&q=80'
+                      altText: 'Bali, Indonesia - Temple'
+                    appearance: { minHeight: 18.75, fit: cover, cornerStyle: lg, hoverEffect: zoom }
+                    layout: { widthMode: stretch }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, align: center }
+                    spacing: { marginBlock: sm }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Bali, Indonesia
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: paragraph
+                      properties:
+                        text: From $1,199
+                        typography: { size: md, weight: bold, color: *color-accent }
+                - name: paragraph
+                  properties:
+                    text: Tropical paradise with ancient temples, lush rice terraces, and pristine beaches.
+                    typography: { size: sm, color: *color-secondary, lineHeight: '1.6' }
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://images.unsplash.com/photo-1485738422979-f5c462d49f04?w=500&q=80'
+                      altText: 'Tokyo, Japan - City skyline'
+                    appearance: { minHeight: 18.75, fit: cover, cornerStyle: lg, hoverEffect: zoom }
+                    layout: { widthMode: stretch }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, align: center }
+                    spacing: { marginBlock: sm }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Tokyo, Japan
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: paragraph
+                      properties:
+                        text: From $1,499
+                        typography: { size: md, weight: bold, color: *color-accent }
+                - name: paragraph
+                  properties:
+                    text: A mesmerizing blend of ancient tradition and cutting-edge modernity in every corner.
+                    typography: { size: sm, color: *color-secondary, lineHeight: '1.6' }
+
+    # ============================================
+    # FOOTER
+    # ============================================
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: space-evenly, align: center }
+        spacing: { paddingBlock: md, paddingInline: xl }
+        appearance: { background: { color: *color-primary, transparency: 100 } }
+      components:
+        - name: paragraph
+          properties:
+            text: "\u00A9 2026 GlobalTravel. Available in 10 languages. All rights reserved."
+            typography: { size: xs, color: '#94a3b8', align: center }
+            layout: { widthMode: stretch }

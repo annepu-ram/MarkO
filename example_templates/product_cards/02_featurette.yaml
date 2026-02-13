@@ -1,0 +1,85 @@
+# Product Card Variant: The Featurette
+# layout-column with a gif thumbnail, heading, and an accordion for technical specs
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f3f4f6' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: medium
+          padding: { block: none, inline: none }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: gif
+          properties:
+            source: { url: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif', altText: 'Product feature animation' }
+            appearance: { minHeight: 15, fit: cover, cornerStyle: none }
+            layout: { widthMode: stretch }
+            spacing: { marginBlock: none }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: xs }
+            appearance: { background: { transparency: 0 }, padding: { block: md, inline: md } }
+          components:
+            - name: heading
+              properties:
+                text: Smart Fitness Tracker Pro
+                level: 3
+                typography: { size: xl, weight: bold, color: '#111827', align: left }
+                spacing: { marginBlock: xs }
+            - name: paragraph
+              properties:
+                text: Advanced health monitoring with 7-day battery life and water resistance up to 50m.
+                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.6" }
+            - name: accordion
+              properties:
+                behavior: { allowMultipleOpen: false }
+                typography:
+                  title: { size: sm, weight: semibold, color: '#374151' }
+                  content: { size: sm, weight: regular, color: '#6b7280' }
+                appearance:
+                  titleBackground: { color: '#f9fafb' }
+                  border: { width: 1, style: solid, color: '#e5e7eb', position: bottom }
+                  radius: sm
+                spacing: { marginBlock: sm }
+              items:
+                - title: Display & Design
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: |
+                          1.4" AMOLED display, 454x454 resolution
+                          Titanium alloy case, Sapphire crystal glass
+                          Weight: 52g (without strap)
+                - title: Battery & Charging
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: |
+                          7-day typical usage battery life
+                          Magnetic wireless charging
+                          Full charge in 65 minutes
+                - title: Sensors & Tracking
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: |
+                          Heart rate, SpO2, Stress monitoring
+                          GPS + GLONASS + Galileo
+                          100+ workout modes
+            - name: caption
+              properties:
+                text: "$349.99"
+                typography: { size: xl, weight: bold, color: '#111827', align: left }
+            - name: button
+              properties:
+                text: Buy Now
+                appearance: { background: { color: '#2563eb' }, radius: md }
+                typography: { color: '#ffffff', weight: semibold }
+                layout: { widthMode: stretch }

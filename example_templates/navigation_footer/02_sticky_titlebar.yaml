@@ -1,0 +1,195 @@
+# 02 - Sticky Titlebar
+# Titlebar pinned to top with hamburger menu for mobile viewports.
+# Clean, professional header with scroll shrink behavior.
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        headingMain: &font-heading-main "'Poppins', sans-serif"
+        headingLevel2: &font-heading-level2 "'Poppins', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#0ea5e9'
+        background: &color-background '#ffffff'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # STICKY TITLEBAR WITH HAMBURGER
+    # ============================================
+    - name: titlebar
+      properties:
+        branding:
+          showLogo: true
+          logoUrl: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=60&h=60&fit=crop'
+          title: 'Streamline'
+        navigation:
+          links:
+            - label: Features
+              href: '#features'
+            - label: Pricing
+              href: '#pricing'
+            - label: About
+              href: '#about'
+            - label: Blog
+              href: '#blog'
+            - label: Contact
+              href: '#contact'
+        layout: { alignment: left, height: 68 }
+        scroll:
+          shrinkPercentage: 75
+        appearance:
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, style: solid, color: '#e2e8f0' }
+          focus:
+            background: '#f1f5f9'
+            color: *color-accent
+        typography:
+          title: { size: 24, weight: bold, color: *color-primary }
+          menu: { size: 15, weight: medium, color: *color-secondary }
+
+    # ============================================
+    # HERO SECTION
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxxl, paddingInline: xl }
+        appearance:
+          background:
+            type: gradient
+            gradient:
+              colorStart: '#f0f9ff'
+              colorEnd: *color-background
+              direction: to bottom
+      components:
+        - name: eyebrow
+          properties:
+            text: STREAMLINED PRODUCTIVITY
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: Work Smarter, Not Harder
+            level: 1
+            typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center, letterSpacing: tight }
+            spacing: { marginBlock: md }
+        - name: paragraph
+          properties:
+            text: The all-in-one platform that helps teams collaborate, plan, and ship products faster. Scroll down to see the sticky titlebar shrink and follow you.
+            typography: { size: lg, color: *color-secondary, align: center, lineHeight: '1.7' }
+            layout: { widthMode: 75 }
+            spacing: { marginBlock: md }
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-evenly, align: center }
+          components:
+            - name: button
+              properties:
+                text: Start Free Trial
+                appearance:
+                  background: { color: *color-accent }
+                  padding: { block: md, inline: xl }
+                  radius: md
+                typography: { color: *color-background, weight: semibold, size: md }
+            - name: button
+              properties:
+                text: Watch Demo
+                appearance:
+                  background: { color: *color-background, transparency: 100 }
+                  border: { width: 2, style: solid, color: *color-accent }
+                  padding: { block: md, inline: xl }
+                  radius: md
+                typography: { color: *color-accent, weight: semibold, size: md }
+
+    # ============================================
+    # FEATURES GRID (Scrollable Content)
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+      components:
+        - name: heading
+          properties:
+            text: Why Teams Love Streamline
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+            spacing: { marginBlock: md }
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: lg, verticalAlign: top }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { align: start, horizontalAlign: space-evenly }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                    appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: lg }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Real-time Collaboration
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: paragraph
+                      properties:
+                        text: Work together seamlessly with live editing, comments, and notifications. Everyone stays in sync.
+                        typography: { size: sm, color: *color-secondary, lineHeight: '1.7' }
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { align: start, horizontalAlign: space-evenly }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                    appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: lg }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Smart Automation
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: paragraph
+                      properties:
+                        text: Automate repetitive tasks and workflows. Spend more time on what matters and less on busywork.
+                        typography: { size: sm, color: *color-secondary, lineHeight: '1.7' }
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { align: start, horizontalAlign: space-evenly }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                    appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: lg }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Built-in Analytics
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: paragraph
+                      properties:
+                        text: Track progress with beautiful dashboards and reports. Make data-driven decisions with confidence.
+                        typography: { size: sm, color: *color-secondary, lineHeight: '1.7' }
+
+    # ============================================
+    # SPACER SECTION (More content to demonstrate scroll)
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { align: center, horizontalAlign: space-evenly }
+        spacing: { paddingBlock: xxxl, paddingInline: xl }
+        appearance: { background: { color: '#f1f5f9', transparency: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: Scroll Up to See the Sticky Titlebar
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+            spacing: { marginBlock: md }
+        - name: paragraph
+          properties:
+            text: The titlebar remains fixed at the top of the viewport as you scroll. It shrinks gracefully to save space while keeping navigation accessible at all times.
+            typography: { size: md, color: *color-secondary, align: center, lineHeight: '1.7' }
+            layout: { widthMode: 75 }

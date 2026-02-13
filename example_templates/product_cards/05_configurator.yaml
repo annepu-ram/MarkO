@@ -1,0 +1,78 @@
+# Product Card Variant: The Configurator
+# layout-column with image and a form containing a dropdown for size and radio for color
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f9fafb' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: sm }
+        appearance:
+          background: { color: '#ffffff' }
+          radius: lg
+          shadow: medium
+          padding: { block: none, inline: none }
+        spacing: { marginBlock: lg, marginInline: lg }
+      components:
+        - name: image
+          properties:
+            source: { url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600', altText: 'Premium leather bag' }
+            appearance: { minHeight: 18, fit: cover, cornerStyle: none }
+            layout: { widthMode: stretch }
+            spacing: { marginBlock: none }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, gap: sm }
+            appearance: { background: { transparency: 0 }, padding: { block: md, inline: md } }
+          components:
+            - name: heading
+              properties:
+                text: Heritage Leather Tote
+                level: 3
+                typography: { size: xl, weight: bold, color: '#111827', align: left }
+                spacing: { marginBlock: xs }
+            - name: caption
+              properties:
+                text: "$425.00"
+                typography: { size: lg, weight: bold, color: '#111827', align: left }
+            - name: form
+              properties:
+                layout: { direction: column }
+                submit: { show: false }
+              components:
+                - name: dropdown
+                  properties:
+                    label: { text: Size, show: true }
+                    field:
+                      placeholder: Select Size
+                      options: "Small\nMedium\nLarge\nExtra Large"
+                      selected: Medium
+                    appearance: { border: { width: 1, color: '#d1d5db' }, radius: sm }
+                - name: paragraph
+                  properties:
+                    text: Color
+                    typography: { size: sm, weight: medium, color: '#374151' }
+                    spacing: { marginBlock: xs }
+                - name: radio
+                  properties:
+                    label: { text: '' }
+                    field: { text: Cognac Brown, groupName: color, value: cognac, checked: true }
+                    appearance: { color: '#92400e' }
+                - name: radio
+                  properties:
+                    label: { text: '' }
+                    field: { text: Midnight Black, groupName: color, value: black, checked: false }
+                    appearance: { color: '#111827' }
+                - name: radio
+                  properties:
+                    label: { text: '' }
+                    field: { text: Forest Green, groupName: color, value: green, checked: false }
+                    appearance: { color: '#166534' }
+            - name: button
+              properties:
+                text: Add to Bag
+                appearance: { background: { color: '#111827' }, radius: md, padding: { block: md } }
+                typography: { color: '#ffffff', weight: semibold }
+                layout: { widthMode: stretch }

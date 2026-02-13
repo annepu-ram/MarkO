@@ -1,0 +1,101 @@
+# Dashboard Data Card 06 - "Quick Action Bar"
+# A horizontal row of action buttons for common dashboard operations.
+# Clean, evenly spaced buttons with consistent styling.
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        headingMain: &font-heading-main "'Inter', sans-serif"
+        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#f8fafc'
+    spacing: { paddingBlock: xl, paddingInline: xl }
+    appearance:
+      background: { color: *color-background }
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          align: start
+          widthMode: "66"
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
+        appearance:
+          background:
+            color: '#ffffff'
+            transparency: 100
+          borderRadius: md
+          shadow: soft
+      components:
+        - name: heading
+          properties:
+            text: Quick Actions
+            level: 3
+            typography:
+              size: md
+              weight: bold
+              color: *color-primary
+            spacing:
+              marginBlock: xs
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: start
+              align: center
+              wrap: wrap
+              gap: sm
+            spacing:
+              marginBlock: xs
+          components:
+            - name: button
+              properties:
+                text: "+ Add User"
+                layout:
+                  widthMode: fit
+                appearance:
+                  background:
+                    color: *color-accent
+                  padding: { block: sm, inline: md }
+                  borderRadius: sm
+                typography:
+                  color: '#ffffff'
+                  weight: semibold
+                  size: sm
+
+            - name: button
+              properties:
+                text: "Export CSV"
+                layout:
+                  widthMode: fit
+                appearance:
+                  background:
+                    color: '#e2e8f0'
+                  padding: { block: sm, inline: md }
+                  borderRadius: sm
+                typography:
+                  color: *color-primary
+                  weight: semibold
+                  size: sm
+
+            - name: button
+              properties:
+                text: "Print Report"
+                layout:
+                  widthMode: fit
+                appearance:
+                  background:
+                    color: '#e2e8f0'
+                  padding: { block: sm, inline: md }
+                  borderRadius: sm
+                typography:
+                  color: *color-primary
+                  weight: semibold
+                  size: sm

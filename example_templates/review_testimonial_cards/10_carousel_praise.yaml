@@ -1,0 +1,145 @@
+# Review Card Variant: Carousel Praise
+# A carousel where each slide is a high-impact video-background with a blockquote overlay
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#0f172a' }
+  components:
+    - name: carousel
+      properties:
+        behavior:
+          autoplay: true
+          delay: 6000
+          loop: true
+          pauseOnHover: true
+          swipeEnabled: true
+          swipeThreshold: 50
+          keyboardNavigation: true
+        animation:
+          effect: fade
+          duration: 700
+        navigation:
+          showArrows: true
+          arrowStyle: chevron
+          arrowPosition: inside
+          showDots: true
+        indicators:
+          style: dots
+          position: bottom
+        accessibility:
+          showPauseButton: true
+          ariaLabel: 'Customer testimonials carousel'
+        spacing: { marginBlock: none }
+      slides:
+        - components:
+            - name: image
+              properties:
+                source: { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200', altText: 'Modern office' }
+                appearance:
+                  minHeight: 30
+                  fit: cover
+                  overlay:
+                    enabled: true
+                    color: 'rgba(15,23,42,0.75)'
+                    opacity: 75
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: md }
+                    appearance: { background: { transparency: 0 }, padding: { block: xxl, inline: xl } }
+                  components:
+                    - name: blockquote
+                      properties:
+                        quote: |
+                          This is not just software. It's a paradigm shift in how
+                          we build digital products. Our team ships 5x faster now.
+                        cite: ''
+                        typography: { size: xxl, weight: medium, color: '#ffffff', align: center, lineHeight: "1.6" }
+                        appearance: { border: { accentColor: '#818cf8' }, background: { transparency: 0 } }
+                        layout: { widthMode: "75" }
+                    - name: heading
+                      properties:
+                        text: Amanda Foster
+                        level: 4
+                        typography: { size: md, weight: bold, color: '#ffffff', align: center }
+                        spacing: { marginBlock: none }
+                    - name: caption
+                      properties:
+                        text: VP of Engineering, DataFlow
+                        typography: { size: sm, color: '#a5b4fc', align: center }
+        - components:
+            - name: image
+              properties:
+                source: { url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200', altText: 'Team meeting' }
+                appearance:
+                  minHeight: 30
+                  fit: cover
+                  overlay:
+                    enabled: true
+                    color: 'rgba(15,23,42,0.75)'
+                    opacity: 75
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: md }
+                    appearance: { background: { transparency: 0 }, padding: { block: xxl, inline: xl } }
+                  components:
+                    - name: blockquote
+                      properties:
+                        quote: |
+                          We evaluated 15 different platforms. This one won unanimously.
+                          The ROI paid for itself in the first month.
+                        cite: ''
+                        typography: { size: xxl, weight: medium, color: '#ffffff', align: center, lineHeight: "1.6" }
+                        appearance: { border: { accentColor: '#34d399' }, background: { transparency: 0 } }
+                        layout: { widthMode: "75" }
+                    - name: heading
+                      properties:
+                        text: Marcus Rivera
+                        level: 4
+                        typography: { size: md, weight: bold, color: '#ffffff', align: center }
+                        spacing: { marginBlock: none }
+                    - name: caption
+                      properties:
+                        text: CEO, GreenTech Solutions
+                        typography: { size: sm, color: '#6ee7b7', align: center }
+        - components:
+            - name: image
+              properties:
+                source: { url: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1200', altText: 'Creative workspace' }
+                appearance:
+                  minHeight: 30
+                  fit: cover
+                  overlay:
+                    enabled: true
+                    color: 'rgba(15,23,42,0.75)'
+                    opacity: 75
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: md }
+                    appearance: { background: { transparency: 0 }, padding: { block: xxl, inline: xl } }
+                  components:
+                    - name: blockquote
+                      properties:
+                        quote: |
+                          From concept to production in 48 hours. I've never experienced
+                          anything like this in 20 years of building products.
+                        cite: ''
+                        typography: { size: xxl, weight: medium, color: '#ffffff', align: center, lineHeight: "1.6" }
+                        appearance: { border: { accentColor: '#fbbf24' }, background: { transparency: 0 } }
+                        layout: { widthMode: "75" }
+                    - name: heading
+                      properties:
+                        text: Nina Patel
+                        level: 4
+                        typography: { size: md, weight: bold, color: '#ffffff', align: center }
+                        spacing: { marginBlock: none }
+                    - name: caption
+                      properties:
+                        text: Founder, DesignLab Studio
+                        typography: { size: sm, color: '#fde68a', align: center }

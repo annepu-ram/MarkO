@@ -1,0 +1,63 @@
+# Review Card Variant: The Logo Bar
+# A simple layout-row of grayscale image components (client logos) with a caption
+
+- name: page
+  properties:
+    appearance:
+      background: { color: '#f8fafc' }
+  components:
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance:
+          background: { color: '#ffffff' }
+          padding: { block: xl, inline: xl }
+          border: { width: 0, style: solid, color: '#e2e8f0' }
+      components:
+        - name: caption
+          properties:
+            text: "Trusted by 500+ companies worldwide"
+            typography: { size: sm, weight: medium, color: '#64748b', align: center }
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-evenly, verticalAlign: center, gap: xl, wrap: wrap }
+            appearance: { background: { transparency: 0 } }
+            spacing: { paddingBlock: md, paddingInline: lg }
+          components:
+            - name: image
+              properties:
+                source: { url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Stripe', altText: 'Stripe logo' }
+                appearance: { minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: image
+              properties:
+                source: { url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Shopify', altText: 'Shopify logo' }
+                appearance: { minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: image
+              properties:
+                source: { url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Notion', altText: 'Notion logo' }
+                appearance: { minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: image
+              properties:
+                source: { url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Figma', altText: 'Figma logo' }
+                appearance: { minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: image
+              properties:
+                source: { url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Vercel', altText: 'Vercel logo' }
+                appearance: { minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
+            - name: image
+              properties:
+                source: { url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Linear', altText: 'Linear logo' }
+                appearance: { minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift }
+                layout: { widthMode: fit }
+                spacing: { marginBlock: none }
