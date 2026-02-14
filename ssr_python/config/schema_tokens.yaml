@@ -1,0 +1,257 @@
+typographySizes:
+  type: selectOptions
+  options:
+    - value: xxs
+      label: XXS
+    - value: xs
+      label: XS
+    - value: sm
+      label: SM
+    - value: md
+      label: MD
+    - value: lg
+      label: LG
+    - value: xl
+      label: XL
+    - value: xxl
+      label: XXL
+    - value: xxxl
+      label: XXXL
+    - value: auto
+      label: Auto
+
+fontWeights:
+  type: selectOptions
+  options:
+    - value: light
+      label: Light
+    - value: regular
+      label: Regular
+    - value: medium
+      label: Medium
+    - value: semibold
+      label: Semi Bold
+    - value: bold
+      label: Bold
+    - value: extrabold
+      label: Extra Bold
+
+spacingScale:
+  type: selectOptions
+  options:
+    - value: none
+      label: None
+    - value: xs
+      label: XS
+    - value: sm
+      label: SM
+    - value: md
+      label: MD
+    - value: lg
+      label: LG
+    - value: xl
+      label: XL
+    - value: auto
+      label: Auto
+gapScale:
+  type: selectOptions
+  options:
+    - value: none
+      label: None
+    - value: xs
+      label: XS
+    - value: sm
+      label: SM
+    - value: md
+      label: MD
+    - value: lg
+      label: LG
+    - value: xl
+      label: XL
+    - value: auto
+      label: Auto
+borderRadiusScale:
+  type: selectOptions
+  options:
+    - value: none
+      label: None
+    - value: xs
+      label: Extra Small
+    - value: sm
+      label: Small
+    - value: md
+      label: Medium
+    - value: lg
+      label: Large
+    - value: xl
+      label: Extra Large
+    - value: xxl
+      label: Extra Extra Large
+    - value: pill
+      label: Pill
+
+borderStyleOptions:
+  type: selectOptions
+  options:
+    - value: none
+      label: None
+    - value: solid
+      label: Solid
+    - value: dashed
+      label: Dashed
+    - value: dotted
+      label: Dotted
+    - value: double
+      label: Double
+
+alignmentHorizontal:
+  type: selectOptions
+  options:
+    - value: left
+      label: Left
+    - value: center
+      label: Center
+    - value: right
+      label: Right
+    - value: justify
+      label: Justify
+
+alignmentVertical:
+  type: selectOptions
+  options:
+    - value: start
+      label: Start
+    - value: center
+      label: Center
+    - value: end
+      label: End
+
+booleanToggle:
+  type: selectOptions
+  options:
+    - value: true
+      label: Yes
+    - value: false
+      label: No
+
+letterSpacingMap:
+  type: selectOptions
+  options:
+    - value: normal
+      label: Normal
+    - value: tight
+      label: Tight
+    - value: wide
+      label: Wide
+    - value: wider
+      label: Wider
+
+# Width percentages based on 12-column grid system (industry standard)
+# See: https://getbootstrap.com/docs/5.0/layout/grid/
+widthPercentages:
+  type: selectOptions
+  options:
+    - value: stretch
+      label: "Full Width (100%)"
+    - value: "83"
+      label: "83% (10/12 columns)"
+    - value: "75"
+      label: "75% (9/12 columns)"
+    - value: "66"
+      label: "66% (8/12 columns)"
+    - value: "50"
+      label: "50% (6/12 columns)"
+    - value: "33"
+      label: "33% (4/12 columns)"
+    - value: "25"
+      label: "25% (3/12 columns)"
+    - value: "16"
+      label: "16% (2/12 columns)"
+    - value: fit
+      label: "Fit Content"
+
+# Media component tokens
+aspectRatios:
+  type: selectOptions
+  options:
+    - value: auto
+      label: Auto
+    - value: "16/9"
+      label: "16:9 Widescreen"
+    - value: "4/3"
+      label: "4:3 Standard"
+    - value: "1/1"
+      label: "1:1 Square"
+    - value: "3/2"
+      label: "3:2 Photo"
+    - value: "21/9"
+      label: "21:9 Ultrawide"
+    - value: "9/16"
+      label: "9:16 Portrait"
+
+objectPositions:
+  type: selectOptions
+  options:
+    - value: center
+      label: Center
+    - value: top
+      label: Top
+    - value: bottom
+      label: Bottom
+    - value: left
+      label: Left
+    - value: right
+      label: Right
+    - value: "top left"
+      label: Top Left
+    - value: "top right"
+      label: Top Right
+    - value: "bottom left"
+      label: Bottom Left
+    - value: "bottom right"
+      label: Bottom Right
+
+imageFilters:
+  type: selectOptions
+  options:
+    - value: none
+      label: None
+    - value: grayscale
+      label: Grayscale
+    - value: sepia
+      label: Sepia
+    - value: blur
+      label: Blur
+    - value: brighten
+      label: Brighten
+    - value: darken
+      label: Darken
+    - value: saturate
+      label: High Saturation
+
+shadowScale:
+  type: selectOptions
+  options:
+    - value: none
+      label: None
+    - value: soft
+      label: Soft
+    - value: medium
+      label: Medium
+    - value: elevated
+      label: Elevated
+    - value: dramatic
+      label: Dramatic
+    - value: retro
+      label: Retro
+
+hoverEffects:
+  type: selectOptions
+  options:
+    - value: none
+      label: None
+    - value: zoom
+      label: Zoom In
+    - value: lift
+      label: Lift (Shadow)
+

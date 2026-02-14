@@ -1,0 +1,39 @@
+{% macro render_tabs(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set tabs_list = component.tabs | default([]) %}
+    {% set tabs_id = 'tabs_' ~ range(1000, 9999) | random %}
+    {% set orientation = properties.layout.orientation | default('horizontal') if properties.layout else 'horizontal' %}
+    {% set border_position = properties.appearance.tab.border.position | default('lower') if properties.appearance and properties.appearance.tab and properties.appearance.tab.border else 'lower' %}
+    {% set tabs_vars = build_tabs_vars(component, tokens) %}
+
+    {# Determine layout styles based on orientation #}
+    {% if orientation == 'vertical' %}
+        {% set container_style = 'display: grid; grid-template-columns: 200px 1fr; gap: 0; align-items: start;' %}
+        {# Only add grid positioning - let CSS handle all borders via data-border-position #}
+        {% set label_style = 'grid-column: 1; width: 100%; text-align: left;' %}
+        {% set content_style = 'grid-column: 2; grid-row: 1 / 999; width: 100%; min-height: 200px;' %}
+    {% else %}
+        {% set container_style = '' %}
+        {% set label_style = '' %}
+        {% set content_style = '' %}
+    {% endif %}
+
+    <div class="tabs chrome-target" data-component-id="{{ component_id }}" data-orientation="{{ orientation }}"{% if tabs_vars %} style="{{ tabs_vars }} position: relative; {{ container_style }}"{% else %} style="position: relative; {{ container_style }}"{% endif %}>
+        {% for tab in tabs_list %}
+            {% set tab_index = loop.index0 %}
+            {% set tab_id = tabs_id ~ '_' ~ tab_index %}
+            <input type="radio" name="{{ tabs_id }}" id="{{ tab_id }}" {% if loop.first %}checked{% endif %}>
+            <label for="{{ tab_id }}" data-border-position="{{ border_position }}" style="{{ label_style }}">{{ tab.title }}</label>
+            <div class="content" style="{{ content_style }}">
+                {% if tab.components %}
+                    {% for child in tab.components | default([]) %}
+                        {% set child_path = path + ['tabs', tab_index, 'components', loop.index0] %}
+                        {{ render_component(child, tokens, child_path) }}
+                    {% endfor %}
+                {% elif tab.content %}
+                    <p>{{ tab.content }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

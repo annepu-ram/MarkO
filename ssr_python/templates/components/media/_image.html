@@ -1,0 +1,112 @@
+{% macro render_image(component, tokens, path, component_id, parent_direction='row') %}
+    {% set properties = component.properties | default({}) %}
+    {% set source = properties.source | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set layout = properties.layout | default({}) %}
+    {% set overlay = appearance.overlay | default({}) %}
+    {% set has_children = component.components and component.components | length > 0 %}
+    {% set base_styles = build_styles(component, tokens, layout_direction=parent_direction) %}
+
+    {# Width mode for responsive CSS (used as data attribute) #}
+    {% set width_mode = layout.widthMode | default('stretch') %}
+
+    {# Horizontal alignment for child content #}
+    {% set h_align = layout.horizontalAlign | default('center') %}
+    {% set h_align_map = {'left': 'flex-start', 'center': 'center', 'right': 'flex-end'} %}
+    {% set h_align_css = h_align_map[h_align] | default('center') %}
+
+    {# Width handling moved to CSS via data-width-mode attribute #}
+    {# No inline width styles - CSS handles both row and column contexts #}
+    {% set width_style = '' %}
+
+    {# Height handling - use rem for numbers, preserve units like vh/px if specified #}
+    {% set min_height_raw = appearance.minHeight | default(12.5) %}
+    {% set max_height_raw = appearance.maxHeight | default(0) %}
+
+    {# Check if minHeight already has a unit (string with vh, px, em, %) #}
+    {% set min_height_str = min_height_raw | string %}
+    {% set min_has_unit = 'vh' in min_height_str or 'px' in min_height_str or 'em' in min_height_str or '%' in min_height_str %}
+    {% set min_height_css = min_height_str if min_has_unit else (min_height_raw ~ 'rem') %}
+
+    {# Check if maxHeight already has a unit #}
+    {% set max_height_str = max_height_raw | string %}
+    {% set max_has_unit = 'vh' in max_height_str or 'px' in max_height_str or 'em' in max_height_str or '%' in max_height_str %}
+    {% set max_height_css = max_height_str if max_has_unit else (max_height_raw ~ 'rem') %}
+
+    {% set height_style = 'min-height: ' ~ min_height_css ~ ';' %}
+    {% if max_height_raw and max_height_raw != 0 %}
+        {% set height_style = height_style ~ ' max-height: ' ~ max_height_css ~ ';' %}
+    {% endif %}
+
+    {# Object position #}
+    {% set obj_position = appearance.objectPosition | default('center') %}
+
+    {# Filter effect - use CSS variable on container for combining with hover effects #}
+    {% set filter_value = appearance.filter | default('none') %}
+    {% set filter_var_style = '' %}
+    {% set filter_apply_style = 'filter: var(--base-filter, none);' %}
+    {% if filter_value != 'none' and tokens.image_filters and filter_value in tokens.image_filters %}
+        {% set filter_var_style = '--base-filter: ' ~ tokens.image_filters[filter_value] ~ ';' %}
+    {% endif %}
+
+    {# Shadow #}
+    {% set shadow_value = appearance.shadow | default('none') %}
+    {% set shadow_style = '' %}
+    {% if shadow_value != 'none' and tokens.shadows and shadow_value in tokens.shadows %}
+        {% set shadow_style = 'box-shadow: ' ~ tokens.shadows[shadow_value] ~ ';' %}
+    {% endif %}
+    {% if appearance.shadowColor %}
+        {% set shadow_style = '--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ '; ' ~ shadow_style %}
+    {% endif %}
+
+    {# Corner style / border radius #}
+    {% set corner_style = appearance.cornerStyle | default('none') %}
+    {% set radius_style = '' %}
+    {% if corner_style != 'none' and tokens.border_radius and corner_style in tokens.border_radius %}
+        {% set radius_style = 'border-radius: ' ~ tokens.border_radius[corner_style] ~ ';' %}
+    {% endif %}
+
+    {# Hover effect class #}
+    {% set hover_effect = appearance.hoverEffect | default('none') %}
+    {% set hover_class = '' %}
+    {% if hover_effect != 'none' %}
+        {% set hover_class = 'image-hover-' ~ hover_effect %}
+    {% endif %}
+
+    {# Lazy loading #}
+    {% set lazy_attr = 'lazy' if appearance.lazy | default(true) else 'eager' %}
+
+    {% set extra_styles = 'position: relative; ' ~ width_style ~ ' ' ~ shadow_style ~ ' ' ~ radius_style ~ ' ' ~ filter_var_style ~ ' ' ~ height_style %}
+
+    <figure class="image-container chrome-target {{ hover_class }}"
+            data-component-id="{{ component_id }}"
+            data-width-mode="{{ width_mode }}"
+            style="{{ base_styles }} {{ extra_styles }}">
+
+        {# Image wrapper: absolute positioned to fill container as background #}
+        <div class="image-wrapper" style="position: absolute; inset: 0; overflow: hidden; z-index: 0; {{ radius_style }}">
+            <img class="image-bg"
+                 src="{{ source.url }}"
+                 alt="{{ source.altText | default('') }}"
+                 loading="{{ lazy_attr }}"
+                 style="width: 100%; height: 100%; object-fit: {{ appearance.fit | default('cover') }}; object-position: {{ obj_position }}; {{ filter_apply_style }}">
+
+            {# Overlay #}
+            {% if overlay.enabled | default(false) %}
+                {% set overlay_color = overlay.color | default('rgba(0,0,0,0.5)') %}
+                {% set overlay_opacity = overlay.opacity | default(50) %}
+                <div class="image-overlay" style="position: absolute; inset: 0; background: {{ overlay_color }}; opacity: {{ overlay_opacity / 100 }};"></div>
+            {% endif %}
+        </div>
+
+        {# Content: relative positioned, can push container height beyond min-height #}
+        {% if has_children %}
+            <div class="image-content" style="position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; align-items: {{ h_align_css }}; width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word; padding: 1rem;">
+                {% for child in component.components | default([]) %}
+                    {% set child_path = path + ['components', loop.index0] %}
+                    {{ render_component(child, tokens, child_path) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </figure>
+{% endmacro %}

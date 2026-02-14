@@ -20,6 +20,7 @@ DO NOT READ node_modules into context. They are not necessary.
 cd ssr_python
 pip install -r requirements.txt    # Install Python dependencies
 python app.py                       # Start Flask server at http://localhost:5000
+python -m pytest tests/ -v          # Run test suite (30 tests)
 ```
 
 ### CSR Development (Legacy)
@@ -61,17 +62,47 @@ YAML Editor → POST /render → Flask Backend
 
 ```
 ssr_python/
-├── app.py                    # Flask application entry point
+├── app.py                    # Flask app factory (create_app)
+├── config.py                 # Config classes (Dev, Prod) with path constants
+├── extensions.py             # Shared state: TOKENS, COMPONENT_DEFAULTS dicts
 ├── renderer.py               # Core rendering engine
 ├── llm_service.py            # Ollama AI integration for chat
 ├── tokens.yaml               # Design tokens (spacing, typography, etc.)
 ├── generate_tokens_css.py    # Token to CSS generator
-├── requirements.txt          # Python dependencies (Flask, PyYAML, ollama)
+├── requirements.txt          # Pinned Python dependencies
+├── .env.example              # Environment variable template
+├── config/                   # Config YAML files
+│   ├── component_defaults.yaml   # Default properties per component type
+│   ├── component_schemas.yaml    # Inspector form fields, types, token refs
+│   └── schema_tokens.yaml        # Design token options for dropdowns
+├── routes/                   # Flask Blueprint route modules
+│   ├── __init__.py           # register_blueprints() function
+│   ├── views.py              # GET /, GET /preview-frame
+│   ├── render.py             # POST /render
+│   ├── metadata.py           # GET /api/schemas, /api/defaults, /api/tokens
+│   ├── images.py             # GET /api/images/search (Pexels/Pixabay proxy)
+│   └── chat.py               # POST /api/chat (Ollama LLM)
+├── tests/                    # pytest test suite (30 tests)
+│   ├── conftest.py           # Fixtures: app, client, sample YAMLs
+│   ├── fixtures/
+│   │   └── sample_page.yaml  # Test fixture YAML
+│   ├── test_renderer.py      # deep_merge + render tests
+│   ├── test_routes.py        # API endpoint tests
+│   └── test_security.py      # Security header + error sanitization tests
 ├── templates/
 │   ├── index.html            # Main application UI (with iframe)
 │   ├── preview_frame.html    # Iframe preview template
-│   └── macros/
-│       └── _components.html  # Jinja2 component macros (~1000 lines)
+│   └── components/           # Split Jinja2 component macros (28 files)
+│       ├── _assembly.html    # Include manifest (load order)
+│       ├── _utilities.html   # build_styles + build_flex_styles macros
+│       ├── _vars_builders.html # build_tabs_vars + build_accordion_vars
+│       ├── _dispatcher.html  # render_component() dispatcher
+│       ├── layout/           # page, layout-row, layout-column, columnsgrid, form
+│       ├── interactive/      # tabs, accordion, carousel, hamburger
+│       ├── text/             # heading, paragraph, eyebrow, caption, blockquote, link
+│       ├── media/            # image, video, gif, video-background, media-caption
+│       ├── ui/               # button, titlebar, br
+│       └── forms/            # textbox, textarea, dropdown, checkbox, radio, calendar
 └── static/
     ├── css/
     │   ├── style.css         # Application UI styles
@@ -154,24 +185,43 @@ Parent Window (ssr_app.js)          Iframe (preview_bridge.js)
 
 ## Python Files
 
-### `app.py` - Flask Application
+### `app.py` - Flask App Factory
 
-**Purpose:** Main Flask application handling HTTP requests and routes.
+**Purpose:** Application factory (`create_app()`) that wires together config, extensions, Blueprints, and security headers.
 
-**Key Components:**
-- `TOKENS` - Global dictionary storing design tokens from `tokens.yaml`
-- `COMPONENT_DEFAULTS` - Loaded from `component_defaults.yaml`
-- Custom Jinja2 filter: `transparency_to_hex()` - converts transparency (0-100) to hex alpha
+**Key Responsibilities:**
+- Load config from `config.py` (DevelopmentConfig / ProductionConfig)
+- Register custom Jinja2 filters (`transparency_to_hex`, `hex_to_rgb`)
+- Load shared data via `extensions.load_shared_data(app)`
+- Register all Blueprint route modules via `routes.register_blueprints(app)`
+- Attach security headers via `@app.after_request`
 
-**Routes:**
-```python
-@app.route('/')                    # Main UI
-@app.route('/preview-frame')       # Iframe preview content
-@app.route('/render', methods=['POST'])  # YAML to HTML
-@app.route('/api/schemas')         # Component schemas JSON
-@app.route('/api/defaults')        # Component defaults JSON
-@app.route('/api/tokens')          # Schema tokens JSON
-```
+### `config.py` - Configuration Classes
+
+**Purpose:** Centralized config with path constants. All file paths are resolved from `BASE_DIR`.
+
+**Key Config Values:**
+- `TOKENS_PATH` - Path to `tokens.yaml`
+- `DEFAULTS_PATH` - Path to `config/component_defaults.yaml`
+- `SCHEMAS_PATH` - Path to `config/component_schemas.yaml`
+- `SCHEMA_TOKENS_PATH` - Path to `config/schema_tokens.yaml`
+- `LLM_GUIDE_PATH` - Path to `LLM_COMPONENT_GUIDE.md`
+
+### `extensions.py` - Shared State
+
+**Purpose:** Module-level `TOKENS` and `COMPONENT_DEFAULTS` dicts that are imported by route modules.
+
+**Pattern:** Uses `.clear()` + `.update()` to mutate in-place (preserves references across imports).
+
+### `routes/` - Flask Blueprints
+
+| Module | Blueprint | Routes |
+|--------|-----------|--------|
+| `views.py` | `views_bp` | `GET /`, `GET /preview-frame` |
+| `render.py` | `render_bp` | `POST /render` |
+| `metadata.py` | `metadata_bp` | `GET /api/schemas`, `/api/defaults`, `/api/tokens` |
+| `images.py` | `images_bp` | `GET /api/images/search` |
+| `chat.py` | `chat_bp` | `POST /api/chat` |
 
 ### `renderer.py` - Rendering Engine
 
@@ -179,15 +229,15 @@ Parent Window (ssr_app.js)          Iframe (preview_bridge.js)
 
 **Key Functions:**
 - `render_yaml_structure(structure, tokens, defaults)` - Main entry point
+- `_build_component_template(templates_dir)` - Concatenates split template files into single Jinja2 template
 - `deep_merge(base, override)` - Recursive dictionary merging
-- `merge_component_with_defaults(component, defaults)` - Merges YAML with defaults
+- `merge_component_with_defaults(component, defaults, tokens)` - Merges YAML with defaults
 
 **Flow:**
 1. Validates structure and tokens
-2. Creates Jinja2 template string
-3. Imports `_components.html` macros
-4. Renders template with structure + tokens
-5. Returns HTML string
+2. Calls `_build_component_template()` to concatenate all macro files from `templates/components/`
+3. Creates Jinja2 environment and renders template with structure + tokens
+4. Returns HTML string
 
 ---
 
@@ -206,31 +256,45 @@ Parent Window (ssr_app.js)          Iframe (preview_bridge.js)
 
 ---
 
-## Template System (`_components.html`)
+## Template System (Split Component Macros)
 
 ### Architecture
 
-**Macro-Based Component System:**
-- Each component type has its own macro (e.g., `render_heading()`, `render_button()`)
-- Main dispatcher `render_component()` routes to appropriate macro
-- Macros call `render_component()` recursively for nested components
+**Macro-Based Component System (Split into 28 Files):**
+
+The original monolithic `_components.html` has been split into individual files under `templates/components/`. The `renderer.py` function `_build_component_template()` reads the manifest file `_assembly.html`, parses its `{% include %}` directives, and concatenates all files into a single template string at render time. This preserves Jinja2 macro scoping (macros from one file can call macros from another).
+
+**File Organization:**
+| Directory | Files | Components |
+|-----------|-------|------------|
+| `components/` | `_utilities.html` | `build_styles()`, `build_flex_styles()` |
+| `components/` | `_vars_builders.html` | `build_tabs_vars()`, `build_accordion_vars()` |
+| `components/` | `_dispatcher.html` | `render_component()` main dispatcher |
+| `layout/` | 5 files | page, layout-row, layout-column, columnsgrid, form |
+| `interactive/` | 4 files | tabs, accordion, carousel, hamburger |
+| `text/` | 1 file | All text components (heading, paragraph, eyebrow, caption, blockquote, link) |
+| `media/` | 5 files | image, video, gif, video-background, media-caption |
+| `ui/` | 3 files | button, titlebar, br |
+| `forms/` | 6 files | textbox, textarea, dropdown, checkbox, radio, calendar |
+
+**Important:** Jinja2 `{% include %}` does NOT export macros to parent scope. That's why `renderer.py` concatenates file contents in Python rather than using Jinja2's native include.
 
 ### Key Macros
 
-#### `render_component(component, tokens, path=[])` - Main Dispatcher
+#### `render_component(component, tokens, path=[])` - Main Dispatcher (`_dispatcher.html`)
 Routes components based on `component.name`:
 - **Layout:** page, layout-row, layout-column, columnsgrid, form
 - **Interactive:** tabs, accordion, carousel, hamburger
 - **Text:** heading, paragraph, eyebrow, caption, blockquote, link
-- **Media:** image, video, gif
+- **Media:** image, video, gif, video-background
 - **UI:** button, titlebar
 - **Forms:** textbox, textarea, dropdown, checkbox, radio, calendar
 - **Utility:** br
 
-#### `build_styles(component, tokens, part=None)` - Style Generator
+#### `build_styles(component, tokens, part=None)` - Style Generator (`_utilities.html`)
 Generates inline CSS styles from component properties and design tokens.
 
-#### `build_flex_styles(component, tokens, direction)` - Flex Layout
+#### `build_flex_styles(component, tokens, direction)` - Flex Layout (`_utilities.html`)
 Generates flexbox styles for layout components.
 
 ---
@@ -1172,6 +1236,66 @@ for (const tc of THEME_COLOR_CONFIG) {
 {% endif %}
 ```
 
+### Production Refactoring (February 2026)
+
+Six-phase refactoring to productionalize the SSR application:
+
+**Phase 1: Security Fixes**
+- Removed telemetry fetch blocks from `utils/object.js` (10 POST calls to `http://127.0.0.1:7242`)
+- Fixed Flask debug mode: changed host from `0.0.0.0` to `127.0.0.1`, debug based on `FLASK_ENV`
+- Pinned dependency versions in `requirements.txt` (Flask>=3.0.0,<4.0, etc.)
+- Created `.env.example` environment variable template
+
+**Phase 2: Template Splitting**
+- Split monolithic `_components.html` (~1577 lines) into 28 individual macro files under `templates/components/`
+- Created `_assembly.html` manifest with correct include order
+- `renderer.py` concatenates files via `_build_component_template()` (Jinja2 `{% include %}` doesn't share macro scope)
+- Added `encoding='utf-8'` to all file reads (Windows cp1252 can't decode Unicode symbols like `❚❚`)
+
+**Phase 3: Config YAML Relocation**
+- Moved `component_defaults.yaml`, `component_schemas.yaml`, `schema_tokens.yaml` to `ssr_python/config/`
+- All paths centralized in `config.py` via `Config.CONFIG_DIR`
+
+**Phase 4: Flask Blueprint Architecture**
+- Created `config.py` with `Config`, `DevelopmentConfig`, `ProductionConfig` classes
+- Created `extensions.py` with module-level `TOKENS`, `COMPONENT_DEFAULTS` dicts and `load_shared_data()`
+- Split `app.py` routes into 5 Blueprint modules under `routes/`
+- Rewrote `app.py` as slim ~68 line app factory (`create_app()`)
+- **Key pattern:** `extensions.py` uses `.clear()` + `.update()` to mutate dicts in-place so imported references remain valid
+
+**Phase 5: Root Directory Cleanup**
+- Deleted stale artifacts (`coverage/`, `package-lock.json`, `=2.31.0`, `swift-sites-ui-wireframe.html`)
+- Moved 16 planning docs to `docs/`
+- Moved 8 test YAML files to `example_templates/tests/`
+
+**Phase 6: Testing Foundation**
+- Created `tests/` with `conftest.py`, fixtures, and 3 test files (30 tests total)
+- `test_renderer.py`: 5 deep_merge tests + 5 render tests
+- `test_routes.py`: 11 API endpoint tests
+- `test_security.py`: 7 security header + error sanitization tests
+- Run with: `cd ssr_python && python -m pytest tests/ -v`
+
+### App UI Layout Fix (February 2026)
+- **Fixed:** App header (`app-header`) overlapping content below it
+- **Root cause:** `position: fixed` header with `margin-top` on content container was unreliable (margin collapse edge cases)
+- **Solution:** Replaced with a two-row flex column layout using `.app-layout` wrapper
+- **Files Modified:**
+  - `templates/index.html` — Added `<div class="app-layout">` wrapper around header + app-container
+  - `static/css/style.css` — Added `.app-layout` flex column container; changed `.app-header` from `position: fixed` to `flex-shrink: 0`; changed `.app-container` from `margin-top + height: calc()` to `flex: 1; min-height: 0`
+
+**New Layout Structure:**
+```
+.app-layout          (display: flex; flex-direction: column; height: 100vh)
+  ├── .app-header    (flex-shrink: 0; height: 52px)   ← Row 1
+  └── .app-container (flex: 1; display: flex)          ← Row 2
+       ├── .sidebar
+       ├── .sidebar-panels
+       ├── .main-canvas
+       └── .properties-section
+```
+
+The header is a natural flex child — it can never overlap content because the flex layout engine handles spacing. No fixed positioning, no margin/padding hacks, no `calc(100vh - ...)` needed.
+
 ---
 
-**Last Updated:** February 8, 2026
+**Last Updated:** February 13, 2026

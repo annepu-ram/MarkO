@@ -1,0 +1,11 @@
+{# Helper macro for media captions #}
+{% macro render_media_caption(caption_props, tokens) %}
+    {% set typo = caption_props.typography | default({}) %}
+    {% set size = typo.size | default('sm') %}
+    {% set color = typo.color | default('#666666') %}
+    {% set align = typo.align | default('center') %}
+    {% set size_value = 'var(--font-size-' ~ size ~ ')' %}
+    <figcaption class="media-caption" style="font-size: {{ size_value }}; color: {{ color }}; text-align: {{ align }}; padding: 0.5rem 0;">
+        {{ caption_props.text }}
+    </figcaption>
+{% endmacro %}

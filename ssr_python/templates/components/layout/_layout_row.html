@@ -1,0 +1,20 @@
+{% macro render_layout_row(component, tokens, path, component_id, parent_direction='row') %}
+    {% set properties = component.properties | default({}) %}
+    {% set layout_props = properties.layout | default({}) %}
+    {% set tag = layout_props.tag | default('section') %}
+
+    {# Outer wrapper styles: box model properties (pass parent_direction so width mode uses correct context) #}
+    {% set outer_styles = build_styles(component, tokens, part='outer', layout_direction=parent_direction) %}
+
+    {# Inner wrapper styles: flex layout properties #}
+    {% set inner_styles = build_flex_styles(component, tokens, 'row') %}
+
+    <{{ tag }} class="layout-row chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+        <div class="layout-row__content" data-wrap="{{ layout_props.wrap | default('nowrap') }}" style="{{ inner_styles }}">
+            {% for child in component.components | default([]) %}
+                {% set child_path = path + ['components', loop.index0] %}
+                {{ render_component(child, tokens, child_path, 'row') }}
+            {% endfor %}
+        </div>
+    </{{ tag }}>
+{% endmacro %}

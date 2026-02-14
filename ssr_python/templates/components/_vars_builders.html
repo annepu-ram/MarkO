@@ -1,0 +1,215 @@
+{#-=============== CSS VARIABLE BUILDER FOR TABS/ACCORDION ===============-#}
+
+{% macro build_tabs_vars(component, tokens) -%}
+    {% set vars = [] %}
+    {% set props = component.properties | default({}) %}
+
+    {# Spacing #}
+    {% if props.spacing %}
+        {% set spacing = props.spacing %}
+        {% if spacing.marginBlock and tokens and tokens.spacing and spacing.marginBlock in tokens.spacing %}
+            {% set _ = vars.append('--tabs-margin-block: var(--spacing-' ~ spacing.marginBlock ~ ');') %}
+        {% endif %}
+        {% if spacing.marginInline and tokens and tokens.spacing and spacing.marginInline in tokens.spacing %}
+            {% set _ = vars.append('--tabs-margin-inline: var(--spacing-' ~ spacing.marginInline ~ ');') %}
+        {% endif %}
+    {% endif %}
+
+    {# Layout gap #}
+    {% if props.layout and props.layout.gap and tokens and tokens.spacing and props.layout.gap in tokens.spacing %}
+        {% set _ = vars.append('--tabs-gap: var(--spacing-' ~ props.layout.gap ~ ');') %}
+    {% endif %}
+
+    {# Typography - Label #}
+    {% if props.typography and props.typography.label %}
+        {% set label = props.typography.label %}
+        {% if label.size and tokens and tokens.typography_sizes and label.size in tokens.typography_sizes %}
+            {% set _ = vars.append('--tabs-label-font-size: var(--font-size-' ~ label.size ~ ');') %}
+        {% endif %}
+        {% if label.weight and tokens and tokens.font_weights and label.weight in tokens.font_weights %}
+            {% set _ = vars.append('--tabs-label-font-weight: var(--font-weight-' ~ label.weight ~ ');') %}
+        {% endif %}
+        {% if label.inactive and label.inactive.color %}
+            {% set _ = vars.append('--tabs-label-color-inactive: ' ~ label.inactive.color ~ ';') %}
+        {% endif %}
+        {% if label.active and label.active.color %}
+            {% set _ = vars.append('--tabs-label-color-active: ' ~ label.active.color ~ ';') %}
+            {% set _ = vars.append('--tabs-active-color: ' ~ label.active.color ~ ';') %}
+        {% endif %}
+    {% endif %}
+
+    {# Appearance - Tab #}
+    {% if props.appearance and props.appearance.tab %}
+        {% set tab = props.appearance.tab %}
+        {% if tab.background %}
+            {% if tab.background.active %}
+                {% set _ = vars.append('--tabs-label-bg-active: ' ~ tab.background.active ~ ';') %}
+                {% set _ = vars.append('--tabs-active-bg: ' ~ tab.background.active ~ ';') %}
+            {% endif %}
+            {% if tab.background.inactive %}
+                {% set _ = vars.append('--tabs-label-bg-inactive: ' ~ tab.background.inactive ~ ';') %}
+            {% endif %}
+        {% endif %}
+        {% if tab.border %}
+            {% if tab.border.width %}
+                {% set _ = vars.append('--tabs-border-width: ' ~ tab.border.width ~ 'px;') %}
+            {% endif %}
+            {% if tab.border.style %}
+                {% set tab_border_style = tab.border.style %}
+                {% if tab_border_style == 'none' %}
+                    {% set _ = vars.append('--tabs-border-width: 0px;') %}
+                {% endif %}
+                {% set _ = vars.append('--tabs-border-style: ' ~ tab_border_style ~ ';') %}
+            {% else %}
+                {% set _ = vars.append('--tabs-border-style: solid;') %}
+            {% endif %}
+            {# Position is handled via data-border-position attribute in HTML #}
+        {% endif %}
+    {% endif %}
+
+    {# Appearance - Content #}
+    {% if props.appearance and props.appearance.content %}
+        {% set content = props.appearance.content %}
+        {% if content.background %}
+            {% set bg_color = content.background.color | default('#ffffff') %}
+            {# Note: Transparency conversion would need Python helper - simplified for now #}
+            {% set _ = vars.append('--tabs-content-bg: ' ~ bg_color ~ ';') %}
+        {% endif %}
+        {% if content.border %}
+            {% if content.border.width %}
+                {% set _ = vars.append('--tabs-content-border-width: ' ~ content.border.width ~ 'px;') %}
+            {% endif %}
+            {% if content.border.style %}
+                {% set content_border_style = content.border.style %}
+                {% if content_border_style == 'none' %}
+                    {% set _ = vars.append('--tabs-content-border-width: 0px;') %}
+                {% endif %}
+                {% set _ = vars.append('--tabs-content-border-style: ' ~ content_border_style ~ ';') %}
+            {% else %}
+                {% set _ = vars.append('--tabs-content-border-style: solid;') %}
+            {% endif %}
+            {% if content.border.color %}
+                {% set _ = vars.append('--tabs-content-border-color: ' ~ content.border.color ~ ';') %}
+            {% endif %}
+        {% endif %}
+        {% if content.padding %}
+            {% if content.padding.block and tokens and tokens.spacing and content.padding.block in tokens.spacing %}
+                {% set _ = vars.append('--tabs-content-padding-block: var(--spacing-' ~ content.padding.block ~ ');') %}
+            {% endif %}
+            {% if content.padding.inline and tokens and tokens.spacing and content.padding.inline in tokens.spacing %}
+                {% set _ = vars.append('--tabs-content-padding-inline: var(--spacing-' ~ content.padding.inline ~ ');') %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {# Shadow #}
+    {% if props.appearance and props.appearance.shadow and props.appearance.shadow != 'none' and tokens and tokens.shadows and props.appearance.shadow in tokens.shadows %}
+        {% set _ = vars.append('box-shadow: ' ~ tokens.shadows[props.appearance.shadow] ~ ';') %}
+    {% endif %}
+    {% if props.appearance and props.appearance.shadowColor %}
+        {% set _ = vars.append('--shadow-rgb: ' ~ (props.appearance.shadowColor | hex_to_rgb) ~ ';') %}
+    {% endif %}
+
+    {{ vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
+{%- endmacro %}
+
+{% macro build_accordion_vars(component, tokens) -%}
+    {% set vars = [] %}
+    {% set props = component.properties | default({}) %}
+
+    {# Spacing #}
+    {% if props.spacing %}
+        {% set spacing = props.spacing %}
+        {% if spacing.marginBlock and tokens and tokens.spacing and spacing.marginBlock in tokens.spacing %}
+            {% set _ = vars.append('--accordion-margin-block: ' ~ tokens.spacing[spacing.marginBlock] ~ ';') %}
+        {% endif %}
+        {% if spacing.marginInline and tokens and tokens.spacing and spacing.marginInline in tokens.spacing %}
+            {% set _ = vars.append('--accordion-margin-inline: ' ~ tokens.spacing[spacing.marginInline] ~ ';') %}
+        {% endif %}
+    {% endif %}
+
+    {# Typography - Title #}
+    {% if props.typography and props.typography.title %}
+        {% set title = props.typography.title %}
+        {% if title.size and tokens and tokens.typography_sizes and title.size in tokens.typography_sizes %}
+            {% set _ = vars.append('--accordion-title-font-size: var(--font-size-' ~ title.size ~ ');') %}
+        {% endif %}
+        {% if title.weight and tokens and tokens.font_weights and title.weight in tokens.font_weights %}
+            {% set _ = vars.append('--accordion-title-font-weight: ' ~ tokens.font_weights[title.weight] ~ ';') %}
+        {% endif %}
+        {% if title.color %}
+            {% set _ = vars.append('--accordion-title-color: ' ~ title.color ~ ';') %}
+        {% endif %}
+    {% endif %}
+
+    {# Typography - Content #}
+    {% if props.typography and props.typography.content %}
+        {% set content_typo = props.typography.content %}
+        {% if content_typo.size and tokens and tokens.typography_sizes and content_typo.size in tokens.typography_sizes %}
+            {% set _ = vars.append('--accordion-content-font-size: var(--font-size-' ~ content_typo.size ~ ');') %}
+        {% endif %}
+        {% if content_typo.weight and tokens and tokens.font_weights and content_typo.weight in tokens.font_weights %}
+            {% set _ = vars.append('--accordion-content-font-weight: ' ~ tokens.font_weights[content_typo.weight] ~ ';') %}
+        {% endif %}
+        {% if content_typo.color %}
+            {% set _ = vars.append('--accordion-content-color: ' ~ content_typo.color ~ ';') %}
+        {% endif %}
+    {% endif %}
+
+    {# Appearance #}
+    {% if props.appearance %}
+        {% set appearance = props.appearance %}
+        {% if appearance.radius and tokens and tokens.border_radius and appearance.radius in tokens.border_radius %}
+            {% set _ = vars.append('--accordion-border-radius: ' ~ tokens.border_radius[appearance.radius] ~ ';') %}
+        {% endif %}
+        {% if appearance.border %}
+            {% set border = appearance.border %}
+            {% if border.width %}
+                {% set _ = vars.append('--accordion-border-width: ' ~ border.width ~ 'px;') %}
+            {% endif %}
+            {% if border.style %}
+                {% set border_style = border.style %}
+                {% if border_style == 'none' %}
+                    {% set _ = vars.append('--accordion-border-width: 0px;') %}
+                {% endif %}
+                {% set _ = vars.append('--accordion-border-style: ' ~ border_style ~ ';') %}
+            {% else %}
+                {% set _ = vars.append('--accordion-border-style: solid;') %}
+            {% endif %}
+            {% if border.color %}
+                {% set _ = vars.append('--accordion-border-color: ' ~ border.color ~ ';') %}
+            {% endif %}
+            {% if border.position %}
+                {# Position handled via data attribute #}
+            {% endif %}
+        {% endif %}
+        {% if appearance.titleBackground and appearance.titleBackground.color %}
+            {% set _ = vars.append('--accordion-title-bg: ' ~ appearance.titleBackground.color ~ ';') %}
+        {% endif %}
+        {% if appearance.contentBackground %}
+            {% set bg_color = appearance.contentBackground.color | default('#ffffff') %}
+            {# Note: Transparency conversion would need Python helper - simplified for now #}
+            {% set _ = vars.append('--accordion-content-bg: ' ~ bg_color ~ ';') %}
+        {% endif %}
+        {% if appearance.padding %}
+            {% set padding = appearance.padding %}
+            {% if padding.block and tokens and tokens.spacing and padding.block in tokens.spacing %}
+                {% set _ = vars.append('--accordion-title-padding-block: var(--spacing-' ~ padding.block ~ ');') %}
+                {% set _ = vars.append('--accordion-content-padding-block: var(--spacing-' ~ padding.block ~ ');') %}
+            {% endif %}
+            {% if padding.inline and tokens and tokens.spacing and padding.inline in tokens.spacing %}
+                {% set _ = vars.append('--accordion-title-padding-inline: var(--spacing-' ~ padding.inline ~ ');') %}
+                {% set _ = vars.append('--accordion-content-padding-inline: var(--spacing-' ~ padding.inline ~ ');') %}
+            {% endif %}
+        {% endif %}
+        {# Shadow #}
+        {% if appearance.shadow and appearance.shadow != 'none' and tokens and tokens.shadows and appearance.shadow in tokens.shadows %}
+            {% set _ = vars.append('box-shadow: ' ~ tokens.shadows[appearance.shadow] ~ ';') %}
+        {% endif %}
+        {% if appearance.shadowColor %}
+            {% set _ = vars.append('--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ ';') %}
+        {% endif %}
+    {% endif %}
+
+    {{ vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
+{%- endmacro %}

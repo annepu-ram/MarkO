@@ -1,0 +1,25 @@
+{% macro render_video(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set source = properties.source | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set playback = properties.playback | default({}) %}
+    {% set poster = properties.poster | default({}) %}
+    {% set video_styles = build_styles(component, tokens) %}
+
+    {# Aspect ratio #}
+    {% set aspect_ratio = appearance.aspectRatio | default('16/9') %}
+    {% set aspect_style = 'aspect-ratio: ' ~ aspect_ratio ~ ';' %}
+
+    {# Height fallback #}
+    {% set height_value = appearance.height | default(400) %}
+
+    <figure class="video-container chrome-target" data-component-id="{{ component_id }}" style="{{ video_styles }} position: relative;">
+        <div class="video-wrapper" style="{{ aspect_style }} width: 100%; overflow: hidden;">
+            <iframe src="{{ source.url }}"
+                    style="width: 100%; height: 100%; border: none;"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </figure>
+{% endmacro %}

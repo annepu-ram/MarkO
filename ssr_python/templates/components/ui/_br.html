@@ -1,0 +1,8 @@
+{% macro render_br(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set size = properties.size | default('md') %}
+    {% set spacing_value = (tokens.spacing[size]) if tokens and tokens.spacing and (size in tokens.spacing) else '2rem' %}
+    <div class="comp-br chrome-target" data-component-id="{{ component_id }}"
+         style="height: {{ spacing_value }}; width: 100%; border-bottom: 1px dashed #ccc; margin: 0.5rem 0; position: relative;">
+    </div>
+{% endmacro %}

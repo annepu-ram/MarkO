@@ -1,0 +1,26 @@
+{% macro render_form(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set layout_props = properties.layout | default({}) %}
+    {% set submit = properties.submit | default({}) %}
+
+    {# Get direction from layout.direction, default to column #}
+    {% set direction = layout_props.direction | default('column') %}
+
+    {# Outer wrapper styles #}
+    {% set outer_styles = build_styles(component, tokens, part='outer') %}
+
+    {# Inner wrapper styles: flex layout #}
+    {% set inner_styles = build_flex_styles(component, tokens, direction) %}
+
+    <form class="form chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+        <div class="form__content" style="{{ inner_styles }}">
+            {% for child in component.components | default([]) %}
+                {% set child_path = path + ['components', loop.index0] %}
+                {{ render_component(child, tokens, child_path) }}
+            {% endfor %}
+            {% if submit.show %}
+                <button type="submit" class="form__submit">{{ submit.buttonText | default('Submit') }}</button>
+            {% endif %}
+        </div>
+    </form>
+{% endmacro %}

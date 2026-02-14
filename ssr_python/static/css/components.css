@@ -61,6 +61,11 @@
     min-width: max-content;
 }
 
+/* When row wraps, allow children to grow to full width */
+.layout-row__content[data-wrap="wrap"] > * {
+    max-width: 100% !important;
+}
+
 /* ===================================
    LAYOUT-COLUMN WIDTH MODES
    Margin-aware: deducts column's own margins from width
@@ -274,7 +279,7 @@ etc.
 
     .tabs label {
         padding: clamp(0.6rem, 0.5rem + 0.5vw, 0.8rem) clamp(1rem, 0.8rem + 0.75vw, 1.6rem);
-        font-size: clamp(1rem, 0.9rem + 0.5vw, 1.8rem);
+        font-size: var(--tabs-label-font-size, clamp(1rem, 0.9rem + 0.5vw, 1.8rem));
     }
 }
 
@@ -406,14 +411,14 @@ details[open] .accordion-summary::after {
 /* Accordion Responsive - Fluid padding and font sizing */
 @media (max-width: 768px) {
     .accordion-summary {
-        padding-block: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
-        padding-inline: clamp(0.75rem, 0.5rem + 0.75vw, 1rem);
-        font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+        padding-block: var(--accordion-title-padding-block, clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem));
+        padding-inline: var(--accordion-title-padding-inline, clamp(0.75rem, 0.5rem + 0.75vw, 1rem));
+        font-size: var(--accordion-title-font-size, clamp(1rem, 0.9rem + 0.5vw, 1.25rem));
     }
 
     .accordion .card-body {
-        padding-block: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
-        padding-inline: clamp(0.75rem, 0.5rem + 0.75vw, 1rem);
+        padding-block: var(--accordion-content-padding-block, clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem));
+        padding-inline: var(--accordion-content-padding-inline, clamp(0.75rem, 0.5rem + 0.75vw, 1rem));
     }
 }
 
@@ -1791,7 +1796,7 @@ a.link-arrow:hover::after {
 /* Mobile responsive */
 @media (max-width: 768px) {
     .video-background-container {
-        min-height: 300px !important;
+        min-height: 300px;
     }
 
     .video-background-container .video-content {

@@ -1,0 +1,63 @@
+{#- Main dispatcher macro -#}
+{% macro render_component(component, tokens, path=[], parent_direction='row') %}
+    {% set name = component.name %}
+    {# Generate component ID from path #}
+    {% if path | length > 0 %}
+        {% set component_id = 'comp_' ~ path | join('_') %}
+    {% else %}
+        {% set component_id = 'comp_root' %}
+    {% endif %}
+
+    {# Route to the correct macro based on component name #}
+    {% if name == 'page' %}
+        {{ render_page(component, tokens, path, component_id) }}
+    {% elif name == 'layout-row' %}
+        {{ render_layout_row(component, tokens, path, component_id, parent_direction) }}
+    {% elif name == 'layout-column' %}
+        {{ render_layout_column(component, tokens, path, component_id, parent_direction) }}
+    {% elif name == 'columnsgrid' %}
+        {{ render_columnsgrid(component, tokens, path, component_id) }}
+    {% elif name == 'form' %}
+        {{ render_form(component, tokens, path, component_id) }}
+    {% elif name == 'tabs' %}
+        {{ render_tabs(component, tokens, path, component_id) }}
+    {% elif name == 'accordion' %}
+        {{ render_accordion(component, tokens, path, component_id) }}
+    {% elif name == 'hamburger' %}
+        {{ render_hamburger(component, tokens, path, component_id) }}
+    {% elif name == 'br' %}
+        {{ render_br(component, tokens, path, component_id) }}
+    {% elif name in ['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote', 'link'] %}
+        {{ render_text_component(component, tokens, path, component_id, parent_direction) }}
+    {% elif name == 'image' %}
+        {{ render_image(component, tokens, path, component_id, parent_direction) }}
+    {% elif name == 'video' %}
+        {{ render_video(component, tokens, path, component_id) }}
+    {% elif name == 'gif' %}
+        {{ render_gif(component, tokens, path, component_id, parent_direction) }}
+    {% elif name == 'button' %}
+        {{ render_button(component, tokens, path, component_id) }}
+    {% elif name == 'titlebar' %}
+        {{ render_titlebar(component, tokens, path, component_id) }}
+    {% elif name == 'carousel' %}
+        {{ render_carousel(component, tokens, path, component_id) }}
+    {% elif name == 'video-background' %}
+        {{ render_video_background(component, tokens, path, component_id, parent_direction) }}
+    {% elif name == 'textbox' %}
+        {{ render_textbox(component, tokens, path, component_id) }}
+    {% elif name == 'textarea' %}
+        {{ render_textarea(component, tokens, path, component_id) }}
+    {% elif name == 'dropdown' %}
+        {{ render_dropdown(component, tokens, path, component_id) }}
+    {% elif name == 'checkbox' %}
+        {{ render_checkbox(component, tokens, path, component_id) }}
+    {% elif name == 'radio' %}
+        {{ render_radio(component, tokens, path, component_id) }}
+    {% elif name == 'calendar' %}
+        {{ render_calendar(component, tokens, path, component_id) }}
+    {% else %}
+        <div style="border: 1px solid red; padding: 8px; margin: 8px;" class="chrome-target" data-component-id="{{ component_id }}">
+            <strong>Warning:</strong> Component '{{ name }}' is not implemented in the SSR renderer.
+        </div>
+    {% endif %}
+{% endmacro %}

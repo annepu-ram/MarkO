@@ -1,0 +1,43 @@
+{% macro render_columnsgrid(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set layout_props = properties.layout | default({}) %}
+    {% set columns = component.columns | default([]) %}
+
+    {# Column count #}
+    {% set column_count = layout_props.columns | default(2) | int %}
+
+    {# Gap between columns #}
+    {% set gap_token = layout_props.gap | default('md') %}
+    {% set gap_value = tokens.spacing[gap_token] if tokens and tokens.spacing and gap_token in tokens.spacing else '1.5rem' %}
+
+    {# Vertical alignment of content within columns #}
+    {% set v_align = layout_props.verticalAlign | default('center') %}
+    {% set v_align_map = {'top': 'flex-start', 'center': 'center', 'bottom': 'flex-end', 'stretch': 'stretch'} %}
+    {% set v_align_css = v_align_map[v_align] | default('center') %}
+
+    {# Outer container styles #}
+    {% set outer_styles = build_styles(component, tokens, part='outer') %}
+
+    <div class="columnsgrid chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+        <div class="columnsgrid__row" style="display: flex; gap: {{ gap_value }}; align-items: {{ v_align_css }}; width: 100%; box-sizing: border-box; min-height: 0;">
+            {% for col_index in range(column_count) %}
+                {% set column = columns[col_index] if col_index < columns | length else {} %}
+                {% set column_components = column.components | default([]) %}
+
+                {% set col_justify = 'space-between' if v_align == 'stretch' else v_align_css %}
+                <div class="columnsgrid__col" style="position: relative; flex: 1 1 0; min-width: 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: {{ col_justify }};">
+                    <div class="column-label">Col {{ col_index + 1 }}</div>
+
+                    {% if column_components | length > 0 %}
+                        {% for child in column_components %}
+                            {% set child_path = path + ['columns', col_index, 'components', loop.index0] %}
+                            {{ render_component(child, tokens, child_path, 'column') }}
+                        {% endfor %}
+                    {% else %}
+                        <div class="column-placeholder">Drop components here...</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,31 @@
+{% macro render_accordion(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set behavior = properties.behavior | default({}) %}
+    {% set items = component['items'] | default([]) %}
+    {% set border_position = properties.appearance.border.position | default('bottom') if properties.appearance and properties.appearance.border else 'bottom' %}
+    {% set accordion_vars = build_accordion_vars(component, tokens) %}
+    <div class="accordion-container chrome-target" data-component-id="{{ component_id }}" data-component-type="accordion" data-allow-multiple="{{ 'true' if behavior.allowMultipleOpen else 'false' }}"{% if accordion_vars %} style="{{ accordion_vars }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+        {% for item in items %}
+            {% set item_index = loop.index0 %}
+            {% set item_path = path + ['items', item_index] %}
+            {% set item_components = [] %}
+            {% if item is mapping and 'components' in item %}
+                {% set item_components = item['components'] | default([]) %}
+            {% endif %}
+            <details class="accordion">
+                <summary class="accordion-summary" data-border-position="{{ border_position }}">{{ item.title | default('Untitled') }}</summary>
+                <div class="card-body" data-border-position="{{ border_position }}">
+                    {% if item_components | length > 0 %}
+                        {% for nested_component in item_components %}
+                            {% set nested_path = item_path + ['components', loop.index0] %}
+                            {{ render_component(nested_component, tokens, nested_path) }}
+                        {% endfor %}
+                    {% endif %}
+                    {% if item.content is defined and item.content %}
+                        <p>{{ item.content | replace('\n', '<br>') | safe }}</p>
+                    {% endif %}
+                </div>
+            </details>
+        {% endfor %}
+    </div>
+{% endmacro %}

@@ -1,0 +1,117 @@
+{% macro render_titlebar(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set branding = properties.branding | default({}) %}
+    {% set navigation = properties.navigation | default({}) %}
+    {% set layout = properties.layout | default({}) %}
+    {% set alignment = layout.alignment | default('left') %}
+    {% set links = navigation.links | default([]) %}
+    {% set styles = build_styles(component, tokens) %}
+
+    {# Generate CSS variables for typography and layout #}
+    {% set vars = [] %}
+
+    {# Layout height #}
+    {% if layout.height %}
+        {% set height_value = layout.height %}
+        {% set _ = vars.append('--base-height: ' ~ height_value ~ 'px;') %}
+    {% endif %}
+
+    {# Scroll shrink percentage (shrink TO percentage: 70% means shrink to 70% of original size) #}
+    {% set scroll = properties.scroll | default({}) %}
+    {% set shrink_pct = scroll.shrinkPercentage | default(70) %}
+    {% set shrink_scale = shrink_pct / 100 %}
+    {% set _ = vars.append('--shrink-scale: ' ~ shrink_scale ~ ';') %}
+
+    {# Typography #}
+    {% if properties.typography %}
+        {% set typo = properties.typography %}
+
+        {# Title typography #}
+        {% if typo.title %}
+            {% set title = typo.title %}
+            {% if title.size %}
+                {% if tokens and tokens.typography_sizes and title.size in tokens.typography_sizes %}
+                    {% set _ = vars.append('--title-font-size: var(--font-size-' ~ title.size ~ ');') %}
+                {% else %}
+                    {# Assume numeric value in px #}
+                    {% set _ = vars.append('--title-font-size: ' ~ title.size ~ 'px;') %}
+                {% endif %}
+            {% endif %}
+            {% if title.weight %}
+                {% if tokens and tokens.font_weights and title.weight in tokens.font_weights %}
+                    {% set _ = vars.append('--title-font-weight: ' ~ tokens.font_weights[title.weight] ~ ';') %}
+                {% else %}
+                    {# Handle numeric weights or common names #}
+                    {% set weight_map = {'bold': '700', 'medium': '500', 'regular': '400', 'light': '300', 'semibold': '600', 'extrabold': '800'} %}
+                    {% set weight_value = weight_map[title.weight] | default(title.weight) %}
+                    {% set _ = vars.append('--title-font-weight: ' ~ weight_value ~ ';') %}
+                {% endif %}
+            {% endif %}
+            {% if title.color %}
+                {% set _ = vars.append('--titlebar-title-color: ' ~ title.color ~ ';') %}
+            {% endif %}
+        {% endif %}
+
+        {# Menu/Link typography #}
+        {% if typo.menu %}
+            {% set menu = typo.menu %}
+            {% if menu.size %}
+                {% if tokens and tokens.typography_sizes and menu.size in tokens.typography_sizes %}
+                    {% set _ = vars.append('--menu-font-size: var(--font-size-' ~ menu.size ~ ');') %}
+                {% else %}
+                    {# Assume numeric value in px #}
+                    {% set _ = vars.append('--menu-font-size: ' ~ menu.size ~ 'px;') %}
+                {% endif %}
+            {% endif %}
+            {% if menu.weight %}
+                {% if tokens and tokens.font_weights and menu.weight in tokens.font_weights %}
+                    {% set _ = vars.append('--menu-font-weight: ' ~ tokens.font_weights[menu.weight] ~ ';') %}
+                {% else %}
+                    {# Handle numeric weights or common names #}
+                    {% set weight_map = {'bold': '700', 'medium': '500', 'regular': '400', 'light': '300', 'semibold': '600', 'extrabold': '800'} %}
+                    {% set weight_value = weight_map[menu.weight] | default(menu.weight) %}
+                    {% set _ = vars.append('--menu-font-weight: ' ~ weight_value ~ ';') %}
+                {% endif %}
+            {% endif %}
+            {% if menu.color %}
+                {% set _ = vars.append('--titlebar-link-color: ' ~ menu.color ~ ';') %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {# Focus colors #}
+    {% if properties.appearance and properties.appearance.focus %}
+        {% set focus = properties.appearance.focus %}
+        {% if focus.background %}
+            {% set _ = vars.append('--titlebar-link-hover-bg: ' ~ focus.background ~ ';') %}
+        {% endif %}
+        {% if focus.color %}
+            {% set _ = vars.append('--titlebar-link-hover-color: ' ~ focus.color ~ ';') %}
+        {% endif %}
+    {% endif %}
+
+    {# Combine styles and CSS variables #}
+    {% set css_vars = vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') %}
+    {% set combined_styles = (styles ~ ' ' ~ css_vars) | trim %}
+
+    <header class="titlebar chrome-target align-{{ alignment }}" data-component-id="{{ component_id }}"{% if combined_styles %} style="{{ combined_styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+        <div class="titlebar-branding">
+            {% if branding.showLogo and branding.logoUrl %}
+                <img src="{{ branding.logoUrl }}" alt="Logo" class="titlebar-logo">
+            {% endif %}
+            {% if branding.title %}
+                <span class="titlebar-title">{{ branding.title }}</span>
+            {% endif %}
+        </div>
+        <button type="button" class="mobile-menu-button" aria-label="Toggle menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <nav class="titlebar-nav">
+            {% for link in links %}
+                <a href="{{ link.href }}" class="titlebar-link">{{ link.label }}</a>
+            {% endfor %}
+        </nav>
+    </header>
+{% endmacro %}

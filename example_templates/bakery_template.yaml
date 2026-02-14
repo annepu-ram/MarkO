@@ -25,15 +25,15 @@
         navigation:
           links:
             - label: Home
-              href: '#home'
+              href: "#home"
             - label: Menu
-              href: '#menu'
+              href: "#menu"
             - label: About
-              href: '#about'
+              href: "#about"
             - label: Gallery
-              href: '#gallery'
+              href: "#gallery"
             - label: Contact
-              href: '#contact'
+              href: "#contact"
         layout:
           alignment: center
           height: 70
@@ -41,23 +41,25 @@
           shrinkPercentage: 70
         appearance:
           background:
-            color: *color-background
+            color: "#FFF5D6"
             transparency: 100
+            type: ""
           border:
             width: 0
             style: solid
-            color: *color-secondary
+            color: "#E8DEB0"
           focus:
-            background: *color-secondary
+            background: "#E8DEB0"
+            color: "#111827"
         typography:
           title:
-            size: 28
+            size: 20
             weight: bold
-            color: *color-primary
+            color: "#1A3A3A"
           menu:
             size: 16
             weight: medium
-            color: *color-primary
+            color: "#1A3A3A"
 
     # Hero Section
     - name: image
@@ -266,15 +268,32 @@
               align: center
               horizontalAlign: space-evenly
               wrap: wrap
+              tag: section
+              verticalAlign: center
+              gap: sm
             spacing:
               paddingBlock: lg
               paddingInline: md
+              marginBlock: none
+              marginInline: none
             background:
               color: '#ffffff'
               transparency: 100
             appearance:
               radius: lg
-              shadow: '0 4px 12px rgba(0,0,0,0.1)'
+              shadow: ''
+              padding:
+                block: sm
+                inline: sm
+              background:
+                type: ""
+                color: "#ffffff"
+                transparency: 0
+              border:
+                width: 0
+                style: solid
+                color: "#000000"
+              shadowColor: "#000000"
           components:
             - name: image
               properties:
@@ -285,19 +304,56 @@
                   minHeight: 15.625
                   fit: cover
                   cornerStyle: md
+                  objectPosition: center
+                  maxHeight: ""
+                  filter: none
+                  shadow: none
+                  shadowColor: "#000000"
+                  hoverEffect: none
+                  lazy: true
+                  padding:
+                    block: none
+                    inline: none
+                  overlay:
+                    enabled: false
+                    color: "#000000"
+                    opacity: 1
                 layout:
-                  widthMode: 25
+                  widthMode: "25"
+                  horizontalAlign: center
                 spacing:
                   marginBlock: none
+                  marginInline: none
             - name: layout-column
               properties:
                 layout:
-                  widthMode: 75
-                  horizontalAlign: space-evenly
+                  widthMode: "75"
+                  horizontalAlign: ""
                   align: start
+                  tag: section
+                  verticalAlign: space-between
+                  wrap: nowrap
+                  gap: none
                 spacing:
                   paddingBlock: none
                   paddingInline: md
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    type: ""
+                    color: "#ffffff"
+                    transparency: 0
+                  border:
+                    width: 0
+                    style: solid
+                    color: "#000000"
+                  radius: none
+                  shadow: none
+                  shadowColor: "#000000"
               components:
                 - name: eyebrow
                   properties:
@@ -342,25 +398,63 @@
               align: center
               horizontalAlign: space-evenly
               wrap: wrap
+              tag: section
+              verticalAlign: center
+              gap: sm
             spacing:
               paddingBlock: lg
               paddingInline: md
+              marginBlock: none
+              marginInline: none
             background:
               color: '#ffffff'
               transparency: 100
             appearance:
               radius: lg
-              shadow: '0 4px 12px rgba(0,0,0,0.1)'
+              shadow: ''
+              padding:
+                block: sm
+                inline: sm
+              background:
+                type: ""
+                color: "#ffffff"
+                transparency: 0
+              border:
+                width: 0
+                style: solid
+                color: "#000000"
+              shadowColor: "#000000"
           components:
             - name: layout-column
               properties:
                 layout:
-                  widthMode: 75
-                  horizontalAlign: space-evenly
+                  widthMode: "75"
+                  horizontalAlign: ""
                   align: start
+                  tag: section
+                  verticalAlign: space-between
+                  wrap: nowrap
+                  gap: none
                 spacing:
                   paddingBlock: none
                   paddingInline: md
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    type: ""
+                    color: "#ffffff"
+                    transparency: 0
+                  border:
+                    width: 0
+                    style: solid
+                    color: "#000000"
+                  radius: none
+                  shadow: none
+                  shadowColor: "#000000"
               components:
                 - name: eyebrow
                   properties:
@@ -406,10 +500,26 @@
                   minHeight: 15.625
                   fit: cover
                   cornerStyle: md
+                  objectPosition: center
+                  maxHeight: ""
+                  filter: none
+                  shadow: none
+                  shadowColor: "#000000"
+                  hoverEffect: none
+                  lazy: true
+                  padding:
+                    block: none
+                    inline: none
+                  overlay:
+                    enabled: false
+                    color: "#000000"
+                    opacity: 1
                 layout:
-                  widthMode: 25
+                  widthMode: "25"
+                  horizontalAlign: center
                 spacing:
                   marginBlock: none
+                  marginInline: none
 
         # Card 3: Image Left (25%) - Text Right (75%)
         - name: layout-row
@@ -437,19 +547,56 @@
                   minHeight: 15.625
                   fit: cover
                   cornerStyle: md
+                  objectPosition: center
+                  maxHeight: 0
+                  filter: none
+                  shadow: none
+                  shadowColor: "#000000"
+                  hoverEffect: none
+                  lazy: true
+                  padding:
+                    block: none
+                    inline: none
+                  overlay:
+                    enabled: false
+                    color: "#000000"
+                    opacity: 1
                 layout:
-                  widthMode: 25
+                  widthMode: "25"
+                  horizontalAlign: center
                 spacing:
                   marginBlock: none
+                  marginInline: none
             - name: layout-column
               properties:
                 layout:
-                  widthMode: 75
-                  horizontalAlign: space-evenly
+                  widthMode: "75"
+                  horizontalAlign: ""
                   align: start
+                  tag: section
+                  verticalAlign: space-between
+                  wrap: nowrap
+                  gap: none
                 spacing:
                   paddingBlock: none
                   paddingInline: md
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    type: ""
+                    color: "#ffffff"
+                    transparency: 0
+                  border:
+                    width: 0
+                    style: solid
+                    color: "#000000"
+                  radius: none
+                  shadow: none
+                  shadowColor: "#000000"
               components:
                 - name: eyebrow
                   properties:
@@ -510,7 +657,7 @@
         - name: paragraph
           properties:
             text: |
-              **Quick Facts:**
+              Quick Facts:
 
               • Founded in 2003
               • 20+ master bakers
@@ -518,21 +665,29 @@
               • Local ingredients
               • Award-winning
             typography:
-              color: *color-primary
+              color: "#1A3A3A"
               size: sm
               weight: medium
               lineHeight: '1.8'
+              align: center
+              transform: none
+              letterSpacing: normal
             spacing:
               marginBlock: none
               paddingBlock: md
               paddingInline: md
+              marginInline: none
             layout:
-              widthMode: 25
+              widthMode: "25"
             appearance:
               background:
-                color: *color-secondary
+                color: "#E8DEB0"
                 transparency: 100
+                type: ""
               radius: sm
+              padding:
+                block: none
+                inline: none
         - name: paragraph
           properties:
             text: |
@@ -543,17 +698,29 @@
               excellence. From our classic sourdough to our innovative seasonal pastries, each product reflects
               our dedication to the craft of baking and our love for the community we serve.
             typography:
-              color: *color-primary
+              color: "#1A3A3A"
               size: md
               weight: regular
               lineHeight: '1.7'
-              align: left
+              align: center
+              transform: none
+              letterSpacing: normal
             spacing:
               marginBlock: none
               paddingBlock: md
               paddingInline: md
+              marginInline: none
             layout:
-              widthMode: 75
+              widthMode: "75"
+            appearance:
+              background:
+                type: ""
+                color: "#ffffff"
+                transparency: 0
+              radius: none
+              padding:
+                block: none
+                inline: none
 
     # Today's Specials Section
     - name: layout-column
@@ -755,7 +922,7 @@
                       marginInline: auto
                     layout:
 
-    # Gallery Carousel Section
+                      # Gallery Carousel Section
     - name: layout-column
       properties:
         layout:
@@ -833,38 +1000,92 @@
                 - name: image
                   properties:
                     source:
-                      url: https://images.pexels.com/photos/1368498/pexels-photo-1368498.jpeg?auto=compress&cs=tinysrgb&w=1200
+                      url: https://images.pexels.com/photos/29349521/pexels-photo-29349521.jpeg?_gl=1*i93an5*_ga*MTA0ODY1MDEzMC4xNzY5MTA1OTM5*_ga_8JE65Q40S6*czE3NzEwMDM2MjkkbzkkZzEkdDE3NzEwMDM3NjYkajUwJGwwJGgw
                       altText: Assortment of artisanal pastries
                     appearance:
                       minHeight: 31.25
                       fit: cover
                       cornerStyle: lg
+                      objectPosition: center
+                      maxHeight: 0
+                      filter: none
+                      shadow: none
+                      shadowColor: "#000000"
+                      hoverEffect: none
+                      lazy: true
+                      padding:
+                        block: none
+                        inline: none
+                      overlay:
+                        enabled: false
+                        color: "#000000"
+                        opacity: 1
                     layout:
                       widthMode: stretch
+                      horizontalAlign: center
+                    spacing:
+                      marginBlock: sm
+                      marginInline: none
             - components:
                 - name: image
                   properties:
                     source:
-                      url: https://images.pexels.com/photos/267951/pexels-photo-267951.jpeg?auto=compress&cs=tinysrgb&w=1200
+                      url: https://images.pexels.com/photos/31484077/pexels-photo-31484077.jpeg?_gl=1*1wfsi4v*_ga*MTA0ODY1MDEzMC4xNzY5MTA1OTM5*_ga_8JE65Q40S6*czE3NzEwMDM2MjkkbzkkZzEkdDE3NzEwMDM2NDMkajQ2JGwwJGgw
                       altText: Fresh cinnamon rolls with glaze
                     appearance:
                       minHeight: 31.25
                       fit: cover
                       cornerStyle: lg
+                      objectPosition: center
+                      maxHeight: 0
+                      filter: none
+                      shadow: none
+                      shadowColor: "#000000"
+                      hoverEffect: none
+                      lazy: true
+                      padding:
+                        block: none
+                        inline: none
+                      overlay:
+                        enabled: false
+                        color: "#000000"
+                        opacity: 1
                     layout:
                       widthMode: stretch
+                      horizontalAlign: center
+                    spacing:
+                      marginBlock: sm
+                      marginInline: none
             - components:
                 - name: image
                   properties:
                     source:
-                      url: https://images.pexels.com/photos/236781/pexels-photo-236781.jpeg?auto=compress&cs=tinysrgb&w=1200
+                      url: https://images.pexels.com/photos/29380150/pexels-photo-29380150.jpeg?_gl=1*j39n10*_ga*MTA0ODY1MDEzMC4xNzY5MTA1OTM5*_ga_8JE65Q40S6*czE3NzEwMDM2MjkkbzkkZzEkdDE3NzEwMDM2OTkkajUzJGwwJGgw
                       altText: Baker kneading dough by hand
                     appearance:
                       minHeight: 31.25
                       fit: cover
                       cornerStyle: lg
+                      objectPosition: center
+                      maxHeight: 0
+                      filter: none
+                      shadow: none
+                      shadowColor: "#000000"
+                      hoverEffect: none
+                      lazy: true
+                      padding:
+                        block: none
+                        inline: none
+                      overlay:
+                        enabled: false
+                        color: "#000000"
+                        opacity: 1
                     layout:
                       widthMode: stretch
+                      horizontalAlign: center
+                    spacing:
+                      marginBlock: sm
+                      marginInline: none
 
     # Menu Tabs Section
     - name: layout-column
@@ -897,29 +1118,31 @@
                 size: md
                 weight: semibold
                 active:
-                  color: *color-primary
+                  color: "#1A3A3A"
                 inactive:
-                  color: *color-secondary
+                  color: "#E8DEB0"
             appearance:
               tab:
                 background:
-                  active: *color-background
-                  inactive: *color-secondary
+                  active: "#FFF5D6"
+                  inactive: *color-background
                 border:
                   width: 2
                   style: solid
                   position: lower
               content:
                 background:
-                  color: *color-background
+                  color: "#FFF5D6"
                   transparency: 100
                 border:
-                  color: *color-secondary
+                  color: "#E8DEB0"
                   width: 1
                   style: solid
                 padding:
                   block: lg
                   inline: lg
+              shadow: none
+              shadowColor: "#000000"
             spacing:
               marginBlock: lg
               marginInline: none
@@ -962,7 +1185,7 @@
                             text: Sourdough Loaf
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -971,7 +1194,7 @@
                             text: Traditional 48-hour fermented sourdough with a tangy flavor and perfect
                               crust.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
@@ -990,7 +1213,7 @@
                             text: French Baguette
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -998,7 +1221,7 @@
                           properties:
                             text: Crispy golden crust with a soft, airy interior. Baked fresh twice daily.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
@@ -1017,7 +1240,7 @@
                             text: Whole Grain Loaf
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1025,7 +1248,7 @@
                           properties:
                             text: Nutty and hearty, packed with seeds and grains for maximum nutrition.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
@@ -1044,7 +1267,7 @@
                             text: Dark Rye Bread
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1052,7 +1275,7 @@
                           properties:
                             text: Rich, dense rye bread with a deep flavor perfect for sandwiches.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
             - title: Cakes
               components:
@@ -1082,7 +1305,7 @@
                             text: Wedding Cakes
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1091,7 +1314,7 @@
                             text: Elegant multi-tiered cakes customized to your vision. Available in various
                               flavors.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
@@ -1110,7 +1333,7 @@
                             text: Birthday Cakes
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1119,7 +1342,7 @@
                             text: Fun and festive cakes for any celebration. Choose your favorite flavors
                               and designs.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
@@ -1138,7 +1361,7 @@
                             text: Chocolate Layer Cake
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1146,7 +1369,7 @@
                           properties:
                             text: Rich chocolate cake with creamy frosting. A customer favorite!
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
@@ -1165,7 +1388,7 @@
                             text: New York Cheesecake
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1173,7 +1396,7 @@
                           properties:
                             text: Creamy, dense cheesecake with a graham cracker crust. Simply divine.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
             - title: Pastries
               components:
@@ -1203,7 +1426,7 @@
                             text: Butter Croissants
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1211,26 +1434,44 @@
                           properties:
                             text: Flaky, buttery layers that melt in your mouth. Baked fresh every morning.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
                           properties:
                             source:
-                              url: https://images.pexels.com/photos/267951/pexels-photo-267951.jpeg?auto=compress&cs=tinysrgb&w=600
+                              url: https://images.pexels.com/photos/6024413/pexels-photo-6024413.jpeg
                               altText: Cinnamon rolls
                             appearance:
                               minHeight: 12.5
                               fit: cover
                               cornerStyle: md
+                              objectPosition: center
+                              maxHeight: 0
+                              filter: none
+                              shadow: none
+                              shadowColor: "#000000"
+                              hoverEffect: none
+                              lazy: true
+                              padding:
+                                block: none
+                                inline: none
+                              overlay:
+                                enabled: false
+                                color: "#000000"
+                                opacity: 1
                             layout:
                               widthMode: stretch
+                              horizontalAlign: center
+                            spacing:
+                              marginBlock: sm
+                              marginInline: none
                         - name: heading
                           properties:
                             text: Cinnamon Rolls
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1239,7 +1480,7 @@
                             text: Warm, gooey rolls topped with cream cheese frosting. Perfect for
                               breakfast.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
@@ -1258,7 +1499,7 @@
                             text: French Macarons
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1266,7 +1507,7 @@
                           properties:
                             text: Delicate almond cookies in a variety of flavors and colors.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
                     - components:
                         - name: image
@@ -1285,7 +1526,7 @@
                             text: Danish Pastries
                             level: 3
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1293,7 +1534,7 @@
                           properties:
                             text: Buttery, flaky pastries filled with fruit preserves or cream cheese.
                             typography:
-                              color: *color-primary
+                              color: "#1A3A3A"
                               size: sm
 
     # Our Story Section
@@ -1313,14 +1554,32 @@
         - name: image
           properties:
             source:
-              url: https://images.pexels.com/photos/236781/pexels-photo-236781.jpeg?auto=compress&cs=tinysrgb&w=800
+              url: https://images.pexels.com/photos/29349521/pexels-photo-29349521.jpeg?_gl=1*i93an5*_ga*MTA0ODY1MDEzMC4xNzY5MTA1OTM5*_ga_8JE65Q40S6*czE3NzEwMDM2MjkkbzkkZzEkdDE3NzEwMDM3NjYkajUwJGwwJGgw
               altText: Baker kneading dough by hand
             appearance:
               minHeight: 25
               fit: cover
               cornerStyle: lg
+              objectPosition: center
+              maxHeight: 0
+              filter: none
+              shadow: none
+              shadowColor: "#000000"
+              hoverEffect: none
+              lazy: true
+              padding:
+                block: none
+                inline: none
+              overlay:
+                enabled: false
+                color: "#000000"
+                opacity: 1
             layout:
-              widthMode: "40"
+              widthMode: "75"
+              horizontalAlign: center
+            spacing:
+              marginBlock: sm
+              marginInline: none
         - name: layout-column
           properties:
             layout:
@@ -1344,13 +1603,29 @@
             - name: heading
               properties:
                 text: Baked with Passion Since 2003
-                level: 2
+                level: "3"
                 typography:
-                  color: *color-primary
-                  size: xxl
+                  color: "#1A3A3A"
+                  size: xxxl
                   weight: bold
+                  align: center
+                  lineHeight: "1.2"
+                  transform: none
+                  letterSpacing: normal
                 spacing:
                   marginBlock: sm
+                  marginInline: none
+                layout:
+                  widthMode: fit
+                appearance:
+                  background:
+                    type: ""
+                    color: "#ffffff"
+                    transparency: 0
+                  radius: none
+                  padding:
+                    block: none
+                    inline: none
             - name: paragraph
               properties:
                 text: |
@@ -1398,79 +1673,107 @@
               title:
                 size: lg
                 weight: semibold
-                color: *color-primary
+                color: "#1A3A3A"
               content:
                 size: md
                 weight: regular
-                color: *color-primary
+                color: "#1A3A3A"
             appearance:
               titleBackground:
-                color: *color-background
+                color: "#FFF5D6"
               border:
                 width: 1
                 style: solid
-                color: *color-secondary
+                color: "#E8DEB0"
                 position: bottom
               contentBackground:
-                color: *color-background
+                color: "#FFF5D6"
                 transparency: 100
               radius: sm
               padding:
                 block: md
                 inline: md
+              shadow: soft
+              shadowColor: "#000000"
             spacing:
               marginBlock: lg
               marginInline: auto
             layout:
-              widthMode: 75
+              widthMode: "83"
           items:
             - title: What makes your bread different?
               components:
                 - name: paragraph
                   properties:
-                    text: |
-                      We use traditional fermentation methods, locally-sourced organic flour,
-                      and bake everything fresh daily. Our sourdough is fermented for 48 hours,
-                      giving it that distinctive tangy flavor and perfect texture.
+                    text: >
+                      We use traditional fermentation methods, locally-sourced
+                      organic flour,
+
+                      and bake everything fresh daily. Our sourdough is
+                      fermented for 48 hours,
+
+                      giving it that distinctive tangy flavor and perfect
+                      texture.
             - title: Do you offer gluten-free options?
               components:
                 - name: paragraph
                   properties:
-                    text: |
-                      Yes! We have a selection of gluten-free breads and pastries made with
-                      certified gluten-free ingredients. Please ask our staff about our daily
+                    text: >
+                      Yes! We have a selection of gluten-free breads and
+                      pastries made with
+
+                      certified gluten-free ingredients. Please ask our staff
+                      about our daily
+
                       gluten-free offerings.
             - title: Can I place custom orders?
               components:
                 - name: paragraph
                   properties:
-                    text: |
-                      Absolutely! We love creating custom cakes and pastries for weddings,
-                      birthdays, anniversaries, and special events. Please contact us at least
+                    text: >
+                      Absolutely! We love creating custom cakes and pastries for
+                      weddings,
+
+                      birthdays, anniversaries, and special events. Please
+                      contact us at least
+
                       48 hours in advance for custom orders.
             - title: Where do you source your ingredients?
               components:
                 - name: paragraph
                   properties:
-                    text: |
-                      All our flour comes from organic farms within 50 miles of our bakery.
-                      We use only free-range eggs from local farms and European butter for
-                      our pastries. We're committed to supporting local agriculture.
+                    text: >
+                      All our flour comes from organic farms within 50 miles of
+                      our bakery.
+
+                      We use only free-range eggs from local farms and European
+                      butter for
+
+                      our pastries. We're committed to supporting local
+                      agriculture.
             - title: Do you offer baking classes?
               components:
                 - name: paragraph
                   properties:
-                    text: |
-                      Yes! We offer monthly baking classes where you can learn traditional
-                      techniques from our master bakers. Check our website or call us for
+                    text: >
+                      Yes! We offer monthly baking classes where you can learn
+                      traditional
+
+                      techniques from our master bakers. Check our website or
+                      call us for
+
                       the current schedule and to reserve your spot.
             - title: What are your hours?
               components:
                 - name: paragraph
                   properties:
-                    text: |
-                      We're open Monday through Saturday from 6 AM to 7 PM, and Sundays
-                      from 7 AM to 5 PM. We're closed on major holidays. Follow us on social
+                    text: >
+                      We're open Monday through Saturday from 6 AM to 7 PM, and
+                      Sundays
+
+                      from 7 AM to 5 PM. We're closed on major holidays. Follow
+                      us on social
+
                       media for holiday hours and special announcements.
 
     # Testimonials Section
@@ -1526,18 +1829,32 @@
                     typography:
                       size: md
                       weight: regular
-                      color: *color-primary
+                      color: "#1A3A3A"
+                      align: center
+                      lineHeight: "1.6"
+                      transform: none
+                      letterSpacing: normal
                     appearance:
                       background:
                         color: *color-background
                         transparency: 100
+                        type: "color"
                       border:
-                        accentColor: *color-secondary
+                        accentColor: *color-accent
                         width: 3
                         style: solid
                         position: left
+                      radius: none
+                      padding:
+                        block: md
+                        inline: md
+                      shadow: none
+                      shadowColor: *color-background
                     spacing:
                       marginBlock: none
+                      marginInline: none
+                    layout:
+                      widthMode: fit
             - components:
                 - name: blockquote
                   properties:
@@ -1548,18 +1865,32 @@
                     typography:
                       size: md
                       weight: regular
-                      color: *color-primary
+                      color: "#1A3A3A"
+                      align: center
+                      lineHeight: "1.6"
+                      transform: none
+                      letterSpacing: normal
                     appearance:
                       background:
-                        color: *color-background
+                        color: "#FFF5D6"
                         transparency: 100
+                        type: ""
                       border:
-                        accentColor: *color-secondary
+                        accentColor: *color-accent
                         width: 3
                         style: solid
                         position: left
+                      radius: none
+                      padding:
+                        block: md
+                        inline: md
+                      shadow: none
+                      shadowColor: "#000000"
                     spacing:
                       marginBlock: none
+                      marginInline: none
+                    layout:
+                      widthMode: fit
             - components:
                 - name: blockquote
                   properties:
@@ -1570,18 +1901,32 @@
                     typography:
                       size: md
                       weight: regular
-                      color: *color-primary
+                      color: *color-accent
+                      align: center
+                      lineHeight: "1.6"
+                      transform: none
+                      letterSpacing: normal
                     appearance:
                       background:
-                        color: *color-background
+                        color: "#FFF5D6"
                         transparency: 100
+                        type: ""
                       border:
-                        accentColor: *color-secondary
+                        accentColor: "#E8DEB0"
                         width: 3
                         style: solid
                         position: left
+                      radius: none
+                      padding:
+                        block: md
+                        inline: md
+                      shadow: none
+                      shadowColor: "#000000"
                     spacing:
                       marginBlock: none
+                      marginInline: none
+                    layout:
+                      widthMode: fit
 
     # Contact Form Section
     - name: layout-column
@@ -1704,12 +2049,21 @@
                   required: true
                 appearance:
                   background:
-                    color: '#ffffff'
+                    color: *color-background
                     transparency: 100
+                    type: "color"
                   border:
                     width: 1
                     style: solid
                     color: '#d1d5db'
+                  radius: none
+                typography:
+                  color: "#000000"
+                layout:
+                  widthMode: fit
+                spacing:
+                  marginBlock: sm
+                  marginInline: none
             - name: button
               properties:
                 text: Send Message
@@ -1733,7 +2087,7 @@
                   marginInline: auto
                 layout:
 
-    # Footer
+                  # Footer
     - name: layout-column
       properties:
         layout:

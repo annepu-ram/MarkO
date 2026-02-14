@@ -1,0 +1,93 @@
+{% macro render_carousel(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set slides = component.slides | default([]) %}
+    {% set behavior = properties.behavior | default({}) %}
+    {% set animation = properties.animation | default({}) %}
+    {% set navigation = properties.navigation | default({}) %}
+    {% set indicators = properties.indicators | default({}) %}
+    {% set a11y = properties.accessibility | default({}) %}
+    {% set styles = build_styles(component, tokens) %}
+
+    {# Animation class #}
+    {% set anim_effect = animation.effect | default('slide') %}
+    {% set anim_class = 'carousel-' ~ anim_effect %}
+
+    {# Arrow style and symbols #}
+    {% set arrow_style = navigation.arrowStyle | default('chevron') %}
+    {% set prev_symbol = '‹' if arrow_style == 'chevron' else '←' %}
+    {% set next_symbol = '›' if arrow_style == 'chevron' else '→' %}
+
+    {# Arrow position #}
+    {% set arrow_position = navigation.arrowPosition | default('inside') %}
+    {% set arrow_pos_class = 'carousel-arrows-' ~ arrow_position %}
+
+    {# Indicator style #}
+    {% set indicator_style = indicators.style | default('dots') %}
+    {% set indicator_pos = indicators.position | default('bottom') %}
+
+    {# Animation duration as CSS variable #}
+    {% set anim_duration = animation.duration | default(300) %}
+
+    <div class="carousel chrome-target {{ anim_class }}"
+         data-component-id="{{ component_id }}"
+         data-component-type="carousel"
+         data-autoplay="{{ 'true' if behavior.autoplay else 'false' }}"
+         data-delay="{{ behavior.delay | default(3000) }}"
+         data-loop="{{ 'true' if behavior.loop | default(true) else 'false' }}"
+         data-pause-on-hover="{{ 'true' if behavior.pauseOnHover | default(true) else 'false' }}"
+         data-swipe-enabled="{{ 'true' if behavior.swipeEnabled | default(true) else 'false' }}"
+         data-swipe-threshold="{{ behavior.swipeThreshold | default(50) }}"
+         data-keyboard-nav="{{ 'true' if behavior.keyboardNavigation | default(true) else 'false' }}"
+         data-animation-duration="{{ anim_duration }}"
+         aria-label="{{ a11y.ariaLabel | default('Image carousel') }}"
+         aria-roledescription="carousel"
+         style="{{ styles }} position: relative; --carousel-duration: {{ anim_duration }}ms;">
+
+        {# Pause button for accessibility (WCAG 2.2.2) #}
+        {% if a11y.showPauseButton | default(true) and behavior.autoplay | default(true) %}
+            <button class="carousel-pause" aria-label="Pause carousel" data-playing="true">
+                <span class="pause-icon">❚❚</span>
+                <span class="play-icon" style="display: none;">▶</span>
+            </button>
+        {% endif %}
+
+        <div class="carousel-slides">
+            {% for slide in slides %}
+                {% set slide_index = loop.index0 %}
+                <div class="carousel-slide {% if loop.first %}active{% endif %}"
+                     role="group"
+                     aria-roledescription="slide"
+                     aria-label="Slide {{ loop.index }} of {{ slides | length }}">
+                    {% for child in slide.components | default([]) %}
+                        {% set child_path = path + ['slides', slide_index, 'components', loop.index0] %}
+                        {{ render_component(child, tokens, child_path) }}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+
+        {# Navigation arrows #}
+        {% if navigation.showArrows | default(true) %}
+            <div class="carousel-navigation {{ arrow_pos_class }}">
+                <button class="carousel-prev {% if arrow_style == 'circle' %}carousel-arrow-circle{% endif %}" aria-label="Previous slide">{{ prev_symbol }}</button>
+                <button class="carousel-next {% if arrow_style == 'circle' %}carousel-arrow-circle{% endif %}" aria-label="Next slide">{{ next_symbol }}</button>
+            </div>
+        {% endif %}
+
+        {# Indicators/dots #}
+        {% if navigation.showDots | default(true) %}
+            <div class="carousel-indicators carousel-indicators-{{ indicator_pos }} carousel-indicators-{{ indicator_style }}"
+                 role="tablist"
+                 aria-label="Slide indicators">
+                {% for slide in slides %}
+                    <button class="carousel-indicator {% if loop.first %}active{% endif %}"
+                            role="tab"
+                            aria-selected="{{ 'true' if loop.first else 'false' }}"
+                            aria-label="Go to slide {{ loop.index }}">
+                        {% if indicator_style == 'numbers' %}{{ loop.index }}{% endif %}
+                    </button>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}

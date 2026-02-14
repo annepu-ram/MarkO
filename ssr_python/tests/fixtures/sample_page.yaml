@@ -1,0 +1,45 @@
+- name: page
+  properties:
+    appearance:
+      background:
+        color: '#ffffff'
+        transparency: 100
+  components:
+    - name: heading
+      properties:
+        text: Hello World
+        typography:
+          size: xl
+          weight: bold
+          color: '#333333'
+    - name: paragraph
+      properties:
+        text: This is a sample paragraph for testing.
+        typography:
+          size: md
+          color: '#666666'
+    - name: layout-row
+      properties:
+        layout:
+          wrap: nowrap
+      components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: '50'
+          components:
+            - name: heading
+              properties:
+                text: Left Column
+                typography:
+                  size: lg
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: '50'
+          components:
+            - name: heading
+              properties:
+                text: Right Column
+                typography:
+                  size: lg

@@ -1,0 +1,35 @@
+{#- Assembles all component macros into a single scope via include.
+    Include ORDER matters: utilities first, components second, dispatcher last. -#}
+
+{#- 1. Shared utility macros (no dependencies) -#}
+{% include "components/_utilities.html" %}
+{% include "components/_vars_builders.html" %}
+
+{#- 2. Component macros (depend on utilities via build_styles/build_flex_styles) -#}
+{% include "components/media/_media_caption.html" %}
+{% include "components/layout/_page.html" %}
+{% include "components/layout/_layout_row.html" %}
+{% include "components/layout/_layout_column.html" %}
+{% include "components/layout/_columnsgrid.html" %}
+{% include "components/layout/_form.html" %}
+{% include "components/interactive/_tabs.html" %}
+{% include "components/interactive/_accordion.html" %}
+{% include "components/interactive/_hamburger.html" %}
+{% include "components/interactive/_carousel.html" %}
+{% include "components/text/_text_component.html" %}
+{% include "components/media/_image.html" %}
+{% include "components/media/_video.html" %}
+{% include "components/media/_gif.html" %}
+{% include "components/media/_video_background.html" %}
+{% include "components/ui/_button.html" %}
+{% include "components/ui/_titlebar.html" %}
+{% include "components/ui/_br.html" %}
+{% include "components/forms/_textbox.html" %}
+{% include "components/forms/_textarea.html" %}
+{% include "components/forms/_dropdown.html" %}
+{% include "components/forms/_checkbox.html" %}
+{% include "components/forms/_radio.html" %}
+{% include "components/forms/_calendar.html" %}
+
+{#- 3. Dispatcher LAST (references all component macros above) -#}
+{% include "components/_dispatcher.html" %}

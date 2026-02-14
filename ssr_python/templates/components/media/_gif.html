@@ -1,0 +1,53 @@
+{% macro render_gif(component, tokens, path, component_id, parent_direction='row') %}
+    {% set properties = component.properties | default({}) %}
+    {% set source = properties.source | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set layout = properties.layout | default({}) %}
+    {% set overlay = appearance.overlay | default({}) %}
+    {% set styles = build_styles(component, tokens, layout_direction=parent_direction) %}
+
+    {# Width mode for responsive CSS (used as data attribute) #}
+    {% set width_mode = layout.widthMode | default('stretch') %}
+
+    {# Object position #}
+    {% set obj_position = appearance.objectPosition | default('center') %}
+
+    {# Corner style #}
+    {% set corner_style = appearance.cornerStyle | default('none') %}
+    {% set radius_style = '' %}
+    {% if corner_style != 'none' and tokens.border_radius and corner_style in tokens.border_radius %}
+        {% set radius_style = 'border-radius: ' ~ tokens.border_radius[corner_style] ~ ';' %}
+    {% endif %}
+
+    {# Filter effect - use CSS variable for combining with hover effects #}
+    {% set filter_value = appearance.filter | default('none') %}
+    {% set filter_style = '' %}
+    {% if filter_value != 'none' and tokens.image_filters and filter_value in tokens.image_filters %}
+        {% set filter_style = '--base-filter: ' ~ tokens.image_filters[filter_value] ~ '; filter: var(--base-filter);' %}
+    {% endif %}
+
+    {# Shadow #}
+    {% set shadow_value = appearance.shadow | default('none') %}
+    {% set shadow_style = '' %}
+    {% if shadow_value != 'none' and tokens.shadows and shadow_value in tokens.shadows %}
+        {% set shadow_style = 'box-shadow: ' ~ tokens.shadows[shadow_value] ~ ';' %}
+    {% endif %}
+    {% if appearance.shadowColor %}
+        {% set shadow_style = '--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ '; ' ~ shadow_style %}
+    {% endif %}
+
+    <figure class="gif-container chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ styles }} position: relative; {{ shadow_style }} {{ radius_style }}">
+        <div class="gif-wrapper" style="position: relative; overflow: hidden; {{ radius_style }}">
+            <img src="{{ source.url }}"
+                 alt="{{ source.altText | default('') }}"
+                 style="width: 100%; height: 100%; object-fit: {{ appearance.fit | default('cover') }}; object-position: {{ obj_position }}; {{ filter_style }}">
+
+            {# Overlay #}
+            {% if overlay.enabled | default(false) %}
+                {% set overlay_color = overlay.color | default('rgba(0,0,0,0.5)') %}
+                {% set overlay_opacity = overlay.opacity | default(50) %}
+                <div class="gif-overlay" style="position: absolute; inset: 0; background: {{ overlay_color }}; opacity: {{ overlay_opacity / 100 }};"></div>
+            {% endif %}
+        </div>
+    </figure>
+{% endmacro %}

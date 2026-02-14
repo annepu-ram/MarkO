@@ -223,6 +223,36 @@ def merge_component_with_defaults(component, defaults, tokens=None, component_pa
     
     return merged_component
 
+def _build_component_template(templates_dir):
+    """
+    Build a single Jinja2 template string by concatenating all component macro files.
+    Reads the _assembly.html manifest, parses include directives, and concatenates
+    the referenced files in order. This keeps all macros in one template scope.
+    """
+    import re
+    assembly_path = os.path.join(templates_dir, 'components', '_assembly.html')
+
+    with open(assembly_path, 'r', encoding='utf-8') as f:
+        assembly_content = f.read()
+
+    # Parse {% include "path" %} directives from assembly
+    include_pattern = re.compile(r'{%[-\s]*include\s+["\'](.+?)["\']\s*[-]?%}')
+    parts = []
+    for match in include_pattern.finditer(assembly_content):
+        filepath = os.path.join(templates_dir, match.group(1))
+        with open(filepath, 'r', encoding='utf-8') as f:
+            parts.append(f.read())
+
+    # Append the rendering loop
+    parts.append("""
+        {% for component in structure %}
+            {{ render_component(component, tokens, [loop.index0]) }}
+        {% endfor %}
+    """)
+
+    return '\n'.join(parts)
+
+
 def render_yaml_structure(structure, tokens=None, defaults=None):
     """
     Recursively renders a YAML structure to HTML using Jinja2 templates.
@@ -250,18 +280,14 @@ def render_yaml_structure(structure, tokens=None, defaults=None):
         for i, component in enumerate(structure)
     ]
 
-    # The main template string that will contain the logic to render components
-    # It imports the component macros and then iterates through the structure.
-    # Pass path information for component ID generation
-    template_str = """
-        {% import 'macros/_components.html' as components %}
-        {% for component in structure %}
-            {{ components.render_component(component, tokens, [loop.index0]) }}
-        {% endfor %}
-    """
+    # Build the template by concatenating all component macro files.
+    # Jinja2 {% include %} does NOT export macros to the parent scope,
+    # so we concatenate files in Python to keep all macros in one template.
+    templates_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+    template_str = _build_component_template(templates_dir)
+
     try:
         # Create Jinja2 environment with whitespace trimming to avoid empty lines in inline styles
-        templates_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
         env = Environment(
             loader=FileSystemLoader(templates_dir),
             trim_blocks=True,      # Remove first newline after block tag

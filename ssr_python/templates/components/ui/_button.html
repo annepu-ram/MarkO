@@ -1,0 +1,12 @@
+{% macro render_button(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set action = properties.action | default({}) %}
+    {% set styles = build_styles(component, tokens) %}
+    <button type="button"
+            class="btn chrome-target"
+            data-component-id="{{ component_id }}"
+            {% if styles %}style="{{ styles }} position: relative;"{% else %}style="position: relative;"{% endif %}
+            {% if action.href %}onclick="window.location.href='{{ action.href }}'"{% endif %}>
+        {{ properties.text | default('Button') }}
+    </button>
+{% endmacro %}

@@ -1,0 +1,32 @@
+{% macro render_layout_column(component, tokens, path, component_id, parent_direction='row') %}
+    {% set properties = component.properties | default({}) %}
+    {% set layout_props = properties.layout | default({}) %}
+    {% set spacing_props = properties.spacing | default({}) %}
+    {% set tag = layout_props.tag | default('section') %}
+    {% set width_mode = layout_props.widthMode | default('stretch') %}
+
+    {# Get marginInline value for CSS variable (used in margin-aware width calculation) #}
+    {% set margin_inline_token = spacing_props.marginInline | default('none') %}
+    {% set margin_inline_value = '0px' %}
+    {% if tokens and tokens.spacing and margin_inline_token in tokens.spacing %}
+        {% set margin_inline_value = tokens.spacing[margin_inline_token] %}
+    {% endif %}
+
+    {# Outer wrapper styles: box model properties (pass parent_direction so width mode uses correct context) #}
+    {% set outer_styles = build_styles(component, tokens, part='outer', layout_direction=parent_direction) %}
+
+    {# Add CSS variable for margin-aware width calculation #}
+    {% set outer_styles = outer_styles ~ ' --margin-inline: ' ~ margin_inline_value ~ ';' %}
+
+    {# Inner wrapper styles: flex layout properties #}
+    {% set inner_styles = build_flex_styles(component, tokens, 'column') %}
+
+    <{{ tag }} class="layout-column chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ outer_styles }}">
+        <div class="layout-column__content" style="{{ inner_styles }}">
+            {% for child in component.components | default([]) %}
+                {% set child_path = path + ['components', loop.index0] %}
+                {{ render_component(child, tokens, child_path, 'column') }}
+            {% endfor %}
+        </div>
+    </{{ tag }}>
+{% endmacro %}

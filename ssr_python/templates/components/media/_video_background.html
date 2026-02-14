@@ -1,0 +1,75 @@
+{% macro render_video_background(component, tokens, path, component_id, parent_direction='row') %}
+    {% set properties = component.properties | default({}) %}
+    {% set source = properties.source | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set playback = properties.playback | default({}) %}
+    {% set overlay = appearance.overlay | default({}) %}
+    {% set content = properties.content | default({}) %}
+    {% set has_children = component.components and component.components | length > 0 %}
+    {% set base_styles = build_styles(component, tokens, layout_direction=parent_direction) %}
+
+    {# Aspect ratio and min-height #}
+    {% set aspect_ratio = appearance.aspectRatio | default('16/9') %}
+    {% set min_height = appearance.minHeight | default(400) %}
+    {% set aspect_style = 'aspect-ratio: ' ~ aspect_ratio ~ '; min-height: ' ~ min_height ~ 'px;' %}
+
+    {# Video styles #}
+    {% set obj_fit = appearance.objectFit | default('cover') %}
+    {% set obj_position = appearance.objectPosition | default('center') %}
+
+    {# Content alignment #}
+    {% set v_align = content.verticalAlign | default('center') %}
+    {% set h_align = content.horizontalAlign | default('center') %}
+    {% set padding = content.padding | default('md') %}
+    {% set padding_value = tokens.spacing[padding] if tokens and tokens.spacing and padding in tokens.spacing else '2rem' %}
+
+    {# Map alignment values to CSS #}
+    {% set justify_map = {'start': 'flex-start', 'center': 'center', 'end': 'flex-end'} %}
+    {% set align_map = {'left': 'flex-start', 'center': 'center', 'right': 'flex-end'} %}
+    {% set justify_content = justify_map[v_align] | default('center') %}
+    {% set align_items = align_map[h_align] | default('center') %}
+
+    <figure class="video-background-container chrome-target"
+            data-component-id="{{ component_id }}"
+            data-component-type="video-background"
+            style="{{ base_styles }} {{ aspect_style }} position: relative; overflow: hidden;">
+
+        {# Background video #}
+        <video class="video-bg"
+               {% if source.url %}src="{{ source.url }}"{% endif %}
+               {% if source.poster %}poster="{{ source.poster }}"{% endif %}
+               {% if playback.autoplay | default(true) %}autoplay{% endif %}
+               {% if playback.loop | default(true) %}loop{% endif %}
+               {% if playback.muted | default(true) %}muted{% endif %}
+               playsinline
+               style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ obj_fit }}; object-position: {{ obj_position }}; z-index: 0;">
+            Your browser does not support the video tag.
+        </video>
+
+        {# Overlay layer #}
+        {% if overlay.enabled | default(true) %}
+            {% set overlay_color = overlay.color | default('rgba(0,0,0,0.4)') %}
+            {% set overlay_opacity = overlay.opacity | default(40) %}
+            <div class="video-overlay"
+                 style="position: absolute; inset: 0; background: {{ overlay_color }}; opacity: {{ overlay_opacity / 100 }}; z-index: 1; pointer-events: none;">
+            </div>
+        {% endif %}
+
+        {# Content layer for nested components #}
+        {% if has_children %}
+            <div class="video-content"
+                 style="position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: {{ justify_content }}; align-items: {{ align_items }}; width: 100%; height: 100%; padding: {{ padding_value }}; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word;">
+                {% for child in component.components | default([]) %}
+                    {% set child_path = path + ['components', loop.index0] %}
+                    {{ render_component(child, tokens, child_path) }}
+                {% endfor %}
+            </div>
+        {% else %}
+            {# Placeholder when no children #}
+            <div class="video-content video-placeholder"
+                 style="position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; height: 100%; padding: {{ padding_value }}; box-sizing: border-box; color: white; text-align: center;">
+                <span style="font-size: 1.5rem; opacity: 0.8;">Drop components here</span>
+            </div>
+        {% endif %}
+    </figure>
+{% endmacro %}

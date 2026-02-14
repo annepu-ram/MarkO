@@ -1,0 +1,12 @@
+{% macro render_calendar(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set label = properties.label | default({}) %}
+    {% set field = properties.field | default({}) %}
+    {% set styles = build_styles(component, tokens) %}
+    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+        {% if label.show %}
+            <label>{{ label.text | default('') }}</label>
+        {% endif %}
+        <input type="date" value="{{ field.value | default('') }}">
+    </div>
+{% endmacro %}
