@@ -1,0 +1,285 @@
+# Ticker Template: Team Members
+# Team headshot cards with name, role, and social link
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Outfit', sans-serif"
+        content: &font-content "'Outfit', sans-serif"
+      colors:
+        primary: &color-primary '#18181b'
+        secondary: &color-secondary '#71717a'
+        accent: &color-accent '#0ea5e9'
+        background: &color-background '#f0f9ff'
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xxl
+          paddingInline: lg
+      components:
+        - name: eyebrow
+          properties:
+            text: THE PEOPLE BEHIND THE PRODUCT
+            typography:
+              size: xs
+              weight: semibold
+              color: *color-accent
+              align: center
+              letterSpacing: wider
+              transform: uppercase
+        - name: heading
+          properties:
+            text: Meet Our Team
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 25
+              mode: continuous
+              pauseOnHover: true
+            layout:
+              width: "200"
+            spacing:
+              marginBlock: lg
+              marginInline: none
+              gap: lg
+            appearance:
+              columnBackground: *color-background
+              columnTransparency: 100
+              columnRadius: lg
+              columnBorder:
+                width: 1
+                style: solid
+                color: *color-secondary
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face
+                          altText: Alex Rivera
+                        appearance:
+                          radius: pill
+                          fit: cover
+                          minHeight: 150
+                    - name: heading
+                      properties:
+                        text: Alex Rivera
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: CEO & Co-Founder
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          align: center
+                          weight: medium
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop&crop=face
+                          altText: Sarah Kim
+                        appearance:
+                          radius: pill
+                          fit: cover
+                          minHeight: 150
+                    - name: heading
+                      properties:
+                        text: Sarah Kim
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: CTO
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          align: center
+                          weight: medium
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face
+                          altText: Marcus Johnson
+                        appearance:
+                          radius: pill
+                          fit: cover
+                          minHeight: 150
+                    - name: heading
+                      properties:
+                        text: Marcus Johnson
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Head of Design
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          align: center
+                          weight: medium
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&crop=face
+                          altText: Emma Chen
+                        appearance:
+                          radius: pill
+                          fit: cover
+                          minHeight: 150
+                    - name: heading
+                      properties:
+                        text: Emma Chen
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: VP Engineering
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          align: center
+                          weight: medium
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face
+                          altText: David Park
+                        appearance:
+                          radius: pill
+                          fit: cover
+                          minHeight: 150
+                    - name: heading
+                      properties:
+                        text: David Park
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Head of Marketing
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          align: center
+                          weight: medium
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face
+                          altText: Olivia Taylor
+                        appearance:
+                          radius: pill
+                          fit: cover
+                          minHeight: 150
+                    - name: heading
+                      properties:
+                        text: Olivia Taylor
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Product Manager
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          align: center
+                          weight: medium

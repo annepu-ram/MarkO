@@ -28,7 +28,8 @@
       "Bash(done)",
       "Bash(for f in 06_storytelling_narrative.yaml 08_magazine_editorial.yaml 09_card_based.yaml 10_asymmetric_creative.yaml)",
       "Bash(timeout:*)",
-      "Bash(ls -la \"c:\\\\Users\\\\sannepu\\\\python vibe coding\\\\example_templates\\\\hero\"\" | grep -i \"08 \")"
+      "Bash(ls -la \"c:\\\\Users\\\\sannepu\\\\python vibe coding\\\\example_templates\\\\hero\"\" | grep -i \"08 \")",
+      "WebFetch(domain:web.dev)"
     ],
     "deny": [],
     "ask": []

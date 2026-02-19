@@ -3,17 +3,23 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#e5e7eb'
+        accent: &color-accent '#059669'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f9fafb' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: sm }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: soft
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
           padding: { block: none, inline: none }
         spacing: { marginBlock: lg, marginInline: lg }
       components:
@@ -31,20 +37,20 @@
             - name: eyebrow
               properties:
                 text: NEW ARRIVAL
-                typography: { size: xxs, weight: semibold, color: '#059669', transform: uppercase, letterSpacing: wider }
+                typography: { size: xxs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
             - name: heading
               properties:
                 text: Classic Timepiece
                 level: 3
-                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                typography: { size: lg, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: xs }
             - name: caption
               properties:
                 text: "$299.00"
-                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                typography: { size: lg, weight: bold, color: *color-primary, align: left }
             - name: button
               properties:
                 text: Add to Cart
-                appearance: { background: { color: '#111827' }, radius: md }
-                typography: { color: '#ffffff', weight: semibold }
+                appearance: { background: { color: *color-primary }, radius: md }
+                typography: { color: *color-background, weight: semibold }
                 layout: { widthMode: stretch }

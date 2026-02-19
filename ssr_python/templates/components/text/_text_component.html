@@ -6,7 +6,7 @@
         {% set size = properties.size | default('md') %}
         <h{{ properties.level | default(2) }} class="heading chrome-target" data-component-id="{{ component_id }}" data-size="{{ size }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</h{{ properties.level | default(2) }}>
     {% elif name == 'paragraph' %}
-        <p class="chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
+        <p class="paragraph chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
     {% elif name == 'eyebrow' %}
         <p class="text-eyebrow chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
     {% elif name == 'caption' %}

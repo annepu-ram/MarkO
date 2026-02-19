@@ -3,15 +3,21 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#1e1b4b'
+        secondary: &color-secondary '#4b5563'
+        accent: &color-accent '#7c3aed'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#faf5ff' }
+      background: { color: *color-background }
   components:
     - name: layout-row
       properties:
         layout: { horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: xl }
         spacing: { paddingBlock: xxl, paddingInline: xl }
         appearance:
-          background: { color: '#faf5ff' }
+          background: { color: *color-background }
       components:
         - name: gif
           properties:
@@ -22,7 +28,7 @@
           properties:
             layout: { horizontalAlign: left, widthMode: "50", gap: md }
             appearance:
-              background: { color: '#ffffff' }
+              background: { color: *color-background }
               radius: lg
               shadow: soft
               padding: { block: lg, inline: lg }
@@ -30,25 +36,25 @@
             - name: eyebrow
               properties:
                 text: NEW PRODUCT LAUNCH
-                typography: { size: xs, weight: semibold, color: '#7c3aed', transform: uppercase, letterSpacing: wider }
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
             - name: heading
               properties:
                 text: See It in Action
                 level: 2
-                typography: { size: xxl, weight: extrabold, color: '#1e1b4b', align: left }
+                typography: { size: xxl, weight: extrabold, color: *color-primary, align: left }
                 spacing: { marginBlock: sm }
             - name: paragraph
               properties:
                 text: |
                   Our revolutionary platform is ready for you. Book a personalized
                   demo with our team and discover what's possible.
-                typography: { size: md, color: '#4b5563', align: left, lineHeight: "1.7" }
+                typography: { size: md, color: *color-secondary, align: left, lineHeight: "1.7" }
             - name: calendar
               properties:
                 display: { month: 3, year: 2026 }
             - name: button
               properties:
                 text: Book a Demo
-                appearance: { background: { color: '#7c3aed' }, radius: md }
-                typography: { color: '#ffffff', weight: bold }
+                appearance: { background: { color: *color-accent }, radius: md }
+                typography: { color: *color-background, weight: bold }
                 layout: { widthMode: stretch }

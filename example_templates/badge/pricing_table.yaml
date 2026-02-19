@@ -1,0 +1,140 @@
+# Badge: Pricing Table with Plan Badges
+# Pricing cards with popular/recommended badges
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#f1f5f9'
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#475569'
+        accent: &color-accent '#7c3aed'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: PRICING
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Choose Your Plan
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: heading
+                  properties:
+                    text: Starter
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: "$9"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: per month
+                    typography: { size: sm, color: *color-secondary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: "5 projects\n10GB storage\nEmail support"
+                    typography: { size: sm, color: *color-secondary, align: center }
+                    spacing: { marginBlock: md }
+                - name: button
+                  properties:
+                    text: Get Started
+                    appearance: { background: { color: *color-background }, border: { width: 1, color: *color-accent } }
+                    typography: { color: *color-accent, weight: semibold }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: *color-accent }, radius: lg, shadow: elevated }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: badge
+                  properties: { text: "MOST POPULAR", variant: warning, pill: true }
+                - name: heading
+                  properties:
+                    text: Professional
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: '#ffffff', align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: "$29"
+                    typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                - name: paragraph
+                  properties:
+                    text: per month
+                    typography: { size: sm, color: '#e2e8f0', align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: "Unlimited projects\n100GB storage\nPriority support\nCustom domain"
+                    typography: { size: sm, color: '#e2e8f0', align: center }
+                    spacing: { marginBlock: md }
+                - name: button
+                  properties:
+                    text: Start Free Trial
+                    appearance: { background: { color: '#ffffff' } }
+                    typography: { color: *color-accent, weight: semibold }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: heading
+                  properties:
+                    text: Enterprise
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: "$99"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: per month
+                    typography: { size: sm, color: *color-secondary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: "Everything in Pro\nUnlimited storage\n24/7 phone support\nSSO & SAML"
+                    typography: { size: sm, color: *color-secondary, align: center }
+                    spacing: { marginBlock: md }
+                - name: button
+                  properties:
+                    text: Contact Sales
+                    appearance: { background: { color: *color-background }, border: { width: 1, color: *color-accent } }
+                    typography: { color: *color-accent, weight: semibold }

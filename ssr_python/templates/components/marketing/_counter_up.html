@@ -1,0 +1,18 @@
+{% macro render_counter_up(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set end_value = properties.endValue | default(0) %}
+    {% set duration = properties.duration | default(2000) %}
+    {% set prefix = properties.prefix | default('') %}
+    {% set suffix = properties.suffix | default('') %}
+    {% set base_styles = build_styles(component, tokens) %}
+
+    <div class="counter-up chrome-target"
+         data-component-id="{{ component_id }}"
+         data-end-value="{{ end_value }}"
+         data-duration="{{ duration }}"
+         data-prefix="{{ prefix }}"
+         data-suffix="{{ suffix }}"
+         style="{{ base_styles }} display: inline-block;">
+        <span class="counter-up__value">{{ prefix }}0{{ suffix }}</span>
+    </div>
+{% endmacro %}

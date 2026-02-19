@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Manrope', sans-serif"
-        headingLevel2: &font-heading-level2 "'Manrope', sans-serif"
+        heading: &font-heading "'Manrope', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#18181b'
@@ -62,11 +61,11 @@
                 inactive: { color: *color-secondary }
             appearance:
               tab:
-                background: { active: '#ffffff', inactive: '#f4f4f5' }
+                background: { active: *color-background, inactive: *color-secondary }
                 border: { width: 3, style: solid, position: lower }
               content:
-                background: { color: '#ffffff', transparency: 100 }
-                border: { color: '#e4e4e7', width: 1, style: solid }
+                background: { color: *color-background, transparency: 100 }
+                border: { color: *color-secondary, width: 1, style: solid }
                 padding: { block: lg, inline: lg }
             spacing: { marginBlock: lg }
           tabs:

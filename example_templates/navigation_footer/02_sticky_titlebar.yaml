@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Poppins', sans-serif"
-        headingLevel2: &font-heading-level2 "'Poppins', sans-serif"
+        heading: &font-heading "'Poppins', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
@@ -44,9 +43,9 @@
           shrinkPercentage: 75
         appearance:
           background: { color: *color-background, transparency: 100 }
-          border: { width: 1, style: solid, color: '#e2e8f0' }
+          border: { width: 1, style: solid, color: *color-secondary }
           focus:
-            background: '#f1f5f9'
+            background: *color-background
             color: *color-accent
         typography:
           title: { size: 24, weight: bold, color: *color-primary }
@@ -63,7 +62,7 @@
           background:
             type: gradient
             gradient:
-              colorStart: '#f0f9ff'
+              colorStart: *color-background
               colorEnd: *color-background
               direction: to bottom
       components:
@@ -129,7 +128,7 @@
                   properties:
                     layout: { align: start, horizontalAlign: space-evenly }
                     spacing: { paddingBlock: lg, paddingInline: lg }
-                    appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: lg }
+                    appearance: { background: { color: *color-background, transparency: 100 }, radius: lg }
                   components:
                     - name: heading
                       properties:
@@ -145,7 +144,7 @@
                   properties:
                     layout: { align: start, horizontalAlign: space-evenly }
                     spacing: { paddingBlock: lg, paddingInline: lg }
-                    appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: lg }
+                    appearance: { background: { color: *color-background, transparency: 100 }, radius: lg }
                   components:
                     - name: heading
                       properties:
@@ -161,7 +160,7 @@
                   properties:
                     layout: { align: start, horizontalAlign: space-evenly }
                     spacing: { paddingBlock: lg, paddingInline: lg }
-                    appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: lg }
+                    appearance: { background: { color: *color-background, transparency: 100 }, radius: lg }
                   components:
                     - name: heading
                       properties:
@@ -180,7 +179,7 @@
       properties:
         layout: { align: center, horizontalAlign: space-evenly }
         spacing: { paddingBlock: xxxl, paddingInline: xl }
-        appearance: { background: { color: '#f1f5f9', transparency: 100 } }
+        appearance: { background: { color: *color-background, transparency: 100 } }
       components:
         - name: heading
           properties:

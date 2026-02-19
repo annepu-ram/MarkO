@@ -1,0 +1,256 @@
+# Ticker Template: Customer Reviews
+# Star ratings with testimonial text in scrolling cards
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Merriweather', serif"
+        content: &font-content "'Open Sans', sans-serif"
+      colors:
+        primary: &color-primary '#1a1a2e'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#f59e0b'
+        background: &color-background '#fefce8'
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xxl
+          paddingInline: lg
+      components:
+        - name: heading
+          properties:
+            text: What Our Customers Say
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+        - name: paragraph
+          properties:
+            text: Join thousands of happy customers
+            typography:
+              size: md
+              color: *color-secondary
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 35
+              mode: continuous
+              pauseOnHover: true
+            layout:
+              width: "280"
+            spacing:
+              marginBlock: lg
+              marginInline: none
+              gap: lg
+            appearance:
+              columnBackground: *color-background
+              columnTransparency: 100
+              columnRadius: lg
+              columnBorder:
+                width: 1
+                style: solid
+                color: *color-secondary
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: '"Absolutely love this product! The quality exceeded my expectations. Will definitely order again."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: Sarah Mitchell
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Verified Buyer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 4.5
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: '"Great value for money. Shipping was fast and packaging excellent. Highly recommend to anyone."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: James Rodriguez
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Verified Buyer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: '"Third purchase and each time flawless. Customer service is top-notch and really responsive."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: Emily Chen
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Repeat Customer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: heart
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: '"Simply perfect! Bought as a gift and my partner absolutely loved it. Attention to detail is remarkable."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: Priya Patel
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Gift Buyer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 4
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: '"Really impressed with the build quality. Feels premium and looks even better in person."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: Marcus Thompson
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Verified Buyer
+                        typography:
+                          size: xs
+                          color: *color-secondary

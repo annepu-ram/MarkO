@@ -36,14 +36,14 @@ npm run build:sprite                # Rebuild SVG icon sprite
 
 ## SSR Architecture Overview
 
-### Core Rendering Flow (with Iframe)
+### Core Rendering Flow
 
 ```
 YAML Editor → POST /render → Flask Backend
                               ↓
                          renderer.py: render_yaml_structure()
                               ↓
-                         Jinja2 Macros (_components.html)
+                         Jinja2 Macros (templates/components/)
                               ↓
                          HTML Response
                               ↓
@@ -92,16 +92,17 @@ ssr_python/
 ├── templates/
 │   ├── index.html            # Main application UI (with iframe)
 │   ├── preview_frame.html    # Iframe preview template
-│   └── components/           # Split Jinja2 component macros (28 files)
+│   └── components/           # Split Jinja2 component macros (36 files)
 │       ├── _assembly.html    # Include manifest (load order)
 │       ├── _utilities.html   # build_styles + build_flex_styles macros
 │       ├── _vars_builders.html # build_tabs_vars + build_accordion_vars
 │       ├── _dispatcher.html  # render_component() dispatcher
 │       ├── layout/           # page, layout-row, layout-column, columnsgrid, form
-│       ├── interactive/      # tabs, accordion, carousel, hamburger
+│       ├── interactive/      # tabs, accordion, carousel, hamburger, ticker
 │       ├── text/             # heading, paragraph, eyebrow, caption, blockquote, link
 │       ├── media/            # image, video, gif, video-background, media-caption
 │       ├── ui/               # button, titlebar, br
+│       ├── marketing/        # icon, badge, rating, progress-bar, counter-up, countdown
 │       └── forms/            # textbox, textarea, dropdown, checkbox, radio, calendar
 └── static/
     ├── css/
@@ -112,7 +113,7 @@ ssr_python/
     │   ├── images-panel.css  # Images panel styles (search, grid, upload)
     │   └── tokens.css        # Auto-generated CSS custom properties
     ├── js/
-    │   ├── main.js           # Application bootstrap
+    │   ├── main.js           # Application bootstrap, toolbar actions, standalone export
     │   ├── ssr_app.js        # SSR rendering bridge, iframe communication
     │   ├── preview_bridge.js # Runs inside iframe, handles content/clicks
     │   ├── selectionManager.js   # Component selection
@@ -123,8 +124,8 @@ ssr_python/
     │   ├── metadataLoader.js     # API metadata fetching
     │   ├── yamlUtils.js          # YAML manipulation
     │   ├── events.js             # Event wiring
-    │   ├── customRenderers.js    # Complex property editors
-    │   ├── component_interactions.js  # Interactive component init
+    │   ├── customRenderers.js    # Complex property editors (accordion, tabs, links, ticker)
+    │   ├── swift-sites-runtime.js # Standalone runtime for interactive components
     │   ├── chat.js               # AI chat UI component
     │   ├── chatService.js        # Chat API service
     │   ├── yamlWrapper.js        # YAML compatibility layer (eemeli/yaml)
@@ -135,8 +136,44 @@ ssr_python/
     │   └── utils/
     │       ├── object.js     # Deep clone, merge, nested get/set
     │       └── timing.js     # Debounce helper
-    └── icon-sprite.svg       # SVG icon sprite (includes sparkles icon)
+    └── icon-sprite.svg       # SVG icon sprite
 ```
+
+---
+
+## App UI Layout
+
+The application uses a two-row flex column layout:
+
+```
+.app-layout          (display: flex; flex-direction: column; height: 100vh)
+  ├── .app-header    (flex-shrink: 0; height: 52px)   ← Toolbar row
+  └── .app-container (flex: 1; display: flex)          ← Content row
+       ├── .sidebar            ← Icon nav buttons
+       ├── .sidebar-panels     ← Component tree, themes, images panels
+       ├── .main-canvas        ← YAML editor + iframe preview
+       └── .properties-section ← Properties inspector panel
+```
+
+### Toolbar Buttons (Header Actions)
+
+| Button | ID | Action | Notes |
+|--------|----|--------|-------|
+| Undo | `undoBtn` | `historyManager.undo()` | Disabled when nothing to undo |
+| Redo | `redoBtn` | `historyManager.redo()` | Disabled when nothing to redo |
+| Fullscreen | `fullscreenBtn` | Opens fullscreen modal | CSS overlay modal, not native Fullscreen API |
+| Clear | `clearBtn` | Clears YAML editor | Also clears history and sessionStorage |
+| Export | `exportBtn` | Downloads standalone HTML | Self-contained `index.html` with inlined CSS/JS |
+
+### Fullscreen Preview & Export
+
+Both use `buildStandaloneHtml(renderedHtml)` in `main.js` which:
+1. Fetches `tokens.css`, `components.css`, `swift-sites-runtime.js`, and `icon-sprite.svg`
+2. Inlines everything into a self-contained HTML document
+3. Escapes `</script>` in JS content to prevent HTML parser breakage: `runtimeJs.replace(/<\/script>/gi, '<\\/script>')`
+
+- **Fullscreen:** Sets `iframe.srcdoc` with the standalone HTML, shows CSS overlay modal. Close with Escape key or X button.
+- **Export:** Creates a Blob download of `index.html`.
 
 ---
 
@@ -168,18 +205,6 @@ Parent Window (ssr_app.js)          Iframe (preview_bridge.js)
 | `ssr_app.js` | static/js/ | Parent-side: sends content via postMessage, handles iframe messages |
 | `preview_bridge.js` | static/js/ | Iframe-side: receives content, relays clicks, initializes components |
 | `preview-chrome.css` | static/css/ | Selection highlighting styles for iframe |
-
-### Message Types
-
-| Message | Direction | Purpose |
-|---------|-----------|---------|
-| `IFRAME_READY` | iframe → parent | Iframe loaded, ready for content |
-| `IFRAME_READY_ACK` | parent → iframe | Acknowledges ready, stops retry loop |
-| `UPDATE_CONTENT` | parent → iframe | Sends rendered HTML to display |
-| `COMPONENTS_READY` | iframe → parent | Lists all component IDs in DOM |
-| `SET_SELECTION` | parent → iframe | Highlights a component |
-| `CLEAR_SELECTION` | parent → iframe | Removes selection highlight |
-| `COMPONENT_CLICKED` | iframe → parent | User clicked a component |
 
 ---
 
@@ -241,28 +266,13 @@ Parent Window (ssr_app.js)          Iframe (preview_bridge.js)
 
 ---
 
-## Flask API Endpoints
-
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/` | GET | Main application UI |
-| `/preview-frame` | GET | Iframe preview template |
-| `/render` | POST | Renders YAML to HTML |
-| `/api/chat` | POST | LLM chat endpoint (Ollama AI) |
-| `/api/images/search` | GET | Proxy stock photo search (Pexels/Pixabay) |
-| `/api/schemas` | GET | Component schemas as JSON |
-| `/api/defaults` | GET | Component defaults as JSON |
-| `/api/tokens` | GET | Schema tokens as JSON |
-
----
-
 ## Template System (Split Component Macros)
 
 ### Architecture
 
-**Macro-Based Component System (Split into 28 Files):**
+The component templates are split into individual files under `templates/components/`. The `renderer.py` function `_build_component_template()` reads the manifest file `_assembly.html`, parses its `{% include %}` directives, and concatenates all files into a single template string at render time. This preserves Jinja2 macro scoping (macros from one file can call macros from another).
 
-The original monolithic `_components.html` has been split into individual files under `templates/components/`. The `renderer.py` function `_build_component_template()` reads the manifest file `_assembly.html`, parses its `{% include %}` directives, and concatenates all files into a single template string at render time. This preserves Jinja2 macro scoping (macros from one file can call macros from another).
+**Important:** Jinja2 `{% include %}` does NOT export macros to parent scope. That's why `renderer.py` concatenates file contents in Python rather than using Jinja2's native include.
 
 **File Organization:**
 | Directory | Files | Components |
@@ -271,25 +281,24 @@ The original monolithic `_components.html` has been split into individual files 
 | `components/` | `_vars_builders.html` | `build_tabs_vars()`, `build_accordion_vars()` |
 | `components/` | `_dispatcher.html` | `render_component()` main dispatcher |
 | `layout/` | 5 files | page, layout-row, layout-column, columnsgrid, form |
-| `interactive/` | 4 files | tabs, accordion, carousel, hamburger |
+| `interactive/` | 5 files | tabs, accordion, carousel, hamburger, ticker |
 | `text/` | 1 file | All text components (heading, paragraph, eyebrow, caption, blockquote, link) |
 | `media/` | 5 files | image, video, gif, video-background, media-caption |
 | `ui/` | 3 files | button, titlebar, br |
+| `marketing/` | 6 files | icon, badge, rating, progress-bar, counter-up, countdown |
 | `forms/` | 6 files | textbox, textarea, dropdown, checkbox, radio, calendar |
-
-**Important:** Jinja2 `{% include %}` does NOT export macros to parent scope. That's why `renderer.py` concatenates file contents in Python rather than using Jinja2's native include.
 
 ### Key Macros
 
 #### `render_component(component, tokens, path=[])` - Main Dispatcher (`_dispatcher.html`)
 Routes components based on `component.name`:
 - **Layout:** page, layout-row, layout-column, columnsgrid, form
-- **Interactive:** tabs, accordion, carousel, hamburger
+- **Interactive:** tabs, accordion, carousel, hamburger, ticker
 - **Text:** heading, paragraph, eyebrow, caption, blockquote, link
 - **Media:** image, video, gif, video-background
-- **UI:** button, titlebar
+- **UI:** button, titlebar, br
+- **Marketing:** icon, badge, rating, progress-bar, counter-up, countdown
 - **Forms:** textbox, textarea, dropdown, checkbox, radio, calendar
-- **Utility:** br
 
 #### `build_styles(component, tokens, part=None)` - Style Generator (`_utilities.html`)
 Generates inline CSS styles from component properties and design tokens.
@@ -299,41 +308,155 @@ Generates flexbox styles for layout components.
 
 ---
 
-## Client-Side JavaScript Modules
+## Complete Component Reference
 
-### Core Application
+### Layout Components
+| Component | Container | Children Key | Purpose |
+|-----------|-----------|-------------|---------|
+| `page` | Yes | `components` | Root page wrapper with background, min-height |
+| `layout-row` | Yes | `components` | Horizontal flex container with wrap control |
+| `layout-column` | Yes | `components` | Vertical flex container with gap support |
+| `columnsgrid` | Yes | `columns[].components` | CSS grid with configurable column count |
+| `form` | Yes | `components` | HTML form element |
 
-| Module | Purpose |
-|--------|---------|
-| `main.js` | Application bootstrap, DOM init, event wiring |
-| `ssr_app.js` | SSR rendering bridge, iframe postMessage communication |
-| `preview_bridge.js` | Runs in iframe, handles content updates and click relay |
-| `events.js` | Event listeners (editor, preview, buttons, keyboard) |
+### Interactive Components
+| Component | Container | Children Key | Purpose |
+|-----------|-----------|-------------|---------|
+| `tabs` | Yes | `tabs[].components` | Tabbed content panels |
+| `accordion` | Yes | `items[].components` | Collapsible content sections |
+| `carousel` | Yes | `slides[].components` | Image/content slideshow |
+| `hamburger` | Yes | `components` | Mobile-friendly collapsible menu |
+| `ticker` | Yes | `columns[].components` | Horizontally scrolling content strip |
 
-### State Management
+### Text Components
+| Component | Purpose |
+|-----------|---------|
+| `heading` | H1-H6 headings |
+| `paragraph` | Body text |
+| `eyebrow` | Small label above headings |
+| `caption` | Small descriptive text |
+| `blockquote` | Styled quotation |
+| `link` | Hyperlink |
 
-| Module | Purpose |
-|--------|---------|
-| `selectionManager.js` | Component selection state and highlighting |
-| `pathMapBuilder.js` | Maps component IDs to YAML paths |
-| `historyManager.js` | Undo/redo stacks (max 50 states) |
-| `yamlStorage.js` | SessionStorage persistence (survives tab refresh) |
+### Media Components
+| Component | Purpose |
+|-----------|---------|
+| `image` | Responsive image with hover effects, filters, shadows |
+| `video` | Embedded video (YouTube/Vimeo iframe) |
+| `gif` | Animated GIF |
+| `video-background` | Full-width video with overlay content |
 
-### Properties System
+### UI Components
+| Component | Purpose |
+|-----------|---------|
+| `button` | Clickable button with gradient support |
+| `titlebar` | Navigation bar with sticky scroll behavior |
+| `br` | Visual divider (solid, dashed, wave, slant) |
 
-| Module | Purpose |
-|--------|---------|
-| `propertiesPanel.js` | Renders form fields from schema |
-| `metadataLoader.js` | Loads schemas, defaults, tokens from API |
-| `customRenderers.js` | Complex property editors (links, slides) |
-| `yamlUtils.js` | YAML parsing, component updates |
+### Marketing Components
+| Component | Purpose | Key Properties |
+|-----------|---------|----------------|
+| `icon` | SVG vector symbols from sprite | name, size, color |
+| `badge` | Status/highlight labels (Sale, New) | text, variant, pill |
+| `rating` | Star/heart trust indicators (1-5) | value, iconType, showCount, color |
+| `progress-bar` | Completion/stock visualization | percent, thickness, color |
+| `counter-up` | Animated number on viewport entry | endValue, duration, prefix, suffix |
+| `countdown` | Live countdown timer | targetDate, format, expiredText |
 
-### Component Support
+### Form Components
+| Component | Purpose |
+|-----------|---------|
+| `textbox` | Single-line text input |
+| `textarea` | Multi-line text input |
+| `dropdown` | Select dropdown |
+| `checkbox` | Checkbox input |
+| `radio` | Radio button group |
+| `calendar` | Date picker |
 
-| Module | Purpose |
-|--------|---------|
-| `componentTree.js` | Component hierarchy tree UI |
-| `component_interactions.js` | Runtime init for carousels, tabs, etc. |
+---
+
+## Ticker Component
+
+A horizontally scrolling strip of content using `columns:` array (columnsgrid-like pattern). Background is always transparent; column background is configurable.
+
+### YAML Structure
+```yaml
+- name: ticker
+  properties:
+    behavior:
+      direction: left           # left, right
+      speed: 40                 # pixels per second (continuous mode)
+      mode: continuous          # continuous, step
+      pauseOnHover: true
+      pauseDuration: 3000       # ms between items (step mode only)
+    layout:
+      width: "280"              # pixel-based column width (120, 200, 280, 360, 480, fit)
+    spacing:
+      marginBlock: md
+      marginInline: none
+      gap: lg
+    appearance:
+      columnBackground: '#ffffff'  # uniform background for all columns
+      columnTransparency: 0        # 0=transparent, 100=opaque (same default as layout-column)
+      columnRadius: none           # border radius token (none, xs, sm, md, lg, xl, xxl, pill)
+      columnBorder:
+        width: 0                   # border width px (0=no border)
+        style: solid               # solid, dashed, none
+        color: '#000000'           # border color
+  columns:                      # component-level array (NOT inside properties)
+    - components:
+        - name: heading
+          properties:
+            text: Card Title
+    - components:
+        - name: paragraph
+          properties:
+            text: Content
+```
+
+### How It Works
+
+**ColumnsGrid-like structure:**
+- Uses `columns:` array at component level (same pattern as columnsgrid)
+- Each column is a data container with `components:` — no need to specify `layout-column`
+- Children are rendered with `'column'` parent direction
+- Any component type can be placed directly inside a column
+
+**Ticker-level `layout.width` (pixel-based with CSS clamp):**
+- Applied uniformly to ALL columns via `data-width-mode` attribute on the ticker element
+- Default (`fit`) = content-sized columns, no explicit width set
+- Pixel sizes use CSS `clamp(min, preferred-vw, max)` for responsive behavior:
+  - `"120"` → `clamp(80px, 12vw, 120px)` — compact (logos, badges)
+  - `"200"` → `clamp(120px, 18vw, 200px)` — small text cards
+  - `"280"` → `clamp(180px, 24vw, 280px)` — standard cards
+  - `"360"` → `clamp(240px, 30vw, 360px)` — featured cards
+  - `"480"` → `clamp(300px, 38vw, 480px)` — hero cards
+- Width applied via CSS data-attribute selectors in `components.css` — no JS needed
+
+**Column duplication (all modes):**
+- Columns duplicated in Jinja2 template for seamless infinite looping
+- Duplicates have `class="ticker-item-duplicate"` and `aria-hidden="true"`
+
+**Continuous mode:**
+- CSS `@keyframes ticker-scroll` uses `var(--ticker-offset)` for precise translateX
+- Pause on hover via `animation-play-state: paused` (pure CSS)
+
+**Step mode:**
+- JS `setInterval` moves track one item width at a time
+- CSS `transition: transform 0.6s ease-in-out` for smooth movement
+
+**Gap parsing — use computed `gap`, not CSS variables:**
+- `getComputedStyle(track).gap` returns computed pixel values (e.g., `"32px"`)
+- Never use `getPropertyValue('--ticker-gap')` which returns raw `"2rem"`
+
+### Files
+| File | Purpose |
+|------|---------|
+| `templates/components/interactive/_ticker.html` | Jinja2 macro, columnsgrid-like columns pattern |
+| `static/css/components.css` | Ticker CSS with `@keyframes ticker-scroll` using `var(--ticker-offset)` |
+| `static/js/swift-sites-runtime.js` | Continuous/step init, cleanup, resize handlers (widths via CSS) |
+| `config/component_defaults.yaml` | Default ticker config with `columns:` structure |
+| `config/component_schemas.yaml` | Schema with behavior, layout, spacing, appearance groups |
 
 ---
 
@@ -342,53 +465,95 @@ Generates flexbox styles for layout components.
 The titlebar has special scroll behavior with a clone-based sticky implementation.
 
 ### How It Works
-1. When titlebar initializes, `preview_bridge.js` creates a hidden clone
-2. Clone has `position: fixed; top: 0` and is initially `opacity: 0`
+1. When titlebar initializes, `swift-sites-runtime.js` creates a hidden clone
+2. Clone has `position: fixed; top: 0` and is initially hidden
 3. On scroll, when original titlebar's bottom edge goes above viewport, clone shows
-4. Both original and clone get `.scrolled` class for shrink effect when scrollY > 50
+4. Both original and clone get `.scrolled` class for shrink effect
 
 ### Shrink Effect
 - Logo and title shrink based on `shrinkPercentage` property (default: 30%)
 - Menu items do NOT shrink - only logo and title
 - CSS variable `--shrink-scale` controls shrink amount
 
-### CSS Classes
-- `.titlebar` - Base titlebar styles
-- `.titlebar.scrolled` - Shrunk state (padding, height, logo, title)
-- `.titlebar-clone` - Fixed position clone, hidden by default
-- `.titlebar-clone.visible` - Clone visible when original out of view
+---
+
+## Runtime JavaScript (`swift-sites-runtime.js`)
+
+Standalone JavaScript for interactive components in both the preview and exported sites.
+
+### Initialization
+```javascript
+SwiftSites.init() → calls:
+    initCarousels()
+    initTabs()
+    initAccordions()
+    initTitlebars()
+    initTickers()
+    initCounterUps()
+    initCountdowns()
+```
+
+### Reset (called before re-render)
+```javascript
+SwiftSites.reset() → calls:
+    cleanupCountdowns()
+    cleanupTickers()
+    // Removes data-ss-initialized from all elements
+    // Cleans up titlebar clones
+```
+
+### Init Guard Pattern
+All components use `data-ss-initialized` to prevent double-initialization:
+```javascript
+if (element.dataset.ssInitialized === 'true') return;
+element.dataset.ssInitialized = 'true';
+```
 
 ---
 
-## Component Styling Architecture
+## Client-Side JavaScript Modules
 
-### Components Using CSS Variables
+### Core Application
 
-These components generate CSS variables consumed by `components.css`:
+| Module | Purpose |
+|--------|---------|
+| `main.js` | Application bootstrap, toolbar actions (undo/redo/fullscreen/export), standalone HTML builder |
+| `ssr_app.js` | SSR rendering bridge, iframe postMessage communication |
+| `preview_bridge.js` | Runs in iframe, handles content updates and click relay |
+| `events.js` | Event listeners (editor, preview, buttons, keyboard, Escape key for fullscreen) |
 
-**1. Tabs Component**
-- `--tabs-gap`, `--tabs-margin-block`, `--tabs-margin-inline`
-- `--tabs-label-font-size`, `--tabs-label-font-weight`
-- `--tabs-label-color-active`, `--tabs-label-color-inactive`
+### State Management
 
-**2. Accordion Component**
-- `--accordion-gap`, `--accordion-margin-*`, `--accordion-border-radius`
-- `--accordion-title-*`, `--accordion-content-*`
+| Module | Purpose |
+|--------|---------|
+| `selectionManager.js` | Component selection state and highlighting |
+| `pathMapBuilder.js` | Maps component IDs to YAML paths |
+| `historyManager.js` | Undo/redo stacks (max 50 states) |
+| `yamlStorage.js` | SessionStorage persistence (survives tab refresh, lost on tab close) |
 
-**3. Titlebar Component**
-- `--base-height`, `--title-font-size`, `--title-font-weight`, `--shrink-scale`
-- `--titlebar-title-color`, `--titlebar-link-color`
+### Properties System
 
-**4. Blockquote Component**
-- `--blockquote-border` - Accent border color
+| Module | Purpose |
+|--------|---------|
+| `propertiesPanel.js` | Renders form fields from schema, theme color swatches |
+| `metadataLoader.js` | Loads schemas, defaults, tokens from API |
+| `customRenderers.js` | Complex editors: accordionItems, tabsEditor, linksEditor, tickerItems |
+| `yamlUtils.js` | YAML parsing, component updates, Document API for anchor preservation |
 
-### Components Using Inline Styles Only
+### Component Support
 
-These use `build_styles()` to generate inline styles directly:
-- page, layout-row, layout-column, columnsgrid, form
-- heading, paragraph, eyebrow, caption, link
-- image, video, gif, button, carousel, hamburger
-- Form inputs (textbox, textarea, dropdown, checkbox, radio, calendar)
+| Module | Purpose |
+|--------|---------|
+| `componentTree.js` | Component hierarchy tree UI |
+| `swift-sites-runtime.js` | Standalone runtime for interactive components (carousel, tabs, accordion, titlebar, ticker, counter-up, countdown) |
+
+### UI Panels
+
+| Module | Purpose |
+|--------|---------|
+| `themesPanel.js` | Theme selection, `THEME_COLOR_CONFIG` constant, color anchor management |
+| `imagesPanel.js` | Stock photo search (Pexels/Pixabay), selection, upload |
+| `chat.js` + `chatService.js` | AI chat widget using Ollama |
 
 ---
 
@@ -406,7 +571,7 @@ These use `build_styles()` to generate inline styles directly:
 - `[0, 'components', 1]` → `comp_0_components_1`
 - `[0, 'columns', 0, 'components', 2]` → `comp_0_columns_0_components_2`
 
-### Selection Flow (with Iframe)
+### Selection Flow
 
 ```
 1. User clicks in iframe preview
@@ -417,18 +582,29 @@ These use `build_styles()` to generate inline styles directly:
    ↓
 4. ssr_app.js: dispatches 'iframe-component-clicked' event
    ↓
-5. selectionManager handles selection
+5. selectionManager handles selection, dispatches 'swift-selection-changed' event
    ↓
 6. postMessage SET_SELECTION back to iframe for highlighting
    ↓
 7. Properties panel renders form for component
 ```
 
+### Selection Event System
+
+```javascript
+// selectionManager.js dispatches on select/clear
+window.dispatchEvent(new CustomEvent('swift-selection-changed', {
+    detail: { componentId, path }
+}));
+```
+
+Multiple modules listen: properties panel, chat widget, component tree.
+
 ---
 
 ## Adding New Components to SSR
 
-1. **Add Component Macro** (`_components.html`):
+1. **Create Template** in `templates/components/<category>/_mycomponent.html`:
    ```jinja2
    {% macro render_mycomponent(component, tokens, path, component_id) %}
        {% set properties = component.properties | default({}) %}
@@ -440,13 +616,84 @@ These use `build_styles()` to generate inline styles directly:
    {% endmacro %}
    ```
 
-2. **Add to Dispatcher** (`render_component()` macro)
+2. **Add to Assembly** (`_assembly.html`) - include the new file
 
-3. **Add CSS** (`static/css/components.css`)
+3. **Add to Dispatcher** (`_dispatcher.html`) - add `{% elif name == 'mycomponent' %}` route
 
-4. **Add Defaults** (`component_defaults.yaml`)
+4. **Add CSS** (`static/css/components.css`)
 
-5. **Add Schema** (`component_schemas.yaml`)
+5. **Add Defaults** (`config/component_defaults.yaml`)
+
+6. **Add Schema** (`config/component_schemas.yaml`)
+
+7. **Add Runtime JS** (if interactive) - add init method to `swift-sites-runtime.js`
+
+8. **Add Custom Renderer** (if needed) - add to `customRenderers.js` for complex property editors
+
+**Note:** `renderer.py` auto-discovers template files via `_assembly.html` — no changes needed there.
+
+---
+
+## Architecture Conventions
+
+### Boolean Data Attributes
+Jinja2 templates must use lowercase string `'true'`/`'false'` for boolean data attributes:
+```jinja2
+data-autoplay="{{ 'true' if behavior.autoplay else 'false' }}"
+```
+JavaScript reads these with `element.dataset.autoplay === 'true'`. Using `{{ behavior.autoplay }}` outputs Python `True`/`False` which won't match.
+
+### Component-Level vs Properties Arrays
+Some components have arrays at the component level (not inside `properties`):
+- `carousel` → `component.slides`
+- `tabs` → `component.tabs`
+- `accordion` → `component.items`
+- `ticker` → `component.columns`
+
+These use `target: component` in the schema and are handled separately from properties during YAML updates.
+
+### YAML Anchor/Alias Preservation
+When editing properties through the panel, use the Document API to preserve theme anchors:
+```javascript
+const doc = parseDocument(yamlContent);
+const componentNode = navigateToComponent(doc, componentPath);
+updateComponentPropertiesInDocument(doc, path, values);
+const yamlText = stringifyDocument(doc);  // Anchors preserved!
+```
+
+### Theme Color System
+Theme colors use YAML anchors for global updates:
+```yaml
+primary: &color-primary '#1e293b'
+# ... referenced as:
+color: *color-primary
+```
+
+`THEME_COLOR_CONFIG` in `themesPanel.js` is the single source of truth for color keys, anchor names, and labels. The properties panel shows theme color swatches below every color field.
+
+### Inline Styles vs CSS Variables
+- **CSS Variables:** Tabs, accordion, titlebar, blockquote (complex styles consumed by `components.css`)
+- **Inline Styles:** Everything else via `build_styles()` macro
+
+### Gradient Background Support
+```yaml
+appearance:
+  background:
+    type: gradient  # 'solid' or 'gradient'
+    gradient:
+      colorStart: '#ff0000'
+      colorEnd: '#0000ff'
+      direction: 'to right'
+```
+
+### Image Hover Effects with Filters
+CSS `--base-filter` custom property combines inline filters with hover effects:
+```css
+filter: var(--base-filter, none) brightness(0.85);
+```
+
+### Responsive Font Sizing
+Preview uses fluid typography: `clamp(12px, 1vw + 8px, 18px)` on root. Component fonts use `rem` units. UI fonts remain fixed.
 
 ---
 
@@ -460,401 +707,7 @@ The following metadata files must stay synchronized:
 | `component_schemas.yaml` | Inspector form fields, types, labels, token refs |
 | `schema_tokens.yaml` | Design token options for dropdowns |
 | `tokens.yaml` | CSS token values (snake_case keys) |
-| `COMPONENT_PROPERTIES_MATRIX.md` | Cross-tabulation of components vs properties |
 | `LLM_COMPONENT_GUIDE.md` | LLM-friendly guide for YAML generation |
-| `MEDIA_CAROUSEL_ENHANCEMENTS.md` | Implementation plan for media component enhancements |
-
----
-
-## Recent Fixes (January 2025)
-
-### Layout-Row Wrapping Fix
-- **Fixed:** Images and other components in layout-row now wrap correctly when using `wrap: wrap`
-- **Root cause:** `flex-basis: 0%` allowed children to shrink infinitely instead of wrapping
-- **Solution:** Changed flex-basis to actual percentage values (23%, 48%, 73%, 100%) so items have minimum widths that trigger wrapping
-- **File:** `_components.html` lines 1324-1347
-
-**Updated width modes for row context:**
-| widthMode | Before | After |
-|-----------|--------|-------|
-| 25% | `flex: 1 1 0%` | `flex: 1 0 23%; max-width: 25%;` |
-| 50% | `flex: 2 1 0%` | `flex: 1 0 48%; max-width: 50%;` |
-| 75% | `flex: 3 1 0%` | `flex: 1 0 73%; max-width: 75%;` |
-| stretch | `flex: 4 1 0%` | `flex: 1 0 100%;` |
-
-### Image Hover Effects with Filters Fix
-- **Fixed:** Hover effects (brighten, darken) now work correctly with filtered images (grayscale, saturate, etc.)
-- **Root cause:** CSS `filter` property doesn't stack - hover filter replaced inline filter instead of combining
-- **Solution:** Use CSS custom property `--base-filter` to combine filters
-- **Files Modified:**
-  - `_components.html` - Output filter as `--base-filter` CSS variable
-  - `components.css` - Hover effects combine with base filter: `filter: var(--base-filter, none) brightness(0.85);`
-
-### Caption Property Removed from Media Components
-- **Removed:** `caption` property from image, gif, and video components
-- **Reason:** Simplifying component structure; use nested text components for captions instead
-- **Files Modified:**
-  - `component_schemas.yaml` - Removed caption groups from image, gif, video
-  - `component_defaults.yaml` - Removed caption defaults
-  - `_components.html` - Removed caption rendering code from macros
-  - `LLM_COMPONENT_GUIDE.md` - Updated component examples
-
-### YAML Library Migration (eemeli/yaml)
-- **Migrated:** From `js-yaml` to `eemeli/yaml` for native anchor/alias support
-- **Added:** `yamlWrapper.js` - Compatibility layer providing js-yaml-like API
-- **Added:** `yaml.bundle.js` - CSP-compliant local bundle of eemeli/yaml
-- **Purpose:** Preserve YAML anchors (`&anchor`) and aliases (`*alias`) when editing via properties panel
-
-**Key Functions:**
-- `parse(content)` - Simple parse, returns plain JS objects (anchors resolved)
-- `parseDocument(content)` - Returns YAML Document (preserves anchors/aliases)
-- `stringify(value)` - Simple stringify
-- `stringifyDocument(doc)` - Stringify with anchors preserved
-- `YAML.isMap()`, `YAML.isSeq()`, `YAML.isAlias()` - Type checks
-
-**Document API Usage:**
-```javascript
-// When editing properties while preserving anchors:
-const doc = parseDocument(yamlContent);
-const componentNode = navigateToComponent(doc, componentPath);
-componentNode.set('properties', updatedProps);
-const yamlText = stringifyDocument(doc);  // Anchors preserved!
-```
-
-### Themes Panel Implementation
-- **Added:** `themesPanel.js` - Theme selection and application UI
-- **Added:** Theme color aliases in YAML templates using anchors
-- **Example:** `primary: &color-primary '#1e293b'` with `color: *color-primary`
-- Theme colors flow through YAML anchors, automatically updating all references
-
-### Themes Panel Refactoring (February 2026)
-- **Added:** `THEME_COLOR_CONFIG` exported constant — single source of truth for color keys, anchor names, and labels
-- **Changed:** Apply button moved from scrollable `panel-content` to a fixed `themesFooter` element (stays visible while scrolling)
-- **Changed:** `applyTheme()` now uses `THEME_COLOR_CONFIG` to iterate color anchors instead of hardcoded calls
-- **Changed:** `attachThemePanelEvents()` accepts both `container` and `footer` params to attach Apply button listener
-
-```javascript
-// Shared config used by themesPanel.js and potentially other modules
-export const THEME_COLOR_CONFIG = [
-    { key: 'primary', anchor: 'color-primary', label: 'Primary' },
-    { key: 'secondary', anchor: 'color-secondary', label: 'Secondary' },
-    { key: 'accent', anchor: 'color-accent', label: 'Accent' },
-    { key: 'background', anchor: 'color-background', label: 'Background' },
-];
-```
-
-**Panel HTML structure (in index.html):**
-```html
-<div class="sidebar-panel" id="themesPanel">
-    <div class="panel-header">...</div>
-    <div class="panel-content" id="themesContent">
-        <!-- Scrollable theme list -->
-    </div>
-    <div class="panel-footer" id="themesFooter">
-        <!-- Fixed Apply button rendered here by JS -->
-    </div>
-</div>
-```
-
-### Gradient Background Support
-- **Added:** Gradient backgrounds for buttons, sections, and layout components
-- **Structure:**
-```yaml
-appearance:
-  background:
-    type: gradient  # 'solid' or 'gradient'
-    gradient:
-      colorStart: '#ff0000'
-      colorEnd: '#0000ff'
-      direction: 'to right'  # or 'to bottom', 'to bottom right', etc.
-```
-
-### Media Component Enhancements (Implemented)
-- **Scope:** Image, Video, GIF, Video-Background, Carousel components
-- **Property Restructuring:** Unified all media components to use `appearance` category for consistency:
-  - Renamed `presentation` → `appearance`
-  - Merged `effects.*` properties into `appearance`
-  - Merged `loading.*` properties into `appearance`
-  - Moved `overlay` as nested object inside `appearance.overlay`
-
-**New Properties (all under `appearance.*`):**
-- `appearance.aspectRatio` - CSS aspect-ratio (auto, 16/9, 4/3, 1/1, 3/2, 21/9, 9/16)
-- `appearance.objectPosition` - Focal point (center, top, bottom, left, right, corners)
-- `appearance.filter` - CSS filters (none, grayscale, sepia, blur, brighten, darken, saturate)
-- `appearance.shadow` - Box shadow scale (none, sm, md, lg, xl)
-- `appearance.hoverEffect` - Hover animations (none, zoom, brighten, darken, lift)
-- `appearance.lazy` - Lazy loading toggle
-- `appearance.overlay.enabled/color/opacity` - Overlay configuration
-
-**New Video-Background Component:**
-- Full-width video background with nested overlay content
-- Supports MP4/WebM direct URLs (not iframes)
-- Auto-plays, loops, muted by default (mobile-friendly)
-- Configurable overlay for text readability
-- Content alignment options (vertical/horizontal)
-
-**Files Modified:**
-| File | Changes |
-|------|---------|
-| `component_schemas.yaml` | Image, GIF, Video, Video-Background schemas restructured |
-| `component_defaults.yaml` | All media component defaults updated to `appearance.*` |
-| `_components.html` | render_image, render_gif, render_video, render_video_background macros updated |
-| `components.css` | Added hover effects, caption overlay, video-background styles |
-| `swift-sites-runtime.js` | Carousel enhancements (swipe, keyboard nav, pause button) |
-
-**Carousel Enhancements:**
-- Touch swipe navigation with configurable threshold
-- Keyboard navigation (arrow keys, Home/End)
-- WCAG 2.2.2 compliant pause button for autoplay
-- Fade/slide transition effects
-- Multiple indicator styles (dots, numbers, dashes)
-
-### Boolean Data Attributes Convention
-- **Important:** Jinja2 templates must use lowercase string `'true'`/`'false'` for boolean data attributes
-- **Correct:** `data-autoplay="{{ 'true' if behavior.autoplay else 'false' }}"`
-- **Wrong:** `data-autoplay="{{ behavior.autoplay }}"` (outputs Python `True`/`False`)
-- JavaScript reads these with `element.dataset.autoplay === 'true'`
-
-### Page Background Color Path Fix
-- **Fixed:** Page background color not rendering correctly
-- **Root cause:** Property path mismatch between schema, defaults, and macro
-- **Solution:** Standardized path to `properties.appearance.background.color` across all files
-
-### Theme Color Alias Preservation Fix
-- **Fixed:** Theme color aliases (`*color-primary`) being replaced with literal values when editing properties
-- **Root cause:** `collectPropertyValues()` was overwriting alias nodes with plain values
-- **Solution:** Use YAML Document API (`parseDocument`, `stringifyDocument`) to preserve anchors/aliases
-- **Files Changed:** `main.js`, `yamlUtils.js` - now use Document API for property updates
-
-### Accordion/Carousel Boolean Attributes Fix
-- **Fixed:** Interactive components not responding to boolean settings (autoplay, loop, etc.)
-- **Root cause:** Jinja2 outputting Python `True`/`False` instead of lowercase strings
-- **Solution:** Use ternary in templates: `{{ 'true' if value else 'false' }}`
-- **Affected Components:** carousel, accordion, tabs
-
-### Properties Panel Merge Logic Fix
-- **Fixed:** Property changes getting lost during merge with defaults
-- **Root cause:** `applySelectedComponentProperties` was using plain structure instead of Document API
-- **Solution:** Separate property updates from component-level updates (tabs, items, slides)
-- **Code Pattern:**
-```javascript
-// Use Document API for properties (preserves anchors)
-updateComponentPropertiesInDocument(yamlDoc, path, collectedValues.properties);
-
-// Use direct set for component-level arrays
-if (collectedValues.component) {
-    const node = navigateToComponent(yamlDoc, path);
-    node.set(key, value);
-}
-```
-
-### Text Component Transparency Fix
-- **Fixed:** Text invisible on dark backgrounds due to opaque white backgrounds
-- **Root cause:** heading, paragraph, eyebrow, caption, blockquote had `transparency: 100` (fully opaque white)
-- **Solution:** Changed `transparency` to `0` (fully transparent) in `component_defaults.yaml`
-- Text components now have transparent backgrounds by default, allowing underlying colors/images to show through
-
-### LLM Chat Widget Implementation
-- **Added:** AI-powered chat widget using Ollama (`ollama` package)
-- **Added:** `llm_service.py` for Ollama API integration with `LLM_COMPONENT_GUIDE.md` as context
-- **Added:** `chat.js` and `chatService.js` for chat UI and API communication
-- **Added:** `chat.css` with accent color styling (#9c9ef0)
-- **Added:** `/api/chat` endpoint in `app.py`
-- **Added:** Sparkles icon to `icon-sprite.svg` for chat bubble
-- Chat bubble positioned at bottom-left corner
-- Supports create, modify, and explain actions
-
-### LLM Chat Enhancements (February 2026)
-- **Fixed:** f-string escaping bug in system prompt - curly braces in YAML examples were being interpreted as Python variables
-- **Added:** Configurable timeout via `OLLAMA_TIMEOUT` environment variable (default 120s)
-- **Added:** Request/response logging to `ssr_python/logs/llm_chat.log`
-- **Added:** YAML validation with warning display (shows Apply button even if YAML has issues)
-- **Added:** Selection context synchronization via `swift-selection-changed` DOM event
-- **Changed:** Response handling now discards LLM explanatory text, shows only YAML
-- **Changed:** Chat selection indicator updates automatically when component is selected/deselected
-- **Fixed:** Race condition where chat callback wrapper could be overwritten by main.js
-
-**Selection Event System:**
-```javascript
-// SelectionManager dispatches on select/clear
-window.dispatchEvent(new CustomEvent('swift-selection-changed', {
-    detail: { componentId, path }
-}));
-
-// Chat listens for changes
-window.addEventListener('swift-selection-changed', () => {
-    this.updateSelectionIndicator();
-});
-```
-
-### Bookstore Template
-- **Added:** Comprehensive bookstore template (`example_templates/bookstore_template.yaml`)
-- Uses Unsplash and Pexels images (open source)
-- Sections: Navigation, Hero, New Arrivals, Second Hand Books (50% off), Children's Hard Board Books, Arts & Crafts, Testimonials, Newsletter, Footer
-- Fixed color contrast issues (strikethrough prices, footer text)
-
-### YAML Editor Persistence (SessionStorage)
-- **Added:** New `yamlStorage.js` module for browser storage persistence
-- YAML content now survives tab refresh (F5, Ctrl+R)
-- Uses `sessionStorage` (tab-scoped) - content is lost when tab/browser closes
-- Auto-saves on every editor change via `handleEditorInput()`
-- Auto-loads on page initialization in `main.js`
-- Clear button also clears stored content
-
-**Key Functions:**
-- `yamlStorage.save(content)` - Save YAML to sessionStorage
-- `yamlStorage.load()` - Load YAML from sessionStorage
-- `yamlStorage.clear()` - Clear stored content
-- `yamlStorage.hasContent()` - Check if content exists
-
-### Device Frame Dimensions
-- **Changed:** Tablet viewport from portrait to landscape mode
-  - Width: 1024px, Height: 600px (iPad landscape)
-- **Changed:** Mobile viewport height to 790px
-  - Width: 390px, Height: 790px (iPhone portrait)
-- Defined in `style.css` under `.device-frame.tablet` and `.device-frame.mobile`
-
-### Responsive Font Sizing
-- **Added:** CSS `clamp()` for fluid responsive typography in `preview_frame.html`
-- Root font-size scales with viewport: `clamp(12px, 1vw + 8px, 18px)`
-- Component fonts use `rem` units, automatically scaling with viewport changes
-- UI fonts remain fixed (only preview content is responsive)
-
-### Properties Panel Value Collection Fix
-- **Fixed:** Property changes not applying when value equals default
-- **Root cause:** `collectPropertyValues()` in `propertiesPanel.js` was skipping values that matched defaults
-- **Solution:** Always include collected values; let `main.js` merge handle defaults
-- Example: Setting heading size to "xl" (default) when current was "lg" now works correctly
-
-### Token & Schema Consistency Fixes
-- **Fixed:** Token name mismatch `borderRadius` → `borderRadiusScale` in `component_schemas.yaml`
-- **Fixed:** Titlebar schema path `layout.shrinkPercent` → `scroll.shrinkPercentage` to match macro and defaults
-- **Added:** Missing `appearance.focus.color` to titlebar defaults
-
-### letterSpacing CSS Rendering
-- **Added:** `letter-spacing` CSS generation in `build_styles()` macro
-- Uses `tokens.letter_spacing` mapping: `normal`, `tight`, `wide`, `wider`
-- All text components now render letterSpacing property correctly
-
-### Typography Property Standardization
-All text components now have consistent typography properties:
-
-| Property | heading | paragraph | eyebrow | caption | blockquote | link |
-|----------|:-------:|:---------:|:-------:|:-------:|:----------:|:----:|
-| size | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| weight | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| align | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| color | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| lineHeight | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| transform | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| letterSpacing | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-
-Both `component_schemas.yaml` and `component_defaults.yaml` updated for consistency.
-
-### Viewport Switching Fix
-- **Fixed:** Replaced inline `onclick` handlers with `data-viewport` attributes
-- **Fixed:** Horizontal scrollbar by changing `overflow-x` to `hidden` on app container
-
-### Component Selection & Properties Panel Fix
-- **Fixed:** YAML parser not loading in ES modules - downloaded `js-yaml.min.js` locally to `static/js/` and updated loading in `index.html`
-- **Fixed:** Properties panel not displaying when clicking components in iframe - fixed `window.jsyaml` access pattern in `yamlUtils.js` and `ssr_app.js`
-- **Fixed:** Component tree not refreshing when YAML changes - ensured path map builds correctly from parsed YAML structure
-
-### Iframe Preview Enhancement
-- **Added:** Preview now renders in isolated iframe for complete CSS separation between app UI and preview content.
-- **Fixed:** Race condition with IFRAME_READY handshake using retry pattern with acknowledgment.
-- **Added:** Clone-based sticky titlebar that appears when original scrolls out of view with configurable shrink percentage (default 30%).
-- **Fixed:** Removed page component chrome overlay label, simplified to `.page` class for cleaner rendering.
-
-### Previous Fixes
-
-**Font Size Property:** Removed UTF-8 BOM from `schema_tokens.yaml` - all 9 font size options now visible.
-
-**Width Mode:** Changed from fixed percentages to proportional flex-grow for proper gap handling in layout-row.
-
-**ColumnsGrid:** Calculate width as `100% / columnCount`, stack on mobile <768px.
-
-**Layout-Column Width Mode:** Changed default `align-items` from `stretch` to `center` so child width modes work.
-
-**Layout Containers:** Set `transparency: 0` (fully transparent) for layout-row and layout-column defaults.
-
----
-
-## Troubleshooting SSR
-
-**Preview not updating?**
-- Check browser console for `[SSR App]` and `[Preview Bridge]` messages
-- Verify IFRAME_READY handshake completed (look for "acknowledged by parent")
-- Check Network tab for `/render` response
-
-**Titlebar not sticking?**
-- Titlebar uses clone-based approach, not CSS sticky
-- Clone appears when original's `rect.bottom < 0`
-- Check `.titlebar-clone.visible` class is being added
-
-**Tokens not loading?**
-- Check `tokens.yaml` exists in `ssr_python/` directory
-- Check Flask console for token loading messages
-
-**Selection not working?**
-- Check components have `data-component-id` attributes
-- Verify postMessage communication in console
-- Check `chrome-target` class is present
-
-**YAML parser not available?**
-- Check console for `[Init] js-yaml loaded successfully` message
-- Ensure `js-yaml.min.js` exists in `static/js/` directory
-- Verify `index.html` loads it before the module script
-- Check both `jsyaml` and `window.jsyaml` in browser console
-
-**Properties panel not updating?**
-- Check console for `[SSR App] Built path map with X components`
-- Click component and look for `[SSR App] COMPONENT_CLICKED received`
-- Verify `[SelectionManager] Path lookup result` shows array (not null)
-- Check `[Main] onSelectionChange called with` has valid selection
-
-**YAML not persisting across refresh?**
-- Check console for `[Main] Restored YAML from sessionStorage` on page load
-- Verify `sessionStorage.getItem('swift_sites_yaml_content')` in browser console
-- Note: sessionStorage is tab-scoped - each tab has isolated storage
-- Note: Content is lost when browser/tab closes (use localStorage for permanent storage)
-
----
-
-## Data Model
-
-### YAML Structure
-
-- Root: array with single `{ name: 'page', properties, components }` object
-- **Simple components**: `{ name, properties }` with typography, spacing, layout, appearance
-- **Container components**: Add nested `components`, `columns`, `tabs`, `slides`
-
-### Component Path Map
-
-Maps DOM IDs to YAML paths:
-- `comp_0` → `[0]`
-- `comp_0_components_1` → `[0, 'components', 1]`
-- `comp_0_columns_0_components_2` → `[0, 'columns', 0, 'components', 2]`
-
----
-
-## Legacy CSR Reference
-
-The client-side rendering version exists in the root directory:
-
-**Location:** `js/` directory, entry point `index.html`
-
-**Key Files:**
-- `js/render/index.js` - Main renderer with `renderYamlStructure()`
-- `js/core/state.js` - Global state manager
-- `js/core/yaml.js` - YAML parsing/serialization
-
-**Key Differences from SSR:**
-| Feature | CSR | SSR |
-|---------|-----|-----|
-| Rendering | Browser (JavaScript) | Server (Python/Jinja2) |
-| Preview Isolation | Same document | Iframe |
-| Communication | Direct DOM | postMessage API |
 
 ---
 
@@ -888,27 +741,26 @@ When adding schema fields that reference tokens, use these token names:
 
 ---
 
-## AI Chat Feature (Implemented)
+## Data Model
 
-An AI-powered chat widget that generates and modifies YAML from natural language descriptions using Ollama AI (local or cloud).
+### YAML Structure
 
-### Architecture
+- Root: array with single `{ name: 'page', properties, components }` object
+- **Simple components**: `{ name, properties }` with typography, spacing, layout, appearance
+- **Container components**: Add nested `components`, `columns`, `tabs`, `slides`, or `items`
 
-```
-User Message + Selected Component → Chat UI → POST /api/chat → Flask Backend
-                                                                    ↓
-                                              llm_service.py: Load LLM_COMPONENT_GUIDE.md
-                                                                    ↓
-                                              Build context (YAML + selection)
-                                                                    ↓
-                                              Call Ollama API (ollama)
-                                                                    ↓
-                                              Parse response for YAML blocks
-                                                                    ↓
-Chat UI ← JSON Response ← Return action + YAML
-    ↓
-Update Editor → Trigger /render → Preview Updates
-```
+### Component Path Map
+
+Maps DOM IDs to YAML paths:
+- `comp_0` → `[0]`
+- `comp_0_components_1` → `[0, 'components', 1]`
+- `comp_0_columns_0_components_2` → `[0, 'columns', 0, 'components', 2]`
+
+---
+
+## AI Chat Feature
+
+An AI-powered chat widget that generates and modifies YAML from natural language using Ollama AI.
 
 ### Key Files
 
@@ -923,245 +775,58 @@ Update Editor → Trigger /render → Preview Updates
 
 ```bash
 # Required for Ollama Cloud
-OLLAMA_API_KEY=your_api_key_here    # Get from https://ollama.com/settings/keys
+OLLAMA_API_KEY=your_api_key_here
 
-# Optional environment variables (defaults shown)
-OLLAMA_BASE_URL=https://ollama.com  # Cloud URL (or http://localhost:11434 for local)
-OLLAMA_MODEL=llama3:latest          # Model to use
-LLM_MAX_TOKENS=4096                 # Max response tokens
-LLM_TEMPERATURE=0.7                 # Response creativity (0-2)
-OLLAMA_TIMEOUT=120                  # Request timeout in seconds (default 2 minutes)
+# Optional (defaults shown)
+OLLAMA_BASE_URL=https://ollama.com  # or http://localhost:11434 for local
+OLLAMA_MODEL=llama3:latest
+LLM_MAX_TOKENS=4096
+LLM_TEMPERATURE=0.7
+OLLAMA_TIMEOUT=120                  # seconds
 ```
-
-**Cloud vs Local Usage:**
-| Mode | OLLAMA_API_KEY | OLLAMA_BASE_URL |
-|------|----------------|-----------------|
-| Cloud | Required | `https://ollama.com` (default) |
-| Local | Not needed | `http://localhost:11434` |
-
-### Chat UI Features
-
-- **Floating button:** Bottom-left corner with sparkles icon
-- **Chat window:** 400x500px expandable panel
-- **Selection awareness:** Shows "Editing: [component name]" badge when component selected (via `swift-selection-changed` event)
-- **YAML responses:** Displayed with syntax highlighting and "Apply Changes" button
-- **Action types:** `create` (new page), `modify` (update component), `explain` (text only)
-
-### Selection Context Synchronization
-
-The chat widget listens for component selection changes via a custom DOM event:
-
-```javascript
-// selectionManager.js dispatches this event on selection change
-window.dispatchEvent(new CustomEvent('swift-selection-changed', {
-    detail: { componentId, path: [...path] }
-}));
-
-// chat.js listens for the event
-window.addEventListener('swift-selection-changed', () => {
-    this.updateSelectionIndicator();
-});
-```
-
-This event-based system allows multiple components (properties panel, chat, component tree) to all respond to selection changes without callback conflicts.
 
 ### Response Handling
-
-The LLM returns responses with `<!-- ACTION: type -->` comments:
-- `create`: Replace entire editor content with new YAML
-- `modify`: Merge YAML at selected component path
-- `explain`: Display text response only, no YAML changes
-- `error`: Display error message
-
-**Response Processing:**
-1. YAML is extracted from markdown code blocks (`` ```yaml ... ``` ``)
-2. YAML syntax is validated before display
-3. If valid: Show "Here's the generated YAML:" with Apply button
-4. If invalid: Show YAML with warning banner, Apply button still available
-5. Explanatory text from LLM is discarded (only YAML is shown)
-
-### LLM Request/Response Logging
-
-All LLM interactions are logged to `ssr_python/logs/llm_chat.log` for debugging:
-
-```
-2026-02-05 10:30:15 | INFO | ================================================================================
-2026-02-05 10:30:15 | INFO | NEW CHAT REQUEST
-2026-02-05 10:30:15 | INFO | User Message: create a bakery landing page
-2026-02-05 10:30:15 | INFO | Selected Component: None
-2026-02-05 10:30:15 | INFO | Current YAML Length: 0 chars
-2026-02-05 10:30:18 | INFO | RAW RESPONSE (1523 chars):
-<!-- ACTION: create -->
-...
-2026-02-05 10:30:18 | INFO | PARSED: action=create, yaml_length=845
-```
-
-**Log Location:** `ssr_python/logs/llm_chat.log` (gitignored)
-
-### Error Handling
-
-| Error | User Message |
-|-------|--------------|
-| Connection refused | "Cannot connect to Ollama. Please ensure Ollama is running." |
-| Timeout | "Request timed out after Xs. The model may be overloaded. Try a simpler request." |
-| 401 Unauthorized | "AI authentication failed. Please contact the administrator." |
-| YAML validation | Warning banner with error details, YAML still shown |
-| Not configured | "AI chat is not configured. Please contact the administrator." |
+- LLM returns responses with `<!-- ACTION: type -->` comments: `create`, `modify`, `explain`, `error`
+- YAML extracted from markdown code blocks, validated before display
+- Logs to `ssr_python/logs/llm_chat.log` (gitignored)
 
 ---
 
 ## Images Panel (Stock Photo Search)
 
-An integrated panel for searching, selecting, and uploading images from stock photo services.
-
-### Architecture
-
-```
-Search Input → Debounce (300ms) → GET /api/images/search → Flask Backend
-                                                               ↓
-                                          Randomly pick Pexels or Pixabay API
-                                                               ↓
-                                          Normalize response to common format
-                                                               ↓
-Images Panel UI ← JSON Response ← Return results array
-    ↓
-Select/Upload → localStorage persistence → Copy URL to clipboard
-```
-
 ### Key Files
 
 | File | Purpose |
 |------|---------|
-| `imagesPanel.js` | Panel UI: search, color filters, category tabs, results grid, selection, upload |
-| `images-panel.css` | Panel styling (search bar, color pills, grid, thumbnails, toast) |
-| `app.py` | `/api/images/search` proxy route with Pexels + Pixabay providers |
+| `imagesPanel.js` | Panel UI: search, color filters, category tabs, results grid |
+| `images-panel.css` | Panel styling |
+| `routes/images.py` | `/api/images/search` proxy with Pexels + Pixabay providers |
 
 ### Configuration
 
 ```bash
-# In ssr_python/.env — at least one key required
+# In ssr_python/.env - at least one key required
 PEXELS_API_KEY=your_pexels_key_here
 PIXABAY_API_KEY=your_pixabay_key_here
 ```
 
-**Important:** After adding/changing API keys in `.env`, restart Flask (`python app.py`). The `load_dotenv()` call only runs at startup.
-
-### API Provider Selection
-
-- Both Pexels and Pixabay are available as providers
-- On each request, available providers are **randomly shuffled** to spread rate limits
-- If the selected provider fails (timeout, HTTP error), the other is tried as fallback
-- Server normalizes both APIs to a common response format:
-
-```json
-{
-  "results": [{
-    "id": "string",
-    "thumbUrl": "string",
-    "smallUrl": "string",
-    "regularUrl": "string",
-    "fullUrl": "string",
-    "photographer": "string",
-    "photographerUrl": "string",
-    "altText": "string",
-    "width": 0,
-    "height": 0,
-    "source": "pexels|pixabay"
-  }],
-  "total": 0,
-  "total_pages": 0,
-  "source": "pexels|pixabay"
-}
-```
-
-### Panel Features
-
-- **Search bar** with debounced input (300ms) and Enter key support
-- **Color filter pills** (red, orange, yellow, green, blue, purple, black, white)
-- **Category tabs**: Backgrounds (landscape orientation) / Content (any orientation)
-- **3-column results grid** with skeleton loading states
-- **Selection**: Click card or + button to select; selected images persist in localStorage
-- **Upload button**: Adds local files via `URL.createObjectURL()` (blob URLs)
-- **Copy URL**: Click selected thumbnail to copy image URL to clipboard
-- **Toast notifications** for user feedback
-
-### Color Mapping
-
-Colors are mapped differently per API:
-
-| UI Color | Pexels Value | Pixabay Value |
-|----------|-------------|---------------|
-| purple | violet | lilac |
-| (all others) | same | same |
+Providers are randomly shuffled per request to spread rate limits, with fallback to the other if one fails.
 
 ---
 
 ## API Key Security
 
-### Principles
-
 - API keys are **NEVER** sent to the frontend or included in JSON responses
 - API keys are **NEVER** included in user-facing error messages
 - Full Python tracebacks are **NEVER** sent to frontend (logged server-side only)
-- Environment variable names are **NEVER** revealed in error responses
-
-### Implementation
-
-**Server-side only access:**
-- Pexels key: sent in `Authorization` HTTP header to Pexels API
-- Pixabay key: sent as `key` query parameter to Pixabay API
-- Ollama key: sent as `Bearer` token in `Authorization` header to Ollama API
-- All three are read from `os.environ` (loaded from `.env` via `load_dotenv()`)
+- `.env`, `*.env`, `*.log` are all gitignored
 
 **Error sanitization pattern:**
 ```python
-# CORRECT - log server-side, generic message to frontend
 except Exception as e:
     app.logger.error(f"Detailed error: {traceback.format_exc()}")
     return jsonify({'error': 'Something went wrong. Please try again.'}), 500
-
-# WRONG - never do this (may leak API keys in URLs or tracebacks)
-except Exception as e:
-    return jsonify({'error': str(e), 'details': traceback.format_exc()}), 500
 ```
-
-**Gitignore protection:**
-- `.env`, `*.env`, `.env.local` — all gitignored
-- `ssr_python/logs/`, `*.log` — all gitignored
-- Flask only serves `static/` directory — `.env` is not HTTP-accessible
-
-### Sanitized Error Messages
-
-| Endpoint | Error Condition | Frontend Message |
-|----------|----------------|------------------|
-| `/api/images/search` | No API keys configured | "Image search is not configured. Please contact the administrator." |
-| `/api/images/search` | Search exception | "Image search failed. Please try again later." |
-| `/api/chat` | No Ollama key | "AI chat is not configured. Please contact the administrator." |
-| `/api/chat` | API exception | "Failed to get AI response. Please try again." |
-| `/render` | Render exception | "A rendering error occurred. Check server logs for details." |
-
----
-
-## Accent Color Highlights
-
-All interactive elements in sidebar panels use the app accent color (`--accent: #9c9ef0`) for hover/active/focus states:
-
-### Highlight Patterns
-
-| Element | Hover Effect | Active/Selected Effect |
-|---------|-------------|----------------------|
-| `.sidebar-btn` | Accent color + accent-soft bg | Accent color + accent-soft bg |
-| `.panel-close` | Accent color + accent-soft bg | — |
-| `.viewport-btn` | Accent color + accent-soft bg | Accent border + accent-soft bg |
-| `.tree-item-content` | Accent left border (3px) | Accent-soft bg + accent color |
-| `.prop-section-header` | Accent left border (3px) | — |
-| `.prop-input` | — | Accent border + glow ring on focus |
-| `.token-pill` | Accent border + accent-soft bg | Solid accent bg + white text |
-| `.color-input-swatch` | Accent border | — |
-| `.theme-font-select` | Accent border | Accent border + glow ring on focus |
-| `.theme-row` | Accent left border (3px) | Accent left border + accent-soft bg |
-| `.images-color-pill` | Scale up | Accent border + glow |
-| `.images-tab` | Text color change | Accent bottom border |
 
 ---
 
@@ -1171,131 +836,66 @@ Pre-built templates in `example_templates/` directory:
 
 | Template | Description |
 |----------|-------------|
-| `bookstore_template.yaml` | Full bookstore website with navigation, hero, new arrivals, second-hand books (50% off), children's hard board books, arts & crafts, testimonials, newsletter, and footer |
-| `freshchoice_template.yaml` | Patisserie/bakery/cafe website with navigation, store info bar, hero banner, shop categories (4-column grid), food items with "Add to Bag" buttons, signature cakes, beverages, about/story section, testimonials, location CTA, and footer. Uses Indian Rupee pricing. |
+| `bookstore_template.yaml` | Full bookstore with navigation, hero, book categories, testimonials, footer |
+| `freshchoice_template.yaml` | Patisserie/bakery/cafe with navigation, shop categories grid, food items |
+| `bakery_template.yaml` | Bakery landing page |
+| `car_dealer_template.yaml` | Car dealership website |
+| `restaurant_template.yaml` | Restaurant website |
+| `logistics_template.yaml` | Logistics/shipping company |
+| `conference_template.yaml` | Conference/event website |
+| `hero_template.yaml` | Hero section examples |
+| `all_components_showcase.yaml` | Showcase of all available components |
+| `marketing_components_template.yaml` | Marketing component examples |
 
 ---
 
-### Theme Color Swatches in Properties Panel
-- **Added:** Quick-pick theme color swatches below every `color` type field in the Properties Panel
-- **Source:** Reads current theme from `getCurrentTheme()` and iterates `THEME_COLOR_CONFIG` (imported from `themesPanel.js`)
-- **Behavior:** Clicking a swatch sets the color value and stores the YAML anchor name in `data-yaml-alias`
-- **Alias preservation:** When collecting property values, if a color field has `dataset.yamlAlias`, the alias (e.g., `*color-primary`) is preserved in YAML instead of the literal hex value
-- **Files Modified:**
-  - `propertiesPanel.js` — Imports `getCurrentTheme` and `THEME_COLOR_CONFIG` from `themesPanel.js`, renders `.color-theme-picks` row below color inputs
-  - `style.css` — Added `.color-theme-picks` and `.color-theme-pick` styles (20x20px rounded buttons with accent hover)
+## Troubleshooting SSR
 
-```
-┌─────────────────────────────────────┐
-│  Color                              │
-│  [██] [#4C4637              ]       │
-│  (●)(●)(●)(●)  ← theme swatches    │
-│  Pri Sec Acc Bg                     │
-└─────────────────────────────────────┘
-```
+**Preview not updating?**
+- Check browser console for `[SSR App]` and `[Preview Bridge]` messages
+- Verify IFRAME_READY handshake completed (look for "acknowledged by parent")
+- Check Network tab for `/render` response
 
-**Key code pattern (`propertiesPanel.js`):**
-```javascript
-for (const tc of THEME_COLOR_CONFIG) {
-    const color = theme.colors[tc.key];
-    pick.onclick = () => {
-        textInput.value = color;
-        swatch.style.background = color;
-        colorPicker.value = color;
-        textInput.dataset.yamlAlias = tc.anchor;  // Preserves *color-primary in YAML
-    };
-}
-```
+**Titlebar not sticking?**
+- Titlebar uses clone-based approach, not CSS sticky
+- Clone appears when original's `rect.bottom < 0`
+- Check `.titlebar-clone.visible` class is being added
 
-### Layout-Column Gap Property
-- **Added:** `gap` property to `layout-column` component
-- **Default:** `none` (no gap between children)
-- **Schema:** `layout.gap` field with `gapScale` tokens (none, xxs, xs, sm, md, lg, xl, xxl, xxxl)
-- **Rendering:** `build_flex_styles()` macro outputs `gap` CSS + `--layout-gap` CSS variable
-- **Files Modified:**
-  - `component_defaults.yaml` — Added `gap: none` under `layout-column.layout`
-  - `component_schemas.yaml` — Added `layout.gap` select field with `gapScale` tokens
-  - `_components.html` — `build_flex_styles()` macro reads `layout.gap`, maps to `tokens.spacing`, outputs CSS
+**Tokens not loading?**
+- Check `tokens.yaml` exists in `ssr_python/` directory
+- Check Flask console for token loading messages
 
-```yaml
-# Usage in YAML:
-- name: layout-column
-  properties:
-    layout:
-      gap: md           # Adds gap between child components
-      horizontalAlign: center
-```
+**Selection not working?**
+- Check components have `data-component-id` attributes
+- Verify postMessage communication in console
+- Check `chrome-target` class is present
 
-```jinja2
-{# In build_flex_styles() macro: #}
-{% set gap_token = layout.gap | default('none') %}
-{% if gap_token != 'none' %}
-    {% set gap_value = tokens.spacing[gap_token] %}
-    gap: {{ gap_value }};
-    --layout-gap: {{ gap_value }};
-{% endif %}
-```
+**Properties panel not updating?**
+- Check console for `[SSR App] Built path map with X components`
+- Click component and look for `[SSR App] COMPONENT_CLICKED received`
+- Verify `[SelectionManager] Path lookup result` shows array (not null)
 
-### Production Refactoring (February 2026)
+**YAML not persisting across refresh?**
+- Uses `sessionStorage` (tab-scoped) - each tab has isolated storage
+- Content is lost when browser/tab closes
+- Check `sessionStorage.getItem('swift_sites_yaml_content')` in console
 
-Six-phase refactoring to productionalize the SSR application:
-
-**Phase 1: Security Fixes**
-- Removed telemetry fetch blocks from `utils/object.js` (10 POST calls to `http://127.0.0.1:7242`)
-- Fixed Flask debug mode: changed host from `0.0.0.0` to `127.0.0.1`, debug based on `FLASK_ENV`
-- Pinned dependency versions in `requirements.txt` (Flask>=3.0.0,<4.0, etc.)
-- Created `.env.example` environment variable template
-
-**Phase 2: Template Splitting**
-- Split monolithic `_components.html` (~1577 lines) into 28 individual macro files under `templates/components/`
-- Created `_assembly.html` manifest with correct include order
-- `renderer.py` concatenates files via `_build_component_template()` (Jinja2 `{% include %}` doesn't share macro scope)
-- Added `encoding='utf-8'` to all file reads (Windows cp1252 can't decode Unicode symbols like `❚❚`)
-
-**Phase 3: Config YAML Relocation**
-- Moved `component_defaults.yaml`, `component_schemas.yaml`, `schema_tokens.yaml` to `ssr_python/config/`
-- All paths centralized in `config.py` via `Config.CONFIG_DIR`
-
-**Phase 4: Flask Blueprint Architecture**
-- Created `config.py` with `Config`, `DevelopmentConfig`, `ProductionConfig` classes
-- Created `extensions.py` with module-level `TOKENS`, `COMPONENT_DEFAULTS` dicts and `load_shared_data()`
-- Split `app.py` routes into 5 Blueprint modules under `routes/`
-- Rewrote `app.py` as slim ~68 line app factory (`create_app()`)
-- **Key pattern:** `extensions.py` uses `.clear()` + `.update()` to mutate dicts in-place so imported references remain valid
-
-**Phase 5: Root Directory Cleanup**
-- Deleted stale artifacts (`coverage/`, `package-lock.json`, `=2.31.0`, `swift-sites-ui-wireframe.html`)
-- Moved 16 planning docs to `docs/`
-- Moved 8 test YAML files to `example_templates/tests/`
-
-**Phase 6: Testing Foundation**
-- Created `tests/` with `conftest.py`, fixtures, and 3 test files (30 tests total)
-- `test_renderer.py`: 5 deep_merge tests + 5 render tests
-- `test_routes.py`: 11 API endpoint tests
-- `test_security.py`: 7 security header + error sanitization tests
-- Run with: `cd ssr_python && python -m pytest tests/ -v`
-
-### App UI Layout Fix (February 2026)
-- **Fixed:** App header (`app-header`) overlapping content below it
-- **Root cause:** `position: fixed` header with `margin-top` on content container was unreliable (margin collapse edge cases)
-- **Solution:** Replaced with a two-row flex column layout using `.app-layout` wrapper
-- **Files Modified:**
-  - `templates/index.html` — Added `<div class="app-layout">` wrapper around header + app-container
-  - `static/css/style.css` — Added `.app-layout` flex column container; changed `.app-header` from `position: fixed` to `flex-shrink: 0`; changed `.app-container` from `margin-top + height: calc()` to `flex: 1; min-height: 0`
-
-**New Layout Structure:**
-```
-.app-layout          (display: flex; flex-direction: column; height: 100vh)
-  ├── .app-header    (flex-shrink: 0; height: 52px)   ← Row 1
-  └── .app-container (flex: 1; display: flex)          ← Row 2
-       ├── .sidebar
-       ├── .sidebar-panels
-       ├── .main-canvas
-       └── .properties-section
-```
-
-The header is a natural flex child — it can never overlap content because the flex layout engine handles spacing. No fixed positioning, no margin/padding hacks, no `calc(100vh - ...)` needed.
+**Fullscreen showing raw JavaScript?**
+- `buildStandaloneHtml()` escapes `</script>` in inlined JS content
+- Do not put literal `</script>` tags in JS comments in `swift-sites-runtime.js`
 
 ---
 
-**Last Updated:** February 13, 2026
+## Legacy CSR Reference
+
+The client-side rendering version exists in the root `js/` directory, entry point `index.html`.
+
+| Feature | CSR | SSR |
+|---------|-----|-----|
+| Rendering | Browser (JavaScript) | Server (Python/Jinja2) |
+| Preview Isolation | Same document | Iframe |
+| Communication | Direct DOM | postMessage API |
+
+---
+
+**Last Updated:** February 16, 2026

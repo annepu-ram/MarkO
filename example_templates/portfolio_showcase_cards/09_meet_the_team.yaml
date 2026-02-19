@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Plus Jakarta Sans', sans-serif"
-        headingLevel2: &font-heading-level2 "'Plus Jakarta Sans', sans-serif"
+        heading: &font-heading "'Plus Jakarta Sans', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#1e293b'
@@ -25,7 +24,7 @@
       properties:
         layout: { horizontalAlign: center }
         spacing: { paddingBlock: xl, paddingInline: lg }
-        appearance: { background: { color: '#f8fafc' } }
+        appearance: { background: { color: *color-background } }
       components:
         - name: eyebrow
           properties:
@@ -50,7 +49,7 @@
       properties:
         layout: { horizontalAlign: center }
         spacing: { paddingBlock: lg, paddingInline: lg }
-        appearance: { background: { color: '#f8fafc' } }
+        appearance: { background: { color: *color-background } }
       components:
         - name: eyebrow
           properties:
@@ -71,7 +70,7 @@
                     layout: { horizontalAlign: center }
                     spacing: { paddingBlock: lg, paddingInline: md }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: lg
                       shadow: soft
                   components:
@@ -115,7 +114,7 @@
                     layout: { horizontalAlign: center }
                     spacing: { paddingBlock: lg, paddingInline: md }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: lg
                       shadow: soft
                   components:
@@ -159,7 +158,7 @@
                     layout: { horizontalAlign: center }
                     spacing: { paddingBlock: lg, paddingInline: md }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: lg
                       shadow: soft
                   components:
@@ -203,7 +202,7 @@
       properties:
         layout: { horizontalAlign: center }
         spacing: { paddingBlock: lg, paddingInline: lg }
-        appearance: { background: { color: '#f8fafc' } }
+        appearance: { background: { color: *color-background } }
       components:
         - name: eyebrow
           properties:
@@ -367,12 +366,12 @@
           properties:
             text: Want to Join Us?
             level: 2
-            typography: { size: xxl, weight: bold, color: '#f8fafc', align: center }
+            typography: { size: xxl, weight: bold, color: *color-background, align: center }
             spacing: { marginBlock: sm }
         - name: paragraph
           properties:
             text: We are always looking for talented, curious people who want to do the best work of their careers.
-            typography: { size: md, color: '#94a3b8', align: center }
+            typography: { size: md, color: *color-secondary, align: center }
             layout: { widthMode: "50" }
             spacing: { marginBlock: md }
         - name: button
@@ -382,4 +381,4 @@
             appearance:
               background: { color: *color-accent }
               padding: { block: md, inline: xl }
-            typography: { color: '#ffffff', weight: semibold, size: md }
+            typography: { color: *color-background, weight: semibold, size: md }

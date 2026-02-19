@@ -10,12 +10,6 @@
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#6366f1"
         background: &color-background "#ffffff"
-        border: &color-border "#e5e7eb"
-        dark: &color-dark "#1f2937"
-        divider: &color-divider "#d1d5db"
-        gradient-end: &color-gradient-end "#f0f2ff"
-        gradient-start: &color-gradient-start "#fafafa"
-        muted: &color-muted "#9ca3af"
     appearance:
       background:
         color: *color-background
@@ -49,8 +43,8 @@
               background:
                 type: gradient
                 gradient:
-                  colorStart: *color-gradient-start
-                  colorEnd: *color-gradient-end
+                  colorStart: *color-background
+                  colorEnd: *color-background
                   direction: to bottom
                 transparency: 100
           components:
@@ -72,21 +66,21 @@
                     inline: sm
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   border:
                     width: 0
                     style: solid
-                    color: "#000000"
+                    color: *color-primary
                   radius: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
               components:
                 - name: paragraph
                   properties:
                     text: "NEW"
                     typography:
-                      color: "#ffffff"
+                      color: *color-background
                       size: sm
                       weight: medium
                       transform: uppercase
@@ -98,7 +92,7 @@
                       marginInline: none
                     appearance:
                       background:
-                        color: "#6366f1"
+                        color: *color-accent
                         transparency: 100
                         type: solid
                       radius: pill
@@ -109,7 +103,7 @@
                   properties:
                     text: "Version 3.0 just launched"
                     typography:
-                      color: "#6b7280"
+                      color: *color-secondary
                       size: sm
                       weight: medium
                       align: left
@@ -122,7 +116,7 @@
                     appearance:
                       background:
                         type: solid
-                        color: "#ffffff"
+                        color: *color-background
                         transparency: 0
                       radius: none
                       padding:
@@ -135,7 +129,7 @@
                 text: "Build products faster with AI-powered tools"
                 level: 1
                 typography:
-                  color: "#111827"
+                  color: *color-primary
                   size: xxl
                   weight: bold
                   lineHeight: '1.1'
@@ -150,7 +144,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   radius: none
                   padding:
@@ -194,7 +188,7 @@
                       border:
                         width: 1
                         style: solid
-                        color: *color-border
+                        color: *color-secondary
                       radius: md
                       shadow: soft
                       padding:
@@ -208,7 +202,7 @@
                         type: gradient
                         gradient:
                           colorStart: *color-primary
-                          colorEnd: *color-dark
+                          colorEnd: *color-primary
                           direction: to right
                       border:
                         width: 0
@@ -231,7 +225,7 @@
               properties:
                 text: "No credit card required  •  14-day free trial  •  Cancel anytime"
                 typography:
-                  color: *color-muted
+                  color: *color-secondary
                   size: xs
                 spacing:
                   marginBlock: sm
@@ -256,21 +250,21 @@
                     inline: sm
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   border:
                     width: 0
                     style: solid
-                    color: "#000000"
+                    color: *color-primary
                   radius: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
               components:
                 - name: paragraph
                   properties:
                     text: "Trusted by teams at"
                     typography:
-                      color: *color-muted
+                      color: *color-secondary
                       size: xs
                       weight: medium
                       transform: uppercase
@@ -288,7 +282,7 @@
                       properties:
                         text: "STRIPE"
                         typography:
-                          color: *color-divider
+                          color: *color-secondary
                           size: md
                           weight: bold
                         spacing:
@@ -297,7 +291,7 @@
                       properties:
                         text: "NOTION"
                         typography:
-                          color: *color-divider
+                          color: *color-secondary
                           size: md
                           weight: bold
                         spacing:
@@ -306,7 +300,7 @@
                       properties:
                         text: "FIGMA"
                         typography:
-                          color: *color-divider
+                          color: *color-secondary
                           size: md
                           weight: bold
                         spacing:
@@ -315,7 +309,7 @@
                       properties:
                         text: "LINEAR"
                         typography:
-                          color: *color-divider
+                          color: *color-secondary
                           size: md
                           weight: bold
                         spacing:

@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Inter', sans-serif"
-        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        heading: &font-heading "'Inter', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
@@ -30,7 +29,7 @@
           paddingInline: lg
         appearance:
           background:
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
           borderRadius: md
           shadow: soft
@@ -49,7 +48,7 @@
               paddingInline: xs
             appearance:
               background:
-                color: '#eef2ff'
+                color: *color-background
                 transparency: 100
               borderRadius: pill
 

@@ -2,9 +2,8 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main 'system-ui, sans-serif'
-        headingLevel2: &font-heading-level2 'system-ui, sans-serif'
-        content: &font-content 'system-ui, sans-serif'
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
       colors:
         # 60-30-10 Color System:
         # Primary (30%) = TEXT - all headings, paragraphs, body text
@@ -38,7 +37,7 @@
           properties:
             text: Build Something Amazing
             typography:
-              color: '#ffffff'
+              color: *color-background
               weight: bold
               size: xl
               align: center
@@ -53,7 +52,7 @@
               Launch your next big idea with cutting-edge tools and expert
               guidance. We're here to help you succeed.
             typography:
-              color: '#ffffff'
+              color: *color-background
               size: lg
               align: center
               weight: normal
@@ -73,7 +72,7 @@
                 block: md
                 inline: lg
             typography:
-              color: '#ffffff'
+              color: *color-background
               weight: semibold
             layout:
             spacing:
@@ -109,12 +108,12 @@
         layout:
           horizontalAlign: space-evenly
         background:
-          color: '#ffffff'
+          color: *color-background
         appearance:
           border:
             width: 1
             style: solid
-            color: '#e5e7eb'
+            color: *color-secondary
           radius: md
           shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
       components:
@@ -168,7 +167,7 @@
                     block: sm
                     inline: md
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   weight: semibold
                 layout:
                     spacing:
@@ -184,12 +183,12 @@
         layout:
           horizontalAlign: space-evenly
         background:
-          color: '#ffffff'
+          color: *color-background
         appearance:
           border:
             width: 1
             style: solid
-            color: '#e5e7eb'
+            color: *color-secondary
           radius: md
           shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
       components:
@@ -231,7 +230,7 @@
                     block: sm
                     inline: md
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   weight: semibold
                 layout:
                     spacing:
@@ -271,12 +270,12 @@
         layout:
           horizontalAlign: space-evenly
         background:
-          color: '#ffffff'
+          color: *color-background
         appearance:
           border:
             width: 1
             style: solid
-            color: '#e5e7eb'
+            color: *color-secondary
           radius: md
           shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
       components:
@@ -330,7 +329,7 @@
                     block: sm
                     inline: md
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   weight: semibold
                 layout:
                     spacing:
@@ -679,7 +678,7 @@
                 text: Start Free Trial
                 appearance:
                   background:
-                    color: '#ffffff'
+                    color: *color-background
                   border:
                     color: *color-primary
                   padding:
@@ -697,13 +696,13 @@
               properties:
                 text: Professional
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   align: center
                   weight: bold
                   size: md
                 level: 3
                 appearance:
-                  backgroundColor: '#2d2d2d'
+                  backgroundColor: *color-primary
                   borderRadius: sm
                 spacing:
                   marginBlock: md
@@ -753,7 +752,7 @@
                     block: sm
                     inline: md
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   weight: semibold
                 layout:
                     spacing:
@@ -808,7 +807,7 @@
                 text: Contact Sales
                 appearance:
                   background:
-                    color: '#ffffff'
+                    color: *color-background
                   border:
                     color: *color-primary
                   padding:
@@ -914,12 +913,12 @@
           horizontalAlign: space-evenly
           align: center
         background:
-          color: '#f0f4f8'
+          color: *color-background
         appearance:
           border:
             width: 1
             style: solid
-            color: '#e0e7ff'
+            color: *color-secondary
           radius: md
       components:
         - name: button
@@ -934,7 +933,7 @@
                 block: md
                 inline: lg
             typography:
-              color: '#ffffff'
+              color: *color-background
               weight: semibold
             layout:
             spacing:
@@ -945,7 +944,7 @@
             text: Schedule Demo
             appearance:
               background:
-                color: '#ffffff'
+                color: *color-background
               border:
                 color: *color-primary
               padding:

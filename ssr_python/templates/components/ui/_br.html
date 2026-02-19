@@ -1,8 +1,53 @@
 {% macro render_br(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
+    {% set div_type = properties.type | default('solid') %}
+    {% set orientation = properties.orientation | default('horizontal') %}
+    {% set thickness = properties.thickness | default(2) %}
+    {% set color = properties.color | default('#e5e7eb') %}
     {% set size = properties.size | default('md') %}
+    {% set invert = properties.invert | default(false) %}
+    {% set mirror = properties.mirror | default(false) %}
     {% set spacing_value = (tokens.spacing[size]) if tokens and tokens.spacing and (size in tokens.spacing) else '2rem' %}
-    <div class="comp-br chrome-target" data-component-id="{{ component_id }}"
-         style="height: {{ spacing_value }}; width: 100%; border-bottom: 1px dashed #ccc; margin: 0.5rem 0; position: relative;">
-    </div>
+    {% set transforms = [] %}
+    {% if invert %}{% set _ = transforms.append('scaleY(-1)') %}{% endif %}
+    {% if mirror %}{% set _ = transforms.append('scaleX(-1)') %}{% endif %}
+    {% set flip = ('transform: ' ~ transforms | join(' ') ~ ';') if transforms else '' %}
+
+    {% if div_type == 'wave' %}
+        <div class="comp-br comp-br--wave chrome-target"
+             data-component-id="{{ component_id }}"
+             style="width: 100%; overflow: hidden; line-height: 0; position: relative; {{ flip }}">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"
+                 style="width: 100%; height: {{ thickness * 10 }}px; display: block;">
+                <path d="M0,60 C200,20 400,100 600,60 C800,20 1000,100 1200,60 L1200,120 L0,120 Z"
+                      fill="{{ color }}" stroke="none"/>
+            </svg>
+        </div>
+    {% elif div_type == 'slant' %}
+        <div class="comp-br comp-br--slant chrome-target"
+             data-component-id="{{ component_id }}"
+             style="width: 100%; overflow: hidden; line-height: 0; position: relative; {{ flip }}">
+            <svg viewBox="0 0 1200 40" preserveAspectRatio="none"
+                 style="width: 100%; height: {{ thickness * 10 }}px; display: block;">
+                <polygon points="0,40 1200,0 1200,40" fill="{{ color }}"/>
+            </svg>
+        </div>
+    {% elif orientation == 'vertical' %}
+        <div class="comp-br comp-br--vertical chrome-target"
+             data-component-id="{{ component_id }}"
+             style="border: none; border-left: {{ thickness }}px {{ div_type }} {{ color }}; height: 100%; min-height: 3rem; width: 0; display: inline-block; position: relative;">
+        </div>
+    {% else %}
+        {% if invert %}
+        <div class="comp-br chrome-target"
+             data-component-id="{{ component_id }}"
+             style="height: {{ spacing_value }}; width: 100%; border-top: {{ thickness }}px {{ div_type }} {{ color }}; position: relative;">
+        </div>
+        {% else %}
+        <div class="comp-br chrome-target"
+             data-component-id="{{ component_id }}"
+             style="height: {{ spacing_value }}; width: 100%; border-bottom: {{ thickness }}px {{ div_type }} {{ color }}; position: relative;">
+        </div>
+        {% endif %}
+    {% endif %}
 {% endmacro %}

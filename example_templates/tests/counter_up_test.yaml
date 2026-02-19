@@ -1,0 +1,172 @@
+# Test: Counter-Up Component
+# Animated number that counts from 0 to endValue when scrolled into view.
+# Uses IntersectionObserver for viewport detection, ease-out cubic animation.
+#
+# Properties:
+#   endValue          — Target number to count to (integer)
+#   duration          — Animation duration in milliseconds (default: 2000)
+#   prefix            — Text before the number (e.g. "$", "#")
+#   suffix            — Text after the number (e.g. "+", "%", "M")
+#   typography.size   — Font size (typographySizes token)
+#   typography.weight — Font weight
+#   typography.color  — Text color
+#   typography.align  — Text alignment
+#
+# Runtime behavior:
+#   - Animation triggers once when element enters viewport (IntersectionObserver)
+#   - Uses requestAnimationFrame for smooth 60fps animation
+#   - Ease-out cubic easing for natural deceleration
+#   - Numbers display with locale formatting (e.g. 12,500)
+#   - font-variant-numeric: tabular-nums for stable digit widths
+
+- name: page
+  properties:
+    appearance: { background: { color: '#ffffff', transparency: 100 } }
+  components:
+    - name: heading
+      properties:
+        text: "Counter-Up Component Test"
+        level: 1
+        typography: { size: xxl, weight: bold, align: center, color: '#111827' }
+        spacing: { marginBlock: lg }
+
+    - name: paragraph
+      properties:
+        text: "Scroll down to trigger the counter animations"
+        typography: { size: md, align: center, color: '#64748b' }
+        spacing: { marginBlock: sm }
+
+    # Add spacing so user can scroll to trigger
+    - name: br
+      properties: { size: xxxl }
+
+    # ─────────────────────────────────────────
+    # BASIC COUNTER
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "Basic counter — endValue: 500"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: counter-up
+      properties:
+        endValue: 500
+        duration: 2000
+        typography:
+          size: xxxl
+          weight: extrabold
+          color: '#111827'
+          align: center
+
+    - name: br
+      properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+    # ─────────────────────────────────────────
+    # PREFIX AND SUFFIX
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "prefix and suffix — Decorating the number"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, wrap: wrap, gap: xl }
+        spacing: { marginBlock: md }
+      components:
+        - name: layout-column
+          properties: { layout: { horizontalAlign: center, widthMode: "25" } }
+          components:
+            - name: counter-up
+              properties:
+                endValue: 2500
+                prefix: "$"           # Dollar sign before number
+                typography: { size: xxl, weight: extrabold, color: '#22c55e', align: center }
+            - name: paragraph
+              properties: { text: "Revenue", typography: { size: sm, align: center, color: '#64748b' } }
+
+        - name: layout-column
+          properties: { layout: { horizontalAlign: center, widthMode: "25" } }
+          components:
+            - name: counter-up
+              properties:
+                endValue: 99
+                suffix: "%"           # Percent after number
+                typography: { size: xxl, weight: extrabold, color: '#3b82f6', align: center }
+            - name: paragraph
+              properties: { text: "Satisfaction", typography: { size: sm, align: center, color: '#64748b' } }
+
+        - name: layout-column
+          properties: { layout: { horizontalAlign: center, widthMode: "25" } }
+          components:
+            - name: counter-up
+              properties:
+                endValue: 50
+                suffix: "+"           # Plus sign suffix
+                typography: { size: xxl, weight: extrabold, color: '#8b5cf6', align: center }
+            - name: paragraph
+              properties: { text: "Countries", typography: { size: sm, align: center, color: '#64748b' } }
+
+        - name: layout-column
+          properties: { layout: { horizontalAlign: center, widthMode: "25" } }
+          components:
+            - name: counter-up
+              properties:
+                endValue: 10
+                prefix: "#"           # Hash prefix
+                typography: { size: xxl, weight: extrabold, color: '#f59e0b', align: center }
+            - name: paragraph
+              properties: { text: "Awards", typography: { size: sm, align: center, color: '#64748b' } }
+
+    - name: br
+      properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+    # ─────────────────────────────────────────
+    # DURATION COMPARISON
+    # Same endValue, different animation speeds
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "duration — Animation speed (ms)"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, wrap: wrap, gap: xl }
+        spacing: { marginBlock: md }
+      components:
+        - name: layout-column
+          properties: { layout: { horizontalAlign: center, widthMode: "33" } }
+          components:
+            - name: counter-up
+              properties:
+                endValue: 1000
+                duration: 1000        # 1 second — fast
+                typography: { size: xxl, weight: bold, color: '#111827', align: center }
+            - name: caption
+              properties: { text: "1000ms (fast)", typography: { size: xs, align: center, color: '#94a3b8' } }
+
+        - name: layout-column
+          properties: { layout: { horizontalAlign: center, widthMode: "33" } }
+          components:
+            - name: counter-up
+              properties:
+                endValue: 1000
+                duration: 2500        # 2.5 seconds — medium
+                typography: { size: xxl, weight: bold, color: '#111827', align: center }
+            - name: caption
+              properties: { text: "2500ms (medium)", typography: { size: xs, align: center, color: '#94a3b8' } }
+
+        - name: layout-column
+          properties: { layout: { horizontalAlign: center, widthMode: "33" } }
+          components:
+            - name: counter-up
+              properties:
+                endValue: 1000
+                duration: 5000        # 5 seconds — slow
+                typography: { size: xxl, weight: bold, color: '#111827', align: center }
+            - name: caption
+              properties: { text: "5000ms (slow)", typography: { size: xs, align: center, color: '#94a3b8' } }

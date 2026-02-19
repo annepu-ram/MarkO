@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'JetBrains Mono', monospace"
-        headingLevel2: &font-heading-level2 "'JetBrains Mono', monospace"
+        heading: &font-heading "'IBM Plex Sans', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
@@ -35,12 +34,12 @@
           properties:
             text: Our Tech Stack
             level: 1
-            typography: { size: xxxl, weight: extrabold, color: '#f8fafc', align: center, letterSpacing: tight }
+            typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
             spacing: { marginBlock: sm }
         - name: paragraph
           properties:
             text: The technologies and tools we use to build world-class digital products.
-            typography: { size: lg, color: '#94a3b8', align: center }
+            typography: { size: lg, color: *color-secondary, align: center }
             layout: { widthMode: "75" }
 
     # ============================================
@@ -60,10 +59,10 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: lg, paddingInline: lg }
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: lg
                   shadow: soft
-                  border: { width: 1, style: solid, color: '#e2e8f0' }
+                  border: { width: 1, style: solid, color: *color-secondary }
               components:
                 - name: heading
                   properties:
@@ -138,10 +137,10 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: lg, paddingInline: lg }
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: lg
                   shadow: soft
-                  border: { width: 1, style: solid, color: '#e2e8f0' }
+                  border: { width: 1, style: solid, color: *color-secondary }
               components:
                 - name: heading
                   properties:
@@ -216,10 +215,10 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: lg, paddingInline: lg }
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: lg
                   shadow: soft
-                  border: { width: 1, style: solid, color: '#e2e8f0' }
+                  border: { width: 1, style: solid, color: *color-secondary }
               components:
                 - name: heading
                   properties:

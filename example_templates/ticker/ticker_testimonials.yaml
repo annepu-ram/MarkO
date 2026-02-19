@@ -1,0 +1,282 @@
+# Ticker Template: Photo Testimonials
+# Profile photo + quote cards with colored accent borders
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Lora', serif"
+        content: &font-content "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary '#0c4a6e'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#0284c7'
+        background: &color-background '#f0f9ff'
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xxl
+          paddingInline: lg
+      components:
+        - name: heading
+          properties:
+            text: Trusted by Thousands
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+        - name: paragraph
+          properties:
+            text: Real stories from real people who transformed their workflow
+            typography:
+              size: md
+              color: *color-secondary
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 30
+              mode: continuous
+              pauseOnHover: true
+            layout:
+              width: "360"
+            spacing:
+              marginBlock: lg
+              marginInline: none
+              gap: lg
+            appearance:
+              columnBackground: *color-background
+              columnTransparency: 100
+              columnRadius: lg
+              columnBorder:
+                width: 2
+                style: solid
+                color: *color-accent
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: md
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: '"This platform cut our onboarding time in half. New team members are productive from day one. The learning curve is practically nonexistent."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: layout-row
+                      properties:
+                        layout:
+                          verticalAlign: center
+                          wrap: nowrap
+                        spacing:
+                          gap: sm
+                      components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face
+                              altText: Jennifer Walsh
+                            appearance:
+                              radius: pill
+                              fit: cover
+                              minHeight: 80
+                            layout:
+                              widthMode: fit
+                        - name: layout-column
+                          properties:
+                            layout:
+                              gap: none
+                          components:
+                            - name: heading
+                              properties:
+                                text: Jennifer Walsh
+                                level: 5
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: *color-primary
+                            - name: paragraph
+                              properties:
+                                text: VP Operations, Acme Corp
+                                typography:
+                                  size: xs
+                                  color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: md
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: '"We migrated our entire workflow in under a week. The support team was incredible and the documentation is top-notch. Best decision we made this year."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: layout-row
+                      properties:
+                        layout:
+                          verticalAlign: center
+                          wrap: nowrap
+                        spacing:
+                          gap: sm
+                      components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face
+                              altText: Ryan Cooper
+                            appearance:
+                              radius: pill
+                              fit: cover
+                              minHeight: 80
+                            layout:
+                              widthMode: fit
+                        - name: layout-column
+                          properties:
+                            layout:
+                              gap: none
+                          components:
+                            - name: heading
+                              properties:
+                                text: Ryan Cooper
+                                level: 5
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: *color-primary
+                            - name: paragraph
+                              properties:
+                                text: Engineering Lead, Nexora
+                                typography:
+                                  size: xs
+                                  color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: md
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: '"The analytics alone are worth the price. We can finally see exactly where bottlenecks are and fix them before they become problems. Game changer."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: layout-row
+                      properties:
+                        layout:
+                          verticalAlign: center
+                          wrap: nowrap
+                        spacing:
+                          gap: sm
+                      components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&crop=face
+                              altText: Aisha Patel
+                            appearance:
+                              radius: pill
+                              fit: cover
+                              minHeight: 80
+                            layout:
+                              widthMode: fit
+                        - name: layout-column
+                          properties:
+                            layout:
+                              gap: none
+                          components:
+                            - name: heading
+                              properties:
+                                text: Aisha Patel
+                                level: 5
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: *color-primary
+                            - name: paragraph
+                              properties:
+                                text: Data Lead, FinBridge
+                                typography:
+                                  size: xs
+                                  color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: md
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: '"Switching from spreadsheets to this was transformative. Our team collaborates seamlessly now. I genuinely look forward to opening the dashboard each morning."'
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: layout-row
+                      properties:
+                        layout:
+                          verticalAlign: center
+                          wrap: nowrap
+                        spacing:
+                          gap: sm
+                      components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=80&h=80&fit=crop&crop=face
+                              altText: Tom Brennan
+                            appearance:
+                              radius: pill
+                              fit: cover
+                              minHeight: 80
+                            layout:
+                              widthMode: fit
+                        - name: layout-column
+                          properties:
+                            layout:
+                              gap: none
+                          components:
+                            - name: heading
+                              properties:
+                                text: Tom Brennan
+                                level: 5
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: *color-primary
+                            - name: paragraph
+                              properties:
+                                text: COO, Brightpath
+                                typography:
+                                  size: xs
+                                  color: *color-secondary

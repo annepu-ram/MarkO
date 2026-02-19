@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Outfit', sans-serif"
-        headingLevel2: &font-heading-level2 "'Outfit', sans-serif"
+        heading: &font-heading "'Outfit', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#111827'
@@ -25,7 +24,7 @@
       properties:
         layout: { horizontalAlign: center }
         spacing: { paddingBlock: xl, paddingInline: lg }
-        appearance: { background: { color: '#f9fafb' } }
+        appearance: { background: { color: *color-background } }
       components:
         - name: eyebrow
           properties:
@@ -50,7 +49,7 @@
       properties:
         layout: { horizontalAlign: center }
         spacing: { paddingBlock: xl, paddingInline: lg }
-        appearance: { background: { color: '#f9fafb' } }
+        appearance: { background: { color: *color-background } }
       components:
         - name: carousel
           properties:
@@ -267,7 +266,7 @@
             - name: paragraph
               properties:
                 text: Clients Worldwide
-                typography: { size: sm, color: '#9ca3af', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }
         - components:
             - name: heading
               properties:
@@ -277,7 +276,7 @@
             - name: paragraph
               properties:
                 text: Projects Delivered
-                typography: { size: sm, color: '#9ca3af', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }
         - components:
             - name: heading
               properties:
@@ -287,7 +286,7 @@
             - name: paragraph
               properties:
                 text: Years Experience
-                typography: { size: sm, color: '#9ca3af', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }
         - components:
             - name: heading
               properties:
@@ -297,4 +296,4 @@
             - name: paragraph
               properties:
                 text: Client Retention
-                typography: { size: sm, color: '#9ca3af', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }

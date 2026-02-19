@@ -3,14 +3,20 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#9ca3af'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#111827' }
+      background: { color: *color-primary }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: sm }
         appearance:
-          background: { color: '#1f2937' }
+          background: { color: *color-primary }
           radius: lg
           shadow: elevated
           padding: { block: none, inline: none }
@@ -31,19 +37,19 @@
             - name: eyebrow
               properties:
                 text: WATCH IT IN ACTION
-                typography: { size: xxs, weight: semibold, color: '#818cf8', transform: uppercase, letterSpacing: wider }
+                typography: { size: xxs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
             - name: heading
               properties:
                 text: ProCam 360 Action Camera
                 level: 3
-                typography: { size: xl, weight: bold, color: '#ffffff', align: left }
+                typography: { size: xl, weight: bold, color: *color-background, align: left }
                 spacing: { marginBlock: xs }
             - name: paragraph
               properties:
                 text: |
                   Capture every angle in stunning 8K. Waterproof to 30m.
                   AI-powered stabilization for buttery smooth footage.
-                typography: { size: sm, color: '#9ca3af', align: left, lineHeight: "1.6" }
+                typography: { size: sm, color: *color-secondary, align: left, lineHeight: "1.6" }
             - name: layout-row
               properties:
                 layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
@@ -53,10 +59,10 @@
                   properties:
                     text: "$599.00"
                     level: 4
-                    typography: { size: xl, weight: extrabold, color: '#ffffff', align: left }
+                    typography: { size: xl, weight: extrabold, color: *color-background, align: left }
                     spacing: { marginBlock: none }
                 - name: button
                   properties:
                     text: Buy Now
-                    appearance: { background: { color: '#6366f1' }, radius: md, padding: { block: sm, inline: lg } }
-                    typography: { color: '#ffffff', weight: bold }
+                    appearance: { background: { color: *color-accent }, radius: md, padding: { block: sm, inline: lg } }
+                    typography: { color: *color-background, weight: bold }

@@ -3,14 +3,20 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f8fafc' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: md }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: medium
           padding: { block: xl, inline: xl }
@@ -23,9 +29,9 @@
               spending weeks on projects to shipping in days. It's not just
               a tool — it's a competitive advantage.
             cite: ''
-            typography: { size: lg, weight: medium, color: '#1e293b', align: center, lineHeight: "1.8" }
+            typography: { size: lg, weight: medium, color: *color-primary, align: center, lineHeight: "1.8" }
             appearance:
-              border: { accentColor: '#6366f1' }
+              border: { accentColor: *color-accent }
               background: { transparency: 0 }
               padding: { block: md, inline: md }
             spacing: { marginBlock: sm }
@@ -42,9 +48,9 @@
           properties:
             text: Michael Chen
             level: 4
-            typography: { size: md, weight: bold, color: '#111827', align: center }
+            typography: { size: md, weight: bold, color: *color-primary, align: center }
             spacing: { marginBlock: none }
         - name: caption
           properties:
             text: CEO, TechForward Inc.
-            typography: { size: sm, color: '#6b7280', align: center }
+            typography: { size: sm, color: *color-secondary, align: center }

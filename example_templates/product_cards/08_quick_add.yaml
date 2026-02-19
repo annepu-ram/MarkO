@@ -3,17 +3,23 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f9fafb' }
+      background: { color: *color-background }
   components:
     - name: layout-row
       properties:
         layout: { horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: md }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: md
           shadow: soft
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
           padding: { block: sm, inline: sm }
         spacing: { marginBlock: md, marginInline: lg }
       components:
@@ -32,15 +38,15 @@
               properties:
                 text: Aviator Classics
                 level: 4
-                typography: { size: md, weight: bold, color: '#111827', align: left }
+                typography: { size: md, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: none }
             - name: caption
               properties:
                 text: "$149.00"
-                typography: { size: sm, weight: semibold, color: '#6b7280', align: left }
+                typography: { size: sm, weight: semibold, color: *color-secondary, align: left }
         - name: button
           properties:
             text: "+ Add"
-            appearance: { background: { color: '#2563eb' }, radius: md, padding: { block: xs, inline: md } }
-            typography: { color: '#ffffff', weight: semibold }
+            appearance: { background: { color: *color-accent }, radius: md, padding: { block: xs, inline: md } }
+            typography: { color: *color-background, weight: semibold }
             layout: { widthMode: "25" }

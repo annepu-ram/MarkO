@@ -3,8 +3,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#000000'
+        secondary: &color-secondary '#e2e8f0'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#000000' }
+      background: { color: *color-primary }
   components:
     - name: video-background
       properties:
@@ -37,20 +43,20 @@
             - name: eyebrow
               properties:
                 text: EXPERIENCE THE FUTURE
-                typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider, align: center }
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
             - name: heading
               properties:
                 text: Where Innovation Meets Imagination
                 level: 1
-                typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: tight }
+                typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
                 spacing: { marginBlock: sm }
             - name: paragraph
               properties:
                 text: Immerse yourself in a world of limitless possibilities.
-                typography: { size: lg, color: '#e2e8f0', align: center }
+                typography: { size: lg, color: *color-secondary, align: center }
                 spacing: { marginBlock: md }
             - name: button
               properties:
                 text: Explore Now
-                appearance: { background: { color: '#6366f1' }, radius: pill, padding: { block: md, inline: xl } }
-                typography: { color: '#ffffff', weight: bold }
+                appearance: { background: { color: *color-accent }, radius: pill, padding: { block: md, inline: xl } }
+                typography: { color: *color-background, weight: bold }

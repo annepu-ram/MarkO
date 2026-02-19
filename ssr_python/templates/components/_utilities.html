@@ -1,9 +1,7 @@
 {#-=============== THE NEW STYLE BUILDER MACRO ===============-#}
-
 {% macro build_styles(component, tokens, part=None, layout_direction=None) -%}
     {% set styles = [] %}
     {% set props = component.properties | default({}) %}
-
     {# --- Sub-part specific styling (for complex components) --- #}
     {% if part == 'accordion_title' %}
         {% set typo = props.typography.title | default({}) if props.typography else {} %}
@@ -14,9 +12,7 @@
         {% if typo.size and tokens and tokens.typography_sizes and typo.size in tokens.typography_sizes %}{% set _ = styles.append('font-size: var(--font-size-' ~ typo.size ~ ');') %}{% endif %}
         {% if typo.weight and tokens and tokens.font_weights and typo.weight in tokens.font_weights %}{% set _ = styles.append('font-weight: ' ~ tokens.font_weights[typo.weight] ~ ';') %}{% endif %}
     {% endif %}
-
     {# --- General Styling --- #}
-
     {# Layout Properties (Flexbox/Grid) - Skip for outer wrapper of layout components #}
     {% if props.layout and part != 'outer' %}
         {% set layout = props.layout %}
@@ -32,9 +28,7 @@
             {% if layout.distribution and layout.distribution != 'none' %}{% set _ = styles.append('justify-content: ' ~ layout.distribution ~ ';') %}{% endif %}
             {% if layout.wrap %}{% set _ = styles.append('flex-wrap: ' ~ layout.wrap ~ ';') %}{% endif %}
         {% endif %}
-
     {% endif %}
-
     {# Columnsgrid CSS variables — must run even for part='outer' since they cascade to children #}
     {% if component.name == 'columnsgrid' and props.layout %}
         {% set layout = props.layout %}
@@ -48,7 +42,6 @@
             {% if props.responsive.breakpoints.sm %}{% set _ = styles.append('--cols-sm: ' ~ props.responsive.breakpoints.sm ~ ';') %}{% endif %}
         {% endif %}
     {% endif %}
-
     {# Spacing #}
     {% if props.spacing %}
         {% set spacing = props.spacing %}
@@ -57,7 +50,6 @@
         {% if spacing.paddingBlock and tokens and tokens.spacing and spacing.paddingBlock in tokens.spacing %}{% set _ = styles.append('padding-block: ' ~ tokens.spacing[spacing.paddingBlock] ~ ';') %}{% endif %}
         {% if spacing.paddingInline and tokens and tokens.spacing and spacing.paddingInline in tokens.spacing %}{% set _ = styles.append('padding-inline: ' ~ tokens.spacing[spacing.paddingInline] ~ ';') %}{% endif %}
     {% endif %}
-
     {# Layout Padding (for page component and others that use layout.padding) #}
     {% if props.layout and props.layout.padding %}
         {% set padding = props.layout.padding %}
@@ -66,32 +58,30 @@
         {% if padding.bottom and tokens and tokens.spacing and padding.bottom in tokens.spacing %}{% set _ = styles.append('padding-bottom: ' ~ tokens.spacing[padding.bottom] ~ ';') %}{% endif %}
         {% if padding.left and tokens and tokens.spacing and padding.left in tokens.spacing %}{% set _ = styles.append('padding-left: ' ~ tokens.spacing[padding.left] ~ ';') %}{% endif %}
     {% endif %}
-
     {# Appearance (Background, Border, Radius, Shadow, Padding) #}
     {% if props.appearance %}
         {% set appearance = props.appearance %}
         {% if appearance.background %}
             {% set bg = appearance.background %}
             {% set bg_type = bg.type | default('color') %}
-
             {# Determine the fallback background color #}
             {% if bg_type == 'gradient' and bg.gradient %}
                 {% set fallback_color = bg.gradient.colorStart | default(bg.color) | default('#ffffff') %}
             {% else %}
                 {% set fallback_color = bg.color | default('#ffffff') %}
             {% endif %}
-
-            {# Apply transparency if defined #}
-            {% if bg.transparency is defined %}
+            {# Apply transparency: blur auto-applies 50% if background is opaque #}
+            {% if appearance.blur is sameas true and (not bg.transparency or bg.transparency == 0) %}
+                {% set alpha_hex = 50 | transparency_to_hex %}
+                {% set fallback_color = fallback_color ~ alpha_hex %}
+            {% elif bg.transparency is defined %}
                 {% set alpha_hex = bg.transparency | transparency_to_hex %}
                 {% set fallback_color = fallback_color ~ alpha_hex %}
             {% endif %}
-
             {# Always output background-color for fallback/compatibility #}
             {% if bg_type == 'gradient' or bg.color %}
                 {% set _ = styles.append('background-color: ' ~ fallback_color ~ ';') %}
             {% endif %}
-
             {# Add gradient if type is gradient #}
             {% if bg_type == 'gradient' and bg.gradient %}
                 {% set direction = bg.gradient.direction | default('to right') %}
@@ -99,7 +89,6 @@
                 {% set color_end = bg.gradient.colorEnd | default('#000000') %}
                 {% set _ = styles.append('background-image: linear-gradient(' ~ direction ~ ', ' ~ color_start ~ ', ' ~ color_end ~ ');') %}
             {% endif %}
-
             {# Add background image if URL is provided #}
             {% if bg.image %}
                 {% set _ = styles.append('background-image: url(' ~ bg.image ~ ');') %}
@@ -123,7 +112,7 @@
         {% if appearance.radius and tokens and tokens.border_radius and appearance.radius in tokens.border_radius %}{% set _ = styles.append('border-radius: ' ~ tokens.border_radius[appearance.radius] ~ ';') %}{% endif %}
         {% if appearance.shadow and appearance.shadow != 'none' and tokens and tokens.shadows and appearance.shadow in tokens.shadows %}{% set _ = styles.append('box-shadow: ' ~ tokens.shadows[appearance.shadow] ~ ';') %}{% endif %}
         {% if appearance.shadowColor %}{% set _ = styles.append('--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ ';') %}{% endif %}
-        {% if appearance.backdropBlur and appearance.backdropBlur != 'none' %}{% set _ = styles.append('backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px); -webkit-backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px);') %}{% endif %}
+        {% if appearance.blur is sameas true %}{% set _ = styles.append('backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);') %}{% elif appearance.backdropBlur and appearance.backdropBlur != 'none' %}{% set _ = styles.append('backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px); -webkit-backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px);') %}{% endif %}
         {# Handle appearance padding (for older YAML structures) #}
         {% if appearance.padding %}
             {% set padding = appearance.padding %}
@@ -141,7 +130,6 @@
             {% endif %}
         {% endif %}
     {% endif %}
-
     {# Typography #}
     {% if props.typography and not part %} {# Avoid re-applying if already handled in sub-part #}
         {% set typo = props.typography %}
@@ -154,13 +142,11 @@
         {% if typo.letterSpacing and tokens and tokens.letter_spacing and typo.letterSpacing in tokens.letter_spacing %}{% set _ = styles.append('letter-spacing: ' ~ tokens.letter_spacing[typo.letterSpacing] ~ ';') %}{% endif %}
         {% if typo.fontFamily %}{% set _ = styles.append('font-family: ' ~ typo.fontFamily ~ ';') %}{% endif %}
     {% endif %}
-
     {# Width Mode Support for Text Components #}
     {% if component.name in ['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote', 'link'] %}
         {% set width_mode = props.layout.widthMode | default('fit') if props.layout else 'fit' %}
         {% set _ = styles.append('display: inline-block;') %}
         {% set _ = styles.append('box-sizing: border-box;') %}
-
         {% if layout_direction == 'column' %}
             {# Column context: use explicit width percentages #}
             {% if width_mode == 'fit' %}
@@ -214,13 +200,11 @@
             {% endif %}
         {% endif %}
     {% endif %}
-
     {# Width Mode Support for Image/GIF - Match Text Component Behavior #}
     {% if component.name in ['image', 'gif'] %}
         {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
         {% set _ = styles.append('display: block;') %}
         {% set _ = styles.append('box-sizing: border-box;') %}
-
         {% if layout_direction == 'column' %}
             {# Column context: use explicit width percentages #}
             {% if width_mode == 'fit' %}
@@ -274,11 +258,9 @@
             {% endif %}
         {% endif %}
     {% endif %}
-
     {# Width Mode Support for Layout-Column - Match Text Component Behavior #}
     {% if component.name == 'layout-column' %}
         {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
-
         {% if layout_direction == 'column' %}
             {# Column context: use explicit width percentages #}
             {% if width_mode == 'fit' %}
@@ -331,34 +313,27 @@
             {% endif %}
         {% endif %}
     {% endif %}
-
     {# Always add position relative for selection to work #}
     {% set _ = styles.append('position: relative;') %}
-
     {# Add box-sizing: border-box for layout components to prevent overflow #}
     {% if component.name in ['page', 'layout-row', 'layout-column', 'columnsgrid', 'form'] %}
         {% set _ = styles.append('box-sizing: border-box;') %}
     {% endif %}
-
-    {{ styles | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
+    {{- styles | join(' ') | replace('\n', ' ') | replace('  ', ' ') | trim -}}
 {%- endmacro %}
 
 {#-=============== FLEX LAYOUT STYLES BUILDER ===============-#}
-
 {% macro build_flex_styles(component, tokens, orientation='column') -%}
     {% set props = component.properties | default({}) %}
     {% set layout = props.layout | default({}) %}
     {% set spacing = props.spacing | default({}) %}
     {% set styles = [] %}
-
     {# Always flex #}
     {% set _ = styles.append('display: flex;') %}
     {% set _ = styles.append('flex-direction: ' ~ orientation ~ ';') %}
     {% set _ = styles.append('box-sizing: border-box;') %}
     {% set _ = styles.append('width: 100%;') %}
-
     {# Value mappings for user-friendly names to CSS values #}
-    {# horizontalAlign now includes both alignment (left/center/right) and distribution (space-between/around/evenly) #}
     {% set h_align_css = {
         'left': 'flex-start',
         'center': 'center',
@@ -369,7 +344,6 @@
         'space-evenly': 'space-evenly'
     } %}
     {% set v_align_css = {'top': 'flex-start', 'center': 'center', 'bottom': 'flex-end', 'stretch': 'stretch', 'baseline': 'baseline', 'space-between': 'space-between', 'space-around': 'space-around', 'space-evenly': 'space-evenly'} %}
-
     {% if orientation == 'row' %}
         {# Row: horizontalAlign → justify-content, verticalAlign → align-items #}
         {% set h_align = layout.horizontalAlign | default('space-evenly') %}
@@ -380,7 +354,6 @@
         {% else %}
             {% set _ = styles.append('justify-content: ' ~ h_align_css.get(h_align, h_align) ~ ';') %}
         {% endif %}
-
         {% set v_align = layout.verticalAlign | default('stretch') %}
         {% set _ = styles.append('align-items: ' ~ v_align_css.get(v_align, 'stretch') ~ ';') %}
     {% else %}
@@ -390,11 +363,9 @@
         {% set _ = styles.append('align-items: ' ~ h_align_css.get(h_align, 'center') ~ ';') %}
         {% set _ = styles.append('justify-content: ' ~ v_align_css.get(v_align, 'space-between') ~ ';') %}
     {% endif %}
-
     {# Flex wrap #}
     {% set wrap = layout.wrap | default('nowrap') %}
     {% set _ = styles.append('flex-wrap: ' ~ wrap ~ ';') %}
-
     {# Gap between children #}
     {% set gap_token = layout.gap | default('none') %}
     {% if gap_token != 'none' %}
@@ -402,6 +373,5 @@
         {% set _ = styles.append('gap: ' ~ gap_value ~ ';') %}
         {% set _ = styles.append('--layout-gap: ' ~ gap_value ~ ';') %}
     {% endif %}
-
-    {{ styles | join(' ') | replace('\n', ' ') | replace('  ', ' ') }}
+    {{- styles | join(' ') | replace('\n', ' ') | replace('  ', ' ') | trim -}}
 {%- endmacro %}

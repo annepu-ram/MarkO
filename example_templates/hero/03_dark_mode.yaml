@@ -10,12 +10,6 @@
         secondary: &color-secondary "#71717a"
         accent: &color-accent "#8b5cf6"
         background: &color-background "#09090b"
-        accent-light: &color-accent-light "#a78bfa"
-        accent-soft: &color-accent-soft "#c4b5fd"
-        border: &color-border "#3f3f46"
-        dark: &color-dark "#18181b"
-        muted: &color-muted "#a1a1aa"
-        surface: &color-surface "#27272a"
     appearance:
       background:
         color: *color-background
@@ -51,7 +45,7 @@
             style: solid
             color: transparent
           focus:
-            background: *color-surface
+            background: *color-background
             color: *color-primary
         typography:
           title:
@@ -61,7 +55,7 @@
           menu:
             size: 14
             weight: medium
-            color: *color-muted
+            color: *color-secondary
 
     # Hero Section
     - name: layout-column
@@ -88,15 +82,15 @@
             inline: sm
           background:
             type: solid
-            color: "#ffffff"
+            color: *color-primary
             transparency: 0
           border:
             width: 0
             style: solid
-            color: "#000000"
+            color: *color-background
           radius: none
           shadow: none
-          shadowColor: "#000000"
+          shadowColor: *color-background
       components:
         # Announcement Banner
         - name: layout-row
@@ -123,7 +117,7 @@
               properties:
                 text: "Announcing our $50M Series B"
                 typography:
-                  color: *color-accent-soft
+                  color: *color-accent
                   size: sm
                   weight: medium
                 spacing:
@@ -159,7 +153,7 @@
           properties:
             text: "Ship faster. Scale infinitely. Sleep better."
             typography:
-              color: *color-accent-light
+              color: *color-accent
               size: xl
               align: center
               weight: medium
@@ -200,7 +194,7 @@
                     type: gradient
                     gradient:
                       colorStart: *color-accent
-                      colorEnd: *color-accent-light
+                      colorEnd: *color-accent
                       direction: to right
                   border:
                     width: 0
@@ -227,7 +221,7 @@
                   border:
                     width: 1
                     style: solid
-                    color: *color-border
+                    color: *color-secondary
                   padding:
                     block: md
                     inline: xl
@@ -340,13 +334,13 @@
               marginBlock: lg
             appearance:
               background:
-                color: *color-dark
+                color: *color-background
                 transparency: 100
               radius: lg
               border:
                 width: 1
                 style: solid
-                color: *color-surface
+                color: *color-background
               shadow: elevated
               shadowColor: *color-accent
           components:

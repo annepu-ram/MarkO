@@ -10,17 +10,12 @@
         secondary: &color-secondary "#666666"
         accent: &color-accent "#ff4d4d"
         background: &color-background "#f5f5f0"
-        focus-bg: &color-focus-bg "#e5e5e0"
-        muted: &color-muted "#999999"
-        primary-light: &color-primary-light "#333333"
-        surface: &color-surface "#ede8df"
-        surface-light: &color-surface-light "#ffffff"
     appearance:
       background:
         type: gradient
         gradient:
           colorStart: *color-background
-          colorEnd: *color-surface
+          colorEnd: *color-background
           direction: to bottom
         transparency: 100
   components:
@@ -52,7 +47,7 @@
           style: solid
           color: transparent
         focus:
-          background: *color-focus-bg
+          background: *color-background
           color: *color-primary
       typography:
         title:
@@ -78,7 +73,7 @@
           type: gradient
           gradient:
             colorStart: *color-background
-            colorEnd: *color-surface
+            colorEnd: *color-background
             direction: to bottom right
           transparency: 100
     components:
@@ -87,7 +82,7 @@
       properties:
         text: "We are a creative studio"
         typography:
-          color: *color-muted
+          color: *color-secondary
           size: md
           weight: regular
           letterSpacing: wide
@@ -196,7 +191,7 @@
                   type: gradient
                   gradient:
                     colorStart: *color-primary
-                    colorEnd: *color-primary-light
+                    colorEnd: *color-primary
                     direction: to right
                 border:
                   width: 0
@@ -208,7 +203,7 @@
                 shadow: medium
                 shadowColor: *color-accent
               typography:
-                color: *color-surface-light
+                color: *color-background
                 weight: medium
                 size: md
               spacing:
@@ -249,7 +244,7 @@
           border:
             width: 1
             style: solid
-            color: *color-focus-bg
+            color: *color-background
             position: top
       components:
       - name: layout-column
@@ -269,7 +264,7 @@
           properties:
             text: "2026"
             typography:
-              color: *color-muted
+              color: *color-secondary
               size: xs
               weight: medium
             spacing:
@@ -300,7 +295,7 @@
           properties:
             text: "2026"
             typography:
-              color: *color-muted
+              color: *color-secondary
               size: xs
               weight: medium
             spacing:
@@ -331,7 +326,7 @@
           properties:
             text: "2025"
             typography:
-              color: *color-muted
+              color: *color-secondary
               size: xs
               weight: medium
             spacing:
@@ -362,7 +357,7 @@
           properties:
             text: "2025"
             typography:
-              color: *color-muted
+              color: *color-secondary
               size: xs
               weight: medium
             spacing:

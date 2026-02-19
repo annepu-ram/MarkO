@@ -11,12 +11,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/images-panel.css') }}">
+    <!-- Google Material Symbols Outlined (for icon picker grid + rendered icons) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
     <div id="svgSpriteRoot" hidden></div>
-
-    <!-- Mobile Overlay - backdrop when panels are open -->
-    <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- APP LAYOUT - Flex column: header row + content row -->
     <div class="app-layout">
@@ -55,15 +54,23 @@
 
         <!-- Action buttons -->
         <div class="header-actions">
-            <button id="fullscreenBtn" class="btn btn-ghost btn-icon" title="Preview">
-                <svg class="icon" aria-hidden="true"><use href="#icon-eye"></use></svg>
+            <button id="undoBtn" class="btn btn-ghost btn-icon" title="Undo (Ctrl+Z)" disabled>
+                <svg class="icon" aria-hidden="true"><use href="#icon-undo"></use></svg>
+            </button>
+            <button id="redoBtn" class="btn btn-ghost btn-icon" title="Redo (Ctrl+Y)" disabled>
+                <svg class="icon" aria-hidden="true"><use href="#icon-redo"></use></svg>
+            </button>
+            <button id="fullscreenBtn" class="btn btn-ghost btn-icon" title="Fullscreen Preview">
+                <svg class="icon" aria-hidden="true"><use href="#icon-maximize"></use></svg>
             </button>
             <button id="clearBtn" class="btn btn-ghost btn-icon" title="Clear Canvas">
                 <svg class="icon" aria-hidden="true"><use href="#icon-trash-2"></use></svg>
             </button>
-            <button id="exportBtn" class="btn btn-primary" title="Export HTML">
-                <svg class="icon" aria-hidden="true"><use href="#icon-globe"></use></svg>
-                <span>Publish</span>
+            <button id="exportBtn" class="btn btn-ghost btn-icon" title="Export Site">
+                <svg class="icon" aria-hidden="true"><use href="#icon-download"></use></svg>
+            </button>
+            <button id="publishBtn" class="btn btn-primary btn-icon" title="Publish Site">
+                <svg class="icon" aria-hidden="true"><use href="#icon-publish"></use></svg>
             </button>
         </div>
     </header>
@@ -74,7 +81,7 @@
         <!-- LEFT SIDEBAR - Icon buttons -->
         <aside class="sidebar" id="sidebar">
             <nav class="sidebar-nav">
-                <button class="sidebar-btn active" data-panel="layers" title="Layers">
+                <button class="sidebar-btn" data-panel="layers" title="Layers">
                     <svg aria-hidden="true"><use href="#icon-layers"></use></svg>
                     <span class="sidebar-btn-tooltip">Layers</span>
                 </button>
@@ -96,7 +103,7 @@
         <!-- SLIDE-OUT PANELS -->
 
         <!-- Layers Panel -->
-        <div class="sidebar-panel open" id="layersPanel">
+        <div class="sidebar-panel" id="layersPanel">
             <div class="panel-header">
                 <span class="panel-title">Layers</span>
                 <button class="panel-close" onclick="window.closePanel()">
@@ -170,35 +177,110 @@
                             sandbox="allow-scripts allow-same-origin"></iframe>
                 </div>
             </div>
+
+            <!-- Command Bar - floating bottom center -->
+            <div class="command-bar" id="commandBar">
+                <button class="command-btn" data-rpanel="chat" title="AI Chat">
+                    <svg aria-hidden="true"><use href="#icon-sparkles"></use></svg>
+                    <span>Chat</span>
+                </button>
+                <button class="command-btn" data-rpanel="prop" title="Properties">
+                    <svg aria-hidden="true"><use href="#icon-sliders"></use></svg>
+                    <span>Properties</span>
+                </button>
+            </div>
         </div>
 
-        <!-- RIGHT PROPERTIES PANEL -->
-        <aside class="properties-section" id="propertiesPanel">
-            <button class="properties-close" id="propertiesCloseBtn" title="Close">
-                <svg aria-hidden="true"><use href="#icon-x"></use></svg>
-            </button>
-            <div class="properties-header" id="propertiesHeader" style="display: none;">
-                <div class="properties-icon" id="propertiesIcon">
-                    <svg aria-hidden="true"><use href="#icon-box"></use></svg>
-                </div>
-                <div class="properties-info">
-                    <div class="properties-title" id="propertiesTitle">Component</div>
-                    <div class="properties-subtitle" id="propertiesSubtitle">Select a component</div>
-                </div>
+        <!-- BOTTOM SHEET (mobile) / RIGHT PANELS (desktop) -->
+        <div class="bottom-sheet" id="bottomSheet">
+            <!-- Tab bar (visible only on mobile) -->
+            <div class="bottom-sheet-tabs">
+                <button class="bottom-sheet-tab" data-rpanel="chat">
+                    <svg aria-hidden="true"><use href="#icon-sparkles"></use></svg>
+                    Chat
+                </button>
+                <button class="bottom-sheet-tab" data-rpanel="prop">
+                    <svg aria-hidden="true"><use href="#icon-sliders"></use></svg>
+                    Properties
+                </button>
+                <button class="bottom-sheet-close" onclick="window.closeRightPanel()">
+                    <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                </button>
             </div>
-            <div class="properties-content" id="propertiesContent">
-                <div class="no-selection">
-                    <div class="no-selection-icon">
-                        <svg aria-hidden="true"><use href="#icon-layers"></use></svg>
+
+            <!-- Chat Panel (right side) -->
+            <div class="right-panel" id="chatPanel">
+                <div class="panel-header">
+                    <span class="panel-title">AI Assistant</span>
+                    <button class="panel-close" onclick="window.closeRightPanel()">
+                        <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                    </button>
+                </div>
+                <div class="panel-content chat-panel-content" id="chatPanelContent">
+                    <div id="chat-container">
+                        <div class="chat-header">
+                            <div class="chat-header-left">
+                                <div class="chat-selection-badge hidden" id="chatSelectionBadge">
+                                    Editing: <span class="component-name" id="chatComponentName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-welcome">
+                                <h3>AI Assistant</h3>
+                                <p>Ask me to create a website or modify components.<br>
+                                Select a component in the preview for targeted edits.</p>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <textarea class="chat-input" id="chatInput" placeholder="Describe your website or changes..." rows="1"></textarea>
+                            <button class="chat-send-btn" id="chatSendBtn">Send</button>
+                        </div>
                     </div>
-                    <div class="no-selection-text">No component selected</div>
-                    <div class="no-selection-hint">Click a component in the preview to edit its properties</div>
                 </div>
             </div>
-        </aside>
+
+            <!-- Properties Panel (right side) -->
+            <div class="right-panel" id="propPanel">
+                <div class="panel-header">
+                    <span class="panel-title">Properties</span>
+                    <button class="panel-close" onclick="window.closeRightPanel()">
+                        <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                    </button>
+                </div>
+                <div class="properties-header" id="propertiesHeader" style="display: none;">
+                    <div class="properties-icon" id="propertiesIcon">
+                        <svg aria-hidden="true"><use href="#icon-box"></use></svg>
+                    </div>
+                    <div class="properties-info">
+                        <div class="properties-title" id="propertiesTitle">Component</div>
+                        <div class="properties-subtitle" id="propertiesSubtitle">Select a component</div>
+                    </div>
+                </div>
+                <div class="panel-content" id="propertiesContent">
+                    <div class="no-selection">
+                        <div class="no-selection-icon">
+                            <svg aria-hidden="true"><use href="#icon-layers"></use></svg>
+                        </div>
+                        <div class="no-selection-text">No component selected</div>
+                        <div class="no-selection-hint">Click a component in the preview to edit its properties</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     </div> <!-- /.app-layout -->
+
+    <!-- Fullscreen Preview Modal -->
+    <div id="fullscreenModal" class="fullscreen-modal">
+        <div class="fullscreen-content">
+            <iframe id="fullscreenFrame" class="fullscreen-preview preview-area" title="Fullscreen Preview"></iframe>
+        </div>
+        <button id="closeFullscreenBtn" class="fullscreen-close" title="Close (Esc)">
+            <svg class="icon" aria-hidden="true" style="width:16px;height:16px;stroke:white;"><use href="#icon-x"></use></svg>
+        </button>
+    </div>
 
     <!-- Global config before modules load -->
     <script>

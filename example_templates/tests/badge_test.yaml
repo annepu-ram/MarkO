@@ -1,0 +1,181 @@
+# Test: Badge Component
+# Colored inline labels for status, categories, or highlights.
+#
+# Properties:
+#   text              — Badge label text
+#   variant           — Color scheme: info (blue), success (green), warning (amber), danger (red)
+#   pill              — true for fully rounded corners, false for slight rounding
+#   typography.color  — Override text color (optional, defaults to white)
+
+- name: page
+  properties:
+    appearance: { background: { color: '#ffffff', transparency: 100 } }
+  components:
+    - name: heading
+      properties:
+        text: "Badge Component Test"
+        level: 1
+        typography: { size: xxl, weight: bold, align: center, color: '#111827' }
+        spacing: { marginBlock: lg }
+
+    # ─────────────────────────────────────────
+    # VARIANTS
+    # Each variant has a distinct background color
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "Variants — 4 built-in color schemes"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, wrap: wrap, gap: md }
+      components:
+        - name: badge
+          properties:
+            text: "Info"
+            variant: info       # Blue (#2563eb)
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "Success"
+            variant: success    # Green (#059669)
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "Warning"
+            variant: warning    # Amber (#d97706)
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "Danger"
+            variant: danger     # Red (#dc2626)
+            layout: { widthMode: fit }
+
+    - name: br
+      properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+    # ─────────────────────────────────────────
+    # PILL SHAPE
+    # pill: true gives fully rounded corners
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "pill: false (default) vs pill: true"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, wrap: wrap, gap: md }
+      components:
+        - name: badge
+          properties:
+            text: "Standard"
+            variant: info
+            pill: false         # Slight rounding (0.3rem)
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "Pill Shape"
+            variant: info
+            pill: true          # Fully rounded (9999px)
+            layout: { widthMode: fit }
+
+    - name: br
+      properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+    # ─────────────────────────────────────────
+    # REAL-WORLD USAGE
+    # Badges next to headings, in product cards, etc.
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "Real-world usage examples"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: sm }
+        spacing: { marginBlock: sm }
+      components:
+        - name: heading
+          properties:
+            text: "Premium Plan"
+            level: 3
+            typography: { size: lg, weight: bold, color: '#111827' }
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "POPULAR"
+            variant: warning
+            pill: true
+            layout: { widthMode: fit }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: sm }
+        spacing: { marginBlock: sm }
+      components:
+        - name: heading
+          properties:
+            text: "Server Status"
+            level: 3
+            typography: { size: lg, weight: bold, color: '#111827' }
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "ONLINE"
+            variant: success
+            pill: true
+            layout: { widthMode: fit }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: sm }
+        spacing: { marginBlock: sm }
+      components:
+        - name: paragraph
+          properties:
+            text: "Flash Sale"
+            typography: { size: md, weight: semibold, color: '#111827' }
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "50% OFF"
+            variant: danger
+            pill: true
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "LIMITED"
+            variant: warning
+            pill: false
+            layout: { widthMode: fit }
+
+    # ─────────────────────────────────────────
+    # TYPOGRAPHY COLOR OVERRIDE
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "typography.color — Override default white text"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, wrap: wrap, gap: md }
+      components:
+        - name: badge
+          properties:
+            text: "Custom Color"
+            variant: warning
+            typography: { color: '#111827' }   # Dark text on amber
+            layout: { widthMode: fit }
+        - name: badge
+          properties:
+            text: "Default White"
+            variant: warning
+            layout: { widthMode: fit }

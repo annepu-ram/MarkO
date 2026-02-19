@@ -2,9 +2,8 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main 'Georgia, serif'
-        headingLevel2: &font-heading-level2 'Georgia, serif'
-        content: &font-content 'Georgia, serif'
+        heading: &font-heading "'Lora', serif"
+        content: &font-content "'Lora', serif"
       colors:
         # 60-30-10 Color System:
         # Primary (30%) = TEXT - all headings, paragraphs, body text
@@ -56,7 +55,7 @@
       properties:
         text: The Chef's Table
         typography:
-          color: '#ffffff'
+          color: *color-background
         level: 1
     - name: button
       properties:
@@ -68,7 +67,7 @@
             block: md
             inline: lg
         typography:
-          color: '#ffffff'
+          color: *color-background
           weight: semibold
   - name: heading
     properties:
@@ -189,7 +188,7 @@
           block: md
           inline: lg
       typography:
-        color: '#ffffff'
+        color: *color-background
         weight: semibold
   - name: heading
     properties:

@@ -3,8 +3,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#78350f'
+        secondary: &color-secondary '#92400e'
+        accent: &color-accent '#d97706'
+        background: &color-background '#fefce8'
     appearance:
-      background: { color: '#fefce8' }
+      background: { color: *color-background }
   components:
     - name: titlebar
       properties:
@@ -21,17 +27,17 @@
               href: '#contact'
         layout: { alignment: left, height: 70 }
         appearance:
-          background: { color: '#fefce8', transparency: 100 }
-          border: { width: 1, color: '#fde68a' }
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, color: *color-accent }
         typography:
-          title: { size: 22, weight: bold, color: '#78350f' }
-          menu: { size: 15, weight: medium, color: '#92400e' }
+          title: { size: 22, weight: bold, color: *color-primary }
+          menu: { size: 15, weight: medium, color: *color-secondary }
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: lg }
         spacing: { paddingBlock: xxxl, paddingInline: xl }
         appearance:
-          background: { color: '#fefce8' }
+          background: { color: *color-background }
           padding: { block: xxxl, inline: xl }
       components:
         - name: blockquote
@@ -40,10 +46,10 @@
               Design is not just what it looks like and feels like.
               Design is how it works.
             cite: Steve Jobs
-            typography: { size: xxl, weight: medium, color: '#78350f', align: center, lineHeight: "1.6" }
+            typography: { size: xxl, weight: medium, color: *color-primary, align: center, lineHeight: "1.6" }
             appearance:
-              border: { accentColor: '#d97706' }
-              background: { color: '#fffbeb', transparency: 100 }
+              border: { accentColor: *color-accent }
+              background: { color: *color-background, transparency: 100 }
               radius: lg
               padding: { block: xl, inline: xl }
             layout: { widthMode: "75" }
@@ -53,10 +59,10 @@
             text: |
               We craft meaningful digital experiences that connect brands
               with their audiences. Let's create something extraordinary together.
-            typography: { size: lg, color: '#92400e', align: center, lineHeight: "1.8" }
+            typography: { size: lg, color: *color-secondary, align: center, lineHeight: "1.8" }
             layout: { widthMode: "50" }
         - name: button
           properties:
             text: Start a Project
-            appearance: { background: { color: '#d97706' }, radius: pill, padding: { block: md, inline: xl } }
-            typography: { color: '#ffffff', weight: bold }
+            appearance: { background: { color: *color-accent }, radius: pill, padding: { block: md, inline: xl } }
+            typography: { color: *color-background, weight: bold }

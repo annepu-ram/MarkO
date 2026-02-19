@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Sora', sans-serif"
-        headingLevel2: &font-heading-level2 "'Sora', sans-serif"
+        heading: &font-heading "'Sora', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#1c1917'

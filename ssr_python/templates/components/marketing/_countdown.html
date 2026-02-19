@@ -1,0 +1,40 @@
+{% macro render_countdown(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set target_date = properties.targetDate | default('') %}
+    {% set format = properties.format | default('DD:HH:MM:SS') %}
+    {% set expired_text = properties.expiredText | default('Expired') %}
+    {% set base_styles = build_styles(component, tokens) %}
+
+    <div class="countdown chrome-target"
+         data-component-id="{{ component_id }}"
+         data-target-date="{{ target_date }}"
+         data-format="{{ format }}"
+         data-expired-text="{{ expired_text }}"
+         style="{{ base_styles }} display: inline-flex; gap: 0.5em; align-items: baseline;">
+        {% if 'DD' in format %}
+            <span class="countdown__segment countdown__days">
+                <span class="countdown__number">00</span>
+                <span class="countdown__label">Days</span>
+            </span>
+            <span class="countdown__separator">:</span>
+        {% endif %}
+        {% if 'HH' in format %}
+            <span class="countdown__segment countdown__hours">
+                <span class="countdown__number">00</span>
+                <span class="countdown__label">Hours</span>
+            </span>
+            <span class="countdown__separator">:</span>
+        {% endif %}
+        {% if 'MM' in format %}
+            <span class="countdown__segment countdown__minutes">
+                <span class="countdown__number">00</span>
+                <span class="countdown__label">Min</span>
+            </span>
+            <span class="countdown__separator">:</span>
+        {% endif %}
+        <span class="countdown__segment countdown__seconds">
+            <span class="countdown__number">00</span>
+            <span class="countdown__label">Sec</span>
+        </span>
+    </div>
+{% endmacro %}

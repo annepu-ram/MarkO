@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/css/tokens.css">
     <link rel="stylesheet" href="/static/css/components.css">
     <link rel="stylesheet" href="/static/css/preview-chrome.css">
+    <!-- Material Symbols Outlined loaded dynamically by preview_bridge.js (LOAD_ICON_FONT) -->
     <style>
         /* Reset and base styles for preview */
         * {
@@ -107,6 +108,17 @@
     </style>
 </head>
 <body>
+    <!-- SVG icon sprite mount point (icons used by rating, icon, and other marketing components) -->
+    <div id="svgSpriteRoot" hidden></div>
+    <script>
+    (function() {
+        fetch('/static/icon-sprite.svg')
+            .then(function(r) { return r.text(); })
+            .then(function(svg) {
+                document.getElementById('svgSpriteRoot').innerHTML = svg;
+            });
+    })();
+    </script>
     <div id="preview-content">
         <div class="preview-placeholder">
             <h3>Live Preview</h3>

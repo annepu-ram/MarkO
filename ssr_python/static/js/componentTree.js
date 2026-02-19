@@ -7,7 +7,8 @@
  * - component.tabs[].components (for tabs)
  * - component.slides[].components (for carousel)
  * - component.columns[].components (for columnsgrid)
- * - component.items (for accordion - these are data items, not components)
+ * - component.columns[].components (for columnsgrid, ticker)
+ * - component.items (for accordion - data items with title + components)
  */
 
 /**
@@ -38,12 +39,19 @@ const getComponentIcon = (componentName) => {
         'carousel': 'icon-gallery-horizontal',
         'hamburger': 'icon-menu',
         'br': 'icon-wrap-text',
+        'icon': 'icon-star',
+        'badge': 'icon-tag',
+        'rating': 'icon-star-filled',
+        'progress-bar': 'icon-bar-chart',
+        'counter-up': 'icon-hash',
+        'countdown': 'icon-clock',
         'textbox': 'icon-type',
         'textarea': 'icon-file-text',
         'dropdown': 'icon-chevron-down',
         'checkbox': 'icon-check-square',
         'radio': 'icon-circle-dot',
         'calendar': 'icon-calendar',
+        'ticker': 'icon-gallery-horizontal',
     };
     return iconMap[componentName] || 'icon-box'; // fallback to generic box icon
 };
@@ -57,7 +65,8 @@ const hasChildren = (component) => {
         component.components?.length ||
         component.columns?.length ||
         component.tabs?.length ||
-        component.slides?.length
+        component.slides?.length ||
+        component.items?.length
     );
 };
 
@@ -192,9 +201,8 @@ function buildTreeNodes(components, basePath) {
             });
         }
 
-        // Handle accordion items (component.items - these are data, not components)
-        // Items contain title/content, not nested component arrays
-        if (component.name === 'accordion' && component.items?.length) {
+        // Handle items (accordion items have title + components)
+        if (component.items?.length) {
             component.items.forEach((item, itemIndex) => {
                 const itemPath = [...currentPath, 'items', itemIndex];
                 const itemNode = {

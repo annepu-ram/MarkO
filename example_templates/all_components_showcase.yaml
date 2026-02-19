@@ -1,12 +1,21 @@
 - name: page
   properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
       padding:
         block: none
         inline: none
       background:
         type: color
-        color: '#f8fafc'
+        color: *color-background
         transparency: 100
   components:
     # ===========================================
@@ -23,7 +32,7 @@
           visible: true
         appearance:
           background:
-            color: '#0f172a'
+            color: *color-primary
             transparency: 100
           padding:
             block: sm
@@ -32,11 +41,11 @@
           title:
             size: lg
             weight: semibold
-            color: '#ffffff'
+            color: *color-background
           link:
             size: md
             weight: medium
-            color: '#94a3b8'
+            color: *color-secondary
         scroll:
           shrinkOnScroll: true
           shrinkPercentage: 30
@@ -66,7 +75,7 @@
             inline: md
           background:
             type: color
-            color: '#1e293b'
+            color: *color-primary
             transparency: 100
       components:
         - name: layout-column
@@ -88,7 +97,7 @@
                   size: sm
                   weight: semibold
                   align: center
-                  color: '#94a3b8'
+                  color: *color-secondary
                   transform: uppercase
                   letterSpacing: wide
             - name: heading
@@ -99,7 +108,7 @@
                   size: xxxl
                   weight: bold
                   align: center
-                  color: '#ffffff'
+                  color: *color-background
                   lineHeight: '1.2'
             - name: paragraph
               properties:
@@ -108,7 +117,7 @@
                   size: lg
                   weight: regular
                   align: center
-                  color: '#cbd5e1'
+                  color: *color-background
                   lineHeight: '1.6'
 
     # --- Heading Variations ---
@@ -125,7 +134,7 @@
             inline: lg
           background:
             type: color
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -146,7 +155,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
                   letterSpacing: wider
             - name: heading
@@ -156,7 +165,7 @@
                 typography:
                   size: xxxl
                   weight: bold
-                  color: '#0f172a'
+                  color: *color-primary
             - name: heading
               level: 2
               properties:
@@ -164,7 +173,7 @@
                 typography:
                   size: xxl
                   weight: bold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: heading
               level: 3
               properties:
@@ -172,7 +181,7 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#334155'
+                  color: *color-primary
             - name: heading
               level: 4
               properties:
@@ -180,7 +189,7 @@
                 typography:
                   size: lg
                   weight: semibold
-                  color: '#475569'
+                  color: *color-secondary
             - name: heading
               level: 5
               properties:
@@ -188,7 +197,7 @@
                 typography:
                   size: md
                   weight: medium
-                  color: '#64748b'
+                  color: *color-secondary
             - name: heading
               level: 6
               properties:
@@ -196,7 +205,7 @@
                 typography:
                   size: sm
                   weight: medium
-                  color: '#94a3b8'
+                  color: *color-secondary
 
     # --- Paragraph & Caption ---
     - name: layout-row
@@ -212,7 +221,7 @@
             inline: lg
           background:
             type: color
-            color: '#f1f5f9'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -226,7 +235,7 @@
                 inline: md
               background:
                 type: color
-                color: '#ffffff'
+                color: *color-background
                 transparency: 100
               radius: md
           components:
@@ -236,7 +245,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
             - name: paragraph
               properties:
@@ -244,7 +253,7 @@
                 typography:
                   size: md
                   weight: regular
-                  color: '#374151'
+                  color: *color-primary
                   lineHeight: '1.7'
             - name: paragraph
               properties:
@@ -252,7 +261,7 @@
                 typography:
                   size: md
                   weight: regular
-                  color: '#6b7280'
+                  color: *color-secondary
                   lineHeight: '1.7'
 
         - name: layout-column
@@ -266,7 +275,7 @@
                 inline: md
               background:
                 type: color
-                color: '#ffffff'
+                color: *color-background
                 transparency: 100
               radius: md
           components:
@@ -276,7 +285,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
             - name: caption
               properties:
@@ -284,7 +293,7 @@
                 typography:
                   size: sm
                   weight: regular
-                  color: '#6b7280'
+                  color: *color-secondary
                   lineHeight: '1.5'
             - name: caption
               properties:
@@ -292,7 +301,7 @@
                 typography:
                   size: sm
                   weight: medium
-                  color: '#9ca3af'
+                  color: *color-secondary
                   lineHeight: '1.5'
 
     # --- Blockquote ---
@@ -309,7 +318,7 @@
             inline: lg
           background:
             type: color
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -330,7 +339,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
                   align: center
             - name: blockquote
@@ -340,18 +349,18 @@
                 typography:
                   size: xl
                   weight: medium
-                  color: '#1e293b'
+                  color: *color-primary
                   lineHeight: '1.6'
                   align: center
                 appearance:
                   border:
-                    accentColor: '#6366f1'
+                    accentColor: *color-accent
                   padding:
                     block: lg
                     inline: lg
                   background:
                     type: color
-                    color: '#f8fafc'
+                    color: *color-background
                     transparency: 100
                   radius: md
 
@@ -369,7 +378,7 @@
             inline: lg
           background:
             type: color
-            color: '#f1f5f9'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -390,7 +399,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
                   align: center
             - name: heading
@@ -400,7 +409,7 @@
                 typography:
                   size: lg
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
                   align: center
         - name: layout-column
           properties:
@@ -432,7 +441,7 @@
                     text: "Standard Link"
                     href: "#"
                     appearance:
-                      color: '#6366f1'
+                      color: *color-accent
                       underline: true
                       showArrow: false
                     typography:
@@ -443,7 +452,7 @@
                     text: "Link with Arrow"
                     href: "#"
                     appearance:
-                      color: '#6366f1'
+                      color: *color-accent
                       underline: false
                       showArrow: true
                     typography:
@@ -454,7 +463,7 @@
                     text: "Bold Link"
                     href: "#"
                     appearance:
-                      color: '#0ea5e9'
+                      color: *color-accent
                       underline: true
                       showArrow: false
                     typography:
@@ -482,7 +491,7 @@
                     layout:
                       widthMode: '33'
                     appearance:
-                      color: '#10b981'
+                      color: *color-accent
                       underline: true
                       showArrow: true
                     typography:
@@ -495,7 +504,7 @@
                     layout:
                       widthMode: '66'
                     appearance:
-                      color: '#f59e0b'
+                      color: *color-accent
                       underline: true
                       showArrow: true
                     typography:
@@ -519,8 +528,8 @@
           background:
             type: gradient
             gradient:
-              colorStart: '#6366f1'
-              colorEnd: '#8b5cf6'
+              colorStart: *color-accent
+              colorEnd: *color-accent
               direction: to right
       components:
         - name: layout-column
@@ -542,7 +551,7 @@
                   size: sm
                   weight: semibold
                   align: center
-                  color: '#e0e7ff'
+                  color: *color-background
                   transform: uppercase
                   letterSpacing: wide
             - name: heading
@@ -553,7 +562,7 @@
                   size: xxxl
                   weight: bold
                   align: center
-                  color: '#ffffff'
+                  color: *color-background
                   lineHeight: '1.2'
             - name: paragraph
               properties:
@@ -562,7 +571,7 @@
                   size: lg
                   weight: regular
                   align: center
-                  color: '#e0e7ff'
+                  color: *color-background
                   lineHeight: '1.6'
 
     # --- Layout Row Demo ---
@@ -579,7 +588,7 @@
             inline: lg
           background:
             type: color
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -600,7 +609,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -609,13 +618,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "Layout rows arrange children horizontally with options for alignment, wrapping, and spacing."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: layout-column
           properties:
@@ -641,7 +650,7 @@
                     inline: md
                   background:
                     type: color
-                    color: '#f1f5f9'
+                    color: *color-background
                     transparency: 100
                   radius: lg
               components:
@@ -656,7 +665,7 @@
                         inline: sm
                       background:
                         type: color
-                        color: '#6366f1'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -667,14 +676,14 @@
                         typography:
                           size: md
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "25% width"
                         typography:
                           size: sm
-                          color: '#e0e7ff'
+                          color: *color-background
                           align: center
 
                 - name: layout-column
@@ -688,7 +697,7 @@
                         inline: sm
                       background:
                         type: color
-                        color: '#8b5cf6'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -699,14 +708,14 @@
                         typography:
                           size: md
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "25% width"
                         typography:
                           size: sm
-                          color: '#ede9fe'
+                          color: *color-background
                           align: center
 
                 - name: layout-column
@@ -720,7 +729,7 @@
                         inline: sm
                       background:
                         type: color
-                        color: '#a855f7'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -731,14 +740,14 @@
                         typography:
                           size: md
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "25% width"
                         typography:
                           size: sm
-                          color: '#f3e8ff'
+                          color: *color-background
                           align: center
 
                 - name: layout-column
@@ -752,7 +761,7 @@
                         inline: sm
                       background:
                         type: color
-                        color: '#c084fc'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -763,14 +772,14 @@
                         typography:
                           size: md
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "25% width"
                         typography:
                           size: sm
-                          color: '#faf5ff'
+                          color: *color-background
                           align: center
 
     # --- New Width Modes: 33% and 66% ---
@@ -787,7 +796,7 @@
             inline: lg
           background:
             type: color
-            color: '#f1f5f9'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -808,7 +817,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#10b981'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -817,13 +826,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "New standardized width options now include 33% and 66% for three-column layouts and asymmetric designs."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: layout-column
           properties:
@@ -850,7 +859,7 @@
                     inline: md
                   background:
                     type: color
-                    color: '#ffffff'
+                    color: *color-background
                     transparency: 100
                   radius: lg
               components:
@@ -865,7 +874,7 @@
                         inline: sm
                       background:
                         type: color
-                        color: '#10b981'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -876,14 +885,14 @@
                         typography:
                           size: md
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "33% width"
                         typography:
                           size: sm
-                          color: '#d1fae5'
+                          color: *color-background
                           align: center
 
                 - name: layout-column
@@ -897,7 +906,7 @@
                         inline: sm
                       background:
                         type: color
-                        color: '#059669'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -908,14 +917,14 @@
                         typography:
                           size: md
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "33% width"
                         typography:
                           size: sm
-                          color: '#a7f3d0'
+                          color: *color-background
                           align: center
 
                 - name: layout-column
@@ -929,7 +938,7 @@
                         inline: sm
                       background:
                         type: color
-                        color: '#047857'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -940,14 +949,14 @@
                         typography:
                           size: md
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "33% width"
                         typography:
                           size: sm
-                          color: '#6ee7b7'
+                          color: *color-background
                           align: center
 
             # 66% + 33% Example
@@ -963,7 +972,7 @@
                     inline: md
                   background:
                     type: color
-                    color: '#ffffff'
+                    color: *color-background
                     transparency: 100
                   radius: lg
               components:
@@ -978,7 +987,7 @@
                         inline: md
                       background:
                         type: color
-                        color: '#f59e0b'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -989,14 +998,14 @@
                         typography:
                           size: lg
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "66% width - Perfect for main content with a sidebar"
                         typography:
                           size: md
-                          color: '#fef3c7'
+                          color: *color-background
                           align: center
 
                 - name: layout-column
@@ -1010,7 +1019,7 @@
                         inline: md
                       background:
                         type: color
-                        color: '#d97706'
+                        color: *color-accent
                         transparency: 100
                       radius: md
                   components:
@@ -1021,14 +1030,14 @@
                         typography:
                           size: lg
                           weight: semibold
-                          color: '#ffffff'
+                          color: *color-background
                           align: center
                     - name: paragraph
                       properties:
                         text: "33% width"
                         typography:
                           size: md
-                          color: '#fde68a'
+                          color: *color-background
                           align: center
 
     # --- ColumnsGrid Demo ---
@@ -1045,7 +1054,7 @@
             inline: lg
           background:
             type: color
-            color: '#f1f5f9'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -1066,7 +1075,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -1075,13 +1084,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "ColumnsGrid creates equal-width columns that automatically stack on smaller screens."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: columnsgrid
           properties:
@@ -1110,13 +1119,13 @@
                         inline: md
                       background:
                         type: color
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: lg
                       border:
                         width: 1
                         style: solid
-                        color: '#e2e8f0'
+                        color: *color-secondary
                   components:
                     - name: heading
                       level: 4
@@ -1125,14 +1134,14 @@
                         typography:
                           size: lg
                           weight: semibold
-                          color: '#1e293b'
+                          color: *color-primary
                           align: center
                     - name: paragraph
                       properties:
                         text: "Grid column with automatic width distribution and responsive stacking."
                         typography:
                           size: sm
-                          color: '#64748b'
+                          color: *color-secondary
                           align: center
             - components:
                 - name: layout-column
@@ -1146,13 +1155,13 @@
                         inline: md
                       background:
                         type: color
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: lg
                       border:
                         width: 1
                         style: solid
-                        color: '#e2e8f0'
+                        color: *color-secondary
                   components:
                     - name: heading
                       level: 4
@@ -1161,14 +1170,14 @@
                         typography:
                           size: lg
                           weight: semibold
-                          color: '#1e293b'
+                          color: *color-primary
                           align: center
                     - name: paragraph
                       properties:
                         text: "Configurable gap between columns and vertical alignment options."
                         typography:
                           size: sm
-                          color: '#64748b'
+                          color: *color-secondary
                           align: center
             - components:
                 - name: layout-column
@@ -1182,13 +1191,13 @@
                         inline: md
                       background:
                         type: color
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: lg
                       border:
                         width: 1
                         style: solid
-                        color: '#e2e8f0'
+                        color: *color-secondary
                   components:
                     - name: heading
                       level: 4
@@ -1197,14 +1206,14 @@
                         typography:
                           size: lg
                           weight: semibold
-                          color: '#1e293b'
+                          color: *color-primary
                           align: center
                     - name: paragraph
                       properties:
                         text: "Set breakpoints for tablet and mobile column counts."
                         typography:
                           size: sm
-                          color: '#64748b'
+                          color: *color-secondary
                           align: center
 
     # --- Tabs Demo ---
@@ -1221,7 +1230,7 @@
             inline: lg
           background:
             type: color
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -1242,7 +1251,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -1251,13 +1260,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "Organize content into switchable tabs with customizable styling."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: tabs
           properties:
@@ -1269,26 +1278,26 @@
                 size: md
                 weight: medium
                 active:
-                  color: '#6366f1'
+                  color: *color-accent
                 inactive:
-                  color: '#64748b'
+                  color: *color-secondary
             appearance:
               tab:
                 background:
-                  active: '#ffffff'
-                  inactive: '#f1f5f9'
+                  active: *color-background
+                  inactive: *color-background
                 border:
                   width: 2
                   style: solid
                   position: lower
               content:
                 background:
-                  color: '#ffffff'
+                  color: *color-background
                   transparency: 100
                 border:
                   width: 1
                   style: solid
-                  color: '#e2e8f0'
+                  color: *color-secondary
                 padding:
                   block: lg
                   inline: lg
@@ -1302,13 +1311,13 @@
                     typography:
                       size: lg
                       weight: semibold
-                      color: '#1e293b'
+                      color: *color-primary
                 - name: paragraph
                   properties:
                     text: "This is the first tab content. Tabs can contain any combination of components including text, images, and nested layouts."
                     typography:
                       size: md
-                      color: '#64748b'
+                      color: *color-secondary
             - title: Features
               components:
                 - name: heading
@@ -1318,13 +1327,13 @@
                     typography:
                       size: lg
                       weight: semibold
-                      color: '#1e293b'
+                      color: *color-primary
                 - name: paragraph
                   properties:
                     text: "Each tab maintains its own content and state. Switch between tabs to reveal different content sections."
                     typography:
                       size: md
-                      color: '#64748b'
+                      color: *color-secondary
             - title: Details
               components:
                 - name: heading
@@ -1334,13 +1343,13 @@
                     typography:
                       size: lg
                       weight: semibold
-                      color: '#1e293b'
+                      color: *color-primary
                 - name: paragraph
                   properties:
                     text: "Customize tab labels, colors, borders, and content padding to match your design system."
                     typography:
                       size: md
-                      color: '#64748b'
+                      color: *color-secondary
 
     # --- Accordion Demo ---
     - name: layout-row
@@ -1356,7 +1365,7 @@
             inline: lg
           background:
             type: color
-            color: '#f1f5f9'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -1377,7 +1386,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#6366f1'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -1386,13 +1395,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "Accordions display collapsible content panels, perfect for FAQs and organized information."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: layout-column
           properties:
@@ -1416,21 +1425,21 @@
                   title:
                     size: md
                     weight: semibold
-                    color: '#1e293b'
+                    color: *color-primary
                   content:
                     size: md
                     weight: regular
-                    color: '#64748b'
+                    color: *color-secondary
                 appearance:
                   titleBackground:
-                    color: '#ffffff'
+                    color: *color-background
                   contentBackground:
-                    color: '#ffffff'
+                    color: *color-background
                     transparency: 100
                   border:
                     width: 1
                     style: solid
-                    color: '#e2e8f0'
+                    color: *color-secondary
                     position: all
                   radius: md
                   padding:
@@ -1462,8 +1471,8 @@
           background:
             type: gradient
             gradient:
-              colorStart: '#0ea5e9'
-              colorEnd: '#06b6d4'
+              colorStart: *color-accent
+              colorEnd: *color-accent
               direction: to right
       components:
         - name: layout-column
@@ -1485,7 +1494,7 @@
                   size: sm
                   weight: semibold
                   align: center
-                  color: '#e0f2fe'
+                  color: *color-background
                   transform: uppercase
                   letterSpacing: wide
             - name: heading
@@ -1496,7 +1505,7 @@
                   size: xxxl
                   weight: bold
                   align: center
-                  color: '#ffffff'
+                  color: *color-background
                   lineHeight: '1.2'
             - name: paragraph
               properties:
@@ -1505,7 +1514,7 @@
                   size: lg
                   weight: regular
                   align: center
-                  color: '#e0f2fe'
+                  color: *color-background
                   lineHeight: '1.6'
 
     # --- Image Component Demo ---
@@ -1522,7 +1531,7 @@
             inline: lg
           background:
             type: color
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -1543,7 +1552,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#0ea5e9'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -1552,13 +1561,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "Images support filters, hover effects, shadows, overlays, and responsive sizing."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: layout-row
           properties:
@@ -1604,7 +1613,7 @@
                     text: "Zoom on Hover"
                     typography:
                       size: sm
-                      color: '#64748b'
+                      color: *color-secondary
                       align: center
 
             - name: layout-column
@@ -1638,7 +1647,7 @@
                     text: "Grayscale Filter"
                     typography:
                       size: sm
-                      color: '#64748b'
+                      color: *color-secondary
                       align: center
 
             - name: layout-column
@@ -1672,7 +1681,7 @@
                     text: "Pill Corners + Lift"
                     typography:
                       size: sm
-                      color: '#64748b'
+                      color: *color-secondary
                       align: center
 
             - name: layout-column
@@ -1703,14 +1712,14 @@
                       minHeight: 12
                       overlay:
                         enabled: true
-                        color: '#1e293b'
+                        color: *color-primary
                         opacity: 30
                 - name: caption
                   properties:
                     text: "Overlay Effect"
                     typography:
                       size: sm
-                      color: '#64748b'
+                      color: *color-secondary
                       align: center
 
     # --- Video Component Demo ---
@@ -1727,7 +1736,7 @@
             inline: lg
           background:
             type: color
-            color: '#f1f5f9'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -1748,7 +1757,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#0ea5e9'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -1757,13 +1766,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "Embed YouTube, Vimeo, or direct video files with playback controls."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: layout-column
           properties:
@@ -1804,7 +1813,7 @@
             inline: lg
           background:
             type: color
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -1825,7 +1834,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#0ea5e9'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -1834,13 +1843,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "Display animated GIFs with the same styling options as images."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: layout-row
           properties:
@@ -1894,7 +1903,7 @@
             inline: lg
           background:
             type: color
-            color: '#f1f5f9'
+            color: *color-background
             transparency: 100
       components:
         - name: layout-column
@@ -1915,7 +1924,7 @@
                 typography:
                   size: xs
                   weight: semibold
-                  color: '#0ea5e9'
+                  color: *color-accent
                   transform: uppercase
             - name: heading
               level: 3
@@ -1924,13 +1933,13 @@
                 typography:
                   size: xl
                   weight: semibold
-                  color: '#1e293b'
+                  color: *color-primary
             - name: paragraph
               properties:
                 text: "Showcase multiple images with navigation arrows, indicators, and touch swipe support."
                 typography:
                   size: md
-                  color: '#64748b'
+                  color: *color-secondary
 
         - name: carousel
           properties:
@@ -1983,7 +1992,7 @@
           objectPosition: center
           overlay:
             enabled: true
-            color: '#0f172a'
+            color: *color-primary
             opacity: 60
         playback:
           autoplay: true
@@ -2003,7 +2012,7 @@
               size: sm
               weight: semibold
               align: center
-              color: '#94a3b8'
+              color: *color-secondary
               transform: uppercase
               letterSpacing: wide
         - name: heading
@@ -2014,7 +2023,7 @@
               size: xxxl
               weight: bold
               align: center
-              color: '#ffffff'
+              color: *color-background
         - name: paragraph
           properties:
             text: "Create immersive hero sections with looping video backgrounds and overlay content."
@@ -2022,7 +2031,7 @@
               size: lg
               weight: regular
               align: center
-              color: '#cbd5e1'
+              color: *color-background
         - name: button
           properties:
             text: "Learn More"
@@ -2031,11 +2040,11 @@
               value: "#"
             typography:
               weight: semibold
-              color: '#ffffff'
+              color: *color-background
             appearance:
               background:
                 type: color
-                color: '#6366f1'
+                color: *color-accent
                 transparency: 100
               radius: md
               padding:
@@ -2058,7 +2067,7 @@
             inline: lg
           background:
             type: color
-            color: '#0f172a'
+            color: *color-primary
             transparency: 100
       components:
         - name: layout-column
@@ -2081,7 +2090,7 @@
                   size: lg
                   weight: semibold
                   align: center
-                  color: '#ffffff'
+                  color: *color-background
             - name: paragraph
               properties:
                 text: "All components demonstrated use the standardized property paths and support full customization via the properties panel."
@@ -2089,11 +2098,11 @@
                   size: sm
                   weight: regular
                   align: center
-                  color: '#94a3b8'
+                  color: *color-secondary
             - name: caption
               properties:
                 text: "Built with Swift Sites - YAML-based website builder"
                 typography:
                   size: xs
-                  color: '#64748b'
+                  color: *color-secondary
                   align: center

@@ -10,9 +10,6 @@
         secondary: &color-secondary "#666666"
         accent: &color-accent "#1a1a1a"
         background: &color-background "#f8f6f3"
-        border: &color-border "#e5e5e5"
-        focus-bg: &color-focus-bg "#eeeae5"
-        surface: &color-surface "#ffffff"
     appearance:
       background:
         color: *color-background
@@ -41,15 +38,15 @@
             inline: none
           background:
             type: solid
-            color: "#666666"
+            color: *color-secondary
             transparency: 0
           border:
             width: 0
             style: solid
-            color: "#000000"
+            color: *color-primary
           radius: none
           shadow: none
-          shadowColor: "#000000"
+          shadowColor: *color-primary
       components:
         - name: paragraph
           properties:
@@ -70,7 +67,7 @@
             appearance:
               background:
                 type: solid
-                color: "#ffffff"
+                color: *color-background
                 transparency: 0
               radius: none
               padding:
@@ -101,7 +98,7 @@
           shrinkPercentage: 70
         appearance:
           background:
-            color: "#f8f6f3"
+            color: *color-background
             transparency: 100
             type: solid
           border:
@@ -109,17 +106,17 @@
             style: solid
             color: transparent
           focus:
-            background: "#eeeae5"
-            color: "#1a1a1a"
+            background: *color-background
+            color: *color-primary
         typography:
           title:
             size: 28
             weight: bold
-            color: "#1a1a1a"
+            color: *color-primary
           menu:
             size: 17
             weight: medium
-            color: "#1a1a1a"
+            color: *color-primary
 
     # Editorial Hero Layout
     - name: layout-row
@@ -144,15 +141,15 @@
             inline: sm
           background:
             type: solid
-            color: "#ffffff"
+            color: *color-background
             transparency: 0
           border:
             width: 0
             style: solid
-            color: "#000000"
+            color: *color-primary
           radius: none
           shadow: none
-          shadowColor: "#000000"
+          shadowColor: *color-primary
       components:
         # Main Feature Image
         - name: image
@@ -171,14 +168,14 @@
               objectPosition: center
               filter: none
               shadow: none
-              shadowColor: "#000000"
+              shadowColor: *color-primary
               lazy: true
               padding:
                 block: none
                 inline: none
               overlay:
                 enabled: false
-                color: "#000000"
+                color: *color-primary
                 opacity: 1
             spacing:
               marginBlock: none
@@ -195,7 +192,7 @@
                   properties:
                     text: "COVER STORY"
                     typography:
-                      color: *color-surface
+                      color: *color-background
                       size: xxs
                       weight: bold
                       letterSpacing: wider
@@ -207,7 +204,7 @@
                     text: "The Art of Quiet Luxury"
                     level: 2
                     typography:
-                      color: *color-surface
+                      color: *color-background
                       size: xxl
                       weight: bold
                       lineHeight: '1.1'
@@ -225,7 +222,7 @@
                   properties:
                     text: "Read the full story →"
                     typography:
-                      color: *color-surface
+                      color: *color-background
                       size: sm
                       weight: medium
                     spacing:
@@ -253,15 +250,15 @@
                 inline: none
               background:
                 type: solid
-                color: "#ffffff"
+                color: *color-background
                 transparency: 0
               border:
                 width: 0
                 style: solid
-                color: "#000000"
+                color: *color-primary
               radius: none
               shadow: none
-              shadowColor: "#000000"
+              shadowColor: *color-primary
           components:
             # Top Story
             - name: image
@@ -277,14 +274,14 @@
                   objectPosition: center
                   filter: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
                   lazy: true
                   padding:
                     block: none
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: stretch
@@ -321,7 +318,7 @@
                         text: "The Bags to Invest In"
                         level: 3
                         typography:
-                          color: *color-surface
+                          color: *color-background
                           size: lg
                           weight: bold
                         spacing:
@@ -341,14 +338,14 @@
                   objectPosition: center
                   filter: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
                   lazy: true
                   padding:
                     block: none
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: stretch
@@ -385,7 +382,7 @@
                         text: "Glow Like Glass"
                         level: 3
                         typography:
-                          color: *color-surface
+                          color: *color-background
                           size: lg
                           weight: bold
                         spacing:
@@ -403,12 +400,12 @@
           paddingInline: lg
         appearance:
           background:
-            color: *color-surface
+            color: *color-background
             transparency: 100
           border:
             width: 1
             style: solid
-            color: *color-border
+            color: *color-secondary
             position: top
           shadow: soft
       components:

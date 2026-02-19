@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Inter', sans-serif"
-        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        heading: &font-heading "'Inter', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
@@ -29,7 +28,7 @@
           paddingInline: lg
         appearance:
           background:
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
           borderRadius: md
           shadow: soft
@@ -66,7 +65,7 @@
                   padding: { block: sm, inline: md }
                   borderRadius: sm
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   weight: semibold
                   size: sm
 
@@ -77,7 +76,7 @@
                   widthMode: fit
                 appearance:
                   background:
-                    color: '#e2e8f0'
+                    color: *color-secondary
                   padding: { block: sm, inline: md }
                   borderRadius: sm
                 typography:
@@ -92,7 +91,7 @@
                   widthMode: fit
                 appearance:
                   background:
-                    color: '#e2e8f0'
+                    color: *color-secondary
                   padding: { block: sm, inline: md }
                   borderRadius: sm
                 typography:

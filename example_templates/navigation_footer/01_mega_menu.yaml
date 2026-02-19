@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Inter', sans-serif"
-        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        heading: &font-heading "'Inter', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#1e293b'
@@ -47,7 +46,7 @@
           border: { width: 0, style: solid, color: *color-primary }
         typography:
           title: { size: 22, weight: bold, color: *color-background }
-          menu: { size: 15, weight: medium, color: '#cbd5e1' }
+          menu: { size: 15, weight: medium, color: *color-secondary }
 
     # ============================================
     # MEGA-MENU PANEL
@@ -57,8 +56,8 @@
         layout: { horizontalAlign: space-evenly, align: start, wrap: nowrap }
         spacing: { paddingBlock: none, paddingInline: none }
         appearance:
-          background: { color: '#f8fafc', transparency: 100 }
-          border: { width: 1, style: solid, color: '#e2e8f0' }
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, style: solid, color: *color-secondary }
       components:
 
         # Mega-Menu Content Area

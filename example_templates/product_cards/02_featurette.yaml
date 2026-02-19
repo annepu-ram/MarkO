@@ -3,14 +3,20 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f3f4f6' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: sm }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: medium
           padding: { block: none, inline: none }
@@ -31,21 +37,21 @@
               properties:
                 text: Smart Fitness Tracker Pro
                 level: 3
-                typography: { size: xl, weight: bold, color: '#111827', align: left }
+                typography: { size: xl, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: xs }
             - name: paragraph
               properties:
                 text: Advanced health monitoring with 7-day battery life and water resistance up to 50m.
-                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.6" }
+                typography: { size: sm, color: *color-secondary, align: left, lineHeight: "1.6" }
             - name: accordion
               properties:
                 behavior: { allowMultipleOpen: false }
                 typography:
-                  title: { size: sm, weight: semibold, color: '#374151' }
-                  content: { size: sm, weight: regular, color: '#6b7280' }
+                  title: { size: sm, weight: semibold, color: *color-primary }
+                  content: { size: sm, weight: regular, color: *color-secondary }
                 appearance:
-                  titleBackground: { color: '#f9fafb' }
-                  border: { width: 1, style: solid, color: '#e5e7eb', position: bottom }
+                  titleBackground: { color: *color-background }
+                  border: { width: 1, style: solid, color: *color-secondary, position: bottom }
                   radius: sm
                 spacing: { marginBlock: sm }
               items:
@@ -76,10 +82,10 @@
             - name: caption
               properties:
                 text: "$349.99"
-                typography: { size: xl, weight: bold, color: '#111827', align: left }
+                typography: { size: xl, weight: bold, color: *color-primary, align: left }
             - name: button
               properties:
                 text: Buy Now
-                appearance: { background: { color: '#2563eb' }, radius: md }
-                typography: { color: '#ffffff', weight: semibold }
+                appearance: { background: { color: *color-accent }, radius: md }
+                typography: { color: *color-background, weight: semibold }
                 layout: { widthMode: stretch }

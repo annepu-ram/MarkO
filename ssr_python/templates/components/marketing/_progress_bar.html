@@ -1,0 +1,41 @@
+{% macro render_progress_bar(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set percent = properties.percent | default(0) | int %}
+    {% set thickness = properties.thickness | default('medium') %}
+    {% set color = properties.color | default('#3b82f6') %}
+    {% set track_color = properties.trackColor | default('#e5e7eb') %}
+    {% set color_gradient = properties.colorGradient | default(false) %}
+    {% set base_styles = build_styles(component, tokens) %}
+
+    {# Thickness mapping #}
+    {% set thickness_map = {'small': '0.5rem', 'medium': '1rem', 'large': '1.5rem'} %}
+    {% set height = thickness_map[thickness] | default('1rem') %}
+
+    {# Radius from appearance #}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set radius = appearance.radius | default('pill') %}
+    {% set radius_value = tokens.border_radius[radius] if tokens and tokens.border_radius and radius in tokens.border_radius else '9999px' %}
+
+    {# Bar fill style #}
+    {% if color_gradient %}
+        {% set fill_bg = 'linear-gradient(to right, #ef4444, #f59e0b, #22c55e)' %}
+    {% else %}
+        {% set fill_bg = color %}
+    {% endif %}
+
+    {# Clamp percent 0-100 #}
+    {% set clamped = [0, [percent, 100] | min] | max %}
+
+    <div class="progress-bar chrome-target"
+         data-component-id="{{ component_id }}"
+         role="progressbar"
+         aria-valuenow="{{ clamped }}"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         aria-label="Progress: {{ clamped }}%"
+         style="{{ base_styles }} width: 100%; height: {{ height }}; background-color: {{ track_color }}; border-radius: {{ radius_value }}; overflow: hidden;">
+        <div class="progress-bar__fill"
+             style="width: {{ clamped }}%; height: 100%; background: {{ fill_bg }}; border-radius: {{ radius_value }}; transition: width 0.6s ease;">
+        </div>
+    </div>
+{% endmacro %}

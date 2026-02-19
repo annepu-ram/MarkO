@@ -1,0 +1,30 @@
+{% macro render_badge(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set text = properties.text | default('Badge') %}
+    {% set variant = properties.variant | default('info') %}
+    {% set pill = properties.pill | default(false) %}
+    {% set base_styles = build_styles(component, tokens) %}
+
+    {# Variant color mapping #}
+    {% set variant_colors = {
+        'success': {'bg': '#059669', 'text': '#ffffff'},
+        'danger':  {'bg': '#dc2626', 'text': '#ffffff'},
+        'warning': {'bg': '#d97706', 'text': '#ffffff'},
+        'info':    {'bg': '#2563eb', 'text': '#ffffff'}
+    } %}
+    {% set colors = variant_colors[variant] | default(variant_colors['info']) %}
+
+    {# Use typography color if explicitly set, otherwise use variant default #}
+    {% set typo = properties.typography | default({}) %}
+    {% set text_color = typo.color if typo.color else colors.text %}
+    {% set size_token = typo.size | default('sm') %}
+    {% set font_size = tokens.typography_sizes[size_token] if tokens and tokens.typography_sizes and size_token in tokens.typography_sizes else '0.875rem' %}
+    {% set bg_color = colors.bg %}
+    {% set pill_radius = '9999px' if pill else '0.3rem' %}
+
+    <span class="badge badge-{{ variant }} chrome-target"
+          data-component-id="{{ component_id }}"
+          style="{{ base_styles }} display: inline-flex; align-items: center; justify-content: center; background-color: {{ bg_color }}; color: {{ text_color }}; border-radius: {{ pill_radius }}; padding: 0.25em 0.65em; font-size: {{ font_size }}; font-weight: 600; line-height: 1; white-space: nowrap;">
+        {{ text }}
+    </span>
+{% endmacro %}

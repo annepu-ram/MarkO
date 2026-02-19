@@ -4,8 +4,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f8fafc' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
@@ -14,8 +20,8 @@
           background:
             type: gradient
             gradient:
-              colorStart: '#0f172a'
-              colorEnd: '#1e3a5f'
+              colorStart: *color-primary
+              colorEnd: *color-primary
               direction: 'to bottom right'
           radius: xl
           shadow: dramatic
@@ -29,7 +35,7 @@
             typography:
               size: xxs
               weight: bold
-              color: '#94a3b8'
+              color: *color-secondary
               align: center
               transform: uppercase
               letterSpacing: wider
@@ -39,13 +45,13 @@
           properties:
             text: Custom Pricing
             level: 2
-            typography: { size: xxl, weight: extrabold, color: '#ffffff', align: center }
+            typography: { size: xxl, weight: extrabold, color: *color-background, align: center }
             spacing: { marginBlock: xs }
         # Subtitle
         - name: paragraph
           properties:
             text: "Tailored solutions for organizations with 100+ users"
-            typography: { size: md, color: '#cbd5e1', align: center }
+            typography: { size: md, color: *color-secondary, align: center }
             spacing: { marginBlock: xs }
         - name: br
           properties:
@@ -55,34 +61,34 @@
           properties:
             layout: { horizontalAlign: left, gap: xs }
             appearance:
-              background: { color: '#1e293b', transparency: 100 }
+              background: { color: *color-primary, transparency: 100 }
               radius: md
               padding: { block: md, inline: md }
           components:
             - name: paragraph
               properties:
                 text: "Dedicated account manager"
-                typography: { size: sm, color: '#e2e8f0' }
+                typography: { size: sm, color: *color-background }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "Custom SLA & uptime guarantees"
-                typography: { size: sm, color: '#e2e8f0' }
+                typography: { size: sm, color: *color-background }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "On-premise deployment options"
-                typography: { size: sm, color: '#e2e8f0' }
+                typography: { size: sm, color: *color-background }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "Advanced compliance & audit logs"
-                typography: { size: sm, color: '#e2e8f0' }
+                typography: { size: sm, color: *color-background }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "Unlimited seats & storage"
-                typography: { size: sm, color: '#e2e8f0' }
+                typography: { size: sm, color: *color-background }
                 spacing: { marginBlock: xxs }
         - name: br
           properties:
@@ -92,14 +98,14 @@
           properties:
             text: Talk to Sales
             appearance:
-              background: { color: '#3b82f6' }
+              background: { color: *color-accent }
               radius: md
               padding: { block: md, inline: xl }
-            typography: { color: '#ffffff', weight: bold, size: md }
+            typography: { color: *color-background, weight: bold, size: md }
             layout: { widthMode: stretch }
         # Secondary link
         - name: caption
           properties:
             text: "No commitment required. Get a custom quote in 24 hours."
-            typography: { size: xs, color: '#64748b', align: center }
+            typography: { size: xs, color: *color-secondary, align: center }
             spacing: { marginBlock: xs }

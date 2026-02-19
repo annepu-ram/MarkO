@@ -10,7 +10,6 @@
         secondary: &color-secondary "#1a1a1a"
         accent: &color-accent "#d4af37"
         background: &color-background "#1a1a1a"
-        accent-dark: &color-accent-dark "#b8941f"
     appearance:
       background:
         color: *color-background
@@ -66,21 +65,21 @@
                     inline: sm
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-primary
                     transparency: 0
                   border:
                     width: 0
                     style: solid
-                    color: "#000000"
+                    color: *color-background
                   radius: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-background
               components:
                 - name: paragraph
                   properties:
                     text: "—"
                     typography:
-                      color: "#d4af37"
+                      color: *color-accent
                       size: lg
                       weight: bold
                       align: left
@@ -94,7 +93,7 @@
                     appearance:
                       background:
                         type: solid
-                        color: "#ffffff"
+                        color: *color-primary
                         transparency: 0
                       radius: none
                       padding:
@@ -104,7 +103,7 @@
                   properties:
                     text: "CHAPTER ONE"
                     typography:
-                      color: "#d4af37"
+                      color: *color-accent
                       size: xl
                       weight: bold
                       letterSpacing: wider
@@ -118,7 +117,7 @@
                     appearance:
                       background:
                         type: solid
-                        color: "#ffffff"
+                        color: *color-primary
                         transparency: 0
                       radius: none
                       padding:
@@ -146,7 +145,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-primary
                     transparency: 0
                   radius: none
                   padding:
@@ -163,7 +162,7 @@
                 layout:
                   widthMode: "40"
                 typography:
-                  color: "#ffffff"
+                  color: *color-primary
                   size: lg
                   lineHeight: '1.8'
                   weight: semibold
@@ -176,7 +175,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-primary
                     transparency: 0
                   radius: none
                   padding:
@@ -291,7 +290,7 @@
                         type: gradient
                         gradient:
                           colorStart: *color-accent
-                          colorEnd: *color-accent-dark
+                          colorEnd: *color-accent
                           direction: to right
                       border:
                         width: 0
@@ -345,7 +344,7 @@
                     typography:
                       size: md
                       weight: light
-                      color: "#ffffff"
+                      color: *color-primary
                       align: center
                       lineHeight: "1.6"
                       transform: none
@@ -356,7 +355,7 @@
                         transparency: 0
                         type: solid
                       border:
-                        accentColor: "#d4af37"
+                        accentColor: *color-accent
                         width: 2
                         style: solid
                         position: left
@@ -365,7 +364,7 @@
                         block: md
                         inline: md
                       shadow: none
-                      shadowColor: "#000000"
+                      shadowColor: *color-background
                     spacing:
                       marginBlock: none
                       marginInline: none

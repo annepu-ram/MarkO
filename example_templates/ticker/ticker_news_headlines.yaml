@@ -1,0 +1,296 @@
+# Ticker Template: News Headlines
+# Blog/news article cards with category badge, image, headline, and date
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Playfair Display', serif"
+        content: &font-content "'Source Sans 3', sans-serif"
+      colors:
+        primary: &color-primary '#1c1917'
+        secondary: &color-secondary '#78716c'
+        accent: &color-accent '#b45309'
+        background: &color-background '#fffbeb'
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xxl
+          paddingInline: lg
+      components:
+        - name: heading
+          properties:
+            text: Latest News & Insights
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+        - name: paragraph
+          properties:
+            text: Stay informed with our latest articles and industry updates
+            typography:
+              size: md
+              color: *color-secondary
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 20
+              mode: continuous
+              pauseOnHover: true
+            layout:
+              width: "360"
+            spacing:
+              marginBlock: lg
+              marginInline: none
+              gap: lg
+            appearance:
+              columnBackground: *color-background
+              columnTransparency: 100
+              columnRadius: md
+              columnBorder:
+                width: 1
+                style: solid
+                color: *color-secondary
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&h=250&fit=crop
+                          altText: AI Technology
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 180
+                    - name: layout-column
+                      properties:
+                        layout:
+                          gap: xs
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: md
+                      components:
+                        - name: badge
+                          properties:
+                            text: Technology
+                            variant: info
+                            pill: true
+                            typography:
+                              size: xs
+                              color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "AI in 2026: How Machine Learning Is Reshaping Every Industry"
+                            level: 4
+                            typography:
+                              size: md
+                              weight: bold
+                              color: *color-primary
+                              lineHeight: snug
+                        - name: paragraph
+                          properties:
+                            text: "February 14, 2026 · 8 min read"
+                            typography:
+                              size: xs
+                              color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=500&h=250&fit=crop
+                          altText: Startup Office
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 180
+                    - name: layout-column
+                      properties:
+                        layout:
+                          gap: xs
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: md
+                      components:
+                        - name: badge
+                          properties:
+                            text: Startups
+                            variant: info
+                            pill: true
+                            typography:
+                              size: xs
+                              color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Bootstrapping vs VC Funding: What 50 Founders Told Us"
+                            level: 4
+                            typography:
+                              size: md
+                              weight: bold
+                              color: *color-primary
+                              lineHeight: snug
+                        - name: paragraph
+                          properties:
+                            text: "February 12, 2026 · 12 min read"
+                            typography:
+                              size: xs
+                              color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=250&fit=crop
+                          altText: Data Analytics Dashboard
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 180
+                    - name: layout-column
+                      properties:
+                        layout:
+                          gap: xs
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: md
+                      components:
+                        - name: badge
+                          properties:
+                            text: Analytics
+                            variant: info
+                            pill: true
+                            typography:
+                              size: xs
+                              color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Data-Driven Decisions: Building Your First Analytics Pipeline"
+                            level: 4
+                            typography:
+                              size: md
+                              weight: bold
+                              color: *color-primary
+                              lineHeight: snug
+                        - name: paragraph
+                          properties:
+                            text: "February 10, 2026 · 6 min read"
+                            typography:
+                              size: xs
+                              color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&h=250&fit=crop
+                          altText: Remote Team Working
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 180
+                    - name: layout-column
+                      properties:
+                        layout:
+                          gap: xs
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: md
+                      components:
+                        - name: badge
+                          properties:
+                            text: Culture
+                            variant: info
+                            pill: true
+                            typography:
+                              size: xs
+                              color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Remote-First Doesn't Mean Alone: Fostering Connection in Distributed Teams"
+                            level: 4
+                            typography:
+                              size: md
+                              weight: bold
+                              color: *color-primary
+                              lineHeight: snug
+                        - name: paragraph
+                          properties:
+                            text: "February 8, 2026 · 10 min read"
+                            typography:
+                              size: xs
+                              color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=250&fit=crop
+                          altText: Cloud Infrastructure
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 180
+                    - name: layout-column
+                      properties:
+                        layout:
+                          gap: xs
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: md
+                      components:
+                        - name: badge
+                          properties:
+                            text: DevOps
+                            variant: info
+                            pill: true
+                            typography:
+                              size: xs
+                              color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Zero Downtime Deployments: A Practical Guide to Blue-Green Strategy"
+                            level: 4
+                            typography:
+                              size: md
+                              weight: bold
+                              color: *color-primary
+                              lineHeight: snug
+                        - name: paragraph
+                          properties:
+                            text: "February 5, 2026 · 15 min read"
+                            typography:
+                              size: xs
+                              color: *color-secondary

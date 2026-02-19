@@ -6,7 +6,18 @@
     {# Page always uses flex-direction: column, width: 100% #}
     {% set base_styles = 'display: flex; flex-direction: column; width: 100%; box-sizing: border-box;' %}
 
-    <div class="page" data-component-id="{{ component_id }}" style="{{ base_styles }} {{ page_styles }}">
+    {# Font theme CSS variables — cascade to all child components #}
+    {% set theme = properties.theme | default({}) %}
+    {% set theme_fonts = theme.fonts | default({}) %}
+    {% set font_vars = '' %}
+    {% if theme_fonts.heading %}
+        {% set font_vars = font_vars ~ '--font-heading: ' ~ theme_fonts.heading ~ '; ' %}
+    {% endif %}
+    {% if theme_fonts.content %}
+        {% set font_vars = font_vars ~ '--font-content: ' ~ theme_fonts.content ~ '; ' %}
+    {% endif %}
+
+    <div class="page" data-component-id="{{ component_id }}" style="{{ base_styles }} {{ page_styles }} {{ font_vars }}">
         {% if components | length > 0 %}
             {% for child in components %}
                 {% set child_path = path + ['components', loop.index0] %}

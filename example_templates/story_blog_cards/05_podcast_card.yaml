@@ -3,18 +3,24 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#f1f5f9'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#818cf8'
+        background: &color-background '#111827'
     appearance:
-      background: { color: '#111827' }
+      background: { color: *color-background }
   components:
     - name: layout-row
       properties:
         layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: md }
         appearance:
-          background: { color: '#1f2937' }
+          background: { color: *color-background }
           radius: lg
           shadow: elevated
           padding: { block: md, inline: md }
-          border: { width: 1, style: solid, color: '#374151' }
+          border: { width: 1, style: solid, color: *color-secondary }
         spacing: { marginBlock: md, marginInline: lg }
       components:
         - name: image
@@ -31,21 +37,21 @@
             - name: eyebrow
               properties:
                 text: EPISODE 42
-                typography: { size: xxs, weight: semibold, color: '#818cf8', transform: uppercase, letterSpacing: wider }
+                typography: { size: xxs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
                 spacing: { marginBlock: none }
             - name: heading
               properties:
                 text: "Building in Public: Why Transparency Wins"
                 level: 4
-                typography: { size: md, weight: bold, color: '#f1f5f9', align: left }
+                typography: { size: md, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: none }
             - name: caption
               properties:
                 text: "The Startup Diaries - 38 min"
-                typography: { size: xs, color: '#94a3b8' }
+                typography: { size: xs, color: *color-secondary }
         - name: button
           properties:
             text: Play
-            appearance: { background: { color: '#6366f1' }, radius: pill, padding: { block: sm, inline: md } }
-            typography: { color: '#ffffff', weight: bold }
+            appearance: { background: { color: *color-accent }, radius: pill, padding: { block: sm, inline: md } }
+            typography: { color: *color-primary, weight: bold }
             layout: { widthMode: "25" }

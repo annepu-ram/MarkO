@@ -3,18 +3,24 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#065f46'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#059669'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f0fdf4' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: md }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: medium
           padding: { block: lg, inline: lg }
-          border: { width: 1, style: solid, color: '#bbf7d0' }
+          border: { width: 1, style: solid, color: *color-accent }
         spacing: { marginBlock: lg, marginInline: lg }
       components:
         - name: eyebrow
@@ -24,7 +30,7 @@
               {
                 size: xxs,
                 weight: bold,
-                color: '#059669',
+                color: *color-accent,
                 transform: uppercase,
                 letterSpacing: wider
               }
@@ -38,13 +44,13 @@
               {
                 size: lg,
                 weight: medium,
-                color: '#065f46',
+                color: *color-primary,
                 align: left,
                 lineHeight: "1.7"
               }
             appearance:
-              border: { accentColor: '#059669' }
-              background: { color: '#f0fdf4', transparency: 100 }
+              border: { accentColor: *color-accent }
+              background: { color: *color-background, transparency: 100 }
               radius: md
               padding: { block: md, inline: md }
             spacing: { marginBlock: sm }
@@ -60,12 +66,12 @@
               }
             appearance:
               {
-                background: { transparency: 0, type: "", color: "#ffffff" },
+                background: { transparency: 0, type: "", color: *color-background },
                 padding: { block: sm, inline: sm },
-                border: { width: 0, style: solid, color: "#000000" },
+                border: { width: 0, style: solid, color: *color-secondary },
                 radius: none,
                 shadow: none,
-                shadowColor: "#000000"
+                shadowColor: *color-secondary
               }
             spacing:
               marginBlock: none
@@ -84,12 +90,12 @@
                   }
                 appearance:
                   {
-                    background: { transparency: 0, type: "", color: "#ffffff" },
+                    background: { transparency: 0, type: "", color: *color-background },
                     padding: { block: sm, inline: sm },
-                    border: { width: 0, style: solid, color: "#000000" },
+                    border: { width: 0, style: solid, color: *color-secondary },
                     radius: none,
                     shadow: none,
-                    shadowColor: "#000000"
+                    shadowColor: *color-secondary
                   }
                 spacing:
                   marginBlock: none
@@ -99,12 +105,12 @@
                   properties:
                     text: "85%"
                     level: 4
-                    typography: { size: xxl, weight: extrabold, color: '#059669', align: center }
+                    typography: { size: xxl, weight: extrabold, color: *color-accent, align: center }
                     spacing: { marginBlock: none }
                 - name: caption
                   properties:
                     text: Faster Onboarding
-                    typography: { size: xs, color: '#6b7280', align: center }
+                    typography: { size: xs, color: *color-secondary, align: center }
             - name: layout-column
               properties:
                 layout:
@@ -118,12 +124,12 @@
                   }
                 appearance:
                   {
-                    background: { transparency: 0, type: "", color: "#ffffff" },
+                    background: { transparency: 0, type: "", color: *color-background },
                     padding: { block: sm, inline: sm },
-                    border: { width: 0, style: solid, color: "#000000" },
+                    border: { width: 0, style: solid, color: *color-secondary },
                     radius: none,
                     shadow: none,
-                    shadowColor: "#000000"
+                    shadowColor: *color-secondary
                   }
                 spacing:
                   marginBlock: none
@@ -133,12 +139,12 @@
                   properties:
                     text: "45%"
                     level: 4
-                    typography: { size: xxl, weight: extrabold, color: '#059669', align: center }
+                    typography: { size: xxl, weight: extrabold, color: *color-accent, align: center }
                     spacing: { marginBlock: none }
                 - name: caption
                   properties:
                     text: Higher Retention
-                    typography: { size: xs, color: '#6b7280', align: center }
+                    typography: { size: xs, color: *color-secondary, align: center }
             - name: layout-column
               properties:
                 layout:
@@ -152,12 +158,12 @@
                   }
                 appearance:
                   {
-                    background: { transparency: 0, type: "", color: "#ffffff" },
+                    background: { transparency: 0, type: "", color: *color-background },
                     padding: { block: sm, inline: sm },
-                    border: { width: 0, style: solid, color: "#000000" },
+                    border: { width: 0, style: solid, color: *color-secondary },
                     radius: none,
                     shadow: none,
-                    shadowColor: "#000000"
+                    shadowColor: *color-secondary
                   }
                 spacing:
                   marginBlock: none
@@ -167,21 +173,21 @@
                   properties:
                     text: "$2.1M"
                     level: 4
-                    typography: { size: xxl, weight: extrabold, color: '#059669', align: center }
+                    typography: { size: xxl, weight: extrabold, color: *color-accent, align: center }
                     spacing: { marginBlock: none }
                 - name: caption
                   properties:
                     text: Revenue Increase
-                    typography: { size: xs, color: '#6b7280', align: center }
+                    typography: { size: xs, color: *color-secondary, align: center }
         - name: accordion
           properties:
             behavior: { allowMultipleOpen: false }
             typography:
-              title: { size: md, weight: semibold, color: '#059669' }
-              content: { size: sm, weight: regular, color: '#4b5563' }
+              title: { size: md, weight: semibold, color: *color-accent }
+              content: { size: sm, weight: regular, color: *color-secondary }
             appearance:
-              titleBackground: { color: '#f0fdf4' }
-              border: { width: 1, style: solid, color: '#bbf7d0', position: all }
+              titleBackground: { color: *color-background }
+              border: { width: 1, style: solid, color: *color-accent, position: all }
               radius: md
             spacing: { marginBlock: sm }
           items:
@@ -200,10 +206,10 @@
 
                       Key wins included: automated environment provisioning, self-service configuration
                       wizards, and real-time progress tracking for both the customer and internal teams.
-                    typography: { size: sm, color: '#4b5563', lineHeight: "1.8" }
+                    typography: { size: sm, color: *color-secondary, lineHeight: "1.8" }
                 - name: link
                   properties:
                     text: Download Full PDF Report
                     href: '#'
-                    typography: { size: sm, weight: semibold, color: '#059669' }
+                    typography: { size: sm, weight: semibold, color: *color-accent }
                     appearance: { showArrow: true, underline: false }

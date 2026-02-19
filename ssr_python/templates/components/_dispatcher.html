@@ -41,6 +41,8 @@
         {{ render_titlebar(component, tokens, path, component_id) }}
     {% elif name == 'carousel' %}
         {{ render_carousel(component, tokens, path, component_id) }}
+    {% elif name == 'ticker' %}
+        {{ render_ticker(component, tokens, path, component_id) }}
     {% elif name == 'video-background' %}
         {{ render_video_background(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'textbox' %}
@@ -55,6 +57,18 @@
         {{ render_radio(component, tokens, path, component_id) }}
     {% elif name == 'calendar' %}
         {{ render_calendar(component, tokens, path, component_id) }}
+    {% elif name == 'icon' %}
+        {{ render_icon(component, tokens, path, component_id) }}
+    {% elif name == 'badge' %}
+        {{ render_badge(component, tokens, path, component_id) }}
+    {% elif name == 'rating' %}
+        {{ render_rating(component, tokens, path, component_id) }}
+    {% elif name == 'progress-bar' %}
+        {{ render_progress_bar(component, tokens, path, component_id) }}
+    {% elif name == 'counter-up' %}
+        {{ render_counter_up(component, tokens, path, component_id) }}
+    {% elif name == 'countdown' %}
+        {{ render_countdown(component, tokens, path, component_id) }}
     {% else %}
         <div style="border: 1px solid red; padding: 8px; margin: 8px;" class="chrome-target" data-component-id="{{ component_id }}">
             <strong>Warning:</strong> Component '{{ name }}' is not implemented in the SSR renderer.

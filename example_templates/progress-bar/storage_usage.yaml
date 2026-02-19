@@ -1,0 +1,151 @@
+# Progress Bar: Storage / Resource Usage
+# Account storage meters showing disk usage levels
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#1e1b4b'
+        primary: &color-primary '#e0e7ff'
+        secondary: &color-secondary '#a5b4fc'
+        accent: &color-accent '#818cf8'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66' }
+          components:
+            - name: heading
+              properties:
+                text: Storage Overview
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary }
+            - name: paragraph
+              properties:
+                text: Your account resource usage
+                typography: { size: md, color: *color-secondary }
+                spacing: { marginBlock: lg }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#312e81' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                  components:
+                    - name: icon
+                      properties: { name: folder, size: "24", color: '#60a5fa' }
+                    - name: heading
+                      properties:
+                        text: Documents
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: "12.4 GB of 50 GB used"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: progress-bar
+                  properties:
+                    percent: 25
+                    thickness: small
+                    color: '#60a5fa'
+                    trackColor: '#1e1b4b'
+                    appearance: { radius: pill }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#312e81' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                  components:
+                    - name: icon
+                      properties: { name: image, size: "24", color: '#a78bfa' }
+                    - name: heading
+                      properties:
+                        text: Photos & Media
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: "78.2 GB of 100 GB used"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: progress-bar
+                  properties:
+                    percent: 78
+                    thickness: small
+                    color: '#a78bfa'
+                    trackColor: '#1e1b4b'
+                    appearance: { radius: pill }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#312e81' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                  components:
+                    - name: icon
+                      properties: { name: backup, size: "24", color: '#f472b6' }
+                    - name: heading
+                      properties:
+                        text: Backups
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: "45.8 GB of 50 GB used - Almost full!"
+                    typography: { size: xs, color: '#fbbf24' }
+                    spacing: { marginBlock: xs }
+                - name: progress-bar
+                  properties:
+                    percent: 92
+                    thickness: small
+                    color: '#f472b6'
+                    trackColor: '#1e1b4b'
+                    appearance: { radius: pill }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#312e81' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                  components:
+                    - name: icon
+                      properties: { name: mail, size: "24", color: '#34d399' }
+                    - name: heading
+                      properties:
+                        text: Email Storage
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: "3.1 GB of 15 GB used"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: progress-bar
+                  properties:
+                    percent: 21
+                    thickness: small
+                    color: '#34d399'
+                    trackColor: '#1e1b4b'
+                    appearance: { radius: pill }

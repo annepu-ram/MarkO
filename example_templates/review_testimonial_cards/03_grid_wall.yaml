@@ -3,8 +3,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#374151'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f9fafb' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
@@ -16,7 +22,7 @@
           properties:
             text: What Our Customers Say
             level: 2
-            typography: { size: xxl, weight: extrabold, color: '#111827', align: center }
+            typography: { size: xxl, weight: extrabold, color: *color-primary, align: center }
         - name: columnsgrid
           properties:
             layout: { columns: 3, gap: md, verticalAlign: top }
@@ -27,112 +33,112 @@
                   properties:
                     layout: { horizontalAlign: left, gap: xs }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: md
                       shadow: soft
                       padding: { block: md, inline: md }
-                      border: { width: 1, style: solid, color: '#f3f4f6' }
+                      border: { width: 1, style: solid, color: *color-secondary }
                   components:
                     - name: paragraph
                       properties:
                         text: "Absolutely love it! Saves me hours every week."
-                        typography: { size: sm, color: '#374151', lineHeight: "1.6" }
+                        typography: { size: sm, color: *color-secondary, lineHeight: "1.6" }
                     - name: eyebrow
                       properties:
                         text: "— EMMA T."
-                        typography: { size: xxs, weight: semibold, color: '#6366f1', letterSpacing: wider }
+                        typography: { size: xxs, weight: semibold, color: *color-accent, letterSpacing: wider }
             - components:
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: left, gap: xs }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: md
                       shadow: soft
                       padding: { block: md, inline: md }
-                      border: { width: 1, style: solid, color: '#f3f4f6' }
+                      border: { width: 1, style: solid, color: *color-secondary }
                   components:
                     - name: paragraph
                       properties:
                         text: "The best investment we made for our team. ROI was visible in the first month."
-                        typography: { size: sm, color: '#374151', lineHeight: "1.6" }
+                        typography: { size: sm, color: *color-secondary, lineHeight: "1.6" }
                     - name: eyebrow
                       properties:
                         text: "— DAVID K."
-                        typography: { size: xxs, weight: semibold, color: '#6366f1', letterSpacing: wider }
+                        typography: { size: xxs, weight: semibold, color: *color-accent, letterSpacing: wider }
             - components:
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: left, gap: xs }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: md
                       shadow: soft
                       padding: { block: md, inline: md }
-                      border: { width: 1, style: solid, color: '#f3f4f6' }
+                      border: { width: 1, style: solid, color: *color-secondary }
                   components:
                     - name: paragraph
                       properties:
                         text: "Clean, intuitive, and powerful. Everything I need in one place."
-                        typography: { size: sm, color: '#374151', lineHeight: "1.6" }
+                        typography: { size: sm, color: *color-secondary, lineHeight: "1.6" }
                     - name: eyebrow
                       properties:
                         text: "— PRIYA M."
-                        typography: { size: xxs, weight: semibold, color: '#6366f1', letterSpacing: wider }
+                        typography: { size: xxs, weight: semibold, color: *color-accent, letterSpacing: wider }
             - components:
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: left, gap: xs }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: md
                       shadow: soft
                       padding: { block: md, inline: md }
-                      border: { width: 1, style: solid, color: '#f3f4f6' }
+                      border: { width: 1, style: solid, color: *color-secondary }
                   components:
                     - name: paragraph
                       properties:
                         text: "Support team is incredible. They helped us migrate seamlessly."
-                        typography: { size: sm, color: '#374151', lineHeight: "1.6" }
+                        typography: { size: sm, color: *color-secondary, lineHeight: "1.6" }
                     - name: eyebrow
                       properties:
                         text: "— ALEX R."
-                        typography: { size: xxs, weight: semibold, color: '#6366f1', letterSpacing: wider }
+                        typography: { size: xxs, weight: semibold, color: *color-accent, letterSpacing: wider }
             - components:
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: left, gap: xs }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: md
                       shadow: soft
                       padding: { block: md, inline: md }
-                      border: { width: 1, style: solid, color: '#f3f4f6' }
+                      border: { width: 1, style: solid, color: *color-secondary }
                   components:
                     - name: paragraph
                       properties:
                         text: "I recommend it to every founder I meet. Game-changing product."
-                        typography: { size: sm, color: '#374151', lineHeight: "1.6" }
+                        typography: { size: sm, color: *color-secondary, lineHeight: "1.6" }
                     - name: eyebrow
                       properties:
                         text: "— LISA W."
-                        typography: { size: xxs, weight: semibold, color: '#6366f1', letterSpacing: wider }
+                        typography: { size: xxs, weight: semibold, color: *color-accent, letterSpacing: wider }
             - components:
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: left, gap: xs }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: md
                       shadow: soft
                       padding: { block: md, inline: md }
-                      border: { width: 1, style: solid, color: '#f3f4f6' }
+                      border: { width: 1, style: solid, color: *color-secondary }
                   components:
                     - name: paragraph
                       properties:
                         text: "Reduced our development cycle by 60%. That's not an exaggeration."
-                        typography: { size: sm, color: '#374151', lineHeight: "1.6" }
+                        typography: { size: sm, color: *color-secondary, lineHeight: "1.6" }
                     - name: eyebrow
                       properties:
                         text: "— JAMES H."
-                        typography: { size: xxs, weight: semibold, color: '#6366f1', letterSpacing: wider }
+                        typography: { size: xxs, weight: semibold, color: *color-accent, letterSpacing: wider }

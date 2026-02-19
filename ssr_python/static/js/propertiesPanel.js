@@ -31,32 +31,40 @@ const sectionIcons = {
 
 // Map component names to icons
 const componentIcons = {
-    page: 'icon-layout',
-    'layout-row': 'icon-layout',
-    'layout-column': 'icon-layout',
-    columnsgrid: 'icon-grid',
-    titlebar: 'icon-menu',
-    heading: 'icon-type',
-    paragraph: 'icon-type',
+    page: 'icon-file-text',
+    'layout-row': 'icon-layout-row',
+    'layout-column': 'icon-layout-column',
+    columnsgrid: 'icon-layout-grid',
+    titlebar: 'icon-credit-card',
+    heading: 'icon-heading-1',
+    paragraph: 'icon-pilcrow',
     eyebrow: 'icon-type',
-    caption: 'icon-type',
-    blockquote: 'icon-type',
+    caption: 'icon-closed-captioning',
+    blockquote: 'icon-quote',
     image: 'icon-image',
     video: 'icon-video',
-    gif: 'icon-image',
-    textbox: 'icon-edit',
-    textarea: 'icon-edit',
-    button: 'icon-box',
+    gif: 'icon-film',
+    textbox: 'icon-type',
+    textarea: 'icon-file-text',
+    button: 'icon-mouse-pointer-square',
     dropdown: 'icon-chevron-down',
     calendar: 'icon-calendar',
     checkbox: 'icon-check-square',
     radio: 'icon-circle-dot',
-    accordion: 'icon-layers',
-    tabs: 'icon-layout',
+    accordion: 'icon-chevrons-down-up',
+    tabs: 'icon-folder-tabs',
     hamburger: 'icon-menu',
     link: 'icon-link',
-    form: 'icon-edit',
-    carousel: 'icon-image',
+    form: 'icon-clipboard-list',
+    carousel: 'icon-gallery-horizontal',
+    br: 'icon-wrap-text',
+    icon: 'icon-star',
+    badge: 'icon-tag',
+    rating: 'icon-star-filled',
+    'progress-bar': 'icon-bar-chart',
+    'counter-up': 'icon-hash',
+    countdown: 'icon-clock',
+    ticker: 'icon-gallery-horizontal',
     default: 'icon-box'
 };
 
@@ -88,6 +96,7 @@ const componentCategories = {
     link: 'Typography',
     form: 'Form Container',
     carousel: 'Interactive',
+    ticker: 'Interactive',
     default: 'Component'
 };
 
@@ -251,12 +260,12 @@ const renderSelect = ({ field, value, fieldId }) => {
         const opt = document.createElement('option');
         opt.value = option.value ?? option;
         opt.textContent = option.label ?? option.value ?? option;
-        if ((value ?? '') === opt.value) {
+        if (String(value ?? '') === opt.value) {
             opt.selected = true;
         }
         select.appendChild(opt);
     });
-    if (value !== undefined && value !== null && !options.some(option => (option.value ?? option) === value)) {
+    if (value !== undefined && value !== null && !options.some(option => String(option.value ?? option) === String(value))) {
         const customOpt = document.createElement('option');
         customOpt.value = value;
         customOpt.textContent = value;
@@ -399,6 +408,108 @@ const renderTokenPills = ({ field, value, fieldId }) => {
     });
 
     return container;
+};
+
+/**
+ * Cache for Material Icons names (loaded once from JSON)
+ */
+let _materialIconsCache = null;
+async function loadMaterialIcons() {
+    if (_materialIconsCache) return _materialIconsCache;
+    const resp = await fetch('/static/data/material-icons.json');
+    _materialIconsCache = await resp.json();
+    return _materialIconsCache;
+}
+
+/**
+ * Render searchable icon picker grid with all Material Icons
+ */
+const renderIconGrid = async ({ field, value, fieldId }) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'icon-picker-wrapper';
+    wrapper.id = fieldId;
+    wrapper.dataset.fieldPath = field.path;
+
+    // Search input
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.className = 'icon-picker-search prop-input';
+    searchInput.placeholder = 'Search icons...';
+
+    // Scrollable grid container
+    const grid = document.createElement('div');
+    grid.className = 'icon-picker-grid';
+
+    // Load all icon names (cached after first fetch)
+    const allIcons = await loadMaterialIcons();
+
+    const MAX_VISIBLE = 60;
+
+    const renderIcons = (filter = '') => {
+        grid.innerHTML = '';
+        const query = filter.toLowerCase().replace(/\s+/g, '_');
+        const filtered = query
+            ? allIcons.filter(name => name.includes(query))
+            : allIcons;
+
+        filtered.slice(0, MAX_VISIBLE).forEach(iconName => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'icon-picker-item';
+            btn.dataset.value = iconName;
+            if (iconName === (value ?? '')) btn.classList.add('active');
+
+            const iconSpan = document.createElement('span');
+            iconSpan.className = 'material-symbols-outlined';
+            iconSpan.textContent = iconName;
+
+            const labelSpan = document.createElement('span');
+            labelSpan.className = 'icon-picker-label';
+            labelSpan.textContent = iconName.replace(/_/g, ' ');
+
+            btn.appendChild(iconSpan);
+            btn.appendChild(labelSpan);
+            btn.onclick = () => {
+                grid.querySelectorAll('.icon-picker-item').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            };
+            grid.appendChild(btn);
+        });
+
+        // Show count indicator if results are truncated
+        if (filtered.length > MAX_VISIBLE) {
+            const more = document.createElement('div');
+            more.className = 'icon-picker-more';
+            more.textContent = `${filtered.length - MAX_VISIBLE} more \u2014 refine search`;
+            grid.appendChild(more);
+        }
+
+        if (filtered.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'icon-picker-more';
+            empty.textContent = 'No icons found';
+            grid.appendChild(empty);
+        }
+    };
+
+    // Debounced search
+    let searchTimeout;
+    searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => renderIcons(searchInput.value), 200);
+    });
+
+    // If current value exists, pre-fill search to show it in context
+    if (value) {
+        searchInput.value = value.replace(/_/g, ' ');
+        renderIcons(value);
+    } else {
+        renderIcons('');
+    }
+
+    wrapper.appendChild(searchInput);
+    wrapper.appendChild(grid);
+    return wrapper;
 };
 
 /**
@@ -708,6 +819,14 @@ export function renderPropertiesPanel(component, componentId, path) {
                     wrapper.appendChild(control);
                     break;
 
+                case 'icon-grid':
+                    // Async: render icon grid then append when ready
+                    renderIconGrid({ field, value: currentValue, fieldId }).then(control => {
+                        wrapper.appendChild(control);
+                    });
+                    activeFieldMeta.set(field.path, { field, target, defaultValue, isTokenPills: true });
+                    break;
+
                 case 'checkbox':
                     const checkboxResult = renderCheckbox({ field, value: currentValue, fieldId });
                     wrapper.innerHTML = '';
@@ -828,10 +947,10 @@ export function collectPropertyValues() {
             aliases[fieldPath] = control.dataset.yamlAlias;
         }
 
-        // Handle token pills - get value from active pill
-        if (isTokenPills && control.classList?.contains('token-pills')) {
-            const activePill = control.querySelector('.token-pill.active');
-            value = activePill ? activePill.dataset.value : '';
+        // Handle token pills / icon grid - get value from active child
+        if (isTokenPills) {
+            const activeChild = control.querySelector('.active[data-value]');
+            value = activeChild ? activeChild.dataset.value : '';
         } else {
             // Get value from control using helper
             value = getValueFromControl(control, field);

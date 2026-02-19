@@ -3,18 +3,24 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#9ca3af'
+        accent: &color-accent '#059669'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#fafafa' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: sm }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: medium
           padding: { block: xl, inline: lg }
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
         spacing: { marginBlock: lg, marginInline: lg }
       components:
         # Plan header
@@ -22,18 +28,18 @@
           properties:
             text: Pro Plan
             level: 3
-            typography: { size: xl, weight: bold, color: '#111827', align: center }
+            typography: { size: xl, weight: bold, color: *color-primary, align: center }
             spacing: { marginBlock: xs }
         - name: heading
           properties:
             text: "$59/mo"
             level: 2
-            typography: { size: xxl, weight: extrabold, color: '#059669', align: center }
+            typography: { size: xxl, weight: extrabold, color: *color-accent, align: center }
             spacing: { marginBlock: none }
         - name: caption
           properties:
             text: "billed annually, or $69 monthly"
-            typography: { size: xs, color: '#9ca3af', align: center }
+            typography: { size: xs, color: *color-secondary, align: center }
         - name: br
           properties:
             size: md
@@ -46,31 +52,31 @@
             - name: paragraph
               properties:
                 text: "\u2713"
-                typography: { size: md, weight: bold, color: '#059669' }
+                typography: { size: md, weight: bold, color: *color-accent }
                 layout: { widthMode: fit }
                 spacing: { marginBlock: none }
             - name: paragraph
               properties:
                 text: "Unlimited projects and workspaces"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 layout: { widthMode: stretch }
                 spacing: { marginBlock: none }
 
         - name: layout-row
           properties:
             layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
-            appearance: { background: { color: '#f0fdf4', transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
+            appearance: { background: { color: *color-accent, transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
           components:
             - name: paragraph
               properties:
                 text: "\u2713"
-                typography: { size: md, weight: bold, color: '#059669' }
+                typography: { size: md, weight: bold, color: *color-accent }
                 layout: { widthMode: fit }
                 spacing: { marginBlock: none }
             - name: paragraph
               properties:
                 text: "Advanced analytics and custom reports"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 layout: { widthMode: stretch }
                 spacing: { marginBlock: none }
 
@@ -82,31 +88,31 @@
             - name: paragraph
               properties:
                 text: "\u2713"
-                typography: { size: md, weight: bold, color: '#059669' }
+                typography: { size: md, weight: bold, color: *color-accent }
                 layout: { widthMode: fit }
                 spacing: { marginBlock: none }
             - name: paragraph
               properties:
                 text: "Priority email and chat support"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 layout: { widthMode: stretch }
                 spacing: { marginBlock: none }
 
         - name: layout-row
           properties:
             layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
-            appearance: { background: { color: '#f0fdf4', transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
+            appearance: { background: { color: *color-accent, transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
           components:
             - name: paragraph
               properties:
                 text: "\u2713"
-                typography: { size: md, weight: bold, color: '#059669' }
+                typography: { size: md, weight: bold, color: *color-accent }
                 layout: { widthMode: fit }
                 spacing: { marginBlock: none }
             - name: paragraph
               properties:
                 text: "Team collaboration with shared boards"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 layout: { widthMode: stretch }
                 spacing: { marginBlock: none }
 
@@ -118,31 +124,31 @@
             - name: paragraph
               properties:
                 text: "\u2713"
-                typography: { size: md, weight: bold, color: '#059669' }
+                typography: { size: md, weight: bold, color: *color-accent }
                 layout: { widthMode: fit }
                 spacing: { marginBlock: none }
             - name: paragraph
               properties:
                 text: "API access and webhook integrations"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 layout: { widthMode: stretch }
                 spacing: { marginBlock: none }
 
         - name: layout-row
           properties:
             layout: { horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap }
-            appearance: { background: { color: '#f0fdf4', transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
+            appearance: { background: { color: *color-accent, transparency: 100 }, radius: sm, padding: { block: xs, inline: sm } }
           components:
             - name: paragraph
               properties:
                 text: "\u2713"
-                typography: { size: md, weight: bold, color: '#059669' }
+                typography: { size: md, weight: bold, color: *color-accent }
                 layout: { widthMode: fit }
                 spacing: { marginBlock: none }
             - name: paragraph
               properties:
                 text: "50GB secure cloud storage"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 layout: { widthMode: stretch }
                 spacing: { marginBlock: none }
 
@@ -154,13 +160,13 @@
             - name: paragraph
               properties:
                 text: "\u2713"
-                typography: { size: md, weight: bold, color: '#059669' }
+                typography: { size: md, weight: bold, color: *color-accent }
                 layout: { widthMode: fit }
                 spacing: { marginBlock: none }
             - name: paragraph
               properties:
                 text: "Custom branding and white-label options"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 layout: { widthMode: stretch }
                 spacing: { marginBlock: none }
 
@@ -172,8 +178,8 @@
           properties:
             text: Get Pro Now
             appearance:
-              background: { color: '#059669' }
+              background: { color: *color-accent }
               radius: md
               padding: { block: md }
-            typography: { color: '#ffffff', weight: bold }
+            typography: { color: *color-background, weight: bold }
             layout: { widthMode: stretch }

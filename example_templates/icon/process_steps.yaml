@@ -1,0 +1,115 @@
+# Icon: Process Steps
+# Horizontal numbered steps with icons showing a workflow
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#10b981'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: heading
+              properties:
+                text: How It Works
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+            - name: paragraph
+              properties:
+                text: Get started in just three simple steps
+                typography: { size: md, color: *color-secondary, align: center }
+                spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, wrap: wrap, gap: xl }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '25', horizontalAlign: center }
+          components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ecfdf5' }, radius: pill }
+                spacing: { paddingBlock: md, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: person_add, size: "36", color: *color-accent }
+            - name: badge
+              properties: { text: "Step 1", variant: success, pill: true }
+            - name: heading
+              properties:
+                text: Create Account
+                level: 3
+                typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Sign up with your email in under 30 seconds. No credit card required.
+                typography: { size: sm, color: *color-secondary, align: center }
+
+        - name: layout-column
+          properties:
+            layout: { widthMode: '25', horizontalAlign: center }
+          components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ecfdf5' }, radius: pill }
+                spacing: { paddingBlock: md, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: settings, size: "36", color: *color-accent }
+            - name: badge
+              properties: { text: "Step 2", variant: success, pill: true }
+            - name: heading
+              properties:
+                text: Configure
+                level: 3
+                typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Set up your preferences and connect your existing tools.
+                typography: { size: sm, color: *color-secondary, align: center }
+
+        - name: layout-column
+          properties:
+            layout: { widthMode: '25', horizontalAlign: center }
+          components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ecfdf5' }, radius: pill }
+                spacing: { paddingBlock: md, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: rocket_launch, size: "36", color: *color-accent }
+            - name: badge
+              properties: { text: "Step 3", variant: success, pill: true }
+            - name: heading
+              properties:
+                text: Launch
+                level: 3
+                typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Go live and start seeing results from day one.
+                typography: { size: sm, color: *color-secondary, align: center }

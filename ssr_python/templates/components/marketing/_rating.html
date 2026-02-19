@@ -1,0 +1,44 @@
+{% macro render_rating(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set value = properties.value | default(0) | float %}
+    {% set max_value = 5 %}
+    {% set icon_type = properties.iconType | default('star') %}
+    {% set show_count = properties.showCount | default(false) %}
+    {% set icon_color = properties.color | default('#f59e0b') %}
+    {% set base_styles = build_styles(component, tokens) %}
+    {# Icon sizing from typography.size token #}
+    {% set typo = properties.typography | default({}) %}
+    {% set size_token = typo.size | default('md') %}
+    {% set icon_size = tokens.typography_sizes[size_token] if tokens and tokens.typography_sizes and size_token in tokens.typography_sizes else '1.8rem' %}
+    {% set count_color = typo.color | default('#6b7280') %}
+    {% set full_count = value | int %}
+    {% set has_half = (value - full_count) >= 0.5 %}
+
+    <div class="rating chrome-target"
+         data-component-id="{{ component_id }}"
+         style="{{ base_styles }} display: inline-flex; align-items: center; gap: 0.15em;">
+        {% for i in range(max_value) %}
+            {% if i < full_count %}
+            <svg class="rating-icon" aria-hidden="true"
+                 style="width: {{ icon_size }}; height: {{ icon_size }}; flex-shrink: 0; color: {{ icon_color }};">
+                <use href="#icon-{{ icon_type }}-filled"></use>
+            </svg>
+            {% elif i == full_count and has_half %}
+            <svg class="rating-icon" aria-hidden="true"
+                 style="width: {{ icon_size }}; height: {{ icon_size }}; flex-shrink: 0; color: {{ icon_color }};">
+                <use href="#icon-{{ icon_type }}-half"></use>
+            </svg>
+            {% else %}
+            <svg class="rating-icon" aria-hidden="true"
+                 style="width: {{ icon_size }}; height: {{ icon_size }}; flex-shrink: 0; color: #d1d5db;">
+                <use href="#icon-{{ icon_type }}"></use>
+            </svg>
+            {% endif %}
+        {% endfor %}
+        {% if show_count %}
+            <span class="rating-count" style="margin-left: 0.35em; font-size: {{ icon_size }}; color: {{ count_color }}; line-height: 1;">
+                {{ value }}/{{ max_value }}
+            </span>
+        {% endif %}
+    </div>
+{% endmacro %}

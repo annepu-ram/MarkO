@@ -3,18 +3,24 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f9fafb' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: xs }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: soft
           padding: { block: none, inline: none }
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
         spacing: { marginBlock: lg, marginInline: lg }
       components:
         - name: image
@@ -32,7 +38,7 @@
               properties:
                 text: Essence Noir Eau de Parfum
                 level: 3
-                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                typography: { size: lg, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: none }
             - name: layout-row
               properties:
@@ -42,18 +48,18 @@
                 - name: paragraph
                   properties:
                     text: "4.8"
-                    typography: { size: sm, weight: bold, color: '#111827' }
+                    typography: { size: sm, weight: bold, color: *color-primary }
                     spacing: { marginBlock: none }
                 - name: paragraph
                   properties:
                     text: "(2,847 reviews)"
-                    typography: { size: xs, color: '#6b7280' }
+                    typography: { size: xs, color: *color-secondary }
                     spacing: { marginBlock: none }
                 - name: link
                   properties:
                     text: Read Reviews
                     href: '#reviews'
-                    typography: { size: xs, weight: semibold, color: '#2563eb' }
+                    typography: { size: xs, weight: semibold, color: *color-accent }
                     appearance: { underline: false, showArrow: true }
                     spacing: { marginBlock: none }
             - name: paragraph
@@ -61,7 +67,7 @@
                 text: |
                   A captivating blend of dark rose, oud wood, and amber.
                   Long-lasting scent that evolves throughout the day.
-                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.6" }
+                typography: { size: sm, color: *color-secondary, align: left, lineHeight: "1.6" }
             - name: layout-row
               properties:
                 layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
@@ -71,10 +77,10 @@
                   properties:
                     text: "$185.00"
                     level: 4
-                    typography: { size: xl, weight: extrabold, color: '#111827', align: left }
+                    typography: { size: xl, weight: extrabold, color: *color-primary, align: left }
                     spacing: { marginBlock: none }
                 - name: button
                   properties:
                     text: Add to Cart
-                    appearance: { background: { color: '#111827' }, radius: md, padding: { block: sm, inline: md } }
-                    typography: { color: '#ffffff', weight: semibold }
+                    appearance: { background: { color: *color-primary }, radius: md, padding: { block: sm, inline: md } }
+                    typography: { color: *color-background, weight: semibold }

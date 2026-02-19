@@ -3,8 +3,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#4b5563'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#ffffff' }
+      background: { color: *color-background }
   components:
     - name: layout-row
       properties:
@@ -17,13 +23,13 @@
           }
         spacing: { paddingBlock: xxl, paddingInline: xl }
         appearance:
-          background: { color: '#f8fafc' }
+          background: { color: *color-background }
       components:
         - name: layout-column
           properties:
             layout: { horizontalAlign: left, widthMode: "50", gap: md }
             appearance:
-              background: { color: '#f8fafc', transparency: 0 }
+              background: { color: *color-background, transparency: 0 }
           components:
             - name: eyebrow
               properties:
@@ -32,7 +38,7 @@
                   {
                     size: xs,
                     weight: semibold,
-                    color: '#6366f1',
+                    color: *color-accent,
                     transform: uppercase,
                     letterSpacing: wider
                   }
@@ -44,7 +50,7 @@
                   {
                     size: xxxl,
                     weight: extrabold,
-                    color: '#111827',
+                    color: *color-primary,
                     align: left,
                     letterSpacing: tight
                   }
@@ -54,7 +60,7 @@
                 text: |
                   Create beautiful, responsive websites in minutes.
                   Our platform gives you everything you need to bring your vision to life.
-                typography: { size: md, color: '#4b5563', align: left, lineHeight: "1.7" }
+                typography: { size: md, color: *color-secondary, align: left, lineHeight: "1.7" }
                 spacing: { marginBlock: md }
             - name: layout-row
               properties:
@@ -68,12 +74,12 @@
                   }
                 appearance:
                   {
-                    background: { transparency: 0, type: "", color: "#ffffff" },
+                    background: { transparency: 0, type: "", color: *color-background },
                     padding: { block: xs, inline: none },
-                    border: { width: 0, style: solid, color: "#000000" },
+                    border: { width: 0, style: solid, color: *color-primary },
                     radius: none,
                     shadow: none,
-                    shadowColor: "#000000"
+                    shadowColor: *color-primary
                   }
                 spacing:
                   marginBlock: none
@@ -84,15 +90,15 @@
                     text: Get Started Free
                     appearance:
                       {
-                        background: { color: '#6366f1', type: "", transparency: 100 },
+                        background: { color: *color-accent, type: "", transparency: 100 },
                         radius: md,
-                        border: { width: 1, style: solid, color: "#1d4ed8" },
+                        border: { width: 1, style: solid, color: *color-accent },
                         shadow: none,
-                        shadowColor: "#000000",
+                        shadowColor: *color-primary,
                         padding: { block: sm, inline: sm },
                         iconPlacement: none
                       }
-                    typography: { color: '#ffffff', weight: semibold }
+                    typography: { color: *color-background, weight: semibold }
                     action:
                       type: inlineScript
                       value: alert("Clicked!")
@@ -106,15 +112,15 @@
                     text: Watch Demo
                     appearance:
                       {
-                        background: { color: '#ffffff', type: "", transparency: 100 },
-                        border: { width: 2, style: solid, color: '#6366f1' },
+                        background: { color: *color-background, type: "", transparency: 100 },
+                        border: { width: 2, style: solid, color: *color-accent },
                         radius: md,
                         shadow: none,
-                        shadowColor: "#000000",
+                        shadowColor: *color-primary,
                         padding: { block: sm, inline: sm },
                         iconPlacement: none
                       }
-                    typography: { color: '#6366f1', weight: semibold }
+                    typography: { color: *color-accent, weight: semibold }
                     action:
                       type: inlineScript
                       value: alert("Clicked!")

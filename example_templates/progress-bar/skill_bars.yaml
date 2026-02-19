@@ -1,0 +1,105 @@
+# Progress Bar: Skills / Expertise Section
+# Developer portfolio showing skill proficiency levels
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66' }
+          components:
+            - name: heading
+              properties:
+                text: My Skills
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary }
+            - name: paragraph
+              properties:
+                text: Technologies and tools I work with daily
+                typography: { size: md, color: *color-secondary }
+                spacing: { marginBlock: md }
+
+            - name: heading
+              properties:
+                text: JavaScript / TypeScript
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-primary }
+                spacing: { marginBlock: sm }
+            - name: progress-bar
+              properties:
+                percent: 95
+                thickness: medium
+                color: '#f59e0b'
+                trackColor: '#fef3c7'
+                appearance: { radius: pill }
+
+            - name: heading
+              properties:
+                text: Python
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-primary }
+                spacing: { marginBlock: sm }
+            - name: progress-bar
+              properties:
+                percent: 88
+                thickness: medium
+                color: '#3b82f6'
+                trackColor: '#dbeafe'
+                appearance: { radius: pill }
+
+            - name: heading
+              properties:
+                text: React / Next.js
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-primary }
+                spacing: { marginBlock: sm }
+            - name: progress-bar
+              properties:
+                percent: 92
+                thickness: medium
+                color: '#06b6d4'
+                trackColor: '#cffafe'
+                appearance: { radius: pill }
+
+            - name: heading
+              properties:
+                text: Node.js / Express
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-primary }
+                spacing: { marginBlock: sm }
+            - name: progress-bar
+              properties:
+                percent: 85
+                thickness: medium
+                color: '#10b981'
+                trackColor: '#d1fae5'
+                appearance: { radius: pill }
+
+            - name: heading
+              properties:
+                text: Docker / Kubernetes
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-primary }
+                spacing: { marginBlock: sm }
+            - name: progress-bar
+              properties:
+                percent: 70
+                thickness: medium
+                color: *color-accent
+                trackColor: '#e0e7ff'
+                appearance: { radius: pill }

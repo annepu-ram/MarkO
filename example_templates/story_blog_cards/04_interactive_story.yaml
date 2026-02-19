@@ -3,14 +3,20 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#7c3aed'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#faf5ff' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: sm }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: medium
           padding: { block: none, inline: none }
@@ -30,12 +36,12 @@
             - name: eyebrow
               properties:
                 text: DATA SCIENCE
-                typography: { size: xxs, weight: bold, color: '#7c3aed', transform: uppercase, letterSpacing: wider }
+                typography: { size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider }
             - name: heading
               properties:
                 text: Understanding Neural Networks in Plain English
                 level: 3
-                typography: { size: xl, weight: bold, color: '#111827', align: left }
+                typography: { size: xl, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: xs }
             - name: paragraph
               properties:
@@ -43,16 +49,16 @@
                   A visual guide to how neural networks learn, adapt, and make
                   predictions — no PhD required. We break down the most complex
                   concepts into bite-sized, understandable pieces.
-                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.7" }
+                typography: { size: sm, color: *color-secondary, align: left, lineHeight: "1.7" }
             - name: accordion
               properties:
                 behavior: { allowMultipleOpen: true }
                 typography:
-                  title: { size: sm, weight: semibold, color: '#7c3aed' }
-                  content: { size: sm, weight: regular, color: '#4b5563' }
+                  title: { size: sm, weight: semibold, color: *color-accent }
+                  content: { size: sm, weight: regular, color: *color-secondary }
                 appearance:
-                  titleBackground: { color: '#faf5ff' }
-                  border: { width: 1, style: solid, color: '#e9d5ff', position: bottom }
+                  titleBackground: { color: *color-background }
+                  border: { width: 1, style: solid, color: *color-accent, position: bottom }
                   radius: md
                 spacing: { marginBlock: sm }
               items:
@@ -66,22 +72,22 @@
                           3. Deep learning = many hidden layers = more abstraction
                           4. Transfer learning lets you reuse trained models
                           5. The real magic is in the data, not the architecture
-                        typography: { size: sm, color: '#4b5563', lineHeight: "1.8" }
+                        typography: { size: sm, color: *color-secondary, lineHeight: "1.8" }
                 - title: Related Resources
                   components:
                     - name: link
                       properties:
                         text: Interactive Playground - TensorFlow
                         href: '#'
-                        typography: { size: sm, color: '#7c3aed' }
+                        typography: { size: sm, color: *color-accent }
                         appearance: { showArrow: true, underline: false }
                     - name: link
                       properties:
                         text: Beginner's Guide to Machine Learning
                         href: '#'
-                        typography: { size: sm, color: '#7c3aed' }
+                        typography: { size: sm, color: *color-accent }
                         appearance: { showArrow: true, underline: false }
             - name: caption
               properties:
                 text: "By Dr. Sarah Kim - 12 min read - Feb 2026"
-                typography: { size: xs, color: '#9ca3af', align: left }
+                typography: { size: xs, color: *color-secondary, align: left }

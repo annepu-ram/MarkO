@@ -105,13 +105,12 @@ export class ComponentPathMapBuilder {
                 });
             }
 
-            // Traverse accordion items
+            // Traverse items (accordion items have title + components)
             if (component.items && Array.isArray(component.items)) {
                 component.items.forEach((item, itemIndex) => {
                     const itemPath = [...path, 'items', itemIndex];
                     if (item.components && Array.isArray(item.components)) {
-                        const itemComponentsPath = [...itemPath, 'components'];
-                        this.traverseStructure(item.components, itemComponentsPath);
+                        this.traverseStructure(item.components, [...itemPath, 'components']);
                     }
                 });
             }
@@ -131,11 +130,11 @@ export class ComponentPathMapBuilder {
 
         structure.forEach((component, index) => {
             const path = [...currentPath, index];
-            
+
             // Find corresponding DOM element
             const componentId = this.generateComponentId(path);
             const element = parentElement.querySelector(`[data-component-id="${componentId}"]`);
-            
+
             if (element) {
                 this.pathMap.set(componentId, path);
             } else {
@@ -145,7 +144,6 @@ export class ComponentPathMapBuilder {
             // Traverse nested components
             if (component.components && Array.isArray(component.components)) {
                 const childPath = [...path, 'components'];
-                // Use the found element as parent, or fallback to parentElement
                 const childParentElement = element || parentElement;
                 this.traverseYamlStructure(component.components, childPath, childParentElement);
             }
@@ -182,6 +180,17 @@ export class ComponentPathMapBuilder {
                         const slideComponentsPath = [...slidePath, 'components'];
                         const slideParentElement = element || parentElement;
                         this.traverseYamlStructure(slide.components, slideComponentsPath, slideParentElement);
+                    }
+                });
+            }
+
+            // Traverse items (accordion items have title + components)
+            if (component.items && Array.isArray(component.items)) {
+                component.items.forEach((item, itemIndex) => {
+                    const itemPath = [...path, 'items', itemIndex];
+                    const itemParentElement = element || parentElement;
+                    if (item.components && Array.isArray(item.components)) {
+                        this.traverseYamlStructure(item.components, [...itemPath, 'components'], itemParentElement);
                     }
                 });
             }

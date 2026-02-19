@@ -1,0 +1,261 @@
+# Ticker Template: Feature Highlights
+# Icon-driven feature cards with title and description
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'DM Sans', sans-serif"
+        content: &font-content "'DM Sans', sans-serif"
+      colors:
+        primary: &color-primary '#1e1b4b'
+        secondary: &color-secondary '#6366f1'
+        accent: &color-accent '#8b5cf6'
+        background: &color-background '#f5f3ff'
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xxl
+          paddingInline: lg
+      components:
+        - name: eyebrow
+          properties:
+            text: WHY CHOOSE US
+            typography:
+              size: xs
+              weight: semibold
+              color: *color-accent
+              align: center
+              letterSpacing: wider
+              transform: uppercase
+        - name: heading
+          properties:
+            text: Built for Modern Teams
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 30
+              mode: continuous
+              pauseOnHover: true
+            layout:
+              width: "280"
+            spacing:
+              marginBlock: lg
+              marginInline: none
+              gap: lg
+            appearance:
+              columnBackground: *color-background
+              columnTransparency: 100
+              columnRadius: lg
+              columnBorder:
+                width: 1
+                style: solid
+                color: *color-secondary
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: bolt
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Lightning Fast
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Sub-100ms response times with edge computing and smart caching across all regions.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: shield
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Enterprise Security
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: SOC 2 Type II certified with end-to-end encryption and role-based access controls.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: settings
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Easy Integration
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Connect with 200+ tools you already use. REST API, webhooks, and native SDKs included.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: bar_chart
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Real-Time Analytics
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Live dashboards with custom metrics, trend alerts, and exportable reports.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: group
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Team Collaboration
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Shared workspaces, real-time editing, and granular permissions for every team member.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: schedule
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: 99.99% Uptime
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Multi-region failover ensures your services stay online, backed by our SLA guarantee.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed

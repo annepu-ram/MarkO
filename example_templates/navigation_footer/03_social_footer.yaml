@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'DM Sans', sans-serif"
-        headingLevel2: &font-heading-level2 "'DM Sans', sans-serif"
+        heading: &font-heading "'DM Sans', sans-serif"
         content: &font-content "'DM Sans', sans-serif"
       colors:
         primary: &color-primary '#1a1a2e'
@@ -37,7 +36,7 @@
           properties:
             text: A clean, minimal footer with branding on the left and social media links
               on the right. Scroll down to see the footer.
-            typography: { size: lg, color: '#64748b', align: center }
+            typography: { size: lg, color: *color-secondary, align: center }
             layout: { widthMode: 75 }
 
     # ============================================
@@ -49,7 +48,7 @@
         spacing: { paddingBlock: lg, paddingInline: xl }
         appearance:
           background: { color: *color-primary, transparency: 100 }
-          border: { width: 1, style: solid, color: '#2d2d4a' }
+          border: { width: 1, style: solid, color: *color-secondary }
       components:
 
         # Left Side - Logo & Copyright
@@ -67,12 +66,12 @@
               properties:
                 text: Crafting digital experiences that inspire. Building the future of web
                   design, one pixel at a time.
-                typography: { size: sm, color: '#94a3b8', lineHeight: '1.6' }
+                typography: { size: sm, color: *color-secondary, lineHeight: '1.6' }
                 spacing: { marginBlock: xs }
             - name: paragraph
               properties:
                 text: "© 2026 Vivid Studio. All rights reserved."
-                typography: { size: xs, color: '#64748b' }
+                typography: { size: xs, color: *color-secondary }
                 spacing: { marginBlock: sm }
 
         # Right Side - Social Links
@@ -104,15 +103,15 @@
                     inline: sm
                   background:
                     type: ""
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   border:
                     width: 0
                     style: solid
-                    color: "#000000"
+                    color: *color-primary
                   radius: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
               components:
                 - name: link
                   properties:
@@ -157,7 +156,7 @@
       properties:
         layout: { horizontalAlign: space-between, align: center, wrap: wrap }
         spacing: { paddingBlock: sm, paddingInline: xl }
-        appearance: { background: { color: '#0f0f23', transparency: 100 } }
+        appearance: { background: { color: *color-primary, transparency: 100 } }
       components:
         - name: layout-row
           properties:
@@ -167,24 +166,24 @@
               properties:
                 text: Privacy Policy
                 href: '#privacy'
-                typography: { size: xs, weight: regular, color: '#64748b' }
+                typography: { size: xs, weight: regular, color: *color-secondary }
                 appearance: { underline: false }
                 spacing: { marginInline: sm }
             - name: link
               properties:
                 text: Terms of Service
                 href: '#terms'
-                typography: { size: xs, weight: regular, color: '#64748b' }
+                typography: { size: xs, weight: regular, color: *color-secondary }
                 appearance: { underline: false }
                 spacing: { marginInline: sm }
             - name: link
               properties:
                 text: Cookie Policy
                 href: '#cookies'
-                typography: { size: xs, weight: regular, color: '#64748b' }
+                typography: { size: xs, weight: regular, color: *color-secondary }
                 appearance: { underline: false }
                 spacing: { marginInline: sm }
         - name: paragraph
           properties:
             text: "Made with care in San Francisco"
-            typography: { size: xs, color: '#475569', align: right }
+            typography: { size: xs, color: *color-secondary, align: right }

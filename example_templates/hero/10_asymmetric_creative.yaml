@@ -9,10 +9,7 @@
         primary: &color-primary "#ffffff"
         secondary: &color-secondary "#808080"
         accent: &color-accent "#ff3366"
-        accent-dark: &color-accent-dark "#ff1a53"
         background: &color-background "#0d0d0d"
-        muted: &color-muted "#404040"
-        surface: &color-surface "#1a1a1a"
     appearance:
       background:
         color: *color-background
@@ -46,7 +43,7 @@
           style: solid
           color: transparent
         focus:
-          background: *color-surface
+          background: *color-background
           color: *color-primary
       typography:
         title:
@@ -94,7 +91,7 @@
           properties:
             text: "©2026"
             typography:
-              color: *color-muted
+              color: *color-secondary
               size: xs
               weight: medium
             spacing:
@@ -103,7 +100,7 @@
           properties:
             text: "—"
             typography:
-              color: *color-muted
+              color: *color-secondary
               size: xs
             spacing:
               marginBlock: none
@@ -111,7 +108,7 @@
           properties:
             text: "CREATIVE STUDIO"
             typography:
-              color: *color-muted
+              color: *color-secondary
               size: xs
               weight: medium
               letterSpacing: wide
@@ -204,7 +201,7 @@
             properties:
               text: "Projects"
               typography:
-                color: *color-muted
+                color: *color-secondary
                 size: xs
                 weight: medium
                 letterSpacing: wide
@@ -231,7 +228,7 @@
             properties:
               text: "Awards"
               typography:
-                color: *color-muted
+                color: *color-secondary
                 size: xs
                 weight: medium
                 letterSpacing: wide
@@ -248,7 +245,7 @@
               type: gradient
               gradient:
                 colorStart: *color-accent
-                colorEnd: *color-accent-dark
+                colorEnd: *color-accent
                 direction: to right
             border:
               width: 0
@@ -328,7 +325,7 @@
             properties:
               text: "LATEST PROJECT"
               typography:
-                color: *color-muted
+                color: *color-secondary
                 size: xxs
                 weight: bold
                 letterSpacing: wider

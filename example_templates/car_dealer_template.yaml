@@ -2,9 +2,8 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main 'Helvetica, sans-serif'
-        headingLevel2: &font-heading-level2 'Helvetica, sans-serif'
-        content: &font-content 'Arial, sans-serif'
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Open Sans', sans-serif"
       colors:
         # 60-30-10 Color System:
         # Primary (30%) = TEXT - all headings, paragraphs, body text
@@ -132,7 +131,7 @@
               block: sm
               inline: md
           typography:
-            color: '#ffffff'
+            color: *color-background
             weight: semibold
     - components:
       - name: image
@@ -168,7 +167,7 @@
               block: sm
               inline: md
           typography:
-            color: '#ffffff'
+            color: *color-background
             weight: semibold
   - name: heading
     properties:

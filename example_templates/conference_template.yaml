@@ -2,9 +2,8 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main 'Helvetica, sans-serif'
-        headingLevel2: &font-heading-level2 'Helvetica, sans-serif'
-        content: &font-content 'Arial, sans-serif'
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Open Sans', sans-serif"
       colors:
         # 60-30-10 Color System:
         # Primary (30%) = TEXT - all headings, paragraphs, body text
@@ -65,7 +64,7 @@
           block: md
           inline: lg
       typography:
-        color: '#ffffff'
+        color: *color-background
         weight: semibold
       layout:
       spacing:
@@ -264,7 +263,7 @@
           block: md
           inline: lg
       typography:
-        color: '#ffffff'
+        color: *color-background
         weight: semibold
       layout:
       spacing:

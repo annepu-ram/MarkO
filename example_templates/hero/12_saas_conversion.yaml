@@ -10,13 +10,6 @@
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#2d5a4a"
         background: &color-background "#f8f6f1"
-        card-bg: &color-card-bg "#e8e4db"
-        focus-bg: &color-focus-bg "#ece9e2"
-        muted: &color-muted "#7c8c7e"
-        nav-text: &color-nav-text "#374151"
-        rating: &color-rating "#f59e0b"
-        success-bg: &color-success-bg "#d4f0e0"
-        surface: &color-surface "#ffffff"
     appearance:
       background:
         color: *color-background
@@ -57,7 +50,7 @@
           style: solid
           color: transparent
         focus:
-          background: *color-focus-bg
+          background: *color-background
           color: *color-accent
       typography:
         title:
@@ -67,7 +60,7 @@
         menu:
           size: 14
           weight: medium
-          color: *color-nav-text
+          color: *color-primary
 
   # Hero Section - Split Layout
   - name: layout-row
@@ -180,7 +173,7 @@
               inline: xl
             radius: pill
           typography:
-            color: *color-surface
+            color: *color-background
             weight: semibold
             size: md
           spacing:
@@ -200,7 +193,7 @@
           properties:
             text: "★★★★★"
             typography:
-              color: *color-rating
+              color: *color-accent
               size: md
             spacing:
               marginBlock: none
@@ -208,7 +201,7 @@
           properties:
             text: "4.8"
             typography:
-              color: *color-rating
+              color: *color-accent
               size: md
               weight: bold
             spacing:
@@ -262,7 +255,7 @@
               gap: xs
             appearance:
               background:
-                color: *color-card-bg
+                color: *color-background
                 transparency: 100
               radius: xl
               padding:
@@ -281,7 +274,7 @@
                 marginBlock: none
               appearance:
                 background:
-                  color: *color-success-bg
+                  color: *color-background
                   transparency: 100
                 radius: pill
                 padding:
@@ -313,7 +306,7 @@
             properties:
               text: "Date: Mar 20, 2024"
               typography:
-                color: *color-muted
+                color: *color-secondary
                 size: xs
                 align: center
               spacing:
@@ -346,7 +339,7 @@
             properties:
               text: "▲"
               typography:
-                color: *color-surface
+                color: *color-background
                 size: md
                 align: center
               spacing:
@@ -356,7 +349,7 @@
               text: "$25,000"
               level: 2
               typography:
-                color: *color-surface
+                color: *color-background
                 size: xxl
                 weight: bold
                 align: center

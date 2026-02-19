@@ -3,18 +3,24 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#059669'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f9fafb' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: left, gap: sm }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: soft
           padding: { block: lg, inline: lg }
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
         spacing: { marginBlock: lg, marginInline: lg }
       components:
         - name: layout-row
@@ -26,15 +32,15 @@
               properties:
                 text: "Exceeded All My Expectations"
                 level: 3
-                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                typography: { size: lg, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: none }
             - name: eyebrow
               properties:
                 text: VERIFIED PURCHASE
-                typography: { size: xxs, weight: bold, color: '#059669', transform: uppercase, letterSpacing: wider }
+                typography: { size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider }
                 spacing: { marginBlock: none }
                 appearance:
-                  background: { color: '#f0fdf4', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: pill
                   padding: { block: xxs, inline: xs }
         - name: paragraph
@@ -53,7 +59,7 @@
               experience — while functional, it doesn't quite match the desktop
               polish. That said, updates are frequent and I've noticed improvements
               with each release.
-            typography: { size: sm, color: '#4b5563', align: left, lineHeight: "1.8" }
+            typography: { size: sm, color: *color-secondary, align: left, lineHeight: "1.8" }
         - name: br
           properties:
             size: sm
@@ -81,16 +87,16 @@
                     - name: paragraph
                       properties:
                         text: Thomas Bradley
-                        typography: { size: sm, weight: bold, color: '#111827' }
+                        typography: { size: sm, weight: bold, color: *color-primary }
                         spacing: { marginBlock: none }
                     - name: caption
                       properties:
                         text: "Purchased Feb 2026"
-                        typography: { size: xs, color: '#9ca3af' }
+                        typography: { size: xs, color: *color-secondary }
             - name: link
               properties:
                 text: "Helpful (47)"
                 href: '#'
-                typography: { size: sm, weight: medium, color: '#6b7280' }
+                typography: { size: sm, weight: medium, color: *color-secondary }
                 appearance: { underline: false }
                 spacing: { marginBlock: none }

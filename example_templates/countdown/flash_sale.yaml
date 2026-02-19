@@ -1,0 +1,138 @@
+# Countdown: Flash Sale Banner
+# Urgent sale countdown with product highlights
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#dc2626'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: lg }
+        appearance: { background: { color: *color-accent } }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: heading
+              properties:
+                text: FLASH SALE
+                level: 2
+                typography: { size: xxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: wider }
+            - name: paragraph
+              properties:
+                text: Up to 70% off everything. Hurry, time is running out!
+                typography: { size: md, color: '#fecaca', align: center }
+                spacing: { marginBlock: sm }
+            - name: countdown
+              properties:
+                targetDate: '2026-03-01T23:59:59'
+                format: 'HH:MM:SS'
+                expiredText: "Sale has ended!"
+                typography: { size: xxl, weight: bold, color: '#ffffff', align: center }
+            - name: button
+              properties:
+                text: Shop Now
+                appearance: { background: { color: '#ffffff' } }
+                typography: { color: *color-accent, weight: bold }
+                spacing: { marginBlock: md }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#fef2f2' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: badge
+                  properties: { text: "-50%", variant: danger, pill: true }
+                - name: image
+                  properties:
+                    source: { url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff' }
+                    appearance: { minHeight: 180, fit: cover, radius: md }
+                - name: heading
+                  properties:
+                    text: Sport Sneakers
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: "$49.99"
+                    typography: { size: lg, weight: bold, color: *color-accent, align: center }
+                - name: paragraph
+                  properties:
+                    text: "$99.99"
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#fef2f2' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: badge
+                  properties: { text: "-70%", variant: danger, pill: true }
+                - name: image
+                  properties:
+                    source: { url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f' }
+                    appearance: { minHeight: 180, fit: cover, radius: md }
+                - name: heading
+                  properties:
+                    text: Designer Sunglasses
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: "$29.99"
+                    typography: { size: lg, weight: bold, color: *color-accent, align: center }
+                - name: paragraph
+                  properties:
+                    text: "$99.99"
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#fef2f2' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: badge
+                  properties: { text: "-40%", variant: danger, pill: true }
+                - name: image
+                  properties:
+                    source: { url: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f' }
+                    appearance: { minHeight: 180, fit: cover, radius: md }
+                - name: heading
+                  properties:
+                    text: Vintage Camera
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: "$119.99"
+                    typography: { size: lg, weight: bold, color: *color-accent, align: center }
+                - name: paragraph
+                  properties:
+                    text: "$199.99"
+                    typography: { size: sm, color: *color-secondary, align: center }

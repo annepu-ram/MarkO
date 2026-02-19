@@ -32,6 +32,7 @@ layout-row:
     radius: none
     shadow: none
     shadowColor: ''
+    blur: false
 layout-column:
   layout:
     tag: section
@@ -58,6 +59,7 @@ layout-column:
     radius: none
     shadow: none
     shadowColor: ''
+    blur: false
 columnsgrid:
   layout:
     columns: 2
@@ -73,6 +75,10 @@ columnsgrid:
       inline: none
     shadow: none
     shadowColor: ''
+    columnBackground: '#ffffff'
+    columnTransparency: 0
+    columnBlur: false
+    columnRadius: none
   spacing:
     marginBlock: none
     marginInline: none
@@ -581,6 +587,59 @@ hamburger:
     href: '#about'
 br:
   size: md
+  type: solid
+  orientation: horizontal
+  thickness: 2
+  color: '#e5e7eb'
+  invert: false
+  mirror: false
+icon:
+  name: star
+  size: "36"
+  weight: "500"
+  color: '#111827'
+badge:
+  text: Badge
+  variant: info
+  pill: false
+  typography:
+    size: xxs
+    color: ''
+rating:
+  value: 3.5
+  iconType: star
+  showCount: false
+  color: '#f59e0b'
+  typography:
+    size: md
+    color: '#6b7280'
+progress-bar:
+  percent: 50
+  thickness: medium
+  color: '#3b82f6'
+  trackColor: '#e5e7eb'
+  colorGradient: false
+  appearance:
+    radius: pill
+counter-up:
+  endValue: 100
+  duration: 2000
+  prefix: ''
+  suffix: ''
+  typography:
+    size: xxl
+    weight: bold
+    color: '#111827'
+    align: center
+countdown:
+  targetDate: ''
+  format: 'DD:HH:MM:SS'
+  expiredText: Expired
+  typography:
+    size: xl
+    weight: bold
+    color: '#111827'
+    align: center
 link:
   text: Click Me
   href: '#'
@@ -668,6 +727,52 @@ carousel:
         source:
           url: https://via.placeholder.com/800x400?text=Slide+3
           altText: Slide 3
+ticker:
+  behavior:
+    direction: left
+    speed: 25
+    mode: continuous
+    pauseOnHover: true
+    pauseDuration: 3000
+  layout:
+    width: fit
+  spacing:
+    marginBlock: md
+    marginInline: none
+    gap: lg
+  appearance:
+    columnBackground: '#ffffff'
+    columnTransparency: 0
+    columnRadius: none
+    columnBorder:
+      width: 0
+      style: solid
+      color: '#000000'
+  columns:
+  - components:
+    - name: heading
+      properties:
+        text: Ticker Item 1
+        level: 4
+        typography:
+          size: md
+          weight: semibold
+  - components:
+    - name: heading
+      properties:
+        text: Ticker Item 2
+        level: 4
+        typography:
+          size: md
+          weight: semibold
+  - components:
+    - name: heading
+      properties:
+        text: Ticker Item 3
+        level: 4
+        typography:
+          size: md
+          weight: semibold
 video-background:
   source:
     url: ''

@@ -1,0 +1,99 @@
+{#- Ticker component macro -#}
+{% macro render_ticker(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set columns = component.columns | default([]) %}
+    {% set behavior = properties.behavior | default({}) %}
+    {% set spacing = properties.spacing | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set layout_props = properties.layout | default({}) %}
+
+    {% set direction = behavior.direction | default('left') %}
+    {% set speed = behavior.speed | default(40) %}
+    {% set mode = behavior.mode | default('continuous') %}
+    {% set pause_on_hover = behavior.pauseOnHover | default(true) %}
+    {% set pause_duration = behavior.pauseDuration | default(3000) %}
+
+    {% set width_mode = layout_props.width | default('fit') %}
+    {% set col_bg = appearance.columnBackground | default('#ffffff') %}
+    {% set col_transparency = appearance.columnTransparency | default(0) %}
+    {% set col_radius_token = appearance.columnRadius | default('none') %}
+    {% set col_border = appearance.columnBorder | default({}) %}
+
+    {# Build column background with transparency #}
+    {% if col_transparency is defined and col_bg != 'transparent' %}
+        {% set col_alpha = col_transparency | transparency_to_hex %}
+        {% set col_bg_final = col_bg ~ col_alpha %}
+    {% else %}
+        {% set col_bg_final = col_bg %}
+    {% endif %}
+
+    {# Build column border style #}
+    {% set col_border_width = col_border.width | default(0) %}
+    {% set col_border_style = col_border.style | default('solid') %}
+    {% set col_border_color = col_border.color | default('#000000') %}
+    {% if col_border_style == 'none' or not col_border_width or col_border_width == 0 %}
+        {% set col_border_css = '' %}
+    {% else %}
+        {% set col_border_css = 'border: ' ~ col_border_width ~ 'px ' ~ col_border_style ~ ' ' ~ col_border_color ~ ';' %}
+    {% endif %}
+
+    {# Build column border radius #}
+    {% if col_radius_token and col_radius_token != 'none' and tokens and tokens.border_radius and col_radius_token in tokens.border_radius %}
+        {% set col_radius_css = 'border-radius: ' ~ tokens.border_radius[col_radius_token] ~ ';' %}
+    {% else %}
+        {% set col_radius_css = '' %}
+    {% endif %}
+
+    {% set gap_token = spacing.gap | default('lg') %}
+    {% set gap_value = tokens.spacing[gap_token] if gap_token in tokens.spacing else '1rem' %}
+
+    {% set styles = build_styles(component, tokens, part='outer') %}
+
+    {% if columns | length == 0 %}
+        <div class="ticker chrome-target"
+             data-component-id="{{ component_id }}"
+             style="{{ styles }} background: transparent; min-height: 60px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc;">
+            <span style="color: #6b7280;">Add columns to the ticker</span>
+        </div>
+    {% else %}
+        <div class="ticker chrome-target"
+             data-component-id="{{ component_id }}"
+             data-component-type="ticker"
+             data-direction="{{ direction }}"
+             data-speed="{{ speed }}"
+             data-mode="{{ mode }}"
+             data-width-mode="{{ width_mode }}"
+             data-pause-on-hover="{{ 'true' if pause_on_hover else 'false' }}"
+             data-pause-duration="{{ pause_duration }}"
+             data-ss-initialized="false"
+             aria-label="Content ticker"
+             style="{{ styles }} background: transparent; --ticker-gap: {{ gap_value }}; overflow: hidden; position: relative;">
+
+            <div class="ticker-track" style="display: flex; gap: var(--ticker-gap); will-change: transform;">
+                {# Render columns (columnsgrid-like pattern) #}
+                {% for column in columns %}
+                    {% set col_idx = loop.index0 %}
+                    {% set column_components = column.components | default([]) %}
+                    <div class="ticker-item" style="flex-shrink: 0; background-color: {{ col_bg_final }}; {{ col_border_css }} {{ col_radius_css }}">
+                        {% for child in column_components %}
+                            {% set child_path = path + ['columns', col_idx, 'components', loop.index0] %}
+                            {{ render_component(child, tokens, child_path, 'column') }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                {# Duplicate columns for seamless infinite loop #}
+                {% for column in columns %}
+                    {% set col_idx = loop.index0 %}
+                    {% set column_components = column.components | default([]) %}
+                    <div class="ticker-item ticker-item-duplicate" aria-hidden="true" style="flex-shrink: 0; background-color: {{ col_bg_final }}; {{ col_border_css }} {{ col_radius_css }}">
+                        {% for child in column_components %}
+                            {% set child_path = path + ['columns', col_idx, 'components', loop.index0] %}
+                            {{ render_component(child, tokens, child_path, 'column') }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}

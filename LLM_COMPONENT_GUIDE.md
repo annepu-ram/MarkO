@@ -23,6 +23,7 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 | tabs | `tabs:` | Component level (same as `properties:`) |
 | carousel | `slides:` | Component level (same as `properties:`) |
 | columnsgrid | `columns:` | Component level (same as `properties:`) |
+| ticker | `columns:` | Component level (data containers like columnsgrid) |
 | containers | `components:` | Component level (same as `properties:`) |
 
 ### Valid Design Tokens
@@ -36,6 +37,7 @@ Concise guide for LLMs to generate website YAML using Swift Sites components.
 | **Hover effects** | `none`, `zoom`, `lift` |
 | **Width modes** | `fit`, `25`, `50`, `75`, `stretch` |
 | **⚠️ Width mode location** | `layout.widthMode: "50"` (NOT `appearance`!) |
+| **⚠️ Theme property order** | `theme:` MUST be the FIRST property in page (defines anchors before aliases) |
 
 ### Container Components (can nest other components)
 `page`, `layout-row`, `layout-column`, `columnsgrid`, `form`, `image`, `gif`, `video-background`
@@ -245,6 +247,7 @@ appearance:
 | Property | CSS Property | Description |
 |----------|--------------|-------------|
 | `layout.horizontalAlign` | `align-items` | Controls horizontal alignment of children |
+| `layout.verticalAlign` | `justify-content` | Controls vertical distribution of children |
 
 **Horizontal Align Values (layout-column):**
 | Value | CSS | Description |
@@ -254,7 +257,17 @@ appearance:
 | `right` | flex-end | Align children to right |
 | `stretch` | stretch | Stretch children to fill width |
 
-**⚠️ Note:** layout-column does NOT have `verticalAlign` since content naturally flows top-to-bottom.
+**Vertical Align Values (layout-column):**
+| Value | CSS | Description |
+|-------|-----|-------------|
+| `top` | flex-start | Pack children to top |
+| `center` | center | Center children vertically |
+| `bottom` | flex-end | Pack children to bottom |
+| `space-between` | space-between | Distribute with space between (default) |
+| `space-around` | space-around | Distribute with space around |
+| `space-evenly` | space-evenly | Distribute with equal space |
+
+**⚠️ Note:** Use `horizontalAlign` and `verticalAlign` — do NOT use the old `align` property (it is ignored).
 
 **Examples:**
 ```yaml
@@ -277,7 +290,7 @@ appearance:
 
 **⚠️ Note:** If `horizontalAlign: stretch` is used on layout-column, `widthMode` will be overridden (children stretch to full width regardless of widthMode setting).
 
-## Component Reference (27 Total)
+## Component Reference (35 Total)
 
 ### Layout & Containers (5)
 
@@ -285,10 +298,21 @@ appearance:
 ```yaml
 - name: page
   properties:
+    theme:                        # ⚠️ theme MUST come FIRST (defines anchors used below)
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#475569'
+        accent: &color-accent '#2563eb'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
     spacing: { paddingBlock: md, paddingInline: md }
-    appearance: { background: { color: '#ffffff', transparency: 100 } }
+    appearance: { background: { color: *color-background, transparency: 100 } }
   components: [...]
 ```
+
+**⚠️ CRITICAL:** `theme` must be the FIRST property inside `properties` because it defines YAML anchors (`&color-primary`) that other properties reference via aliases (`*color-primary`). YAML anchors must be defined before they are used.
 
 **layout-row** - Horizontal flex
 ```yaml
@@ -296,9 +320,11 @@ appearance:
   properties:
     layout: { tag: section, horizontalAlign: center, verticalAlign: center, wrap: wrap, gap: sm }
     spacing: { paddingBlock: md, marginBlock: lg }
-    appearance: { background: { color: '#ffffff' }, border: { width: 1, style: solid, color: '#e5e7eb' }, radius: md, shadow: none, shadowColor: '' }
+    appearance: { background: { color: '#ffffff' }, border: { width: 1, style: solid, color: '#e5e7eb' }, radius: md, shadow: none, shadowColor: '', blur: false }
   components: [...]
 ```
+
+**Backdrop Blur (`appearance.blur`):** Boolean checkbox. When `true`, applies `backdrop-filter: blur(10px)` for a frosted-glass effect. Automatically makes the background 50% transparent if currently opaque, so the blur is visible through the chosen background color. Works with any background color. If the transparency slider is already > 0, that value is kept.
 
 **Wrap Property:**
 | Value | Behavior |
@@ -400,8 +426,11 @@ By default, media and container components have `widthMode: stretch` which rende
   properties:
     layout: { tag: section, horizontalAlign: center }
     spacing: { paddingBlock: md, marginBlock: lg }
+    appearance: { blur: false }
   components: [...]
 ```
+
+Layout-column also supports `appearance.blur` (same behavior as layout-row).
 
 **columnsgrid** - Responsive grid
 ```yaml
@@ -410,11 +439,18 @@ By default, media and container components have `widthMode: stretch` which rende
     layout: { columns: 3, gap: lg, verticalAlign: center }
     responsive: { breakpoints: { md: 2, sm: 1 } }
     spacing: { marginBlock: lg }
+    appearance:
+      columnBackground: '#ffffff'                # Background color for all columns
+      columnTransparency: 0                      # Column transparency 0-100%
+      columnBlur: false                          # Backdrop blur on columns (auto-applies 50% transparency when true)
+      columnRadius: none                         # Column border radius (none, xs, sm, md, lg, xl, xxl, pill)
   columns:                                       # ← AT COMPONENT LEVEL (not inside properties)
     - components: [...]
     - components: [...]
     - components: [...]
 ```
+
+**Column Appearance:** Columnsgrid columns support uniform appearance settings applied to all columns. These follow the same pattern as the ticker component's column properties.
 
 **form** - Form wrapper
 ```yaml
@@ -492,7 +528,6 @@ Changing `accentColor` updates all four elements automatically.
   properties:
     source: { url: 'https://...jpg', altText: 'Description' }
     appearance:
-      width: '100'               # Percentage: '100', '75', '50', '25'
       minHeight: 200             # Minimum height in pixels
       fit: cover                 # cover, contain, fill, none
       aspectRatio: '16/9'        # auto, 16/9, 4/3, 1/1, 3/2, 21/9, 9/16
@@ -507,7 +542,7 @@ Changing `accentColor` updates all four elements automatically.
         enabled: false
         color: 'rgba(0,0,0,0.5)'
         opacity: 50
-    layout: { widthMode: stretch }
+    layout: { widthMode: stretch, horizontalAlign: center }
   components: [...]              # Optional overlay content (text, buttons)
 ```
 
@@ -584,12 +619,60 @@ Changing `accentColor` updates all four elements automatically.
         text: Learn More
 ```
 
-**br** - Vertical break/spacer
+**br** - Divider / visual separator
 ```yaml
 - name: br
   properties:
-    size: md                     # none, xs, sm, md, lg, xl
+    type: solid                  # solid, dashed, dotted, wave, slant
+    orientation: horizontal      # horizontal, vertical
+    thickness: 2                 # Line thickness in px (1-10)
+    color: '#e5e7eb'             # Line color (hex)
+    size: md                     # Spacing above/below (spacing token)
+    invert: false                # Flip vertically (top↔bottom)
+    mirror: false                # Flip horizontally (left↔right)
 ```
+
+**Divider types:**
+| Type | Rendering | Use Case |
+|------|-----------|----------|
+| `solid` | CSS border-bottom (default) | Standard section divider |
+| `dashed` | CSS dashed border | Subtle separation |
+| `dotted` | CSS dotted border | Light visual break |
+| `wave` | SVG filled wave shape | Decorative section transitions |
+| `slant` | SVG diagonal polygon | Angled section transitions |
+
+**Wave divider:** Renders as a filled wave shape (not just a stroke line). The filled area extends downward from the wave curve, creating a smooth section transition effect.
+
+**Invert & Mirror:**
+| Property | Effect | Use Case |
+|----------|--------|----------|
+| `invert: true` | Flips vertically (`scaleY(-1)`) | Wave/slant fill faces upward instead of down. For solid/dashed/dotted, moves line from bottom to top edge. |
+| `mirror: true` | Flips horizontally (`scaleX(-1)`) | Reverses slant direction (left-to-right ↔ right-to-left). Mirrors wave pattern. |
+
+Both can be combined for a full 180-degree rotation.
+
+**Examples:**
+```yaml
+# Wave transition between sections (fill faces up)
+- name: br
+  properties:
+    type: wave
+    thickness: 5
+    color: '#6366f1'
+    invert: true
+
+# Slant going right-to-left
+- name: br
+  properties:
+    type: slant
+    thickness: 4
+    color: '#f8fafc'
+    mirror: true
+```
+
+**Orientation:** Use `vertical` inside a `layout-row` to create a vertical separator between items. Vertical dividers render as `border-left`.
+
+**Backward compatible:** Existing YAML with only `size` still works (defaults to solid horizontal, no invert/mirror).
 
 ### Navigation (3)
 
@@ -606,11 +689,11 @@ Changing `accentColor` updates all four elements automatically.
           href: '#about'
     layout: { alignment: left, height: 60 }
     scroll:
-      shrinkPercentage: 30        # Logo/title shrink to 70% when scrolled (0-100)
+      shrinkPercentage: 70        # Shrink TO 70% of original size when scrolled (0-100)
     appearance:
       background: { color: '#ffffff' }
       border: { width: 1, color: '#e5e7eb' }
-      focus: { color: '#2563eb' }  # Focus ring color for accessibility
+      focus: { background: '#f0f0f0', color: '#111827' }  # Focus state styling for accessibility
 ```
 
 **Titlebar scroll behavior:**
@@ -807,6 +890,117 @@ Changing `accentColor` updates all four elements automatically.
     display: { month: 8, year: 2024 }
 ```
 
+### Marketing (7)
+
+**icon** - Google Material Icons icon
+```yaml
+- name: icon
+  properties:
+    name: star                   # Any valid Material Icons name (snake_case)
+    size: md                     # typographySizes token (xxs-xxxl)
+    color: '#111827'             # Icon color (hex)
+```
+
+**Any valid [Google Material Icons](https://fonts.google.com/icons) name works** (~2700 icons available). Icon names use snake_case.
+
+**Common icons:** `star`, `favorite`, `check_circle`, `shopping_cart`, `home`, `search`, `settings`, `person`, `mail`, `phone`, `location_on`, `schedule`, `visibility`, `language`, `lock`, `download`, `play_circle`, `arrow_forward`, `chevron_right`, `local_fire_department`, `bar_chart`, `cloud`, `shield`, `palette`, `bolt`, `group`, `thumb_up`, `sell`
+
+**badge** - Colored inline label
+```yaml
+- name: badge
+  properties:
+    text: "NEW"                  # Badge text
+    variant: info                # info (blue), success (green), warning (amber), danger (red)
+    pill: true                   # true = fully rounded, false = slight rounding
+    typography:
+      color: '#ffffff'           # Override text color (optional, default white)
+```
+
+**Variant colors:**
+| Variant | Background | Use Case |
+|---------|-----------|----------|
+| `info` | #2563eb (blue) | General info, categories |
+| `success` | #059669 (green) | Positive status, online |
+| `warning` | #d97706 (amber) | Attention, popular, deals |
+| `danger` | #dc2626 (red) | Urgent, sale, limited |
+
+**rating** - Star/heart rating display (supports half values)
+```yaml
+- name: rating
+  properties:
+    value: 3.5                   # Rating value (0-5, step 0.5)
+    iconType: star               # star or heart
+    showCount: true              # Show "3.5/5" text after icons
+    color: '#f59e0b'             # Filled icon color (unfilled = #d1d5db)
+    typography:
+      size: md                   # Icon size (typographySizes token)
+      color: '#6b7280'           # Count text color
+```
+
+**Half-star support:** Use decimal values like `3.5`, `4.5`, etc. The fractional part (>= 0.5) renders a half-filled icon (left half filled, right half outline). Integer values render fully filled/empty icons as before.
+
+**Examples:**
+| Value | Renders |
+|-------|---------|
+| `5` | 5 filled |
+| `4.5` | 4 filled + 1 half |
+| `3` | 3 filled + 2 empty |
+| `2.5` | 2 filled + 1 half + 2 empty |
+| `0` | 5 empty |
+
+**progress-bar** - Horizontal completion bar
+```yaml
+- name: progress-bar
+  properties:
+    percent: 75                  # Progress 0-100 (clamped)
+    thickness: medium            # small (0.5rem), medium (1rem), large (1.5rem)
+    color: '#3b82f6'             # Fill bar color
+    trackColor: '#e5e7eb'        # Background track color
+    colorGradient: false         # true = red→amber→green gradient (overrides color)
+    appearance:
+      radius: pill               # Corner radius (borderRadiusScale token)
+```
+
+**counter-up** - Animated number counter (viewport-triggered)
+```yaml
+- name: counter-up
+  properties:
+    endValue: 12500              # Target number to count to
+    duration: 2000               # Animation duration in ms
+    prefix: "$"                  # Text before number (e.g. "$", "#")
+    suffix: "+"                  # Text after number (e.g. "+", "%", "M")
+    typography:
+      size: xxxl                 # typographySizes token
+      weight: extrabold          # fontWeights token
+      color: '#111827'           # Text color
+      align: center              # Alignment
+```
+
+**Runtime:** Uses IntersectionObserver to trigger animation when scrolled into view. Ease-out cubic easing. Numbers display with locale formatting (e.g., 12,500). Uses `tabular-nums` for stable digit widths.
+
+**countdown** - Live countdown timer
+```yaml
+- name: countdown
+  properties:
+    targetDate: '2026-12-31T23:59:59'  # ISO 8601 date string
+    format: 'DD:HH:MM:SS'       # DD:HH:MM:SS, HH:MM:SS, or MM:SS
+    expiredText: 'Offer ended!'  # Shown when timer reaches zero
+    typography:
+      size: xxl                  # typographySizes token
+      weight: bold               # fontWeights token
+      color: '#ffffff'           # Text color
+      align: center              # Alignment
+```
+
+**Format options:**
+| Format | Segments Shown |
+|--------|---------------|
+| `DD:HH:MM:SS` | Days, Hours, Min, Sec |
+| `HH:MM:SS` | Hours, Min, Sec |
+| `MM:SS` | Min, Sec |
+
+**Runtime:** Ticks every second via `setInterval`. When expired, replaces content with `expiredText`. Intervals cleaned up in `SwiftSites.reset()`.
+
 ## Quick Patterns
 
 ### Hero Section
@@ -882,23 +1076,28 @@ Changing `accentColor` updates all four elements automatically.
     - components: [...]
 ```
 
-### Statistics Section
+### Statistics Section (with animated counters)
 ```yaml
-- name: columnsgrid
-  properties: { layout: { columns: 4, gap: lg }, responsive: { breakpoints: { md: 2, sm: 1 } } }
-  columns:
-    - components:
-        - name: heading
-          properties: { text: "10,000+", level: 3, typography: { size: xxxl, weight: bold, color: '#2563eb' } }
+- name: layout-row
+  properties:
+    layout: { horizontalAlign: center, wrap: wrap }
+    spacing: { paddingBlock: xxl }
+  components:
+    - name: layout-column
+      properties: { layout: { horizontalAlign: center, widthMode: "25" } }
+      components:
+        - name: counter-up
+          properties: { endValue: 10000, suffix: "+", typography: { size: xxxl, weight: bold, color: '#2563eb', align: center } }
         - name: paragraph
           properties: { text: Active Users, typography: { align: center, size: sm } }
-    - components:
-        - name: heading
-          properties: { text: "99.9%", level: 3, typography: { size: xxxl, weight: bold, color: '#2563eb' } }
+    - name: layout-column
+      properties: { layout: { horizontalAlign: center, widthMode: "25" } }
+      components:
+        - name: counter-up
+          properties: { endValue: 99, suffix: "%", typography: { size: xxxl, weight: bold, color: '#2563eb', align: center } }
         - name: paragraph
-          properties: { text: Uptime }
-    - components: [...]
-    - components: [...]
+          properties: { text: Uptime, typography: { align: center, size: sm } }
+    # ... more columns
 ```
 
 ### Newsletter Signup
@@ -958,6 +1157,67 @@ Changing `accentColor` updates all four elements automatically.
           properties: { text: Free Trial, appearance: { background: { color: '#2563eb' } } }
         - name: button
           properties: { text: Schedule Demo, appearance: { background: { color: '#fff' } }, typography: { color: '#1f2937' } }
+```
+
+### Product Card with Badge & Rating
+```yaml
+- name: layout-column
+  properties:
+    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: medium }
+    spacing: { paddingBlock: lg, paddingInline: lg }
+  components:
+    - name: layout-row
+      properties: { layout: { horizontalAlign: left, wrap: nowrap, gap: sm } }
+      components:
+        - name: heading
+          properties: { text: "Premium Widget", level: 3, layout: { widthMode: fit } }
+        - name: badge
+          properties: { text: "SALE", variant: danger, pill: true, layout: { widthMode: fit } }
+    - name: rating
+      properties: { value: 4.5, iconType: star, showCount: true, color: '#f59e0b' }
+    - name: paragraph
+      properties: { text: "High-quality widget with premium features." }
+    - name: progress-bar
+      properties: { percent: 15, thickness: small, color: '#ef4444', trackColor: '#fee2e2' }
+    - name: caption
+      properties: { text: "Only 15% left in stock!", typography: { size: xs, color: '#ef4444' } }
+```
+
+### Launch Countdown Banner
+```yaml
+- name: layout-column
+  properties:
+    appearance: { background: { type: gradient, gradient: { colorStart: '#1e1b4b', colorEnd: '#6366f1', direction: to right } } }
+    spacing: { paddingBlock: xl }
+    layout: { horizontalAlign: center }
+  components:
+    - name: badge
+      properties: { text: "COMING SOON", variant: warning, pill: true }
+    - name: heading
+      properties: { text: "Product Launch", level: 2, typography: { color: '#fff', size: xxl, align: center } }
+    - name: countdown
+      properties:
+        targetDate: '2026-12-31T23:59:59'
+        format: 'DD:HH:MM:SS'
+        expiredText: 'We are live!'
+        typography: { size: xxl, weight: bold, color: '#ffffff', align: center }
+```
+
+### Feature Row with Icons
+```yaml
+- name: layout-row
+  properties: { layout: { horizontalAlign: center, wrap: wrap } }
+  components:
+    - name: layout-column
+      properties: { layout: { horizontalAlign: center, widthMode: "33" } }
+      components:
+        - name: icon
+          properties: { name: fire, size: xxl, color: '#6366f1' }
+        - name: heading
+          properties: { text: "Fast", level: 3, typography: { align: center } }
+        - name: paragraph
+          properties: { text: "Lightning quick performance", typography: { align: center, size: sm } }
+    # ... repeat for more features
 ```
 
 ## Common Mistakes & Fixes
@@ -1031,9 +1291,18 @@ Changing `accentColor` updates all four elements automatically.
 ## Complete Examples
 
 See `example_templates/` folder:
-- `bakery_template.yaml` - Full bakery website with all components
-- `hero_template.yaml` - Full landing page with all sections
-- `restaurant_template.yaml` - Restaurant website
+- `bookstore_template.yaml` - Full bookstore website
+- `freshchoice_template.yaml` - Patisserie/bakery website
+- `marketing_components_template.yaml` - SaaS landing page showcasing all marketing components
+
+See `example_templates/tests/` for per-component test files:
+- `br_divider_test.yaml` - All divider types, orientations, thickness
+- `icon_test.yaml` - Icon sizes, all available icons, colors
+- `badge_test.yaml` - Variants, pill shape, real-world usage
+- `rating_test.yaml` - Star/heart, value scale, showCount, sizes
+- `progress_bar_test.yaml` - Percent values, thickness, gradient, custom colors
+- `counter_up_test.yaml` - Prefix/suffix, duration, animated counters
+- `countdown_test.yaml` - Format options, expired state, launch countdown
 
 ## Key Principles
 
@@ -1085,7 +1354,7 @@ appearance:
 layout:
   tag: section            # semantic HTML
   horizontalAlign: center # flexbox alignment or distribution (center, left, right, space-between, space-evenly, space-around)
-  verticalAlign: center   # flexbox vertical alignment (layout-row only)
+  verticalAlign: center   # flexbox vertical alignment (layout-row: align-items, layout-column: justify-content)
   wrap: wrap              # flex-wrap (wrap or nowrap)
   gap: sm                 # spacing between children (none, xxs, xs, sm, md, lg, xl, xxl, xxxl)
 ```
@@ -1162,20 +1431,19 @@ A professional color palette follows the 60-30-10 distribution for visual harmon
 
 ### Theme Structure
 
-Themes are defined at the page level under `properties.theme`:
+Themes are defined at the page level under `properties.theme`. **`theme` must always be the FIRST property** inside `properties` because it defines YAML anchors that all other properties reference:
 
 ```yaml
 - name: page
   properties:
-    theme:
+    theme:                          # ⚠️ MUST be first — defines anchors
       colors:
         background: &color-background '#F5FAF0'  # 60% - Page base
         primary: &color-primary '#1A3A1A'        # 30% - Text color
         secondary: &color-secondary '#E0EBD8'   # 10% - UI elements
         accent: &color-accent '#2E8B57'          # CTAs only
       fonts:
-        headingMain: &font-heading-main "'Playfair Display', serif"
-        headingLevel2: &font-heading-level2 "'Lato', sans-serif"
+        heading: &font-heading "'Playfair Display', serif"
         content: &font-content "'Inter', sans-serif"
     appearance:
       background: { color: *color-background }
@@ -1249,6 +1517,91 @@ Use these patterns to create visual rhythm:
 
 **Applying Section Color Patterns:** Use the table above. For each section, set `appearance.background.color` and `typography.color` using the appropriate `*color-*` alias. Alternate Standard → Inverted → Highlight sections for visual rhythm.
 
+## Ticker Component
+
+Horizontally scrolling strip of content. Uses `columns:` array like columnsgrid.
+
+### Structure
+```yaml
+- name: ticker
+  properties:
+    behavior:
+      direction: left        # left, right
+      mode: continuous       # continuous, step
+      speed: 40              # px/sec (continuous only)
+      pauseOnHover: true
+      pauseDuration: 3000    # ms (step only)
+    layout:
+      width: "280"           # pixel-based column width (120, 200, 280, 360, 480)
+    spacing:
+      gap: lg                # gap between columns
+      marginBlock: md
+    appearance:
+      columnBackground: '#ffffff'  # uniform background for all columns
+      columnTransparency: 100      # 0=transparent, 100=opaque
+      columnRadius: lg             # border radius token (none, xs, sm, md, lg, xl, xxl, pill)
+      columnBorder:
+        width: 1                   # border width in px (0=no border)
+        style: solid               # solid, dashed, none
+        color: '#e5e7eb'           # border color
+  columns:                   # ← component level, NOT inside properties
+    - components:
+        - name: heading
+          properties:
+            text: Card Title
+        - name: paragraph
+          properties:
+            text: Card content
+    - components:
+        - name: heading
+          properties:
+            text: Card Title 2
+```
+
+### layout.width (default: fit to content)
+Pixel-based widths with CSS `clamp()` for responsive sizing:
+- No width or `"fit"` → content-sized columns (default)
+- `"120"` → 120px max (compact: logos, badges)
+- `"200"` → 200px max (small text cards)
+- `"280"` → 280px max (standard cards)
+- `"360"` → 360px max (featured cards)
+- `"480"` → 480px max (hero cards)
+
+### Column Styling (ticker-level, applied uniformly)
+- `columnBackground` — background color for all columns (default: `'#ffffff'`)
+- `columnTransparency` — 0 = fully transparent, 100 = fully opaque (default: `0`)
+- `columnRadius` — border radius token: none, xs, sm, md, lg, xl, xxl, pill (default: `none`)
+- `columnBorder.width` — border width in px, 0 = no border (default: `0`)
+- `columnBorder.style` — solid, dashed, none (default: `solid`)
+- `columnBorder.color` — border color (default: `'#000000'`)
+
+### Card-Style Columns
+For cards with their own individual background/radius/shadow, nest a `layout-column` inside each column:
+```yaml
+columns:
+  - components:
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: center
+            gap: sm
+          spacing:
+            paddingBlock: md
+            paddingInline: md
+          appearance:
+            background:
+              color: '#ffffff'
+              transparency: 100
+            radius: lg
+            shadow: md
+        components:
+          - name: heading
+            properties:
+              text: Card Title
+```
+
+---
+
 ## SSR Implementation Notes
 
 - Components are rendered server-side with Python/Flask
@@ -1274,6 +1627,6 @@ Use these patterns to create visual rhythm:
 
 ---
 
-**Version:** 1.7 | **Last Updated:** February 2026
+**Version:** 1.9 | **Last Updated:** February 2026
 
 > **⚠️ Common Error:** "Iteration Error" usually means array properties (`items`, `tabs`, `slides`, `columns`) are inside `properties:` instead of at component level. See Quick Reference Card at top.

@@ -11,7 +11,7 @@
  * - Titlebar with sticky scroll behavior and mobile menu
  *
  * Usage:
- * 1. Include this script in your HTML: <script src="swift-sites-runtime.js"></script>
+ * 1. Include this script in your HTML via a script tag with src="swift-sites-runtime.js"
  * 2. Components auto-initialize on DOMContentLoaded
  * 3. Call SwiftSites.init() to re-initialize after dynamic content updates
  */
@@ -29,6 +29,9 @@
             this.initTabs();
             this.initAccordions();
             this.initTitlebars();
+            this.initTickers();
+            this.initCounterUps();
+            this.initCountdowns();
         },
 
         /**
@@ -330,22 +333,15 @@
             if (!tabsContainer || tabsContainer.dataset.ssInitialized === 'true') return;
             tabsContainer.dataset.ssInitialized = 'true';
 
-            const tabButtons = tabsContainer.querySelectorAll('.tab-label');
-            const tabContents = tabsContainer.querySelectorAll('.tab-content');
+            const radios = tabsContainer.querySelectorAll('.tabs-nav input[type="radio"]');
+            const tabContents = tabsContainer.querySelectorAll(':scope > .tab-content');
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const targetId = button.dataset.tab;
-
-                    // Update active states
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-
-                    button.classList.add('active');
-                    const targetContent = tabsContainer.querySelector(`#${targetId}`);
-                    if (targetContent) {
-                        targetContent.classList.add('active');
+            radios.forEach((radio, index) => {
+                radio.addEventListener('change', () => {
+                    // Hide all content panels, show the selected one
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    if (tabContents[index]) {
+                        tabContents[index].classList.add('active');
                     }
                 });
             });
@@ -489,6 +485,248 @@
         },
 
         /**
+         * Initialize all ticker components
+         */
+        initTickers: function() {
+            document.querySelectorAll('.ticker').forEach(ticker => {
+                this._initTicker(ticker);
+            });
+        },
+
+        _tickerIntervals: [],
+
+        _initTicker: function(tickerElement) {
+            if (!tickerElement || tickerElement.dataset.ssInitialized === 'true') return;
+            tickerElement.dataset.ssInitialized = 'true';
+
+            var track = tickerElement.querySelector('.ticker-track');
+            var items = tickerElement.querySelectorAll('.ticker-item:not(.ticker-item-duplicate)');
+            if (!track || items.length === 0) return;
+
+            var speed = parseInt(tickerElement.dataset.speed, 10) || 40;
+            var mode = tickerElement.dataset.mode || 'continuous';
+            var direction = tickerElement.dataset.direction || 'left';
+            var pauseDuration = parseInt(tickerElement.dataset.pauseDuration, 10) || 3000;
+
+            if (mode === 'continuous') {
+                this._initContinuousTicker(tickerElement, track, speed);
+            } else {
+                this._initStepTicker(tickerElement, track, items, pauseDuration, direction);
+            }
+        },
+
+        _initContinuousTicker: function(tickerEl, track, speed) {
+            function updateDuration() {
+                var items = track.querySelectorAll('.ticker-item:not(.ticker-item-duplicate)');
+                var tickerGap = parseFloat(getComputedStyle(track).gap) || 0;
+                var totalWidth = 0;
+                items.forEach(function(item) { totalWidth += item.offsetWidth; });
+                var offset = totalWidth + (items.length * tickerGap);
+                track.style.setProperty('--ticker-offset', '-' + offset + 'px');
+                track.style.animationDuration = (offset / speed) + 's';
+            }
+            updateDuration();
+
+            var resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(updateDuration, 150);
+            }, { passive: true });
+        },
+
+        _initStepTicker: function(tickerElement, track, items, pauseDuration, direction) {
+            var self = this;
+
+            var currentIndex = 0;
+            var totalItems = items.length;
+            var gap = parseFloat(getComputedStyle(track).gap) || 0;
+
+            function getStepDistance() {
+                return items[0].offsetWidth + gap;
+            }
+
+            function moveToNext() {
+                currentIndex++;
+                if (currentIndex >= totalItems) {
+                    track.style.transition = 'none';
+                    track.style.transform = 'translateX(0)';
+                    currentIndex = 0;
+                    setTimeout(function() {
+                        track.style.transition = 'transform 0.6s ease-in-out';
+                    }, 50);
+                } else {
+                    var offset = getStepDistance() * currentIndex;
+                    var dir = (direction === 'left') ? -offset : offset;
+                    track.style.transform = 'translateX(' + dir + 'px)';
+                }
+            }
+
+            var intervalId = setInterval(moveToNext, pauseDuration);
+            this._tickerIntervals.push(intervalId);
+
+            if (tickerElement.dataset.pauseOnHover === 'true') {
+                tickerElement.addEventListener('mouseenter', function() {
+                    clearInterval(intervalId);
+                });
+                tickerElement.addEventListener('mouseleave', function() {
+                    intervalId = setInterval(moveToNext, pauseDuration);
+                    self._tickerIntervals.push(intervalId);
+                });
+            }
+
+            var resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    gap = parseFloat(getComputedStyle(track).gap) || 0;
+                }, 150);
+            }, { passive: true });
+        },
+
+        cleanupTickers: function() {
+            this._tickerIntervals.forEach(function(id) { clearInterval(id); });
+            this._tickerIntervals = [];
+        },
+
+        /**
+         * Initialize all counter-up components
+         */
+        initCounterUps: function() {
+            document.querySelectorAll('.counter-up').forEach(counter => {
+                this._initCounterUp(counter);
+            });
+        },
+
+        /**
+         * Initialize a single counter-up component
+         * @param {HTMLElement} el - The counter-up element
+         */
+        _initCounterUp: function(el) {
+            if (!el || el.dataset.ssInitialized === 'true') return;
+            el.dataset.ssInitialized = 'true';
+
+            const valueEl = el.querySelector('.counter-up__value');
+            if (!valueEl) return;
+
+            const endValue = parseInt(el.dataset.endValue, 10) || 0;
+            const duration = parseInt(el.dataset.duration, 10) || 2000;
+            const prefix = el.dataset.prefix || '';
+            const suffix = el.dataset.suffix || '';
+
+            function animateCount() {
+                const startTime = performance.now();
+
+                function tick(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // Ease-out cubic
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(eased * endValue);
+                    valueEl.textContent = prefix + current.toLocaleString() + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(tick);
+                    }
+                }
+
+                requestAnimationFrame(tick);
+            }
+
+            // Use IntersectionObserver to trigger animation on viewport entry
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCount();
+                            observer.unobserve(el);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                observer.observe(el);
+            } else {
+                // Fallback: animate immediately
+                animateCount();
+            }
+        },
+
+        /**
+         * Initialize all countdown components
+         */
+        initCountdowns: function() {
+            document.querySelectorAll('.countdown').forEach(countdown => {
+                this._initCountdown(countdown);
+            });
+        },
+
+        _countdownIntervals: [],
+
+        /**
+         * Initialize a single countdown component
+         * @param {HTMLElement} el - The countdown element
+         */
+        _initCountdown: function(el) {
+            if (!el || el.dataset.ssInitialized === 'true') return;
+            el.dataset.ssInitialized = 'true';
+
+            const targetDate = el.dataset.targetDate;
+            const expiredText = el.dataset.expiredText || 'Expired';
+
+            if (!targetDate) return;
+
+            const target = new Date(targetDate).getTime();
+            const segments = {
+                days: el.querySelector('.countdown__days .countdown__number'),
+                hours: el.querySelector('.countdown__hours .countdown__number'),
+                minutes: el.querySelector('.countdown__minutes .countdown__number'),
+                seconds: el.querySelector('.countdown__seconds .countdown__number')
+            };
+
+            function update() {
+                const now = Date.now();
+                let diff = Math.max(0, target - now);
+
+                if (diff <= 0) {
+                    // Show expired text
+                    el.innerHTML = '<span class="countdown__expired" style="font: inherit; color: inherit;">' + expiredText + '</span>';
+                    return true; // Signal to clear interval
+                }
+
+                const days = Math.floor(diff / 86400000);
+                diff %= 86400000;
+                const hours = Math.floor(diff / 3600000);
+                diff %= 3600000;
+                const minutes = Math.floor(diff / 60000);
+                diff %= 60000;
+                const seconds = Math.floor(diff / 1000);
+
+                if (segments.days) segments.days.textContent = String(days).padStart(2, '0');
+                if (segments.hours) segments.hours.textContent = String(hours).padStart(2, '0');
+                if (segments.minutes) segments.minutes.textContent = String(minutes).padStart(2, '0');
+                if (segments.seconds) segments.seconds.textContent = String(seconds).padStart(2, '0');
+
+                return false;
+            }
+
+            // Initial update
+            if (!update()) {
+                const intervalId = setInterval(() => {
+                    if (update()) {
+                        clearInterval(intervalId);
+                    }
+                }, 1000);
+                this._countdownIntervals.push(intervalId);
+            }
+        },
+
+        /**
+         * Clean up countdown intervals
+         */
+        cleanupCountdowns: function() {
+            this._countdownIntervals.forEach(id => clearInterval(id));
+            this._countdownIntervals = [];
+        },
+
+        /**
          * Clean up titlebar clones (useful before re-rendering)
          */
         cleanupTitlebarClones: function() {
@@ -501,6 +739,8 @@
          * Reset initialization state (useful for re-initialization)
          */
         reset: function() {
+            this.cleanupCountdowns();
+            this.cleanupTickers();
             document.querySelectorAll('[data-ss-initialized]').forEach(el => {
                 delete el.dataset.ssInitialized;
             });

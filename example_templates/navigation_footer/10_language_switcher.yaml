@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Manrope', sans-serif"
-        headingLevel2: &font-heading-level2 "'Manrope', sans-serif"
+        heading: &font-heading "'Manrope', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#1e293b'
@@ -26,8 +25,8 @@
         layout: { horizontalAlign: space-between, align: center, wrap: nowrap }
         spacing: { paddingBlock: xs, paddingInline: xl }
         appearance:
-          background: { color: '#f8fafc', transparency: 100 }
-          border: { width: 1, style: solid, color: '#e2e8f0' }
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, style: solid, color: *color-secondary }
       components:
 
         # Left Side - Contact Info
@@ -69,7 +68,7 @@
                     Chinese (Simplified)
                     Korean
                 appearance:
-                  border: { width: 1, style: solid, color: '#d1d5db' }
+                  border: { width: 1, style: solid, color: *color-secondary }
                   background: { color: *color-background, transparency: 100 }
                   radius: sm
                 spacing: { marginInline: sm }
@@ -78,7 +77,7 @@
                 text: Login
                 appearance:
                   background: { color: *color-background, transparency: 100 }
-                  border: { width: 1, style: solid, color: '#d1d5db' }
+                  border: { width: 1, style: solid, color: *color-secondary }
                   padding: { block: xs, inline: md }
                   radius: sm
                 typography: { color: *color-primary, weight: medium, size: xs }
@@ -118,9 +117,9 @@
           shrinkPercentage: 70
         appearance:
           background: { color: *color-background, transparency: 100 }
-          border: { width: 1, style: solid, color: '#e2e8f0' }
+          border: { width: 1, style: solid, color: *color-secondary }
           focus:
-            background: '#ecfdf5'
+            background: *color-background
             color: *color-accent
         typography:
           title: { size: 24, weight: bold, color: *color-primary }
@@ -145,17 +144,17 @@
             - name: eyebrow
               properties:
                 text: DISCOVER THE WORLD
-                typography: { size: sm, weight: bold, color: '#ffffff', transform: uppercase, letterSpacing: wider }
+                typography: { size: sm, weight: bold, color: *color-background, transform: uppercase, letterSpacing: wider }
             - name: heading
               properties:
                 text: Your Next Adventure Awaits
                 level: 1
-                typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: tight }
+                typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
                 spacing: { marginBlock: md }
             - name: paragraph
               properties:
                 text: Explore 195 countries, 10,000+ tours, and countless memories. Now available in 10 languages for travelers worldwide.
-                typography: { size: lg, color: '#e2e8f0', align: center }
+                typography: { size: lg, color: *color-secondary, align: center }
                 layout: { widthMode: 75 }
                 spacing: { marginBlock: md }
 
@@ -164,7 +163,7 @@
               properties:
                 layout: { horizontalAlign: space-evenly, align: center, wrap: nowrap }
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: sm, paddingInline: sm }
@@ -179,8 +178,8 @@
                         label: { show: false }
                         field: { placeholder: 'Where do you want to go?' }
                         appearance:
-                          background: { color: '#f9fafb', transparency: 100 }
-                          border: { width: 1, style: solid, color: '#e5e7eb' }
+                          background: { color: *color-background, transparency: 100 }
+                          border: { width: 1, style: solid, color: *color-secondary }
                           radius: md
                         typography: { size: md, color: *color-primary }
                         layout: { widthMode: stretch }
@@ -191,7 +190,7 @@
                           background: { color: *color-accent }
                           padding: { block: sm, inline: xl }
                           radius: md
-                        typography: { color: '#ffffff', weight: semibold, size: md }
+                        typography: { color: *color-background, weight: semibold, size: md }
 
     # ============================================
     # POPULAR DESTINATIONS
@@ -303,5 +302,5 @@
         - name: paragraph
           properties:
             text: "\u00A9 2026 GlobalTravel. Available in 10 languages. All rights reserved."
-            typography: { size: xs, color: '#94a3b8', align: center }
+            typography: { size: xs, color: *color-secondary, align: center }
             layout: { widthMode: stretch }

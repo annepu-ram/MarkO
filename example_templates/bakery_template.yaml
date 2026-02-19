@@ -2,9 +2,8 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main Georgia, serif
-        headingLevel2: &font-heading-level2 Georgia, serif
-        content: &font-content Georgia, serif
+        heading: &font-heading "'Lora', serif"
+        content: &font-content "'Lora', serif"
       colors:
         primary: &color-primary "#1A3A3A"
         secondary: &color-secondary "#E8DEB0"
@@ -41,25 +40,25 @@
           shrinkPercentage: 70
         appearance:
           background:
-            color: "#FFF5D6"
+            color: *color-background
             transparency: 100
             type: ""
           border:
             width: 0
             style: solid
-            color: "#E8DEB0"
+            color: *color-secondary
           focus:
-            background: "#E8DEB0"
-            color: "#111827"
+            background: *color-secondary
+            color: *color-primary
         typography:
           title:
             size: 20
             weight: bold
-            color: "#1A3A3A"
+            color: *color-primary
           menu:
             size: 16
             weight: medium
-            color: "#1A3A3A"
+            color: *color-primary
 
     # Hero Section
     - name: image
@@ -80,7 +79,6 @@
         - name: layout-column
           properties:
             layout:
-              align: center
               horizontalAlign: space-evenly
             spacing:
               paddingBlock: xl
@@ -114,7 +112,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   radius: none
                   padding:
@@ -126,7 +124,7 @@
                   Baked fresh daily with love and the finest local ingredients.
                   Experience the warmth and comfort of traditional baking.
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   size: lg
                   align: center
                   weight: regular
@@ -137,7 +135,6 @@
             - name: layout-row
               properties:
                 layout:
-                  align: center
                   horizontalAlign: space-evenly
                   wrap: wrap
               components:
@@ -156,7 +153,7 @@
                         block: md
                         inline: lg
                     typography:
-                      color: '#ffffff'
+                      color: *color-background
                       weight: semibold
                       size: md
                     spacing:
@@ -167,7 +164,7 @@
                     text: Order Online
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       border:
                         width: 2
@@ -188,13 +185,12 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
           paddingInline: md
         background:
-          color: '#ffffff'
+          color: *color-background
           transparency: 100
       components:
         - name: eyebrow
@@ -240,7 +236,6 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
@@ -265,7 +260,6 @@
         - name: layout-row
           properties:
             layout:
-              align: center
               horizontalAlign: space-evenly
               wrap: wrap
               tag: section
@@ -277,7 +271,7 @@
               marginBlock: none
               marginInline: none
             background:
-              color: '#ffffff'
+              color: *color-background
               transparency: 100
             appearance:
               radius: lg
@@ -287,13 +281,13 @@
                 inline: sm
               background:
                 type: ""
-                color: "#ffffff"
+                color: *color-background
                 transparency: 0
               border:
                 width: 0
                 style: solid
-                color: "#000000"
-              shadowColor: "#000000"
+                color: *color-primary
+              shadowColor: *color-primary
           components:
             - name: image
               properties:
@@ -308,7 +302,7 @@
                   maxHeight: ""
                   filter: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
                   hoverEffect: none
                   lazy: true
                   padding:
@@ -316,7 +310,7 @@
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: "25"
@@ -328,8 +322,7 @@
               properties:
                 layout:
                   widthMode: "75"
-                  horizontalAlign: ""
-                  align: start
+                  horizontalAlign: left
                   tag: section
                   verticalAlign: space-between
                   wrap: nowrap
@@ -345,15 +338,15 @@
                     inline: sm
                   background:
                     type: ""
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   border:
                     width: 0
                     style: solid
-                    color: "#000000"
+                    color: *color-primary
                   radius: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
               components:
                 - name: eyebrow
                   properties:
@@ -395,7 +388,6 @@
         - name: layout-row
           properties:
             layout:
-              align: center
               horizontalAlign: space-evenly
               wrap: wrap
               tag: section
@@ -407,7 +399,7 @@
               marginBlock: none
               marginInline: none
             background:
-              color: '#ffffff'
+              color: *color-background
               transparency: 100
             appearance:
               radius: lg
@@ -417,20 +409,19 @@
                 inline: sm
               background:
                 type: ""
-                color: "#ffffff"
+                color: *color-background
                 transparency: 0
               border:
                 width: 0
                 style: solid
-                color: "#000000"
-              shadowColor: "#000000"
+                color: *color-primary
+              shadowColor: *color-primary
           components:
             - name: layout-column
               properties:
                 layout:
                   widthMode: "75"
-                  horizontalAlign: ""
-                  align: start
+                  horizontalAlign: left
                   tag: section
                   verticalAlign: space-between
                   wrap: nowrap
@@ -446,15 +437,15 @@
                     inline: sm
                   background:
                     type: ""
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   border:
                     width: 0
                     style: solid
-                    color: "#000000"
+                    color: *color-primary
                   radius: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
               components:
                 - name: eyebrow
                   properties:
@@ -504,7 +495,7 @@
                   maxHeight: ""
                   filter: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
                   hoverEffect: none
                   lazy: true
                   padding:
@@ -512,7 +503,7 @@
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: "25"
@@ -525,14 +516,13 @@
         - name: layout-row
           properties:
             layout:
-              align: center
               horizontalAlign: space-evenly
               wrap: wrap
             spacing:
               paddingBlock: lg
               paddingInline: md
             background:
-              color: '#ffffff'
+              color: *color-background
               transparency: 100
             appearance:
               radius: lg
@@ -551,7 +541,7 @@
                   maxHeight: 0
                   filter: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
                   hoverEffect: none
                   lazy: true
                   padding:
@@ -559,7 +549,7 @@
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: "25"
@@ -571,8 +561,7 @@
               properties:
                 layout:
                   widthMode: "75"
-                  horizontalAlign: ""
-                  align: start
+                  horizontalAlign: left
                   tag: section
                   verticalAlign: space-between
                   wrap: nowrap
@@ -588,15 +577,15 @@
                     inline: sm
                   background:
                     type: ""
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   border:
                     width: 0
                     style: solid
-                    color: "#000000"
+                    color: *color-primary
                   radius: none
                   shadow: none
-                  shadowColor: "#000000"
+                  shadowColor: *color-primary
               components:
                 - name: eyebrow
                   properties:
@@ -638,21 +627,20 @@
     - name: layout-row
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
           wrap: wrap
         spacing:
           paddingBlock: lg
           paddingInline: md
         background:
-          color: '#ffffff'
+          color: *color-background
           transparency: 100
         appearance:
           radius: md
           border:
             width: 1
             style: solid
-            color: '#e5e7eb'
+            color: *color-secondary
       components:
         - name: paragraph
           properties:
@@ -665,7 +653,7 @@
               • Local ingredients
               • Award-winning
             typography:
-              color: "#1A3A3A"
+              color: *color-primary
               size: sm
               weight: medium
               lineHeight: '1.8'
@@ -681,7 +669,7 @@
               widthMode: "25"
             appearance:
               background:
-                color: "#E8DEB0"
+                color: *color-secondary
                 transparency: 100
                 type: ""
               radius: sm
@@ -698,7 +686,7 @@
               excellence. From our classic sourdough to our innovative seasonal pastries, each product reflects
               our dedication to the craft of baking and our love for the community we serve.
             typography:
-              color: "#1A3A3A"
+              color: *color-primary
               size: md
               weight: regular
               lineHeight: '1.7'
@@ -715,7 +703,7 @@
             appearance:
               background:
                 type: ""
-                color: "#ffffff"
+                color: *color-background
                 transparency: 0
               radius: none
               padding:
@@ -726,7 +714,6 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
@@ -777,7 +764,7 @@
                         text: Butter Croissants
                         level: 3
                         typography:
-                          color: '#ffffff'
+                          color: *color-background
                           size: xl
                           weight: bold
                           align: center
@@ -804,7 +791,7 @@
                         block: sm
                         inline: md
                     typography:
-                      color: '#ffffff'
+                      color: *color-background
                       weight: medium
                       size: sm
                     spacing:
@@ -832,7 +819,7 @@
                         text: Rustic Sourdough
                         level: 3
                         typography:
-                          color: '#ffffff'
+                          color: *color-background
                           size: xl
                           weight: bold
                           align: center
@@ -859,7 +846,7 @@
                         block: sm
                         inline: md
                     typography:
-                      color: '#ffffff'
+                      color: *color-background
                       weight: medium
                       size: sm
                     spacing:
@@ -887,7 +874,7 @@
                         text: Vanilla Cupcakes
                         level: 3
                         typography:
-                          color: '#ffffff'
+                          color: *color-background
                           size: xl
                           weight: bold
                           align: center
@@ -914,7 +901,7 @@
                         block: sm
                         inline: md
                     typography:
-                      color: '#ffffff'
+                      color: *color-background
                       weight: medium
                       size: sm
                     spacing:
@@ -926,13 +913,12 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
           paddingInline: md
         background:
-          color: '#ffffff'
+          color: *color-background
           transparency: 100
       components:
         - name: heading
@@ -1010,7 +996,7 @@
                       maxHeight: 0
                       filter: none
                       shadow: none
-                      shadowColor: "#000000"
+                      shadowColor: *color-primary
                       hoverEffect: none
                       lazy: true
                       padding:
@@ -1018,7 +1004,7 @@
                         inline: none
                       overlay:
                         enabled: false
-                        color: "#000000"
+                        color: *color-primary
                         opacity: 1
                     layout:
                       widthMode: stretch
@@ -1040,7 +1026,7 @@
                       maxHeight: 0
                       filter: none
                       shadow: none
-                      shadowColor: "#000000"
+                      shadowColor: *color-primary
                       hoverEffect: none
                       lazy: true
                       padding:
@@ -1048,7 +1034,7 @@
                         inline: none
                       overlay:
                         enabled: false
-                        color: "#000000"
+                        color: *color-primary
                         opacity: 1
                     layout:
                       widthMode: stretch
@@ -1070,7 +1056,7 @@
                       maxHeight: 0
                       filter: none
                       shadow: none
-                      shadowColor: "#000000"
+                      shadowColor: *color-primary
                       hoverEffect: none
                       lazy: true
                       padding:
@@ -1078,7 +1064,7 @@
                         inline: none
                       overlay:
                         enabled: false
-                        color: "#000000"
+                        color: *color-primary
                         opacity: 1
                     layout:
                       widthMode: stretch
@@ -1091,7 +1077,6 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
@@ -1118,13 +1103,13 @@
                 size: md
                 weight: semibold
                 active:
-                  color: "#1A3A3A"
+                  color: *color-primary
                 inactive:
-                  color: "#E8DEB0"
+                  color: *color-secondary
             appearance:
               tab:
                 background:
-                  active: "#FFF5D6"
+                  active: *color-background
                   inactive: *color-background
                 border:
                   width: 2
@@ -1132,17 +1117,17 @@
                   position: lower
               content:
                 background:
-                  color: "#FFF5D6"
+                  color: *color-background
                   transparency: 100
                 border:
-                  color: "#E8DEB0"
+                  color: *color-secondary
                   width: 1
                   style: solid
                 padding:
                   block: lg
                   inline: lg
               shadow: none
-              shadowColor: "#000000"
+              shadowColor: *color-primary
             spacing:
               marginBlock: lg
               marginInline: none
@@ -1185,7 +1170,7 @@
                             text: Sourdough Loaf
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1194,7 +1179,7 @@
                             text: Traditional 48-hour fermented sourdough with a tangy flavor and perfect
                               crust.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1213,7 +1198,7 @@
                             text: French Baguette
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1221,7 +1206,7 @@
                           properties:
                             text: Crispy golden crust with a soft, airy interior. Baked fresh twice daily.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1240,7 +1225,7 @@
                             text: Whole Grain Loaf
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1248,7 +1233,7 @@
                           properties:
                             text: Nutty and hearty, packed with seeds and grains for maximum nutrition.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1267,7 +1252,7 @@
                             text: Dark Rye Bread
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1275,7 +1260,7 @@
                           properties:
                             text: Rich, dense rye bread with a deep flavor perfect for sandwiches.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
             - title: Cakes
               components:
@@ -1305,7 +1290,7 @@
                             text: Wedding Cakes
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1314,7 +1299,7 @@
                             text: Elegant multi-tiered cakes customized to your vision. Available in various
                               flavors.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1333,7 +1318,7 @@
                             text: Birthday Cakes
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1342,7 +1327,7 @@
                             text: Fun and festive cakes for any celebration. Choose your favorite flavors
                               and designs.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1361,7 +1346,7 @@
                             text: Chocolate Layer Cake
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1369,7 +1354,7 @@
                           properties:
                             text: Rich chocolate cake with creamy frosting. A customer favorite!
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1388,7 +1373,7 @@
                             text: New York Cheesecake
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1396,7 +1381,7 @@
                           properties:
                             text: Creamy, dense cheesecake with a graham cracker crust. Simply divine.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
             - title: Pastries
               components:
@@ -1426,7 +1411,7 @@
                             text: Butter Croissants
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1434,7 +1419,7 @@
                           properties:
                             text: Flaky, buttery layers that melt in your mouth. Baked fresh every morning.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1450,7 +1435,7 @@
                               maxHeight: 0
                               filter: none
                               shadow: none
-                              shadowColor: "#000000"
+                              shadowColor: *color-primary
                               hoverEffect: none
                               lazy: true
                               padding:
@@ -1458,7 +1443,7 @@
                                 inline: none
                               overlay:
                                 enabled: false
-                                color: "#000000"
+                                color: *color-primary
                                 opacity: 1
                             layout:
                               widthMode: stretch
@@ -1471,7 +1456,7 @@
                             text: Cinnamon Rolls
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1480,7 +1465,7 @@
                             text: Warm, gooey rolls topped with cream cheese frosting. Perfect for
                               breakfast.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1499,7 +1484,7 @@
                             text: French Macarons
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1507,7 +1492,7 @@
                           properties:
                             text: Delicate almond cookies in a variety of flavors and colors.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
                     - components:
                         - name: image
@@ -1526,7 +1511,7 @@
                             text: Danish Pastries
                             level: 3
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               weight: semibold
                             spacing:
                               marginBlock: sm
@@ -1534,21 +1519,20 @@
                           properties:
                             text: Buttery, flaky pastries filled with fruit preserves or cream cheese.
                             typography:
-                              color: "#1A3A3A"
+                              color: *color-primary
                               size: sm
 
     # Our Story Section
     - name: layout-row
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
           wrap: wrap
         spacing:
           paddingBlock: lg
           paddingInline: lg
         background:
-          color: '#ffffff'
+          color: *color-background
           transparency: 100
       components:
         - name: image
@@ -1564,7 +1548,7 @@
               maxHeight: 0
               filter: none
               shadow: none
-              shadowColor: "#000000"
+              shadowColor: *color-primary
               hoverEffect: none
               lazy: true
               padding:
@@ -1572,7 +1556,7 @@
                 inline: none
               overlay:
                 enabled: false
-                color: "#000000"
+                color: *color-primary
                 opacity: 1
             layout:
               widthMode: "75"
@@ -1605,7 +1589,7 @@
                 text: Baked with Passion Since 2003
                 level: "3"
                 typography:
-                  color: "#1A3A3A"
+                  color: *color-primary
                   size: xxxl
                   weight: bold
                   align: center
@@ -1620,7 +1604,7 @@
                 appearance:
                   background:
                     type: ""
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   radius: none
                   padding:
@@ -1648,7 +1632,6 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
@@ -1671,30 +1654,30 @@
               allowMultipleOpen: false
             typography:
               title:
-                size: lg
+                size: xl
                 weight: semibold
-                color: "#1A3A3A"
+                color: *color-primary
               content:
                 size: md
                 weight: regular
-                color: "#1A3A3A"
+                color: *color-primary
             appearance:
               titleBackground:
-                color: "#FFF5D6"
+                color: *color-background
               border:
                 width: 1
                 style: solid
-                color: "#E8DEB0"
+                color: *color-secondary
                 position: bottom
               contentBackground:
-                color: "#FFF5D6"
+                color: *color-background
                 transparency: 100
               radius: sm
               padding:
                 block: md
                 inline: md
               shadow: soft
-              shadowColor: "#000000"
+              shadowColor: *color-primary
             spacing:
               marginBlock: lg
               marginInline: auto
@@ -1780,13 +1763,12 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
           paddingInline: md
         background:
-          color: '#ffffff'
+          color: *color-background
           transparency: 100
       components:
         - name: heading
@@ -1818,6 +1800,7 @@
                 block: none
                 inline: none
               shadow: none
+              shadowColor: *color-primary
           columns:
             - components:
                 - name: blockquote
@@ -1829,7 +1812,7 @@
                     typography:
                       size: md
                       weight: regular
-                      color: "#1A3A3A"
+                      color: *color-primary
                       align: center
                       lineHeight: "1.6"
                       transform: none
@@ -1865,14 +1848,14 @@
                     typography:
                       size: md
                       weight: regular
-                      color: "#1A3A3A"
+                      color: *color-primary
                       align: center
                       lineHeight: "1.6"
                       transform: none
                       letterSpacing: normal
                     appearance:
                       background:
-                        color: "#FFF5D6"
+                        color: *color-background
                         transparency: 100
                         type: ""
                       border:
@@ -1885,7 +1868,7 @@
                         block: md
                         inline: md
                       shadow: none
-                      shadowColor: "#000000"
+                      shadowColor: *color-primary
                     spacing:
                       marginBlock: none
                       marginInline: none
@@ -1901,18 +1884,18 @@
                     typography:
                       size: md
                       weight: regular
-                      color: *color-accent
+                      color: *color-primary
                       align: center
                       lineHeight: "1.6"
                       transform: none
                       letterSpacing: normal
                     appearance:
                       background:
-                        color: "#FFF5D6"
+                        color: *color-background
                         transparency: 100
                         type: ""
                       border:
-                        accentColor: "#E8DEB0"
+                        accentColor: *color-accent
                         width: 3
                         style: solid
                         position: left
@@ -1921,7 +1904,7 @@
                         block: md
                         inline: md
                       shadow: none
-                      shadowColor: "#000000"
+                      shadowColor: *color-primary
                     spacing:
                       marginBlock: none
                       marginInline: none
@@ -1932,7 +1915,6 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
@@ -1961,7 +1943,7 @@
             appearance:
               background:
                 type: solid
-                color: "#ffffff"
+                color: *color-background
                 transparency: 0
               radius: none
               padding:
@@ -1987,7 +1969,7 @@
             appearance:
               background:
                 type: solid
-                color: "#ffffff"
+                color: *color-background
                 transparency: 0
               radius: none
               padding:
@@ -2016,12 +1998,12 @@
                   required: true
                 appearance:
                   background:
-                    color: '#ffffff'
+                    color: *color-background
                     transparency: 100
                   border:
                     width: 1
                     style: solid
-                    color: '#d1d5db'
+                    color: *color-secondary
             - name: textbox
               properties:
                 label:
@@ -2032,12 +2014,12 @@
                   required: true
                 appearance:
                   background:
-                    color: '#ffffff'
+                    color: *color-background
                     transparency: 100
                   border:
                     width: 1
                     style: solid
-                    color: '#d1d5db'
+                    color: *color-secondary
             - name: textarea
               properties:
                 label:
@@ -2055,10 +2037,10 @@
                   border:
                     width: 1
                     style: solid
-                    color: '#d1d5db'
+                    color: *color-secondary
                   radius: none
                 typography:
-                  color: "#000000"
+                  color: *color-primary
                 layout:
                   widthMode: fit
                 spacing:
@@ -2079,7 +2061,7 @@
                     block: md
                     inline: lg
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   weight: semibold
                   size: md
                 spacing:
@@ -2091,20 +2073,19 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: lg
           paddingInline: md
         background:
-          color: '#3d302a'
+          color: *color-primary
           transparency: 100
       components:
         - name: paragraph
           properties:
             text: '© 2025 The Golden Loaf Bakery. All Rights Reserved.'
             typography:
-              color: '#d1d5db'
+              color: *color-secondary
               size: sm
             spacing:
               marginBlock: none
@@ -2112,7 +2093,7 @@
           properties:
             text: '123 Bread Street, Pastryville, CA 90210 | (555) 123-4567'
             typography:
-              color: '#d1d5db'
+              color: *color-secondary
               size: sm
             spacing:
               marginBlock: none

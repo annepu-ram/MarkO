@@ -3,8 +3,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#ffffff'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#a5b4fc'
+        background: &color-background '#1a1a2e'
     appearance:
-      background: { color: '#1a1a2e' }
+      background: { color: *color-background }
   components:
     - name: image
       properties:
@@ -29,14 +35,14 @@
             - name: eyebrow
               properties:
                 text: SCIENCE & SPACE
-                typography: { size: xs, weight: bold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider }
+                typography: { size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider }
             - name: heading
               properties:
                 text: |
                   Beyond the Horizon: Humanity's
                   Next Great Adventure
                 level: 2
-                typography: { size: xxl, weight: extrabold, color: '#ffffff', align: left, lineHeight: "1.2" }
+                typography: { size: xxl, weight: extrabold, color: *color-primary, align: left, lineHeight: "1.2" }
                 layout: { widthMode: "75" }
             - name: layout-row
               properties:
@@ -46,8 +52,8 @@
                 - name: caption
                   properties:
                     text: "Dr. Neil Patel"
-                    typography: { size: sm, weight: medium, color: '#e2e8f0' }
+                    typography: { size: sm, weight: medium, color: *color-primary }
                 - name: caption
                   properties:
                     text: "10 min read"
-                    typography: { size: sm, color: '#94a3b8' }
+                    typography: { size: sm, color: *color-secondary }

@@ -220,7 +220,19 @@ def merge_component_with_defaults(component, defaults, tokens=None, component_pa
             }
             for slide_idx, slide in enumerate(merged_component.get('slides', []))
         ]
-    
+
+    if 'items' in merged_component:
+        merged_component['items'] = [
+            {
+                **item,
+                'components': [
+                    merge_component_with_defaults(child, defaults, tokens, f"{component_path}.items[{item_idx}].components[{i}]")
+                    for i, child in enumerate(item.get('components', []))
+                ]
+            }
+            for item_idx, item in enumerate(merged_component.get('items', []))
+        ]
+
     return merged_component
 
 def _build_component_template(templates_dir):

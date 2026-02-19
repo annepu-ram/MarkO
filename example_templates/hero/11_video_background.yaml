@@ -9,7 +9,6 @@
         primary: &color-primary "#ffffff"
         secondary: &color-secondary "#ef4444"
         accent: &color-accent "#fbbf24"
-        accent-dark: &color-accent-dark "#f59e0b"
         background: &color-background "#000000"
     appearance:
       background:
@@ -151,7 +150,7 @@
                     type: gradient
                     gradient:
                       colorStart: *color-accent
-                      colorEnd: *color-accent-dark
+                      colorEnd: *color-accent
                       direction: to right
                   border:
                     width: 0

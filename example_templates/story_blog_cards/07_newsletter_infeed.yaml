@@ -3,8 +3,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#e0e7ff'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f9fafb' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
@@ -12,10 +18,10 @@
         appearance:
           background:
             type: gradient
-            color: '#6366f1'
+            color: *color-accent
             gradient:
-              colorStart: '#6366f1'
-              colorEnd: '#8b5cf6'
+              colorStart: *color-accent
+              colorEnd: *color-accent
               direction: 'to bottom right'
           radius: lg
           shadow: elevated
@@ -26,13 +32,13 @@
           properties:
             text: "Stay in the Loop"
             level: 3
-            typography: { size: xl, weight: bold, color: '#ffffff', align: center }
+            typography: { size: xl, weight: bold, color: *color-background, align: center }
         - name: paragraph
           properties:
             text: |
               Get weekly curated stories, exclusive insights, and early
               access to new features. No spam, ever.
-            typography: { size: sm, color: '#e0e7ff', align: center, lineHeight: "1.7" }
+            typography: { size: sm, color: *color-secondary, align: center, lineHeight: "1.7" }
             layout: { widthMode: "75" }
         - name: form
           properties:
@@ -45,17 +51,17 @@
                 field: { placeholder: 'Enter your email', required: true }
                 appearance:
                   border: { width: 0 }
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: pill
                 layout: { widthMode: "50" }
                 spacing: { marginBlock: none }
             - name: button
               properties:
                 text: Subscribe
-                appearance: { background: { color: '#111827' }, radius: pill, padding: { block: sm, inline: lg } }
-                typography: { color: '#ffffff', weight: bold }
+                appearance: { background: { color: *color-primary }, radius: pill, padding: { block: sm, inline: lg } }
+                typography: { color: *color-background, weight: bold }
                 spacing: { marginBlock: none }
         - name: caption
           properties:
             text: "Join 15,000+ readers. Unsubscribe anytime."
-            typography: { size: xs, color: '#c7d2fe', align: center }
+            typography: { size: xs, color: *color-secondary, align: center }

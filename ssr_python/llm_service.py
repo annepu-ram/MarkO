@@ -38,7 +38,7 @@ class LLMService:
         self.api_key = os.environ.get('OLLAMA_API_KEY', '')
         self.base_url = os.environ.get('OLLAMA_BASE_URL', 'https://ollama.com')
         self.model_name = os.environ.get('OLLAMA_MODEL', 'llama3:latest')
-        self.timeout = float(os.environ.get('OLLAMA_TIMEOUT', 120))  # 2 minutes default
+        self.timeout = float(os.environ.get('OLLAMA_TIMEOUT', 300))  # 5 minutes default
 
         # Configure client with optional API key for cloud
         if self.api_key:

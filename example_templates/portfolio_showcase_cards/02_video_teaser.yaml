@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Space Grotesk', sans-serif"
-        headingLevel2: &font-heading-level2 "'Space Grotesk', sans-serif"
+        heading: &font-heading "'Space Grotesk', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#1a1a2e'
@@ -40,7 +39,7 @@
         - name: paragraph
           properties:
             text: Explore our reel of commercial spots, brand films, and documentary projects.
-            typography: { size: lg, color: '#94a3b8', align: center }
+            typography: { size: lg, color: *color-secondary, align: center }
             layout: { widthMode: "75" }
 
     # ============================================
@@ -59,7 +58,7 @@
               properties:
                 layout: { horizontalAlign: stretch }
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: none }
@@ -94,7 +93,7 @@
                     - name: paragraph
                       properties:
                         text: A high-energy commercial spot featuring dynamic athletes and cutting-edge visual effects. Shot on location in Barcelona with a crew of 45.
-                        typography: { size: sm, color: '#64748b' }
+                        typography: { size: sm, color: *color-secondary }
                         spacing: { marginBlock: sm }
                     - name: layout-row
                       properties:
@@ -108,7 +107,7 @@
                         - name: caption
                           properties:
                             text: "Director: James Cole"
-                            typography: { size: xs, color: '#94a3b8' }
+                            typography: { size: xs, color: *color-secondary }
 
         # Card 2 - Brand Film
         - components:
@@ -116,7 +115,7 @@
               properties:
                 layout: { horizontalAlign: stretch }
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: none }
@@ -151,7 +150,7 @@
                     - name: paragraph
                       properties:
                         text: An intimate documentary-style brand film capturing the raw beauty of Patagonian wilderness and the climbers who call it home.
-                        typography: { size: sm, color: '#64748b' }
+                        typography: { size: sm, color: *color-secondary }
                         spacing: { marginBlock: sm }
                     - name: layout-row
                       properties:
@@ -165,7 +164,7 @@
                         - name: caption
                           properties:
                             text: "Director: Mara Voss"
-                            typography: { size: xs, color: '#94a3b8' }
+                            typography: { size: xs, color: *color-secondary }
 
         # Card 3 - Documentary
         - components:
@@ -173,7 +172,7 @@
               properties:
                 layout: { horizontalAlign: stretch }
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: none }
@@ -208,7 +207,7 @@
                     - name: paragraph
                       properties:
                         text: A short documentary exploring the disappearing art of traditional Japanese craftsmanship through the lens of three master artisans.
-                        typography: { size: sm, color: '#64748b' }
+                        typography: { size: sm, color: *color-secondary }
                         spacing: { marginBlock: sm }
                     - name: layout-row
                       properties:
@@ -222,7 +221,7 @@
                         - name: caption
                           properties:
                             text: "Director: Kenji Tanaka"
-                            typography: { size: xs, color: '#94a3b8' }
+                            typography: { size: xs, color: *color-secondary }
 
         # Card 4 - Music Video
         - components:
@@ -230,7 +229,7 @@
               properties:
                 layout: { horizontalAlign: stretch }
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: *color-background, transparency: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: none }
@@ -265,7 +264,7 @@
                     - name: paragraph
                       properties:
                         text: A visually stunning music video blending practical effects with CG environments, set in a neon-lit cyberpunk cityscape.
-                        typography: { size: sm, color: '#64748b' }
+                        typography: { size: sm, color: *color-secondary }
                         spacing: { marginBlock: sm }
                     - name: layout-row
                       properties:
@@ -279,4 +278,4 @@
                         - name: caption
                           properties:
                             text: "Director: Sasha Rivera"
-                            typography: { size: xs, color: '#94a3b8' }
+                            typography: { size: xs, color: *color-secondary }

@@ -1,0 +1,161 @@
+# Progress Bar: Project Status Dashboard
+# Cards showing project completion with gradient progress bars
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#f8fafc'
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#0ea5e9'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: heading
+              properties:
+                text: Project Progress
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+            - name: paragraph
+              properties:
+                text: Current sprint overview
+                typography: { size: md, color: *color-secondary, align: center }
+                spacing: { marginBlock: sm }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 2, gap: lg }
+        responsive: { breakpoints: { sm: 1 } }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: lg }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                  components:
+                    - name: icon
+                      properties: { name: web, size: "28", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Website Redesign
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: "85% complete - On track for deadline"
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: progress-bar
+                  properties:
+                    percent: 85
+                    thickness: large
+                    colorGradient: true
+                    trackColor: '#f1f5f9'
+                    appearance: { radius: pill }
+
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: lg }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                  components:
+                    - name: icon
+                      properties: { name: smartphone, size: "28", color: '#8b5cf6' }
+                    - name: heading
+                      properties:
+                        text: Mobile App v2
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: "60% complete - In development"
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: progress-bar
+                  properties:
+                    percent: 60
+                    thickness: large
+                    colorGradient: true
+                    trackColor: '#f1f5f9'
+                    appearance: { radius: pill }
+
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: lg }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                  components:
+                    - name: icon
+                      properties: { name: security, size: "28", color: '#10b981' }
+                    - name: heading
+                      properties:
+                        text: Security Audit
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: "100% complete - All issues resolved"
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: progress-bar
+                  properties:
+                    percent: 100
+                    thickness: large
+                    colorGradient: true
+                    trackColor: '#f1f5f9'
+                    appearance: { radius: pill }
+
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: lg }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                  components:
+                    - name: icon
+                      properties: { name: analytics, size: "28", color: '#f59e0b' }
+                    - name: heading
+                      properties:
+                        text: Analytics Dashboard
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: "30% complete - Early stages"
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: progress-bar
+                  properties:
+                    percent: 30
+                    thickness: large
+                    colorGradient: true
+                    trackColor: '#f1f5f9'
+                    appearance: { radius: pill }

@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Inter', sans-serif"
-        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        heading: &font-heading "'Inter', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
@@ -33,13 +32,13 @@
           marginBlock: xs
         appearance:
           background:
-            color: '#f0fdf4'
+            color: *color-background
             transparency: 100
           borderRadius: md
           border:
             width: 1
             style: solid
-            color: '#bbf7d0'
+            color: *color-accent
       components:
         - name: image
           properties:
@@ -65,14 +64,14 @@
                 typography:
                   size: sm
                   weight: semibold
-                  color: '#15803d'
+                  color: *color-accent
             - name: paragraph
               properties:
                 text: "v2.4.1 is now live in production. All health checks passed."
                 typography:
                   size: xs
                   weight: regular
-                  color: '#166534'
+                  color: *color-primary
 
     # Warning Notification
     - name: layout-row
@@ -89,13 +88,13 @@
           marginBlock: xs
         appearance:
           background:
-            color: '#fffbeb'
+            color: *color-background
             transparency: 100
           borderRadius: md
           border:
             width: 1
             style: solid
-            color: '#fde68a'
+            color: *color-accent
       components:
         - name: image
           properties:
@@ -121,14 +120,14 @@
                 typography:
                   size: sm
                   weight: semibold
-                  color: '#a16207'
+                  color: *color-accent
             - name: paragraph
               properties:
                 text: "You have used 87% of your monthly API quota. Consider upgrading your plan."
                 typography:
                   size: xs
                   weight: regular
-                  color: '#92400e'
+                  color: *color-primary
 
     # Error Notification
     - name: layout-row
@@ -145,13 +144,13 @@
           marginBlock: xs
         appearance:
           background:
-            color: '#fef2f2'
+            color: *color-background
             transparency: 100
           borderRadius: md
           border:
             width: 1
             style: solid
-            color: '#fecaca'
+            color: *color-accent
       components:
         - name: image
           properties:
@@ -177,11 +176,11 @@
                 typography:
                   size: sm
                   weight: semibold
-                  color: '#b91c1c'
+                  color: *color-accent
             - name: paragraph
               properties:
                 text: "Transaction #TXN-9847 could not be completed. Retry or contact support."
                 typography:
                   size: xs
                   weight: regular
-                  color: '#991b1b'
+                  color: *color-primary

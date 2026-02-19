@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Sora', sans-serif"
-        headingLevel2: &font-heading-level2 "'Sora', sans-serif"
+        heading: &font-heading "'Sora', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
@@ -26,8 +25,8 @@
         layout: { horizontalAlign: space-between, align: center, wrap: nowrap }
         spacing: { paddingBlock: md, paddingInline: xl }
         appearance:
-          background: { color: '#ffffff', transparency: 100 }
-          border: { width: 1, style: solid, color: '#e2e8f0' }
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, style: solid, color: *color-secondary }
       components:
         - name: heading
           properties:
@@ -45,7 +44,7 @@
                   background: { color: *color-accent }
                   padding: { block: sm, inline: lg }
                   radius: md
-                typography: { color: '#ffffff', weight: semibold, size: sm }
+                typography: { color: *color-background, weight: semibold, size: sm }
 
     # ============================================
     # TABBED NAVIGATION
@@ -66,18 +65,18 @@
         appearance:
           tab:
             background:
-              active: '#ffffff'
-              inactive: '#f8fafc'
+              active: *color-background
+              inactive: *color-background
             border:
               width: 3
               style: solid
               position: lower
           content:
             background:
-              color: '#ffffff'
+              color: *color-background
               transparency: 100
             border:
-              color: '#e2e8f0'
+              color: *color-secondary
               width: 1
               style: solid
             padding:
@@ -105,18 +104,18 @@
                     - name: eyebrow
                       properties:
                         text: AWARD-WINNING DESIGN STUDIO
-                        typography: { size: xs, weight: bold, color: '#e2e8f0', transform: uppercase, letterSpacing: wider }
+                        typography: { size: xs, weight: bold, color: *color-secondary, transform: uppercase, letterSpacing: wider }
                     - name: heading
                       properties:
                         text: We Create Digital Experiences That Matter
                         level: 2
-                        typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: tight }
+                        typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
                         spacing: { marginBlock: md }
                         layout: { widthMode: 75 }
                     - name: paragraph
                       properties:
                         text: From brand identity to full-scale digital products, we help companies stand out in a crowded market.
-                        typography: { size: lg, color: '#e2e8f0', align: center }
+                        typography: { size: lg, color: *color-secondary, align: center }
                         layout: { widthMode: 75 }
 
         # Tab 2 - Services
@@ -144,9 +143,9 @@
                             layout: { align: start, horizontalAlign: space-evenly }
                             spacing: { paddingBlock: lg, paddingInline: lg }
                             appearance:
-                              background: { color: '#faf5ff', transparency: 100 }
+                              background: { color: *color-background, transparency: 100 }
                               radius: lg
-                              border: { width: 1, style: solid, color: '#e9d5ff' }
+                              border: { width: 1, style: solid, color: *color-accent }
                           components:
                             - name: heading
                               properties:
@@ -170,9 +169,9 @@
                             layout: { align: start, horizontalAlign: space-evenly }
                             spacing: { paddingBlock: lg, paddingInline: lg }
                             appearance:
-                              background: { color: '#faf5ff', transparency: 100 }
+                              background: { color: *color-background, transparency: 100 }
                               radius: lg
-                              border: { width: 1, style: solid, color: '#e9d5ff' }
+                              border: { width: 1, style: solid, color: *color-accent }
                           components:
                             - name: heading
                               properties:
@@ -196,9 +195,9 @@
                             layout: { align: start, horizontalAlign: space-evenly }
                             spacing: { paddingBlock: lg, paddingInline: lg }
                             appearance:
-                              background: { color: '#faf5ff', transparency: 100 }
+                              background: { color: *color-background, transparency: 100 }
                               radius: lg
-                              border: { width: 1, style: solid, color: '#e9d5ff' }
+                              border: { width: 1, style: solid, color: *color-accent }
                           components:
                             - name: heading
                               properties:
@@ -392,19 +391,19 @@
                       properties:
                         label: { text: 'Your Name', show: true, typography: { size: sm, weight: medium, color: *color-primary } }
                         field: { placeholder: 'John Smith' }
-                        appearance: { border: { width: 1, style: solid, color: '#d1d5db' }, radius: md }
+                        appearance: { border: { width: 1, style: solid, color: *color-secondary }, radius: md }
                         layout: { widthMode: stretch }
                     - name: textbox
                       properties:
                         label: { text: 'Email Address', show: true, typography: { size: sm, weight: medium, color: *color-primary } }
                         field: { placeholder: 'john@company.com' }
-                        appearance: { border: { width: 1, style: solid, color: '#d1d5db' }, radius: md }
+                        appearance: { border: { width: 1, style: solid, color: *color-secondary }, radius: md }
                         layout: { widthMode: stretch }
                     - name: textarea
                       properties:
                         label: { text: 'Project Details', show: true, typography: { size: sm, weight: medium, color: *color-primary } }
                         field: { placeholder: 'Tell us about your project...', rows: 5 }
-                        appearance: { border: { width: 1, style: solid, color: '#d1d5db' }, radius: md }
+                        appearance: { border: { width: 1, style: solid, color: *color-secondary }, radius: md }
                         layout: { widthMode: stretch }
                     - name: button
                       properties:
@@ -413,6 +412,6 @@
                           background: { color: *color-accent }
                           padding: { block: md, inline: xl }
                           radius: md
-                        typography: { color: '#ffffff', weight: semibold, size: md }
+                        typography: { color: *color-background, weight: semibold, size: md }
                         layout: { widthMode: stretch }
                         spacing: { marginBlock: sm }

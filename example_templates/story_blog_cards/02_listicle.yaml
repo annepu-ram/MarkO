@@ -3,23 +3,29 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#ffffff' }
+      background: { color: *color-background }
   components:
     - name: layout-row
       properties:
         layout: { horizontalAlign: left, verticalAlign: top, wrap: nowrap, gap: md }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           padding: { block: md, inline: md }
-          border: { width: 0, style: solid, color: '#e5e7eb' }
+          border: { width: 0, style: solid, color: *color-secondary }
         spacing: { marginBlock: md, marginInline: lg }
       components:
         - name: heading
           properties:
             text: "01"
             level: 2
-            typography: { size: xxxl, weight: extrabold, color: '#e0e7ff', align: center }
+            typography: { size: xxxl, weight: extrabold, color: *color-background, align: center }
             spacing: { marginBlock: none }
             layout: { widthMode: fit }
         - name: layout-column
@@ -30,12 +36,12 @@
             - name: eyebrow
               properties:
                 text: PRODUCTIVITY
-                typography: { size: xxs, weight: bold, color: '#6366f1', transform: uppercase, letterSpacing: wider }
+                typography: { size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider }
             - name: heading
               properties:
                 text: Start Your Day with a Brain Dump
                 level: 3
-                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                typography: { size: lg, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: xs }
             - name: paragraph
               properties:
@@ -43,11 +49,11 @@
                   Write down everything on your mind before you start work.
                   This clears mental clutter and helps you prioritize what
                   actually matters today.
-                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.7" }
+                typography: { size: sm, color: *color-secondary, align: left, lineHeight: "1.7" }
             - name: link
               properties:
                 text: Continue Reading
                 href: '#'
-                typography: { size: sm, weight: semibold, color: '#6366f1' }
+                typography: { size: sm, weight: semibold, color: *color-accent }
                 appearance: { showArrow: true, underline: false }
                 spacing: { marginBlock: xs }

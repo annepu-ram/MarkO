@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Inter', sans-serif"
-        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        heading: &font-heading "'Inter', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#111827'
@@ -40,7 +39,7 @@
         layout: { alignment: left, height: 60 }
         appearance:
           background: { color: *color-background, transparency: 100 }
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
         typography:
           title: { size: 22, weight: bold, color: *color-primary }
           menu: { size: 14, weight: medium, color: *color-secondary }
@@ -53,8 +52,8 @@
         layout: { horizontalAlign: space-evenly, align: center, wrap: wrap }
         spacing: { paddingBlock: sm, paddingInline: lg }
         appearance:
-          background: { color: '#f9fafb', transparency: 100 }
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, style: solid, color: *color-secondary }
       components:
         - name: link
           properties:
@@ -66,7 +65,7 @@
         - name: caption
           properties:
             text: /
-            typography: { size: sm, weight: regular, color: '#d1d5db', align: center }
+            typography: { size: sm, weight: regular, color: *color-secondary, align: center }
             spacing: { marginInline: xxs }
         - name: link
           properties:
@@ -78,7 +77,7 @@
         - name: caption
           properties:
             text: /
-            typography: { size: sm, weight: regular, color: '#d1d5db', align: center }
+            typography: { size: sm, weight: regular, color: *color-secondary, align: center }
             spacing: { marginInline: xxs }
         - name: link
           properties:
@@ -90,7 +89,7 @@
         - name: caption
           properties:
             text: /
-            typography: { size: sm, weight: regular, color: '#d1d5db', align: center }
+            typography: { size: sm, weight: regular, color: *color-secondary, align: center }
             spacing: { marginInline: xxs }
         - name: caption
           properties:
@@ -161,7 +160,7 @@
                     text: Save for Later
                     appearance:
                       background: { color: *color-background, transparency: 100 }
-                      border: { width: 2, style: solid, color: '#d1d5db' }
+                      border: { width: 2, style: solid, color: *color-secondary }
                       padding: { block: md, inline: xl }
                       radius: md
                     typography: { color: *color-secondary, weight: medium, size: md }
@@ -173,7 +172,7 @@
       properties:
         layout: { align: start, horizontalAlign: space-evenly }
         spacing: { paddingBlock: lg, paddingInline: lg }
-        appearance: { background: { color: '#f3f4f6', transparency: 100 } }
+        appearance: { background: { color: *color-background, transparency: 100 } }
       components:
         - name: heading
           properties:
@@ -190,7 +189,7 @@
             appearance:
               background: { color: *color-background, transparency: 100 }
               radius: md
-              border: { width: 1, style: solid, color: '#e5e7eb' }
+              border: { width: 1, style: solid, color: *color-secondary }
           components:
             - name: link
               properties:
@@ -202,7 +201,7 @@
             - name: caption
               properties:
                 text: /
-                typography: { size: sm, color: '#d1d5db' }
+                typography: { size: sm, color: *color-secondary }
                 spacing: { marginInline: xxs }
             - name: link
               properties:
@@ -214,7 +213,7 @@
             - name: caption
               properties:
                 text: /
-                typography: { size: sm, color: '#d1d5db' }
+                typography: { size: sm, color: *color-secondary }
                 spacing: { marginInline: xxs }
             - name: link
               properties:
@@ -226,7 +225,7 @@
             - name: caption
               properties:
                 text: /
-                typography: { size: sm, color: '#d1d5db' }
+                typography: { size: sm, color: *color-secondary }
                 spacing: { marginInline: xxs }
             - name: caption
               properties:
@@ -242,7 +241,7 @@
             appearance:
               background: { color: *color-background, transparency: 100 }
               radius: md
-              border: { width: 1, style: solid, color: '#e5e7eb' }
+              border: { width: 1, style: solid, color: *color-secondary }
           components:
             - name: link
               properties:
@@ -254,7 +253,7 @@
             - name: caption
               properties:
                 text: /
-                typography: { size: sm, color: '#d1d5db' }
+                typography: { size: sm, color: *color-secondary }
                 spacing: { marginInline: xxs }
             - name: link
               properties:
@@ -266,7 +265,7 @@
             - name: caption
               properties:
                 text: /
-                typography: { size: sm, color: '#d1d5db' }
+                typography: { size: sm, color: *color-secondary }
                 spacing: { marginInline: xxs }
             - name: link
               properties:
@@ -278,7 +277,7 @@
             - name: caption
               properties:
                 text: /
-                typography: { size: sm, color: '#d1d5db' }
+                typography: { size: sm, color: *color-secondary }
                 spacing: { marginInline: xxs }
             - name: caption
               properties:

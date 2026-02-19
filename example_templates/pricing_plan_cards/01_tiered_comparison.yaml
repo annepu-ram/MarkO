@@ -3,30 +3,36 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f9fafb' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: sm }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: medium
           padding: { block: lg, inline: lg }
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
         spacing: { marginBlock: lg, marginInline: lg }
       components:
         - name: heading
           properties:
             text: Professional
             level: 3
-            typography: { size: xl, weight: bold, color: '#111827', align: center }
+            typography: { size: xl, weight: bold, color: *color-primary, align: center }
             spacing: { marginBlock: xs }
         - name: caption
           properties:
             text: Best for growing teams
-            typography: { size: sm, color: '#6b7280', align: center }
+            typography: { size: sm, color: *color-secondary, align: center }
         - name: br
           properties:
             size: xs
@@ -34,12 +40,12 @@
           properties:
             text: "$49"
             level: 2
-            typography: { size: xxxl, weight: extrabold, color: '#2563eb', align: center }
+            typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
             spacing: { marginBlock: none }
         - name: caption
           properties:
             text: per month, billed annually
-            typography: { size: xs, color: '#9ca3af', align: center }
+            typography: { size: xs, color: *color-secondary, align: center }
         - name: br
           properties:
             size: md
@@ -51,32 +57,32 @@
             - name: paragraph
               properties:
                 text: "Unlimited projects"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "Up to 25 team members"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "Advanced analytics dashboard"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "Priority email support"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "Custom integrations"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 spacing: { marginBlock: xxs }
             - name: paragraph
               properties:
                 text: "API access"
-                typography: { size: sm, color: '#374151' }
+                typography: { size: sm, color: *color-primary }
                 spacing: { marginBlock: xxs }
         - name: br
           properties:
@@ -84,6 +90,6 @@
         - name: button
           properties:
             text: Get Started
-            appearance: { background: { color: '#2563eb' }, radius: md, padding: { block: md } }
-            typography: { color: '#ffffff', weight: bold }
+            appearance: { background: { color: *color-accent }, radius: md, padding: { block: md } }
+            typography: { color: *color-background, weight: bold }
             layout: { widthMode: stretch }

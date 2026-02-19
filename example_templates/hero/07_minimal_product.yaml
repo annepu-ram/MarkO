@@ -10,13 +10,6 @@
         secondary: &color-secondary "#86868b"
         accent: &color-accent "#0071e3"
         background: &color-background "#ffffff"
-        focus-bg: &color-focus-bg "#f5f5f7"
-        product-blue: &color-product-blue "#5eb4ef"
-        product-green: &color-product-green "#9ab367"
-        product-pink: &color-product-pink "#e85d75"
-        product-silver: &color-product-silver "#a8a8ad"
-        surface: &color-surface "#fbfbfd"
-        surface-alt: &color-surface-alt "#f0f5ff"
     appearance:
       background:
         color: *color-background
@@ -46,7 +39,7 @@
           shrinkPercentage: 100
         appearance:
           background:
-            color: "#ffffff"
+            color: *color-background
             transparency: 100
             type: solid
           border:
@@ -54,17 +47,17 @@
             style: solid
             color: transparent
           focus:
-            background: "#f5f5f7"
-            color: "#1d1d1f"
+            background: *color-background
+            color: *color-primary
         typography:
           title:
             size: 30
             weight: semibold
-            color: "#1d1d1f"
+            color: *color-primary
           menu:
             size: 20
             weight: medium
-            color: "#1d1d1f"
+            color: *color-primary
 
     # Hero - Product Centered
     - name: layout-column
@@ -79,8 +72,8 @@
           background:
             type: gradient
             gradient:
-              colorStart: *color-surface
-              colorEnd: *color-surface-alt
+              colorStart: *color-background
+              colorEnd: *color-background
               direction: to bottom
             transparency: 100
       components:
@@ -153,7 +146,7 @@
               properties:
                 text: "Learn more"
                 typography:
-                  color: "#0071e3"
+                  color: *color-accent
                   size: md
                   weight: medium
                   align: left
@@ -175,7 +168,7 @@
               properties:
                 text: "Buy"
                 typography:
-                  color: "#0071e3"
+                  color: *color-accent
                   size: md
                   weight: medium
                   align: left
@@ -354,7 +347,7 @@
           paddingBlock: lg
           paddingInline: lg
         background:
-          color: *color-surface
+          color: *color-background
           transparency: 100
       components:
         - name: paragraph
@@ -376,7 +369,7 @@
               properties:
                 text: "●"
                 typography:
-                  color: "#a8a8ad"
+                  color: *color-secondary
                   size: xl
                   align: left
                   weight: regular
@@ -390,7 +383,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   radius: none
                   padding:
@@ -400,7 +393,7 @@
               properties:
                 text: "●"
                 typography:
-                  color: "#1d1d1f"
+                  color: *color-primary
                   size: xl
                   align: left
                   weight: regular
@@ -414,7 +407,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   radius: none
                   padding:
@@ -424,7 +417,7 @@
               properties:
                 text: "●"
                 typography:
-                  color: "#5eb4ef"
+                  color: *color-accent
                   size: xl
                   align: left
                   weight: regular
@@ -438,7 +431,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   radius: none
                   padding:
@@ -448,7 +441,7 @@
               properties:
                 text: "●"
                 typography:
-                  color: "#e85d75"
+                  color: *color-accent
                   size: xl
                   align: left
                   weight: regular
@@ -462,7 +455,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   radius: none
                   padding:
@@ -472,7 +465,7 @@
               properties:
                 text: "●"
                 typography:
-                  color: "#9ab367"
+                  color: *color-accent
                   size: xl
                   align: left
                   weight: regular
@@ -486,7 +479,7 @@
                 appearance:
                   background:
                     type: solid
-                    color: "#ffffff"
+                    color: *color-background
                     transparency: 0
                   radius: none
                   padding:

@@ -170,6 +170,23 @@ widthPercentages:
     - value: fit
       label: "Fit Content"
 
+# Ticker column widths — fixed pixel sizes with CSS clamp() for responsiveness
+tickerWidths:
+  type: selectOptions
+  options:
+    - value: fit
+      label: "Content-Sized (auto)"
+    - value: "120"
+      label: "120px (Compact)"
+    - value: "200"
+      label: "200px (Small)"
+    - value: "280"
+      label: "280px (Medium)"
+    - value: "360"
+      label: "360px (Large)"
+    - value: "480"
+      label: "480px (Extra Large)"
+
 # Media component tokens
 aspectRatios:
   type: selectOptions

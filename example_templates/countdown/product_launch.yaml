@@ -1,0 +1,59 @@
+# Countdown: Product Launch
+# Coming soon page with countdown timer and email signup
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#0f172a'
+        primary: &color-primary '#f8fafc'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#8b5cf6'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, verticalAlign: center }
+        spacing: { paddingBlock: xxxl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66', horizontalAlign: center }
+          components:
+            - name: badge
+              properties: { text: "COMING SOON", variant: info, pill: true }
+            - name: heading
+              properties:
+                text: Something Amazing Is On Its Way
+                level: 1
+                typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                spacing: { marginBlock: md }
+            - name: paragraph
+              properties:
+                text: We're building something extraordinary. Be the first to know when we launch.
+                typography: { size: lg, color: *color-secondary, align: center }
+                spacing: { marginBlock: lg }
+            - name: countdown
+              properties:
+                targetDate: '2026-06-15T00:00:00'
+                format: 'DD:HH:MM:SS'
+                expiredText: "We're live! Check it out."
+                typography: { size: xxl, weight: bold, color: *color-accent, align: center }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: center, gap: sm }
+                spacing: { marginBlock: xl }
+              components:
+                - name: button
+                  properties:
+                    text: Get Notified
+                    appearance: { background: { color: *color-accent } }
+                    typography: { color: '#ffffff', weight: semibold }
+                - name: button
+                  properties:
+                    text: Learn More
+                    appearance: { background: { color: 'transparent' }, border: { width: 1, color: *color-secondary } }
+                    typography: { color: *color-secondary, weight: semibold }

@@ -3,17 +3,23 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#ec4899'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f9fafb' }
+      background: { color: *color-background }
   components:
     - name: layout-row
       properties:
         layout: { horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: none }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: soft
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
         spacing: { marginBlock: md, marginInline: lg }
       components:
         - name: image
@@ -30,19 +36,19 @@
             - name: eyebrow
               properties:
                 text: DESIGN
-                typography: { size: xxs, weight: bold, color: '#ec4899', transform: uppercase, letterSpacing: wider }
+                typography: { size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider }
             - name: heading
               properties:
                 text: 10 Design Trends That Will Define 2026
                 level: 3
-                typography: { size: lg, weight: bold, color: '#111827', align: left, lineHeight: "1.3" }
+                typography: { size: lg, weight: bold, color: *color-primary, align: left, lineHeight: "1.3" }
                 spacing: { marginBlock: xs }
             - name: paragraph
               properties:
                 text: |
                   From neo-brutalism to AI-generated layouts, here's what
                   the world's top designers are betting on this year.
-                typography: { size: sm, color: '#6b7280', align: left, lineHeight: "1.6" }
+                typography: { size: sm, color: *color-secondary, align: left, lineHeight: "1.6" }
             - name: layout-row
               properties:
                 layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
@@ -51,11 +57,11 @@
                 - name: caption
                   properties:
                     text: "Feb 10, 2026 - 8 min read"
-                    typography: { size: xs, color: '#9ca3af' }
+                    typography: { size: xs, color: *color-secondary }
                 - name: link
                   properties:
                     text: Read More
                     href: '#'
-                    typography: { size: sm, weight: semibold, color: '#ec4899' }
+                    typography: { size: sm, weight: semibold, color: *color-accent }
                     appearance: { showArrow: true, underline: false }
                     spacing: { marginBlock: none }

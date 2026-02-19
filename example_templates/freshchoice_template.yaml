@@ -2,8 +2,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Montserrat', sans-serif"
-        headingLevel2: &font-heading-level2 "'Montserrat', sans-serif"
+        heading: &font-heading "'Montserrat', sans-serif"
         content: &font-content "'Noto Sans', sans-serif"
       colors:
         primary: &color-primary '#4C4637'
@@ -72,7 +71,7 @@
           paddingInline: md
         appearance:
           background:
-            color: '#111111'
+            color: *color-primary
             transparency: 100
       components:
         - name: paragraph
@@ -82,7 +81,7 @@
             typography:
               size: xs
               weight: regular
-              color: '#ffffff'
+              color: *color-background
               align: center
             spacing:
               marginBlock: none
@@ -137,7 +136,7 @@
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: stretch
@@ -156,7 +155,7 @@
                       gap: none
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                         type: solid
                       padding:
@@ -165,7 +164,7 @@
                       border:
                         width: 0
                         style: solid
-                        color: "#000000"
+                        color: *color-primary
                       radius: none
                       shadow: none
                     spacing:
@@ -240,7 +239,7 @@
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: stretch
@@ -259,7 +258,7 @@
                       gap: none
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                         type: solid
                       padding:
@@ -268,7 +267,7 @@
                       border:
                         width: 0
                         style: solid
-                        color: "#000000"
+                        color: *color-primary
                       radius: none
                       shadow: none
                     spacing:
@@ -344,7 +343,7 @@
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: stretch
@@ -364,7 +363,7 @@
                       gap: none
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                         type: solid
                       padding:
@@ -373,7 +372,7 @@
                       border:
                         width: 0
                         style: solid
-                        color: "#000000"
+                        color: *color-primary
                       radius: none
                       shadow: none
                     spacing:
@@ -448,7 +447,7 @@
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: stretch
@@ -467,7 +466,7 @@
                       gap: none
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                         type: solid
                       padding:
@@ -476,7 +475,7 @@
                       border:
                         width: 0
                         style: solid
-                        color: "#000000"
+                        color: *color-primary
                       radius: none
                       shadow: none
                     spacing:
@@ -551,7 +550,7 @@
                     inline: none
                   overlay:
                     enabled: false
-                    color: "#000000"
+                    color: *color-primary
                     opacity: 1
                 layout:
                   widthMode: "stretch"
@@ -571,7 +570,7 @@
                       verticalAlign: space-between
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                         type: solid
                       padding:
@@ -580,7 +579,7 @@
                       border:
                         width: 0
                         style: solid
-                        color: "#000000"
+                        color: *color-primary
                       radius: none
                       shadow: none
                     spacing:
@@ -705,7 +704,7 @@
                       hoverEffect: zoom
                       overlay:
                         enabled: true
-                        color: '#000000'
+                        color: *color-primary
                         opacity: 30
                     layout:
                       widthMode: stretch
@@ -724,7 +723,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-background
                               align: center
             # Category: Desserts
             - components:
@@ -741,7 +740,7 @@
                       hoverEffect: zoom
                       overlay:
                         enabled: true
-                        color: '#000000'
+                        color: *color-primary
                         opacity: 30
                       objectPosition: center
                       maxHeight: 15
@@ -767,7 +766,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-background
                               align: center
             # Category: Beverages
             - components:
@@ -784,7 +783,7 @@
                       hoverEffect: zoom
                       overlay:
                         enabled: true
-                        color: '#000000'
+                        color: *color-primary
                         opacity: 30
                     layout:
                       widthMode: stretch
@@ -803,7 +802,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-background
                               align: center
             # Category: Cakes
             - components:
@@ -820,7 +819,7 @@
                       hoverEffect: zoom
                       overlay:
                         enabled: true
-                        color: '#000000'
+                        color: *color-primary
                         opacity: 30
                     layout:
                       widthMode: stretch
@@ -839,7 +838,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-background
                               align: center
 
     # ============================================
@@ -908,7 +907,7 @@
                       widthMode: stretch
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                         type: solid
                       radius: md
@@ -919,7 +918,7 @@
                       border:
                         width: 0
                         style: solid
-                        color: "#000000"
+                        color: *color-primary
                     spacing:
                       paddingBlock: none
                       marginBlock: none
@@ -960,7 +959,7 @@
                             typography:
                               size: sm
                               weight: regular
-                              color: '#6D695F'
+                              color: *color-secondary
                             spacing:
                               marginBlock: xs
                         - name: layout-row
@@ -989,7 +988,7 @@
                                     block: xs
                                     inline: md
                                 typography:
-                                  color: '#ffffff'
+                                  color: *color-background
                                   weight: semibold
                                   size: sm
             # Product 2
@@ -1000,7 +999,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -1042,7 +1041,7 @@
                             typography:
                               size: sm
                               weight: regular
-                              color: '#6D695F'
+                              color: *color-secondary
                             spacing:
                               marginBlock: xs
                         - name: layout-row
@@ -1071,7 +1070,7 @@
                                     block: xs
                                     inline: md
                                 typography:
-                                  color: '#ffffff'
+                                  color: *color-background
                                   weight: semibold
                                   size: sm
             # Product 3
@@ -1087,7 +1086,7 @@
                       widthMode: stretch
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                         type: solid
                       radius: md
@@ -1098,7 +1097,7 @@
                       border:
                         width: 0
                         style: solid
-                        color: "#000000"
+                        color: *color-primary
                     spacing:
                       paddingBlock: none
                       marginBlock: none
@@ -1141,7 +1140,7 @@
                             typography:
                               size: sm
                               weight: regular
-                              color: '#6D695F'
+                              color: *color-secondary
                               align: left
                               lineHeight: "1.6"
                               transform: none
@@ -1154,7 +1153,7 @@
                             appearance:
                               background:
                                 type: solid
-                                color: "#ffffff"
+                                color: *color-background
                                 transparency: 0
                               radius: none
                               padding:
@@ -1186,7 +1185,7 @@
                                     block: xs
                                     inline: md
                                 typography:
-                                  color: '#ffffff'
+                                  color: *color-background
                                   weight: semibold
                                   size: sm
 
@@ -1255,7 +1254,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -1298,7 +1297,7 @@
                             text: Rich Belgian chocolate layers with ganache frosting
                             typography:
                               size: sm
-                              color: '#6D695F'
+                              color: *color-secondary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -1321,7 +1320,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -1364,7 +1363,7 @@
                             text: Classic red velvet with cream cheese frosting
                             typography:
                               size: sm
-                              color: '#6D695F'
+                              color: *color-secondary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -1387,7 +1386,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -1430,7 +1429,7 @@
                             text: New York style cheesecake topped with blueberry compote
                             typography:
                               size: sm
-                              color: '#6D695F'
+                              color: *color-secondary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -1453,7 +1452,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -1496,7 +1495,7 @@
                             text: Butterscotch sponge with caramel drizzle and praline crunch
                             typography:
                               size: sm
-                              color: '#6D695F'
+                              color: *color-secondary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -1571,7 +1570,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -1621,12 +1620,12 @@
                                 inline: sm
                               background:
                                 type: solid
-                                color: "#ffffff"
+                                color: *color-background
                                 transparency: 0
                               border:
                                 width: 0
                                 style: solid
-                                color: "#000000"
+                                color: *color-primary
                               radius: none
                               shadow: none
                           components:
@@ -1650,7 +1649,7 @@
                                     block: xs
                                     inline: md
                                 typography:
-                                  color: '#ffffff'
+                                  color: *color-background
                                   weight: semibold
                                   size: sm
             # Beverage 2
@@ -1661,7 +1660,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -1711,12 +1710,12 @@
                                 inline: sm
                               background:
                                 type: solid
-                                color: "#ffffff"
+                                color: *color-background
                                 transparency: 0
                               border:
                                 width: 0
                                 style: solid
-                                color: "#000000"
+                                color: *color-primary
                               radius: none
                               shadow: none
                           components:
@@ -1740,7 +1739,7 @@
                                     block: xs
                                     inline: md
                                 typography:
-                                  color: '#ffffff'
+                                  color: *color-background
                                   weight: semibold
                                   size: sm
             # Beverage 3
@@ -1751,7 +1750,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -1801,12 +1800,12 @@
                                 inline: sm
                               background:
                                 type: solid
-                                color: "#ffffff"
+                                color: *color-background
                                 transparency: 0
                               border:
                                 width: 0
                                 style: solid
-                                color: "#000000"
+                                color: *color-primary
                               radius: none
                               shadow: none
                           components:
@@ -1830,7 +1829,7 @@
                                     block: xs
                                     inline: md
                                 typography:
-                                  color: '#ffffff'
+                                  color: *color-background
                                   weight: semibold
                                   size: sm
 
@@ -1907,7 +1906,7 @@
                     typography:
                       size: md
                       weight: regular
-                      color: '#6D695F'
+                      color: *color-secondary
                       lineHeight: '1.7'
                     spacing:
                       marginBlock: sm
@@ -1919,7 +1918,7 @@
                     typography:
                       size: md
                       weight: regular
-                      color: '#6D695F'
+                      color: *color-secondary
                       lineHeight: '1.7'
                     spacing:
                       marginBlock: sm
@@ -1935,7 +1934,7 @@
                         block: md
                         inline: lg
                     typography:
-                      color: '#ffffff'
+                      color: *color-background
                       weight: semibold
                       size: md
                     spacing:
@@ -1999,7 +1998,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -2012,7 +2011,7 @@
                         text: "★★★★★"
                         typography:
                           size: lg
-                          color: '#F9A825'
+                          color: *color-accent
                           align: center
                         spacing:
                           marginBlock: xs
@@ -2023,7 +2022,7 @@
                           Fresh ingredients and amazing flavours every time.
                         typography:
                           size: md
-                          color: "#FF7A56"
+                          color: *color-accent
                           align: center
                           weight: medium
                           lineHeight: "1.6"
@@ -2043,7 +2042,7 @@
                             accentColor: *color-accent
                           background:
                             type: solid
-                            color: "#ffffff"
+                            color: *color-background
                             transparency: 0
                           radius: none
                           padding:
@@ -2094,7 +2093,7 @@
                         text: "★★★★★"
                         typography:
                           size: lg
-                          color: '#F9A825'
+                          color: *color-accent
                           align: center
                         spacing:
                           marginBlock: xs
@@ -2105,7 +2104,7 @@
                           The staff is always friendly and the ambience is wonderful.
                         typography:
                           size: md
-                          color: "#FF7A56"
+                          color: *color-accent
                           align: center
                           weight: medium
                           lineHeight: "1.6"
@@ -2122,10 +2121,10 @@
                           widthMode: stretch
                         appearance:
                           border:
-                            accentColor: "#FF7A56"
+                            accentColor: *color-accent
                           background:
                             type: solid
-                            color: "#ffffff"
+                            color: *color-background
                             transparency: 0
                           radius: none
                           padding:
@@ -2148,7 +2147,7 @@
                       horizontalAlign: center
                     appearance:
                       background:
-                        color: '#ffffff'
+                        color: *color-background
                         transparency: 100
                       radius: md
                       shadow: soft
@@ -2161,7 +2160,7 @@
                         text: "★★★★★"
                         typography:
                           size: lg
-                          color: '#F9A825'
+                          color: *color-accent
                           align: center
                         spacing:
                           marginBlock: xs
@@ -2172,7 +2171,7 @@
                           It was beautiful and tasted absolutely incredible. Highly recommend!
                         typography:
                           size: md
-                          color: "#FF7A56"
+                          color: *color-accent
                           align: center
                           weight: medium
                           lineHeight: "1.6"
@@ -2192,7 +2191,7 @@
                             accentColor: *color-accent
                           background:
                             type: solid
-                            color: "#ffffff"
+                            color: *color-background
                             transparency: 0
                           radius: none
                           padding:
@@ -2223,7 +2222,7 @@
           cornerStyle: none
           overlay:
             enabled: true
-            color: '#000000'
+            color: *color-primary
             opacity: 50
         spacing:
           marginBlock: none
@@ -2245,7 +2244,7 @@
                 typography:
                   size: xxl
                   weight: bold
-                  color: '#ffffff'
+                  color: *color-background
                   align: center
                 spacing:
                   marginBlock: sm
@@ -2256,7 +2255,7 @@
                 typography:
                   size: lg
                   weight: regular
-                  color: '#e0ddd5'
+                  color: *color-secondary
                   align: center
                 spacing:
                   marginBlock: sm
@@ -2282,7 +2281,7 @@
                     block: md
                     inline: xl
                 typography:
-                  color: '#ffffff'
+                  color: *color-background
                   weight: semibold
                   size: md
 
@@ -2318,7 +2317,7 @@
             typography:
               size: sm
               weight: regular
-              color: '#A09A8C'
+              color: *color-secondary
               align: center
             spacing:
               marginBlock: sm
@@ -2336,7 +2335,7 @@
                 text: Home
                 typography:
                   size: sm
-                  color: '#A09A8C'
+                  color: *color-secondary
                 spacing:
                   marginInline: sm
             - name: link
@@ -2344,7 +2343,7 @@
                 text: Shop
                 typography:
                   size: sm
-                  color: '#A09A8C'
+                  color: *color-secondary
                 spacing:
                   marginInline: sm
             - name: link
@@ -2352,7 +2351,7 @@
                 text: About
                 typography:
                   size: sm
-                  color: '#A09A8C'
+                  color: *color-secondary
                 spacing:
                   marginInline: sm
             - name: link
@@ -2360,7 +2359,7 @@
                 text: Locations
                 typography:
                   size: sm
-                  color: '#A09A8C'
+                  color: *color-secondary
                 spacing:
                   marginInline: sm
             - name: link
@@ -2368,7 +2367,7 @@
                 text: Contact
                 typography:
                   size: sm
-                  color: '#A09A8C'
+                  color: *color-secondary
                 spacing:
                   marginInline: sm
         - name: br
@@ -2378,7 +2377,7 @@
             typography:
               size: xs
               weight: regular
-              color: '#6D695F'
+              color: *color-secondary
               align: center
             spacing:
               marginBlock: sm

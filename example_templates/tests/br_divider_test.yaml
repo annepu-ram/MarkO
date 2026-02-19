@@ -1,0 +1,154 @@
+# Test: BR (Divider) Component - Enhanced
+# Tests all divider types, orientations, thickness, and color options.
+
+- name: page
+  properties:
+    appearance: { background: { color: '#ffffff', transparency: 100 } }
+  components:
+    - name: heading
+      properties:
+        text: "BR / Divider Component Test"
+        level: 1
+        typography: { size: xxl, weight: bold, align: center, color: '#111827' }
+        spacing: { marginBlock: lg }
+
+    # ─────────────────────────────────────────
+    # TYPE: solid (default)
+    # The basic horizontal line divider
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "type: solid (default) — Standard solid line"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+
+    - name: br
+      properties:
+        type: solid          # solid | dashed | dotted | wave | slant
+        thickness: 2         # Line thickness in pixels (1-10)
+        color: '#111827'     # Line color (any hex)
+        size: md             # Spacing above/below: none, xxs, xs, sm, md, lg, xl, xxl, xxxl
+
+    # ─────────────────────────────────────────
+    # TYPE: dashed
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "type: dashed — Dashed line divider"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+
+    - name: br
+      properties:
+        type: dashed
+        thickness: 2
+        color: '#3b82f6'
+        size: md
+
+    # ─────────────────────────────────────────
+    # TYPE: dotted
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "type: dotted — Dotted line divider"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+
+    - name: br
+      properties:
+        type: dotted
+        thickness: 3
+        color: '#8b5cf6'
+        size: md
+
+    # ─────────────────────────────────────────
+    # TYPE: wave
+    # SVG wave pattern — thickness controls wave height
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "type: wave — SVG wave pattern (thickness controls height)"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+
+    - name: br
+      properties:
+        type: wave
+        thickness: 3         # Controls SVG wave height (thickness * 10 px)
+        color: '#ef4444'
+        size: md
+
+    # ─────────────────────────────────────────
+    # TYPE: slant
+    # SVG diagonal slant — good for section transitions
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "type: slant — SVG diagonal transition"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+
+    - name: br
+      properties:
+        type: slant
+        thickness: 4         # Controls SVG slant height (thickness * 10 px)
+        color: '#f1f5f9'
+        size: sm
+
+    # ─────────────────────────────────────────
+    # ORIENTATION: vertical
+    # Renders as a vertical line (useful inside layout-row)
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "orientation: vertical — Vertical divider inside a row"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, verticalAlign: center, wrap: nowrap }
+        spacing: { paddingBlock: md }
+      components:
+        - name: paragraph
+          properties:
+            text: "Left"
+            typography: { size: md, align: center }
+            layout: { widthMode: fit }
+        - name: br
+          properties:
+            type: solid
+            orientation: vertical   # horizontal (default) | vertical
+            thickness: 2
+            color: '#d1d5db'
+        - name: paragraph
+          properties:
+            text: "Right"
+            typography: { size: md, align: center }
+            layout: { widthMode: fit }
+
+    # ─────────────────────────────────────────
+    # THICKNESS variations
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "Thickness variations: 1px, 3px, 6px, 10px"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+        spacing: { marginBlock: sm }
+
+    - name: br
+      properties: { type: solid, thickness: 1, color: '#111827', size: xs }
+    - name: br
+      properties: { type: solid, thickness: 3, color: '#111827', size: xs }
+    - name: br
+      properties: { type: solid, thickness: 6, color: '#111827', size: xs }
+    - name: br
+      properties: { type: solid, thickness: 10, color: '#111827', size: xs }
+
+    # ─────────────────────────────────────────
+    # BACKWARD COMPATIBILITY
+    # Old YAML with only size still works
+    # ─────────────────────────────────────────
+    - name: paragraph
+      properties:
+        text: "Backward compatible: size-only (old format still works)"
+        typography: { size: sm, weight: semibold, color: '#6b7280' }
+
+    - name: br
+      properties:
+        size: xl             # Old format — defaults to solid, horizontal, 2px, #e5e7eb

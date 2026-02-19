@@ -3,15 +3,21 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#818cf8'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#ffffff' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: md }
         spacing: { paddingBlock: xxl, paddingInline: xl }
         appearance:
-          background: { color: '#0f172a' }
+          background: { color: *color-primary }
           padding: { block: xl, inline: xl }
       components:
         - name: eyebrow
@@ -21,7 +27,7 @@
               {
                 size: xs,
                 weight: semibold,
-                color: '#818cf8',
+                color: *color-accent,
                 transform: uppercase,
                 letterSpacing: wider,
                 align: center
@@ -34,7 +40,7 @@
               {
                 size: xxxl,
                 weight: extrabold,
-                color: '#ffffff',
+                color: *color-background,
                 align: center,
                 letterSpacing: tight
               }
@@ -43,7 +49,7 @@
           properties:
             text: Explore our comprehensive suite of tools designed to accelerate your
               success.
-            typography: { size: md, color: '#94a3b8', align: center }
+            typography: { size: md, color: *color-secondary, align: center }
             spacing: { marginBlock: md }
         - name: tabs
           properties:
@@ -52,18 +58,18 @@
               label:
                 size: md
                 weight: semibold
-                active: { color: '#818cf8' }
-                inactive: { color: '#94a3b8' }
+                active: { color: *color-accent }
+                inactive: { color: *color-secondary }
             appearance:
               tab:
-                background: { active: '#e9ecf1', inactive: '#fcfcfd' }
+                background: { active: *color-background, inactive: *color-background }
                 border: { width: 2, style: solid, position: lower }
               content:
-                background: { color: '#1e293b', transparency: 100 }
-                border: { color: '#334155', width: 1, style: solid }
+                background: { color: *color-primary, transparency: 100 }
+                border: { color: *color-secondary, width: 1, style: solid }
                 padding: { block: lg, inline: lg }
               shadow: none
-              shadowColor: "#000000"
+              shadowColor: *color-primary
             spacing: { marginBlock: md, marginInline: none }
           tabs:
             - title: Marketing
@@ -96,7 +102,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: "#ffffff"
+                              color: *color-background
                               align: left
                         - name: paragraph
                           properties:
@@ -107,17 +113,17 @@
                               with our AI-powered marketing tools.
                             typography:
                               size: md
-                              color: "#cbd5e1"
+                              color: *color-secondary
                               align: left
                         - name: button
                           properties:
                             text: Learn More
                             appearance:
                               background:
-                                color: "#818cf8"
+                                color: *color-accent
                               radius: md
                             typography:
-                              color: "#ffffff"
+                              color: *color-background
                               weight: semibold
                     - name: image
                       properties:
@@ -160,7 +166,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: "#ffffff"
+                              color: *color-background
                               align: left
                         - name: paragraph
                           properties:
@@ -171,17 +177,17 @@
                               and actionable insights.
                             typography:
                               size: md
-                              color: "#cbd5e1"
+                              color: *color-secondary
                               align: left
                         - name: button
                           properties:
                             text: View Demo
                             appearance:
                               background:
-                                color: "#818cf8"
+                                color: *color-accent
                               radius: md
                             typography:
-                              color: "#ffffff"
+                              color: *color-background
                               weight: semibold
                     - name: image
                       properties:
@@ -224,7 +230,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: "#ffffff"
+                              color: *color-background
                               align: left
                         - name: paragraph
                           properties:
@@ -235,17 +241,17 @@
                               for your business growth.
                             typography:
                               size: md
-                              color: "#cbd5e1"
+                              color: *color-secondary
                               align: left
                         - name: button
                           properties:
                             text: Get Started
                             appearance:
                               background:
-                                color: "#818cf8"
+                                color: *color-accent
                               radius: md
                             typography:
-                              color: "#ffffff"
+                              color: *color-background
                               weight: semibold
                     - name: image
                       properties:

@@ -1,7 +1,10 @@
 import { debounce } from './utils/timing.js';
 
-// Track current open panel
-let currentPanel = 'layers'; // Start with layers open
+// Track current open panel (left sidebar)
+let currentPanel = null;
+
+// Track current open right panel
+let currentRightPanel = null;
 
 /**
  * Toggle a sidebar slide-out panel
@@ -55,6 +58,70 @@ export function closePanel() {
 }
 
 /**
+ * Toggle a right-side slide-in panel
+ * @param {string} panelName - Name of the panel (chat, prop)
+ */
+export function toggleRightPanel(panelName) {
+    const panel = document.getElementById(panelName + 'Panel');
+    const btn = document.querySelector(`[data-rpanel="${panelName}"]`);
+    const sheet = document.getElementById('bottomSheet');
+
+    if (!panel) return;
+
+    // Close current right panel if different
+    if (currentRightPanel && currentRightPanel !== panelName) {
+        const curPanel = document.getElementById(currentRightPanel + 'Panel');
+        const curBtn = document.querySelector(`[data-rpanel="${currentRightPanel}"]`);
+        if (curPanel) curPanel.classList.remove('open');
+        if (curBtn) curBtn.classList.remove('active');
+    }
+
+    // Toggle clicked panel
+    if (currentRightPanel === panelName) {
+        panel.classList.remove('open');
+        if (btn) btn.classList.remove('active');
+        if (sheet) sheet.classList.remove('open');
+        currentRightPanel = null;
+    } else {
+        panel.classList.add('open');
+        if (btn) btn.classList.add('active');
+        if (sheet) sheet.classList.add('open');
+        currentRightPanel = panelName;
+    }
+
+    // Update bottom sheet tab active states
+    document.querySelectorAll('.bottom-sheet-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.rpanel === currentRightPanel);
+    });
+}
+
+/**
+ * Close the currently open right panel
+ */
+export function closeRightPanel() {
+    if (currentRightPanel) {
+        const panel = document.getElementById(currentRightPanel + 'Panel');
+        const btn = document.querySelector(`[data-rpanel="${currentRightPanel}"]`);
+        if (panel) panel.classList.remove('open');
+        if (btn) btn.classList.remove('active');
+        currentRightPanel = null;
+    }
+    // Close bottom sheet and clear tab states
+    const sheet = document.getElementById('bottomSheet');
+    if (sheet) sheet.classList.remove('open');
+    document.querySelectorAll('.bottom-sheet-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+}
+
+/**
+ * Get the currently open right panel name
+ */
+export function getCurrentRightPanel() {
+    return currentRightPanel;
+}
+
+/**
  * Set the viewport size (desktop, tablet, mobile)
  * @param {HTMLElement} btn - The clicked button
  * @param {string} size - Size mode (desktop, tablet, mobile)
@@ -70,21 +137,28 @@ export function setViewport(btn, size) {
 }
 
 /**
- * Toggle mobile sidebar
+ * Toggle mobile sidebar and swap menu/close icon
  */
 export function toggleMobileSidebar() {
     const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('mobileOverlay');
+    const menuBtn = document.getElementById('mobileMenuBtn');
 
     if (sidebar) {
         sidebar.classList.toggle('open');
     }
-    if (overlay) {
-        // Show overlay when sidebar opens
-        if (sidebar?.classList.contains('open')) {
-            overlay.classList.add('open');
-        } else {
-            overlay.classList.remove('open');
+
+    const isOpen = sidebar?.classList.contains('open');
+
+    // When closing sidebar, also close bottom sheet / right panel
+    if (!isOpen) {
+        closeRightPanel();
+    }
+
+    // Swap icon between menu and X
+    if (menuBtn) {
+        const useEl = menuBtn.querySelector('use');
+        if (useEl) {
+            useEl.setAttribute('href', isOpen ? '#icon-x' : '#icon-menu');
         }
     }
 }
@@ -94,44 +168,34 @@ export function toggleMobileSidebar() {
  */
 export function closeMobileSidebar() {
     const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('mobileOverlay');
+    const menuBtn = document.getElementById('mobileMenuBtn');
 
     if (sidebar) sidebar.classList.remove('open');
-    if (overlay) overlay.classList.remove('open');
-}
 
-/**
- * Toggle properties panel on mobile
- * @param {boolean} show - Whether to show or hide the panel
- */
-export function toggleMobileProperties(show) {
-    const properties = document.getElementById('propertiesPanel');
-    const overlay = document.getElementById('mobileOverlay');
-
-    if (properties) {
-        if (show) {
-            properties.classList.add('open');
-            if (overlay) overlay.classList.add('open');
-        } else {
-            properties.classList.remove('open');
-            if (overlay) overlay.classList.remove('open');
-        }
+    // Reset icon to menu
+    if (menuBtn) {
+        const useEl = menuBtn.querySelector('use');
+        if (useEl) useEl.setAttribute('href', '#icon-menu');
     }
 }
 
 // Make functions available globally for onclick handlers
 window.togglePanel = togglePanel;
 window.closePanel = closePanel;
+window.toggleRightPanel = toggleRightPanel;
+window.closeRightPanel = closeRightPanel;
+window.getCurrentRightPanel = getCurrentRightPanel;
 window.setViewport = setViewport;
 window.toggleMobileSidebar = toggleMobileSidebar;
 window.closeMobileSidebar = closeMobileSidebar;
-window.toggleMobileProperties = toggleMobileProperties;
 
 export function initializeEvents(dom, actions) {
     const {
         editor,
         editorWrapper,
         preview,
+        undoButton,
+        redoButton,
         exportButton,
         clearButton,
         fullscreenButton,
@@ -174,6 +238,21 @@ export function initializeEvents(dom, actions) {
         closeFullscreenButton.addEventListener('click', actions.closeFullscreen);
     }
 
+    if (undoButton) {
+        undoButton.addEventListener('click', actions.undo);
+    }
+
+    if (redoButton) {
+        redoButton.addEventListener('click', actions.redo);
+    }
+
+    // Escape key closes fullscreen modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            actions.closeFullscreen();
+        }
+    });
+
     if (helpButton) {
         helpButton.addEventListener('click', actions.toggleHelpPanel);
     }
@@ -200,13 +279,24 @@ export function initializeEvents(dom, actions) {
         });
     });
 
-    // Setup sidebar button click handlers (new design)
+    // Setup sidebar button click handlers (left panels)
     const sidebarBtns = document.querySelectorAll('.sidebar-btn[data-panel]');
     sidebarBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const panelName = btn.dataset.panel;
             if (panelName) {
                 togglePanel(panelName);
+            }
+        });
+    });
+
+    // Setup command bar button click handlers (right panels)
+    const commandBtns = document.querySelectorAll('.command-btn[data-rpanel]');
+    commandBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const panelName = btn.dataset.rpanel;
+            if (panelName) {
+                toggleRightPanel(panelName);
             }
         });
     });
@@ -268,22 +358,16 @@ export function initializeEvents(dom, actions) {
         mobileMenuBtn.addEventListener('click', toggleMobileSidebar);
     }
 
-    // Mobile overlay click closes all panels
-    const mobileOverlay = document.getElementById('mobileOverlay');
-    if (mobileOverlay) {
-        mobileOverlay.addEventListener('click', () => {
-            closeMobileSidebar();
-            toggleMobileProperties(false);
+    // Bottom sheet tab buttons (mobile)
+    const sheetTabs = document.querySelectorAll('.bottom-sheet-tab[data-rpanel]');
+    sheetTabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const panelName = btn.dataset.rpanel;
+            if (panelName) {
+                toggleRightPanel(panelName);
+            }
         });
-    }
-
-    // Properties close button
-    const propertiesCloseBtn = document.getElementById('propertiesCloseBtn');
-    if (propertiesCloseBtn) {
-        propertiesCloseBtn.addEventListener('click', () => {
-            toggleMobileProperties(false);
-        });
-    }
+    });
 }
 
 function handleEditorKeyDown(event, editor, actions) {

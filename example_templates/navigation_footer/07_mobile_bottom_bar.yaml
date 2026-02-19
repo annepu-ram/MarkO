@@ -6,9 +6,8 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'SF Pro Display', -apple-system, sans-serif"
-        headingLevel2: &font-heading-level2 "'SF Pro Display', -apple-system, sans-serif"
-        content: &font-content "'SF Pro Text', -apple-system, sans-serif"
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#1c1c1e'
         secondary: &color-secondary '#8e8e93'
@@ -26,8 +25,8 @@
         layout: { horizontalAlign: space-between, align: center, wrap: nowrap }
         spacing: { paddingBlock: sm, paddingInline: md }
         appearance:
-          background: { color: '#ffffff', transparency: 100 }
-          border: { width: 1, style: solid, color: '#e5e5ea' }
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, style: solid, color: *color-secondary }
       components:
         - name: heading
           properties:
@@ -50,7 +49,7 @@
           properties:
             layout: { align: start, horizontalAlign: space-evenly }
             appearance:
-              background: { color: '#ffffff', transparency: 100 }
+              background: { color: *color-background, transparency: 100 }
               radius: lg
               shadow: soft
             spacing: { marginBlock: sm }
@@ -94,7 +93,7 @@
                     layout: { align: center, horizontalAlign: space-evenly }
                     spacing: { paddingBlock: lg, paddingInline: md }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: lg
                       shadow: soft
                   components:
@@ -113,7 +112,7 @@
                     layout: { align: center, horizontalAlign: space-evenly }
                     spacing: { paddingBlock: lg, paddingInline: md }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: lg
                       shadow: soft
                   components:
@@ -133,7 +132,7 @@
             layout: { align: start, horizontalAlign: space-evenly }
             spacing: { paddingBlock: md, paddingInline: md, marginBlock: sm }
             appearance:
-              background: { color: '#ffffff', transparency: 100 }
+              background: { color: *color-background, transparency: 100 }
               radius: lg
               shadow: soft
           components:
@@ -167,8 +166,8 @@
         layout: { horizontalAlign: space-evenly, align: center, wrap: nowrap }
         spacing: { paddingBlock: sm, paddingInline: sm }
         appearance:
-          background: { color: '#ffffff', transparency: 100 }
-          border: { width: 1, style: solid, color: '#e5e5ea' }
+          background: { color: *color-background, transparency: 100 }
+          border: { width: 1, style: solid, color: *color-secondary }
       components:
 
         # Home Tab
@@ -181,8 +180,8 @@
               properties:
                 text: Home
                 appearance:
-                  background: { color: '#ffffff', transparency: 0 }
-                  border: { width: 0, style: solid, color: '#ffffff' }
+                  background: { color: *color-background, transparency: 0 }
+                  border: { width: 0, style: solid, color: *color-background }
                   padding: { block: xs, inline: xs }
                 typography: { size: xs, weight: medium, color: *color-secondary, align: center }
                 layout: { widthMode: stretch }
@@ -197,8 +196,8 @@
               properties:
                 text: Search
                 appearance:
-                  background: { color: '#ffffff', transparency: 0 }
-                  border: { width: 0, style: solid, color: '#ffffff' }
+                  background: { color: *color-background, transparency: 0 }
+                  border: { width: 0, style: solid, color: *color-background }
                   padding: { block: xs, inline: xs }
                 typography: { size: xs, weight: medium, color: *color-secondary, align: center }
                 layout: { widthMode: stretch }
@@ -213,8 +212,8 @@
               properties:
                 text: Explore
                 appearance:
-                  background: { color: '#ffffff', transparency: 0 }
-                  border: { width: 0, style: solid, color: '#ffffff' }
+                  background: { color: *color-background, transparency: 0 }
+                  border: { width: 0, style: solid, color: *color-background }
                   padding: { block: xs, inline: xs }
                 typography: { size: xs, weight: semibold, color: *color-accent, align: center }
                 layout: { widthMode: stretch }
@@ -229,8 +228,8 @@
               properties:
                 text: Profile
                 appearance:
-                  background: { color: '#ffffff', transparency: 0 }
-                  border: { width: 0, style: solid, color: '#ffffff' }
+                  background: { color: *color-background, transparency: 0 }
+                  border: { width: 0, style: solid, color: *color-background }
                   padding: { block: xs, inline: xs }
                 typography: { size: xs, weight: medium, color: *color-secondary, align: center }
                 layout: { widthMode: stretch }

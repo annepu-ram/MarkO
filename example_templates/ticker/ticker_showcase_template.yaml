@@ -1,0 +1,1010 @@
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
+  components:
+
+    # ============================================
+    # SECTION 1: Trusted By (Company Logo Ticker)
+    # ============================================
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: sm
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+        - name: eyebrow
+          properties:
+            text: TRUSTED BY LEADING COMPANIES
+            typography:
+              size: xs
+              weight: semibold
+              color: *color-secondary
+              align: center
+              letterSpacing: wider
+              transform: uppercase
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 30
+              mode: continuous
+              pauseOnHover: false
+            spacing:
+              marginBlock: sm
+              marginInline: none
+              gap: xxl
+          columns:
+            - components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: nowrap
+                    spacing:
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: language
+                        size: lg
+                        color: *color-primary
+                    - name: heading
+                      properties:
+                        text: Nexora
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+            - components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: nowrap
+                    spacing:
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: local_fire_department
+                        size: lg
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Blaze Studio
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+            - components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: nowrap
+                    spacing:
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: star
+                        size: lg
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Stellaris
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+            - components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: nowrap
+                    spacing:
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: settings
+                        size: lg
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: CogWorks
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+            - components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: nowrap
+                    spacing:
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: sell
+                        size: lg
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: PriceHive
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+            - components:
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: nowrap
+                    spacing:
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: bar_chart
+                        size: lg
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: DataPulse
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+
+    # ============================================
+    # SECTION 2: Product Cards Ticker
+    # ============================================
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xxl
+          paddingInline: lg
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+        - name: heading
+          properties:
+            text: Trending Products
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+        - name: paragraph
+          properties:
+            text: Scroll through our best sellers
+            typography:
+              size: md
+              color: *color-secondary
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 25
+              mode: continuous
+              pauseOnHover: true
+            spacing:
+              marginBlock: md
+              marginInline: none
+              gap: lg
+            appearance:
+              columnBackground: *color-background
+          columns:
+            # Product Card 1
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                      shadow: md
+                  components:
+                    - name: badge
+                      properties:
+                        text: New
+                        variant: info
+                        pill: true
+                        typography:
+                          size: xs
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop
+                          altText: Premium Watch
+                        appearance:
+                          radius: md
+                          fit: cover
+                          minHeight: 200
+                    - name: heading
+                      properties:
+                        text: Premium Watch
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: $249.99
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-accent
+                    - name: button
+                      properties:
+                        text: Add to Cart
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+
+            # Product Card 2
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                      shadow: md
+                  components:
+                    - name: badge
+                      properties:
+                        text: Sale
+                        variant: danger
+                        pill: true
+                        typography:
+                          size: xs
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop
+                          altText: Wireless Headphones
+                        appearance:
+                          radius: md
+                          fit: cover
+                          minHeight: 200
+                    - name: heading
+                      properties:
+                        text: Wireless Headphones
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: $89.99
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-accent
+                    - name: button
+                      properties:
+                        text: Add to Cart
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+
+            # Product Card 3
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                      shadow: md
+                  components:
+                    - name: badge
+                      properties:
+                        text: Popular
+                        variant: success
+                        pill: true
+                        typography:
+                          size: xs
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300&h=300&fit=crop
+                          altText: Polaroid Camera
+                        appearance:
+                          radius: md
+                          fit: cover
+                          minHeight: 200
+                    - name: heading
+                      properties:
+                        text: Polaroid Camera
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: $119.00
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-accent
+                    - name: button
+                      properties:
+                        text: Add to Cart
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+
+            # Product Card 4
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                      shadow: md
+                  components:
+                    - name: badge
+                      properties:
+                        text: Limited
+                        variant: warning
+                        pill: true
+                        typography:
+                          size: xs
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=300&h=300&fit=crop
+                          altText: Running Shoes
+                        appearance:
+                          radius: md
+                          fit: cover
+                          minHeight: 200
+                    - name: heading
+                      properties:
+                        text: Running Shoes
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: $159.99
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-accent
+                    - name: button
+                      properties:
+                        text: Add to Cart
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+
+            # Product Card 5
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                      shadow: md
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop
+                          altText: Smart Speaker
+                        appearance:
+                          radius: md
+                          fit: cover
+                          minHeight: 200
+                    - name: heading
+                      properties:
+                        text: Smart Speaker
+                        level: 4
+                        typography:
+                          size: md
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: $79.99
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-accent
+                    - name: button
+                      properties:
+                        text: Add to Cart
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+
+    # ============================================
+    # SECTION 3: Customer Reviews Ticker
+    # ============================================
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xxl
+          paddingInline: lg
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+        - name: heading
+          properties:
+            text: What Our Customers Say
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+        - name: paragraph
+          properties:
+            text: Real reviews from real people
+            typography:
+              size: md
+              color: *color-secondary
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 40
+              mode: continuous
+              pauseOnHover: true
+              pauseDuration: 4000
+            layout:
+              width: "280"
+            spacing:
+              marginBlock: md
+              marginInline: none
+              gap: lg
+            appearance:
+              columnBackground: *color-background
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: Absolutely love this product! The quality exceeded my expectations. Will definitely be ordering again soon.
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: Sarah Mitchell
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Verified Buyer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 4.5
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: Great value for money. The shipping was fast and the packaging was excellent. Highly recommend to anyone looking for quality.
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: James Rodriguez
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Verified Buyer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: This is my third purchase and each time the experience has been flawless. Customer service is top-notch and really responsive.
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: Emily Chen
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Repeat Customer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 4
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: Really impressed with the build quality. It feels premium and looks even better in person than in the photos.
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: Marcus Thompson
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Verified Buyer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      gap: sm
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: heart
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                    - name: paragraph
+                      properties:
+                        text: Simply perfect! I bought this as a gift and my partner absolutely loved it. The attention to detail is remarkable.
+                        typography:
+                          size: sm
+                          color: *color-primary
+                          lineHeight: relaxed
+                    - name: heading
+                      properties:
+                        text: Priya Patel
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: Gift Buyer
+                        typography:
+                          size: xs
+                          color: *color-secondary
+
+    # ============================================
+    # SECTION 4: Feature Icons Ticker (Step Mode)
+    # ============================================
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+        appearance:
+          background:
+            color: *color-primary
+            transparency: 100
+      components:
+        - name: heading
+          properties:
+            text: Why Choose Us
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-background
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 35
+              mode: step
+              pauseOnHover: false
+              pauseDuration: 3000
+            spacing:
+              marginBlock: md
+              marginInline: none
+              gap: sm
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: schedule
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Fast Delivery
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: Same-day shipping on all orders
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: check_circle
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Quality Guaranteed
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: 100% satisfaction or your money back
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: phone
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: 24/7 Support
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: Round-the-clock customer care
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: language
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Worldwide Shipping
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: Delivering to 150+ countries
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: sell
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Best Prices
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: Price match guarantee on everything
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: xs
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: favorite
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Eco Friendly
+                        level: 5
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: Sustainable packaging and practices
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center

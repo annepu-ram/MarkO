@@ -1,0 +1,175 @@
+# Counter-Up: Achievements / Milestones
+# Platform achievements section with prefix/suffix variety
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#8b5cf6'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+        appearance: { background: { type: gradient, gradient: { colorStart: '#8b5cf6', colorEnd: '#6366f1', direction: 'to right' } } }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: heading
+              properties:
+                text: Our Impact So Far
+                level: 2
+                typography: { size: xxl, weight: bold, color: '#ffffff', align: center }
+            - name: paragraph
+              properties:
+                text: Numbers that speak for themselves
+                typography: { size: md, color: '#e2e8f0', align: center }
+                spacing: { marginBlock: sm }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg }
+              components:
+                - name: counter-up
+                  properties:
+                    endValue: 15
+                    duration: 2000
+                    suffix: "M+"
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: heading
+                  properties:
+                    text: Downloads
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Across iOS and Android
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg }
+              components:
+                - name: counter-up
+                  properties:
+                    endValue: 4
+                    duration: 1500
+                    suffix: ".8"
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: heading
+                  properties:
+                    text: App Store Rating
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: From 200K+ reviews
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg }
+              components:
+                - name: counter-up
+                  properties:
+                    endValue: 500
+                    duration: 2500
+                    prefix: "#"
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: heading
+                  properties:
+                    text: Fortune 500 Clients
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Enterprise customers worldwide
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg }
+              components:
+                - name: counter-up
+                  properties:
+                    endValue: 250
+                    duration: 2000
+                    prefix: "$"
+                    suffix: "M"
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: heading
+                  properties:
+                    text: Revenue Processed
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Through our platform
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg }
+              components:
+                - name: counter-up
+                  properties:
+                    endValue: 350
+                    duration: 2000
+                    suffix: "+"
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: heading
+                  properties:
+                    text: Team Members
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Across 12 global offices
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg }
+              components:
+                - name: counter-up
+                  properties:
+                    endValue: 99
+                    duration: 1500
+                    suffix: "%"
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: heading
+                  properties:
+                    text: Customer Satisfaction
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Based on annual surveys
+                    typography: { size: sm, color: *color-secondary, align: center }

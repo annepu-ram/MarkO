@@ -1,5 +1,5 @@
 import { initializeEvents } from './events.js';
-import { renderPreview } from './ssr_app.js';
+import { renderPreview, extractIconNames } from './ssr_app.js';
 import { SelectionManager } from './selectionManager.js';
 import { loadMetadata, getComponentDefaults } from './metadataLoader.js';
 import { renderPropertiesPanel, clearPropertiesPanel, collectPropertyValues, getActiveComponentInfo } from './propertiesPanel.js';
@@ -25,17 +25,19 @@ function getDomReferences() {
         lineNumbers: document.getElementById('lineNumbers'),
         editorWrapper: document.getElementById('editorWrapper'),
         preview: document.getElementById('preview'),
-        propertiesPanel: document.getElementById('propertiesPanel'),
+        propertiesPanel: document.getElementById('propPanel'),
         propertiesContent: document.getElementById('propertiesContent'),
         resizer: document.getElementById('resizer'),
         sidebar: document.querySelector('.sidebar'),
         sidebarResizer: document.getElementById('sidebarResizer'),
         sidebarNavItems: Array.from(document.querySelectorAll('.sidebar-nav-item')),
         sidebarPanels: Array.from(document.querySelectorAll('.sidebar-panel')),
+        undoButton: document.getElementById('undoBtn'),
+        redoButton: document.getElementById('redoBtn'),
         exportButton: document.getElementById('exportBtn'),
         clearButton: document.getElementById('clearBtn'),
         fullscreenButton: document.getElementById('fullscreenBtn'),
-        closeFullscreenButton: document.getElementById('closeFullscreenBtn'), // May be null
+        closeFullscreenButton: document.getElementById('closeFullscreenBtn'),
         helpButton: document.getElementById('helpBtn'),
         componentButtons: Array.from(document.querySelectorAll('.component-item')),
         componentTree: document.getElementById('componentTree'),
@@ -65,6 +67,62 @@ function updateLineNumbers(editor, lineNumbers) {
 function syncEditorScroll(editor, lineNumbers) {
     if (!editor || !lineNumbers) return;
     lineNumbers.scrollTop = editor.scrollTop;
+}
+
+/**
+ * Enable/disable undo and redo toolbar buttons based on history state
+ */
+function updateHistoryButtons() {
+    const undoBtn = document.getElementById('undoBtn');
+    const redoBtn = document.getElementById('redoBtn');
+    if (undoBtn) undoBtn.disabled = !historyManager.canUndo();
+    if (redoBtn) redoBtn.disabled = !historyManager.canRedo();
+}
+
+/**
+ * Build a self-contained HTML page from rendered component HTML.
+ * Fetches and inlines CSS, JS, and SVG sprite so the result works standalone.
+ */
+async function buildStandaloneHtml(renderedHtml, iconNames = []) {
+    const [tokensCss, componentsCss, runtimeJs, spriteSvg] = await Promise.all([
+        fetch('/static/css/tokens.css').then(r => r.text()),
+        fetch('/static/css/components.css').then(r => r.text()),
+        fetch('/static/js/swift-sites-runtime.js').then(r => r.text()),
+        fetch('/static/icon-sprite.svg').then(r => r.text()),
+    ]);
+
+    const baseStyles = `* { box-sizing: border-box; }
+html { font-size: clamp(12px, 1vw + 8px, 18px); }
+body { margin:0; padding:0; min-height:100%; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:1rem; line-height:1.5; color:#1f2937; background:#fff; }
+#preview-content { min-height:100vh; }
+.page { min-height:100vh; position:relative; }
+.page > .titlebar { position:sticky; top:0; z-index:100; }`;
+
+    // Build optimized Material Symbols font link (only icons used in YAML)
+    const iconFontLink = iconNames.length > 0
+        ? `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,0&icon_names=${iconNames.join(',')}" />`
+        : '';
+
+    // Escape </script> inside JS content so it doesn't break the HTML parser
+    const safeJs = runtimeJs.replace(/<\/script>/gi, '<\\/script>');
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Sites Export</title>
+    ${iconFontLink}
+    <style>${baseStyles}</style>
+    <style>${tokensCss}</style>
+    <style>${componentsCss}</style>
+</head>
+<body>
+    <div id="svgSpriteRoot" hidden>${spriteSvg}</div>
+    <div id="preview-content">${renderedHtml}</div>
+    <script>${safeJs}<\/script>
+</body>
+</html>`;
 }
 
 // 2. Initialize the app on DOMContentLoaded
@@ -129,6 +187,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (component) {
             console.log('[Main] Rendering properties panel for:', component.name);
             renderPropertiesPanel(component, selection.componentId, selection.path);
+
+            // Auto-open the properties right panel if not already open
+            if (window.toggleRightPanel && window.getCurrentRightPanel && window.getCurrentRightPanel() !== 'prop') {
+                window.toggleRightPanel('prop');
+            }
         } else {
             console.warn('[Main] Component not found at path, clearing properties panel');
             clearPropertiesPanel();
@@ -172,12 +235,42 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Debounce the render to prevent rapid-fire requests
             debouncedRender(yamlContent, currentSelection);
+
+            updateHistoryButtons();
         },
         // Handle preview clicks for component selection
         handlePreviewClick: (event) => {
             selectionManager.handlePreviewClick(event);
         },
-        exportCode: () => alert('Export functionality not implemented in this version.'),
+        exportCode: async () => {
+            const editor = document.getElementById('codeEditor');
+            const yamlContent = editor ? editor.value : '';
+            if (!yamlContent.trim()) return;
+
+            try {
+                const response = await fetch('/render', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: yamlContent
+                });
+                const html = await response.text();
+
+                // Extract icon names from YAML for optimized font loading
+                const structure = getYamlStructureFromEditor();
+                const iconNames = structure ? extractIconNames(structure) : [];
+                const standaloneHtml = await buildStandaloneHtml(html, iconNames);
+
+                const blob = new Blob([standaloneHtml], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'index.html';
+                a.click();
+                URL.revokeObjectURL(url);
+            } catch (err) {
+                console.error('[Export] Failed:', err);
+            }
+        },
         clearCanvas: () => {
             if(dom.editor) {
                 dom.editor.value = '';
@@ -186,13 +279,45 @@ document.addEventListener('DOMContentLoaded', async () => {
                 clearTreeSelection();
                 historyManager.clear();
                 yamlStorage.clear(); // Clear sessionStorage
+                updateHistoryButtons();
                 renderPreview('').then(() => {
                     updateComponentTree();
                 });
             }
         },
-        openFullscreen: () => alert('Fullscreen functionality not implemented in this version.'),
-        closeFullscreen: () => alert('Fullscreen functionality not implemented in this version.'),
+        openFullscreen: async () => {
+            const modal = document.getElementById('fullscreenModal');
+            const frame = document.getElementById('fullscreenFrame');
+            if (!modal || !frame) return;
+
+            const editor = document.getElementById('codeEditor');
+            const yamlContent = editor ? editor.value : '';
+            if (!yamlContent.trim()) return;
+
+            try {
+                const response = await fetch('/render', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: yamlContent
+                });
+                const html = await response.text();
+                const structure = getYamlStructureFromEditor();
+                const iconNames = structure ? extractIconNames(structure) : [];
+                const standaloneHtml = await buildStandaloneHtml(html, iconNames);
+                frame.srcdoc = standaloneHtml;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            } catch (err) {
+                console.error('[Fullscreen] Render failed:', err);
+            }
+        },
+        closeFullscreen: () => {
+            const modal = document.getElementById('fullscreenModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        },
         toggleHelpPanel: () => alert('Help functionality not implemented in this version.'),
         insertComponent: () => alert('Component insertion not implemented in this version.'),
         applySelectedComponentProperties: async () => {
@@ -264,6 +389,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Push to history
             historyManager.push(yamlText);
+            updateHistoryButtons();
 
             // Store selection for restoration
             const selectionToRestore = {
@@ -300,6 +426,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Re-render without pushing to history
                 actions.handleEditorInput(previousYaml, { pushHistory: false });
             }
+            updateHistoryButtons();
         },
         redo: () => {
             if (!historyManager.canRedo()) {
@@ -311,6 +438,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Re-render without pushing to history
                 actions.handleEditorInput(nextYaml, { pushHistory: false });
             }
+            updateHistoryButtons();
         },
     };
 

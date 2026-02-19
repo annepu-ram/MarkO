@@ -22,7 +22,9 @@
     const ALLOWED_MESSAGE_TYPES = {
         UPDATE_CONTENT: 'UPDATE_CONTENT',
         SET_SELECTION: 'SET_SELECTION',
-        CLEAR_SELECTION: 'CLEAR_SELECTION'
+        CLEAR_SELECTION: 'CLEAR_SELECTION',
+        LOAD_FONTS: 'LOAD_FONTS',
+        LOAD_ICON_FONT: 'LOAD_ICON_FONT'
     };
 
     // Current selection state
@@ -62,6 +64,12 @@
                 break;
             case ALLOWED_MESSAGE_TYPES.CLEAR_SELECTION:
                 handleClearSelection();
+                break;
+            case ALLOWED_MESSAGE_TYPES.LOAD_FONTS:
+                handleLoadFonts(event.data);
+                break;
+            case ALLOWED_MESSAGE_TYPES.LOAD_ICON_FONT:
+                handleLoadIconFont(event.data);
                 break;
             default:
                 console.warn('[Preview Bridge] Unknown message type:', event.data.type);
@@ -125,6 +133,57 @@
      */
     function handleClearSelection() {
         clearHighlight();
+    }
+
+    /**
+     * Handle LOAD_FONTS message — inject Google Font <link> tags into iframe head.
+     * Skips fonts that are already loaded (idempotent).
+     */
+    function handleLoadFonts(data) {
+        if (!Array.isArray(data.fonts)) return;
+
+        for (const fontName of data.fonts) {
+            if (typeof fontName !== 'string') continue;
+
+            const id = 'gfont-' + fontName.replace(/\s+/g, '-').toLowerCase();
+            if (document.getElementById(id)) continue;
+
+            const link = document.createElement('link');
+            link.id = id;
+            link.rel = 'stylesheet';
+            link.href = 'https://fonts.googleapis.com/css2?family='
+                + encodeURIComponent(fontName) + ':wght@400;700&display=swap';
+            document.head.appendChild(link);
+            console.log('[Preview Bridge] Loaded Google Font:', fontName);
+        }
+    }
+
+    /**
+     * Handle LOAD_ICON_FONT message — dynamically load optimized Material Symbols font
+     * with only the icon names used in the current YAML.
+     */
+    function handleLoadIconFont(data) {
+        const existingLink = document.getElementById('material-symbols-icons');
+
+        if (!data.iconNames || !Array.isArray(data.iconNames) || data.iconNames.length === 0) {
+            // No icons — remove font link if present
+            if (existingLink) existingLink.remove();
+            return;
+        }
+
+        const url = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,0&icon_names=' + data.iconNames.join(',');
+
+        if (existingLink) {
+            if (existingLink.href !== url) {
+                existingLink.href = url;
+            }
+        } else {
+            const link = document.createElement('link');
+            link.id = 'material-symbols-icons';
+            link.rel = 'stylesheet';
+            link.href = url;
+            document.head.appendChild(link);
+        }
     }
 
     /**

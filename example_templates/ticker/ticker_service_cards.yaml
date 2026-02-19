@@ -1,0 +1,322 @@
+# Ticker Template: Service Cards
+# Professional service offering cards with icon, title, description, and CTA
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Space Grotesk', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#475569'
+        accent: &color-accent '#7c3aed'
+        background: &color-background '#faf5ff'
+    appearance:
+      background:
+        color: *color-background
+        transparency: 100
+  components:
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: md
+        spacing:
+          paddingBlock: xxl
+          paddingInline: lg
+      components:
+        - name: eyebrow
+          properties:
+            text: WHAT WE OFFER
+            typography:
+              size: xs
+              weight: semibold
+              color: *color-accent
+              align: center
+              letterSpacing: wider
+              transform: uppercase
+        - name: heading
+          properties:
+            text: Our Services
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+        - name: paragraph
+          properties:
+            text: End-to-end solutions tailored to your business needs
+            typography:
+              size: md
+              color: *color-secondary
+              align: center
+
+        - name: ticker
+          properties:
+            behavior:
+              direction: left
+              speed: 25
+              mode: continuous
+              pauseOnHover: true
+            layout:
+              width: "280"
+            spacing:
+              marginBlock: lg
+              marginInline: none
+              gap: lg
+            appearance:
+              columnBackground: *color-background
+              columnTransparency: 100
+              columnRadius: lg
+              columnBorder:
+                width: 1
+                style: solid
+                color: *color-secondary
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: language
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Web Development
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Custom websites and web apps built with modern frameworks. Responsive, fast, and SEO-optimized.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+                    - name: button
+                      properties:
+                        text: Learn More
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: smartphone
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Mobile Apps
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Native and cross-platform mobile applications for iOS and Android with seamless user experiences.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+                    - name: button
+                      properties:
+                        text: Learn More
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: bar_chart
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Data Analytics
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Turn raw data into actionable insights with custom dashboards, reporting, and predictive models.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+                    - name: button
+                      properties:
+                        text: Learn More
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: shield
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Cybersecurity
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Protect your business with penetration testing, compliance audits, and 24/7 threat monitoring.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+                    - name: button
+                      properties:
+                        text: Learn More
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: cloud
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Cloud Solutions
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: Scalable cloud infrastructure, migration services, and DevOps automation for growing businesses.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+                    - name: button
+                      properties:
+                        text: Learn More
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: palette
+                        size: xl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: UI/UX Design
+                        level: 4
+                        typography:
+                          size: md
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: User-centered design from wireframes to polished interfaces. Research-driven, pixel-perfect results.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                          lineHeight: relaxed
+                    - name: button
+                      properties:
+                        text: Learn More
+                        appearance:
+                          background:
+                            color: *color-accent
+                        typography:
+                          color: *color-background
+                          size: sm

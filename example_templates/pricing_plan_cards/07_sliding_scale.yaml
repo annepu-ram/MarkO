@@ -4,18 +4,24 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f0f4f8' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: md }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: medium
           padding: { block: xl, inline: xl }
-          border: { width: 1, style: solid, color: '#e2e8f0' }
+          border: { width: 1, style: solid, color: *color-secondary }
         spacing: { marginBlock: lg, marginInline: lg }
       components:
         # Title
@@ -23,12 +29,12 @@
           properties:
             text: Pay Per Seat
             level: 2
-            typography: { size: xxl, weight: bold, color: '#0f172a', align: center }
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
             spacing: { marginBlock: xs }
         - name: paragraph
           properties:
             text: "Only pay for what you need. Adjust your team size anytime."
-            typography: { size: sm, color: '#64748b', align: center }
+            typography: { size: sm, color: *color-secondary, align: center }
         - name: br
           properties:
             size: sm
@@ -37,15 +43,15 @@
           properties:
             layout: { horizontalAlign: center, gap: xs }
             appearance:
-              background: { color: '#f8fafc', transparency: 100 }
+              background: { color: *color-background, transparency: 100 }
               radius: md
               padding: { block: md, inline: lg }
-              border: { width: 1, style: solid, color: '#e2e8f0' }
+              border: { width: 1, style: solid, color: *color-secondary }
           components:
             - name: caption
               properties:
                 text: "Number of team members"
-                typography: { size: xs, weight: semibold, color: '#475569', align: center, transform: uppercase, letterSpacing: wide }
+                typography: { size: xs, weight: semibold, color: *color-secondary, align: center, transform: uppercase, letterSpacing: wide }
             - name: textbox
               properties:
                 label:
@@ -55,13 +61,13 @@
                   placeholder: "10"
                   value: "10"
                 appearance:
-                  border: { width: 2, style: solid, color: '#3b82f6' }
-                  background: { color: '#ffffff', transparency: 100 }
+                  border: { width: 2, style: solid, color: *color-accent }
+                  background: { color: *color-background, transparency: 100 }
                   radius: md
                 typography:
                   size: xxl
                   weight: bold
-                  color: '#0f172a'
+                  color: *color-primary
                   align: center
         - name: br
           properties:
@@ -76,12 +82,12 @@
               properties:
                 text: "$120"
                 level: 2
-                typography: { size: xxxl, weight: extrabold, color: '#3b82f6', align: center }
+                typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
                 spacing: { marginBlock: none }
             - name: caption
               properties:
                 text: "per month ($12/user)"
-                typography: { size: sm, color: '#94a3b8', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }
         - name: br
           properties:
             size: xs
@@ -90,19 +96,19 @@
           properties:
             layout: { horizontalAlign: space-between, verticalAlign: center, gap: sm, wrap: nowrap }
             appearance:
-              background: { color: '#f1f5f9', transparency: 100 }
+              background: { color: *color-background, transparency: 100 }
               radius: sm
               padding: { block: sm, inline: md }
           components:
             - name: paragraph
               properties:
                 text: "10 users x $12/user"
-                typography: { size: xs, color: '#64748b' }
+                typography: { size: xs, color: *color-secondary }
                 layout: { widthMode: "50" }
             - name: paragraph
               properties:
                 text: "$120.00/mo"
-                typography: { size: xs, weight: semibold, color: '#334155', align: right }
+                typography: { size: xs, weight: semibold, color: *color-primary, align: right }
                 layout: { widthMode: "50" }
         - name: br
           properties:
@@ -112,13 +118,13 @@
           properties:
             text: Start with 10 Users
             appearance:
-              background: { color: '#3b82f6' }
+              background: { color: *color-accent }
               radius: md
               padding: { block: md }
-            typography: { color: '#ffffff', weight: bold }
+            typography: { color: *color-background, weight: bold }
             layout: { widthMode: stretch }
         - name: caption
           properties:
             text: "Volume discounts available for 50+ users"
-            typography: { size: xs, color: '#94a3b8', align: center }
+            typography: { size: xs, color: *color-secondary, align: center }
             spacing: { marginBlock: xs }

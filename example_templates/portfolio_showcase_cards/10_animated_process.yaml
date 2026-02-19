@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'General Sans', sans-serif"
-        headingLevel2: &font-heading-level2 "'General Sans', sans-serif"
+        heading: &font-heading "'DM Sans', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f0f0f'
@@ -50,7 +49,7 @@
       properties:
         layout: { horizontalAlign: space-evenly, verticalAlign: top, wrap: wrap, gap: lg }
         spacing: { paddingBlock: xl, paddingInline: lg }
-        appearance: { background: { color: '#ffffff' } }
+        appearance: { background: { color: *color-background } }
       components:
 
         # Step 1 - Discover
@@ -64,7 +63,7 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: md }
                 appearance:
-                  background: { color: '#fef3c7' }
+                  background: { color: *color-background }
                   radius: pill
               components:
                 - name: gif
@@ -99,7 +98,7 @@
                 layout: { horizontalAlign: left }
                 spacing: { paddingBlock: sm, paddingInline: md }
                 appearance:
-                  background: { color: '#fef9ee' }
+                  background: { color: *color-background }
                   radius: md
               components:
                 - name: caption
@@ -130,7 +129,7 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: md }
                 appearance:
-                  background: { color: '#fef3c7' }
+                  background: { color: *color-background }
                   radius: pill
               components:
                 - name: gif
@@ -165,7 +164,7 @@
                 layout: { horizontalAlign: left }
                 spacing: { paddingBlock: sm, paddingInline: md }
                 appearance:
-                  background: { color: '#fef9ee' }
+                  background: { color: *color-background }
                   radius: md
               components:
                 - name: caption
@@ -196,7 +195,7 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: md }
                 appearance:
-                  background: { color: '#fef3c7' }
+                  background: { color: *color-background }
                   radius: pill
               components:
                 - name: gif
@@ -231,7 +230,7 @@
                 layout: { horizontalAlign: left }
                 spacing: { paddingBlock: sm, paddingInline: md }
                 appearance:
-                  background: { color: '#fef9ee' }
+                  background: { color: *color-background }
                   radius: md
               components:
                 - name: caption
@@ -273,7 +272,7 @@
             - name: paragraph
               properties:
                 text: Weeks for Discovery
-                typography: { size: sm, color: '#a3a3a3', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }
         - name: layout-column
           properties:
             layout: { horizontalAlign: center, widthMode: "25" }
@@ -286,7 +285,7 @@
             - name: paragraph
               properties:
                 text: Weeks for Design
-                typography: { size: sm, color: '#a3a3a3', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }
         - name: layout-column
           properties:
             layout: { horizontalAlign: center, widthMode: "25" }
@@ -299,7 +298,7 @@
             - name: paragraph
               properties:
                 text: Weeks for Delivery
-                typography: { size: sm, color: '#a3a3a3', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }
         - name: layout-column
           properties:
             layout: { horizontalAlign: center, widthMode: "25" }
@@ -312,7 +311,7 @@
             - name: paragraph
               properties:
                 text: Client Satisfaction
-                typography: { size: sm, color: '#a3a3a3', align: center }
+                typography: { size: sm, color: *color-secondary, align: center }
 
     # ============================================
     # START A PROJECT CTA
@@ -353,7 +352,7 @@
                 text: View More Work
                 action: { type: link, value: '#portfolio' }
                 appearance:
-                  background: { color: '#ffffff' }
+                  background: { color: *color-background }
                   padding: { block: md, inline: xl }
                   border: { width: 2, style: solid, color: *color-primary }
                 typography: { color: *color-primary, weight: semibold, size: md }

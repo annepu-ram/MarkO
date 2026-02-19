@@ -3,14 +3,20 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#dc2626'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#fef2f2' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: xs }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: soft
           padding: { block: none, inline: none }
@@ -20,13 +26,13 @@
           properties:
             layout: { horizontalAlign: left, verticalAlign: center, gap: xs, wrap: nowrap }
             appearance:
-              background: { color: '#dc2626' }
+              background: { color: *color-accent }
               padding: { block: xs, inline: sm }
           components:
             - name: eyebrow
               properties:
                 text: LIMITED EDITION
-                typography: { size: xxs, weight: bold, color: '#ffffff', transform: uppercase, letterSpacing: wider }
+                typography: { size: xxs, weight: bold, color: *color-background, transform: uppercase, letterSpacing: wider }
                 spacing: { marginBlock: none }
         - name: image
           properties:
@@ -43,12 +49,12 @@
               properties:
                 text: Air Max Retro X
                 level: 3
-                typography: { size: lg, weight: bold, color: '#111827', align: left }
+                typography: { size: lg, weight: bold, color: *color-primary, align: left }
                 spacing: { marginBlock: none }
             - name: paragraph
               properties:
                 text: Exclusive colorway. Once they're gone, they're gone.
-                typography: { size: sm, color: '#6b7280', align: left }
+                typography: { size: sm, color: *color-secondary, align: left }
                 spacing: { marginBlock: xs }
             - name: layout-row
               properties:
@@ -59,19 +65,19 @@
                   properties:
                     text: "$189.99"
                     level: 4
-                    typography: { size: xl, weight: extrabold, color: '#dc2626', align: left }
+                    typography: { size: xl, weight: extrabold, color: *color-accent, align: left }
                     spacing: { marginBlock: none }
                 - name: caption
                   properties:
                     text: "Only 12 left in stock"
-                    typography: { size: xs, weight: semibold, color: '#dc2626', align: right }
+                    typography: { size: xs, weight: semibold, color: *color-accent, align: right }
                     appearance:
-                      background: { color: '#fef2f2', transparency: 100 }
+                      background: { color: *color-background, transparency: 100 }
                       radius: pill
                       padding: { block: xxs, inline: xs }
             - name: button
               properties:
                 text: Buy Now - Ships Today
-                appearance: { background: { color: '#dc2626' }, radius: md }
-                typography: { color: '#ffffff', weight: bold }
+                appearance: { background: { color: *color-accent }, radius: md }
+                typography: { color: *color-background, weight: bold }
                 layout: { widthMode: stretch }

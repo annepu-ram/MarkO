@@ -1,0 +1,155 @@
+# Icon: Feature Grid
+# Icons paired with headings and descriptions in a grid layout
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#111827'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: WHY CHOOSE US
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Everything You Need
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { marginBlock: lg, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: bolt, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Lightning Fast
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Optimized performance that loads in milliseconds, not seconds.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: shield, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Secure by Default
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Enterprise-grade security with end-to-end encryption built in.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: group, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Team Collaboration
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Real-time collaboration tools for teams of any size.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: cloud, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Cloud Native
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Deploy anywhere with auto-scaling infrastructure.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: palette, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Fully Customizable
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Tailor every aspect to match your brand identity.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: bar_chart, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Analytics Built In
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Track key metrics with detailed dashboards and reports.
+                    typography: { size: sm, color: *color-secondary, align: center }

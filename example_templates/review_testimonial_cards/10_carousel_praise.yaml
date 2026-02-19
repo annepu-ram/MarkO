@@ -3,8 +3,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#a5b4fc'
+        accent: &color-accent '#818cf8'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#0f172a' }
+      background: { color: *color-primary }
   components:
     - name: carousel
       properties:
@@ -41,7 +47,7 @@
                   fit: cover
                   overlay:
                     enabled: true
-                    color: 'rgba(15,23,42,0.75)'
+                    color: *color-primary
                     opacity: 75
                 layout: { widthMode: stretch }
               components:
@@ -56,19 +62,19 @@
                           This is not just software. It's a paradigm shift in how
                           we build digital products. Our team ships 5x faster now.
                         cite: ''
-                        typography: { size: xxl, weight: medium, color: '#ffffff', align: center, lineHeight: "1.6" }
-                        appearance: { border: { accentColor: '#818cf8' }, background: { transparency: 0 } }
+                        typography: { size: xxl, weight: medium, color: *color-background, align: center, lineHeight: "1.6" }
+                        appearance: { border: { accentColor: *color-accent }, background: { transparency: 0 } }
                         layout: { widthMode: "75" }
                     - name: heading
                       properties:
                         text: Amanda Foster
                         level: 4
-                        typography: { size: md, weight: bold, color: '#ffffff', align: center }
+                        typography: { size: md, weight: bold, color: *color-background, align: center }
                         spacing: { marginBlock: none }
                     - name: caption
                       properties:
                         text: VP of Engineering, DataFlow
-                        typography: { size: sm, color: '#a5b4fc', align: center }
+                        typography: { size: sm, color: *color-secondary, align: center }
         - components:
             - name: image
               properties:
@@ -78,7 +84,7 @@
                   fit: cover
                   overlay:
                     enabled: true
-                    color: 'rgba(15,23,42,0.75)'
+                    color: *color-primary
                     opacity: 75
                 layout: { widthMode: stretch }
               components:
@@ -93,19 +99,19 @@
                           We evaluated 15 different platforms. This one won unanimously.
                           The ROI paid for itself in the first month.
                         cite: ''
-                        typography: { size: xxl, weight: medium, color: '#ffffff', align: center, lineHeight: "1.6" }
-                        appearance: { border: { accentColor: '#34d399' }, background: { transparency: 0 } }
+                        typography: { size: xxl, weight: medium, color: *color-background, align: center, lineHeight: "1.6" }
+                        appearance: { border: { accentColor: *color-accent }, background: { transparency: 0 } }
                         layout: { widthMode: "75" }
                     - name: heading
                       properties:
                         text: Marcus Rivera
                         level: 4
-                        typography: { size: md, weight: bold, color: '#ffffff', align: center }
+                        typography: { size: md, weight: bold, color: *color-background, align: center }
                         spacing: { marginBlock: none }
                     - name: caption
                       properties:
                         text: CEO, GreenTech Solutions
-                        typography: { size: sm, color: '#6ee7b7', align: center }
+                        typography: { size: sm, color: *color-secondary, align: center }
         - components:
             - name: image
               properties:
@@ -115,7 +121,7 @@
                   fit: cover
                   overlay:
                     enabled: true
-                    color: 'rgba(15,23,42,0.75)'
+                    color: *color-primary
                     opacity: 75
                 layout: { widthMode: stretch }
               components:
@@ -130,16 +136,16 @@
                           From concept to production in 48 hours. I've never experienced
                           anything like this in 20 years of building products.
                         cite: ''
-                        typography: { size: xxl, weight: medium, color: '#ffffff', align: center, lineHeight: "1.6" }
-                        appearance: { border: { accentColor: '#fbbf24' }, background: { transparency: 0 } }
+                        typography: { size: xxl, weight: medium, color: *color-background, align: center, lineHeight: "1.6" }
+                        appearance: { border: { accentColor: *color-accent }, background: { transparency: 0 } }
                         layout: { widthMode: "75" }
                     - name: heading
                       properties:
                         text: Nina Patel
                         level: 4
-                        typography: { size: md, weight: bold, color: '#ffffff', align: center }
+                        typography: { size: md, weight: bold, color: *color-background, align: center }
                         spacing: { marginBlock: none }
                     - name: caption
                       properties:
                         text: Founder, DesignLab Studio
-                        typography: { size: sm, color: '#fde68a', align: center }
+                        typography: { size: sm, color: *color-secondary, align: center }

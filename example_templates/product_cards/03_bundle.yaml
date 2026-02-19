@@ -3,34 +3,40 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#1e1b4b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#7c3aed'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#faf5ff' }
+      background: { color: *color-background }
   components:
     - name: layout-column
       properties:
         layout: { horizontalAlign: center, gap: sm }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: medium
           padding: { block: lg, inline: lg }
-          border: { width: 2, style: solid, color: '#a78bfa' }
+          border: { width: 2, style: solid, color: *color-accent }
         spacing: { marginBlock: lg, marginInline: lg }
       components:
         - name: eyebrow
           properties:
             text: BUNDLE & SAVE 25%
-            typography: { size: xs, weight: semibold, color: '#7c3aed', transform: uppercase, letterSpacing: wider, align: center }
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
         - name: heading
           properties:
             text: Home Office Starter Kit
             level: 3
-            typography: { size: xl, weight: bold, color: '#1e1b4b', align: center }
+            typography: { size: xl, weight: bold, color: *color-primary, align: center }
             spacing: { marginBlock: sm }
         - name: paragraph
           properties:
             text: Everything you need for the perfect work-from-home setup.
-            typography: { size: sm, color: '#6b7280', align: center }
+            typography: { size: sm, color: *color-secondary, align: center }
         - name: columnsgrid
           properties:
             layout: { columns: 3, gap: md, verticalAlign: center }
@@ -45,11 +51,11 @@
                 - name: caption
                   properties:
                     text: Ergonomic Chair
-                    typography: { size: xs, weight: medium, color: '#374151', align: center }
+                    typography: { size: xs, weight: medium, color: *color-primary, align: center }
                 - name: caption
                   properties:
                     text: "$499"
-                    typography: { size: xs, color: '#9ca3af', align: center }
+                    typography: { size: xs, color: *color-secondary, align: center }
             - components:
                 - name: image
                   properties:
@@ -59,11 +65,11 @@
                 - name: caption
                   properties:
                     text: Standing Desk
-                    typography: { size: xs, weight: medium, color: '#374151', align: center }
+                    typography: { size: xs, weight: medium, color: *color-primary, align: center }
                 - name: caption
                   properties:
                     text: "$699"
-                    typography: { size: xs, color: '#9ca3af', align: center }
+                    typography: { size: xs, color: *color-secondary, align: center }
             - components:
                 - name: image
                   properties:
@@ -73,11 +79,11 @@
                 - name: caption
                   properties:
                     text: Monitor Light Bar
-                    typography: { size: xs, weight: medium, color: '#374151', align: center }
+                    typography: { size: xs, weight: medium, color: *color-primary, align: center }
                 - name: caption
                   properties:
                     text: "$89"
-                    typography: { size: xs, color: '#9ca3af', align: center }
+                    typography: { size: xs, color: *color-secondary, align: center }
         - name: br
           properties:
             size: sm
@@ -89,16 +95,16 @@
             - name: caption
               properties:
                 text: "$1,287"
-                typography: { size: md, color: '#9ca3af', align: center }
+                typography: { size: md, color: *color-secondary, align: center }
             - name: heading
               properties:
                 text: "$965"
                 level: 4
-                typography: { size: xxl, weight: extrabold, color: '#7c3aed', align: center }
+                typography: { size: xxl, weight: extrabold, color: *color-accent, align: center }
                 spacing: { marginBlock: none }
         - name: button
           properties:
             text: Get the Bundle
-            appearance: { background: { color: '#7c3aed' }, radius: md, padding: { block: md, inline: lg } }
-            typography: { color: '#ffffff', weight: bold }
+            appearance: { background: { color: *color-accent }, radius: md, padding: { block: md, inline: lg } }
+            typography: { color: *color-background, weight: bold }
             layout: { widthMode: stretch }

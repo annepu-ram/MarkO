@@ -3,18 +3,24 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f1f5f9' }
+      background: { color: *color-background }
   components:
     - name: layout-row
       properties:
         layout: { horizontalAlign: left, verticalAlign: top, wrap: nowrap, gap: md }
         appearance:
-          background: { color: '#ffffff' }
+          background: { color: *color-background }
           radius: lg
           shadow: soft
           padding: { block: md, inline: md }
-          border: { width: 1, style: solid, color: '#e2e8f0' }
+          border: { width: 1, style: solid, color: *color-secondary }
         spacing: { marginBlock: md, marginInline: lg }
       components:
         - name: image
@@ -37,19 +43,19 @@
                   properties:
                     text: "@rajpatel"
                     level: 4
-                    typography: { size: md, weight: bold, color: '#0f172a', align: left }
+                    typography: { size: md, weight: bold, color: *color-primary, align: left }
                     spacing: { marginBlock: none }
                 - name: caption
                   properties:
                     text: "2 hours ago"
-                    typography: { size: xs, color: '#94a3b8', align: left }
+                    typography: { size: xs, color: *color-secondary, align: left }
             - name: paragraph
               properties:
                 text: |
                   Just shipped our new landing page using @SwiftSites and wow,
                   the conversion rate jumped 40% overnight. This is the real deal.
                   Highly recommended for any startup founder!
-                typography: { size: sm, color: '#334155', lineHeight: "1.7" }
+                typography: { size: sm, color: *color-primary, lineHeight: "1.7" }
                 spacing: { marginBlock: xs }
             - name: layout-row
               properties:
@@ -59,15 +65,15 @@
                 - name: caption
                   properties:
                     text: "142 likes"
-                    typography: { size: xs, color: '#94a3b8' }
+                    typography: { size: xs, color: *color-secondary }
                 - name: caption
                   properties:
                     text: "23 replies"
-                    typography: { size: xs, color: '#94a3b8' }
+                    typography: { size: xs, color: *color-secondary }
                 - name: link
                   properties:
                     text: Reply
                     href: '#'
-                    typography: { size: xs, weight: semibold, color: '#2563eb' }
+                    typography: { size: xs, weight: semibold, color: *color-accent }
                     appearance: { underline: false }
                     spacing: { marginBlock: none }

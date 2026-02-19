@@ -13,6 +13,7 @@ const TRUSTED_ORIGIN = window.location.origin;
 // Track if iframe is ready
 let iframeReady = false;
 let pendingContent = null;
+let pendingFonts = null;
 
 /**
  * Initialize message listener for iframe communication
@@ -44,10 +45,15 @@ function initializeIframeListener() {
                     }, TRUSTED_ORIGIN);
                 }
 
-                // Send any pending content
+                // Send any pending content and fonts
                 if (pendingContent) {
                     sendContentToIframe(pendingContent);
                     pendingContent = null;
+                }
+                if (pendingFonts) {
+                    sendFontsToIframe(pendingFonts);
+                    sendIconFontToIframe(pendingFonts);
+                    pendingFonts = null;
                 }
                 break;
 
@@ -86,6 +92,100 @@ function sendContentToIframe(html) {
     iframe.contentWindow.postMessage({
         type: 'UPDATE_CONTENT',
         html: html
+    }, TRUSTED_ORIGIN);
+}
+
+/**
+ * Extract font family name from CSS font value.
+ * e.g. "'Playfair Display', serif" → "Playfair Display"
+ */
+function extractFontName(cssFontValue) {
+    if (!cssFontValue) return null;
+    const match = cssFontValue.match(/^'([^']+)'/);
+    return match ? match[1] : null;
+}
+
+/**
+ * Send LOAD_FONTS message to iframe so it can inject Google Font links.
+ * Extracts fonts from the parsed YAML structure's page theme.
+ */
+function sendFontsToIframe(structure) {
+    const iframe = document.getElementById('preview-frame');
+    if (!iframe || !iframe.contentWindow) return;
+    if (!structure || !Array.isArray(structure) || structure.length === 0) return;
+
+    const page = structure[0];
+    const fonts = page?.properties?.theme?.fonts;
+    if (!fonts) return;
+
+    const fontNames = [];
+    if (fonts.heading) {
+        const name = extractFontName(fonts.heading);
+        if (name) fontNames.push(name);
+    }
+    if (fonts.content) {
+        const name = extractFontName(fonts.content);
+        if (name) fontNames.push(name);
+    }
+
+    if (fontNames.length > 0) {
+        iframe.contentWindow.postMessage({
+            type: 'LOAD_FONTS',
+            fonts: fontNames
+        }, TRUSTED_ORIGIN);
+    }
+}
+
+/**
+ * Extract all icon component names from YAML structure.
+ * Recursively walks the tree to find every icon component's properties.name.
+ * @param {Array} structure - Parsed YAML structure
+ * @returns {string[]} Unique icon names
+ */
+export function extractIconNames(structure) {
+    const names = new Set();
+
+    function walk(nodes) {
+        if (!Array.isArray(nodes)) return;
+        for (const node of nodes) {
+            if (node.name === 'icon' && node.properties?.name) {
+                names.add(node.properties.name);
+            }
+            if (node.components) walk(node.components);
+            if (node.columns) {
+                for (const col of node.columns) {
+                    if (col.components) walk(col.components);
+                }
+            }
+            if (node.tabs) {
+                for (const tab of node.tabs) {
+                    if (tab.components) walk(tab.components);
+                }
+            }
+            if (node.slides) {
+                for (const slide of node.slides) {
+                    if (slide.components) walk(slide.components);
+                }
+            }
+        }
+    }
+
+    walk(structure);
+    return [...names];
+}
+
+/**
+ * Send LOAD_ICON_FONT message to iframe with only the icon names used in the YAML.
+ * The iframe dynamically loads a Material Symbols font subset via Google Fonts icon_names parameter.
+ */
+function sendIconFontToIframe(structure) {
+    const iframe = document.getElementById('preview-frame');
+    if (!iframe || !iframe.contentWindow) return;
+
+    const iconNames = extractIconNames(structure);
+    iframe.contentWindow.postMessage({
+        type: 'LOAD_ICON_FONT',
+        iconNames: iconNames
     }, TRUSTED_ORIGIN);
 }
 
@@ -248,9 +348,12 @@ export const renderPreview = async (yamlContent, yamlStructure = null) => {
             // Send to iframe via postMessage
             if (iframeReady) {
                 sendContentToIframe(htmlContent);
+                sendFontsToIframe(structure);
+                sendIconFontToIframe(structure);
             } else {
-                // Queue content until iframe is ready
+                // Queue content and fonts until iframe is ready
                 pendingContent = htmlContent;
+                pendingFonts = structure;
             }
         } else {
             // Legacy: Direct DOM update

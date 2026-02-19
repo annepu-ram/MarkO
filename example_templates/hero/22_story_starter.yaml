@@ -3,8 +3,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#000000'
+        secondary: &color-secondary '#e2e8f0'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#000000' }
+      background: { color: *color-primary }
   components:
     - name: carousel
       properties:
@@ -53,16 +59,16 @@
                     - name: eyebrow
                       properties:
                         text: CHAPTER ONE
-                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider, align: center }
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
                     - name: heading
                       properties:
                         text: The Beginning of Something Big
                         level: 1
-                        typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                        typography: { size: xxxl, weight: extrabold, color: *color-background, align: center }
                     - name: paragraph
                       properties:
                         text: Every great journey starts with a single step.
-                        typography: { size: lg, color: '#e2e8f0', align: center }
+                        typography: { size: lg, color: *color-secondary, align: center }
         - components:
             - name: image
               properties:
@@ -84,16 +90,16 @@
                     - name: eyebrow
                       properties:
                         text: CHAPTER TWO
-                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider, align: center }
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
                     - name: heading
                       properties:
                         text: Building Together, Growing Stronger
                         level: 2
-                        typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                        typography: { size: xxxl, weight: extrabold, color: *color-background, align: center }
                     - name: paragraph
                       properties:
                         text: Collaboration is the heartbeat of innovation.
-                        typography: { size: lg, color: '#e2e8f0', align: center }
+                        typography: { size: lg, color: *color-secondary, align: center }
         - components:
             - name: image
               properties:
@@ -115,14 +121,14 @@
                     - name: eyebrow
                       properties:
                         text: CHAPTER THREE
-                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider, align: center }
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
                     - name: heading
                       properties:
                         text: The Future Is Already Here
                         level: 2
-                        typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                        typography: { size: xxxl, weight: extrabold, color: *color-background, align: center }
                     - name: button
                       properties:
                         text: Start Your Story
-                        appearance: { background: { color: '#6366f1' }, radius: pill, padding: { block: md, inline: xl } }
-                        typography: { color: '#ffffff', weight: bold }
+                        appearance: { background: { color: *color-accent }, radius: pill, padding: { block: md, inline: xl } }
+                        typography: { color: *color-background, weight: bold }

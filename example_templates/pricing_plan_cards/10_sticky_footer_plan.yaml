@@ -4,8 +4,14 @@
 
 - name: page
   properties:
+    theme:
+      colors:
+        primary: &color-primary '#0f172a'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
     appearance:
-      background: { color: '#f8fafc' }
+      background: { color: *color-background }
   components:
     # Page content above the footer (sample pricing summary)
     - name: layout-column
@@ -19,11 +25,11 @@
           properties:
             text: "Ready to get started?"
             level: 2
-            typography: { size: xxl, weight: bold, color: '#0f172a', align: center }
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
         - name: paragraph
           properties:
             text: "Join 25,000+ teams already using our platform. Start your 14-day free trial today."
-            typography: { size: md, color: '#475569', align: center }
+            typography: { size: md, color: *color-secondary, align: center }
             spacing: { marginBlock: sm }
         # Feature highlights
         - name: layout-row
@@ -34,17 +40,17 @@
             - name: caption
               properties:
                 text: "No credit card required"
-                typography: { size: sm, color: '#64748b' }
+                typography: { size: sm, color: *color-secondary }
                 layout: { widthMode: fit }
             - name: caption
               properties:
                 text: "Cancel anytime"
-                typography: { size: sm, color: '#64748b' }
+                typography: { size: sm, color: *color-secondary }
                 layout: { widthMode: fit }
             - name: caption
               properties:
                 text: "Full feature access"
-                typography: { size: sm, color: '#64748b' }
+                typography: { size: sm, color: *color-secondary }
                 layout: { widthMode: fit }
 
     # Sticky footer bar
@@ -56,10 +62,10 @@
           gap: md
           wrap: nowrap
         appearance:
-          background: { color: '#0f172a' }
+          background: { color: *color-primary }
           shadow: dramatic
           padding: { block: md, inline: xl }
-          border: { width: 0, style: none, color: '#0f172a' }
+          border: { width: 0, style: none, color: *color-primary }
         spacing: { marginBlock: none, marginInline: none }
       components:
         # Left side: plan summary
@@ -72,19 +78,19 @@
               properties:
                 text: "Pro Plan - $49/mo"
                 level: 4
-                typography: { size: lg, weight: bold, color: '#ffffff' }
+                typography: { size: lg, weight: bold, color: *color-background }
                 spacing: { marginBlock: none }
             - name: caption
               properties:
                 text: "Everything you need to grow. Billed annually."
-                typography: { size: xs, color: '#94a3b8' }
+                typography: { size: xs, color: *color-secondary }
         # Right side: CTA button
         - name: button
           properties:
             text: "Sign Up Now"
             appearance:
-              background: { color: '#3b82f6' }
+              background: { color: *color-accent }
               radius: md
               padding: { block: sm, inline: xl }
-            typography: { color: '#ffffff', weight: bold, size: md }
+            typography: { color: *color-background, weight: bold, size: md }
             layout: { widthMode: fit }

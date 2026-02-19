@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Nunito Sans', sans-serif"
-        headingLevel2: &font-heading-level2 "'Nunito Sans', sans-serif"
+        heading: &font-heading "'Nunito Sans', sans-serif"
         content: &font-content "'Nunito Sans', sans-serif"
       colors:
         primary: &color-primary '#1a1a2e'
@@ -15,7 +14,7 @@
         accent: &color-accent '#e63946'
         background: &color-background '#ffffff'
     spacing: { paddingBlock: none, paddingInline: none }
-    appearance: { background: { color: '#f9fafb' } }
+    appearance: { background: { color: *color-background } }
   components:
 
     # ============================================
@@ -45,7 +44,7 @@
           border: { width: 0, style: solid, color: *color-primary }
         typography:
           title: { size: 22, weight: bold, color: *color-background }
-          menu: { size: 14, weight: medium, color: '#d1d5db' }
+          menu: { size: 14, weight: medium, color: *color-secondary }
 
     # ============================================
     # TIER 2 - SEARCH BAR
@@ -56,7 +55,7 @@
         spacing: { paddingBlock: sm, paddingInline: xl }
         appearance:
           background: { color: *color-background, transparency: 100 }
-          border: { width: 1, style: solid, color: '#e5e7eb' }
+          border: { width: 1, style: solid, color: *color-secondary }
       components:
         - name: form
           properties:
@@ -68,8 +67,8 @@
                 label: { show: false }
                 field: { placeholder: 'Search for products, brands, or categories...' }
                 appearance:
-                  background: { color: '#f3f4f6', transparency: 100 }
-                  border: { width: 1, style: solid, color: '#d1d5db' }
+                  background: { color: *color-background, transparency: 100 }
+                  border: { width: 1, style: solid, color: *color-secondary }
                   radius: md
                   padding: { block: sm, inline: md }
                 typography: { size: md, color: *color-primary }
@@ -90,7 +89,7 @@
       properties:
         layout: { horizontalAlign: space-evenly, align: center, wrap: wrap }
         spacing: { paddingBlock: sm, paddingInline: lg }
-        appearance: { background: { color: '#fef2f2', transparency: 100 } }
+        appearance: { background: { color: *color-background, transparency: 100 } }
       components:
         - name: link
           properties:

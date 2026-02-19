@@ -67,27 +67,91 @@ export const THEME_COLOR_CONFIG = [
     { key: 'background', anchor: 'color-background', label: 'Background' },
 ];
 
-// Font options
-const FONT_OPTIONS = [
-    { value: 'Georgia, serif', label: 'Georgia' },
-    { value: '"Times New Roman", serif', label: 'Times New Roman' },
-    { value: 'Palatino, serif', label: 'Palatino' },
-    { value: 'Arial, sans-serif', label: 'Arial' },
-    { value: 'Helvetica, sans-serif', label: 'Helvetica' },
-    { value: 'Verdana, sans-serif', label: 'Verdana' },
-    { value: '"Trebuchet MS", sans-serif', label: 'Trebuchet MS' },
-    { value: '"Courier New", monospace', label: 'Courier New' },
-    { value: 'system-ui, sans-serif', label: 'System UI' },
+// Shared theme font config — single source of truth for font keys, anchor names, and labels
+export const THEME_FONT_CONFIG = [
+    { key: 'heading', anchor: 'font-heading', label: 'Headings' },
+    { key: 'content', anchor: 'font-content', label: 'Content' },
+];
+
+// Google Fonts catalog organized by category
+const FONT_CATALOG = [
+    // === DISPLAY ===
+    { value: "'Playfair Display', serif",    label: 'Playfair Display',    category: 'Display',      gfontName: 'Playfair Display',    weights: '400;700;900' },
+    { value: "'Bebas Neue', sans-serif",     label: 'Bebas Neue',          category: 'Display',      gfontName: 'Bebas Neue',          weights: '400' },
+    { value: "'Abril Fatface', serif",       label: 'Abril Fatface',       category: 'Display',      gfontName: 'Abril Fatface',       weights: '400' },
+    { value: "'Lobster', cursive",           label: 'Lobster',             category: 'Display',      gfontName: 'Lobster',             weights: '400' },
+    { value: "'Oswald', sans-serif",         label: 'Oswald',              category: 'Display',      gfontName: 'Oswald',              weights: '400;700' },
+    // === PROFESSIONAL ===
+    { value: "'Inter', sans-serif",          label: 'Inter',               category: 'Professional', gfontName: 'Inter',               weights: '300;400;500;600;700' },
+    { value: "'Roboto', sans-serif",         label: 'Roboto',              category: 'Professional', gfontName: 'Roboto',              weights: '300;400;500;700' },
+    { value: "'Open Sans', sans-serif",      label: 'Open Sans',           category: 'Professional', gfontName: 'Open Sans',           weights: '300;400;600;700' },
+    { value: "'Lato', sans-serif",           label: 'Lato',                category: 'Professional', gfontName: 'Lato',                weights: '300;400;700;900' },
+    { value: "'Montserrat', sans-serif",     label: 'Montserrat',          category: 'Professional', gfontName: 'Montserrat',          weights: '300;400;500;600;700' },
+    { value: "'Poppins', sans-serif",        label: 'Poppins',             category: 'Professional', gfontName: 'Poppins',             weights: '300;400;500;600;700' },
+    { value: "'Nunito Sans', sans-serif",    label: 'Nunito Sans',         category: 'Professional', gfontName: 'Nunito Sans',         weights: '300;400;600;700' },
+    { value: "'Source Sans 3', sans-serif",  label: 'Source Sans 3',       category: 'Professional', gfontName: 'Source Sans 3',       weights: '300;400;600;700' },
+    { value: "'Raleway', sans-serif",        label: 'Raleway',             category: 'Professional', gfontName: 'Raleway',             weights: '300;400;500;600;700' },
+    { value: "'Work Sans', sans-serif",      label: 'Work Sans',           category: 'Professional', gfontName: 'Work Sans',           weights: '300;400;500;600;700' },
+    { value: "'Noto Sans', sans-serif",      label: 'Noto Sans',           category: 'Professional', gfontName: 'Noto Sans',           weights: '300;400;500;700' },
+    { value: "'PT Sans', sans-serif",        label: 'PT Sans',             category: 'Professional', gfontName: 'PT Sans',             weights: '400;700' },
+    { value: "'Rubik', sans-serif",          label: 'Rubik',               category: 'Professional', gfontName: 'Rubik',               weights: '300;400;500;700' },
+    { value: "'DM Sans', sans-serif",        label: 'DM Sans',             category: 'Professional', gfontName: 'DM Sans',             weights: '400;500;700' },
+    { value: "'Manrope', sans-serif",        label: 'Manrope',             category: 'Professional', gfontName: 'Manrope',             weights: '300;400;500;600;700' },
+    // === MODERN ===
+    { value: "'Space Grotesk', sans-serif",      label: 'Space Grotesk',      category: 'Modern', gfontName: 'Space Grotesk',      weights: '300;400;500;600;700' },
+    { value: "'Outfit', sans-serif",             label: 'Outfit',             category: 'Modern', gfontName: 'Outfit',             weights: '300;400;500;600;700' },
+    { value: "'Sora', sans-serif",               label: 'Sora',               category: 'Modern', gfontName: 'Sora',               weights: '300;400;500;600;700' },
+    { value: "'Plus Jakarta Sans', sans-serif",  label: 'Plus Jakarta Sans',  category: 'Modern', gfontName: 'Plus Jakarta Sans',  weights: '300;400;500;600;700' },
+    { value: "'IBM Plex Sans', sans-serif",      label: 'IBM Plex Sans',      category: 'Modern', gfontName: 'IBM Plex Sans',      weights: '300;400;500;600;700' },
+    // === RETRO ===
+    { value: "'Merriweather', serif",        label: 'Merriweather',        category: 'Retro', gfontName: 'Merriweather',        weights: '300;400;700;900' },
+    { value: "'Lora', serif",                label: 'Lora',                category: 'Retro', gfontName: 'Lora',                weights: '400;500;600;700' },
+    { value: "'Libre Baskerville', serif",   label: 'Libre Baskerville',   category: 'Retro', gfontName: 'Libre Baskerville',   weights: '400;700' },
+    // === CALLIGRAPHY ===
+    { value: "'Dancing Script', cursive",    label: 'Dancing Script',      category: 'Calligraphy', gfontName: 'Dancing Script', weights: '400;700' },
+    { value: "'Great Vibes', cursive",       label: 'Great Vibes',         category: 'Calligraphy', gfontName: 'Great Vibes',    weights: '400' },
+    { value: "'Sacramento', cursive",        label: 'Sacramento',          category: 'Calligraphy', gfontName: 'Sacramento',     weights: '400' },
 ];
 
 // Current selected state
 let selectedThemeIndex = 0;
 let selectedTheme = { ...COLOR_THEMES[0].colors };
 let selectedFonts = {
-    headingMain: 'Georgia, serif',
-    headingLevel2: 'Helvetica, sans-serif',
-    content: 'Arial, sans-serif'
+    heading: "'Inter', sans-serif",
+    content: "'Inter', sans-serif"
 };
+
+/**
+ * Dynamically load a Google Font into a document <head>
+ */
+function loadGoogleFont(doc, fontFamily, weights = '400;700') {
+    const id = 'gfont-' + fontFamily.replace(/\s+/g, '-').toLowerCase();
+    if (doc.getElementById(id)) return;
+
+    const link = doc.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontFamily)}:wght@${weights}&display=swap`;
+    doc.head.appendChild(link);
+}
+
+/**
+ * Load a font into both parent window and preview iframe
+ */
+function ensureFontLoaded(fontCssValue) {
+    const entry = FONT_CATALOG.find(f => f.value === fontCssValue);
+    if (!entry) return;
+
+    loadGoogleFont(document, entry.gfontName, entry.weights);
+    const iframe = document.getElementById('preview-frame');
+    if (iframe && iframe.contentDocument) {
+        try {
+            loadGoogleFont(iframe.contentDocument, entry.gfontName, entry.weights);
+        } catch (e) {
+            // Cross-origin iframe, will use LOAD_FONTS message instead
+        }
+    }
+}
 
 /**
  * Get current theme from page component if it exists
@@ -119,6 +183,8 @@ export function renderThemesPanel(loadFromYaml = true) {
         if (currentTheme) {
             if (currentTheme.fonts) {
                 selectedFonts = { ...selectedFonts, ...currentTheme.fonts };
+                // Load Google Fonts for current theme fonts
+                Object.values(selectedFonts).forEach(fontValue => ensureFontLoaded(fontValue));
             }
             if (currentTheme.colors) {
                 selectedTheme = { ...selectedTheme, ...currentTheme.colors };
@@ -199,27 +265,35 @@ function renderThemesByCategory() {
 }
 
 /**
- * Render font dropdown rows
+ * Render font dropdown rows with <optgroup> categories and preview text
  */
 function renderFontDropdowns() {
-    const fonts = [
-        { key: 'headingMain', label: 'Main Headings' },
-        { key: 'headingLevel2', label: 'Sub Headings' },
-        { key: 'content', label: 'Content' }
-    ];
+    const categories = [...new Set(FONT_CATALOG.map(f => f.category))];
 
-    return fonts.map(({ key, label }) => `
-        <div class="theme-font-row">
-            <span class="theme-font-label">${label}</span>
-            <select class="theme-font-select" data-font-key="${key}">
-                ${FONT_OPTIONS.map(opt => `
-                    <option value="${opt.value}" ${selectedFonts[key] === opt.value ? 'selected' : ''}>
-                        ${opt.label}
-                    </option>
-                `).join('')}
-            </select>
-        </div>
-    `).join('');
+    return THEME_FONT_CONFIG.map(({ key, label }) => {
+        const currentEntry = FONT_CATALOG.find(f => f.value === selectedFonts[key]);
+        const previewFont = currentEntry ? currentEntry.label : 'The quick brown fox';
+
+        return `
+            <div class="theme-font-row">
+                <span class="theme-font-label">${label}</span>
+                <select class="theme-font-select" data-font-key="${key}">
+                    ${categories.map(cat => `
+                        <optgroup label="${cat}">
+                            ${FONT_CATALOG
+                                .filter(f => f.category === cat)
+                                .map(opt => `
+                                    <option value="${opt.value}" ${selectedFonts[key] === opt.value ? 'selected' : ''}>
+                                        ${opt.label}
+                                    </option>
+                                `).join('')}
+                        </optgroup>
+                    `).join('')}
+                </select>
+                <div class="theme-font-preview" style="font-family: ${selectedFonts[key]}">${previewFont}</div>
+            </div>
+        `;
+    }).join('');
 }
 
 /**
@@ -252,6 +326,15 @@ function attachThemePanelEvents(container, footer) {
         select.addEventListener('change', (e) => {
             const key = e.target.dataset.fontKey;
             selectedFonts[key] = e.target.value;
+            ensureFontLoaded(e.target.value);
+
+            // Update preview text below dropdown
+            const previewEl = e.target.closest('.theme-font-row').querySelector('.theme-font-preview');
+            if (previewEl) {
+                previewEl.style.fontFamily = e.target.value;
+                const entry = FONT_CATALOG.find(f => f.value === e.target.value);
+                previewEl.textContent = entry ? entry.label : 'The quick brown fox';
+            }
         });
     });
 
@@ -333,13 +416,16 @@ export async function applyTheme() {
             pageNode.set('properties', propsNode);
         }
 
+        // Ensure fonts are loaded before render
+        Object.values(selectedFonts).forEach(fontValue => ensureFontLoaded(fontValue));
+
         // Create theme structure with anchored values
+        const fontData = {};
+        for (const fc of THEME_FONT_CONFIG) {
+            fontData[fc.key] = selectedFonts[fc.key];
+        }
         const themeData = {
-            fonts: {
-                headingMain: selectedFonts.headingMain,
-                headingLevel2: selectedFonts.headingLevel2,
-                content: selectedFonts.content
-            },
+            fonts: fontData,
             colors: {
                 primary: selectedTheme.primary,
                 secondary: selectedTheme.secondary,
@@ -362,9 +448,9 @@ export async function applyTheme() {
         // Set anchors on font scalar values
         const fontsNode = themeNode.get('fonts', true);
         if (YAML.isMap(fontsNode)) {
-            setAnchorOnScalar(fontsNode, 'headingMain', 'font-heading-main');
-            setAnchorOnScalar(fontsNode, 'headingLevel2', 'font-heading-level2');
-            setAnchorOnScalar(fontsNode, 'content', 'font-content');
+            for (const fc of THEME_FONT_CONFIG) {
+                setAnchorOnScalar(fontsNode, fc.key, fc.anchor);
+            }
         }
 
         // Set theme on page properties

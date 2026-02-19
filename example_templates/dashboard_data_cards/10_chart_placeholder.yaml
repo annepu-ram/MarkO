@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'Inter', sans-serif"
-        headingLevel2: &font-heading-level2 "'Inter', sans-serif"
+        heading: &font-heading "'Inter', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
@@ -29,7 +28,7 @@
           paddingInline: lg
         appearance:
           background:
-            color: '#ffffff'
+            color: *color-background
             transparency: 100
           borderRadius: md
           shadow: soft
@@ -62,14 +61,14 @@
                 typography:
                   size: xxs
                   weight: bold
-                  color: '#16a34a'
+                  color: *color-accent
                   letterSpacing: wider
                 spacing:
                   paddingBlock: xxs
                   paddingInline: xs
                 appearance:
                   background:
-                    color: '#dcfce7'
+                    color: *color-background
                     transparency: 100
                   borderRadius: pill
 
@@ -119,14 +118,14 @@
                         typography:
                           size: xxl
                           weight: extrabold
-                          color: '#ffffff'
+                          color: *color-background
                     - name: paragraph
                       properties:
                         text: "Total revenue this quarter"
                         typography:
                           size: sm
                           weight: regular
-                          color: '#94a3b8'
+                          color: *color-secondary
 
                 - name: layout-column
                   properties:
@@ -141,14 +140,14 @@
                         typography:
                           size: md
                           weight: bold
-                          color: '#4ade80'
+                          color: *color-accent
                     - name: caption
                       properties:
                         text: vs last quarter
                         typography:
                           size: xxs
                           weight: regular
-                          color: '#94a3b8'
+                          color: *color-secondary
                           align: right
 
         - name: caption

@@ -1,3 +1,24 @@
+/* === Page-Level Font Theme (CSS variable cascade) === */
+/* Scoped to .page to avoid clashing with App UI class names */
+/* Heading fonts from page theme */
+.page .heading,
+.page .text-eyebrow {
+    font-family: var(--font-heading, inherit);
+}
+
+/* Content fonts from page theme */
+.page .paragraph,
+.page .text-caption,
+.page .text-blockquote,
+.page .link {
+    font-family: var(--font-content, inherit);
+}
+
+/* Titlebar title uses heading font */
+.page .titlebar .titlebar-title {
+    font-family: var(--font-heading, inherit);
+}
+
 /* Layout Components - Two-level wrapper structure */
 .layout-row,
 .layout-column {
@@ -174,22 +195,43 @@ etc.
 }
 /* --- Custom Tabs Component --- */
 .tabs {
-  display: flex;
-  flex-wrap: wrap;
   position: relative;
   gap: var(--tabs-gap, var(--spacing-none, 0));
   margin-block: var(--tabs-margin-block, var(--spacing-md, 2rem));
   margin-inline: var(--tabs-margin-inline, var(--spacing-none, 0));
 }
 
-.tabs input[type="radio"] {
+/* Tabs navigation - scrollable label row */
+.tabs-nav {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.tabs-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tabs-nav::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.tabs-nav::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+.tabs-nav input[type="radio"] {
   display: none;
 }
 
-.tabs label {
+.tabs-nav label {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   position: relative;
+  flex-shrink: 0;
+  white-space: nowrap;
   padding: var(--tabs-label-padding-block, 0.8rem) var(--tabs-label-padding-inline, 1.6rem);
   font-size: var(--tabs-label-font-size, var(--font-size-md, 1.8rem));
   font-weight: var(--tabs-label-font-weight, var(--font-weight-semibold, 600));
@@ -198,41 +240,41 @@ etc.
   border: none;
 }
 
-/* Border position handling - use border shorthand to avoid trapezoid effect from mitered corners */
-.tabs label[data-border-position="upper"] {
+/* Border position handling */
+.tabs-nav label[data-border-position="upper"] {
   border-top: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
 }
 
-.tabs label[data-border-position="lower"] {
+.tabs-nav label[data-border-position="lower"] {
   border-bottom: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
 }
 
-.tabs label[data-border-position="full"] {
+.tabs-nav label[data-border-position="full"] {
   border: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
 }
 
-.tabs input[type="radio"]:checked + label {
+/* Active label styles (checked radio) */
+.tabs-nav input[type="radio"]:checked + label {
   background-color: var(--tabs-label-bg-active, var(--tabs-active-bg, #ffffff)) !important;
   color: var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
 }
 
-.tabs input[type="radio"]:checked + label[data-border-position="upper"] {
+.tabs-nav input[type="radio"]:checked + label[data-border-position="upper"] {
   border-top: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
 }
 
-.tabs input[type="radio"]:checked + label[data-border-position="lower"] {
+.tabs-nav input[type="radio"]:checked + label[data-border-position="lower"] {
   border-bottom: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
 }
 
-.tabs input[type="radio"]:checked + label[data-border-position="full"] {
+.tabs-nav input[type="radio"]:checked + label[data-border-position="full"] {
   border: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-active, var(--tabs-active-color, #000000)) !important;
 }
 
-.tabs .content {
-  order: 99;
-  flex-grow: 1;
-  width: 100%;
+/* Tab content panels */
+.tabs .tab-content {
   display: none;
+  width: 100%;
   animation: fadeIn 0.3s ease-in-out;
   background-color: var(--tabs-content-bg, #ffffff);
   border: var(--tabs-content-border-width, 1px) var(--tabs-content-border-style, solid) var(--tabs-content-border-color, #d1d5db);
@@ -240,47 +282,37 @@ etc.
   padding-inline: var(--tabs-content-padding-inline, var(--spacing-md, 2rem));
 }
 
-.tabs input[type="radio"]:checked + label + .content {
+.tabs .tab-content.active {
   display: block;
 }
 
-/* Vertical orientation support */
+/* Vertical orientation - nav becomes a sidebar column */
 .tabs[data-orientation="vertical"] {
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
 }
 
-.tabs[data-orientation="vertical"] label {
-  writing-mode: horizontal-tb;
-  flex-shrink: 0;
+.tabs[data-orientation="vertical"] .tabs-nav {
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.tabs[data-orientation="vertical"] .content {
-  order: initial;
-  flex-grow: 1;
+.tabs[data-orientation="vertical"] .tabs-nav label {
+  width: 100%;
+  text-align: left;
+  white-space: normal;
+}
+
+.tabs[data-orientation="vertical"] .tab-content {
+  min-height: 200px;
 }
 
 /* Animation */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-/* Tabs Responsive - Auto vertical on narrow screens */
-@media (max-width: 480px) {
-    .tabs[data-orientation="horizontal"] {
-        flex-direction: column;
-    }
-
-    .tabs[data-orientation="horizontal"] label {
-        width: 100%;
-        text-align: center;
-    }
-
-    .tabs label {
-        padding: clamp(0.6rem, 0.5rem + 0.5vw, 0.8rem) clamp(1rem, 0.8rem + 0.75vw, 1.6rem);
-        font-size: var(--tabs-label-font-size, clamp(1rem, 0.9rem + 0.5vw, 1.8rem));
-    }
 }
 
 /* --- Custom Accordion --- */
@@ -1447,12 +1479,16 @@ a.link-arrow:hover::after {
     right: 1rem;
 }
 
-/* Break Component */
+/* Break / Divider Component */
 .comp-br {
-    margin: 0.5rem 0;
-    width: 100%;
-    border-bottom: 1px dashed #ccc;
     position: relative;
+}
+.comp-br--wave svg,
+.comp-br--slant svg {
+    display: block;
+}
+.comp-br--vertical {
+    display: inline-block;
 }
 
 /* Hamburger Menu (standalone component, different from titlebar hamburger) */
@@ -1474,6 +1510,71 @@ a.link-arrow:hover::after {
 
 .hamburger-menu .mobile-menu-button:hover {
     background: #e5e7eb;
+}
+
+/* ===================================
+   TICKER COMPONENT
+   =================================== */
+
+.ticker {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.ticker-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+}
+
+.ticker-item {
+    flex-shrink: 0;
+    /* Width set by CSS clamp() via data-width-mode attribute on
+       parent .ticker element. Responsive pixel sizes scale with
+       viewport. Default (fit) = content-sized, no explicit width. */
+}
+
+/* Ticker item widths — CSS clamp() for responsive sizing */
+.ticker[data-width-mode="120"] .ticker-item { width: clamp(80px, 12vw, 120px); }
+.ticker[data-width-mode="200"] .ticker-item { width: clamp(120px, 18vw, 200px); }
+.ticker[data-width-mode="280"] .ticker-item { width: clamp(180px, 24vw, 280px); }
+.ticker[data-width-mode="360"] .ticker-item { width: clamp(240px, 30vw, 360px); }
+.ticker[data-width-mode="480"] .ticker-item { width: clamp(300px, 38vw, 480px); }
+
+/* Continuous mode: CSS animation for GPU-accelerated scrolling */
+.ticker[data-mode="continuous"] .ticker-track {
+    animation-name: ticker-scroll;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+}
+
+/* Direction: left = items scroll right-to-left (default) */
+.ticker[data-direction="left"] .ticker-track {
+    animation-direction: normal;
+}
+
+/* Direction: right = items scroll left-to-right */
+.ticker[data-direction="right"] .ticker-track {
+    animation-direction: reverse;
+}
+
+/* Pause on hover */
+.ticker[data-pause-on-hover="true"]:hover .ticker-track {
+    animation-play-state: paused;
+}
+
+/* Step mode: transitions controlled by JS */
+.ticker[data-mode="step"] .ticker-track {
+    transition: transform 0.6s ease-in-out;
+}
+
+@keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(var(--ticker-offset, -50%)); }
 }
 
 /* =====================================================
@@ -1803,4 +1904,62 @@ a.link-arrow:hover::after {
         padding: var(--spacing-sm, 1rem) !important;
     }
 }
+
+/* =====================================================
+   MARKETING COMPONENTS
+   ===================================================== */
+
+/* Icon Component */
+.comp-icon svg {
+    display: block;
+}
+
+/* Badge Component */
+.badge {
+    font-size: 0.85em;
+}
+
+/* Rating Component */
+.rating {
+    line-height: 1;
+}
+.rating-icon {
+    display: block;
+}
+
+/* Progress Bar Component */
+.progress-bar {
+    overflow: hidden;
+}
+.progress-bar__fill {
+    transition: width 0.6s ease;
+}
+
+/* Counter-Up Component */
+.counter-up {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Countdown Component */
+.countdown {
+    font-variant-numeric: tabular-nums;
+}
+.countdown__segment {
+    text-align: center;
+}
+.countdown__number {
+    display: block;
+}
+.countdown__label {
+    display: block;
+    font-size: 0.6em;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.countdown__separator {
+    align-self: flex-start;
+    padding-top: 0.1em;
+}
+
 

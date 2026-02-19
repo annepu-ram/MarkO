@@ -6,8 +6,7 @@
   properties:
     theme:
       fonts:
-        headingMain: &font-heading-main "'DM Sans', sans-serif"
-        headingLevel2: &font-heading-level2 "'DM Sans', sans-serif"
+        heading: &font-heading "'DM Sans', sans-serif"
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
@@ -80,23 +79,23 @@
                     - name: eyebrow
                       properties:
                         text: BRAND IDENTITY
-                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider }
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
                     - name: heading
                       properties:
                         text: Luminary Studios
                         level: 3
-                        typography: { size: xl, weight: bold, color: '#ffffff' }
+                        typography: { size: xl, weight: bold, color: *color-background }
                         spacing: { marginBlock: xs }
                     - name: paragraph
                       properties:
                         text: Complete brand overhaul including logo design, color system, and visual identity guidelines for a creative agency.
-                        typography: { size: sm, color: '#e2e8f0' }
+                        typography: { size: sm, color: *color-secondary }
                         spacing: { marginBlock: sm }
                     - name: link
                       properties:
                         text: View Case Study
                         href: '#luminary'
-                        appearance: { color: '#a5b4fc', underline: false, showArrow: true }
+                        appearance: { color: *color-accent, underline: false, showArrow: true }
 
         # Card 2 - Web App Design
         - components:
@@ -125,23 +124,23 @@
                     - name: eyebrow
                       properties:
                         text: WEB APPLICATION
-                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider }
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
                     - name: heading
                       properties:
                         text: DataPulse Analytics
                         level: 3
-                        typography: { size: xl, weight: bold, color: '#ffffff' }
+                        typography: { size: xl, weight: bold, color: *color-background }
                         spacing: { marginBlock: xs }
                     - name: paragraph
                       properties:
                         text: Real-time analytics dashboard with intuitive data visualization, custom reporting, and collaborative features.
-                        typography: { size: sm, color: '#e2e8f0' }
+                        typography: { size: sm, color: *color-secondary }
                         spacing: { marginBlock: sm }
                     - name: link
                       properties:
                         text: View Case Study
                         href: '#datapulse'
-                        appearance: { color: '#a5b4fc', underline: false, showArrow: true }
+                        appearance: { color: *color-accent, underline: false, showArrow: true }
 
         # Card 3 - Photography Project
         - components:
@@ -170,20 +169,20 @@
                     - name: eyebrow
                       properties:
                         text: PHOTOGRAPHY
-                        typography: { size: xs, weight: semibold, color: '#a5b4fc', transform: uppercase, letterSpacing: wider }
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
                     - name: heading
                       properties:
                         text: Urban Horizons
                         level: 3
-                        typography: { size: xl, weight: bold, color: '#ffffff' }
+                        typography: { size: xl, weight: bold, color: *color-background }
                         spacing: { marginBlock: xs }
                     - name: paragraph
                       properties:
                         text: Cinematic urban photography series exploring light, shadow, and architecture across major world cities.
-                        typography: { size: sm, color: '#e2e8f0' }
+                        typography: { size: sm, color: *color-secondary }
                         spacing: { marginBlock: sm }
                     - name: link
                       properties:
                         text: View Case Study
                         href: '#urban'
-                        appearance: { color: '#a5b4fc', underline: false, showArrow: true }
+                        appearance: { color: *color-accent, underline: false, showArrow: true }
