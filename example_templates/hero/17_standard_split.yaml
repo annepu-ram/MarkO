@@ -1,140 +1,95 @@
 # Hero Card Variant: The Standard Split
 # layout-row with layout-column (Text) and image
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, button, image
+# Section type: hero
+# Layout: split_screen
+# Visual style: modern
+# Perfect for: SaaS products, startups, landing pages, general purpose
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#4b5563'
         accent: &color-accent '#6366f1'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: lg}
+      spacing: {paddingBlock: xxl, paddingInline: xl}
+      appearance:
+        background: {color: *color-background}
+    components:
+    - name: layout-column
       properties:
-        layout:
-          {
-            horizontalAlign: space-evenly,
-            verticalAlign: center,
-            wrap: nowrap,
-            gap: lg
-          }
-        spacing: { paddingBlock: xxl, paddingInline: xl }
+        layout: {horizontalAlign: left, widthMode: "50", gap: md}
         appearance:
-          background: { color: *color-background }
+          background: {color: *color-background, transparency: 0}
       components:
-        - name: layout-column
+      - name: eyebrow
+        properties:
+          text: WELCOME TO OUR PLATFORM
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Build Something Amazing Today
+          level: 1
+          typography: {size: xxxl, weight: extrabold, color: *color-primary, align: left, letterSpacing: tight}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: |
+            Create beautiful, responsive websites in minutes.
+            Our platform gives you everything you need to bring your vision to life.
+          typography: {size: md, color: *color-secondary, align: left, lineHeight: "1.7"}
+          spacing: {marginBlock: md}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: center, verticalAlign: center, gap: none, wrap: wrap, tag: section}
+          appearance: {background: {transparency: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-primary}, radius: none, shadow: none, shadowColor: *color-primary}
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: xs
+            paddingInline: none
+        components:
+        - name: button
           properties:
-            layout: { horizontalAlign: left, widthMode: "50", gap: md }
-            appearance:
-              background: { color: *color-background, transparency: 0 }
-          components:
-            - name: eyebrow
-              properties:
-                text: WELCOME TO OUR PLATFORM
-                typography:
-                  {
-                    size: xs,
-                    weight: semibold,
-                    color: *color-accent,
-                    transform: uppercase,
-                    letterSpacing: wider
-                  }
-            - name: heading
-              properties:
-                text: Build Something Amazing Today
-                level: 1
-                typography:
-                  {
-                    size: xxxl,
-                    weight: extrabold,
-                    color: *color-primary,
-                    align: left,
-                    letterSpacing: tight
-                  }
-                spacing: { marginBlock: sm }
-            - name: paragraph
-              properties:
-                text: |
-                  Create beautiful, responsive websites in minutes.
-                  Our platform gives you everything you need to bring your vision to life.
-                typography: { size: md, color: *color-secondary, align: left, lineHeight: "1.7" }
-                spacing: { marginBlock: md }
-            - name: layout-row
-              properties:
-                layout:
-                  {
-                    horizontalAlign: center,
-                    verticalAlign: center,
-                    gap: none,
-                    wrap: wrap,
-                    tag: section
-                  }
-                appearance:
-                  {
-                    background: { transparency: 0, type: "", color: *color-background },
-                    padding: { block: xs, inline: none },
-                    border: { width: 0, style: solid, color: *color-primary },
-                    radius: none,
-                    shadow: none,
-                    shadowColor: *color-primary
-                  }
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-              components:
-                - name: button
-                  properties:
-                    text: Get Started Free
-                    appearance:
-                      {
-                        background: { color: *color-accent, type: "", transparency: 100 },
-                        radius: md,
-                        border: { width: 1, style: solid, color: *color-accent },
-                        shadow: none,
-                        shadowColor: *color-primary,
-                        padding: { block: sm, inline: sm },
-                        iconPlacement: none
-                      }
-                    typography: { color: *color-background, weight: semibold }
-                    action:
-                      type: inlineScript
-                      value: alert("Clicked!")
-                    layout:
-                      widthMode: "50"
-                    spacing:
-                      marginBlock: sm
-                      marginInline: xs
-                - name: button
-                  properties:
-                    text: Watch Demo
-                    appearance:
-                      {
-                        background: { color: *color-background, type: "", transparency: 100 },
-                        border: { width: 2, style: solid, color: *color-accent },
-                        radius: md,
-                        shadow: none,
-                        shadowColor: *color-primary,
-                        padding: { block: sm, inline: sm },
-                        iconPlacement: none
-                      }
-                    typography: { color: *color-accent, weight: semibold }
-                    action:
-                      type: inlineScript
-                      value: alert("Clicked!")
-                    layout:
-                      widthMode: fit
-                    spacing:
-                      marginBlock: sm
-                      marginInline: xs
-        - name: image
+            text: Get Started Free
+            appearance: {background: {color: *color-accent, type: "", transparency: 100}, radius: md, border: {width: 1, style: solid, color: *color-accent}, shadow: none, shadowColor: *color-primary, iconPlacement: none}
+            typography: {color: *color-background, weight: semibold}
+            action:
+              type: inlineScript
+              value: alert("Clicked!")
+            layout:
+              widthMode: "50"
+            spacing:
+              marginBlock: sm
+              marginInline: xs
+              paddingBlock: sm
+              paddingInline: sm
+        - name: button
           properties:
-            source:
-              {
-                url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800',
-                altText: 'Person working on laptop'
-              }
-            appearance: { minHeight: 25, fit: cover, cornerStyle: lg, shadow: elevated }
-            layout: { widthMode: "50" }
+            text: Watch Demo
+            appearance: {background: {color: *color-background, type: "", transparency: 100}, border: {width: 2, style: solid, color: *color-accent}, radius: md, shadow: none, shadowColor: *color-primary, iconPlacement: none}
+            typography: {color: *color-accent, weight: semibold}
+            action:
+              type: inlineScript
+              value: alert("Clicked!")
+            layout:
+              widthMode: fit
+            spacing:
+              marginBlock: sm
+              marginInline: xs
+              paddingBlock: sm
+              paddingInline: sm
+    - name: image
+      properties:
+        source: {url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800', altText: 'Person working on laptop'}
+        appearance: {minHeight: 25, fit: cover, cornerStyle: lg, shadow: elevated}
+        layout: {widthMode: "50"}

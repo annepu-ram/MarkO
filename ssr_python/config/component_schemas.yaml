@@ -1,5 +1,22 @@
+site:
+  groups: []
 page:
   groups:
+  - id: meta
+    label: Meta
+    fields:
+    - path: id
+      type: text
+      label: Page ID
+      placeholder: page-1
+    - path: slug
+      type: text
+      label: Slug
+      placeholder: home
+    - path: title
+      type: text
+      label: Page Title
+      placeholder: My Website
   - id: background
     label: Background
     fields:
@@ -50,11 +67,11 @@ page:
   - id: spacing
     label: Spacing
     fields:
-    - path: appearance.padding.block
+    - path: spacing.paddingBlock
       type: select
       label: Padding (Top+Bottom)
       tokens: spacingScale
-    - path: appearance.padding.inline
+    - path: spacing.paddingInline
       type: select
       label: Padding (Left+Right)
       tokens: spacingScale
@@ -95,7 +112,6 @@ layout-row:
       - center
       - bottom
       - stretch
-      - baseline
     - path: layout.wrap
       type: select
       label: Wrap Children
@@ -109,6 +125,14 @@ layout-row:
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -194,14 +218,6 @@ layout-row:
     - path: appearance.shadowColor
       type: color
       label: Shadow Color
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
 layout-column:
   groups:
   - id: layout
@@ -225,6 +241,8 @@ layout-column:
           label: Center
         - value: right
           label: Right
+        - value: stretch
+          label: Stretch
     - path: layout.verticalAlign
       type: select
       label: Vertical Align
@@ -258,6 +276,14 @@ layout-column:
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -343,14 +369,6 @@ layout-column:
     - path: appearance.shadowColor
       type: color
       label: Shadow Color
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
 columnsgrid:
   groups:
   - id: layout
@@ -393,14 +411,6 @@ columnsgrid:
   - id: appearance
     label: Appearance
     fields:
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
     - path: appearance.shadow
       type: select
       label: Shadow
@@ -427,9 +437,23 @@ columnsgrid:
       type: select
       label: Column Border Radius
       tokens: borderRadiusScale
+    - path: appearance.columnBorder.width
+      type: number
+      label: Column Border Width (px)
+    - path: appearance.columnBorder.color
+      type: color
+      label: Column Border Color
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -607,6 +631,18 @@ heading:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+    - path: typography.fontStyle
+      type: select
+      label: Font Style
+      options: [normal, italic]
+    - path: typography.textDecoration
+      type: select
+      label: Decoration
+      options:
+        - { value: none, label: None }
+        - { value: underline, label: Underline }
+        - { value: line-through, label: Strikethrough }
+        - { value: underline line-through, label: Both }
   - id: layout
     label: Layout
     fields:
@@ -658,21 +694,17 @@ heading:
       showWhen:
         field: appearance.background.type
         value: gradient
-    - path: appearance.radius
-      type: select
-      label: Border Radius
-      tokens: borderRadiusScale
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -723,6 +755,18 @@ paragraph:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+    - path: typography.fontStyle
+      type: select
+      label: Font Style
+      options: [normal, italic]
+    - path: typography.textDecoration
+      type: select
+      label: Decoration
+      options:
+        - { value: none, label: None }
+        - { value: underline, label: Underline }
+        - { value: line-through, label: Strikethrough }
+        - { value: underline line-through, label: Both }
   - id: layout
     label: Layout
     fields:
@@ -774,21 +818,17 @@ paragraph:
       showWhen:
         field: appearance.background.type
         value: gradient
-    - path: appearance.radius
-      type: select
-      label: Border Radius
-      tokens: borderRadiusScale
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -839,6 +879,18 @@ eyebrow:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+    - path: typography.fontStyle
+      type: select
+      label: Font Style
+      options: [normal, italic]
+    - path: typography.textDecoration
+      type: select
+      label: Decoration
+      options:
+        - { value: none, label: None }
+        - { value: underline, label: Underline }
+        - { value: line-through, label: Strikethrough }
+        - { value: underline line-through, label: Both }
   - id: layout
     label: Layout
     fields:
@@ -890,21 +942,17 @@ eyebrow:
       showWhen:
         field: appearance.background.type
         value: gradient
-    - path: appearance.radius
-      type: select
-      label: Border Radius
-      tokens: borderRadiusScale
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -958,6 +1006,18 @@ blockquote:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+    - path: typography.fontStyle
+      type: select
+      label: Font Style
+      options: [normal, italic]
+    - path: typography.textDecoration
+      type: select
+      label: Decoration
+      options:
+        - { value: none, label: None }
+        - { value: underline, label: Underline }
+        - { value: line-through, label: Strikethrough }
+        - { value: underline line-through, label: Both }
   - id: layout
     label: Layout
     fields:
@@ -1012,18 +1072,6 @@ blockquote:
       showWhen:
         field: appearance.background.type
         value: gradient
-    - path: appearance.radius
-      type: select
-      label: Border Radius
-      tokens: borderRadiusScale
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
     - path: appearance.shadow
       type: select
       label: Shadow
@@ -1034,6 +1082,14 @@ blockquote:
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -1084,6 +1140,18 @@ caption:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+    - path: typography.fontStyle
+      type: select
+      label: Font Style
+      options: [normal, italic]
+    - path: typography.textDecoration
+      type: select
+      label: Decoration
+      options:
+        - { value: none, label: None }
+        - { value: underline, label: Underline }
+        - { value: line-through, label: Strikethrough }
+        - { value: underline line-through, label: Both }
   - id: layout
     label: Layout
     fields:
@@ -1135,21 +1203,17 @@ caption:
       showWhen:
         field: appearance.background.type
         value: gradient
-    - path: appearance.radius
-      type: select
-      label: Border Radius
-      tokens: borderRadiusScale
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -1205,6 +1269,12 @@ image:
       type: select
       label: Corners
       tokens: borderRadiusScale
+    - path: appearance.border.width
+      type: number
+      label: Border Width (px)
+    - path: appearance.border.color
+      type: color
+      label: Border Color
     - path: appearance.minHeight
       type: number
       label: Min Height (rem)
@@ -1233,14 +1303,6 @@ image:
     - path: appearance.lazy
       type: checkbox
       label: Lazy Load
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
     - path: appearance.overlay.enabled
       type: checkbox
       label: Enable Overlay
@@ -1256,6 +1318,14 @@ image:
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -1367,6 +1437,12 @@ gif:
       type: select
       label: Corners
       tokens: borderRadiusScale
+    - path: appearance.border.width
+      type: number
+      label: Border Width (px)
+    - path: appearance.border.color
+      type: color
+      label: Border Color
     - path: appearance.minHeight
       type: number
       label: Min Height (rem)
@@ -1395,14 +1471,6 @@ gif:
     - path: appearance.lazy
       type: checkbox
       label: Lazy Load
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
     - path: appearance.overlay.enabled
       type: checkbox
       label: Enable Overlay
@@ -1418,6 +1486,14 @@ gif:
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -1437,10 +1513,6 @@ textbox:
     - path: label.show
       type: checkbox
       label: Show Label
-    - path: label.typography.size
-      type: select
-      label: Label Size
-      tokens: typographySizes
     - path: label.typography.weight
       type: select
       label: Label Weight
@@ -1451,104 +1523,53 @@ textbox:
   - id: field
     label: Field
     fields:
+    - path: field.name
+      type: text
+      label: Field Name
     - path: field.placeholder
       type: text
       label: Placeholder
     - path: field.initialValue
       type: text
       label: Initial Value
+    - path: field.validation
+      type: select
+      label: Validation
+      options:
+      - value: none
+        label: None
+      - value: email
+        label: Email
+      - value: phone
+        label: Phone Number
+      - value: zipCode
+        label: Zip Code
+      - value: url
+        label: URL
+      - value: password
+        label: Password
+      - value: creditCard
+        label: Credit Card
+      - value: lettersOnly
+        label: Letters Only
+      - value: alphanumeric
+        label: Alphanumeric
     - path: field.helperText
       type: text
       label: Helper Text
     - path: field.required
       type: checkbox
       label: Required
-  - id: typography
-    label: Typography
-    fields:
-    - path: typography.size
-      type: select
-      label: Font Size
-      tokens: typographySizes
-    - path: typography.weight
-      type: select
-      label: Weight
-      tokens: fontWeights
-    - path: typography.color
-      type: color
-      label: Text Color
-  - id: layout
-    label: Layout
-    fields:
-    - path: layout.widthMode
-      type: select
-      label: Width
-      tokens: widthPercentages
   - id: appearance
     label: Appearance
     fields:
-    - path: appearance.background.type
+    - path: appearance.size
       type: select
-      label: Background Type
-      options:
-        - color
-        - gradient
-    - path: appearance.background.color
+      label: Size
+      tokens: typographySizes
+    - path: appearance.accentColor
       type: color
-      label: Background Color
-      showWhen:
-        field: appearance.background.type
-        value: color
-    - path: appearance.background.transparency
-      type: range
-      label: Background Transparency
-      min: 0
-      max: 100
-      unit: '%'
-    - path: appearance.background.gradient.colorStart
-      type: color
-      label: Gradient Start
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.background.gradient.colorEnd
-      type: color
-      label: Gradient End
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.background.gradient.direction
-      type: select
-      label: Gradient Direction
-      options:
-        - to right
-        - to bottom
-        - to bottom right
-        - to top right
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.border.width
-      type: number
-      label: Border Width (px)
-    - path: appearance.border.color
-      type: color
-      label: Border Color
-    - path: appearance.radius
-      type: select
-      label: Border Radius
-      tokens: borderRadiusScale
-  - id: spacing
-    label: Spacing
-    fields:
-    - path: spacing.marginBlock
-      type: select
-      label: Margin (Top+Bottom)
-      tokens: spacingScale
-    - path: spacing.marginInline
-      type: select
-      label: Margin (Left+Right)
-      tokens: spacingScale
+      label: Focus Accent Color
 textarea:
   groups:
   - id: label
@@ -1560,9 +1581,19 @@ textarea:
     - path: label.show
       type: checkbox
       label: Show Label
+    - path: label.typography.weight
+      type: select
+      label: Label Weight
+      tokens: fontWeights
+    - path: label.typography.color
+      type: color
+      label: Label Color
   - id: field
     label: Field
     fields:
+    - path: field.name
+      type: text
+      label: Field Name
     - path: field.placeholder
       type: text
       label: Placeholder
@@ -1570,99 +1601,23 @@ textarea:
       type: number
       label: Rows
       min: 2
-      max: 12
+      max: 20
     - path: field.helperText
       type: text
       label: Helper Text
     - path: field.required
       type: checkbox
       label: Required
-  - id: typography
-    label: Typography
-    fields:
-    - path: typography.size
-      type: select
-      label: Font Size
-      tokens: typographySizes
-    - path: typography.weight
-      type: select
-      label: Weight
-      tokens: fontWeights
-    - path: typography.color
-      type: color
-      label: Text Color
-  - id: layout
-    label: Layout
-    fields:
-    - path: layout.widthMode
-      type: select
-      label: Width
-      tokens: widthPercentages
   - id: appearance
     label: Appearance
     fields:
-    - path: appearance.background.type
+    - path: appearance.size
       type: select
-      label: Background Type
-      options:
-        - color
-        - gradient
-    - path: appearance.background.color
+      label: Size
+      tokens: typographySizes
+    - path: appearance.accentColor
       type: color
-      label: Background Color
-      showWhen:
-        field: appearance.background.type
-        value: color
-    - path: appearance.background.transparency
-      type: range
-      label: Background Transparency
-      min: 0
-      max: 100
-      unit: '%'
-    - path: appearance.background.gradient.colorStart
-      type: color
-      label: Gradient Start
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.background.gradient.colorEnd
-      type: color
-      label: Gradient End
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.background.gradient.direction
-      type: select
-      label: Gradient Direction
-      options:
-        - to right
-        - to bottom
-        - to bottom right
-        - to top right
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.border.width
-      type: number
-      label: Border Width (px)
-    - path: appearance.border.color
-      type: color
-      label: Border Color
-    - path: appearance.radius
-      type: select
-      label: Border Radius
-      tokens: borderRadiusScale
-  - id: spacing
-    label: Spacing
-    fields:
-    - path: spacing.marginBlock
-      type: select
-      label: Margin (Top+Bottom)
-      tokens: spacingScale
-    - path: spacing.marginInline
-      type: select
-      label: Margin (Left+Right)
-      tokens: spacingScale
+      label: Focus Accent Color
 button:
   groups:
   - id: content
@@ -1777,14 +1732,6 @@ button:
     - path: appearance.shadowColor
       type: color
       label: Shadow Color
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
     - path: appearance.iconPlacement
       type: select
       label: Icon Placement
@@ -1795,6 +1742,14 @@ button:
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -1814,103 +1769,6 @@ dropdown:
     - path: label.show
       type: checkbox
       label: Show Label
-  - id: field
-    label: Field
-    fields:
-    - path: field.placeholder
-      type: text
-      label: Placeholder
-    - path: field.selected
-      type: text
-      label: Default Value
-    - path: field.options
-      type: textarea
-      label: Options (one per line)
-      rows: 4
-  - id: appearance
-    label: Appearance
-    fields:
-    - path: appearance.background.type
-      type: select
-      label: Background Type
-      options:
-        - color
-        - gradient
-    - path: appearance.background.color
-      type: color
-      label: Background Color
-      showWhen:
-        field: appearance.background.type
-        value: color
-    - path: appearance.background.transparency
-      type: range
-      label: Background Transparency
-      min: 0
-      max: 100
-      unit: '%'
-    - path: appearance.background.gradient.colorStart
-      type: color
-      label: Gradient Start
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.background.gradient.colorEnd
-      type: color
-      label: Gradient End
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.background.gradient.direction
-      type: select
-      label: Gradient Direction
-      options:
-        - to right
-        - to bottom
-        - to bottom right
-        - to top right
-      showWhen:
-        field: appearance.background.type
-        value: gradient
-    - path: appearance.border.width
-      type: number
-      label: Border Width (px)
-    - path: appearance.border.color
-      type: color
-      label: Border Color
-    - path: appearance.radius
-      type: select
-      label: Border Radius
-      tokens: borderRadiusScale
-calendar:
-  groups:
-  - id: display
-    label: Display
-    fields:
-    - path: display.month
-      type: number
-      label: Month
-      min: 1
-      max: 12
-    - path: display.year
-      type: number
-      label: Year
-      min: 1900
-      max: 2100
-    - path: appearance.showWeekNumbers
-      type: checkbox
-      label: Show Week Numbers
-checkbox:
-  groups:
-  - id: label
-    label: Label
-    fields:
-    - path: label.text
-      type: text
-      label: Label Text
-    - path: label.typography.size
-      type: select
-      label: Label Size
-      tokens: typographySizes
     - path: label.typography.weight
       type: select
       label: Label Weight
@@ -1921,18 +1779,122 @@ checkbox:
   - id: field
     label: Field
     fields:
-    - path: field.text
+    - path: field.name
       type: text
-      label: Field Text
-    - path: field.checked
-      type: checkbox
-      label: Checked by Default
+      label: Field Name
+    - path: field.placeholder
+      type: text
+      label: Placeholder Text
+    - path: field.options
+      type: textarea
+      label: Options (one per line)
+      rows: 4
+    - path: field.helperText
+      type: text
+      label: Helper Text
     - path: field.required
       type: checkbox
       label: Required
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.size
+      type: select
+      label: Size
+      tokens: typographySizes
+    - path: appearance.accentColor
+      type: color
+      label: Focus Accent Color
+calendar:
+  groups:
+  - id: label
+    label: Label
+    fields:
+    - path: label.text
+      type: text
+      label: Label Text
+    - path: label.show
+      type: checkbox
+      label: Show Label
+    - path: label.typography.weight
+      type: select
+      label: Label Weight
+      tokens: fontWeights
+    - path: label.typography.color
+      type: color
+      label: Label Color
+  - id: field
+    label: Field
+    fields:
+    - path: field.name
+      type: text
+      label: Field Name
+    - path: field.value
+      type: text
+      label: Default Date (YYYY-MM-DD)
+    - path: field.min
+      type: text
+      label: Min Date (YYYY-MM-DD)
+    - path: field.max
+      type: text
+      label: Max Date (YYYY-MM-DD)
+    - path: field.helperText
+      type: text
+      label: Helper Text
+    - path: field.required
+      type: checkbox
+      label: Required
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.size
+      type: select
+      label: Size
+      tokens: typographySizes
+    - path: appearance.accentColor
+      type: color
+      label: Focus Accent Color
+checkbox:
+  groups:
+  - id: label
+    label: Label
+    fields:
+    - path: label.text
+      type: text
+      label: Group Label
+    - path: label.show
+      type: checkbox
+      label: Show Group Label
+    - path: label.typography.weight
+      type: select
+      label: Label Weight
+      tokens: fontWeights
+    - path: label.typography.color
+      type: color
+      label: Label Color
+  - id: field
+    label: Field
+    fields:
+    - path: field.name
+      type: text
+      label: Field Name
+    - path: field.options
+      type: textarea
+      label: Options (one per line)
+      rows: 4
+    - path: field.helperText
+      type: text
+      label: Helper Text
+    - path: field.required
+      type: checkbox
+      label: Required
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.size
+      type: select
+      label: Size
+      tokens: typographySizes
     - path: appearance.color
       type: color
       label: Checkbox Color
@@ -1943,11 +1905,10 @@ radio:
     fields:
     - path: label.text
       type: text
-      label: Label Text
-    - path: label.typography.size
-      type: select
-      label: Label Size
-      tokens: typographySizes
+      label: Group Label
+    - path: label.show
+      type: checkbox
+      label: Show Group Label
     - path: label.typography.weight
       type: select
       label: Label Weight
@@ -1958,21 +1919,26 @@ radio:
   - id: field
     label: Field
     fields:
-    - path: field.text
-      type: text
-      label: Field Text
-    - path: field.groupName
+    - path: field.name
       type: text
       label: Group Name
-    - path: field.value
+    - path: field.options
+      type: textarea
+      label: Options (one per line)
+      rows: 4
+    - path: field.helperText
       type: text
-      label: Value
-    - path: field.checked
+      label: Helper Text
+    - path: field.required
       type: checkbox
-      label: Checked by Default
+      label: Required
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.size
+      type: select
+      label: Size
+      tokens: typographySizes
     - path: appearance.color
       type: color
       label: Radio Color
@@ -1985,6 +1951,13 @@ accordion:
       type: custom
       renderer: accordionItems
       target: component
+  - id: layout
+    label: Layout
+    fields:
+    - path: layout.widthMode
+      type: select
+      label: Width
+      tokens: widthPercentages
   - id: behavior
     label: Behavior
     fields:
@@ -2062,14 +2035,6 @@ accordion:
       type: select
       label: Border Radius
       tokens: borderRadiusScale
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
     - path: appearance.shadow
       type: select
       label: Shadow
@@ -2080,6 +2045,14 @@ accordion:
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -2088,13 +2061,6 @@ accordion:
       type: select
       label: Margin (Left+Right)
       tokens: spacingScale
-  - id: layout
-    label: Layout
-    fields:
-    - path: layout.widthMode
-      type: select
-      label: Width
-      tokens: widthPercentages
 tabs:
   groups:
   - id: tabs
@@ -2294,18 +2260,20 @@ icon:
         label: 36px
       - value: "48"
         label: 48px
-    - path: weight
+    - path: strokeWidth
       type: select
-      label: Weight
+      label: Stroke Width
       options:
-      - value: "100"
-        label: "100"
-      - value: "300"
-        label: "300"
-      - value: "500"
-        label: "500"
-      - value: "700"
-        label: "700"
+      - value: "1"
+        label: "1"
+      - value: "1.5"
+        label: "1.5"
+      - value: "2"
+        label: "2"
+      - value: "2.5"
+        label: "2.5"
+      - value: "3"
+        label: "3"
     - path: color
       type: color
       label: Color
@@ -2535,6 +2503,18 @@ link:
       type: select
       label: Letter Spacing
       tokens: letterSpacingMap
+    - path: typography.fontStyle
+      type: select
+      label: Font Style
+      options: [normal, italic]
+    - path: typography.textDecoration
+      type: select
+      label: Decoration
+      options:
+        - { value: none, label: None }
+        - { value: underline, label: Underline }
+        - { value: line-through, label: Strikethrough }
+        - { value: underline line-through, label: Both }
   - id: layout
     label: Layout
     fields:
@@ -2551,17 +2531,17 @@ link:
     - path: appearance.showArrow
       type: checkbox
       label: Show Arrow
-    - path: appearance.padding.block
-      type: select
-      label: Padding (Top+Bottom)
-      tokens: spacingScale
-    - path: appearance.padding.inline
-      type: select
-      label: Padding (Left+Right)
-      tokens: spacingScale
   - id: spacing
     label: Spacing
     fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
+      tokens: spacingScale
     - path: spacing.marginBlock
       type: select
       label: Margin (Top+Bottom)
@@ -2575,28 +2555,16 @@ form:
   - id: layout
     label: Layout
     fields:
-    - path: layout.direction
+    - path: layout.style
       type: select
-      label: Direction
+      label: Form Style
       options:
-      - column
-      - row
-    - path: layout.horizontalAlign
-      type: select
-      label: Horizontal Align
-      options:
-        - value: center
-          label: Center
-        - value: space-between
-          label: Space Between
-        - value: left
-          label: Left
-        - value: space-around
-          label: Space Around
-        - value: right
-          label: Right
-        - value: space-evenly
-          label: Space Evenly
+      - value: vertical
+        label: Vertical
+      - value: inline
+        label: Inline
+      - value: horizontal
+        label: Horizontal
   - id: submit
     label: Submit Button
     fields:
@@ -2609,6 +2577,26 @@ form:
   - id: appearance
     label: Appearance
     fields:
+    - path: appearance.background.color
+      type: color
+      label: Background Color
+    - path: appearance.background.transparency
+      type: range
+      label: Transparency
+      min: 0
+      max: 100
+    - path: appearance.border.width
+      type: number
+      label: Border Width
+      min: 0
+      max: 10
+    - path: appearance.border.color
+      type: color
+      label: Border Color
+    - path: appearance.radius
+      type: select
+      label: Corner Radius
+      tokens: borderRadiusScale
     - path: appearance.shadow
       type: select
       label: Shadow
@@ -2616,6 +2604,21 @@ form:
     - path: appearance.shadowColor
       type: color
       label: Shadow Color
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding Block
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding Inline
+      tokens: spacingScale
+    - path: spacing.marginBlock
+      type: select
+      label: Margin Block
+      tokens: spacingScale
 carousel:
   groups:
   - id: behavior
@@ -2778,10 +2781,14 @@ ticker:
   - id: layout
     label: Layout
     fields:
-    - path: layout.width
+    - path: layout.widthMode
       type: select
       label: Column Width
       tokens: tickerWidths
+    - path: layout.gap
+      type: select
+      label: Gap Between Items
+      tokens: gapScale
   - id: spacing
     label: Spacing
     fields:
@@ -2793,10 +2800,6 @@ ticker:
       type: select
       label: Margin (Left+Right)
       tokens: spacingScale
-    - path: spacing.gap
-      type: select
-      label: Gap Between Items
-      tokens: gapScale
   - id: appearance
     label: Column Appearance
     fields:
@@ -2851,7 +2854,7 @@ video-background:
       label: Min Height (px)
       min: 100
       max: 1000
-    - path: appearance.objectFit
+    - path: appearance.fit
       type: select
       label: Video Fit
       options:
@@ -2937,3 +2940,91 @@ video-background:
       type: select
       label: Margin (Left+Right)
       tokens: spacingScale
+
+panorama-display:
+  groups:
+  - id: source
+    label: Image
+    fields:
+    - path: source.url
+      type: text
+      label: Image URL
+    - path: source.altText
+      type: text
+      label: Alt Text
+  - id: behavior
+    label: Behavior
+    fields:
+    - path: behavior.initialPosition
+      type: select
+      label: Initial Position
+      options:
+      - value: left
+        label: Left
+      - value: center
+        label: Center
+      - value: right
+        label: Right
+    - path: behavior.stepDistance
+      type: number
+      label: Arrow Step (px)
+      min: 50
+      max: 500
+    - path: behavior.autoScroll
+      type: checkbox
+      label: Auto-Scroll
+    - path: behavior.autoScrollSpeed
+      type: number
+      label: Scroll Speed (px/sec)
+      min: 5
+      max: 200
+      showWhen:
+        field: behavior.autoScroll
+        value: true
+    - path: behavior.pauseOnHover
+      type: checkbox
+      label: Pause on Hover
+      showWhen:
+        field: behavior.autoScroll
+        value: true
+  - id: spacing
+    label: Spacing
+    fields:
+    - path: spacing.marginBlock
+      type: select
+      label: Margin Block
+      tokens: spacingScale
+    - path: spacing.marginInline
+      type: select
+      label: Margin Inline
+      tokens: spacingScale
+  - id: appearance
+    label: Appearance
+    fields:
+    - path: appearance.border.width
+      type: number
+      label: Border Width (px)
+    - path: appearance.border.style
+      type: select
+      label: Border Style
+      options:
+      - value: solid
+        label: Solid
+      - value: dashed
+        label: Dashed
+      - value: none
+        label: None
+    - path: appearance.border.color
+      type: color
+      label: Border Color
+    - path: appearance.radius
+      type: select
+      label: Radius
+      tokens: borderRadiusScale
+    - path: appearance.shadow
+      type: select
+      label: Shadow
+      tokens: shadowScale
+    - path: appearance.shadowColor
+      type: color
+      label: Shadow Color

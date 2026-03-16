@@ -1,60 +1,68 @@
 # Hero Card Variant: Product Launch
-# layout-row with a gif of the product and a layout-column containing a calendar input for "Book a Demo"
+# layout-row with a gif of the product and a layout-column containing a calendar input for Book a Demo
+# Base components: page, layout-row, layout-column, gif, eyebrow, heading, paragraph, calendar, button
+# Section type: hero
+# Layout: split_screen
+# Visual style: modern
+# Perfect for: Product launches, SaaS demos, B2B software, tech startups
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#1e1b4b'
+        text: &color-text '#34324F'
         secondary: &color-secondary '#4b5563'
         accent: &color-accent '#7c3aed'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: xl}
+      spacing: {paddingBlock: xxl, paddingInline: xl}
+      appearance:
+        background: {color: *color-background}
+    components:
+    - name: gif
       properties:
-        layout: { horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: xl }
-        spacing: { paddingBlock: xxl, paddingInline: xl }
+        source: {url: 'https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif', altText: 'Product demo animation'}
+        appearance: {minHeight: 20, fit: cover, cornerStyle: lg, shadow: elevated}
+        layout: {widthMode: "50"}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: left, widthMode: "50", gap: md}
         appearance:
-          background: { color: *color-background }
+          background: {color: *color-background}
+          radius: lg
+          shadow: soft
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
       components:
-        - name: gif
-          properties:
-            source: { url: 'https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif', altText: 'Product demo animation' }
-            appearance: { minHeight: 20, fit: cover, cornerStyle: lg, shadow: elevated }
-            layout: { widthMode: "50" }
-        - name: layout-column
-          properties:
-            layout: { horizontalAlign: left, widthMode: "50", gap: md }
-            appearance:
-              background: { color: *color-background }
-              radius: lg
-              shadow: soft
-              padding: { block: lg, inline: lg }
-          components:
-            - name: eyebrow
-              properties:
-                text: NEW PRODUCT LAUNCH
-                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
-            - name: heading
-              properties:
-                text: See It in Action
-                level: 2
-                typography: { size: xxl, weight: extrabold, color: *color-primary, align: left }
-                spacing: { marginBlock: sm }
-            - name: paragraph
-              properties:
-                text: |
-                  Our revolutionary platform is ready for you. Book a personalized
-                  demo with our team and discover what's possible.
-                typography: { size: md, color: *color-secondary, align: left, lineHeight: "1.7" }
-            - name: calendar
-              properties:
-                display: { month: 3, year: 2026 }
-            - name: button
-              properties:
-                text: Book a Demo
-                appearance: { background: { color: *color-accent }, radius: md }
-                typography: { color: *color-background, weight: bold }
-                layout: { widthMode: stretch }
+      - name: eyebrow
+        properties:
+          text: NEW PRODUCT LAUNCH
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: See It in Action
+          level: 2
+          typography: {size: xxl, weight: extrabold, color: *color-primary, align: left}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: |
+            Our revolutionary platform is ready for you. Book a personalized
+            demo with our team and discover what's possible.
+          typography: {size: md, color: *color-secondary, align: left, lineHeight: "1.7"}
+      - name: calendar
+        properties:
+          display: {month: 3, year: 2026}
+      - name: button
+        properties:
+          text: Book a Demo
+          appearance: {background: {color: *color-accent}, radius: md}
+          typography: {color: *color-background, weight: bold}
+          layout: {widthMode: stretch}

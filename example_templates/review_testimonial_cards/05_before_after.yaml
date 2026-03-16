@@ -1,80 +1,90 @@
 # Review Card Variant: Before & After
 # layout-row with two image components and a caption underneath each
+# Base components: layout-column, heading, layout-row, eyebrow, image, caption, blockquote
+# Section type: testimonial
+# Layout: split_screen
+# Visual style: card_based
+# Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#374151'
         accent: &color-accent '#10b981'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: md}
+      spacing: {paddingBlock: xl, paddingInline: lg}
+      appearance: {background: {transparency: 0}}
+    components:
+    - name: heading
       properties:
-        layout: { horizontalAlign: center, gap: md }
-        spacing: { paddingBlock: xl, paddingInline: lg }
-        appearance: { background: { transparency: 0 } }
+        text: Real Results, Real Impact
+        level: 2
+        typography: {size: xxl, weight: extrabold, color: *color-primary, align: center}
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: space-evenly, verticalAlign: top, wrap: nowrap, gap: lg}
+        appearance:
+          background: {color: *color-background}
+          radius: lg
+          shadow: medium
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
       components:
-        - name: heading
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center, widthMode: "50", gap: sm}
+          appearance: {background: {transparency: 0}}
+        components:
+        - name: eyebrow
           properties:
-            text: Real Results, Real Impact
-            level: 2
-            typography: { size: xxl, weight: extrabold, color: *color-primary, align: center }
-        - name: layout-row
+            text: BEFORE
+            typography: {size: xs, weight: bold, color: *color-secondary, transform: uppercase, letterSpacing: wider, align: center}
+        - name: image
           properties:
-            layout: { horizontalAlign: space-evenly, verticalAlign: top, wrap: nowrap, gap: lg }
-            appearance:
-              background: { color: *color-background }
-              radius: lg
-              shadow: medium
-              padding: { block: lg, inline: lg }
-          components:
-            - name: layout-column
-              properties:
-                layout: { horizontalAlign: center, widthMode: "50", gap: sm }
-                appearance: { background: { transparency: 0 } }
-              components:
-                - name: eyebrow
-                  properties:
-                    text: BEFORE
-                    typography: { size: xs, weight: bold, color: *color-secondary, transform: uppercase, letterSpacing: wider, align: center }
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500', altText: 'Before - cluttered dashboard' }
-                    appearance: { minHeight: 15, fit: cover, cornerStyle: md, filter: sepia }
-                    layout: { widthMode: stretch }
-                - name: caption
-                  properties:
-                    text: "Messy spreadsheets, scattered data, and slow decisions."
-                    typography: { size: sm, color: *color-secondary, align: center }
-            - name: layout-column
-              properties:
-                layout: { horizontalAlign: center, widthMode: "50", gap: sm }
-                appearance: { background: { transparency: 0 } }
-              components:
-                - name: eyebrow
-                  properties:
-                    text: AFTER
-                    typography: { size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500', altText: 'After - clean analytics dashboard' }
-                    appearance: { minHeight: 15, fit: cover, cornerStyle: md }
-                    layout: { widthMode: stretch }
-                - name: caption
-                  properties:
-                    text: "Clean dashboards, real-time insights, and 3x faster decisions."
-                    typography: { size: sm, color: *color-accent, align: center }
-        - name: blockquote
+            source: {url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500', altText: 'Before - cluttered dashboard'}
+            appearance: {minHeight: 15, fit: cover, cornerStyle: md, filter: sepia}
+            layout: {widthMode: stretch}
+        - name: caption
           properties:
-            quote: The transformation was night and day. Our team couldn't believe how fast we could act on data.
-            cite: Operations Director, Fortune 500 Company
-            typography: { size: md, weight: medium, color: *color-secondary, align: center }
-            appearance:
-              border: { accentColor: *color-accent }
-              background: { transparency: 0 }
-              padding: { block: md, inline: lg }
-            layout: { widthMode: "75" }
+            text: "Messy spreadsheets, scattered data, and slow decisions."
+            typography: {size: sm, color: *color-secondary, align: center}
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center, widthMode: "50", gap: sm}
+          appearance: {background: {transparency: 0}}
+        components:
+        - name: eyebrow
+          properties:
+            text: AFTER
+            typography: {size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500', altText: 'After - clean analytics dashboard'}
+            appearance: {minHeight: 15, fit: cover, cornerStyle: md}
+            layout: {widthMode: stretch}
+        - name: caption
+          properties:
+            text: "Clean dashboards, real-time insights, and 3x faster decisions."
+            typography: {size: sm, color: *color-accent, align: center}
+    - name: blockquote
+      properties:
+        quote: The transformation was night and day. Our team couldn't believe how fast we could act on data.
+        cite: Operations Director, Fortune 500 Company
+        typography: {size: md, weight: medium, color: *color-secondary, align: center}
+        appearance:
+          border: {accentColor: *color-accent}
+          background: {transparency: 0}
+        layout: {widthMode: "75"}
+        spacing:
+          paddingBlock: md
+          paddingInline: lg

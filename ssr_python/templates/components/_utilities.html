@@ -113,8 +113,8 @@
         {% if appearance.shadow and appearance.shadow != 'none' and tokens and tokens.shadows and appearance.shadow in tokens.shadows %}{% set _ = styles.append('box-shadow: ' ~ tokens.shadows[appearance.shadow] ~ ';') %}{% endif %}
         {% if appearance.shadowColor %}{% set _ = styles.append('--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ ';') %}{% endif %}
         {% if appearance.blur is sameas true %}{% set _ = styles.append('backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);') %}{% elif appearance.backdropBlur and appearance.backdropBlur != 'none' %}{% set _ = styles.append('backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px); -webkit-backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px);') %}{% endif %}
-        {# Handle appearance padding (for older YAML structures) #}
-        {% if appearance.padding %}
+        {# DEPRECATED: appearance.padding — use spacing.paddingBlock/paddingInline instead #}
+        {% if appearance.padding and not (props.spacing and (props.spacing.paddingBlock or props.spacing.paddingInline)) %}
             {% set padding = appearance.padding %}
             {% if padding.block and tokens and tokens.spacing and padding.block in tokens.spacing %}
                 {% set _ = styles.append('padding-block: ' ~ tokens.spacing[padding.block] ~ ';') %}
@@ -141,10 +141,12 @@
         {% if typo.transform %}{% set _ = styles.append('text-transform: ' ~ typo.transform ~ ';') %}{% endif %}
         {% if typo.letterSpacing and tokens and tokens.letter_spacing and typo.letterSpacing in tokens.letter_spacing %}{% set _ = styles.append('letter-spacing: ' ~ tokens.letter_spacing[typo.letterSpacing] ~ ';') %}{% endif %}
         {% if typo.fontFamily %}{% set _ = styles.append('font-family: ' ~ typo.fontFamily ~ ';') %}{% endif %}
+        {% if typo.fontStyle and typo.fontStyle != 'normal' %}{% set _ = styles.append('font-style: ' ~ typo.fontStyle ~ ';') %}{% endif %}
+        {% if typo.textDecoration and typo.textDecoration != 'none' %}{% set _ = styles.append('text-decoration: ' ~ typo.textDecoration ~ ';') %}{% endif %}
     {% endif %}
     {# Width Mode Support for Text Components #}
     {% if component.name in ['heading', 'paragraph', 'eyebrow', 'caption', 'blockquote', 'link'] %}
-        {% set width_mode = props.layout.widthMode | default('fit') if props.layout else 'fit' %}
+        {% set width_mode = (props.layout.widthMode | default('fit') | string) if props.layout else 'fit' %}
         {% set _ = styles.append('display: inline-block;') %}
         {% set _ = styles.append('box-sizing: border-box;') %}
         {% if layout_direction == 'column' %}
@@ -202,7 +204,7 @@
     {% endif %}
     {# Width Mode Support for Image/GIF - Match Text Component Behavior #}
     {% if component.name in ['image', 'gif'] %}
-        {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
+        {% set width_mode = (props.layout.widthMode | default('stretch') | string) if props.layout else 'stretch' %}
         {% set _ = styles.append('display: block;') %}
         {% set _ = styles.append('box-sizing: border-box;') %}
         {% if layout_direction == 'column' %}
@@ -260,7 +262,7 @@
     {% endif %}
     {# Width Mode Support for Layout-Column - Match Text Component Behavior #}
     {% if component.name == 'layout-column' %}
-        {% set width_mode = props.layout.widthMode | default('stretch') if props.layout else 'stretch' %}
+        {% set width_mode = (props.layout.widthMode | default('stretch') | string) if props.layout else 'stretch' %}
         {% if layout_direction == 'column' %}
             {# Column context: use explicit width percentages #}
             {% if width_mode == 'fit' %}
@@ -285,6 +287,7 @@
         {% else %}
             {# Row context: use flex-basis percentages for wrapping support #}
             {% if width_mode == 'fit' %}
+                {% set _ = styles.append('width: auto;') %}
                 {% set _ = styles.append('flex: 0 0 auto;') %}
             {% elif width_mode == '16' %}
                 {% set _ = styles.append('flex: 1 0 14%;') %}

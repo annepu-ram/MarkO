@@ -25,6 +25,10 @@
          * Initialize all interactive components on the page
          */
         init: function() {
+            // Initialize Lucide icons (replace data-lucide placeholders with inline SVGs)
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
             this.initCarousels();
             this.initTabs();
             this.initAccordions();
@@ -32,6 +36,7 @@
             this.initTickers();
             this.initCounterUps();
             this.initCountdowns();
+            this.initPanoramaDisplays();
         },
 
         /**
@@ -726,6 +731,137 @@
             this._countdownIntervals = [];
         },
 
+        // ---- Panorama Display ----
+
+        _panoramaRAFs: [],
+
+        initPanoramaDisplays: function() {
+            var self = this;
+            document.querySelectorAll('.panorama-display').forEach(function(el) {
+                self._initPanoramaDisplay(el);
+            });
+        },
+
+        _initPanoramaDisplay: function(el) {
+            if (!el || el.dataset.ssInitialized === 'true') return;
+            el.dataset.ssInitialized = 'true';
+
+            var self = this;
+            var track = el.querySelector('.pd-track');
+            var leftArrow = el.querySelector('.pd-arrow-left');
+            var rightArrow = el.querySelector('.pd-arrow-right');
+            if (!track) return;
+
+            var stepDistance = parseInt(el.dataset.stepDistance, 10) || 300;
+            var autoScroll = el.dataset.autoScroll === 'true';
+            var autoScrollSpeed = parseFloat(el.dataset.autoScrollSpeed) || 30;
+            var pauseOnHover = el.dataset.pauseOnHover === 'true';
+            var initialPosition = el.dataset.initialPosition || 'left';
+
+            // --- Arrow visibility (smart boundary logic) ---
+            function updateArrows() {
+                var scrollLeft = track.scrollLeft;
+                var maxScroll = track.scrollWidth - track.clientWidth;
+                if (leftArrow)  leftArrow.classList.toggle('pd-arrow-hidden', scrollLeft <= 1);
+                if (rightArrow) rightArrow.classList.toggle('pd-arrow-hidden', scrollLeft >= maxScroll - 1);
+            }
+            track.addEventListener('scroll', updateArrows, { passive: true });
+
+            // --- Arrow click (precision stepping) ---
+            if (leftArrow) {
+                leftArrow.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    track.classList.remove('is-auto-scrolling');
+                    track.scrollBy({ left: -stepDistance, behavior: 'smooth' });
+                });
+            }
+            if (rightArrow) {
+                rightArrow.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    track.classList.remove('is-auto-scrolling');
+                    track.scrollBy({ left: stepDistance, behavior: 'smooth' });
+                });
+            }
+
+            // --- Mouse drag ---
+            var isDragging = false, startX = 0, startScrollLeft = 0;
+            track.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                startX = e.pageX;
+                startScrollLeft = track.scrollLeft;
+                track.classList.add('is-dragging');
+                e.preventDefault();
+            });
+            document.addEventListener('mousemove', function(e) {
+                if (!isDragging) return;
+                track.scrollLeft = startScrollLeft - (e.pageX - startX);
+            });
+            document.addEventListener('mouseup', function() {
+                if (!isDragging) return;
+                isDragging = false;
+                track.classList.remove('is-dragging');
+            });
+
+            // --- Touch swipe ---
+            var touchStartX = 0, touchStartScroll = 0;
+            track.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].pageX;
+                touchStartScroll = track.scrollLeft;
+                track.classList.add('is-dragging');
+            }, { passive: true });
+            track.addEventListener('touchmove', function(e) {
+                track.scrollLeft = touchStartScroll - (e.touches[0].pageX - touchStartX);
+            }, { passive: true });
+            track.addEventListener('touchend', function() {
+                track.classList.remove('is-dragging');
+            }, { passive: true });
+
+            // --- Initial position (after image loads) ---
+            var img = track.querySelector('.pd-image');
+            function setInitialPosition() {
+                var maxScroll = track.scrollWidth - track.clientWidth;
+                if (initialPosition === 'center') {
+                    track.scrollLeft = maxScroll / 2;
+                } else if (initialPosition === 'right') {
+                    track.scrollLeft = maxScroll;
+                }
+                updateArrows();
+            }
+            if (img && !img.complete) {
+                img.addEventListener('load', setInitialPosition);
+            } else {
+                setInitialPosition();
+            }
+
+            // --- Auto-scroll (requestAnimationFrame) ---
+            if (autoScroll) {
+                var rafId = null, lastTime = null, isPaused = false;
+                function tick(timestamp) {
+                    if (isPaused) { lastTime = null; rafId = requestAnimationFrame(tick); return; }
+                    if (lastTime === null) lastTime = timestamp;
+                    var dt = timestamp - lastTime;
+                    lastTime = timestamp;
+                    track.classList.add('is-auto-scrolling');
+                    track.scrollLeft += (autoScrollSpeed * dt) / 1000;
+                    if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 1) {
+                        track.scrollLeft = 0;
+                    }
+                    rafId = requestAnimationFrame(tick);
+                }
+                rafId = requestAnimationFrame(tick);
+                self._panoramaRAFs.push(rafId);
+                if (pauseOnHover) {
+                    el.addEventListener('mouseenter', function() { isPaused = true; });
+                    el.addEventListener('mouseleave', function() { isPaused = false; });
+                }
+            }
+        },
+
+        cleanupPanoramaDisplays: function() {
+            this._panoramaRAFs.forEach(function(id) { cancelAnimationFrame(id); });
+            this._panoramaRAFs = [];
+        },
+
         /**
          * Clean up titlebar clones (useful before re-rendering)
          */
@@ -741,6 +877,7 @@
         reset: function() {
             this.cleanupCountdowns();
             this.cleanupTickers();
+            this.cleanupPanoramaDisplays();
             document.querySelectorAll('[data-ss-initialized]').forEach(el => {
                 delete el.dataset.ssInitialized;
             });

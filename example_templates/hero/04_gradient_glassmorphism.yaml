@@ -1,16 +1,17 @@
 # Gradient Glassmorphism Hero
 # True glassmorphism using blur checkbox with auto-transparency
+# Base components: page, layout-column, layout-row, paragraph, heading, button, image
+# Section type: hero
+# Layout: centered
+# Visual style: glassmorphism
 # Perfect for: Fintech, web3, modern SaaS, creative portfolios
-#
-# KEY: Glassmorphism needs a colorful background for blur to be visible.
-# The blur checkbox auto-applies 50% transparency if background is opaque,
-# or respects the transparency slider value if already set.
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
         secondary: &color-secondary "#e0e7ff"
         accent: &color-accent "#818cf8"
         background: &color-background "#0f0720"
@@ -66,17 +67,15 @@
               width: 1
               style: solid
               color: '#ffffff'
-            padding:
-              block: xs
-              inline: md
         components:
         - name: paragraph
           properties:
             text: "Introducing Aurora Pay"
             typography:
-              color: *color-primary
+              color: *color-text
               size: sm
               weight: medium
+              lineHeight: '1'
 
       # Main Headline
       - name: heading
@@ -148,7 +147,7 @@
               properties:
                 text: "128-bit"
                 typography:
-                  color: *color-primary
+                  color: *color-text
                   size: xl
                   weight: bold
                   align: center
@@ -171,7 +170,7 @@
               properties:
                 text: "0%"
                 typography:
-                  color: *color-primary
+                  color: *color-text
                   size: xl
                   weight: bold
                   align: center
@@ -194,7 +193,7 @@
               properties:
                 text: "24/7"
                 typography:
-                  color: *color-primary
+                  color: *color-text
                   size: xl
                   weight: bold
                   align: center
@@ -227,15 +226,15 @@
                 width: 1
                 style: solid
                 color: '#ffffff'
-              padding:
-                block: md
-                inline: xl
               radius: pill
               shadow: soft
             typography:
               color: *color-primary
               weight: bold
               size: md
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
         - name: button
           properties:
             text: "Watch Demo"
@@ -248,9 +247,6 @@
                 width: 1
                 style: solid
                 color: '#ffffff'
-              padding:
-                block: md
-                inline: xl
               radius: pill
             typography:
               color: *color-primary
@@ -258,6 +254,9 @@
               size: md
 
       # App availability note
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
       - name: paragraph
         properties:
           text: "Available on iOS and Android"
@@ -288,7 +287,7 @@
               url: https://images.pexels.com/photos/6289028/pexels-photo-6289028.jpeg?auto=compress&cs=tinysrgb&w=800
               altText: Finance app on smartphone
             appearance:
-              minHeight: 400
+              minHeight: 25
               fit: contain
               radius: lg
               hoverEffect: lift

@@ -1,0 +1,45 @@
+{#- Panorama Display — single panorama image in a horizontally scrollable container.
+    Always 100% width. Height determined by image. Allowed parents: page, layout-column only. -#}
+{% macro render_panorama_display(component, tokens, path, component_id) %}
+    {% set properties = component.properties | default({}) %}
+    {% set source = properties.source | default({}) %}
+    {% set behavior = properties.behavior | default({}) %}
+    {% set spacing = properties.spacing | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+
+    {# Behavior #}
+    {% set auto_scroll = behavior.autoScroll | default(false) %}
+    {% set auto_scroll_speed = behavior.autoScrollSpeed | default(30) %}
+    {% set step_distance = behavior.stepDistance | default(300) %}
+    {% set pause_on_hover = behavior.pauseOnHover | default(true) %}
+    {% set initial_position = behavior.initialPosition | default('left') %}
+
+    {# Container styles via build_styles() — handles margin, border, shadow, radius #}
+    {% set container_styles = build_styles(component, tokens) %}
+
+    <div class="panorama-display chrome-target"
+         data-component-id="{{ component_id }}"
+         data-component-name="panorama-display"
+         data-auto-scroll="{{ 'true' if auto_scroll else 'false' }}"
+         data-auto-scroll-speed="{{ auto_scroll_speed }}"
+         data-step-distance="{{ step_distance }}"
+         data-pause-on-hover="{{ 'true' if pause_on_hover else 'false' }}"
+         data-initial-position="{{ initial_position }}"
+         aria-label="Panorama image viewer"
+         role="region"
+         style="{{ container_styles }} width: 100%;">
+
+        <button class="pd-arrow pd-arrow-left pd-arrow-hidden"
+                aria-label="Scroll left" type="button">&#8249;</button>
+
+        <div class="pd-track">
+            <img class="pd-image"
+                 src="{{ source.url | default('') }}"
+                 alt="{{ source.altText | default('Panorama image') }}"
+                 loading="lazy">
+        </div>
+
+        <button class="pd-arrow pd-arrow-right"
+                aria-label="Scroll right" type="button">&#8250;</button>
+    </div>
+{% endmacro %}

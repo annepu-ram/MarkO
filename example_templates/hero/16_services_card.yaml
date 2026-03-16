@@ -1,5 +1,9 @@
 # Services Card-Based Hero - Construction Style
 # Full-width hero image with overlaid text and numbered service cards
+# Base components: page, titlebar, image, layout-column, layout-row, eyebrow, heading, paragraph, link
+# Section type: hero
+# Layout: fullscreen
+# Visual style: card_based
 # Perfect for: Construction, architecture, real estate, engineering, agencies
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#1e2a4a"
+        text: &color-text "#343B4E"
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#d4a846"
         background: &color-background "#eef0f3"
@@ -77,7 +82,6 @@
     - name: layout-column
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
           gap: sm
         spacing:
@@ -146,9 +150,9 @@
   - name: layout-row
     properties:
       layout:
-        align: stretch
         horizontalAlign: space-evenly
         wrap: wrap
+        verticalAlign: stretch
       spacing:
         paddingBlock: none
         paddingInline: lg
@@ -162,7 +166,6 @@
     - name: layout-column
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
           gap: sm
           widthMode: "25"
@@ -173,9 +176,9 @@
           radius: md
           shadow: elevated
           shadowColor: *color-primary
-          padding:
-            block: lg
-            inline: md
+        spacing:
+          paddingBlock: lg
+          paddingInline: md
       components:
       - name: heading
         properties:
@@ -220,7 +223,6 @@
     - name: layout-column
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
           gap: sm
           widthMode: "25"
@@ -230,9 +232,9 @@
             transparency: 100
           radius: md
           shadow: soft
-          padding:
-            block: lg
-            inline: md
+        spacing:
+          paddingBlock: lg
+          paddingInline: md
       components:
       - name: heading
         properties:
@@ -277,7 +279,6 @@
     - name: layout-column
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
           gap: sm
           widthMode: "25"
@@ -287,9 +288,9 @@
             transparency: 100
           radius: md
           shadow: soft
-          padding:
-            block: lg
-            inline: md
+        spacing:
+          paddingBlock: lg
+          paddingInline: md
       components:
       - name: heading
         properties:
@@ -334,7 +335,6 @@
     - name: layout-column
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
           gap: sm
           widthMode: "25"
@@ -344,9 +344,9 @@
             transparency: 100
           radius: md
           shadow: soft
-          padding:
-            block: lg
-            inline: md
+        spacing:
+          paddingBlock: lg
+          paddingInline: md
       components:
       - name: heading
         properties:

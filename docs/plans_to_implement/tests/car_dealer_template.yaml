@@ -1,0 +1,211 @@
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Open Sans', sans-serif"
+      colors:
+        # 60-30-10 Color System:
+        # Primary (30%) = TEXT - all headings, paragraphs, body text
+        # Secondary (10%) = UI elements, section highlights, regular buttons
+        # Accent (CTAs only) = Call-to-action buttons like "View Details", "Contact Us"
+        # Background (60%) = Page base, content areas
+        primary: &color-primary '#343a40'
+        secondary: &color-secondary '#6c757d'
+        accent: &color-accent '#dc3545'
+        background: &color-background '#f8f9fa'
+  components:
+  - name: page
+    slug: home
+    title: "Car Dealer"
+    properties:
+      appearance:
+        background:
+          color: *color-background
+    components:
+    - name: titlebar
+      properties:
+        branding:
+          title: Prestige Motors
+          logoUrl: https://images.pexels.com/photos/112460/pexels-photo-112460.jpeg?auto=compress&cs=tinysrgb&w=100
+        appearance:
+          background:
+            color: *color-primary
+        typography:
+          title:
+            color: *color-background
+          menu:
+            color: *color-background
+        navigation:
+          links:
+          - label: Inventory
+            href: '#inventory'
+          - label: Financing
+            href: '#financing'
+          - label: About Us
+            href: '#about'
+          - label: Contact
+            href: '#contact'
+    - name: image
+      properties:
+        source:
+          url: https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+          altText: Luxury sports car
+        appearance:
+          minHeight: 25
+          fit: cover
+          cornerStyle: none
+        spacing:
+          marginBlock: none
+          marginInline: none
+        layout:
+          widthMode: stretch
+    - name: heading
+      properties:
+        text: Experience Luxury and Performance
+        typography:
+          align: center
+          color: *color-primary
+        level: 1
+    - name: paragraph
+      properties:
+        text: Your trusted source for high-quality pre-owned luxury vehicles.
+        typography:
+          align: center
+          size: lg
+          color: *color-primary
+        spacing:
+          marginBlock: md
+    - name: heading
+      properties:
+        text: Featured Vehicles
+        typography:
+          align: center
+          color: *color-primary
+        spacing:
+          marginBlock: lg
+        level: 2
+    - name: tabs
+      properties:
+        layout:
+          orientation: horizontal
+        tabs:
+        - title: Sedans
+          content: ''
+        - title: SUVs
+          content: ''
+        - title: Coupes
+          content: ''
+    - name: columnsgrid
+      properties:
+        layout:
+          columns: 2
+          gap: md
+      columns:
+      - components:
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=800
+              altText: Luxury Sedan
+            appearance:
+              minHeight: 12.5
+              fit: cover
+              cornerStyle: sm
+            layout:
+              widthMode: stretch
+        - name: heading
+          properties:
+            text: 2023 Apex Sedan
+            level: 3
+            typography:
+              color: *color-primary
+              weight: semibold
+        - name: paragraph
+          properties:
+            text: $55,000 - Low mileage, fully loaded.
+            typography:
+              color: *color-primary
+        - name: button
+          properties:
+            text: View Details
+            appearance:
+              background:
+                color: *color-accent
+              padding:
+                block: sm
+                inline: md
+            typography:
+              color: *color-background
+              weight: semibold
+      - components:
+        - name: image
+          properties:
+            source:
+              url: https://images.pexels.com/photos/1637859/pexels-photo-1637859.jpeg?auto=compress&cs=tinysrgb&w=800
+              altText: Luxury SUV
+            appearance:
+              minHeight: 12.5
+              fit: cover
+              cornerStyle: sm
+            layout:
+              widthMode: stretch
+        - name: heading
+          properties:
+            text: 2022 Nova SUV
+            level: 3
+            typography:
+              color: *color-primary
+              weight: semibold
+        - name: paragraph
+          properties:
+            text: $62,000 - Perfect for the family.
+            typography:
+              color: *color-primary
+        - name: button
+          properties:
+            text: View Details
+            appearance:
+              background:
+                color: *color-accent
+              padding:
+                block: sm
+                inline: md
+            typography:
+              color: *color-background
+              weight: semibold
+    - name: heading
+      properties:
+        text: Financing Made Easy
+        typography:
+          align: center
+          color: *color-primary
+        spacing:
+          marginBlock: lg
+        level: 2
+    - name: accordion
+      properties:
+        items:
+        - title: Do you offer financing?
+          content: Yes! We work with multiple lenders to find the best rates for your situation. Most customers can get pre-approved in under 10 minutes.
+        - title: What do I need to apply?
+          content: You'll need a valid driver's license, proof of income, proof of residence, and insurance information.
+        - title: Do you accept trade-ins?
+          content: Absolutely! We offer competitive trade-in values. Bring your current vehicle and we'll give you a free appraisal.
+        behavior:
+          allowMultipleOpen: false
+    - name: heading
+      properties:
+        text: Contact Us
+        typography:
+          align: center
+          color: *color-primary
+        spacing:
+          marginBlock: lg
+        level: 2
+    - name: paragraph
+      properties:
+        text: Visit our showroom at 123 Prestige Lane, or give us a call at 555-1234.
+        typography:
+          align: center
+          color: *color-primary

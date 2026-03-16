@@ -1,0 +1,198 @@
+# Test: Progress Bar Component
+# Horizontal bar showing completion percentage with ARIA support.
+#
+# Properties:
+#   percent           — Progress value (0-100, clamped)
+#   thickness         — Bar height: small (0.5rem), medium (1rem), large (1.5rem)
+#   color             — Fill bar color (hex)
+#   trackColor        — Background track color (hex)
+#   colorGradient     — true for red→amber→green gradient fill
+#   appearance.radius — Corner radius token (default: pill)
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "Progress Bar Test"
+      properties:
+        appearance: { background: { color: '#ffffff', transparency: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: "Progress Bar Component Test"
+            level: 1
+            typography: { size: xxl, weight: bold, align: center, color: '#111827' }
+            spacing: { marginBlock: lg }
+
+        # ─────────────────────────────────────────
+        # PERCENT VALUES (0-100)
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "percent — Values from 0 to 100 (clamped)"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: stretch }
+            spacing: { paddingInline: lg, paddingBlock: sm }
+          components:
+            - name: caption
+              properties: { text: "0%", typography: { size: xs, color: '#94a3b8' } }
+            - name: progress-bar
+              properties: { percent: 0, color: '#3b82f6', trackColor: '#e5e7eb' }
+
+            - name: caption
+              properties: { text: "25%", typography: { size: xs, color: '#94a3b8' } }
+            - name: progress-bar
+              properties: { percent: 25, color: '#3b82f6', trackColor: '#e5e7eb' }
+
+            - name: caption
+              properties: { text: "50%", typography: { size: xs, color: '#94a3b8' } }
+            - name: progress-bar
+              properties: { percent: 50, color: '#3b82f6', trackColor: '#e5e7eb' }
+
+            - name: caption
+              properties: { text: "75%", typography: { size: xs, color: '#94a3b8' } }
+            - name: progress-bar
+              properties: { percent: 75, color: '#3b82f6', trackColor: '#e5e7eb' }
+
+            - name: caption
+              properties: { text: "100%", typography: { size: xs, color: '#94a3b8' } }
+            - name: progress-bar
+              properties: { percent: 100, color: '#3b82f6', trackColor: '#e5e7eb' }
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # THICKNESS OPTIONS
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "thickness — small (0.5rem), medium (1rem), large (1.5rem)"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: stretch }
+            spacing: { paddingInline: lg, paddingBlock: sm }
+          components:
+            - name: caption
+              properties: { text: "small", typography: { size: xs, color: '#94a3b8' } }
+            - name: progress-bar
+              properties: { percent: 60, thickness: small, color: '#6366f1' }
+
+            - name: caption
+              properties: { text: "medium (default)", typography: { size: xs, color: '#94a3b8' } }
+            - name: progress-bar
+              properties: { percent: 60, thickness: medium, color: '#6366f1' }
+
+            - name: caption
+              properties: { text: "large", typography: { size: xs, color: '#94a3b8' } }
+            - name: progress-bar
+              properties: { percent: 60, thickness: large, color: '#6366f1' }
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # COLOR GRADIENT
+        # Red → Amber → Green gradient fill
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "colorGradient: true — Red → Amber → Green gradient"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: stretch }
+            spacing: { paddingInline: lg, paddingBlock: sm }
+          components:
+            - name: progress-bar
+              properties:
+                percent: 100
+                thickness: large
+                colorGradient: true     # Overrides color with gradient
+                trackColor: '#f1f5f9'
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # CUSTOM COLORS
+        # Any hex color for fill and track
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "Custom fill + track colors"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: stretch }
+            spacing: { paddingInline: lg, paddingBlock: sm }
+          components:
+            - name: progress-bar
+              properties:
+                percent: 70
+                color: '#22c55e'        # Green fill
+                trackColor: '#dcfce7'   # Light green track
+            - name: progress-bar
+              properties:
+                percent: 45
+                color: '#ef4444'        # Red fill
+                trackColor: '#fee2e2'   # Light red track
+            - name: progress-bar
+              properties:
+                percent: 85
+                color: '#8b5cf6'        # Purple fill
+                trackColor: '#ede9fe'   # Light purple track
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # REAL-WORLD: Storage/Usage Meters
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "Real-world usage — Storage meters"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: stretch }
+            spacing: { paddingInline: lg, paddingBlock: sm }
+            appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: md }
+          components:
+            - name: layout-row
+              properties: { layout: { horizontalAlign: space-between, wrap: nowrap } }
+              components:
+                - name: caption
+                  properties: { text: "Disk Space", typography: { size: sm, weight: semibold, color: '#111827' }, layout: { widthMode: fit } }
+                - name: caption
+                  properties: { text: "7.2 GB / 10 GB", typography: { size: xs, color: '#94a3b8' }, layout: { widthMode: fit } }
+            - name: progress-bar
+              properties:
+                percent: 72
+                thickness: small
+                color: '#f59e0b'
+                trackColor: '#e5e7eb'

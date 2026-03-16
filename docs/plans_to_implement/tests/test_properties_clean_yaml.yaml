@@ -1,0 +1,51 @@
+# Test YAML to verify properties panel fix
+# This should only show explicitly set values, not all defaults
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "Test Properties Clean Yaml"
+      properties:
+        layout:
+          direction: column
+          align: start
+      components:
+        # Heading with only text changed (should only show text property)
+        - name: heading
+          properties:
+            text: Test Heading
+
+        # Paragraph with custom color (should only show text and color)
+        - name: paragraph
+          properties:
+            text: This is a test paragraph with custom color
+            typography:
+              color: '#3b82f6'
+
+        # Button with custom appearance (should only show changed properties)
+        - name: button
+          properties:
+            text: Click Me
+            appearance:
+              variant: primary
+              radius: lg
+
+        # Link with underline disabled (should show text, href, and underline)
+        - name: link
+          properties:
+            text: Custom Link
+            href: https://example.com
+            underline: false
+

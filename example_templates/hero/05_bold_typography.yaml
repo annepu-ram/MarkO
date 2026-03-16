@@ -1,5 +1,9 @@
 # Bold Typography Hero
 # A striking, typography-focused hero with minimal imagery
+# Base components: page, titlebar, layout-column, layout-row, paragraph, heading, button
+# Section type: hero
+# Layout: stacked
+# Visual style: bold_typography
 # Perfect for: Creative agencies, portfolios, editorial, branding studios
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#1a1a1a"
+        text: &color-text "#313131"
         secondary: &color-secondary "#666666"
         accent: &color-accent "#ff4d4d"
         background: &color-background "#f5f5f0"
@@ -197,9 +202,6 @@
                   width: 0
                   style: solid
                   color: transparent
-                padding:
-                  block: md
-                  inline: lg
                 shadow: medium
                 shadowColor: *color-accent
               typography:
@@ -208,6 +210,8 @@
                 size: md
               spacing:
                 marginBlock: none
+                paddingBlock: md
+                paddingInline: lg
           - name: button
             properties:
               text: "Meet the Team"
@@ -220,9 +224,6 @@
                   width: 2
                   style: solid
                   color: *color-primary
-                padding:
-                  block: md
-                  inline: lg
               typography:
                 color: *color-primary
                 weight: medium
@@ -231,6 +232,8 @@
                 marginBlock: none
 
     # Awards / Recognition Row
+                paddingBlock: md
+                paddingInline: lg
     - name: layout-row
       properties:
         layout:
@@ -256,9 +259,9 @@
             radius: md
             shadow: soft
             shadowColor: *color-accent
-            padding:
-              block: sm
-              inline: md
+          spacing:
+            paddingBlock: sm
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -273,7 +276,7 @@
           properties:
             text: "Awwwards SOTD"
             typography:
-              color: *color-primary
+              color: *color-text
               size: sm
               weight: semibold
             spacing:
@@ -287,9 +290,9 @@
             radius: md
             shadow: soft
             shadowColor: *color-accent
-            padding:
-              block: sm
-              inline: md
+          spacing:
+            paddingBlock: sm
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -304,7 +307,7 @@
           properties:
             text: "FWA of the Day"
             typography:
-              color: *color-primary
+              color: *color-text
               size: sm
               weight: semibold
             spacing:
@@ -318,9 +321,9 @@
             radius: md
             shadow: soft
             shadowColor: *color-accent
-            padding:
-              block: sm
-              inline: md
+          spacing:
+            paddingBlock: sm
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -335,7 +338,7 @@
           properties:
             text: "CSS Design Awards"
             typography:
-              color: *color-primary
+              color: *color-text
               size: sm
               weight: semibold
             spacing:
@@ -349,9 +352,9 @@
             radius: md
             shadow: soft
             shadowColor: *color-accent
-            padding:
-              block: sm
-              inline: md
+          spacing:
+            paddingBlock: sm
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -366,7 +369,7 @@
           properties:
             text: "Webby Honoree"
             typography:
-              color: *color-primary
+              color: *color-text
               size: sm
               weight: semibold
             spacing:

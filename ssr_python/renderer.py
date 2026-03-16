@@ -147,6 +147,47 @@ def validate_component_properties(component, tokens, component_path=''):
     
     check_nested(properties)
 
+
+# ============================================================================
+# Theme Color Resolution
+# ============================================================================
+
+DEFAULT_THEME_COLORS = {
+    '$color-primary': '#111827',
+    '$color-secondary': '#6b7280',
+    '$color-accent': '#6366f1',
+    '$color-background': '#ffffff',
+}
+
+def _extract_theme_colors(structure):
+    """Extract theme colors from the site component, with fallbacks."""
+    colors = dict(DEFAULT_THEME_COLORS)
+    for component in structure:
+        if component.get('name') == 'site':
+            theme = component.get('properties', {}).get('theme', {})
+            theme_colors = theme.get('colors', {})
+            if theme_colors.get('primary'):
+                colors['$color-primary'] = theme_colors['primary']
+            if theme_colors.get('secondary'):
+                colors['$color-secondary'] = theme_colors['secondary']
+            if theme_colors.get('accent'):
+                colors['$color-accent'] = theme_colors['accent']
+            if theme_colors.get('background'):
+                colors['$color-background'] = theme_colors['background']
+            break
+    return colors
+
+def _resolve_color_placeholders(obj, color_map):
+    """Recursively replace $color-xxx placeholders with actual theme colors."""
+    if isinstance(obj, str):
+        return color_map.get(obj, obj)
+    if isinstance(obj, dict):
+        return {k: _resolve_color_placeholders(v, color_map) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_resolve_color_placeholders(item, color_map) for item in obj]
+    return obj
+
+
 def merge_component_with_defaults(component, defaults, tokens=None, component_path=''):
     """
     Merge a component with its defaults from component_defaults.yaml.
@@ -178,10 +219,11 @@ def merge_component_with_defaults(component, defaults, tokens=None, component_pa
         validate_component_properties(merged_component, tokens, component_path)
     
     # Recursively merge nested components
+    # Use `or []` because dict.get() returns None when key exists with null value
     if 'components' in merged_component:
         merged_component['components'] = [
             merge_component_with_defaults(child, defaults, tokens, f"{component_path}.components[{i}]")
-            for i, child in enumerate(merged_component.get('components', []))
+            for i, child in enumerate(merged_component.get('components') or [])
         ]
     
     # Handle nested structures in specific component types
@@ -191,34 +233,34 @@ def merge_component_with_defaults(component, defaults, tokens=None, component_pa
                 **col,
                 'components': [
                     merge_component_with_defaults(child, defaults, tokens, f"{component_path}.columns[{col_idx}].components[{i}]")
-                    for i, child in enumerate(col.get('components', []))
+                    for i, child in enumerate(col.get('components') or [])
                 ]
             }
-            for col_idx, col in enumerate(merged_component.get('columns', []))
+            for col_idx, col in enumerate(merged_component.get('columns') or [])
         ]
-    
+
     if 'tabs' in merged_component:
         merged_component['tabs'] = [
             {
                 **tab,
                 'components': [
                     merge_component_with_defaults(child, defaults, tokens, f"{component_path}.tabs[{tab_idx}].components[{i}]")
-                    for i, child in enumerate(tab.get('components', []))
+                    for i, child in enumerate(tab.get('components') or [])
                 ]
             }
-            for tab_idx, tab in enumerate(merged_component.get('tabs', []))
+            for tab_idx, tab in enumerate(merged_component.get('tabs') or [])
         ]
-    
+
     if 'slides' in merged_component:
         merged_component['slides'] = [
             {
                 **slide,
                 'components': [
                     merge_component_with_defaults(child, defaults, tokens, f"{component_path}.slides[{slide_idx}].components[{i}]")
-                    for i, child in enumerate(slide.get('components', []))
+                    for i, child in enumerate(slide.get('components') or [])
                 ]
             }
-            for slide_idx, slide in enumerate(merged_component.get('slides', []))
+            for slide_idx, slide in enumerate(merged_component.get('slides') or [])
         ]
 
     if 'items' in merged_component:
@@ -227,10 +269,10 @@ def merge_component_with_defaults(component, defaults, tokens=None, component_pa
                 **item,
                 'components': [
                     merge_component_with_defaults(child, defaults, tokens, f"{component_path}.items[{item_idx}].components[{i}]")
-                    for i, child in enumerate(item.get('components', []))
+                    for i, child in enumerate(item.get('components') or [])
                 ]
             }
-            for item_idx, item in enumerate(merged_component.get('items', []))
+            for item_idx, item in enumerate(merged_component.get('items') or [])
         ]
 
     return merged_component
@@ -287,10 +329,15 @@ def render_yaml_structure(structure, tokens=None, defaults=None):
         return "<!-- Invalid YAML: Root should be a list of components -->"
 
     # Merge each component with its defaults and validate
+    # Site wrapper is handled by the Jinja2 render_site macro (transparent pass-through)
     merged_structure = [
         merge_component_with_defaults(component, defaults, tokens, f"[{i}]")
         for i, component in enumerate(structure)
     ]
+
+    # Resolve $color-xxx placeholders in defaults with the user's theme colors
+    theme_colors = _extract_theme_colors(structure)
+    merged_structure = _resolve_color_placeholders(merged_structure, theme_colors)
 
     # Build the template by concatenating all component macro files.
     # Jinja2 {% include %} does NOT export macros to the parent scope,

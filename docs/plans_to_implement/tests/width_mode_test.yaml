@@ -1,0 +1,418 @@
+# Width Mode Test - All Text Components
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "Width Mode Test"
+      properties:
+        background: { color: '#f8fafc' }
+        layout:
+          padding: { top: lg, right: md, bottom: lg, left: md }
+      components:
+        - name: heading
+          properties:
+            text: Text Component Width Modes
+            level: 1
+            typography: { size: xxxl, weight: bold, color: '#0f172a' }
+            spacing: { marginBlock: lg }
+
+        - name: paragraph
+          properties:
+            text: Testing all 5 width modes - fit to content, 25%, 50%, 75%, and stretch (100%). Each mode controls how components behave in flex layouts.
+            typography: { size: md, color: '#475569' }
+            spacing: { marginBlock: md }
+
+        - name: br
+          properties: { size: lg }
+
+        # Test 1: Heading Component - All Width Modes
+        - name: heading
+          properties:
+            text: 1. Heading Component
+            level: 2
+            typography: { size: xl, weight: semibold, color: '#1e293b' }
+            spacing: { marginBlock: md }
+
+        - name: layout-row
+          properties:
+            layout: { align: stretch, distribution: space-evenly, wrap: wrap }
+            spacing: { paddingBlock: md, paddingInline: md, marginBlock: md }
+            appearance:
+              background: { color: '#ffffff' }
+              border: { width: 2, style: solid, color: '#e2e8f0' }
+              radius: md
+          components:
+            - name: heading
+              properties:
+                text: Fit
+                level: 4
+                typography: { size: sm, weight: bold, color: '#3b82f6' }
+                appearance:
+                  background: { color: '#dbeafe' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: fit }
+
+            - name: heading
+              properties:
+                text: 25%
+                level: 4
+                typography: { size: sm, weight: bold, color: '#10b981' }
+                appearance:
+                  background: { color: '#d1fae5' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: '25' }
+
+            - name: heading
+              properties:
+                text: 50%
+                level: 4
+                typography: { size: sm, weight: bold, color: '#f59e0b' }
+                appearance:
+                  background: { color: '#fef3c7' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: '50' }
+
+            - name: heading
+              properties:
+                text: 75%
+                level: 4
+                typography: { size: sm, weight: bold, color: '#8b5cf6' }
+                appearance:
+                  background: { color: '#ede9fe' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: '75' }
+
+            - name: heading
+              properties:
+                text: Stretch
+                level: 4
+                typography: { size: sm, weight: bold, color: '#ef4444' }
+                appearance:
+                  background: { color: '#fee2e2' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: stretch }
+
+        - name: br
+          properties: { size: lg }
+
+        # Test 2: Paragraph Component - All Width Modes
+        - name: heading
+          properties:
+            text: 2. Paragraph Component
+            level: 2
+            typography: { size: xl, weight: semibold, color: '#1e293b' }
+            spacing: { marginBlock: md }
+
+        - name: layout-row
+          properties:
+            layout: { align: stretch, distribution: space-evenly, wrap: wrap }
+            spacing: { paddingBlock: md, paddingInline: md, marginBlock: md }
+            appearance:
+              background: { color: '#ffffff' }
+              border: { width: 2, style: solid, color: '#e2e8f0' }
+              radius: md
+          components:
+            - name: paragraph
+              properties:
+                text: Fit to content
+                typography: { size: sm, color: '#1e293b' }
+                appearance:
+                  background: { color: '#dbeafe' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: fit }
+
+            - name: paragraph
+              properties:
+                text: 25% width
+                typography: { size: sm, color: '#1e293b' }
+                appearance:
+                  background: { color: '#d1fae5' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: '25' }
+
+            - name: paragraph
+              properties:
+                text: 50% width
+                typography: { size: sm, color: '#1e293b' }
+                appearance:
+                  background: { color: '#fef3c7' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: '50' }
+
+            - name: paragraph
+              properties:
+                text: 75% width
+                typography: { size: sm, color: '#1e293b' }
+                appearance:
+                  background: { color: '#ede9fe' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: '75' }
+
+            - name: paragraph
+              properties:
+                text: Stretch to fill
+                typography: { size: sm, color: '#1e293b' }
+                appearance:
+                  background: { color: '#fee2e2' }
+                  padding: { block: sm, inline: sm }
+                  radius: sm
+                layout: { widthMode: stretch }
+
+        - name: br
+          properties: { size: lg }
+
+        # Test 3: Eyebrow Component
+        - name: heading
+          properties:
+            text: 3. Eyebrow Component
+            level: 2
+            typography: { size: xl, weight: semibold, color: '#1e293b' }
+            spacing: { marginBlock: md }
+
+        - name: layout-row
+          properties:
+            layout: { align: center, distribution: space-evenly, wrap: wrap }
+            spacing: { paddingBlock: md, paddingInline: md, marginBlock: md }
+            appearance:
+              background: { color: '#ffffff' }
+              border: { width: 2, style: solid, color: '#e2e8f0' }
+              radius: md
+          components:
+            - name: eyebrow
+              properties:
+                text: FIT
+                typography: { size: xs, weight: bold, transform: uppercase, color: '#3b82f6' }
+                appearance:
+                  background: { color: '#dbeafe' }
+                  padding: { block: xs, inline: sm }
+                  radius: sm
+                layout: { widthMode: fit }
+
+            - name: eyebrow
+              properties:
+                text: 25%
+                typography: { size: xs, weight: bold, transform: uppercase, color: '#10b981' }
+                appearance:
+                  background: { color: '#d1fae5' }
+                  padding: { block: xs, inline: sm }
+                  radius: sm
+                layout: { widthMode: '25' }
+
+            - name: eyebrow
+              properties:
+                text: 50%
+                typography: { size: xs, weight: bold, transform: uppercase, color: '#f59e0b' }
+                appearance:
+                  background: { color: '#fef3c7' }
+                  padding: { block: xs, inline: sm }
+                  radius: sm
+                layout: { widthMode: '50' }
+
+            - name: eyebrow
+              properties:
+                text: 75%
+                typography: { size: xs, weight: bold, transform: uppercase, color: '#8b5cf6' }
+                appearance:
+                  background: { color: '#ede9fe' }
+                  padding: { block: xs, inline: sm }
+                  radius: sm
+                layout: { widthMode: '75' }
+
+            - name: eyebrow
+              properties:
+                text: STRETCH
+                typography: { size: xs, weight: bold, transform: uppercase, color: '#ef4444' }
+                appearance:
+                  background: { color: '#fee2e2' }
+                  padding: { block: xs, inline: sm }
+                  radius: sm
+                layout: { widthMode: stretch }
+
+        - name: br
+          properties: { size: lg }
+
+        # Test 4: Blockquote Component
+        - name: heading
+          properties:
+            text: 4. Blockquote Component
+            level: 2
+            typography: { size: xl, weight: semibold, color: '#1e293b' }
+            spacing: { marginBlock: md }
+
+        - name: paragraph
+          properties:
+            text: Note - Blockquotes look best at 50% or larger widths
+            typography: { size: sm, color: '#64748b', style: italic }
+            spacing: { marginBlock: sm }
+
+        - name: layout-row
+          properties:
+            layout: { align: start, distribution: space-evenly, wrap: wrap }
+            spacing: { paddingBlock: md, marginBlock: md }
+          components:
+            - name: blockquote
+              properties:
+                quote: 50% width blockquote
+                cite: Test
+                typography: { size: md, weight: medium, color: '#1e293b' }
+                appearance:
+                  border: { accentColor: '#3b82f6' }
+                  background: { color: '#f8fafc' }
+                  padding: { block: sm, inline: sm }
+                layout: { widthMode: '50' }
+
+            - name: blockquote
+              properties:
+                quote: Stretch blockquote fills remaining space
+                cite: Test
+                typography: { size: md, weight: medium, color: '#1e293b' }
+                appearance:
+                  border: { accentColor: '#10b981' }
+                  background: { color: '#f8fafc' }
+                  padding: { block: sm, inline: sm }
+                layout: { widthMode: stretch }
+
+        - name: br
+          properties: { size: lg }
+
+        # Test 5: Link Component
+        - name: heading
+          properties:
+            text: 5. Link Component
+            level: 2
+            typography: { size: xl, weight: semibold, color: '#1e293b' }
+            spacing: { marginBlock: md }
+
+        - name: layout-row
+          properties:
+            layout: { align: center, distribution: space-evenly, wrap: wrap }
+            spacing: { paddingBlock: md, paddingInline: md, marginBlock: md }
+            appearance:
+              background: { color: '#ffffff' }
+              border: { width: 2, style: solid, color: '#e2e8f0' }
+              radius: md
+          components:
+            - name: link
+              properties:
+                text: Fit Link
+                href: '#fit'
+                underline: true
+                typography: { size: sm, weight: medium, color: '#3b82f6' }
+                layout: { widthMode: fit }
+
+            - name: link
+              properties:
+                text: 25% Link
+                href: '#25'
+                underline: true
+                typography: { size: sm, weight: medium, color: '#10b981' }
+                layout: { widthMode: '25' }
+
+            - name: link
+              properties:
+                text: 50% Link
+                href: '#50'
+                underline: true
+                typography: { size: sm, weight: medium, color: '#f59e0b' }
+                layout: { widthMode: '50' }
+
+            - name: link
+              properties:
+                text: Stretch Link
+                href: '#stretch'
+                underline: true
+                typography: { size: sm, weight: medium, color: '#ef4444' }
+                layout: { widthMode: stretch }
+
+        - name: br
+          properties: { size: xl }
+
+        # Mixed Components Test
+        - name: heading
+          properties:
+            text: 6. Mixed Components (Real-World Example)
+            level: 2
+            typography: { size: xl, weight: semibold, color: '#1e293b' }
+            spacing: { marginBlock: md }
+
+        - name: layout-row
+          properties:
+            layout: { align: start, distribution: space-evenly, wrap: wrap }
+            spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+            appearance:
+              background: { color: '#ffffff' }
+              border: { width: 2, style: solid, color: '#e2e8f0' }
+              radius: md
+          components:
+            - name: layout-column
+              properties:
+                layout: { align: start, distribution: space-evenly, widthMode: '25' }
+                spacing: { paddingBlock: md, paddingInline: md }
+                appearance:
+                  background: { color: '#f8fafc' }
+                  border: { width: 1, style: solid, color: '#cbd5e1' }
+                  radius: sm
+
+              components:
+                - name: eyebrow
+                  properties:
+                    text: SIDEBAR
+                    typography: { size: xs, weight: bold, transform: uppercase, color: '#64748b' }
+                    spacing: { marginBlock: xs }
+
+                - name: paragraph
+                  properties:
+                    text: This sidebar takes 25% width
+                    typography: { size: sm, color: '#475569' }
+
+            - name: layout-column
+              properties:
+                layout: { align: start, distribution: space-evenly, widthMode: '75' }
+                spacing: { paddingBlock: md, paddingInline: md }
+                appearance:
+                  background: { color: '#f8fafc' }
+                  border: { width: 1, style: solid, color: '#cbd5e1' }
+                  radius: sm
+              components:
+                - name: heading
+                  properties:
+                    text: Main Content Area
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: '#1e293b' }
+                    spacing: { marginBlock: sm }
+
+                - name: paragraph
+                  properties:
+                    text: This content area takes 75% width, creating a classic sidebar layout. The width modes make it easy to create responsive layouts.
+                    typography: { size: md, color: '#475569', lineHeight: 1.6 }
+                    spacing: { marginBlock: sm }
+
+                - name: link
+                  properties:
+                    text: Learn More →
+                    href: '#more'
+                    underline: false
+                    typography: { size: md, weight: medium, color: '#3b82f6' }
+                    layout: { widthMode: fit }
+

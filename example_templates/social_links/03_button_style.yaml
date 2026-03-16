@@ -1,0 +1,202 @@
+# Social Links - Button Style
+# Social media links styled as pill buttons with accent backgrounds
+# Base components: layout-row, layout-column, heading, paragraph, button
+# Section type: social_links
+# Layout: centered row
+# Visual style: modern, colorful, bold
+# Perfect for: creative agency, influencer, content creator, musician, artist
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
+        secondary: &color-secondary "#94a3b8"
+        accent: &color-accent "#8b5cf6"
+        background: &color-background "#0f172a"
+  components:
+    - name: page
+      slug: home
+      title: "Social Links - Button Style"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+        # Section
+        - name: layout-column
+          properties:
+            layout:
+              align: center
+              horizontalAlign: center
+              tag: section
+            spacing:
+              marginBlock: none
+              paddingBlock: xxl
+              paddingInline: lg
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+          components:
+            - name: eyebrow
+              properties:
+                text: "FIND ME ONLINE"
+                typography:
+                  color: *color-accent
+                  size: xs
+                  weight: semibold
+                  letterSpacing: wider
+                  align: center
+                  transform: uppercase
+                spacing:
+                  marginBlock: none
+
+            - name: heading
+              properties:
+                text: "Let's Be Social"
+                level: 2
+                typography:
+                  color: *color-primary
+                  size: xxl
+                  weight: bold
+                  align: center
+                spacing:
+                  marginBlock: sm
+
+            - name: paragraph
+              properties:
+                text: "Follow, like, and share — join the community"
+                typography:
+                  color: *color-secondary
+                  size: md
+                  align: center
+                  lineHeight: "1.6"
+                spacing:
+                  marginBlock: sm
+
+            # Social Buttons Row
+            - name: layout-row
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: space-evenly
+                  wrap: wrap
+                spacing:
+                  marginBlock: lg
+              components:
+                - name: button
+                  properties:
+                    text: "Dribbble"
+                    appearance:
+                      background:
+                        color: "#ea4c89"
+                        transparency: 100
+                      border:
+                        width: 0
+                        style: solid
+                        color: transparent
+                      radius: pill
+                      shadow: soft
+                    spacing:
+                      paddingBlock: sm
+                      paddingInline: lg
+                    typography:
+                      color: *color-primary
+                      weight: semibold
+                      size: sm
+                    spacing:
+                      marginBlock: xs
+
+                      paddingBlock: sm
+                      paddingInline: lg
+                - name: button
+                  properties:
+                    text: "LinkedIn"
+                    appearance:
+                      background:
+                        color: "#0077b5"
+                        transparency: 100
+                      border:
+                        width: 0
+                        style: solid
+                        color: transparent
+                      radius: pill
+                      shadow: soft
+                    typography:
+                      color: *color-primary
+                      weight: semibold
+                      size: sm
+                    spacing:
+                      marginBlock: xs
+
+                      paddingBlock: sm
+                      paddingInline: lg
+                - name: button
+                  properties:
+                    text: "Twitter"
+                    appearance:
+                      background:
+                        color: "#1da1f2"
+                        transparency: 100
+                      border:
+                        width: 0
+                        style: solid
+                        color: transparent
+                      radius: pill
+                      shadow: soft
+                    typography:
+                      color: *color-primary
+                      weight: semibold
+                      size: sm
+                    spacing:
+                      marginBlock: xs
+
+                      paddingBlock: sm
+                      paddingInline: lg
+                - name: button
+                  properties:
+                    text: "GitHub"
+                    appearance:
+                      background:
+                        color: "#333333"
+                        transparency: 100
+                      border:
+                        width: 0
+                        style: solid
+                        color: transparent
+                      radius: pill
+                      shadow: soft
+                    typography:
+                      color: *color-primary
+                      weight: semibold
+                      size: sm
+                    spacing:
+                      marginBlock: xs
+
+                      paddingBlock: sm
+                      paddingInline: lg
+                - name: button
+                  properties:
+                    text: "Email"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        transparency: 100
+                      border:
+                        width: 0
+                        style: solid
+                        color: transparent
+                      radius: pill
+                      shadow: soft
+                    typography:
+                      color: *color-primary
+                      weight: semibold
+                      size: sm
+                    spacing:
+                      marginBlock: xs

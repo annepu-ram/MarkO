@@ -1,48 +1,56 @@
 # Hero Card Variant: Centered Minimalist
 # layout-column (align: center) with an eyebrow, heading, and paragraph
+# Base components: page, layout-column, eyebrow, heading, paragraph, button
+# Section type: hero
+# Layout: centered
+# Visual style: minimal
+# Perfect for: Product launches, SaaS, creative tools, design platforms
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#6b7280'
         accent: &color-accent '#6366f1'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: sm}
+      spacing: {paddingBlock: xxxl, paddingInline: xl}
+      appearance:
+        background: {color: *color-background}
+    components:
+    - name: eyebrow
       properties:
-        layout: { horizontalAlign: center, gap: sm }
-        spacing: { paddingBlock: xxxl, paddingInline: xl }
-        appearance:
-          background: { color: *color-background }
-          padding: { block: xxxl, inline: xl }
-      components:
-        - name: eyebrow
-          properties:
-            text: INTRODUCING V2.0
-            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
-        - name: heading
-          properties:
-            text: |
-              Less noise.
-              More clarity.
-            level: 1
-            typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center, letterSpacing: tight, lineHeight: "1.1" }
-            spacing: { marginBlock: md }
-            layout: { widthMode: "75" }
-        - name: paragraph
-          properties:
-            text: |
-              We believe great design speaks for itself. Our platform strips away
-              the unnecessary to reveal what truly matters.
-            typography: { size: lg, color: *color-secondary, align: center, lineHeight: "1.8" }
-            layout: { widthMode: "50" }
-            spacing: { marginBlock: lg }
-        - name: button
-          properties:
-            text: Experience Simplicity
-            appearance: { background: { color: *color-primary }, radius: pill, padding: { block: md, inline: xl } }
-            typography: { color: *color-background, weight: semibold }
+        text: INTRODUCING V2.0
+        typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+    - name: heading
+      properties:
+        text: |
+          Less noise.
+          More clarity.
+        level: 1
+        typography: {size: xxxl, weight: extrabold, color: *color-primary, align: center, letterSpacing: tight, lineHeight: "1.1"}
+        spacing: {marginBlock: md}
+        layout: {widthMode: "75"}
+    - name: paragraph
+      properties:
+        text: |
+          We believe great design speaks for itself. Our platform strips away
+          the unnecessary to reveal what truly matters.
+        typography: {size: lg, color: *color-secondary, align: center, lineHeight: "1.8"}
+        layout: {widthMode: "50"}
+        spacing: {marginBlock: lg}
+    - name: button
+      properties:
+        text: Experience Simplicity
+        appearance: {background: {color: *color-primary}, radius: pill}
+        typography: {color: *color-background, weight: semibold}
+        spacing:
+          paddingBlock: md
+          paddingInline: xl

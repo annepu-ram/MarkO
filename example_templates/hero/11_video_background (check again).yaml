@@ -1,0 +1,384 @@
+# Video Background Style Hero Section
+# A dynamic above-fold hero simulating video background using auto-playing carousel with multiple full-screen slides, dark overlay, live event badge, large bold headline, date and location info, dual CTA buttons, and countdown timer — high-energy event landing page
+# Base components: carousel, image, layout-column, layout-row, paragraph, heading, button
+# Section type: hero
+# Layout: carousel_slider
+# Visual style: dark_mode, bold_typography
+# Perfect for: SaaS platform, online store, digital agency, law firm, consulting firm, dental clinic, real estate agency, restaurant, gym, photography studio
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
+        secondary: &color-secondary "#ef4444"
+        accent: &color-accent "#fbbf24"
+        background: &color-background "#000000"
+  components:
+    - name: page
+      slug: home
+      title: "11 Video Background"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+      # Hero with Carousel Background (simulating video)
+      - name: carousel
+        properties:
+          behavior:
+            autoplay: true
+            delay: 3000
+            loop: true
+          navigation:
+            showArrows: false
+            showDots: false
+          spacing:
+            marginBlock: none
+            marginInline: none
+        slides:
+        - components:
+          - name: image
+            properties:
+              source:
+                url: https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1920
+                altText: Concert crowd with lights
+              appearance:
+                minHeight: 40
+                fit: cover
+                cornerStyle: none
+                hoverEffect: zoom
+              layout:
+                widthMode: stretch
+              spacing:
+                marginBlock: none
+            components:
+            - name: layout-column
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: space-evenly
+                appearance:
+                  background:
+                    color: rgba(0,0,0,0.6)
+                    transparency: 100
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: lg
+              components:
+              # Live Badge
+              - name: layout-row
+                properties:
+                  layout:
+                    align: center
+                    horizontalAlign: space-evenly
+                  appearance:
+                    background:
+                      color: rgba(239,68,68,0.15)
+                      transparency: 100
+                    radius: pill
+                    border:
+                      width: 1
+                      style: solid
+                      color: rgba(239,68,68,0.3)
+                  spacing:
+                    paddingBlock: xs
+                    paddingInline: md
+                components:
+                - name: paragraph
+                  properties:
+                    text: "●"
+                    typography:
+                      color: *color-secondary
+                      size: sm
+                    spacing:
+                      marginBlock: none
+                - name: paragraph
+                  properties:
+                    text: "LIVE EVENT"
+                    typography:
+                      color: *color-text
+                      size: xs
+                      weight: bold
+                      letterSpacing: wider
+                      transform: uppercase
+                    spacing:
+                      marginBlock: none
+              - name: heading
+                properties:
+                  text: "ELECTRIC NIGHTS"
+                  level: 1
+                  typography:
+                    color: *color-primary
+                    size: xxxl
+                    weight: bold
+                    align: center
+                    letterSpacing: wide
+                  spacing:
+                    marginBlock: none
+              - name: heading
+                properties:
+                  text: "FESTIVAL 2026"
+                  level: 2
+                  typography:
+                    color: *color-accent
+                    size: xxl
+                    weight: bold
+                    align: center
+                    letterSpacing: wide
+                  spacing:
+                    marginBlock: none
+              - name: paragraph
+                properties:
+                  text: "AUGUST 15-17  •  CENTRAL PARK, NYC"
+                  typography:
+                    color: rgba(255,255,255,0.8)
+                    size: md
+                    align: center
+                    letterSpacing: wide
+                  spacing:
+                    marginBlock: md
+              - name: layout-row
+                properties:
+                  layout:
+                    align: center
+                    horizontalAlign: space-evenly
+                    wrap: wrap
+                  spacing:
+                    marginBlock: lg
+                components:
+                - name: button
+                  properties:
+                    text: "Get Tickets"
+                    appearance:
+                      background:
+                        type: gradient
+                        gradient:
+                          colorStart: *color-accent
+                          colorEnd: *color-accent
+                          direction: to right
+                      border:
+                        width: 0
+                        style: solid
+                        color: transparent
+                      shadow: medium
+                      shadowColor: *color-accent
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-background
+                      weight: bold
+                      size: md
+                    spacing:
+                      marginBlock: none
+                      paddingBlock: md
+                      paddingInline: xl
+                - name: button
+                  properties:
+                    text: "View Lineup"
+                    appearance:
+                      background:
+                        color: transparent
+                        transparency: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-primary
+                    typography:
+                      color: *color-primary
+                      weight: semibold
+                      size: md
+                    spacing:
+                      marginBlock: none
+              - name: layout-row
+                properties:
+                  layout:
+                    align: center
+                    horizontalAlign: space-evenly
+                  spacing:
+                    marginBlock: xl
+                components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      align: center
+                      horizontalAlign: space-evenly
+                  components:
+                  - name: heading
+                    properties:
+                      text: "127"
+                      level: 2
+                      typography:
+                        color: *color-primary
+                        size: xxl
+                        weight: bold
+                        align: center
+                      spacing:
+                        marginBlock: none
+                  - name: paragraph
+                    properties:
+                      text: "DAYS"
+                      typography:
+                        color: rgba(255,255,255,0.6)
+                        size: xs
+                        align: center
+                        letterSpacing: wide
+                      spacing:
+                        marginBlock: none
+                - name: paragraph
+                  properties:
+                    text: ":"
+                    typography:
+                      color: *color-accent
+                      size: xxl
+                      weight: bold
+                    spacing:
+                      marginBlock: none
+                - name: layout-column
+                  properties:
+                    layout:
+                      align: center
+                      horizontalAlign: space-evenly
+                  components:
+                  - name: heading
+                    properties:
+                      text: "14"
+                      level: 2
+                      typography:
+                        color: *color-primary
+                        size: xxl
+                        weight: bold
+                        align: center
+                      spacing:
+                        marginBlock: none
+                  - name: paragraph
+                    properties:
+                      text: "HOURS"
+                      typography:
+                        color: rgba(255,255,255,0.6)
+                        size: xs
+                        align: center
+                        letterSpacing: wide
+                      spacing:
+                        marginBlock: none
+                - name: paragraph
+                  properties:
+                    text: ":"
+                    typography:
+                      color: *color-accent
+                      size: xxl
+                      weight: bold
+                    spacing:
+                      marginBlock: none
+                - name: layout-column
+                  properties:
+                    layout:
+                      align: center
+                      horizontalAlign: space-evenly
+                  components:
+                  - name: heading
+                    properties:
+                      text: "32"
+                      level: 2
+                      typography:
+                        color: *color-primary
+                        size: xxl
+                        weight: bold
+                        align: center
+                      spacing:
+                        marginBlock: none
+                  - name: paragraph
+                    properties:
+                      text: "MINS"
+                      typography:
+                        color: rgba(255,255,255,0.6)
+                        size: xs
+                        align: center
+                        letterSpacing: wide
+                      spacing:
+                        marginBlock: none
+        - components:
+          - name: image
+            properties:
+              source:
+                url: https://images.pexels.com/photos/1540406/pexels-photo-1540406.jpeg?auto=compress&cs=tinysrgb&w=1920
+                altText: DJ performing on stage
+              appearance:
+                minHeight: 40
+                fit: cover
+                cornerStyle: none
+                hoverEffect: zoom
+              layout:
+                widthMode: stretch
+              spacing:
+                marginBlock: none
+            components:
+            - name: layout-column
+              properties:
+                layout:
+                  align: center
+                  horizontalAlign: space-evenly
+                appearance:
+                  background:
+                    color: rgba(0,0,0,0.6)
+                    transparency: 100
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: lg
+              components:
+              - name: layout-row
+                properties:
+                  layout:
+                    align: center
+                    horizontalAlign: space-evenly
+                components:
+                - name: paragraph
+                  properties:
+                    text: "●"
+                    typography:
+                      color: *color-secondary
+                      size: sm
+                    spacing:
+                      marginBlock: none
+                - name: paragraph
+                  properties:
+                    text: "LIVE EVENT"
+                    typography:
+                      color: *color-text
+                      size: xs
+                      weight: bold
+                      letterSpacing: wider
+                      transform: uppercase
+                    spacing:
+                      marginBlock: none
+              - name: heading
+                properties:
+                  text: "ELECTRIC NIGHTS"
+                  level: 1
+                  typography:
+                    color: *color-primary
+                    size: xxxl
+                    weight: bold
+                    align: center
+                    letterSpacing: wide
+                  spacing:
+                    marginBlock: none
+              - name: heading
+                properties:
+                  text: "FESTIVAL 2026"
+                  level: 2
+                  typography:
+                    color: *color-accent
+                    size: xxl
+                    weight: bold
+                    align: center
+                    letterSpacing: wide
+                  spacing:
+                    marginBlock: none

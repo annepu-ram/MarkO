@@ -1,6 +1,10 @@
 # 04 - The Client Logo Slide
-# Carousel that shows brand logo images in a sliding carousel.
-# Clean presentation of client logos with autoplay.
+# Carousel that shows brand logo images in a sliding carousel. Clean presentation of client logos with autoplay.
+# Base components: page, layout-column, eyebrow, heading, paragraph, carousel, layout-row, image, columnsgrid
+# Section type: gallery
+# Layout: stacked
+# Visual style: minimal
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page
   properties:
@@ -10,6 +14,7 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#374151'
         accent: &color-accent '#8b5cf6'
         background: &color-background '#ffffff'

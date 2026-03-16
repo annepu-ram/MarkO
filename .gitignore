@@ -50,3 +50,6 @@ yarn-error.log
 ssr_python/logs/
 *.log
 nul
+
+# Database and uploads (instance data)
+ssr_python/instance/

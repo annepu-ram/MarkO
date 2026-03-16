@@ -1,5 +1,10 @@
 {
-  "html.validate.styles": false
+  "html.validate.styles": false,
+  "python.testing.pytestArgs": [
+    "ssr_python"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
 }
 
 

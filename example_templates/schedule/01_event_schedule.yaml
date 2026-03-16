@@ -1,0 +1,220 @@
+# Event Schedule - Conference Day Agenda with Accordion
+# A conference schedule section with time-slot accordion items showing speaker, description, and location details
+# Base components: layout-column, heading, paragraph, eyebrow, accordion, icon, badge
+# Section type: schedule, event, agenda
+# Layout: stacked
+# Visual style: modern
+# Perfect for: dental clinic, salon, barbershop, yoga studio, fitness studio, conference, workshop, tutoring center, cooking class, music school
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1E3A5F'
+        text: &color-text '#34445B'
+        secondary: &color-secondary '#C5D4E3'
+        accent: &color-accent '#0052CC'
+        background: &color-background '#E8EDF2'
+  components:
+  - name: page
+    slug: home
+    title: "Event Schedule"
+    properties:
+      appearance: {background: {color: *color-background, transparency: 100}}
+    components:
+
+        # ============================================
+        # SCHEDULE HEADER
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', transparency: 100}
+        spacing:
+          paddingBlock: xxl
+          paddingInline: xl
+      components:
+      - name: eyebrow
+        properties:
+          text: MARCH 15, 2026
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Event Schedule
+          level: 2
+          typography: {size: xxl, weight: semibold, color: *color-primary, align: center, letterSpacing: tight}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: A full day of inspiring talks, hands-on workshops, and networking opportunities.
+          typography: {size: md, color: '#64748b', align: center, lineHeight: '1.7'}
+          layout: {widthMode: 66}
+          spacing: {marginBlock: md}
+
+        # ============================================
+        # SCHEDULE ACCORDION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', transparency: 100}
+        spacing:
+          paddingBlock: xl
+          paddingInline: xl
+      components:
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: false}
+          appearance:
+            background: {color: *color-background, transparency: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "9:00 AM — Registration & Welcome Coffee"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: icon
+              properties:
+                name: coffee
+                size: 24
+                color: *color-accent
+            - name: paragraph
+              properties:
+                text: "Check in at the registration desk, grab your badge and welcome kit, and enjoy coffee and pastries in the main lobby."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: caption
+              properties:
+                text: "Location: Main Lobby"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "10:00 AM — Opening Keynote: The Future of Technology"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: icon
+              properties:
+                name: mic
+                size: 24
+                color: *color-accent
+            - name: heading
+              properties:
+                text: "Dr. Sarah Chen"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: paragraph
+              properties:
+                text: "Explore the emerging trends shaping our industry over the next decade, from AI-driven automation to sustainable computing practices."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: caption
+              properties:
+                text: "Location: Grand Ballroom | Duration: 60 min"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "11:30 AM — Workshop: Building Scalable Systems"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: icon
+              properties:
+                name: code
+                size: 24
+                color: *color-accent
+            - name: heading
+              properties:
+                text: "Marcus Rodriguez"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: paragraph
+              properties:
+                text: "A hands-on workshop covering distributed architecture patterns, load balancing strategies, and real-world case studies from high-traffic platforms."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Hands-On"
+                appearance: {background: {color: *color-accent}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Location: Workshop Room A | Duration: 90 min"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "1:00 PM — Lunch & Networking"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: icon
+              properties:
+                name: users
+                size: 24
+                color: *color-accent
+            - name: paragraph
+              properties:
+                text: "Enjoy a catered lunch while connecting with fellow attendees, speakers, and sponsors. Topic tables available for focused discussions."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: caption
+              properties:
+                text: "Location: Dining Hall | Duration: 60 min"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "2:30 PM — Panel: AI in Practice"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: icon
+              properties:
+                name: message-circle
+                size: 24
+                color: *color-accent
+            - name: paragraph
+              properties:
+                text: "Industry leaders discuss real-world AI implementations, ethical considerations, and practical strategies for integrating machine learning into existing workflows."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: caption
+              properties:
+                text: "Location: Grand Ballroom | Duration: 75 min"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "4:00 PM — Closing Remarks & Happy Hour"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: icon
+              properties:
+                name: award
+                size: 24
+                color: *color-accent
+            - name: paragraph
+              properties:
+                text: "Wrap up the day with key takeaways, prize drawings, and an informal happy hour to celebrate a day of learning and connection."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: caption
+              properties:
+                text: "Location: Rooftop Terrace"
+                typography: {size: xs, color: *color-accent, weight: medium}

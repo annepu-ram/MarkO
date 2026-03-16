@@ -1,0 +1,1027 @@
+# Form & Input Components Test Suite
+# Validates form layouts (vertical, inline, horizontal), all input types,
+# validation types, checkbox/radio multi-value, and styling variations.
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "Form Components Test"
+      properties:
+        appearance:
+          background:
+            color: '#f1f5f9'
+        spacing:
+          padding:
+            block: lg
+            inline: lg
+      components:
+
+        # ==========================================
+        # 1. VERTICAL FORM (Default Layout)
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "1. Vertical Form (Default)"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: paragraph
+          properties:
+            text: "Standard stacked layout with all input types."
+            typography:
+              size: sm
+              color: '#64748b'
+
+        - name: form
+          properties:
+            layout:
+              style: vertical
+            submit:
+              show: true
+              buttonText: "Submit Form"
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: md
+              shadow: sm
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+              marginBlock: md
+          components:
+            - name: textbox
+              properties:
+                label:
+                  text: "Full Name"
+                  show: true
+                field:
+                  name: full_name
+                  placeholder: "John Doe"
+                  validation: lettersOnly
+                  required: true
+                  helperText: "Letters and spaces only"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Email Address"
+                field:
+                  name: email
+                  placeholder: "john@example.com"
+                  validation: email
+                  required: true
+                  helperText: "We'll never share your email"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Phone Number"
+                field:
+                  name: phone
+                  placeholder: "(555) 123-4567"
+                  validation: phone
+                  helperText: "Digits, spaces, dashes, and parentheses"
+
+            - name: textarea
+              properties:
+                label:
+                  text: "Message"
+                field:
+                  name: message
+                  placeholder: "Tell us what's on your mind..."
+                  rows: 4
+                  required: true
+
+        # ==========================================
+        # 2. INLINE FORM
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "2. Inline Form"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: paragraph
+          properties:
+            text: "Compact horizontal layout for search bars and newsletter signups."
+            typography:
+              size: sm
+              color: '#64748b'
+
+        # 2a. Newsletter Signup
+        - name: form
+          properties:
+            layout:
+              style: inline
+            submit:
+              show: false
+            appearance:
+              background:
+                color: '#1e293b'
+              border:
+                width: 0
+              radius: lg
+              shadow: md
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+              marginBlock: md
+          components:
+            - name: textbox
+              properties:
+                label:
+                  text: "Email"
+                  show: false
+                field:
+                  name: newsletter_email
+                  placeholder: "Enter your email"
+                  validation: email
+                  required: true
+                appearance:
+                  accentColor: '#8b5cf6'
+
+            - name: button
+              properties:
+                text: "Subscribe"
+                appearance:
+                  background:
+                    color: '#8b5cf6'
+                  radius: md
+                typography:
+                  size: sm
+                  weight: semibold
+                  color: '#ffffff'
+
+        # 2b. Search Bar
+        - name: form
+          properties:
+            layout:
+              style: inline
+            submit:
+              show: false
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: pill
+              shadow: sm
+            spacing:
+              paddingBlock: sm
+              paddingInline: md
+              marginBlock: md
+          components:
+            - name: textbox
+              properties:
+                label:
+                  text: "Search"
+                  show: false
+                field:
+                  name: search
+                  placeholder: "Search anything..."
+                  validation: none
+
+            - name: button
+              properties:
+                text: "Search"
+                appearance:
+                  background:
+                    color: '#3b82f6'
+                  radius: pill
+                typography:
+                  size: sm
+                  weight: medium
+                  color: '#ffffff'
+
+        # ==========================================
+        # 3. HORIZONTAL FORM
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "3. Horizontal Form"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: paragraph
+          properties:
+            text: "Labels aligned left with fields on the right, ideal for settings pages."
+            typography:
+              size: sm
+              color: '#64748b'
+
+        - name: form
+          properties:
+            layout:
+              style: horizontal
+            submit:
+              show: true
+              buttonText: "Save Settings"
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: md
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+              marginBlock: md
+          components:
+            - name: textbox
+              properties:
+                label:
+                  text: "Username"
+                field:
+                  name: username
+                  placeholder: "johndoe"
+                  validation: alphanumeric
+                  helperText: "Letters and numbers only"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Email"
+                field:
+                  name: settings_email
+                  placeholder: "john@example.com"
+                  validation: email
+                  required: true
+
+            - name: dropdown
+              properties:
+                label:
+                  text: "Timezone"
+                field:
+                  name: timezone
+                  placeholder: "Select timezone"
+                  options: "UTC-8 Pacific\nUTC-7 Mountain\nUTC-6 Central\nUTC-5 Eastern\nUTC+0 GMT\nUTC+1 CET"
+
+            - name: checkbox
+              properties:
+                label:
+                  text: "Notifications"
+                  show: true
+                field:
+                  name: notifications
+                  options: "Email alerts\nSMS alerts\nPush notifications"
+                  helperText: "Select how you want to be notified"
+
+        # ==========================================
+        # 4. ALL VALIDATION TYPES
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "4. All Validation Types"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: paragraph
+          properties:
+            text: "Each textbox demonstrates a different validation type. Type invalid input and tab away to see the red border; type valid input to see the green border."
+            typography:
+              size: sm
+              color: '#64748b'
+
+        - name: form
+          properties:
+            layout:
+              style: vertical
+            submit:
+              show: false
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: md
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+              marginBlock: md
+          components:
+            - name: textbox
+              properties:
+                label:
+                  text: "None (plain text)"
+                field:
+                  name: plain
+                  placeholder: "Any text accepted"
+                  validation: none
+                  helperText: "No validation applied"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Email Validation"
+                field:
+                  name: email_test
+                  placeholder: "user@domain.com"
+                  validation: email
+                  helperText: "Must be a valid email format"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Phone Validation"
+                field:
+                  name: phone_test
+                  placeholder: "(555) 123-4567"
+                  validation: phone
+                  helperText: "Digits, spaces, dashes, +, parentheses"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Zip Code Validation"
+                field:
+                  name: zip_test
+                  placeholder: "12345"
+                  validation: zipCode
+                  helperText: "5-digit or 5+4 format (e.g. 12345-6789)"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "URL Validation"
+                field:
+                  name: url_test
+                  placeholder: "https://example.com"
+                  validation: url
+                  helperText: "Must be a valid web address"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Password Validation"
+                field:
+                  name: password_test
+                  placeholder: "Enter a password"
+                  validation: password
+                  helperText: "Minimum 8 characters (input is masked)"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Credit Card Validation"
+                field:
+                  name: cc_test
+                  placeholder: "4111 1111 1111 1111"
+                  validation: creditCard
+                  helperText: "13-19 digits, spaces and dashes allowed"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Letters Only Validation"
+                field:
+                  name: letters_test
+                  placeholder: "Jane Smith"
+                  validation: lettersOnly
+                  helperText: "Alphabetic characters and spaces only"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Alphanumeric Validation"
+                field:
+                  name: alphanum_test
+                  placeholder: "Room 42B"
+                  validation: alphanumeric
+                  helperText: "Letters, numbers, and spaces only"
+
+        # ==========================================
+        # 5. DROPDOWN VARIATIONS
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "5. Dropdown Variations"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: form
+          properties:
+            layout:
+              style: vertical
+            submit:
+              show: false
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: md
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+              marginBlock: md
+          components:
+            - name: dropdown
+              properties:
+                label:
+                  text: "Country"
+                  typography:
+                    size: sm
+                    weight: semibold
+                    color: '#1e293b'
+                field:
+                  name: country
+                  placeholder: "Select your country"
+                  options: "United States\nCanada\nUnited Kingdom\nGermany\nFrance\nJapan\nAustralia"
+                  required: true
+                  helperText: "Required field"
+                appearance:
+                  accentColor: '#10b981'
+
+            - name: dropdown
+              properties:
+                label:
+                  text: "Favorite Color"
+                field:
+                  name: color
+                  placeholder: "Pick a color"
+                  options: "Red\nBlue\nGreen\nYellow\nPurple\nOrange"
+                  helperText: "Optional selection"
+                appearance:
+                  accentColor: '#f59e0b'
+
+            - name: dropdown
+              properties:
+                label:
+                  text: "Priority"
+                  show: false
+                field:
+                  name: priority
+                  placeholder: "Set priority"
+                  options: "Low\nMedium\nHigh\nUrgent"
+
+        # ==========================================
+        # 6. CHECKBOX & RADIO MULTI-VALUE
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "6. Checkbox & Radio Groups"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: paragraph
+          properties:
+            text: "Multi-option checkbox and radio groups with various configurations."
+            typography:
+              size: sm
+              color: '#64748b'
+
+        - name: form
+          properties:
+            layout:
+              style: vertical
+            submit:
+              show: false
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: md
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+              marginBlock: md
+          components:
+            # Checkbox with label
+            - name: checkbox
+              properties:
+                label:
+                  text: "Interests"
+                  show: true
+                  typography:
+                    size: sm
+                    weight: semibold
+                    color: '#1e293b'
+                field:
+                  name: interests
+                  options: "Technology\nDesign\nBusiness\nScience\nArts"
+                  helperText: "Select all that apply"
+                appearance:
+                  color: '#3b82f6'
+
+            # Checkbox required
+            - name: checkbox
+              properties:
+                label:
+                  text: "Terms & Conditions"
+                  show: true
+                field:
+                  name: terms
+                  options: "I agree to the Terms of Service\nI agree to the Privacy Policy"
+                  required: true
+                  helperText: "You must accept to continue"
+                appearance:
+                  color: '#ef4444'
+
+            # Checkbox without label
+            - name: checkbox
+              properties:
+                label:
+                  text: "Features"
+                  show: false
+                field:
+                  name: features
+                  options: "Dark Mode\nNotifications\nAuto-save"
+                appearance:
+                  color: '#8b5cf6'
+
+            # Radio with label
+            - name: radio
+              properties:
+                label:
+                  text: "Subscription Plan"
+                  show: true
+                  typography:
+                    size: sm
+                    weight: semibold
+                    color: '#1e293b'
+                field:
+                  name: plan
+                  options: "Free\nStarter ($9/mo)\nPro ($29/mo)\nEnterprise ($99/mo)"
+                  required: true
+                  helperText: "First option is selected by default"
+                appearance:
+                  color: '#10b981'
+
+            # Radio with different color
+            - name: radio
+              properties:
+                label:
+                  text: "Shipping Speed"
+                  show: true
+                field:
+                  name: shipping
+                  options: "Standard (5-7 days)\nExpress (2-3 days)\nOvernight (next day)"
+                appearance:
+                  color: '#f59e0b'
+
+            # Radio without label
+            - name: radio
+              properties:
+                label:
+                  text: "Size"
+                  show: false
+                field:
+                  name: size
+                  options: "Small\nMedium\nLarge\nExtra Large"
+                appearance:
+                  color: '#ec4899'
+
+        # ==========================================
+        # 7. CALENDAR / DATE PICKER
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "7. Calendar / Date Picker"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: form
+          properties:
+            layout:
+              style: vertical
+            submit:
+              show: false
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: md
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+              marginBlock: md
+          components:
+            - name: calendar
+              properties:
+                label:
+                  text: "Event Date"
+                  typography:
+                    weight: semibold
+                field:
+                  name: event_date
+                  required: true
+                  helperText: "Select the event date"
+                appearance:
+                  accentColor: '#3b82f6'
+
+            - name: calendar
+              properties:
+                label:
+                  text: "Booking Date (restricted range)"
+                field:
+                  name: booking_date
+                  min: "2026-03-01"
+                  max: "2026-12-31"
+                  helperText: "March 2026 through December 2026 only"
+                appearance:
+                  accentColor: '#10b981'
+
+            - name: calendar
+              properties:
+                label:
+                  text: "Date of Birth"
+                field:
+                  name: dob
+                  max: "2026-02-25"
+                  helperText: "Must be in the past"
+
+        # ==========================================
+        # 8. TEXTAREA VARIATIONS
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "8. Textarea Variations"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: form
+          properties:
+            layout:
+              style: vertical
+            submit:
+              show: false
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: md
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+              marginBlock: md
+          components:
+            - name: textarea
+              properties:
+                label:
+                  text: "Short Feedback"
+                  typography:
+                    weight: semibold
+                field:
+                  name: feedback
+                  placeholder: "Quick feedback..."
+                  rows: 2
+                  helperText: "Brief comment"
+                appearance:
+                  accentColor: '#3b82f6'
+
+            - name: textarea
+              properties:
+                label:
+                  text: "Detailed Description"
+                field:
+                  name: description
+                  placeholder: "Provide a detailed description of your project, including goals, timeline, and any specific requirements..."
+                  rows: 6
+                  required: true
+                  helperText: "Be as detailed as possible"
+                appearance:
+                  accentColor: '#8b5cf6'
+
+            - name: textarea
+              properties:
+                label:
+                  text: "Code Snippet"
+                  show: false
+                field:
+                  name: code
+                  placeholder: "Paste your code here..."
+                  rows: 8
+
+        # ==========================================
+        # 9. STYLED FORM (Custom Appearance)
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "9. Styled Form (Custom Appearance)"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: paragraph
+          properties:
+            text: "Form with gradient-like dark background, colored accent, and custom label styling."
+            typography:
+              size: sm
+              color: '#64748b'
+
+        - name: form
+          properties:
+            layout:
+              style: vertical
+            submit:
+              show: true
+              buttonText: "Get Started"
+            appearance:
+              background:
+                color: '#0f172a'
+              border:
+                width: 1
+                color: '#334155'
+              radius: lg
+              shadow: lg
+              shadowColor: '#0f172a'
+            spacing:
+              paddingBlock: xl
+              paddingInline: xl
+              marginBlock: md
+          components:
+            - name: textbox
+              properties:
+                label:
+                  text: "Your Name"
+                  typography:
+                    size: sm
+                    weight: medium
+                    color: '#e2e8f0'
+                field:
+                  name: styled_name
+                  placeholder: "Enter your name"
+                  validation: lettersOnly
+                  required: true
+                appearance:
+                  accentColor: '#a78bfa'
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Email"
+                  typography:
+                    size: sm
+                    weight: medium
+                    color: '#e2e8f0'
+                field:
+                  name: styled_email
+                  placeholder: "you@company.com"
+                  validation: email
+                  required: true
+                appearance:
+                  accentColor: '#a78bfa'
+
+            - name: dropdown
+              properties:
+                label:
+                  text: "Company Size"
+                  typography:
+                    size: sm
+                    weight: medium
+                    color: '#e2e8f0'
+                field:
+                  name: company_size
+                  placeholder: "Select size"
+                  options: "1-10 employees\n11-50 employees\n51-200 employees\n201-1000 employees\n1000+ employees"
+                appearance:
+                  accentColor: '#a78bfa'
+
+            - name: radio
+              properties:
+                label:
+                  text: "Plan"
+                  show: true
+                  typography:
+                    size: sm
+                    weight: medium
+                    color: '#e2e8f0'
+                field:
+                  name: styled_plan
+                  options: "Starter\nProfessional\nEnterprise"
+                  required: true
+                appearance:
+                  color: '#a78bfa'
+
+        # ==========================================
+        # 10. MIXED FORM (All Components Together)
+        # ==========================================
+
+        - name: heading
+          properties:
+            text: "10. Complete Registration Form"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+            spacing:
+              marginBlock: md
+
+        - name: paragraph
+          properties:
+            text: "A realistic registration form combining all input types."
+            typography:
+              size: sm
+              color: '#64748b'
+
+        - name: form
+          properties:
+            layout:
+              style: vertical
+            submit:
+              show: true
+              buttonText: "Create Account"
+            appearance:
+              background:
+                color: '#ffffff'
+              border:
+                width: 1
+                color: '#e2e8f0'
+              radius: lg
+              shadow: md
+            spacing:
+              paddingBlock: xl
+              paddingInline: xl
+              marginBlock: md
+          components:
+            - name: textbox
+              properties:
+                label:
+                  text: "First Name"
+                field:
+                  name: first_name
+                  placeholder: "Jane"
+                  validation: lettersOnly
+                  required: true
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Last Name"
+                field:
+                  name: last_name
+                  placeholder: "Smith"
+                  validation: lettersOnly
+                  required: true
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Email"
+                field:
+                  name: reg_email
+                  placeholder: "jane@example.com"
+                  validation: email
+                  required: true
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Password"
+                field:
+                  name: reg_password
+                  placeholder: "Create a password"
+                  validation: password
+                  required: true
+                  helperText: "Minimum 8 characters"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Phone"
+                field:
+                  name: reg_phone
+                  placeholder: "(555) 000-0000"
+                  validation: phone
+                  helperText: "Optional"
+
+            - name: textbox
+              properties:
+                label:
+                  text: "Zip Code"
+                field:
+                  name: reg_zip
+                  placeholder: "10001"
+                  validation: zipCode
+
+            - name: calendar
+              properties:
+                label:
+                  text: "Date of Birth"
+                field:
+                  name: reg_dob
+                  max: "2026-02-25"
+                  required: true
+
+            - name: dropdown
+              properties:
+                label:
+                  text: "How did you hear about us?"
+                field:
+                  name: referral
+                  placeholder: "Select one"
+                  options: "Search Engine\nSocial Media\nFriend or Colleague\nBlog Post\nAdvertisement\nOther"
+
+            - name: radio
+              properties:
+                label:
+                  text: "Account Type"
+                  show: true
+                field:
+                  name: account_type
+                  options: "Personal\nBusiness\nEducation"
+                  required: true
+                appearance:
+                  color: '#3b82f6'
+
+            - name: checkbox
+              properties:
+                label:
+                  text: "Preferences"
+                  show: true
+                field:
+                  name: preferences
+                  options: "Send me product updates\nSend me newsletters\nAllow third-party cookies"
+                appearance:
+                  color: '#3b82f6'
+
+            - name: textarea
+              properties:
+                label:
+                  text: "Bio"
+                field:
+                  name: bio
+                  placeholder: "Tell us about yourself..."
+                  rows: 3
+                  helperText: "Optional - visible on your profile"
+
+            - name: checkbox
+              properties:
+                label:
+                  text: "Agreement"
+                  show: true
+                field:
+                  name: agreement
+                  options: "I agree to the Terms of Service and Privacy Policy"
+                  required: true
+                appearance:
+                  color: '#ef4444'

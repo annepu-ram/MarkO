@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/images-panel.css') }}">
-    <!-- Google Material Symbols Outlined (for icon picker grid + rendered icons) -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Lucide Icons (for icon picker grid previews) -->
+    <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
 </head>
 <body>
     <div id="svgSpriteRoot" hidden></div>
@@ -23,6 +23,9 @@
     <!-- TOP HEADER - Spans full width -->
     <header class="app-header">
         <div class="header-brand">
+            <a href="/" class="back-to-dashboard" title="Back to Dashboard">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+            </a>
             <button class="mobile-menu-btn" id="mobileMenuBtn" title="Menu">
                 <svg aria-hidden="true"><use href="#icon-menu"></use></svg>
             </button>
@@ -81,9 +84,13 @@
         <!-- LEFT SIDEBAR - Icon buttons -->
         <aside class="sidebar" id="sidebar">
             <nav class="sidebar-nav">
-                <button class="sidebar-btn" data-panel="layers" title="Layers">
-                    <svg aria-hidden="true"><use href="#icon-layers"></use></svg>
-                    <span class="sidebar-btn-tooltip">Layers</span>
+                <button class="sidebar-btn" data-panel="pages" title="Site Pages">
+                    <svg aria-hidden="true"><use href="#icon-files"></use></svg>
+                    <span class="sidebar-btn-tooltip">Site Pages</span>
+                </button>
+                <button class="sidebar-btn" data-panel="layers" title="Page Components">
+                    <svg aria-hidden="true"><use href="#icon-layout-template"></use></svg>
+                    <span class="sidebar-btn-tooltip">Page Components</span>
                 </button>
                 <button class="sidebar-btn" data-panel="editor" title="Editor">
                     <svg aria-hidden="true"><use href="#icon-code"></use></svg>
@@ -97,22 +104,41 @@
                     <svg aria-hidden="true"><use href="#icon-image"></use></svg>
                     <span class="sidebar-btn-tooltip">Images</span>
                 </button>
+                <button class="sidebar-btn" data-panel="settings" title="Site Settings">
+                    <svg aria-hidden="true"><use href="#icon-settings"></use></svg>
+                    <span class="sidebar-btn-tooltip">Settings</span>
+                </button>
             </nav>
         </aside>
 
         <!-- SLIDE-OUT PANELS -->
 
+        <!-- Pages Panel -->
+        <div class="sidebar-panel" id="pagesPanel">
+            <div class="panel-header">
+                <span class="panel-title">Site Pages</span>
+                <button class="panel-close" onclick="window.closePanel()">
+                    <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                </button>
+            </div>
+            <div class="panel-content" id="pagesContent">
+                <!-- Dynamic page list rendered by pageManager.js -->
+            </div>
+            <div class="panel-footer" id="pagesFooter">
+                <!-- Add page button rendered by pageManager.js -->
+            </div>
+        </div>
+
         <!-- Layers Panel -->
         <div class="sidebar-panel" id="layersPanel">
             <div class="panel-header">
-                <span class="panel-title">Layers</span>
+                <span class="panel-title">Page Components</span>
                 <button class="panel-close" onclick="window.closePanel()">
                     <svg aria-hidden="true"><use href="#icon-x"></use></svg>
                 </button>
             </div>
             <div class="panel-content">
                 <div class="component-tree-section">
-                    <h3 class="tree-header">Page Structure</h3>
                     <div id="componentTree" class="component-tree">
                         <p class="tree-empty">No components</p>
                     </div>
@@ -162,6 +188,22 @@
             </div>
             <div class="panel-content" id="imagesContent">
                 <!-- Dynamic content rendered by imagesPanel.js -->
+            </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="sidebar-panel" id="settingsPanel">
+            <div class="panel-header">
+                <span class="panel-title">Site Settings</span>
+                <button class="panel-close" onclick="window.closePanel()">
+                    <svg aria-hidden="true"><use href="#icon-x"></use></svg>
+                </button>
+            </div>
+            <div class="panel-content" id="settingsContent">
+                <!-- Dynamic content rendered by settingsPanel.js -->
+            </div>
+            <div class="panel-footer" id="settingsFooter">
+                <!-- Save button rendered by settingsPanel.js -->
             </div>
         </div>
 
@@ -286,6 +328,8 @@
     <script>
         // Pass sprite path from Flask
         window.SPRITE_PATH = "{{ url_for('static', filename='icon-sprite.svg') }}";
+        window.SITE_ID = {{ site_id | tojson if site_id is defined and site_id else 'null' }};
+        window.USER_ROLE = {{ user_role | tojson if user_role is defined and user_role else '"owner"' }};
     </script>
     <!-- YAML library loaded via ES module imports in yamlWrapper.js (eemeli/yaml replaces js-yaml) -->
     <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -294,9 +338,10 @@
     <script type="module">
         import { initChat } from '/static/js/chat.js';
         import { selectionManager } from '/static/js/main.js';
-        import { getYamlStructureFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, updateYamlEditor } from '/static/js/yamlUtils.js';
+        import { getYamlStructureFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, updateYamlEditor, getYamlDocumentFromEditor, generateYamlFromDocument, deleteComponentInDocument, insertComponentInDocument, getChildrenKey } from '/static/js/yamlUtils.js';
         import { renderPreview } from '/static/js/ssr_app.js';
         import { historyManager } from '/static/js/historyManager.js';
+        import { autosave } from '/static/js/siteManager.js';
 
         // ES modules are deferred, so DOM is ready when this runs
         // Small delay to ensure main.js has fully initialized
@@ -334,32 +379,36 @@
                     onYamlApply: async (yaml, action) => {
                         console.log('[Chat] Applying YAML changes:', action);
 
-                        // Step 1: Validate YAML syntax before applying
-                        let parsedYaml;
-                        try {
-                            parsedYaml = window.jsyaml.load(yaml);
-                        } catch (e) {
-                            const errorMsg = e.message || 'Unknown parse error';
-                            throw new Error(`Invalid YAML syntax: ${errorMsg.split('\n')[0]}`);
-                        }
-
-                        // Step 2: Validate component structure (must have 'name' field)
-                        const validateComponent = (comp, path = 'root') => {
-                            if (Array.isArray(comp)) {
-                                comp.forEach((item, i) => validateComponent(item, `${path}[${i}]`));
-                            } else if (comp && typeof comp === 'object') {
-                                if (!comp.name) {
-                                    throw new Error(`Component at ${path} missing required "name" field`);
-                                }
-                            }
-                        };
-                        validateComponent(parsedYaml);
-
                         const editor = document.getElementById('codeEditor');
+
+                        // For delete, skip YAML parsing — no YAML content needed
+                        let parsedYaml = null;
+                        if (action !== 'delete') {
+                            // Step 1: Validate YAML syntax before applying
+                            try {
+                                parsedYaml = window.jsyaml.load(yaml);
+                            } catch (e) {
+                                const errorMsg = e.message || 'Unknown parse error';
+                                throw new Error(`Invalid YAML syntax: ${errorMsg.split('\n')[0]}`);
+                            }
+
+                            // Step 2: Validate component structure (must have 'name' field)
+                            const validateComponent = (comp, path = 'root') => {
+                                if (Array.isArray(comp)) {
+                                    comp.forEach((item, i) => validateComponent(item, `${path}[${i}]`));
+                                } else if (comp && typeof comp === 'object') {
+                                    if (!comp.name) {
+                                        throw new Error(`Component at ${path} missing required "name" field`);
+                                    }
+                                }
+                            };
+                            validateComponent(parsedYaml);
+                        }
 
                         if (action === 'create') {
                             // Full replacement - use the YAML directly
                             editor.value = yaml;
+
                         } else if (action === 'modify') {
                             // Targeted modification
                             const selection = selectionManager.selectedPath;
@@ -387,15 +436,105 @@
                                 // No selection - full replacement
                                 editor.value = yaml;
                             }
+
+                        } else if (action === 'delete') {
+                            // Delete the selected component
+                            const selection = selectionManager.selectedPath;
+                            if (!selection || selection.length === 0) {
+                                throw new Error('Cannot delete: no component is selected');
+                            }
+
+                            const yamlDoc = getYamlDocumentFromEditor();
+                            if (!yamlDoc) {
+                                throw new Error('Cannot delete: editor has no valid YAML content');
+                            }
+
+                            const deleted = deleteComponentInDocument(yamlDoc, selection);
+                            if (!deleted) {
+                                throw new Error('Cannot delete: component not found at selected path');
+                            }
+
+                            editor.value = generateYamlFromDocument(yamlDoc);
+                            selectionManager.clearSelection();
+
+                        } else if (action === 'insert_child') {
+                            // Insert a new component as child of the selected container
+                            const selection = selectionManager.selectedPath;
+                            if (!selection || selection.length === 0) {
+                                throw new Error('Cannot insert: no component is selected');
+                            }
+
+                            const currentStructure = getYamlStructureFromEditor();
+                            if (!currentStructure) {
+                                throw new Error('Cannot insert: editor has no valid YAML content');
+                            }
+                            const selectedComp = getComponentByPath(currentStructure, selection);
+                            if (!selectedComp) {
+                                throw new Error('Cannot insert: selected component not found');
+                            }
+
+                            const childrenKey = getChildrenKey(selectedComp.name);
+                            if (!childrenKey) {
+                                throw new Error(`Cannot insert child: "${selectedComp.name}" is not a container component`);
+                            }
+
+                            let newComponent = parsedYaml;
+                            if (Array.isArray(parsedYaml) && parsedYaml.length === 1) {
+                                newComponent = parsedYaml[0];
+                            }
+
+                            const yamlDoc = getYamlDocumentFromEditor();
+                            if (!yamlDoc) {
+                                throw new Error('Cannot insert: failed to parse YAML document');
+                            }
+
+                            const parentSeqPath = [...selection, childrenKey];
+                            const inserted = insertComponentInDocument(yamlDoc, parentSeqPath, newComponent);
+                            if (!inserted) {
+                                throw new Error('Cannot insert: failed to insert component into document');
+                            }
+
+                            editor.value = generateYamlFromDocument(yamlDoc);
+
+                        } else if (action === 'insert_after') {
+                            // Insert a new component after the selected component
+                            const selection = selectionManager.selectedPath;
+                            if (!selection || selection.length < 2) {
+                                throw new Error('Cannot insert after: no component is selected or component is at root level');
+                            }
+
+                            let newComponent = parsedYaml;
+                            if (Array.isArray(parsedYaml) && parsedYaml.length === 1) {
+                                newComponent = parsedYaml[0];
+                            }
+
+                            const yamlDoc = getYamlDocumentFromEditor();
+                            if (!yamlDoc) {
+                                throw new Error('Cannot insert: failed to parse YAML document');
+                            }
+
+                            const parentSeqPath = selection.slice(0, -1);
+                            const insertIndex = selection[selection.length - 1] + 1;
+                            const inserted = insertComponentInDocument(yamlDoc, parentSeqPath, newComponent, insertIndex);
+                            if (!inserted) {
+                                throw new Error('Cannot insert: failed to insert component into document');
+                            }
+
+                            editor.value = generateYamlFromDocument(yamlDoc);
                         }
 
                         // Push to history
                         historyManager.push(editor.value);
 
+                        // Save to DB
+                        autosave(editor.value);
+
                         // Trigger render and catch render errors
                         try {
                             const structure = getYamlStructureFromEditor();
                             await renderPreview(editor.value, structure);
+                            // Update component tree to reflect new structure
+                            if (window.updateComponentTree) window.updateComponentTree();
                         } catch (renderError) {
                             // Render failed - rollback from history and throw
                             historyManager.undo();

@@ -35,11 +35,17 @@ export function togglePanel(panelName) {
         currentPanel = panelName;
 
         // Render panel content when opening
+        if (panelName === 'pages' && window.renderPagesPanel) {
+            window.renderPagesPanel();
+        }
         if (panelName === 'themes' && window.renderThemesPanel) {
             window.renderThemesPanel();
         }
         if (panelName === 'images' && window.renderImagesPanel) {
             window.renderImagesPanel();
+        }
+        if (panelName === 'settings' && window.renderSettingsPanel) {
+            window.renderSettingsPanel();
         }
     }
 }

@@ -1,0 +1,139 @@
+# Simple Accordion FAQ Section — Frequently Asked Questions
+# A clean FAQ section with centered heading and a single accordion component containing expandable question-answer pairs for common customer inquiries
+# Base components: layout-row, layout-column, accordion, heading, paragraph, eyebrow
+# Section type: faq
+# Layout: centered, stacked
+# Visual style: modern, minimal
+# Perfect for: SaaS platform, online store, consulting firm, dental clinic, law firm, tutoring center, real estate agency, insurance company, software company, subscription service
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "01 Simple Accordion FAQ"
+      properties:
+        appearance: { background: { color: *color-background } }
+        spacing: { paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: center, gap: md }
+            appearance: { background: { color: *color-background, transparency: 100 } }
+            spacing: { paddingBlock: xxl, paddingInline: lg }
+          components:
+            - name: eyebrow
+              properties:
+                text: FAQ
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: Frequently Asked Questions
+                level: 2
+                typography:
+                  size: xxxl
+                  weight: extrabold
+                  color: *color-primary
+                  align: center
+                  letterSpacing: tight
+                  lineHeight: "1.2"
+                spacing: { marginBlock: sm }
+
+            - name: paragraph
+              properties:
+                text: Everything you need to know about our product and services. Can't find what you're looking for? Feel free to contact our support team.
+                typography:
+                  size: md
+                  color: *color-secondary
+                  align: center
+                spacing: { marginBlock: sm }
+                layout: { widthMode: "66" }
+
+            - name: accordion
+              properties:
+                behavior:
+                  allowMultipleOpen: false
+                appearance:
+                  border:
+                    position: bottom
+                  radius: sm
+                spacing: { marginBlock: md }
+                layout: { widthMode: "66" }
+              items:
+                - title: "What is your refund policy?"
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: We offer a full 30-day money-back guarantee on all plans. If you're not satisfied with our product for any reason, simply contact our support team within 30 days of purchase and we'll process your refund — no questions asked.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: "1.7"
+
+                - title: "How do I get started?"
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: Getting started is easy. Simply sign up for an account, choose a plan that fits your needs, and follow our step-by-step onboarding guide. You'll be up and running in under five minutes. We also offer free onboarding calls for team plans.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: "1.7"
+
+                - title: "Do you offer free trials?"
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: Yes! We offer a 14-day free trial on all plans with full access to every feature. No credit card required to start. At the end of your trial, you can choose a plan or your account will automatically switch to our free tier.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: "1.7"
+
+                - title: "Can I cancel anytime?"
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: Absolutely. There are no long-term contracts or commitments. You can cancel your subscription at any time from your account settings. Your access will continue until the end of your current billing period.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: "1.7"
+
+                - title: "What payment methods do you accept?"
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and bank transfers for annual plans. Enterprise customers can also pay via invoice with NET 30 terms.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: "1.7"
+
+                - title: "How do I contact support?"
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: Our support team is available 24/7 via live chat on our website, or you can email us at support@example.com. For enterprise customers, we provide a dedicated account manager and priority phone support with a guaranteed 1-hour response time.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: "1.7"

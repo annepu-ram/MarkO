@@ -1,5 +1,9 @@
 # Tiles Hero Magazine
 # A sophisticated, editorial-style tile layout inspired by fashion magazines
+# Base components: page, layout-row, layout-column, paragraph, titlebar, image, heading, link
+# Section type: hero
+# Layout: grid
+# Visual style: modern
 # Perfect for: Fashion brands, lifestyle blogs, editorial content, luxury
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#1a1a1a"
+        text: &color-text "#313131"
         secondary: &color-secondary "#666666"
         accent: &color-accent "#1a1a1a"
         background: &color-background "#f8f6f3"
@@ -16,129 +21,221 @@
         transparency: 100
   components:
     # Thin Top Bar
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: center
+        tag: section
+        verticalAlign: center
+        wrap: nowrap
+      spacing:
+        paddingBlock: xs
+        paddingInline: lg
+        marginBlock: none
+        marginInline: none
+      background:
+        color: *color-primary
+        transparency: 100
+      appearance:
+        background:
+          type: solid
+          color: *color-secondary
+          transparency: 0
+        border:
+          width: 0
+          style: solid
+          color: *color-primary
+        radius: none
+        shadow: none
+        shadowColor: *color-primary
+    components:
+    - name: paragraph
       properties:
-        layout:
+        text: "AUTUMN / WINTER 2026 COLLECTION NOW AVAILABLE"
+        typography:
+          color: *color-secondary
+          size: xxs
+          weight: medium
+          letterSpacing: wider
           align: center
-          horizontalAlign: center
-          tag: section
-          verticalAlign: stretch
-          wrap: nowrap
+          transform: uppercase
+          lineHeight: "1.6"
         spacing:
-          paddingBlock: xs
-          paddingInline: lg
           marginBlock: none
           marginInline: none
-        background:
-          color: *color-primary
-          transparency: 100
-        appearance:
-          padding:
-            block: none
-            inline: none
-          background:
-            type: solid
-            color: *color-secondary
-            transparency: 0
-          border:
-            width: 0
-            style: solid
-            color: *color-primary
-          radius: none
-          shadow: none
-          shadowColor: *color-primary
-      components:
-        - name: paragraph
-          properties:
-            text: "AUTUMN / WINTER 2026 COLLECTION NOW AVAILABLE"
-            typography:
-              color: *color-secondary
-              size: xxs
-              weight: medium
-              letterSpacing: wider
-              align: center
-              transform: uppercase
-              lineHeight: "1.6"
-            spacing:
-              marginBlock: none
-              marginInline: none
-            layout:
-              widthMode: stretch
-            appearance:
-              background:
-                type: solid
-                color: *color-background
-                transparency: 0
-              radius: none
-              padding:
-                block: none
-                inline: none
-
-    # Magazine Header
-    - name: titlebar
-      properties:
-        branding:
-          showLogo: false
-          title: "VOGUE"
-          logoUrl: https://via.placeholder.com/50x40
-        navigation:
-          links:
-            - label: Fashion
-              href: "#fashion"
-            - label: Beauty
-              href: "#beauty"
-            - label: Culture
-              href: "#culture"
-            - label: Living
-              href: "#living"
+          paddingBlock: none
+          paddingInline: none
         layout:
-          alignment: center
-          height: 60
-        scroll:
-          shrinkPercentage: 70
+          widthMode: stretch
         appearance:
           background:
-            color: *color-background
-            transparency: 100
             type: solid
-          border:
-            width: 0
-            style: solid
-            color: transparent
-          focus:
-            background: *color-background
-            color: *color-primary
-        typography:
-          title:
-            size: 28
-            weight: bold
-            color: *color-primary
-          menu:
-            size: 17
-            weight: medium
-            color: *color-primary
+            color: *color-background
+            transparency: 0
+          radius: none
+  - name: titlebar
+    properties:
+      branding:
+        showLogo: false
+        title: "VOGUE"
+        logoUrl: https://via.placeholder.com/50x40
+      navigation:
+        links:
+        - label: Fashion
+          href: "#fashion"
+        - label: Beauty
+          href: "#beauty"
+        - label: Culture
+          href: "#culture"
+        - label: Living
+          href: "#living"
+      layout:
+        alignment: center
+        height: 60
+      scroll:
+        shrinkPercentage: 70
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+          type: solid
+        border:
+          width: 0
+          style: solid
+          color: transparent
+        focus:
+          background: *color-background
+          color: *color-primary
+      typography:
+        title:
+          size: 28
+          weight: bold
+          color: *color-primary
+        menu:
+          size: 17
+          weight: medium
+          color: *color-primary
 
     # Editorial Hero Layout
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: space-between
+        wrap: nowrap
+        tag: section
+        verticalAlign: stretch
+      spacing:
+        paddingBlock: none
+        paddingInline: none
+        marginBlock: none
+        marginInline: none
+      background:
+        color: *color-background
+        transparency: 100
+      appearance:
+        background:
+          type: solid
+          color: *color-background
+          transparency: 0
+        border:
+          width: 0
+          style: solid
+          color: *color-primary
+        radius: none
+        shadow: none
+        shadowColor: *color-primary
+    components:
+        # Main Feature Image
+    - name: image
+      properties:
+        source:
+          url: https://images.pexels.com/photos/2681751/pexels-photo-2681751.jpeg?auto=compress&cs=tinysrgb&w=1200
+          altText: Fashion editorial portrait
+        layout:
+          widthMode: "66"
+          horizontalAlign: center
+        appearance:
+          minHeight: 42
+          fit: cover
+          cornerStyle: none
+          hoverEffect: zoom
+          objectPosition: center
+          filter: none
+          shadow: none
+          shadowColor: *color-primary
+          lazy: true
+          overlay:
+            enabled: false
+            color: *color-primary
+            opacity: 1
+        spacing:
+          marginBlock: none
+          paddingBlock: none
+          paddingInline: none
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+          spacing:
+            marginBlock: xxl
+        components:
+        - name: paragraph
+          properties:
+            text: "COVER STORY"
+            typography:
+              color: *color-background
+              size: xxs
+              weight: bold
+              letterSpacing: wider
+              transform: uppercase
+            spacing:
+              marginBlock: none
+        - name: heading
+          properties:
+            text: "The Art of Quiet Luxury"
+            level: 2
+            typography:
+              color: *color-background
+              size: xxl
+              weight: bold
+              lineHeight: '1.1'
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "How understated elegance is redefining modern fashion"
+            typography:
+              color: rgba(255,255,255,0.8)
+              size: md
+            spacing:
+              marginBlock: none
+        - name: link
+          properties:
+            text: "Read the full story →"
+            typography:
+              color: *color-background
+              size: sm
+              weight: medium
+            spacing:
+              marginBlock: sm
+
+        # Side Column with Multiple Stories
+    - name: layout-column
       properties:
         layout:
-          align: stretch
-          horizontalAlign: space-between
-          wrap: nowrap
+          widthMode: "33"
+          horizontalAlign: center
           tag: section
-          verticalAlign: stretch
+          verticalAlign: center
+          wrap: nowrap
+          gap: none
         spacing:
           paddingBlock: none
           paddingInline: none
           marginBlock: none
           marginInline: none
-        background:
-          color: *color-background
-          transparency: 100
         appearance:
-          padding:
-            block: sm
-            inline: sm
           background:
             type: solid
             color: *color-background
@@ -151,307 +248,194 @@
           shadow: none
           shadowColor: *color-primary
       components:
-        # Main Feature Image
-        - name: image
-          properties:
-            source:
-              url: https://images.pexels.com/photos/2681751/pexels-photo-2681751.jpeg?auto=compress&cs=tinysrgb&w=1200
-              altText: Fashion editorial portrait
-            layout:
-              widthMode: "66"
-              horizontalAlign: center
-            appearance:
-              minHeight: 42
-              fit: cover
-              cornerStyle: none
-              hoverEffect: zoom
-              objectPosition: center
-              filter: none
-              shadow: none
-              shadowColor: *color-primary
-              lazy: true
-              padding:
-                block: none
-                inline: none
-              overlay:
-                enabled: false
-                color: *color-primary
-                opacity: 1
-            spacing:
-              marginBlock: none
-          components:
-            - name: layout-column
-              properties:
-                layout:
-                  align: start
-                  horizontalAlign: space-evenly
-                spacing:
-                  marginBlock: xxl
-              components:
-                - name: paragraph
-                  properties:
-                    text: "COVER STORY"
-                    typography:
-                      color: *color-background
-                      size: xxs
-                      weight: bold
-                      letterSpacing: wider
-                      transform: uppercase
-                    spacing:
-                      marginBlock: none
-                - name: heading
-                  properties:
-                    text: "The Art of Quiet Luxury"
-                    level: 2
-                    typography:
-                      color: *color-background
-                      size: xxl
-                      weight: bold
-                      lineHeight: '1.1'
-                    spacing:
-                      marginBlock: none
-                - name: paragraph
-                  properties:
-                    text: "How understated elegance is redefining modern fashion"
-                    typography:
-                      color: rgba(255,255,255,0.8)
-                      size: md
-                    spacing:
-                      marginBlock: none
-                - name: link
-                  properties:
-                    text: "Read the full story →"
-                    typography:
-                      color: *color-background
-                      size: sm
-                      weight: medium
-                    spacing:
-                      marginBlock: sm
-
-        # Side Column with Multiple Stories
+            # Top Story
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/3622614/pexels-photo-3622614.jpeg?auto=compress&cs=tinysrgb&w=800
+            altText: Designer accessories
+          appearance:
+            minHeight: 21
+            fit: cover
+            cornerStyle: none
+            hoverEffect: zoom
+            objectPosition: center
+            filter: none
+            shadow: none
+            shadowColor: *color-primary
+            lazy: true
+            overlay:
+              enabled: false
+              color: *color-primary
+              opacity: 1
+          layout:
+            widthMode: stretch
+            horizontalAlign: center
+          spacing:
+            marginBlock: none
+            paddingBlock: none
+            paddingInline: none
+        components:
         - name: layout-column
           properties:
             layout:
-              widthMode: "33"
-              align: stretch
-              horizontalAlign: center
-              tag: section
-              verticalAlign: center
-              wrap: nowrap
-              gap: none
+              horizontalAlign: space-evenly
             spacing:
-              paddingBlock: none
-              paddingInline: none
-              marginBlock: none
-              marginInline: none
+              paddingBlock: md
+              paddingInline: md
             appearance:
-              padding:
-                block: none
-                inline: none
               background:
-                type: solid
-                color: *color-background
-                transparency: 0
-              border:
-                width: 0
-                style: solid
-                color: *color-primary
-              radius: none
-              shadow: none
-              shadowColor: *color-primary
+                color: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%)
+                transparency: 100
           components:
-            # Top Story
-            - name: image
-              properties:
-                source:
-                  url: https://images.pexels.com/photos/3622614/pexels-photo-3622614.jpeg?auto=compress&cs=tinysrgb&w=800
-                  altText: Designer accessories
-                appearance:
-                  minHeight: 21
-                  fit: cover
-                  cornerStyle: none
-                  hoverEffect: zoom
-                  objectPosition: center
-                  filter: none
-                  shadow: none
-                  shadowColor: *color-primary
-                  lazy: true
-                  padding:
-                    block: none
-                    inline: none
-                  overlay:
-                    enabled: false
-                    color: *color-primary
-                    opacity: 1
-                layout:
-                  widthMode: stretch
-                  horizontalAlign: center
-                spacing:
-                  marginBlock: none
-              components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      align: start
-                      horizontalAlign: space-evenly
-                    spacing:
-                      paddingBlock: md
-                      paddingInline: md
-                    appearance:
-                      background:
-                        color: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%)
-                        transparency: 100
-                  components:
-                    - name: paragraph
-                      properties:
-                        text: "ACCESSORIES"
-                        typography:
-                          color: rgba(255,255,255,0.7)
-                          size: xxs
-                          weight: bold
-                          letterSpacing: wide
-                          transform: uppercase
-                        spacing:
-                          marginBlock: xxl
-                    - name: heading
-                      properties:
-                        text: "The Bags to Invest In"
-                        level: 3
-                        typography:
-                          color: *color-background
-                          size: lg
-                          weight: bold
-                        spacing:
-                          marginBlock: none
+          - name: paragraph
+            properties:
+              text: "ACCESSORIES"
+              typography:
+                color: rgba(255,255,255,0.7)
+                size: xxs
+                weight: bold
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: xxl
+          - name: heading
+            properties:
+              text: "The Bags to Invest In"
+              level: 3
+              typography:
+                color: *color-background
+                size: lg
+                weight: bold
+              spacing:
+                marginBlock: none
 
             # Bottom Story
-            - name: image
-              properties:
-                source:
-                  url: https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800
-                  altText: Beauty editorial
-                appearance:
-                  minHeight: 21
-                  fit: cover
-                  cornerStyle: none
-                  hoverEffect: zoom
-                  objectPosition: center
-                  filter: none
-                  shadow: none
-                  shadowColor: *color-primary
-                  lazy: true
-                  padding:
-                    block: none
-                    inline: none
-                  overlay:
-                    enabled: false
-                    color: *color-primary
-                    opacity: 1
-                layout:
-                  widthMode: stretch
-                  horizontalAlign: center
-                spacing:
-                  marginBlock: none
-              components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      align: start
-                      horizontalAlign: space-evenly
-                    spacing:
-                      paddingBlock: md
-                      paddingInline: md
-                    appearance:
-                      background:
-                        color: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%)
-                        transparency: 100
-                  components:
-                    - name: paragraph
-                      properties:
-                        text: "BEAUTY"
-                        typography:
-                          color: rgba(255,255,255,0.7)
-                          size: xxs
-                          weight: bold
-                          letterSpacing: wide
-                          transform: uppercase
-                        spacing:
-                          marginBlock: xxl
-                    - name: heading
-                      properties:
-                        text: "Glow Like Glass"
-                        level: 3
-                        typography:
-                          color: *color-background
-                          size: lg
-                          weight: bold
-                        spacing:
-                          marginBlock: none
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800
+            altText: Beauty editorial
+          appearance:
+            minHeight: 21
+            fit: cover
+            cornerStyle: none
+            hoverEffect: zoom
+            objectPosition: center
+            filter: none
+            shadow: none
+            shadowColor: *color-primary
+            lazy: true
+            overlay:
+              enabled: false
+              color: *color-primary
+              opacity: 1
+          layout:
+            widthMode: stretch
+            horizontalAlign: center
+          spacing:
+            marginBlock: none
+            paddingBlock: none
+            paddingInline: none
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+            appearance:
+              background:
+                color: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%)
+                transparency: 100
+          components:
+          - name: paragraph
+            properties:
+              text: "BEAUTY"
+              typography:
+                color: rgba(255,255,255,0.7)
+                size: xxs
+                weight: bold
+                letterSpacing: wide
+                transform: uppercase
+              spacing:
+                marginBlock: xxl
+          - name: heading
+            properties:
+              text: "Glow Like Glass"
+              level: 3
+              typography:
+                color: *color-background
+                size: lg
+                weight: bold
+              spacing:
+                marginBlock: none
 
     # Trending Topics Bar
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: space-evenly
+        wrap: wrap
+        verticalAlign: center
+      spacing:
+        paddingBlock: md
+        paddingInline: lg
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        border:
+          width: 1
+          style: solid
+          color: *color-secondary
+          position: top
+        shadow: soft
+    components:
+    - name: paragraph
       properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-          wrap: wrap
+        text: "TRENDING:"
+        typography:
+          color: *color-text
+          size: xs
+          weight: bold
+          letterSpacing: wide
         spacing:
-          paddingBlock: md
-          paddingInline: lg
-        appearance:
-          background:
-            color: *color-background
-            transparency: 100
-          border:
-            width: 1
-            style: solid
-            color: *color-secondary
-            position: top
-          shadow: soft
-      components:
-        - name: paragraph
-          properties:
-            text: "TRENDING:"
-            typography:
-              color: *color-primary
-              size: xs
-              weight: bold
-              letterSpacing: wide
-            spacing:
-              marginBlock: none
-        - name: link
-          properties:
-            text: "Fall Fashion Week"
-            typography:
-              color: *color-secondary
-              size: xs
-              weight: medium
-            spacing:
-              marginBlock: none
-        - name: link
-          properties:
-            text: "Celebrity Style"
-            typography:
-              color: *color-secondary
-              size: xs
-              weight: medium
-            spacing:
-              marginBlock: none
-        - name: link
-          properties:
-            text: "Sustainable Fashion"
-            typography:
-              color: *color-secondary
-              size: xs
-              weight: medium
-            spacing:
-              marginBlock: none
-        - name: link
-          properties:
-            text: "Street Style"
-            typography:
-              color: *color-secondary
-              size: xs
-              weight: medium
-            spacing:
-              marginBlock: none
+          marginBlock: none
+    - name: link
+      properties:
+        text: "Fall Fashion Week"
+        typography:
+          color: *color-secondary
+          size: xs
+          weight: medium
+        spacing:
+          marginBlock: none
+    - name: link
+      properties:
+        text: "Celebrity Style"
+        typography:
+          color: *color-secondary
+          size: xs
+          weight: medium
+        spacing:
+          marginBlock: none
+    - name: link
+      properties:
+        text: "Sustainable Fashion"
+        typography:
+          color: *color-secondary
+          size: xs
+          weight: medium
+        spacing:
+          marginBlock: none
+    - name: link
+      properties:
+        text: "Street Style"
+        typography:
+          color: *color-secondary
+          size: xs
+          weight: medium
+        spacing:
+          marginBlock: none

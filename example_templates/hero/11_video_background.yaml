@@ -1,5 +1,9 @@
 # Video Background Style Hero
 # Simulated with a carousel for dynamic visual movement
+# Base components: page, carousel, image, layout-column, layout-row, paragraph, heading, button
+# Section type: hero
+# Layout: carousel_slider
+# Visual style: dark_mode
 # Perfect for: Entertainment, events, music, nightlife, sports
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
         secondary: &color-secondary "#ef4444"
         accent: &color-accent "#fbbf24"
         background: &color-background "#000000"
@@ -48,7 +53,6 @@
         - name: layout-column
           properties:
             layout:
-              align: center
               horizontalAlign: space-evenly
             spacing:
               paddingBlock: xxxl
@@ -62,8 +66,9 @@
           - name: layout-row
             properties:
               layout:
-                align: center
                 horizontalAlign: space-evenly
+                verticalAlign: center
+                wrap: nowrap
               appearance:
                 background:
                   color: rgba(239,68,68,0.15)
@@ -73,9 +78,6 @@
                   width: 1
                   style: solid
                   color: rgba(239,68,68,0.3)
-                padding:
-                  block: xs
-                  inline: md
             components:
             - name: paragraph
               properties:
@@ -83,17 +85,19 @@
                 typography:
                   color: *color-secondary
                   size: sm
+                  lineHeight: '1'
                 spacing:
                   marginBlock: none
             - name: paragraph
               properties:
                 text: "LIVE EVENT"
                 typography:
-                  color: *color-primary
-                  size: xs
+                  color: *color-text
+                  size: sm
                   weight: bold
                   letterSpacing: wider
                   transform: uppercase
+                  lineHeight: '1'
                 spacing:
                   marginBlock: none
           # Main Headline
@@ -136,9 +140,9 @@
           - name: layout-row
             properties:
               layout:
-                align: center
                 horizontalAlign: space-evenly
                 wrap: wrap
+                verticalAlign: center
               spacing:
                 marginBlock: lg
             components:
@@ -191,15 +195,14 @@
           - name: layout-row
             properties:
               layout:
-                align: center
                 horizontalAlign: space-evenly
+                verticalAlign: center
               spacing:
                 marginBlock: xl
             components:
             - name: layout-column
               properties:
                 layout:
-                  align: center
                   horizontalAlign: space-evenly
                 appearance:
               components:
@@ -237,7 +240,6 @@
             - name: layout-column
               properties:
                 layout:
-                  align: center
                   horizontalAlign: space-evenly
                 appearance:
               components:
@@ -275,7 +277,6 @@
             - name: layout-column
               properties:
                 layout:
-                  align: center
                   horizontalAlign: space-evenly
                 appearance:
               components:
@@ -319,7 +320,6 @@
         - name: layout-column
           properties:
             layout:
-              align: center
               horizontalAlign: space-evenly
             spacing:
               paddingBlock: xxxl
@@ -332,8 +332,8 @@
           - name: layout-row
             properties:
               layout:
-                align: center
                 horizontalAlign: space-evenly
+                verticalAlign: center
             components:
             - name: paragraph
               properties:
@@ -347,7 +347,7 @@
               properties:
                 text: "LIVE EVENT"
                 typography:
-                  color: *color-primary
+                  color: *color-text
                   size: xs
                   weight: bold
                   letterSpacing: wider

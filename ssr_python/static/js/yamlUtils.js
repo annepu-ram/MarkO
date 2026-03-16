@@ -280,10 +280,21 @@ function applyUpdatesToNode(node, updates, doc) {
 export function replacePropertiesWithAliases(doc, componentPath, aliases) {
     if (!doc || !componentPath || !aliases || Object.keys(aliases).length === 0) return;
 
-    // Find theme colors node (where anchors are defined)
-    const pageNode = doc.contents.items[0];
-    if (!pageNode) return;
-    const themeColors = pageNode.get('properties', true)?.get('theme', true)?.get('colors', true);
+    // Find theme colors node: prefer site.properties.theme, fallback to page
+    const siteNode = doc.contents.items[0];
+    if (!siteNode) return;
+
+    let themeColors = siteNode.get('properties', true)?.get('theme', true)?.get('colors', true);
+    if (!themeColors || !YAML.isMap(themeColors)) {
+        // Fallback: page-level theme
+        const siteComponents = siteNode.get('components', true);
+        if (YAML.isSeq(siteComponents) && siteComponents.items.length > 0) {
+            const pageNode = siteComponents.items[0];
+            if (YAML.isMap(pageNode)) {
+                themeColors = pageNode.get('properties', true)?.get('theme', true)?.get('colors', true);
+            }
+        }
+    }
     if (!themeColors || !YAML.isMap(themeColors)) return;
 
     // Build anchor-name -> node map
@@ -315,6 +326,160 @@ export function replacePropertiesWithAliases(doc, componentPath, aliases) {
             node.set(segments[segments.length - 1], doc.createAlias(anchorNode));
         }
     }
+}
+
+/**
+ * Delete a component from the YAML Document AST by its path.
+ * Navigates to the parent sequence and removes the item at the given index.
+ * @param {Document} doc - YAML Document
+ * @param {Array} componentPath - Path to component (e.g., [0, 'components', 2])
+ * @returns {boolean} True if component was deleted, false otherwise
+ */
+export function deleteComponentInDocument(doc, componentPath) {
+    if (!doc || !componentPath || componentPath.length < 2) {
+        // Can't delete root-level components (path too short)
+        return false;
+    }
+
+    // Last segment is the index within the parent sequence
+    const index = componentPath[componentPath.length - 1];
+    // Parent path leads to the sequence (e.g., [0, 'components'])
+    const parentPath = componentPath.slice(0, -1);
+
+    // Navigate to parent sequence
+    let node = doc.contents;
+    for (const segment of parentPath) {
+        if (!node) return false;
+        if (typeof segment === 'number') {
+            node = YAML.isSeq(node) ? node.items[segment] : node[segment];
+        } else {
+            node = YAML.isMap(node) ? node.get(segment, true) : node[segment];
+        }
+    }
+
+    // Parent should be a sequence — delete the item by index
+    if (YAML.isSeq(node) && typeof index === 'number' && index >= 0 && index < node.items.length) {
+        node.items.splice(index, 1);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Get the children array key for a given component name.
+ * @param {string} componentName - Component type name
+ * @returns {string|null} Children key ('components', 'columns', 'tabs', 'slides', 'items') or null for leaf components
+ */
+export function getChildrenKey(componentName) {
+    switch (componentName) {
+        case 'page':
+        case 'layout-row':
+        case 'layout-column':
+        case 'form':
+        case 'video-background':
+        case 'hamburger':
+            return 'components';
+        case 'columnsgrid':
+        case 'ticker':
+            return 'columns';
+        case 'tabs':
+            return 'tabs';
+        case 'carousel':
+            return 'slides';
+        case 'accordion':
+            return 'items';
+        default:
+            return null;
+    }
+}
+
+/**
+ * Insert a new component into a parent sequence in the YAML Document AST.
+ * @param {Document} doc - YAML Document
+ * @param {Array} parentSeqPath - Path to the parent sequence (e.g., [0, 'components'])
+ * @param {object} component - Plain JS object for the new component
+ * @param {number} [index] - Index to insert at (appends if undefined)
+ * @returns {boolean} True if insertion succeeded
+ */
+export function insertComponentInDocument(doc, parentSeqPath, component, index) {
+    if (!doc || !parentSeqPath || parentSeqPath.length === 0) return false;
+
+    // Navigate to the parent sequence
+    let node = doc.contents;
+    for (let i = 0; i < parentSeqPath.length; i++) {
+        const segment = parentSeqPath[i];
+        if (!node) return false;
+
+        if (typeof segment === 'number') {
+            node = YAML.isSeq(node) ? node.items[segment] : node[segment];
+        } else {
+            // String key — might need to create the sequence if it doesn't exist
+            let child;
+            if (YAML.isMap(node)) {
+                child = node.get(segment, true);
+            } else if (typeof node === 'object') {
+                child = node[segment];
+            }
+
+            if (!child && i === parentSeqPath.length - 1 && YAML.isMap(node)) {
+                // Last segment doesn't exist — create an empty sequence
+                node.set(segment, doc.createNode([]));
+                child = node.get(segment, true);
+            }
+            node = child;
+        }
+    }
+
+    if (!node || !YAML.isSeq(node)) return false;
+
+    // Create and insert the new node
+    const newNode = doc.createNode(component);
+    if (typeof index === 'number' && index >= 0 && index <= node.items.length) {
+        node.items.splice(index, 0, newNode);
+    } else {
+        node.items.push(newNode);
+    }
+    return true;
+}
+
+/**
+ * Move a component up or down within its parent sequence.
+ * @param {Document} doc - YAML Document
+ * @param {Array} componentPath - Path to component (e.g., [0, 'components', 2])
+ * @param {number} direction - -1 for up, +1 for down
+ * @returns {{ success: boolean, newPath?: Array }} Result with new path if moved
+ */
+export function moveComponentInDocument(doc, componentPath, direction) {
+    if (!doc || !componentPath || componentPath.length < 2) {
+        return { success: false };
+    }
+
+    const index = componentPath[componentPath.length - 1];
+    if (typeof index !== 'number') return { success: false };
+
+    const parentPath = componentPath.slice(0, -1);
+    const targetIndex = index + direction;
+
+    // Navigate to parent sequence
+    let node = doc.contents;
+    for (const segment of parentPath) {
+        if (!node) return { success: false };
+        if (typeof segment === 'number') {
+            node = YAML.isSeq(node) ? node.items[segment] : node[segment];
+        } else {
+            node = YAML.isMap(node) ? node.get(segment, true) : node[segment];
+        }
+    }
+
+    if (!YAML.isSeq(node)) return { success: false };
+    if (targetIndex < 0 || targetIndex >= node.items.length) return { success: false };
+
+    // Swap
+    const temp = node.items[index];
+    node.items[index] = node.items[targetIndex];
+    node.items[targetIndex] = temp;
+
+    return { success: true, newPath: [...parentPath, targetIndex] };
 }
 
 // Re-export for advanced usage (Document API, type checks)

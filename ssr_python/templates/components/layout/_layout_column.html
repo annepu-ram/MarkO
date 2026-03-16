@@ -3,7 +3,7 @@
     {% set layout_props = properties.layout | default({}) %}
     {% set spacing_props = properties.spacing | default({}) %}
     {% set tag = layout_props.tag | default('section') %}
-    {% set width_mode = layout_props.widthMode | default('stretch') %}
+    {% set width_mode = layout_props.widthMode | default('stretch') | string %}
 
     {# Get marginInline value for CSS variable (used in margin-aware width calculation) #}
     {% set margin_inline_token = spacing_props.marginInline | default('none') %}
@@ -21,7 +21,7 @@
     {# Inner wrapper styles: flex layout properties #}
     {% set inner_styles = build_flex_styles(component, tokens, 'column') %}
 
-    <{{ tag }} class="layout-column chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ outer_styles }}">
+    <{{ tag }} class="layout-column chrome-target" data-component-id="{{ component_id }}" data-component-name="layout-column" data-width-mode="{{ width_mode }}" style="{{ outer_styles }}">
         <div class="layout-column__content" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}

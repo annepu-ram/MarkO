@@ -32,37 +32,40 @@
 2. **layout-row (Hero Split)**
    Left: eyebrow ("Trusted Financial Partners") + heading ("Expert Tax & Accounting Solutions") + paragraph (brief firm positioning) + button ("Schedule Free Consultation"). Right: image (professional office/team).
 
-3. **counter-up (Firm Highlights)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **counter-up (Firm Highlights)**
    "15+ Years Experience", "2,000+ Clients Served", "₹500 Cr+ Tax Saved", "100% Compliance Rate".
 
-4. **columnsgrid (Services — 3 columns)**
+5. **columnsgrid (Services — 3 columns)**
    Each: icon + heading + paragraph. Tax Planning, GST Filing, Company Registration, Audit & Assurance, Bookkeeping, Business Advisory.
 
-5. **tabs (Client Segments)**
+6. **tabs (Client Segments)**
    Tabs: Individuals, Startups, SMEs, Corporates. Each: paragraph (tailored services) + button ("Learn More").
 
-6. **layout-row (About the Firm)**
+7. **layout-row (About the Firm)**
    image (founder/team) + heading + paragraph (credentials, memberships — ICAI) + badge ("ICAI Registered").
 
-7. **accordion (Tax Resources / FAQs)**
+8. **accordion (Tax Resources / FAQs)**
    Items: ITR Filing Deadlines, GST Registration Process, TDS Rules, Startup Tax Benefits, Audit Thresholds.
 
-8. **ticker (Trusted By)**
+9. **ticker (Trusted By)**
    Scrolling client company logos.
 
-9. **layout-row (Process)**
+10. **layout-row (Process)**
    4-step: icon + heading + caption. "Initial Consultation" → "Document Collection" → "Filing & Compliance" → "Ongoing Support".
 
-10. **carousel (Client Testimonials)**
+11. **carousel (Client Testimonials)**
     blockquote + caption (client name, business type) + rating.
 
-11. **countdown (Tax Deadline Reminder)**
+12. **countdown (Tax Deadline Reminder)**
     "ITR Filing Deadline:" + countdown timer + button ("File Now — Avoid Penalties").
 
-12. **form (Book a Consultation)**
+13. **form (Book a Consultation)**
     textbox (name), textbox (phone), textbox (email), dropdown (service needed), dropdown (client type), textarea (brief requirement), button.
 
-13. **layout-row (Footer)**
+14. **layout-row (Footer)**
     Office address, phone, email, ICAI membership number, working hours, social links.
 
 ---
@@ -77,28 +80,31 @@
 2. **layout-row (Hero)**
    Dark background image (scales of justice / library), overlay: heading ("Experienced Legal Counsel You Can Trust") + paragraph + two buttons ("Our Practice Areas", "Free Consultation").
 
-3. **columnsgrid (Practice Areas — 4 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Practice Areas — 4 columns)**
    Each: icon + heading + caption. Corporate Law, Civil Litigation, Criminal Defense, Family Law, Real Estate, Intellectual Property, Employment Law, Tax Disputes.
 
-4. **layout-row (Why Choose Us)**
+5. **layout-row (Why Choose Us)**
    Left: heading + paragraph (firm differentiators). Right: counter-up stats: "500+ Cases Won", "25+ Years Combined Experience", "3 Senior Partners".
 
-5. **tabs (Our Attorneys)**
+6. **tabs (Our Attorneys)**
    Tab per attorney: image + heading (name) + caption (specialization) + paragraph (bio, bar memberships, notable cases).
 
-6. **layout-row (Case Results / Track Record)**
+7. **layout-row (Case Results / Track Record)**
    heading + columnsgrid (3 cols): heading (case type) + paragraph (outcome) + badge ("Landmark Victory" on select).
 
-7. **accordion (Legal Resources)**
+8. **accordion (Legal Resources)**
    Items: Understanding Your Rights, What to Expect in Court, Document Checklist, Fee Structure, Legal Aid Options.
 
-8. **carousel (Client Testimonials)**
+9. **carousel (Client Testimonials)**
    blockquote + caption (anonymous or with permission).
 
-9. **layout-row (Consultation CTA)**
+10. **layout-row (Consultation CTA)**
    heading + paragraph + form: textbox (name), textbox (phone), dropdown (practice area), textarea (brief case description), button ("Request Callback").
 
-10. **layout-row (Footer)**
+11. **layout-row (Footer)**
     Office addresses (multiple if branches), bar council enrollment numbers, disclaimer, contact info.
 
 **Page 2: Practice Areas (Detail)**
@@ -117,32 +123,35 @@
 2. **carousel (Hero — Portfolio Showcase)**
    Full-width slides: stunning project photos (buildings, interiors) with overlay heading (project name) + caption (type, location).
 
-3. **columnsgrid (Services — 3 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Services — 3 columns)**
    Each: image + heading + paragraph. Residential Architecture, Commercial Design, Interior Design, Landscape, Renovation, Urban Planning.
 
-4. **layout-row (Featured Project)**
+5. **layout-row (Featured Project)**
    Large image + heading + paragraph (project story, challenges, solution) + badge ("Award Winner") + button ("View Full Project").
 
-5. **tabs (Portfolio by Category)**
+6. **tabs (Portfolio by Category)**
    Tabs: Residential, Commercial, Hospitality, Institutional. Each: image grid (columnsgrid) + captions.
 
-6. **layout-row (Our Process)**
+7. **layout-row (Our Process)**
    5-step: icon + heading + caption. "Briefing" → "Concept Design" → "Development" → "Construction Oversight" → "Handover".
 
-7. **counter-up (Firm Stats)**
+8. **counter-up (Firm Stats)**
    "100+ Projects Completed", "15+ Awards", "20+ Years", "50,000+ sq ft Designed".
 
-8. **layout-row (The Team)**
+9. **layout-row (The Team)**
    columnsgrid: image + heading + caption (role) for principal architects and lead designers.
 
-9. **ticker (Awards & Publications)**
+10. **ticker (Awards & Publications)**
    Scrolling award logos and publication mentions.
 
-10. **carousel (Client Testimonials)**
+11. **carousel (Client Testimonials)**
     blockquote + caption + rating.
 
-11. **form (Project Enquiry)**
+12. **form (Project Enquiry)**
     textbox (name), textbox (email), textbox (phone), dropdown (project type), dropdown (budget range), textarea (project vision), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Office address, COA registration, social links (Behance, Instagram, LinkedIn), portfolio download link.

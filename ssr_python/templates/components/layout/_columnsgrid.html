@@ -1,6 +1,7 @@
 {% macro render_columnsgrid(component, tokens, path, component_id) %}
     {% set properties = component.properties | default({}) %}
     {% set layout_props = properties.layout | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
     {% set columns = component.columns | default([]) %}
 
     {# Column count #}
@@ -18,14 +19,38 @@
     {# Outer container styles #}
     {% set outer_styles = build_styles(component, tokens, part='outer') %}
 
-    <div class="columnsgrid chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+    {# Column-level appearance #}
+    {% set col_bg = appearance.columnBackground | default('#ffffff') %}
+    {% set col_transparency = appearance.columnTransparency | default(0) %}
+    {% set col_blur = appearance.columnBlur | default(false) %}
+    {% set col_radius_token = appearance.columnRadius | default('none') %}
+    {% set col_border = appearance.columnBorder | default({}) %}
+
+    {# Build column background with transparency — blur auto-applies 50% if opaque #}
+    {% if col_blur is sameas true and (not col_transparency or col_transparency == 0) %}
+        {% set col_effective_transparency = 50 %}
+    {% else %}
+        {% set col_effective_transparency = col_transparency %}
+    {% endif %}
+    {% set col_alpha_hex = col_effective_transparency | transparency_to_hex %}
+    {% set col_bg_final = col_bg ~ col_alpha_hex %}
+    {% set col_radius_css = 'border-radius: ' ~ tokens.border_radius[col_radius_token] ~ ';' if col_radius_token != 'none' and tokens and tokens.border_radius and col_radius_token in tokens.border_radius else '' %}
+    {% set col_blur_css = 'backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);' if col_blur is sameas true else '' %}
+
+    {# Column border #}
+    {% set col_border_css = '' %}
+    {% if col_border.width and col_border.width > 0 %}
+        {% set col_border_css = 'border: ' ~ col_border.width ~ 'px solid ' ~ (col_border.color | default('#e5e7eb')) ~ ';' %}
+    {% endif %}
+
+    <div class="columnsgrid chrome-target" data-component-id="{{ component_id }}" data-component-name="columnsgrid" style="{{ outer_styles }}">
         <div class="columnsgrid__row" style="display: flex; gap: {{ gap_value }}; align-items: {{ v_align_css }}; width: 100%; box-sizing: border-box; min-height: 0;">
             {% for col_index in range(column_count) %}
                 {% set column = columns[col_index] if col_index < columns | length else {} %}
                 {% set column_components = column.components | default([]) %}
 
                 {% set col_justify = 'space-between' if v_align == 'stretch' else v_align_css %}
-                <div class="columnsgrid__col" style="position: relative; flex: 1 1 0; min-width: 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: {{ col_justify }};">
+                <div class="columnsgrid__col" style="position: relative; flex: 1 1 0; min-width: 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: {{ col_justify }}; background-color: {{ col_bg_final }}; {{ col_radius_css }} {{ col_blur_css }} {{ col_border_css }}">
                     <div class="column-label">Col {{ col_index + 1 }}</div>
 
                     {% if column_components | length > 0 %}

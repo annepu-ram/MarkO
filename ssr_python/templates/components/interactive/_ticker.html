@@ -13,7 +13,7 @@
     {% set pause_on_hover = behavior.pauseOnHover | default(true) %}
     {% set pause_duration = behavior.pauseDuration | default(3000) %}
 
-    {% set width_mode = layout_props.width | default('fit') %}
+    {% set width_mode = layout_props.widthMode | default(layout_props.width | default('fit')) %}
     {% set col_bg = appearance.columnBackground | default('#ffffff') %}
     {% set col_transparency = appearance.columnTransparency | default(0) %}
     {% set col_radius_token = appearance.columnRadius | default('none') %}
@@ -44,7 +44,7 @@
         {% set col_radius_css = '' %}
     {% endif %}
 
-    {% set gap_token = spacing.gap | default('lg') %}
+    {% set gap_token = layout_props.gap | default(spacing.gap | default('lg')) %}
     {% set gap_value = tokens.spacing[gap_token] if gap_token in tokens.spacing else '1rem' %}
 
     {% set styles = build_styles(component, tokens, part='outer') %}
@@ -52,12 +52,14 @@
     {% if columns | length == 0 %}
         <div class="ticker chrome-target"
              data-component-id="{{ component_id }}"
+             data-component-name="ticker"
              style="{{ styles }} background: transparent; min-height: 60px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ccc;">
             <span style="color: #6b7280;">Add columns to the ticker</span>
         </div>
     {% else %}
         <div class="ticker chrome-target"
              data-component-id="{{ component_id }}"
+             data-component-name="ticker"
              data-component-type="ticker"
              data-direction="{{ direction }}"
              data-speed="{{ speed }}"

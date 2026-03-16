@@ -1,0 +1,158 @@
+# Split Image Call-to-Action Section with Product Preview
+# A side-by-side split-screen CTA with persuasive text content and call-to-action button on one side and an engaging product or lifestyle image on the other
+# Base components: layout-row, layout-column, image, heading, paragraph, button, eyebrow, badge
+# Section type: cta
+# Layout: split_screen
+# Visual style: modern
+# Perfect for: SaaS platform, mobile app, online store, software company, fitness app, online course platform, subscription service, B2B platform, consulting firm, digital agency
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#111827"
+        text: &color-text "#2C3039"
+        secondary: &color-secondary "#6b7280"
+        accent: &color-accent "#4f46e5"
+        background: &color-background "#ffffff"
+  components:
+    - name: page
+      slug: home
+      title: "Split Image CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+        # Split CTA Section
+        - name: layout-row
+          properties:
+            layout:
+              align: center
+              horizontalAlign: none
+              wrap: nowrap
+            appearance:
+              background:
+                color: "#f9fafb"
+                transparency: 100
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+          components:
+            # Left Side - Text Content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  align: start
+                  horizontalAlign: space-evenly
+                appearance:
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: xl
+              components:
+                # Success Badge
+                - name: badge
+                  properties:
+                    text: "NEW"
+                    variant: success
+                    pill: true
+
+                # Main Heading
+                - name: heading
+                  properties:
+                    text: "Ready to Transform Your Business?"
+                    level: 1
+                    typography:
+                      color: *color-primary
+                      size: xxl
+                      weight: bold
+                      lineHeight: "1.15"
+                    spacing:
+                      marginBlock: sm
+                    layout:
+                      widthMode: stretch
+
+                # Value Proposition
+                - name: paragraph
+                  properties:
+                    text: |
+                      Our platform empowers teams to move faster, collaborate smarter, and deliver
+                      results that matter. From onboarding to scaling, we have you covered with
+                      tools built for the modern workforce.
+                    typography:
+                      color: *color-secondary
+                      size: md
+                      lineHeight: "1.7"
+                    spacing:
+                      marginBlock: md
+                # Dual CTA Buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      align: center
+                      horizontalAlign: start
+                      wrap: wrap
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: Get Started Free
+                        appearance:
+                          background:
+                            color: *color-accent
+                            transparency: 100
+                          border:
+                            width: 0
+                            style: solid
+                            color: transparent
+                          shadow: soft
+                        spacing:
+                          paddingBlock: sm
+                          paddingInline: lg
+                        typography:
+                          color: *color-background
+                          weight: semibold
+                          size: md
+                        spacing:
+                          marginBlock: none
+                          paddingBlock: sm
+                          paddingInline: lg
+                    - name: button
+                      properties:
+                        text: Watch Demo
+                        appearance:
+                          background:
+                            color: transparent
+                            transparency: 0
+                          border:
+                            width: 2
+                            style: solid
+                            color: *color-accent
+                        typography:
+                          color: *color-accent
+                          weight: semibold
+                          size: md
+                        spacing:
+                          marginBlock: none
+            # Right Side - Product Image
+            - name: image
+              properties:
+                source:
+                  url: https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200
+                  altText: Team collaborating on product strategy
+                appearance:
+                  minHeight: 37.5
+                  fit: cover
+                  cornerStyle: none
+                  hoverEffect: zoom
+                layout:
+                  widthMode: "50"
+                spacing:
+                  marginBlock: none
+                  marginInline: none

@@ -1,19 +1,17 @@
 # Card-Based Hero (Bento Grid)
 # Modern bento-style card grid with asymmetric layout, vibrant colors, and interactive elements
+# Base components: page, titlebar, layout-column, layout-row, heading, paragraph, eyebrow, button
+# Section type: hero
+# Layout: grid
+# Visual style: card_based
 # Perfect for: SaaS platforms, content sites, creative portfolios, product showcases
-#
-# 2026 Design Trends Applied:
-# - Bento grid with varied card sizes for visual hierarchy
-# - Vibrant Y2K-inspired color palette with neon gradients
-# - Interactive hover effects (zoom, lift, glow)
-# - Bold typography with dynamic sizing
-# - 3D depth using shadows and overlays
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary "#0f0f23"
+        text: &color-text "#2B2B37"
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#ff006e"
         background: &color-background "#fafafa"
@@ -68,7 +66,6 @@
   - name: layout-column
     properties:
       layout:
-        align: center
         horizontalAlign: space-evenly
       spacing:
         paddingBlock: xl
@@ -79,7 +76,6 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
           widthMode: "83"
         spacing:
@@ -114,9 +110,9 @@
     - name: layout-row
       properties:
         layout:
-          align: stretch
           horizontalAlign: space-evenly
           wrap: wrap
+          verticalAlign: stretch
         spacing:
           marginBlock: md
       components:
@@ -125,7 +121,6 @@
       - name: layout-column
         properties:
           layout:
-            align: start
             horizontalAlign: space-evenly
             widthMode: "50"
           spacing:
@@ -186,9 +181,6 @@
                 width: 1
                 style: solid
                 color: rgba(255,255,255,0.3)
-              padding:
-                block: sm
-                inline: lg
               radius: pill
             typography:
               color: *color-background
@@ -196,13 +188,14 @@
               size: sm
             spacing:
               marginBlock: none
+              paddingBlock: sm
+              paddingInline: lg
             layout:
 
       # Right Column - 2 Medium Stacked Cards
       - name: layout-column
         properties:
           layout:
-            align: stretch
             horizontalAlign: space-evenly
             widthMode: "50"
             gap: md
@@ -212,7 +205,6 @@
         - name: layout-column
           properties:
             layout:
-              align: start
               horizontalAlign: space-evenly
             spacing:
               paddingBlock: lg
@@ -252,8 +244,8 @@
           - name: layout-row
             properties:
               layout:
-                align: center
                 horizontalAlign: space-evenly
+                verticalAlign: center
             components:
             - name: paragraph
               properties:
@@ -278,7 +270,6 @@
         - name: layout-column
           properties:
             layout:
-              align: start
               horizontalAlign: space-evenly
             spacing:
               paddingBlock: lg
@@ -314,8 +305,8 @@
           - name: layout-row
             properties:
               layout:
-                align: center
                 horizontalAlign: space-evenly
+                verticalAlign: center
             components:
             - name: paragraph
               properties:
@@ -357,16 +348,15 @@
     - name: layout-row
       properties:
         layout:
-          align: stretch
           horizontalAlign: space-evenly
           wrap: wrap
+          verticalAlign: stretch
       components:
 
       # SMALL CARD 1 - Performance
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           spacing:
@@ -418,7 +408,6 @@
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           spacing:
@@ -470,7 +459,6 @@
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           spacing:
@@ -522,7 +510,6 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: xl
@@ -563,9 +550,9 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             wrap: wrap
+            verticalAlign: center
         components:
         - name: button
           properties:
@@ -578,9 +565,6 @@
                 width: 0
                 style: solid
                 color: transparent
-              padding:
-                block: md
-                inline: xl
               radius: pill
               shadow: medium
               shadowColor: *color-primary
@@ -590,6 +574,8 @@
               size: md
             spacing:
               marginBlock: none
+              paddingBlock: md
+              paddingInline: xl
         - name: button
           properties:
             text: "Schedule Demo"
@@ -602,9 +588,6 @@
                 width: 1
                 style: solid
                 color: rgba(15,15,35,0.2)
-              padding:
-                block: md
-                inline: xl
               radius: pill
             typography:
               color: *color-primary
@@ -612,3 +595,5 @@
               size: md
             spacing:
               marginBlock: none
+              paddingBlock: md
+              paddingInline: xl

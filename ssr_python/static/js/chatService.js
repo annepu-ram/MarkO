@@ -8,7 +8,7 @@
 export class ChatService {
     constructor() {
         this.endpoint = '/api/chat';
-        this.timeout = 60000; // 60 second timeout for LLM responses
+        this.timeout = 300000; // 5 minute timeout for LLM responses
     }
 
     /**
@@ -17,12 +17,10 @@ export class ChatService {
      * @param {string} message - User's message
      * @param {string} currentYaml - Current YAML content from editor
      * @param {Object|null} selectedComponent - Currently selected component info
-     *   - id: Component DOM ID
-     *   - path: YAML path array
-     *   - name: Component type name
+     * @param {string|null} siteId - Site ID for backend to query images from DB
      * @returns {Promise<Object>} Response with response, yaml, action, and optional error
      */
-    async sendMessage(message, currentYaml, selectedComponent = null) {
+    async sendMessage(message, currentYaml, selectedComponent = null, siteId = null) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), this.timeout);
 
@@ -35,7 +33,8 @@ export class ChatService {
                 body: JSON.stringify({
                     message,
                     currentYaml: currentYaml || '',
-                    selectedComponent
+                    selectedComponent,
+                    siteId,
                 }),
                 signal: controller.signal
             });

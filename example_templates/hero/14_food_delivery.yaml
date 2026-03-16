@@ -1,5 +1,9 @@
 # Food Delivery App Hero
 # A vibrant, appetite-inducing hero for food delivery services
+# Base components: page, titlebar, layout-row, layout-column, paragraph, heading, textbox, button, image
+# Section type: hero
+# Layout: split_screen
+# Visual style: modern
 # Perfect for: Food delivery, restaurants, meal kits, food apps
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#1f2937"
+        text: &color-text "#343A43"
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#ff6b35"
         background: &color-background "#fff8f0"
@@ -76,9 +81,9 @@
   - name: layout-row
     properties:
       layout:
-        align: center
         horizontalAlign: space-evenly
         wrap: wrap
+        verticalAlign: center
       spacing:
         paddingBlock: xxxl
         paddingInline: xl
@@ -91,7 +96,6 @@
     - name: layout-column
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
           widthMode: "50"
       components:
@@ -99,8 +103,9 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
+            wrap: nowrap
           appearance:
             background:
               type: gradient
@@ -110,15 +115,13 @@
                 direction: 'to right'
               transparency: 100
             radius: pill
-            padding:
-              block: xs
-              inline: md
         components:
         - name: paragraph
           properties:
             text: "🎉"
             typography:
               size: sm
+              lineHeight: '1'
             spacing:
               marginBlock: none
         - name: paragraph
@@ -128,6 +131,7 @@
               color: *color-promo-text
               size: sm
               weight: semibold
+              lineHeight: '1'
             spacing:
               marginBlock: none
 
@@ -185,11 +189,13 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             wrap: wrap
+            verticalAlign: center
           spacing:
             marginBlock: md
+            paddingBlock: sm
+            paddingInline: sm
           appearance:
             background:
               color: *color-surface-light
@@ -199,9 +205,6 @@
               width: 2
               style: solid
               color: *color-border
-            padding:
-              block: sm
-              inline: sm
             shadow: medium
             shadowColor: *color-accent
         components:
@@ -234,9 +237,6 @@
                 width: 0
                 style: solid
                 color: transparent
-              padding:
-                block: sm
-                inline: lg
               shadow: medium
               shadowColor: *color-accent
             typography:
@@ -247,19 +247,20 @@
               marginBlock: none
 
       # Quick Stats
+              paddingBlock: sm
+              paddingInline: lg
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             wrap: wrap
+            verticalAlign: center
           spacing:
             marginBlock: lg
         components:
         - name: layout-column
           properties:
             layout:
-              align: start
               horizontalAlign: space-evenly
               widthMode: "33"
           components:
@@ -284,7 +285,6 @@
         - name: layout-column
           properties:
             layout:
-              align: start
               horizontalAlign: space-evenly
               widthMode: "33"
           components:
@@ -309,7 +309,6 @@
         - name: layout-column
           properties:
             layout:
-              align: start
               horizontalAlign: space-evenly
               widthMode: "33"
           components:
@@ -336,15 +335,14 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
           widthMode: "50"
       components:
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
         components:
         - name: image
           properties:
@@ -381,8 +379,8 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
         components:
         - name: image
           properties:
@@ -421,7 +419,6 @@
   - name: layout-column
     properties:
       layout:
-        align: center
         horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg
@@ -445,14 +442,13 @@
     - name: layout-row
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
           wrap: wrap
+          verticalAlign: center
       components:
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           appearance:
@@ -461,9 +457,9 @@
               transparency: 100
             radius: lg
             shadow: soft
-            padding:
-              block: md
-              inline: md
+          spacing:
+            paddingBlock: md
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -484,7 +480,6 @@
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           appearance:
@@ -493,9 +488,9 @@
               transparency: 100
             radius: lg
             shadow: soft
-            padding:
-              block: md
-              inline: md
+          spacing:
+            paddingBlock: md
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -516,7 +511,6 @@
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           appearance:
@@ -525,9 +519,9 @@
               transparency: 100
             radius: lg
             shadow: soft
-            padding:
-              block: md
-              inline: md
+          spacing:
+            paddingBlock: md
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -548,7 +542,6 @@
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           appearance:
@@ -557,9 +550,9 @@
               transparency: 100
             radius: lg
             shadow: soft
-            padding:
-              block: md
-              inline: md
+          spacing:
+            paddingBlock: md
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -580,7 +573,6 @@
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           appearance:
@@ -589,9 +581,9 @@
               transparency: 100
             radius: lg
             shadow: soft
-            padding:
-              block: md
-              inline: md
+          spacing:
+            paddingBlock: md
+            paddingInline: md
         components:
         - name: paragraph
           properties:
@@ -612,7 +604,6 @@
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             widthMode: "33"
           appearance:
@@ -621,9 +612,9 @@
               transparency: 100
             radius: lg
             shadow: soft
-            padding:
-              block: md
-              inline: md
+          spacing:
+            paddingBlock: md
+            paddingInline: md
         components:
         - name: paragraph
           properties:

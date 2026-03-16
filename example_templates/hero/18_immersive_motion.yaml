@@ -1,62 +1,71 @@
 # Hero Card Variant: Immersive Motion
 # video-background containing a centered layout-column with heading and button
+# Base components: page, video-background, layout-column, eyebrow, heading, paragraph, button
+# Section type: hero
+# Layout: fullscreen
+# Visual style: dark_mode
+# Perfect for: Tech companies, creative agencies, event promotions, product showcases
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#000000'
+        text: &color-text '#222222'
         secondary: &color-secondary '#e2e8f0'
         accent: &color-accent '#6366f1'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-primary }
+      background: {color: *color-primary}
   components:
-    - name: video-background
+  - name: video-background
+    properties:
+      source:
+        url: 'https://cdn.pixabay.com/video/2024/06/04/214957_large.mp4'
+        poster: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200'
+      appearance:
+        minHeight: 37.5
+        objectFit: cover
+        overlay:
+          enabled: true
+          color: 'rgba(0,0,0,0.55)'
+          opacity: 55
+      playback:
+        autoplay: true
+        loop: true
+        muted: true
+        playsinline: true
+      content:
+        verticalAlign: center
+        horizontalAlign: center
+        padding: xl
+      layout: {widthMode: stretch}
+    components:
+    - name: layout-column
       properties:
-        source:
-          url: 'https://cdn.pixabay.com/video/2024/06/04/214957_large.mp4'
-          poster: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200'
-        appearance:
-          minHeight: 600
-          objectFit: cover
-          overlay:
-            enabled: true
-            color: 'rgba(0,0,0,0.55)'
-            opacity: 55
-        playback:
-          autoplay: true
-          loop: true
-          muted: true
-          playsinline: true
-        content:
-          verticalAlign: center
-          horizontalAlign: center
-          padding: xl
-        layout: { widthMode: stretch }
+        layout: {horizontalAlign: center, gap: md}
+        appearance: {background: {transparency: 0}}
       components:
-        - name: layout-column
-          properties:
-            layout: { horizontalAlign: center, gap: md }
-            appearance: { background: { transparency: 0 } }
-          components:
-            - name: eyebrow
-              properties:
-                text: EXPERIENCE THE FUTURE
-                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
-            - name: heading
-              properties:
-                text: Where Innovation Meets Imagination
-                level: 1
-                typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
-                spacing: { marginBlock: sm }
-            - name: paragraph
-              properties:
-                text: Immerse yourself in a world of limitless possibilities.
-                typography: { size: lg, color: *color-secondary, align: center }
-                spacing: { marginBlock: md }
-            - name: button
-              properties:
-                text: Explore Now
-                appearance: { background: { color: *color-accent }, radius: pill, padding: { block: md, inline: xl } }
-                typography: { color: *color-background, weight: bold }
+      - name: eyebrow
+        properties:
+          text: EXPERIENCE THE FUTURE
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+      - name: heading
+        properties:
+          text: Where Innovation Meets Imagination
+          level: 1
+          typography: {size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: Immerse yourself in a world of limitless possibilities.
+          typography: {size: lg, color: *color-secondary, align: center}
+          spacing: {marginBlock: md}
+      - name: button
+        properties:
+          text: Explore Now
+          appearance: {background: {color: *color-accent}, radius: pill}
+          typography: {color: *color-background, weight: bold}
+          spacing:
+            paddingBlock: md
+            paddingInline: xl

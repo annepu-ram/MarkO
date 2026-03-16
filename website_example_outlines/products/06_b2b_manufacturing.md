@@ -32,34 +32,37 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Precision Metal Fabrication") + paragraph (materials, tolerances, industries served) + two buttons ("Our Capabilities", "Get a Quote"). Right: image (CNC machine or fabricated parts).
 
-3. **counter-up (At a Glance)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **counter-up (At a Glance)**
    "20+ Years in Business", "500+ Active Clients", "10,000+ sq ft Facility", "ISO 9001 Certified".
 
-4. **tabs (Capabilities)**
+5. **tabs (Capabilities)**
    Tabs: CNC Machining, Laser Cutting, Sheet Metal, Welding, Surface Finishing. Each: image + paragraph (specs, tolerances, materials) + button.
 
-5. **columnsgrid (Industries Served — 4 columns)**
+6. **columnsgrid (Industries Served — 4 columns)**
    Each: icon + heading + caption. Automotive, Aerospace, Construction, Medical Equipment, Industrial Machinery, Agriculture.
 
-6. **layout-row (Our Facility)**
+7. **layout-row (Our Facility)**
    carousel of factory/workshop images + heading + paragraph (equipment list, capacity).
 
-7. **columnsgrid (Certifications & Standards)**
+8. **columnsgrid (Certifications & Standards)**
    Each: image/icon + heading. ISO 9001, ISO 14001, OHSAS 18001, BIS certifications.
 
-8. **layout-row (Material Specifications)**
+9. **layout-row (Material Specifications)**
    accordion with items: Stainless Steel (grades, thickness), Mild Steel, Aluminum, Brass, Copper — each with detailed specs paragraph.
 
-9. **ticker (Client Logos)**
+10. **ticker (Client Logos)**
    Scrolling logos of B2B clients / OEMs served.
 
-10. **layout-row (Quality Assurance)**
+11. **layout-row (Quality Assurance)**
     heading + paragraph + progress-bar (Defect Rate <0.1%, On-Time Delivery 98%, Customer Retention 95%).
 
-11. **form (Request for Quote)**
+12. **form (Request for Quote)**
     textbox (company name), textbox (contact person), textbox (phone), textbox (email), dropdown (service needed), textarea (part description / specifications), button ("Upload Drawing" note in caption), button ("Submit RFQ").
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Factory address, GST number, phone, email, working hours.
 
 ---
@@ -74,31 +77,34 @@
 2. **layout-row (Hero)**
    Full-width image (packaging line), overlay: heading ("Custom Packaging Solutions for Every Industry") + paragraph + button ("Explore Solutions").
 
-3. **columnsgrid (Packaging Types — 3 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Packaging Types — 3 columns)**
    Each: image + heading + paragraph. Corrugated Boxes, Flexible Packaging, Rigid Boxes, Blister Packs, Shrink Wraps, Custom Displays.
 
-4. **tabs (By Industry)**
+5. **tabs (By Industry)**
    Tabs: Food & Beverage, Pharmaceuticals, E-Commerce, Electronics, Cosmetics. Each: image + paragraph (industry-specific requirements) + button.
 
-5. **layout-row (Customization Process)**
+6. **layout-row (Customization Process)**
    4-step columnsgrid: icon + heading + caption. "Share Requirements" → "Design & Prototype" → "Sample Approval" → "Bulk Production".
 
-6. **counter-up (Production Scale)**
+7. **counter-up (Production Scale)**
    "50 Million+ Units/Year", "200+ SKUs", "100+ Clients", "3 Manufacturing Plants".
 
-7. **layout-row (Sustainability)**
+8. **layout-row (Sustainability)**
    image (eco-friendly packaging) + heading + paragraph (recyclable materials, FSC certified, biodegradable options) + badge ("Eco-Friendly").
 
-8. **accordion (Technical Specifications)**
+9. **accordion (Technical Specifications)**
    Items: Board grades, GSM options, Printing capabilities (offset, digital, flexo), Minimum order quantities, Lead times.
 
-9. **ticker (Client Logos)**
+10. **ticker (Client Logos)**
    Scrolling B2B client/brand logos.
 
-10. **form (Sample / Quote Request)**
+11. **form (Sample / Quote Request)**
     textbox (company), textbox (contact), textbox (email), dropdown (packaging type), dropdown (industry), textbox (quantity), textarea (specifications), button.
 
-11. **layout-row (Footer)**
+12. **layout-row (Footer)**
     Plant addresses, certifications, contact, working hours.
 
 **Page 2: Portfolio**
@@ -118,32 +124,35 @@
 2. **layout-row (Hero)**
    image (industrial parts array) + heading ("Reliable OEM Components, Delivered On Time") + paragraph + two buttons ("Product Catalog", "Request Quote").
 
-3. **columnsgrid (Product Categories — 4 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Product Categories — 4 columns)**
    Each: image + heading + caption. Fasteners, Castings, Forgings, Rubber/Polymer Parts, Electrical Components, Turned Parts.
 
-4. **tabs (Manufacturing Capabilities)**
+5. **tabs (Manufacturing Capabilities)**
    Tabs: Die Casting, Investment Casting, CNC Turning, Injection Molding, Stamping. Each: image + specs paragraph + capacity details.
 
-5. **layout-row (Quality Control)**
+6. **layout-row (Quality Control)**
    heading + paragraph + columnsgrid (3 cols): icon + heading + caption. Incoming Inspection, In-Process Checks, Final QC, CMM Measurement, Material Traceability.
 
-6. **counter-up (Supply Chain Reliability)**
+7. **counter-up (Supply Chain Reliability)**
    "10,000+ Part Numbers", "99.5% On-Time Delivery", "50+ Country Exports", "30+ Years".
 
-7. **layout-row (Certifications)**
+8. **layout-row (Certifications)**
    columnsgrid of certification logos + heading + paragraph.
 
-8. **accordion (Technical Resources)**
+9. **accordion (Technical Resources)**
    Items: Material specifications, Tolerance charts, Surface finish options, Testing capabilities, Compliance standards.
 
-9. **ticker (OEM Partners)**
+10. **ticker (OEM Partners)**
    Scrolling partner/client logos.
 
-10. **layout-row (Export Markets Map)**
+11. **layout-row (Export Markets Map)**
     image (world map with markers) + paragraph (countries served) + badge ("Global Supplier").
 
-11. **form (RFQ Form)**
+12. **form (RFQ Form)**
     textbox (company), textbox (name), textbox (email), textbox (phone), dropdown (product category), textbox (part number if known), textarea (requirements), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Registered office, factory address, export certifications, GST/IEC numbers, working hours.

@@ -1,0 +1,254 @@
+# Test: Icon Component
+# SVG vector icons from the icon sprite. Uses typographySizes tokens for sizing.
+#
+# Properties:
+#   name    — Icon identifier from sprite (star, heart, checkmark, fire, user, etc.)
+#   size    — Typography size token: xxs, xs, sm, md, lg, xl, xxl, xxxl
+#   color   — Hex color for the icon stroke
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "Icon Test"
+      properties:
+        appearance: { background: { color: '#ffffff', transparency: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: "Icon Component Test"
+            level: 1
+            typography: { size: xxl, weight: bold, align: center, color: '#111827' }
+            spacing: { marginBlock: lg }
+
+        # ─────────────────────────────────────────
+        # SIZE SCALE
+        # Icons use the same typographySizes tokens as text
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "Size scale (xxs → xxxl) — Same tokens as text components"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, verticalAlign: bottom, wrap: wrap }
+          components:
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: sm } }
+              components:
+                - name: icon
+                  properties: { name: star, size: xxs, color: '#6366f1' }
+                - name: caption
+                  properties: { text: xxs, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: sm } }
+              components:
+                - name: icon
+                  properties: { name: star, size: xs, color: '#6366f1' }
+                - name: caption
+                  properties: { text: xs, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: sm } }
+              components:
+                - name: icon
+                  properties: { name: star, size: sm, color: '#6366f1' }
+                - name: caption
+                  properties: { text: sm, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: sm } }
+              components:
+                - name: icon
+                  properties: { name: star, size: md, color: '#6366f1' }
+                - name: caption
+                  properties: { text: md, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: sm } }
+              components:
+                - name: icon
+                  properties: { name: star, size: lg, color: '#6366f1' }
+                - name: caption
+                  properties: { text: lg, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: sm } }
+              components:
+                - name: icon
+                  properties: { name: star, size: xl, color: '#6366f1' }
+                - name: caption
+                  properties: { text: xl, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: sm } }
+              components:
+                - name: icon
+                  properties: { name: star, size: xxl, color: '#6366f1' }
+                - name: caption
+                  properties: { text: xxl, typography: { size: xxs, align: center, color: '#94a3b8' } }
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # AVAILABLE ICONS
+        # All icons from the SVG sprite
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "Available icons — All from icon-sprite.svg"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, wrap: wrap, gap: md }
+          components:
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: star, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: star, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: favorite, size: lg, color: '#ef4444' }
+                - name: caption
+                  properties: { text: favorite, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: check_circle, size: lg, color: '#22c55e' }
+                - name: caption
+                  properties: { text: check_circle, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: local_fire_department, size: lg, color: '#f97316' }
+                - name: caption
+                  properties: { text: local_fire_department, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: person, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: person, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: phone, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: phone, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: mail, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: mail, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: location_on, size: lg, color: '#ef4444' }
+                - name: caption
+                  properties: { text: location_on, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: schedule, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: schedule, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: sell, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: sell, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: visibility, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: visibility, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: language, size: lg, color: '#3b82f6' }
+                - name: caption
+                  properties: { text: language, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: settings, size: lg, color: '#6b7280' }
+                - name: caption
+                  properties: { text: settings, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: play_circle, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: play_circle, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: arrow_forward, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: arrow_forward, typography: { size: xxs, align: center, color: '#94a3b8' } }
+            - name: layout-column
+              properties: { layout: { horizontalAlign: center, widthMode: fit }, spacing: { paddingInline: xs } }
+              components:
+                - name: icon
+                  properties: { name: chevron_right, size: lg, color: '#111827' }
+                - name: caption
+                  properties: { text: chevron_right, typography: { size: xxs, align: center, color: '#94a3b8' } }
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # COLOR VARIATIONS
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "Color variations — Any hex color value"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, wrap: nowrap, gap: lg }
+          components:
+            - name: icon
+              properties: { name: favorite, size: xl, color: '#ef4444', layout: { widthMode: fit } }
+            - name: icon
+              properties: { name: favorite, size: xl, color: '#f59e0b', layout: { widthMode: fit } }
+            - name: icon
+              properties: { name: favorite, size: xl, color: '#22c55e', layout: { widthMode: fit } }
+            - name: icon
+              properties: { name: favorite, size: xl, color: '#3b82f6', layout: { widthMode: fit } }
+            - name: icon
+              properties: { name: favorite, size: xl, color: '#8b5cf6', layout: { widthMode: fit } }

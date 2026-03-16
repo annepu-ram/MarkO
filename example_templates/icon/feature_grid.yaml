@@ -1,5 +1,10 @@
 # Icon: Feature Grid
 # Icons paired with headings and descriptions in a grid layout
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, columnsgrid, icon
+# Section type: features
+# Layout: grid
+# Visual style: minimal
+# Perfect for: SaaS, tech, services, agencies
 
 - name: page
   properties:
@@ -7,6 +12,7 @@
       colors:
         background: &color-background '#ffffff'
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#6b7280'
         accent: &color-accent '#6366f1'
       fonts:

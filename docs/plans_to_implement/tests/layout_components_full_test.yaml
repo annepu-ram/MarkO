@@ -1,0 +1,549 @@
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "Layout Components Full Test"
+      properties:
+        background:
+          color: '#f9fafb'
+          transparency: 100
+        layout:
+          padding:
+            top: lg
+            right: md
+            bottom: lg
+            left: md
+      components:
+        # Test 1: Layout Row with various properties
+        - name: layout-row
+          properties:
+            layout:
+              tag: section
+              align: center
+              distribution: space-evenly
+              wrap: nowrap
+            spacing:
+              marginBlock: md
+              paddingBlock: md
+              paddingInline: lg
+            appearance:
+              background:
+                color: '#ffffff'
+                transparency: 100
+              border:
+                width: 2
+                style: solid
+                color: '#e5e7eb'
+              radius: md
+              shadow: 0 1px 3px rgba(0,0,0,0.1)
+          components:
+            - name: heading
+              properties:
+                text: 'Layout Row Test'
+                level: 2
+                typography:
+                  size: xl
+                  weight: bold
+                  color: '#111827'
+            - name: paragraph
+              properties:
+                text: 'This is inside a layout-row with center alignment.'
+                typography:
+                  size: md
+                  color: '#374151'
+
+        # Test 2: Layout Column with nested components
+        - name: layout-column
+          properties:
+            layout:
+              tag: article
+              align: stretch
+              distribution: space-evenly
+            spacing:
+              marginBlock: lg
+              paddingBlock: md
+              paddingInline: md
+            appearance:
+              background:
+                color: '#eff6ff'
+                transparency: 100
+              radius: lg
+          components:
+            - name: heading
+              properties:
+                text: 'Layout Column Test'
+                level: 3
+                typography:
+                  size: lg
+                  weight: semibold
+                  color: '#1e40af'
+            - name: paragraph
+              properties:
+                text: 'Columns stack vertically with stretch alignment by default.'
+                typography:
+                  size: sm
+                  color: '#3b82f6'
+            - name: button
+              properties:
+                text: 'Click Me'
+                link:
+                  href: '#'
+                  target: _self
+
+        # Test 3: Columnsgrid with 3 columns
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              distribution: space-evenly
+            spacing:
+              marginBlock: xl
+              paddingBlock: md
+          components: []
+          columns:
+            - components:
+                - name: heading
+                  properties:
+                    text: 'Column 1'
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#059669'
+                - name: paragraph
+                  properties:
+                    text: 'First column content with proper width calculation.'
+                    typography:
+                      size: sm
+            - components:
+                - name: heading
+                  properties:
+                    text: 'Column 2'
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#dc2626'
+                - name: paragraph
+                  properties:
+                    text: 'Second column with equal width.'
+                    typography:
+                      size: sm
+            - components:
+                - name: heading
+                  properties:
+                    text: 'Column 3'
+                    level: 4
+                    typography:
+                      size: md
+                      weight: semibold
+                      color: '#7c3aed'
+                - name: paragraph
+                  properties:
+                    text: 'Third column completing the grid.'
+                    typography:
+                      size: sm
+
+        # Test 4: Empty Columnsgrid to test placeholders
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 2
+              distribution: space-evenly
+            spacing:
+              marginBlock: md
+          components: []
+          columns: []
+
+        # Test 5: Form with two-level wrapper
+        - name: form
+          properties:
+            layout:
+              direction: column
+              distribution: space-evenly
+            spacing:
+              marginBlock: lg
+              paddingBlock: lg
+              paddingInline: lg
+            appearance:
+              background:
+                color: '#ffffff'
+                transparency: 100
+              border:
+                width: 1
+                style: solid
+                color: '#d1d5db'
+              radius: md
+            submit:
+              buttonText: 'Submit Form'
+              show: true
+          components:
+            - name: textbox
+              properties:
+                label:
+                  text: 'Full Name'
+                  show: true
+                field:
+                  placeholder: 'Enter your name'
+                  required: true
+            - name: textarea
+              properties:
+                label:
+                  text: 'Message'
+                  show: true
+                field:
+                  placeholder: 'Your message here...'
+                  rows: 4
+
+        # Test 6: Nested layout-row inside layout-column
+        - name: layout-column
+          properties:
+            layout:
+              distribution: space-evenly
+            spacing:
+              marginBlock: xl
+              paddingBlock: lg
+              paddingInline: lg
+            appearance:
+              background:
+                color: '#fef3c7'
+                transparency: 100
+              radius: md
+          components:
+            - name: heading
+              properties:
+                text: 'Nested Layout Test'
+                level: 2
+                typography:
+                  size: xl
+                  weight: bold
+                  color: '#92400e'
+            - name: layout-row
+              properties:
+                layout:
+                  distribution: space-evenly
+                  align: center
+                spacing:
+                  paddingBlock: md
+                  paddingInline: md
+                appearance:
+                  background:
+                    color: '#fbbf24'
+                    transparency: 100
+                  radius: sm
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://via.placeholder.com/100x100'
+                      altText: 'Test Image'
+                    presentation:
+                      width: '100px'
+                      height: '100px'
+                - name: paragraph
+                  properties:
+                    text: 'Layout-row nested inside layout-column, demonstrating the two-level wrapper structure.'
+                    typography:
+                      size: sm
+                      color: '#78350f'
+
+        # Test 7: Flex wrap test
+        - name: layout-row
+          properties:
+            layout:
+              distribution: space-evenly
+              wrap: wrap
+            spacing:
+              marginBlock: md
+              paddingBlock: md
+              paddingInline: md
+            appearance:
+              background:
+                color: '#f3f4f6'
+                transparency: 100
+              radius: sm
+          components:
+            - name: button
+              properties:
+                text: 'Button 1'
+                link:
+                  href: '#'
+            - name: button
+              properties:
+                text: 'Button 2'
+                link:
+                  href: '#'
+            - name: button
+              properties:
+                text: 'Button 3'
+                link:
+                  href: '#'
+            - name: button
+              properties:
+                text: 'Button 4'
+                link:
+                  href: '#'
+            - name: button
+              properties:
+                text: 'Button 5'
+                link:
+                  href: '#'
+            - name: button
+              properties:
+                text: 'Button 6'
+                link:
+                  href: '#'
+
+        # Test 8: Tabs Component
+        - name: tabs
+          properties:
+            layout:
+              distribution: space-evenly
+            spacing:
+              marginBlock: xl
+            typography:
+              label:
+                size: md
+                weight: semibold
+                active:
+                  color: '#2563eb'
+                inactive:
+                  color: '#6b7280'
+            appearance:
+              tab:
+                background:
+                  active: '#eff6ff'
+                  inactive: '#f3f4f6'
+                border:
+                  width: 2
+                  position: lower
+              content:
+                background:
+                  color: '#ffffff'
+                  transparency: 100
+                border:
+                  width: 1
+                  color: '#e5e7eb'
+                padding:
+                  block: lg
+                  inline: lg
+          tabs:
+            - title: 'Tab 1'
+              components:
+                - name: heading
+                  properties:
+                    text: 'First Tab Content'
+                    level: 3
+                    typography:
+                      size: lg
+                      weight: semibold
+                      color: '#1e40af'
+                - name: paragraph
+                  properties:
+                    text: 'This is the content of the first tab. Tabs allow you to organize content into separate views.'
+                    typography:
+                      size: md
+            - title: 'Tab 2'
+              components:
+                - name: heading
+                  properties:
+                    text: 'Second Tab Content'
+                    level: 3
+                    typography:
+                      size: lg
+                      weight: semibold
+                      color: '#7c3aed'
+                - name: paragraph
+                  properties:
+                    text: 'The second tab shows different content when selected.'
+                    typography:
+                      size: md
+            - title: 'Tab 3'
+              components:
+                - name: heading
+                  properties:
+                    text: 'Third Tab Content'
+                    level: 3
+                    typography:
+                      size: lg
+                      weight: semibold
+                      color: '#059669'
+                - name: paragraph
+                  properties:
+                    text: 'Each tab can contain any combination of components.'
+                    typography:
+                      size: md
+
+        # Test 9: Accordion Component
+        - name: accordion
+          properties:
+            spacing:
+              marginBlock: xl
+            typography:
+              title:
+                size: md
+                weight: semibold
+                color: '#111827'
+              content:
+                size: sm
+                weight: regular
+                color: '#374151'
+            appearance:
+              radius: md
+              border:
+                width: 1
+                style: solid
+                color: '#d1d5db'
+                position: bottom
+              titleBackground:
+                color: '#f9fafb'
+                transparency: 100
+              contentBackground:
+                color: '#ffffff'
+                transparency: 100
+              padding:
+                block: md
+                inline: lg
+            behavior:
+              allowMultipleOpen: false
+          items:
+            - title: 'What is an accordion?'
+              content: |
+                An accordion is a vertically stacked list of items. Each item can be expanded or collapsed to reveal the content associated with that item.
+            - title: 'How does it work?'
+              content: |
+                Click on any accordion item to expand it and view its content. Click again to collapse it. You can configure whether multiple items can be open at once.
+            - title: 'What can it contain?'
+              content: |
+                Accordion items can contain any text content. Use multiline text with the pipe operator in YAML for better formatting.
+
+        # Test 10: Carousel Component
+        - name: carousel
+          properties:
+            behavior:
+              autoplay: true
+              delay: 3000
+              loop: true
+            navigation:
+              showArrows: true
+              showDots: true
+            spacing:
+              marginBlock: xl
+              marginInline: none
+          slides:
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://via.placeholder.com/800x400/3b82f6/ffffff?text=Slide+1'
+                      altText: 'Slide 1'
+                    presentation:
+                      width: '100%'
+                      height: '400px'
+                - name: layout-column
+                  properties:
+                    layout:
+                      align: center
+                      distribution: space-evenly
+                    spacing:
+                      paddingBlock: lg
+                    appearance:
+                      background:
+                        color: '#1e40af'
+                        transparency: 80
+                  components:
+                    - name: heading
+                      properties:
+                        text: 'First Slide'
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: bold
+                          color: '#ffffff'
+                    - name: paragraph
+                      properties:
+                        text: 'Beautiful carousel with autoplay and navigation'
+                        typography:
+                          size: lg
+                          color: '#eff6ff'
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://via.placeholder.com/800x400/7c3aed/ffffff?text=Slide+2'
+                      altText: 'Slide 2'
+                    presentation:
+                      width: '100%'
+                      height: '400px'
+                - name: layout-column
+                  properties:
+                    layout:
+                      align: center
+                      distribution: space-evenly
+                    spacing:
+                      paddingBlock: lg
+                    appearance:
+                      background:
+                        color: '#6d28d9'
+                        transparency: 80
+                  components:
+                    - name: heading
+                      properties:
+                        text: 'Second Slide'
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: bold
+                          color: '#ffffff'
+                    - name: paragraph
+                      properties:
+                        text: 'Slides can contain multiple components'
+                        typography:
+                          size: lg
+                          color: '#f3e8ff'
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: 'https://via.placeholder.com/800x400/059669/ffffff?text=Slide+3'
+                      altText: 'Slide 3'
+                    presentation:
+                      width: '100%'
+                      height: '400px'
+                - name: layout-column
+                  properties:
+                    layout:
+                      align: center
+                      distribution: space-evenly
+                    spacing:
+                      paddingBlock: lg
+                    appearance:
+                      background:
+                        color: '#047857'
+                        transparency: 80
+                  components:
+                    - name: heading
+                      properties:
+                        text: 'Third Slide'
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: bold
+                          color: '#ffffff'
+                    - name: paragraph
+                      properties:
+                        text: 'Loop back to the first slide automatically'
+                        typography:
+                          size: lg
+                          color: '#d1fae5'
+

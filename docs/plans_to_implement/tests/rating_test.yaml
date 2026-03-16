@@ -1,0 +1,183 @@
+# Test: Rating Component
+# Star or heart rating display (1-5 scale).
+#
+# Properties:
+#   value             — Rating value (0-5, integer)
+#   iconType          — star | heart
+#   showCount         — true to display "3/5" text after icons
+#   color             — Hex color for filled icons (unfilled = #d1d5db)
+#   typography.size   — Icon size (typographySizes token: xxs-xxxl)
+#   typography.color  — Count text color (only visible when showCount: true)
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "Rating Test"
+      properties:
+        appearance: { background: { color: '#ffffff', transparency: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: "Rating Component Test"
+            level: 1
+            typography: { size: xxl, weight: bold, align: center, color: '#111827' }
+            spacing: { marginBlock: lg }
+
+        # ─────────────────────────────────────────
+        # VALUE SCALE (0-5)
+        # Filled icons up to value, unfilled for the rest
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "Value scale — 0 to 5 stars"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left }
+            spacing: { paddingInline: lg }
+          components:
+            - name: layout-row
+              properties: { layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: md } }
+              components:
+                - name: rating
+                  properties: { value: 0, iconType: star, color: '#f59e0b', typography: { size: md } }
+                - name: caption
+                  properties: { text: "value: 0", typography: { size: xs, color: '#94a3b8' } }
+            - name: layout-row
+              properties: { layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: md } }
+              components:
+                - name: rating
+                  properties: { value: 1, iconType: star, color: '#f59e0b', typography: { size: md } }
+                - name: caption
+                  properties: { text: "value: 1", typography: { size: xs, color: '#94a3b8' } }
+            - name: layout-row
+              properties: { layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: md } }
+              components:
+                - name: rating
+                  properties: { value: 3, iconType: star, color: '#f59e0b', typography: { size: md } }
+                - name: caption
+                  properties: { text: "value: 3", typography: { size: xs, color: '#94a3b8' } }
+            - name: layout-row
+              properties: { layout: { horizontalAlign: left, verticalAlign: center, wrap: nowrap, gap: md } }
+              components:
+                - name: rating
+                  properties: { value: 5, iconType: star, color: '#f59e0b', typography: { size: md } }
+                - name: caption
+                  properties: { text: "value: 5", typography: { size: xs, color: '#94a3b8' } }
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # ICON TYPE: star vs heart
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "iconType — star vs heart"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left }
+            spacing: { paddingInline: lg }
+          components:
+            - name: rating
+              properties:
+                value: 4
+                iconType: star       # Uses star / star-filled SVG symbols
+                color: '#f59e0b'
+                typography: { size: lg }
+            - name: rating
+              properties:
+                value: 4
+                iconType: heart      # Uses heart / heart-filled SVG symbols
+                color: '#ef4444'
+                typography: { size: lg }
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # SHOW COUNT
+        # Displays "value/5" text after the icons
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "showCount: true — Shows value/5 text"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: rating
+          properties:
+            value: 4
+            iconType: star
+            showCount: true          # Shows "4/5" after icons
+            color: '#f59e0b'
+            typography:
+              size: lg
+              color: '#6b7280'       # Count text color
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # SIZE VARIATIONS
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "Size variations — uses typographySizes tokens"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left }
+            spacing: { paddingInline: lg }
+          components:
+            - name: rating
+              properties: { value: 4, iconType: star, color: '#f59e0b', typography: { size: xs } }
+            - name: rating
+              properties: { value: 4, iconType: star, color: '#f59e0b', typography: { size: md } }
+            - name: rating
+              properties: { value: 4, iconType: star, color: '#f59e0b', typography: { size: xl } }
+            - name: rating
+              properties: { value: 4, iconType: star, color: '#f59e0b', typography: { size: xxxl } }
+
+        - name: br
+          properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+
+        # ─────────────────────────────────────────
+        # COLOR VARIATIONS
+        # ─────────────────────────────────────────
+        - name: paragraph
+          properties:
+            text: "Custom icon colors"
+            typography: { size: sm, weight: semibold, color: '#6b7280' }
+            spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left }
+            spacing: { paddingInline: lg }
+          components:
+            - name: rating
+              properties: { value: 5, iconType: star, color: '#f59e0b', typography: { size: lg } }
+            - name: rating
+              properties: { value: 5, iconType: star, color: '#6366f1', typography: { size: lg } }
+            - name: rating
+              properties: { value: 5, iconType: star, color: '#22c55e', typography: { size: lg } }

@@ -1,5 +1,10 @@
 # Ticker Template: Product Recommendations
 # Product image cards with name, price, and CTA button
+# Base components: page, layout-column, eyebrow, heading, ticker, image, paragraph, button
+# Section type: ticker
+# Layout: stacked
+# Visual style: modern
+# Perfect for: ecommerce, any business
 - name: page
   properties:
     theme:
@@ -8,6 +13,7 @@
         content: &font-content "'Poppins', sans-serif"
       colors:
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#6b7280'
         accent: &color-accent '#4f46e5'
         background: &color-background '#ffffff'
@@ -16,269 +22,269 @@
         color: *color-background
         transparency: 100
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        gap: md
+      spacing:
+        paddingBlock: xxl
+        paddingInline: lg
+    components:
+    - name: eyebrow
       properties:
-        layout:
-          horizontalAlign: center
-          gap: md
-        spacing:
-          paddingBlock: xxl
-          paddingInline: lg
-      components:
-        - name: eyebrow
-          properties:
-            text: HANDPICKED FOR YOU
-            typography:
-              size: xs
-              weight: semibold
-              color: *color-accent
-              align: center
-              letterSpacing: wider
-              transform: uppercase
-        - name: heading
-          properties:
-            text: Recommended Products
-            level: 2
-            typography:
-              size: xxl
-              weight: bold
-              color: *color-primary
-              align: center
+        text: HANDPICKED FOR YOU
+        typography:
+          size: xs
+          weight: semibold
+          color: *color-accent
+          align: center
+          letterSpacing: wider
+          transform: uppercase
+    - name: heading
+      properties:
+        text: Recommended Products
+        level: 2
+        typography:
+          size: xxl
+          weight: bold
+          color: *color-primary
+          align: center
 
-        - name: ticker
+    - name: ticker
+      properties:
+        behavior:
+          direction: left
+          speed: 25
+          mode: continuous
+          pauseOnHover: true
+        layout:
+          gap: lg
+          widthMode: "280"
+        spacing:
+          marginBlock: lg
+          marginInline: none
+        appearance:
+          columnBackground: *color-background
+          columnTransparency: 100
+          columnRadius: lg
+          columnBorder:
+            width: 1
+            style: solid
+            color: *color-secondary
+      columns:
+      - components:
+        - name: layout-column
           properties:
-            behavior:
-              direction: left
-              speed: 25
-              mode: continuous
-              pauseOnHover: true
             layout:
-              width: "280"
+              horizontalAlign: center
+              gap: sm
             spacing:
-              marginBlock: lg
-              marginInline: none
-              gap: lg
-            appearance:
-              columnBackground: *color-background
-              columnTransparency: 100
-              columnRadius: lg
-              columnBorder:
-                width: 1
-                style: solid
-                color: *color-secondary
-          columns:
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: sm
-                    spacing:
-                      paddingBlock: sm
-                      paddingInline: sm
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop
-                          altText: Premium Watch
-                        appearance:
-                          radius: md
-                          fit: cover
-                          minHeight: 200
-                    - name: heading
-                      properties:
-                        text: Premium Watch
-                        level: 4
-                        typography:
-                          size: md
-                          weight: semibold
-                          color: *color-primary
-                    - name: paragraph
-                      properties:
-                        text: "$249.99"
-                        typography:
-                          size: lg
-                          weight: bold
-                          color: *color-accent
-                    - name: button
-                      properties:
-                        text: Add to Cart
-                        appearance:
-                          background:
-                            color: *color-accent
-                        typography:
-                          color: *color-background
-                          size: sm
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: sm
-                    spacing:
-                      paddingBlock: sm
-                      paddingInline: sm
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop
-                          altText: Wireless Headphones
-                        appearance:
-                          radius: md
-                          fit: cover
-                          minHeight: 200
-                    - name: heading
-                      properties:
-                        text: Wireless Headphones
-                        level: 4
-                        typography:
-                          size: md
-                          weight: semibold
-                          color: *color-primary
-                    - name: paragraph
-                      properties:
-                        text: "$89.99"
-                        typography:
-                          size: lg
-                          weight: bold
-                          color: *color-accent
-                    - name: button
-                      properties:
-                        text: Add to Cart
-                        appearance:
-                          background:
-                            color: *color-accent
-                        typography:
-                          color: *color-background
-                          size: sm
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: sm
-                    spacing:
-                      paddingBlock: sm
-                      paddingInline: sm
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=400&fit=crop
-                          altText: Polaroid Camera
-                        appearance:
-                          radius: md
-                          fit: cover
-                          minHeight: 200
-                    - name: heading
-                      properties:
-                        text: Polaroid Camera
-                        level: 4
-                        typography:
-                          size: md
-                          weight: semibold
-                          color: *color-primary
-                    - name: paragraph
-                      properties:
-                        text: "$119.00"
-                        typography:
-                          size: lg
-                          weight: bold
-                          color: *color-accent
-                    - name: button
-                      properties:
-                        text: Add to Cart
-                        appearance:
-                          background:
-                            color: *color-accent
-                        typography:
-                          color: *color-background
-                          size: sm
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: sm
-                    spacing:
-                      paddingBlock: sm
-                      paddingInline: sm
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=400&fit=crop
-                          altText: Running Shoes
-                        appearance:
-                          radius: md
-                          fit: cover
-                          minHeight: 200
-                    - name: heading
-                      properties:
-                        text: Running Shoes
-                        level: 4
-                        typography:
-                          size: md
-                          weight: semibold
-                          color: *color-primary
-                    - name: paragraph
-                      properties:
-                        text: "$159.99"
-                        typography:
-                          size: lg
-                          weight: bold
-                          color: *color-accent
-                    - name: button
-                      properties:
-                        text: Add to Cart
-                        appearance:
-                          background:
-                            color: *color-accent
-                        typography:
-                          color: *color-background
-                          size: sm
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: sm
-                    spacing:
-                      paddingBlock: sm
-                      paddingInline: sm
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=400&fit=crop
-                          altText: Smart Speaker
-                        appearance:
-                          radius: md
-                          fit: cover
-                          minHeight: 200
-                    - name: heading
-                      properties:
-                        text: Smart Speaker
-                        level: 4
-                        typography:
-                          size: md
-                          weight: semibold
-                          color: *color-primary
-                    - name: paragraph
-                      properties:
-                        text: "$79.99"
-                        typography:
-                          size: lg
-                          weight: bold
-                          color: *color-accent
-                    - name: button
-                      properties:
-                        text: Add to Cart
-                        appearance:
-                          background:
-                            color: *color-accent
-                        typography:
-                          color: *color-background
-                          size: sm
+              paddingBlock: sm
+              paddingInline: sm
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop
+                altText: Premium Watch
+              appearance:
+                radius: md
+                fit: cover
+                minHeight: 12.5
+          - name: heading
+            properties:
+              text: Premium Watch
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: *color-primary
+          - name: paragraph
+            properties:
+              text: "$249.99"
+              typography:
+                size: lg
+                weight: bold
+                color: *color-accent
+          - name: button
+            properties:
+              text: Add to Cart
+              appearance:
+                background:
+                  color: *color-accent
+              typography:
+                color: *color-background
+                size: sm
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: sm
+            spacing:
+              paddingBlock: sm
+              paddingInline: sm
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop
+                altText: Wireless Headphones
+              appearance:
+                radius: md
+                fit: cover
+                minHeight: 12.5
+          - name: heading
+            properties:
+              text: Wireless Headphones
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: *color-primary
+          - name: paragraph
+            properties:
+              text: "$89.99"
+              typography:
+                size: lg
+                weight: bold
+                color: *color-accent
+          - name: button
+            properties:
+              text: Add to Cart
+              appearance:
+                background:
+                  color: *color-accent
+              typography:
+                color: *color-background
+                size: sm
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: sm
+            spacing:
+              paddingBlock: sm
+              paddingInline: sm
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=400&fit=crop
+                altText: Polaroid Camera
+              appearance:
+                radius: md
+                fit: cover
+                minHeight: 12.5
+          - name: heading
+            properties:
+              text: Polaroid Camera
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: *color-primary
+          - name: paragraph
+            properties:
+              text: "$119.00"
+              typography:
+                size: lg
+                weight: bold
+                color: *color-accent
+          - name: button
+            properties:
+              text: Add to Cart
+              appearance:
+                background:
+                  color: *color-accent
+              typography:
+                color: *color-background
+                size: sm
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: sm
+            spacing:
+              paddingBlock: sm
+              paddingInline: sm
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=400&fit=crop
+                altText: Running Shoes
+              appearance:
+                radius: md
+                fit: cover
+                minHeight: 12.5
+          - name: heading
+            properties:
+              text: Running Shoes
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: *color-primary
+          - name: paragraph
+            properties:
+              text: "$159.99"
+              typography:
+                size: lg
+                weight: bold
+                color: *color-accent
+          - name: button
+            properties:
+              text: Add to Cart
+              appearance:
+                background:
+                  color: *color-accent
+              typography:
+                color: *color-background
+                size: sm
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: sm
+            spacing:
+              paddingBlock: sm
+              paddingInline: sm
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400&h=400&fit=crop
+                altText: Smart Speaker
+              appearance:
+                radius: md
+                fit: cover
+                minHeight: 12.5
+          - name: heading
+            properties:
+              text: Smart Speaker
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: *color-primary
+          - name: paragraph
+            properties:
+              text: "$79.99"
+              typography:
+                size: lg
+                weight: bold
+                color: *color-accent
+          - name: button
+            properties:
+              text: Add to Cart
+              appearance:
+                background:
+                  color: *color-accent
+              typography:
+                color: *color-background
+                size: sm

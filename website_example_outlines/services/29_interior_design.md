@@ -37,44 +37,50 @@
 2. **carousel (Hero — Portfolio Showcase)**
    Full-width stunning interior photos (living rooms, offices, restaurants), minimal overlay: heading (project name) + caption (style/type).
 
-3. **columnsgrid (Services — 3 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Services — 3 columns)**
    Each: image + heading + paragraph + button. Residential Interiors, Commercial Spaces, Modular Kitchens, Office Design, Retail Store Design, Turnkey Solutions.
 
-4. **tabs (Portfolio by Space)**
+5. **tabs (Portfolio by Space)**
    Tabs: Living Room, Bedroom, Kitchen, Bathroom, Office, Restaurant. Each: image grid (columnsgrid) with project cards.
 
-5. **layout-row (Featured Project)**
+6. **layout-row (Featured Project)**
    Large image carousel + heading + paragraph (design story — brief, concept, execution) + badge ("Award Winner") + button ("View Full Project").
 
-6. **layout-row (Our Process)**
+7. **layout-row (Our Process)**
    5-step: icon + heading + caption. "Consultation" → "Concept & Mood Board" → "3D Visualization" → "Execution & Sourcing" → "Styling & Handover".
 
-7. **counter-up (Firm Stats)**
+8. **counter-up (Firm Stats)**
    "200+ Projects Delivered", "50,000+ sq ft Designed", "15+ Awards", "10+ Years".
 
-8. **layout-row (The Team)**
+9. **layout-row (The Team)**
    columnsgrid: image + heading + caption (role: Principal Designer, Senior Designer, Project Manager).
 
-9. **ticker (Publications & Awards)**
+10. **ticker (Publications & Awards)**
    Scrolling design magazine logos, award badges.
 
-10. **carousel (Client Testimonials)**
+11. **carousel (Client Testimonials)**
     blockquote + rating + caption (client, project type).
 
-11. **layout-row (Budget-Friendly Options)**
+12. **layout-row (Budget-Friendly Options)**
     heading + paragraph (packages for different budgets) + columnsgrid: Essential / Premium / Luxury with starting prices + buttons.
 
-12. **form (Project Enquiry)**
+13. **form (Project Enquiry)**
     textbox (name), textbox (phone), textbox (email), dropdown (project type), textbox (property size in sq ft), dropdown (budget range), textarea (vision/requirements), button.
 
-13. **layout-row (Footer)**
+14. **layout-row (Footer)**
     Office/studio address, phone, email, social (Instagram/Pinterest prominent), Houzz/portfolio links.
 
 **Page 2: Project Detail**
 
 1. **carousel** (full project gallery)
 2. **layout-row** (project story: brief, challenges, solutions, materials used)
-3. **accordion** (specifications, materials, timeline)
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **accordion** (specifications, materials, timeline)
 
 ---
 
@@ -88,34 +94,37 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Curated Home Decor for Modern Living") + paragraph (handpicked, designer pieces, unique) + button ("Explore Collections"). Right: image (styled room vignette).
 
-3. **tabs (Shop by Room)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **tabs (Shop by Room)**
    Tabs: Living Room, Bedroom, Dining, Study, Outdoor. Each: curated product grid — image + heading + caption (price) + button.
 
-4. **columnsgrid (Categories — 4 columns)**
+5. **columnsgrid (Categories — 4 columns)**
    Each: image + heading + link. Furniture, Lighting, Wall Art, Textiles (Cushions, Rugs), Planters, Candles & Fragrances, Tableware, Storage.
 
-5. **layout-row (Room Inspiration)**
+6. **layout-row (Room Inspiration)**
    carousel of styled rooms + heading + paragraph (design tips) + button ("Shop This Look").
 
-6. **layout-row (Custom Furniture)**
+7. **layout-row (Custom Furniture)**
    image (custom piece) + heading + paragraph (bespoke furniture, custom finishes, made-to-measure) + button ("Request Custom Piece").
 
-7. **carousel (New Arrivals)**
+8. **carousel (New Arrivals)**
    Product cards: image + heading + counter-up (price) + badge ("New").
 
-8. **counter-up (Store Stats)**
+9. **counter-up (Store Stats)**
    "5,000+ Unique Products", "Handpicked Designs", "Pan-India Delivery", "Interior Consultation Available".
 
-9. **ticker (Brands & Artisans)**
+10. **ticker (Brands & Artisans)**
    Scrolling logos/names of brands and artisan partners.
 
-10. **carousel (Customer Reviews)**
+11. **carousel (Customer Reviews)**
     Room photos from customers + rating + caption.
 
-11. **form (Design Consultation / Custom Order)**
+12. **form (Design Consultation / Custom Order)**
     textbox (name), textbox (phone), dropdown (need: Shopping / Consultation / Custom Furniture), textarea (details), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Store/studio address, hours, phone, email, Instagram, shipping info, return policy.
 
 ---
@@ -130,35 +139,38 @@
 2. **carousel (Hero — Kitchen & Wardrobe Showcase)**
    Stunning kitchen and wardrobe designs with overlay: heading + button.
 
-3. **tabs (Kitchens)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **tabs (Kitchens)**
    Tabs: Modular Kitchens, L-Shaped, U-Shaped, Parallel, Island. Each: image + paragraph (features, materials, price range) + button ("Get Quote").
 
-4. **tabs (Wardrobes)**
+5. **tabs (Wardrobes)**
    Tabs: Sliding, Hinged, Walk-In, Loft, Corner. Each: image + paragraph + price range + button.
 
-5. **columnsgrid (Materials & Finishes — 3 columns)**
+6. **columnsgrid (Materials & Finishes — 3 columns)**
    Each: image swatch + heading + caption. MDF, Plywood, Particle Board, Acrylic, Laminate, Veneer, Lacquer, PU Finish.
 
-6. **layout-row (How We Work)**
+7. **layout-row (How We Work)**
    4-step: icon + heading + paragraph. "Free Consultation & Measurement" → "3D Design & Material Selection" → "Manufacturing" → "Installation & Warranty".
 
-7. **layout-row (Why Choose Us)**
+8. **layout-row (Why Choose Us)**
    columnsgrid (4 cols): icon + caption. Factory Direct, 10-Year Warranty, 45-Day Delivery, Soft-Close Hardware, Waterproof Material, Custom Sizes.
 
-8. **counter-up (Numbers)**
+9. **counter-up (Numbers)**
    "1,000+ Kitchens Installed", "5,000+ Wardrobes", "10-Year Warranty", "45-Day Delivery".
 
-9. **carousel (Client Kitchens & Wardrobes Gallery)**
+10. **carousel (Client Kitchens & Wardrobes Gallery)**
    Project photos with captions.
 
-10. **carousel (Customer Reviews)**
+11. **carousel (Customer Reviews)**
     rating + blockquote + caption (customer, project type).
 
-11. **layout-row (Pricing Packages)**
+12. **layout-row (Pricing Packages)**
     columnsgrid: Essential / Premium / Luxury. Each with starting price, materials, features, button.
 
-12. **form (Free Design Consultation)**
+13. **form (Free Design Consultation)**
     textbox (name), textbox (phone), textbox (address), dropdown (project: Kitchen / Wardrobe / Both), textbox (room size), dropdown (budget range), button.
 
-13. **layout-row (Footer)**
+14. **layout-row (Footer)**
     Showroom address, factory address, phone, email, social, warranty terms link.

@@ -1,83 +1,95 @@
 # Product Card Variant: Limited Drop
 # layout-column with an eyebrow (Sale tag), image, and a caption showing stock remaining
+# Base components: page, layout-column, layout-row, eyebrow, image, heading, paragraph, caption, button
+# Section type: product
+# Layout: stacked
+# Visual style: card_based
+# Perfect for: ecommerce, retail, online store, marketplace, SaaS
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#6b7280'
         accent: &color-accent '#dc2626'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: xs}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: soft
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: none, paddingInline: none}
+    components:
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: left, verticalAlign: center, gap: xs, wrap: nowrap}
+        appearance:
+          background: {color: *color-accent}
+        spacing:
+          paddingBlock: xs
+          paddingInline: sm
+      components:
+      - name: eyebrow
+        properties:
+          text: LIMITED EDITION
+          typography: {size: xxs, weight: bold, color: *color-background, transform: uppercase, letterSpacing: wider}
+          spacing: {marginBlock: none}
+    - name: image
+      properties:
+        source: {url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600', altText: 'Limited edition sneaker'}
+        appearance: {minHeight: 18, fit: cover}
+        layout: {widthMode: stretch}
+        spacing: {marginBlock: none}
     - name: layout-column
       properties:
-        layout: { horizontalAlign: center, gap: xs }
-        appearance:
-          background: { color: *color-background }
-          radius: lg
-          shadow: soft
-          padding: { block: none, inline: none }
-        spacing: { marginBlock: lg, marginInline: lg }
+        layout: {horizontalAlign: left, gap: xs}
+        appearance: {background: {transparency: 0}}
+        spacing:
+          paddingBlock: md
+          paddingInline: md
       components:
-        - name: layout-row
+      - name: heading
+        properties:
+          text: Air Max Retro X
+          level: 3
+          typography: {size: lg, weight: bold, color: *color-primary, align: left}
+          spacing: {marginBlock: none}
+      - name: paragraph
+        properties:
+          text: Exclusive colorway. Once they're gone, they're gone.
+          typography: {size: sm, color: *color-secondary, align: left}
+          spacing: {marginBlock: xs}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
+          appearance: {background: {transparency: 0}}
+        components:
+        - name: heading
           properties:
-            layout: { horizontalAlign: left, verticalAlign: center, gap: xs, wrap: nowrap }
+            text: "$189.99"
+            level: 4
+            typography: {size: xl, weight: extrabold, color: *color-accent, align: left}
+            spacing: {marginBlock: none}
+        - name: caption
+          properties:
+            text: "Only 12 left in stock"
+            typography: {size: xs, weight: semibold, color: *color-accent, align: right}
             appearance:
-              background: { color: *color-accent }
-              padding: { block: xs, inline: sm }
-          components:
-            - name: eyebrow
-              properties:
-                text: LIMITED EDITION
-                typography: { size: xxs, weight: bold, color: *color-background, transform: uppercase, letterSpacing: wider }
-                spacing: { marginBlock: none }
-        - name: image
-          properties:
-            source: { url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600', altText: 'Limited edition sneaker' }
-            appearance: { minHeight: 18, fit: cover }
-            layout: { widthMode: stretch }
-            spacing: { marginBlock: none }
-        - name: layout-column
-          properties:
-            layout: { horizontalAlign: left, gap: xs }
-            appearance: { background: { transparency: 0 }, padding: { block: md, inline: md } }
-          components:
-            - name: heading
-              properties:
-                text: Air Max Retro X
-                level: 3
-                typography: { size: lg, weight: bold, color: *color-primary, align: left }
-                spacing: { marginBlock: none }
-            - name: paragraph
-              properties:
-                text: Exclusive colorway. Once they're gone, they're gone.
-                typography: { size: sm, color: *color-secondary, align: left }
-                spacing: { marginBlock: xs }
-            - name: layout-row
-              properties:
-                layout: { horizontalAlign: space-between, verticalAlign: center, wrap: nowrap }
-                appearance: { background: { transparency: 0 } }
-              components:
-                - name: heading
-                  properties:
-                    text: "$189.99"
-                    level: 4
-                    typography: { size: xl, weight: extrabold, color: *color-accent, align: left }
-                    spacing: { marginBlock: none }
-                - name: caption
-                  properties:
-                    text: "Only 12 left in stock"
-                    typography: { size: xs, weight: semibold, color: *color-accent, align: right }
-                    appearance:
-                      background: { color: *color-background, transparency: 100 }
-                      radius: pill
-                      padding: { block: xxs, inline: xs }
-            - name: button
-              properties:
-                text: Buy Now - Ships Today
-                appearance: { background: { color: *color-accent }, radius: md }
-                typography: { color: *color-background, weight: bold }
-                layout: { widthMode: stretch }
+              background: {color: *color-background, transparency: 100}
+              radius: pill
+            spacing:
+              paddingBlock: xxs
+              paddingInline: xs
+      - name: button
+        properties:
+          text: Buy Now - Ships Today
+          appearance: {background: {color: *color-accent}, radius: md}
+          typography: {color: *color-background, weight: bold}
+          layout: {widthMode: stretch}

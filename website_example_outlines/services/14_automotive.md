@@ -34,34 +34,37 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Expert Car Care You Can Trust") + paragraph (all makes & models, certified mechanics) + two buttons ("Book a Service", "Call Now"). Right: image (mechanic working on car).
 
-3. **counter-up (Trust Stats)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **counter-up (Trust Stats)**
    "15,000+ Vehicles Serviced", "20+ Years Experience", "4.8 Google Rating", "90-Day Warranty".
 
-4. **columnsgrid (Services — 3 columns)**
+5. **columnsgrid (Services — 3 columns)**
    Each: icon + heading + paragraph + caption (starting price). General Service, Engine Repair, Brake & Suspension, AC Repair, Electrical, Transmission, Body Work, Tyre & Alignment.
 
-5. **tabs (By Vehicle Type)**
+6. **tabs (By Vehicle Type)**
    Tabs: Cars, SUVs, Commercial Vehicles, Vintage/Classic. Each: specific services and expertise.
 
-6. **layout-row (Transparent Pricing)**
+7. **layout-row (Transparent Pricing)**
    heading + paragraph ("No hidden charges") + accordion: service packages with detailed pricing breakdown.
 
-7. **layout-row (Our Workshop)**
+8. **layout-row (Our Workshop)**
    carousel of workshop images + heading + paragraph (equipment, lifts, diagnostic tools).
 
-8. **layout-row (Certified & Trusted)**
+9. **layout-row (Certified & Trusted)**
    columnsgrid (4 cols): icon + caption. Certified Mechanics, Genuine Parts, Warranty on Repairs, Digital Job Cards.
 
-9. **carousel (Customer Reviews)**
+10. **carousel (Customer Reviews)**
    rating + blockquote + caption (customer, car model).
 
-10. **layout-row (Emergency Roadside)**
+11. **layout-row (Emergency Roadside)**
     heading + paragraph + button ("Call for Roadside Help") + badge ("24/7 Available").
 
-11. **form (Book a Service)**
+12. **form (Book a Service)**
     textbox (name), textbox (phone), textbox (car make/model), textbox (registration number), dropdown (service type), calendar (preferred date), textarea (problem description), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Address, phone, hours, Google Maps, social links.
 
 ---
@@ -76,37 +79,40 @@
 2. **carousel (Hero — Before/After)**
    Dramatic before/after car images + heading ("Showroom Finish, Every Time") + button.
 
-3. **columnsgrid (Services — 3 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Services — 3 columns)**
    Each: image + heading + caption (duration + price). Exterior Wash, Interior Clean, Full Detail, Ceramic Coating, Paint Protection Film, Engine Bay Clean.
 
-4. **tabs (Packages)**
+5. **tabs (Packages)**
    Tabs: Express (30 min), Standard (1 hr), Premium (2 hrs), Ultimate (Full Day). Each: heading + paragraph (what's included) + counter-up (price) + button.
 
-5. **layout-row (Why Our Detailing is Different)**
+6. **layout-row (Why Our Detailing is Different)**
    columnsgrid (4 cols): icon + heading + caption. Premium Products, Steam Cleaning, Paint Correction, Certified Detailers.
 
-6. **carousel (Results Gallery)**
+7. **carousel (Results Gallery)**
    Before/after and showcase photos.
 
-7. **layout-row (Ceramic Coating Spotlight)**
+8. **layout-row (Ceramic Coating Spotlight)**
    image + heading + paragraph (benefits, durability, warranty) + counter-up (starting price) + button ("Learn More").
 
-8. **counter-up (Numbers)**
+9. **counter-up (Numbers)**
    "5,000+ Cars Detailed", "4.9 Rating", "3+ Years Ceramic Warranty", "100% Hand Wash".
 
-9. **ticker (Products We Use)**
+10. **ticker (Products We Use)**
    Scrolling premium product brand logos.
 
-10. **carousel (Customer Reviews)**
+11. **carousel (Customer Reviews)**
     rating + blockquote + caption.
 
-11. **layout-row (Subscription Plans)**
+12. **layout-row (Subscription Plans)**
     3 cards: Monthly Wash Plan / Quarterly Detail / Annual Premium. Each: heading + paragraph + counter-up + button.
 
-12. **form (Book Appointment)**
+13. **form (Book Appointment)**
     textbox (name), textbox (phone), textbox (car model), dropdown (service/package), calendar (date), dropdown (time), button.
 
-13. **layout-row (Footer)**
+14. **layout-row (Footer)**
     Address, hours, phone, Instagram (prominent), Google Maps.
 
 ---
@@ -121,35 +127,41 @@
 2. **layout-row (Hero)**
    Image (car lot / featured car), heading ("Certified Pre-Owned Cars at Unbeatable Prices") + paragraph + two buttons ("View Inventory", "Sell Your Car").
 
-3. **counter-up (Dealership Trust)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **counter-up (Dealership Trust)**
    "500+ Cars Sold", "100-Point Inspection", "6-Month Warranty", "Easy EMI Available".
 
-4. **tabs (Browse by Category)**
+5. **tabs (Browse by Category)**
    Tabs: Hatchbacks, Sedans, SUVs, Luxury, Under ₹5 Lakh, Under ₹10 Lakh. Each: columnsgrid of car cards — image + heading (make/model/year) + caption (km driven, fuel type) + counter-up (price) + button.
 
-5. **layout-row (Why Buy From Us)**
+6. **layout-row (Why Buy From Us)**
    columnsgrid (4 cols): icon + heading + caption. 100-Point Inspection, 6-Month Warranty, Easy Finance, Free RC Transfer, Insurance Assistance.
 
-6. **layout-row (How It Works — Buying)**
+7. **layout-row (How It Works — Buying)**
    3-step: icon + heading + caption. "Browse & Shortlist" → "Test Drive & Inspect" → "Finance & Drive Home".
 
-7. **layout-row (Sell Your Car)**
+8. **layout-row (Sell Your Car)**
    heading + paragraph + 3-step: "Get Instant Valuation" → "Free Inspection" → "Same-Day Payment" + button ("Get Your Car's Value").
 
-8. **carousel (Happy Customers)**
+9. **carousel (Happy Customers)**
    Customer with car photos + blockquote + rating.
 
-9. **accordion (FAQs)**
+10. **accordion (FAQs)**
    Warranty coverage, finance options, documentation needed, trade-in policy.
 
-10. **form (Enquiry / Test Drive)**
+11. **form (Enquiry / Test Drive)**
     textbox (name), textbox (phone), dropdown (interested in: Buying / Selling / Both), textbox (car preference or car details), button.
 
-11. **layout-row (Footer)**
+12. **layout-row (Footer)**
     Showroom address, phone, hours, RTO assistance info, social links.
 
 **Page 2: Car Detail Page**
 
 1. **carousel** (multi-angle photos)
 2. **layout-row** (specs: heading, columnsgrid of details, inspection report summary)
-3. **form** (book test drive / EMI calculator)
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **form** (book test drive / EMI calculator)

@@ -5,6 +5,7 @@
     <button type="button"
             class="btn chrome-target"
             data-component-id="{{ component_id }}"
+            data-component-name="button"
             {% if styles %}style="{{ styles }} position: relative;"{% else %}style="position: relative;"{% endif %}
             {% if action.href %}onclick="window.location.href='{{ action.href }}'"{% endif %}>
         {{ properties.text | default('Button') }}

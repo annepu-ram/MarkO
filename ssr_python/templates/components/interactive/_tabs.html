@@ -1,4 +1,4 @@
-{% macro render_tabs(component, tokens, path, component_id) %}
+{% macro render_tabs(component, tokens, path, component_id, parent_direction='row') %}
     {% set properties = component.properties | default({}) %}
     {% set tabs_list = component.tabs | default([]) %}
     {% set tabs_id = 'tabs_' ~ range(1000, 9999) | random %}
@@ -6,7 +6,62 @@
     {% set border_position = properties.appearance.tab.border.position | default('lower') if properties.appearance and properties.appearance.tab and properties.appearance.tab.border else 'lower' %}
     {% set tabs_vars = build_tabs_vars(component, tokens) %}
 
-    <div class="tabs chrome-target" data-component-id="{{ component_id }}" data-orientation="{{ orientation }}" style="position: relative; {{ tabs_vars }}">
+    {# Width Mode Support #}
+    {% set width_mode = (properties.layout.widthMode | default('stretch') | string) if properties.layout else 'stretch' %}
+    {% set width_styles = [] %}
+    {% set _ = width_styles.append('box-sizing: border-box;') %}
+    {% if parent_direction == 'column' %}
+        {% if width_mode == 'fit' %}
+            {% set _ = width_styles.append('width: auto;') %}
+        {% elif width_mode == '16' %}
+            {% set _ = width_styles.append('width: 16.67%;') %}
+        {% elif width_mode == '25' %}
+            {% set _ = width_styles.append('width: 25%;') %}
+        {% elif width_mode == '33' %}
+            {% set _ = width_styles.append('width: 33.33%;') %}
+        {% elif width_mode == '50' %}
+            {% set _ = width_styles.append('width: 50%;') %}
+        {% elif width_mode == '66' %}
+            {% set _ = width_styles.append('width: 66.67%;') %}
+        {% elif width_mode == '75' %}
+            {% set _ = width_styles.append('width: 75%;') %}
+        {% elif width_mode == '83' %}
+            {% set _ = width_styles.append('width: 83.33%;') %}
+        {% elif width_mode == 'stretch' %}
+            {% set _ = width_styles.append('width: 100%;') %}
+        {% endif %}
+    {% else %}
+        {% if width_mode == 'fit' %}
+            {% set _ = width_styles.append('width: auto;') %}
+            {% set _ = width_styles.append('flex: 0 0 auto;') %}
+        {% elif width_mode == '16' %}
+            {% set _ = width_styles.append('flex: 1 0 14%;') %}
+            {% set _ = width_styles.append('max-width: 16.67%;') %}
+        {% elif width_mode == '25' %}
+            {% set _ = width_styles.append('flex: 1 0 23%;') %}
+            {% set _ = width_styles.append('max-width: 25%;') %}
+        {% elif width_mode == '33' %}
+            {% set _ = width_styles.append('flex: 1 0 31%;') %}
+            {% set _ = width_styles.append('max-width: 33.33%;') %}
+        {% elif width_mode == '50' %}
+            {% set _ = width_styles.append('flex: 1 0 48%;') %}
+            {% set _ = width_styles.append('max-width: 50%;') %}
+        {% elif width_mode == '66' %}
+            {% set _ = width_styles.append('flex: 1 0 64%;') %}
+            {% set _ = width_styles.append('max-width: 66.67%;') %}
+        {% elif width_mode == '75' %}
+            {% set _ = width_styles.append('flex: 1 0 73%;') %}
+            {% set _ = width_styles.append('max-width: 75%;') %}
+        {% elif width_mode == '83' %}
+            {% set _ = width_styles.append('flex: 1 0 81%;') %}
+            {% set _ = width_styles.append('max-width: 83.33%;') %}
+        {% elif width_mode == 'stretch' %}
+            {% set _ = width_styles.append('flex: 0 0 100%;') %}
+            {% set _ = width_styles.append('min-width: 100%;') %}
+        {% endif %}
+    {% endif %}
+
+    <div class="tabs chrome-target" data-component-id="{{ component_id }}" data-component-name="tabs" data-orientation="{{ orientation }}" style="position: relative; {{ tabs_vars }} {{ width_styles | join(' ') }}">
         <div class="tabs-nav">
             {% for tab in tabs_list %}
                 {% set tab_index = loop.index0 %}

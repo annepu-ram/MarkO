@@ -1,6 +1,7 @@
 /**
  * Images Panel - Browse, search, and select stock photos
  * Connects to Pexels / Pixabay APIs via server proxy to hide API keys
+ * Images are stored in the database (SiteImage) — DB is the single source of truth.
  */
 
 import { debounce } from './utils/timing.js';
@@ -10,7 +11,7 @@ let searchQuery = '';
 let activeColor = null;
 let activeOrientation = null; // null | 'horizontal' | 'vertical' | 'square'
 let searchResults = [];
-let selectedImages = [];
+let selectedImages = []; // Loaded from DB via API
 let currentPage = 1;
 let totalPages = 1;
 let isLoading = false;
@@ -19,7 +20,6 @@ let hasSearched = false;
 // Constants
 const DEBOUNCE_MS = 300;
 const RESULTS_PER_PAGE = 30;
-const STORAGE_KEY = 'swift_sites_selected_images';
 
 const COLOR_OPTIONS = [
     { value: 'red', label: 'Red', hex: '#EF4444' },
@@ -33,28 +33,36 @@ const COLOR_OPTIONS = [
 ];
 
 /**
- * Load selected images from localStorage
+ * Load images from the database via API (single source of truth).
  */
-function loadSelectedImages() {
-    try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-            selectedImages = JSON.parse(stored);
-        }
-    } catch (e) {
-        console.warn('[ImagesPanel] Failed to load selected images:', e);
+async function loadImagesFromAPI() {
+    const siteId = window.SITE_ID;
+    if (!siteId) {
         selectedImages = [];
+        updateSelectedUI();
+        return;
     }
-}
 
-/**
- * Save selected images to localStorage
- */
-function saveSelectedImages() {
     try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedImages));
+        const resp = await fetch(`/api/sites/${siteId}/media`);
+        if (!resp.ok) return;
+        const data = await resp.json();
+
+        selectedImages = (data.images || []).map(img => ({
+            id: img.id,
+            url: img.url,
+            thumbUrl: img.url,
+            altText: img.alt_text || img.original_name || '',
+            photographer: img.photographer || '',
+            orientation: img.orientation || null,
+            source: img.source || 'stock',
+            width: img.width,
+            height: img.height,
+        }));
+
+        updateSelectedUI();
     } catch (e) {
-        console.warn('[ImagesPanel] Failed to save selected images:', e);
+        console.warn('[ImagesPanel] Failed to load images from API:', e);
     }
 }
 
@@ -126,6 +134,7 @@ async function searchImages(append = false) {
         const newResults = (data.results || []).map(photo => ({
             id: photo.id,
             url: photo.regularUrl || photo.fullUrl,
+            fullUrl: photo.fullUrl || photo.regularUrl,
             thumbUrl: photo.thumbUrl || photo.smallUrl,
             smallUrl: photo.smallUrl,
             photographer: photo.photographer || 'Unknown',
@@ -249,15 +258,17 @@ function renderSelectedImages() {
         return '<span class="images-selected-empty">No images selected</span>';
     }
 
-    return selectedImages.map(img => `
-        <div class="images-selected-item" data-selected-id="${img.id}">
+    return selectedImages.map(img => {
+        return `
+        <div class="images-selected-item downloaded" data-selected-id="${img.id}">
             <div class="images-selected-thumb" title="Click to copy URL">
                 <img src="${img.thumbUrl}" alt="${escapeHtml(img.altText)}">
+                <span class="images-download-badge downloaded" title="Downloaded">\u2713</span>
                 <button class="images-remove-btn" title="Remove">\u00d7</button>
             </div>
             <span class="images-selected-label">${escapeHtml(img.altText || img.photographer)}</span>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 }
 
 /**
@@ -322,41 +333,76 @@ function updateSelectedUI() {
 }
 
 /**
- * Toggle selection of an image
+ * Toggle selection of an image — download to server or remove
  */
 function toggleImageSelection(photoId) {
     const existingIndex = selectedImages.findIndex(s => s.id === photoId);
 
     if (existingIndex >= 0) {
-        selectedImages.splice(existingIndex, 1);
-    } else {
-        const photo = searchResults.find(r => r.id === photoId);
-        if (photo) {
-            selectedImages.push({
-                id: photo.id,
-                url: photo.url,
-                thumbUrl: photo.thumbUrl,
-                smallUrl: photo.smallUrl,
-                photographer: photo.photographer,
-                photographerUrl: photo.photographerUrl,
-                altText: photo.altText,
-                source: photo.source,
-                orientation: activeOrientation || 'all',
-            });
-        }
+        // Already downloaded — remove from DB
+        removeSelectedImage(selectedImages[existingIndex].id);
+        return;
     }
 
-    saveSelectedImages();
-    updateSelectedUI();
+    const photo = searchResults.find(r => r.id === photoId);
+    if (!photo) return;
+
+    // Mark search card as downloading
+    const card = document.querySelector(`.images-result-card[data-photo-id="${photoId}"]`);
+    if (card) card.classList.add('downloading');
+
+    // Download to server → DB record created → refresh from API
+    _downloadImage({
+        id: photo.id,
+        url: photo.fullUrl || photo.url,
+        altText: photo.altText,
+        photographer: photo.photographer,
+        source: photo.source,
+    });
 }
 
 /**
- * Remove an image from selection by ID
+ * Download a single image to the server and refresh from DB
  */
-function removeSelectedImage(imageId) {
-    selectedImages = selectedImages.filter(s => s.id !== imageId);
-    saveSelectedImages();
-    updateSelectedUI();
+async function _downloadImage(imageEntry) {
+    try {
+        const resp = await fetch('/api/images/download', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                url: imageEntry.url,
+                alt_text: imageEntry.altText || '',
+                photographer: imageEntry.photographer || '',
+                source: imageEntry.source || 'stock',
+                site_id: window.SITE_ID || undefined,
+            }),
+        });
+        if (!resp.ok) return;
+        // Refresh selected images from DB
+        await loadImagesFromAPI();
+        showToast('Image downloaded');
+    } catch (e) {
+        console.warn('[ImagesPanel] Download failed:', e);
+    } finally {
+        // Remove downloading state from search card
+        const card = document.querySelector(`.images-result-card[data-photo-id="${imageEntry.id}"]`);
+        if (card) card.classList.remove('downloading');
+    }
+}
+
+/**
+ * Remove an image from the database and refresh
+ */
+async function removeSelectedImage(imageId) {
+    const siteId = window.SITE_ID;
+    if (siteId) {
+        try {
+            await fetch(`/api/sites/${siteId}/media/${imageId}`, { method: 'DELETE' });
+        } catch (e) {
+            console.warn('[ImagesPanel] Failed to delete image:', e);
+        }
+    }
+    await loadImagesFromAPI();
 }
 
 /**
@@ -366,12 +412,14 @@ async function copyImageUrl(imageId) {
     const img = selectedImages.find(s => s.id === imageId);
     if (!img) return;
 
+    const urlToCopy = img.url;
+
     try {
-        await navigator.clipboard.writeText(img.url);
+        await navigator.clipboard.writeText(urlToCopy);
         showToast('Image URL copied to clipboard');
     } catch (e) {
         const textarea = document.createElement('textarea');
-        textarea.value = img.url;
+        textarea.value = urlToCopy;
         textarea.style.position = 'fixed';
         textarea.style.opacity = '0';
         document.body.appendChild(textarea);
@@ -454,26 +502,33 @@ function escapeHtml(text) {
 }
 
 /**
- * Handle file upload - creates object URL and adds to selected images
+ * Handle file upload — POST to server, then refresh from API
  */
-function handleFileUpload(file) {
-    const objectUrl = URL.createObjectURL(file);
-    const uploadedImage = {
-        id: 'upload_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-        url: objectUrl,
-        thumbUrl: objectUrl,
-        smallUrl: objectUrl,
-        photographer: 'Uploaded',
-        photographerUrl: '',
-        altText: file.name.replace(/\.[^/.]+$/, ''),
-        source: 'upload',
-        orientation: 'all',
-    };
+async function handleFileUpload(file) {
+    const siteId = window.SITE_ID;
+    if (!siteId) {
+        showToast('Save your site first before uploading images');
+        return;
+    }
 
-    selectedImages.push(uploadedImage);
-    saveSelectedImages();
-    updateSelectedUI();
-    showToast(`"${file.name}" added to selected images`);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const resp = await fetch(`/api/images/upload?site_id=${siteId}`, {
+            method: 'POST',
+            body: formData,
+        });
+        if (!resp.ok) {
+            showToast('Upload failed');
+            return;
+        }
+        await loadImagesFromAPI();
+        showToast(`"${file.name}" uploaded`);
+    } catch (e) {
+        console.warn('[ImagesPanel] Upload failed:', e);
+        showToast('Upload failed');
+    }
 }
 
 /**
@@ -482,8 +537,6 @@ function handleFileUpload(file) {
 export function renderImagesPanel() {
     const container = document.getElementById('imagesContent');
     if (!container) return;
-
-    loadSelectedImages();
 
     container.innerHTML = `
         <!-- Search Bar -->
@@ -533,6 +586,9 @@ export function renderImagesPanel() {
     `;
 
     attachImagesPanelEvents(container);
+
+    // Load images from DB (async, updates Selected section when done)
+    loadImagesFromAPI();
 }
 
 /**

@@ -14,7 +14,7 @@
     {% set aspect_style = 'aspect-ratio: ' ~ aspect_ratio ~ '; min-height: ' ~ min_height ~ 'px;' %}
 
     {# Video styles #}
-    {% set obj_fit = appearance.objectFit | default('cover') %}
+    {% set obj_fit = appearance.fit | default(appearance.objectFit | default('cover')) %}
     {% set obj_position = appearance.objectPosition | default('center') %}
 
     {# Content alignment #}

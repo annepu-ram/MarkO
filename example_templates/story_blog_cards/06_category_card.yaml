@@ -1,53 +1,65 @@
 # Story Card Variant: Category Card
 # layout-column with a blurred image background and a centered heading
+# Base components: page, image, layout-column, eyebrow, heading, paragraph, button
+# Section type: blog
+# Layout: centered
+# Visual style: modern
+# Perfect for: media, publishing, blogs, content marketing, news
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#cbd5e1'
         accent: &color-accent '#e2e8f0'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: image
+  - name: image
+    properties:
+      source: {url: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800', altText: 'Architecture'}
+      appearance:
+        minHeight: 20
+        fit: cover
+        cornerStyle: lg
+        overlay:
+          enabled: true
+          color: 'rgba(0,0,0,0.45)'
+          opacity: 45
+        hoverEffect: zoom
+      layout: {widthMode: stretch}
+      spacing: {marginBlock: lg, marginInline: lg}
+    components:
+    - name: layout-column
       properties:
-        source: { url: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800', altText: 'Architecture' }
-        appearance:
-          minHeight: 20
-          fit: cover
-          cornerStyle: lg
-          overlay:
-            enabled: true
-            color: 'rgba(0,0,0,0.45)'
-            opacity: 45
-          hoverEffect: zoom
-        layout: { widthMode: stretch }
-        spacing: { marginBlock: lg, marginInline: lg }
+        layout: {horizontalAlign: center, gap: sm}
+        appearance: {background: {transparency: 0}}
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
       components:
-        - name: layout-column
-          properties:
-            layout: { horizontalAlign: center, gap: sm }
-            appearance: { background: { transparency: 0 }, padding: { block: xl, inline: lg } }
-          components:
-            - name: eyebrow
-              properties:
-                text: EXPLORE
-                typography: { size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
-            - name: heading
-              properties:
-                text: Architecture
-                level: 2
-                typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
-                spacing: { marginBlock: xs }
-            - name: paragraph
-              properties:
-                text: "42 articles"
-                typography: { size: md, color: *color-secondary, align: center }
-            - name: button
-              properties:
-                text: Browse Collection
-                appearance: { background: { color: *color-background, transparency: 80 }, radius: pill, padding: { block: sm, inline: lg } }
-                typography: { color: *color-primary, weight: semibold }
+      - name: eyebrow
+        properties:
+          text: EXPLORE
+          typography: {size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+      - name: heading
+        properties:
+          text: Architecture
+          level: 2
+          typography: {size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: "42 articles"
+          typography: {size: md, color: *color-secondary, align: center}
+      - name: button
+        properties:
+          text: Browse Collection
+          appearance: {background: {color: *color-background, transparency: 80}, radius: pill}
+          typography: {color: *color-primary, weight: semibold}
+          spacing:
+            paddingBlock: sm
+            paddingInline: lg

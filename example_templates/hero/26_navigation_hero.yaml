@@ -1,68 +1,75 @@
 # Hero Card Variant: The Navigation Hero
 # layout-column that starts with a titlebar, followed by a large blockquote and a primary button
+# Base components: page, titlebar, layout-column, blockquote, paragraph, button
+# Section type: hero
+# Layout: centered
+# Visual style: minimal
+# Perfect for: Creative studios, design agencies, artisan brands, portfolios
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#78350f'
+        text: &color-text '#6A412B'
         secondary: &color-secondary '#92400e'
         accent: &color-accent '#d97706'
         background: &color-background '#fefce8'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: titlebar
+  - name: titlebar
+    properties:
+      branding: {showLogo: true, logoUrl: 'https://via.placeholder.com/50x40/854d0e/fef3c7?text=Logo', title: 'Artisan Studio'}
+      navigation:
+        links:
+        - label: Work
+          href: '#work'
+        - label: About
+          href: '#about'
+        - label: Services
+          href: '#services'
+        - label: Contact
+          href: '#contact'
+      layout: {alignment: left, height: 70}
+      appearance:
+        background: {color: *color-background, transparency: 100}
+        border: {width: 1, color: *color-accent}
+      typography:
+        title: {size: 22, weight: bold, color: *color-primary}
+        menu: {size: 15, weight: medium, color: *color-secondary}
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: lg}
+      spacing: {paddingBlock: xxxl, paddingInline: xl}
+      appearance:
+        background: {color: *color-background}
+    components:
+    - name: blockquote
       properties:
-        branding: { showLogo: true, logoUrl: 'https://via.placeholder.com/50x40/854d0e/fef3c7?text=Logo', title: 'Artisan Studio' }
-        navigation:
-          links:
-            - label: Work
-              href: '#work'
-            - label: About
-              href: '#about'
-            - label: Services
-              href: '#services'
-            - label: Contact
-              href: '#contact'
-        layout: { alignment: left, height: 70 }
+        quote: |
+          Design is not just what it looks like and feels like.
+          Design is how it works.
+        cite: Steve Jobs
+        typography: {size: xxl, weight: medium, color: *color-text, align: center, lineHeight: "1.6"}
         appearance:
-          background: { color: *color-background, transparency: 100 }
-          border: { width: 1, color: *color-accent }
-        typography:
-          title: { size: 22, weight: bold, color: *color-primary }
-          menu: { size: 15, weight: medium, color: *color-secondary }
-    - name: layout-column
+          border: {accentColor: *color-accent}
+          background: {color: *color-background, transparency: 100}
+          radius: lg
+        layout: {widthMode: "75"}
+        spacing: {marginBlock: lg, paddingBlock: xl, paddingInline: xl}
+    - name: paragraph
       properties:
-        layout: { horizontalAlign: center, gap: lg }
-        spacing: { paddingBlock: xxxl, paddingInline: xl }
-        appearance:
-          background: { color: *color-background }
-          padding: { block: xxxl, inline: xl }
-      components:
-        - name: blockquote
-          properties:
-            quote: |
-              Design is not just what it looks like and feels like.
-              Design is how it works.
-            cite: Steve Jobs
-            typography: { size: xxl, weight: medium, color: *color-primary, align: center, lineHeight: "1.6" }
-            appearance:
-              border: { accentColor: *color-accent }
-              background: { color: *color-background, transparency: 100 }
-              radius: lg
-              padding: { block: xl, inline: xl }
-            layout: { widthMode: "75" }
-            spacing: { marginBlock: lg }
-        - name: paragraph
-          properties:
-            text: |
-              We craft meaningful digital experiences that connect brands
-              with their audiences. Let's create something extraordinary together.
-            typography: { size: lg, color: *color-secondary, align: center, lineHeight: "1.8" }
-            layout: { widthMode: "50" }
-        - name: button
-          properties:
-            text: Start a Project
-            appearance: { background: { color: *color-accent }, radius: pill, padding: { block: md, inline: xl } }
-            typography: { color: *color-background, weight: bold }
+        text: |
+          We craft meaningful digital experiences that connect brands
+          with their audiences. Let's create something extraordinary together.
+        typography: {size: lg, color: *color-secondary, align: center, lineHeight: "1.8"}
+        layout: {widthMode: "50"}
+    - name: button
+      properties:
+        text: Start a Project
+        appearance: {background: {color: *color-accent}, radius: pill}
+        typography: {color: *color-background, weight: bold}
+        spacing:
+          paddingBlock: md
+          paddingInline: xl

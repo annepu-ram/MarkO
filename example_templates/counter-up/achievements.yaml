@@ -1,5 +1,10 @@
 # Counter-Up: Achievements / Milestones
 # Platform achievements section with prefix/suffix variety
+# Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, counter-up
+# Section type: stats
+# Layout: grid
+# Visual style: modern
+# Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page
   properties:
@@ -7,6 +12,7 @@
       colors:
         background: &color-background '#ffffff'
         primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#8b5cf6'
       fonts:

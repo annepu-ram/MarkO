@@ -31,34 +31,37 @@
 2. **layout-row (Hero)**
    Full-width image (fabric rolls / textile warehouse), overlay: heading ("Premium Fabrics for Every Need") + paragraph (wholesale, competitive pricing, nationwide supply) + button ("Browse Collections").
 
-3. **counter-up (Scale Indicators)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **counter-up (Scale Indicators)**
    "500+ Fabric Varieties", "1,000+ Retail Partners", "Pan-India Delivery", "25+ Years in Business".
 
-4. **tabs (Product Categories)**
+5. **tabs (Product Categories)**
    Tabs: Cotton, Silk, Polyester, Linen, Blended, Specialty Fabrics. Each: columnsgrid of fabric swatches — image + heading (fabric name) + caption (GSM, width, price/meter).
 
-5. **columnsgrid (Industries We Supply — 4 columns)**
+6. **columnsgrid (Industries We Supply — 4 columns)**
    Each: icon + heading + caption. Garment Manufacturers, Fashion Designers, Home Furnishing, Uniform Makers, Export Houses, Retail Stores.
 
-6. **layout-row (Why Choose Us)**
+7. **layout-row (Why Choose Us)**
    Left: heading + accordion items: Minimum Order Flexibility, Quality Assurance, Fast Dispatch, Custom Dyeing, Sample Service. Right: image (quality check process).
 
-7. **layout-row (Bulk Pricing)**
+8. **layout-row (Bulk Pricing)**
    heading + paragraph ("Volume-based discounts") + columnsgrid (3 cols): heading (tier) + paragraph (quantity range) + badge ("Best Rate" on highest tier).
 
-8. **ticker (Brand Partners / Mills)**
+9. **ticker (Brand Partners / Mills)**
    Scrolling partner mill logos.
 
-9. **carousel (Client Testimonials)**
+10. **carousel (Client Testimonials)**
    blockquote + caption (business name, city).
 
-10. **layout-row (Logistics & Delivery)**
+11. **layout-row (Logistics & Delivery)**
     icon + heading + paragraph (delivery network, packaging, tracking) + counter-up ("Dispatched within 48 hrs").
 
-11. **form (Bulk Enquiry / Price Request)**
+12. **form (Bulk Enquiry / Price Request)**
     textbox (company name), textbox (contact person), textbox (phone), textbox (email), dropdown (fabric type), textbox (quantity in meters), textarea (specifications — color, GSM, width), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Registered office, warehouse address, GST number, phone, email, working hours.
 
 ---
@@ -73,31 +76,34 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Trusted Chemical Supply Partner") + paragraph (quality chemicals, safety-first approach, regulatory compliance) + button ("View Product Catalog"). Right: image (industrial drums / lab).
 
-3. **columnsgrid (Product Categories — 3 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Product Categories — 3 columns)**
    Each: icon + heading + caption + link. Solvents, Acids & Alkalis, Specialty Chemicals, Lab Reagents, Industrial Cleaners, Adhesives & Resins.
 
-4. **counter-up (Business Scale)**
+5. **counter-up (Business Scale)**
    "200+ Chemical Products", "500+ Industrial Clients", "ISO 9001 Certified", "30+ Years".
 
-5. **tabs (By Industry)**
+6. **tabs (By Industry)**
    Tabs: Pharmaceuticals, Textiles, Food Processing, Construction, Automotive, Agriculture. Each: paragraph (chemicals supplied) + button ("View Products").
 
-6. **layout-row (Safety & Compliance)**
+7. **layout-row (Safety & Compliance)**
    heading + columnsgrid (4 cols): icon + heading + caption. MSDS Available, Proper Labeling, Certified Storage, Trained Handling, Regulatory Compliance, Hazmat Transport.
 
-7. **layout-row (Supply Chain)**
+8. **layout-row (Supply Chain)**
    3-step: icon + heading + paragraph. "Order Placement" → "Quality Testing & Packaging" → "Safe Delivery with Documentation".
 
-8. **accordion (Technical Information)**
+9. **accordion (Technical Information)**
    Items: Storage guidelines, Handling precautions, Grade specifications, Purity certifications, Custom formulations.
 
-9. **ticker (Certifications)**
+10. **ticker (Certifications)**
    Scrolling certification badges: ISO, BIS, REACH, FDA.
 
-10. **form (Quote / MSDS Request)**
+11. **form (Quote / MSDS Request)**
     textbox (company), textbox (contact), textbox (email), dropdown (product category), textbox (chemical name), textbox (quantity), dropdown (grade/purity), button.
 
-11. **layout-row (Footer)**
+12. **layout-row (Footer)**
     Office address, warehouse address, emergency contact, GST/CIN numbers, regulatory licenses.
 
 **Page 2: Product Catalog**
@@ -117,29 +123,32 @@
 2. **layout-row (Hero)**
    Image (commodity — grains, spices, etc.), overlay: heading ("Quality Commodities, Direct from Source") + paragraph + button ("View Products").
 
-3. **columnsgrid (Products — 3 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Products — 3 columns)**
    Each: image + heading + caption (origin, grade). Rice, Wheat, Pulses, Spices, Oilseeds, Sugar, Cotton, Jute.
 
-4. **counter-up (Trade Volume)**
+5. **counter-up (Trade Volume)**
    "10,000+ MT Annual Volume", "15+ Countries Exported", "50+ Varieties", "20+ Years".
 
-5. **tabs (Markets)**
+6. **tabs (Markets)**
    Tabs: Domestic, Export, Institutional. Each: paragraph (market focus, key buyers) + button.
 
-6. **layout-row (Quality Assurance)**
+7. **layout-row (Quality Assurance)**
    heading + paragraph + columnsgrid: icon + caption. Lab Testing, Grading Standards, Clean Sorting, Proper Packaging, Fumigation Certificates.
 
-7. **layout-row (Logistics Strength)**
+8. **layout-row (Logistics Strength)**
    icon + heading + paragraph (warehouse network, cold storage, transport fleet) + counter-up ("5 Warehouses Across India").
 
-8. **accordion (Trade Information)**
+9. **accordion (Trade Information)**
    Items: Minimum order quantities, Payment terms, Shipping documentation, Quality certificates, Price quotation validity.
 
-9. **ticker (Export Destinations)**
+10. **ticker (Export Destinations)**
    Scrolling country flags/names.
 
-10. **form (Rate Enquiry)**
+11. **form (Rate Enquiry)**
     textbox (company), textbox (contact), textbox (phone), dropdown (commodity), textbox (quantity in MT), dropdown (delivery terms — FOB/CIF/Ex-Warehouse), button.
 
-11. **layout-row (Footer)**
+12. **layout-row (Footer)**
     Office address, APEDA/FIEO registration, GST/IEC numbers, phone, email.

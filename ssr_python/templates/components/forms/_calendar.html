@@ -2,11 +2,28 @@
     {% set properties = component.properties | default({}) %}
     {% set label = properties.label | default({}) %}
     {% set field = properties.field | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set input_id = component_id ~ '_input' %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
-        {% if label.show %}
-            <label>{{ label.text | default('') }}</label>
+    {% set accent = appearance.accentColor | default('') %}
+    {% set field_size = appearance.size | default('') %}
+    <div class="form-field chrome-target"
+         data-component-id="{{ component_id }}"
+         data-component-name="calendar"
+         style="{{ styles }}{% if accent %} --field-accent: {{ accent }};{% endif %}{% if field_size and tokens and tokens.typography_sizes and field_size in tokens.typography_sizes %} --field-size: var(--font-size-{{ field_size }});{% endif %}">
+        {% if label.show | default(true) %}
+            {% set label_typo = label.typography | default({}) %}
+            <label for="{{ input_id }}"{% if label_typo.weight or label_typo.color %} style="{% if label_typo.weight and tokens and tokens.font_weights and label_typo.weight in tokens.font_weights %}font-weight: {{ tokens.font_weights[label_typo.weight] }};{% endif %}{% if label_typo.color %} color: {{ label_typo.color }};{% endif %}"{% endif %}>{{ label.text | default('') }}{% if field.required %} <span class="form-field__required" aria-hidden="true">*</span>{% endif %}</label>
         {% endif %}
-        <input type="date" value="{{ field.value | default('') }}">
+        <input type="date"
+               id="{{ input_id }}"
+               {% if field.name %}name="{{ field.name }}"{% endif %}
+               {% if field.value %}value="{{ field.value }}"{% endif %}
+               {% if field.min %}min="{{ field.min }}"{% endif %}
+               {% if field.max %}max="{{ field.max }}"{% endif %}
+               {% if field.required %}required aria-required="true"{% endif %}>
+        {% if field.helperText %}
+            <span class="form-field__helper">{{ field.helperText }}</span>
+        {% endif %}
     </div>
 {% endmacro %}

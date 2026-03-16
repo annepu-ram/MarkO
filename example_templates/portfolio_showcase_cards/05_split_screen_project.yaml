@@ -1,6 +1,10 @@
 # 05 - The Split-Screen Project
-# Layout-row with 50% image and 50% blockquote (client quote about the project).
-# Side-by-side split layout showcasing project visuals paired with testimonials.
+# Layout-row with 50% image and 50% blockquote (client quote about the project). Side-by-side split layout showcasing project visuals paired with testimonials.
+# Base components: page, layout-column, eyebrow, heading, paragraph, layout-row, image, blockquote, link
+# Section type: gallery
+# Layout: split_screen
+# Visual style: modern
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page
   properties:
@@ -10,6 +14,7 @@
         content: &font-content "'Source Sans 3', sans-serif"
       colors:
         primary: &color-primary '#1b1b1b'
+        text: &color-text '#323232'
         secondary: &color-secondary '#4a5568'
         accent: &color-accent '#d97706'
         background: &color-background '#fffbf0'
@@ -77,7 +82,7 @@
                 typography: { size: xl, weight: medium, color: *color-background }
                 appearance:
                   border: { accentColor: *color-accent }
-                  background: { color: *color-primary }
+                  background: { color: *color-text }
                 spacing: { marginBlock: lg }
             - name: layout-row
               properties:
@@ -111,7 +116,7 @@
               properties:
                 quote: Our conversion rate jumped 340% after the redesign. The user experience research they conducted revealed insights we had been blind to for years.
                 cite: Marcus Webb, Head of Digital at Artisan Collective
-                typography: { size: xl, weight: medium, color: *color-primary }
+                typography: { size: xl, weight: medium, color: *color-text }
                 appearance:
                   border: { accentColor: *color-accent }
                   background: { color: *color-background }
@@ -168,7 +173,7 @@
               properties:
                 quote: They turned our complex data into an intuitive dashboard that our entire team actually enjoys using. Support tickets dropped 60% within the first month.
                 cite: Dr. Lena Okafor, CTO at HealthBridge
-                typography: { size: xl, weight: medium, color: *color-primary }
+                typography: { size: xl, weight: medium, color: *color-text }
                 appearance:
                   border: { accentColor: *color-accent }
                   background: { color: *color-background }

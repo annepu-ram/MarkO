@@ -411,18 +411,18 @@ const renderTokenPills = ({ field, value, fieldId }) => {
 };
 
 /**
- * Cache for Material Icons names (loaded once from JSON)
+ * Cache for Lucide Icons names (loaded once from JSON)
  */
-let _materialIconsCache = null;
-async function loadMaterialIcons() {
-    if (_materialIconsCache) return _materialIconsCache;
-    const resp = await fetch('/static/data/material-icons.json');
-    _materialIconsCache = await resp.json();
-    return _materialIconsCache;
+let _lucideIconsCache = null;
+async function loadLucideIcons() {
+    if (_lucideIconsCache) return _lucideIconsCache;
+    const resp = await fetch('/static/data/lucide-icons.json');
+    _lucideIconsCache = await resp.json();
+    return _lucideIconsCache;
 }
 
 /**
- * Render searchable icon picker grid with all Material Icons
+ * Render searchable icon picker grid with Lucide Icons
  */
 const renderIconGrid = async ({ field, value, fieldId }) => {
     const wrapper = document.createElement('div');
@@ -441,13 +441,13 @@ const renderIconGrid = async ({ field, value, fieldId }) => {
     grid.className = 'icon-picker-grid';
 
     // Load all icon names (cached after first fetch)
-    const allIcons = await loadMaterialIcons();
+    const allIcons = await loadLucideIcons();
 
     const MAX_VISIBLE = 60;
 
     const renderIcons = (filter = '') => {
         grid.innerHTML = '';
-        const query = filter.toLowerCase().replace(/\s+/g, '_');
+        const query = filter.toLowerCase().replace(/\s+/g, '-');
         const filtered = query
             ? allIcons.filter(name => name.includes(query))
             : allIcons;
@@ -459,15 +459,14 @@ const renderIconGrid = async ({ field, value, fieldId }) => {
             btn.dataset.value = iconName;
             if (iconName === (value ?? '')) btn.classList.add('active');
 
-            const iconSpan = document.createElement('span');
-            iconSpan.className = 'material-symbols-outlined';
-            iconSpan.textContent = iconName;
+            const iconEl = document.createElement('i');
+            iconEl.setAttribute('data-lucide', iconName);
 
             const labelSpan = document.createElement('span');
             labelSpan.className = 'icon-picker-label';
-            labelSpan.textContent = iconName.replace(/_/g, ' ');
+            labelSpan.textContent = iconName.replace(/-/g, ' ');
 
-            btn.appendChild(iconSpan);
+            btn.appendChild(iconEl);
             btn.appendChild(labelSpan);
             btn.onclick = () => {
                 grid.querySelectorAll('.icon-picker-item').forEach(b => b.classList.remove('active'));
@@ -475,6 +474,11 @@ const renderIconGrid = async ({ field, value, fieldId }) => {
             };
             grid.appendChild(btn);
         });
+
+        // Initialize Lucide icons in the grid
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons({ root: grid });
+        }
 
         // Show count indicator if results are truncated
         if (filtered.length > MAX_VISIBLE) {
@@ -501,7 +505,7 @@ const renderIconGrid = async ({ field, value, fieldId }) => {
 
     // If current value exists, pre-fill search to show it in context
     if (value) {
-        searchInput.value = value.replace(/_/g, ' ');
+        searchInput.value = value.replace(/-/g, ' ');
         renderIcons(value);
     } else {
         renderIcons('');

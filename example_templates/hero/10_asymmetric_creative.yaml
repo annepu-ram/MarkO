@@ -1,5 +1,9 @@
 # Asymmetric Creative Hero
 # A bold, unconventional layout with overlapping elements and creative tension
+# Base components: page, titlebar, layout-row, layout-column, paragraph, heading, button, image, link
+# Section type: hero
+# Layout: split_screen
+# Visual style: dark_mode
 # Perfect for: Creative agencies, artists, photographers, avant-garde brands
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
         secondary: &color-secondary "#808080"
         accent: &color-accent "#ff3366"
         background: &color-background "#0d0d0d"
@@ -59,9 +64,9 @@
   - name: layout-row
     properties:
       layout:
-        align: start
         horizontalAlign: none
         wrap: wrap
+        verticalAlign: start
       spacing:
         paddingBlock: none
         paddingInline: none
@@ -73,9 +78,8 @@
     - name: layout-column
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
-          widthMode: "40"
+          widthMode: "33"
         spacing:
           paddingBlock: xxxl
           paddingInline: xl
@@ -84,8 +88,8 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
         components:
         - name: paragraph
           properties:
@@ -119,7 +123,6 @@
       - name: layout-column
         properties:
           layout:
-            align: start
             horizontalAlign: none
         components:
         - name: heading
@@ -176,15 +179,14 @@
       - name: layout-row
         properties:
           layout:
-            align: start
             horizontalAlign: space-evenly
+            verticalAlign: start
           spacing:
             marginBlock: lg
         components:
         - name: layout-column
           properties:
             layout:
-              align: start
               horizontalAlign: none
           components:
           - name: heading
@@ -211,7 +213,6 @@
         - name: layout-column
           properties:
             layout:
-              align: start
               horizontalAlign: none
           components:
           - name: heading
@@ -251,9 +252,6 @@
               width: 0
               style: solid
               color: transparent
-            padding:
-              block: md
-              inline: xl
             shadow: medium
             shadowColor: *color-accent
           typography:
@@ -262,15 +260,16 @@
             size: sm
           spacing:
             marginBlock: lg
+            paddingBlock: md
+            paddingInline: xl
           layout:
 
     # Right Image Area - Asymmetric
     - name: layout-column
       properties:
         layout:
-          align: end
           horizontalAlign: space-evenly
-          widthMode: "60"
+          widthMode: "66"
         spacing:
           paddingBlock: lg
           paddingInline: lg
@@ -297,8 +296,8 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
         components:
         - name: image
           properties:
@@ -317,7 +316,6 @@
         - name: layout-column
           properties:
             layout:
-              align: start
               horizontalAlign: space-evenly
               widthMode: "50"
           components:
@@ -364,8 +362,8 @@
   - name: layout-row
     properties:
       layout:
-        align: center
         horizontalAlign: space-evenly
+        verticalAlign: center
       spacing:
         paddingBlock: lg
         paddingInline: none

@@ -1,91 +1,99 @@
 # Hero Card Variant: The Lead Gen
 # layout-row featuring a value prop on the left and a form on the right
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, caption, form, textbox, button
+# Section type: hero
+# Layout: split_screen
+# Visual style: modern
+# Perfect for: B2B SaaS, lead generation, free trial signups, business services
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
         secondary: &color-secondary '#4b5563'
         accent: &color-accent '#059669'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: xl}
+      spacing: {paddingBlock: xxl, paddingInline: xl}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: elevated
+    components:
+    - name: layout-column
       properties:
-        layout: { horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: xl }
-        spacing: { paddingBlock: xxl, paddingInline: xl }
-        appearance:
-          background: { color: *color-background }
-          radius: lg
-          shadow: elevated
+        layout: {horizontalAlign: left, widthMode: "50", gap: sm}
+        appearance: {background: {transparency: 0}}
       components:
-        - name: layout-column
+      - name: eyebrow
+        properties:
+          text: START YOUR FREE TRIAL
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Grow Your Business 10x Faster
+          level: 1
+          typography: {size: xxl, weight: extrabold, color: *color-primary, align: left, letterSpacing: tight}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: |
+            Join 50,000+ businesses that trust us to drive growth.
+            No credit card required. Cancel anytime.
+          typography: {size: md, color: *color-secondary, align: left, lineHeight: "1.7"}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: left, verticalAlign: center, gap: md, wrap: wrap}
+          appearance: {background: {transparency: 0}}
+        components:
+        - name: caption
           properties:
-            layout: { horizontalAlign: left, widthMode: "50", gap: sm }
-            appearance: { background: { transparency: 0 } }
-          components:
-            - name: eyebrow
-              properties:
-                text: START YOUR FREE TRIAL
-                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
-            - name: heading
-              properties:
-                text: Grow Your Business 10x Faster
-                level: 1
-                typography: { size: xxl, weight: extrabold, color: *color-primary, align: left, letterSpacing: tight }
-                spacing: { marginBlock: sm }
-            - name: paragraph
-              properties:
-                text: |
-                  Join 50,000+ businesses that trust us to drive growth.
-                  No credit card required. Cancel anytime.
-                typography: { size: md, color: *color-secondary, align: left, lineHeight: "1.7" }
-            - name: layout-row
-              properties:
-                layout: { horizontalAlign: left, verticalAlign: center, gap: md, wrap: wrap }
-                appearance: { background: { transparency: 0 } }
-              components:
-                - name: caption
-                  properties:
-                    text: "Trusted by 500+ companies"
-                    typography: { size: xs, color: *color-secondary, align: left }
-        - name: layout-column
+            text: "Trusted by 500+ companies"
+            typography: {size: xs, color: *color-secondary, align: left}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center, widthMode: "50", gap: sm}
+        appearance:
+          background: {color: *color-background}
+          radius: lg
+          border: {width: 1, style: solid, color: *color-secondary}
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
+      components:
+      - name: heading
+        properties:
+          text: Get Started Today
+          level: 3
+          typography: {size: lg, weight: bold, color: *color-primary, align: center}
+          spacing: {marginBlock: sm}
+      - name: form
+        properties:
+          layout: {direction: column}
+          submit: {show: false}
+        components:
+        - name: textbox
           properties:
-            layout: { horizontalAlign: center, widthMode: "50", gap: sm }
-            appearance:
-              background: { color: *color-background }
-              radius: lg
-              padding: { block: lg, inline: lg }
-              border: { width: 1, style: solid, color: *color-secondary }
-          components:
-            - name: heading
-              properties:
-                text: Get Started Today
-                level: 3
-                typography: { size: lg, weight: bold, color: *color-primary, align: center }
-                spacing: { marginBlock: sm }
-            - name: form
-              properties:
-                layout: { direction: column }
-                submit: { show: false }
-              components:
-                - name: textbox
-                  properties:
-                    label: { text: Full Name, show: true }
-                    field: { placeholder: 'John Doe', required: true }
-                    appearance: { border: { width: 1, color: *color-secondary }, radius: sm }
-                    layout: { widthMode: stretch }
-                - name: textbox
-                  properties:
-                    label: { text: Work Email, show: true }
-                    field: { placeholder: 'john@company.com', required: true }
-                    appearance: { border: { width: 1, color: *color-secondary }, radius: sm }
-                    layout: { widthMode: stretch }
-                - name: button
-                  properties:
-                    text: Start Free Trial
-                    appearance: { background: { color: *color-accent }, radius: md }
-                    typography: { color: *color-background, weight: bold }
-                    layout: { widthMode: stretch }
+            label: {text: Full Name, show: true}
+            field: {placeholder: 'John Doe', required: true}
+            appearance: {border: {width: 1, color: *color-secondary}, radius: sm}
+            layout: {widthMode: stretch}
+        - name: textbox
+          properties:
+            label: {text: Work Email, show: true}
+            field: {placeholder: 'john@company.com', required: true}
+            appearance: {border: {width: 1, color: *color-secondary}, radius: sm}
+            layout: {widthMode: stretch}
+        - name: button
+          properties:
+            text: Start Free Trial
+            appearance: {background: {color: *color-accent}, radius: md}
+            typography: {color: *color-background, weight: bold}
+            layout: {widthMode: stretch}

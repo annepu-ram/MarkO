@@ -1,11 +1,17 @@
 # Hero Card Variant: The Story Starter
 # carousel containing three slides, each with a different image and heading overlay
+# Base components: carousel, image, layout-column, eyebrow, heading, paragraph, button
+# Section type: hero
+# Layout: carousel_slider
+# Visual style: dark_mode
+# Perfect for: creative agencies, portfolios, storytelling brands, media
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#000000'
+        text: &color-text '#222222'
         secondary: &color-secondary '#e2e8f0'
         accent: &color-accent '#6366f1'
         background: &color-background '#ffffff'

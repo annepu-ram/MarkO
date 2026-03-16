@@ -1,0 +1,1429 @@
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        secondary: &color-secondary '#f8fafc'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "Marketing Components"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+
+        # ============================================
+        # TITLEBAR / NAVIGATION
+        # ============================================
+        - name: titlebar
+          properties:
+            branding:
+              showLogo: false
+              title: LaunchPad
+              logoUrl: https://via.placeholder.com/50x40
+            navigation:
+              links:
+                - label: Features
+                  href: "#features"
+                - label: Pricing
+                  href: "#pricing"
+                - label: Testimonials
+                  href: "#testimonials"
+                - label: Contact
+                  href: "#contact"
+            layout:
+              alignment: center
+              height: 60
+            scroll:
+              shrinkPercentage: 75
+            appearance:
+              background:
+                color: *color-primary
+                transparency: 100
+                type: ""
+              border:
+                width: 0
+                style: solid
+                color: *color-primary
+              focus:
+                background: *color-primary
+                color: *color-secondary
+            typography:
+              title:
+                size: 22
+                weight: bold
+                color: *color-background
+              menu:
+                size: 14
+                weight: medium
+                color: *color-secondary
+
+        # ============================================
+        # HERO SECTION WITH COUNTDOWN
+        # ============================================
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-primary
+                  colorEnd: *color-accent
+                  direction: to bottom right
+          components:
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  wrap: nowrap
+                spacing:
+                  marginBlock: none
+              components:
+                - name: badge
+                  properties:
+                    text: "NEW RELEASE"
+                    variant: warning
+                    pill: true
+                    layout:
+                      widthMode: fit
+                - name: badge
+                  properties:
+                    text: "v2.0"
+                    variant: info
+                    pill: true
+                    layout:
+                      widthMode: fit
+
+            - name: heading
+              properties:
+                text: "Build Faster. Launch Smarter."
+                level: 1
+                typography:
+                  size: xxxl
+                  weight: extrabold
+                  align: center
+                  color: *color-background
+                  lineHeight: 1.1
+                spacing:
+                  marginBlock: md
+
+            - name: paragraph
+              properties:
+                text: "The all-in-one platform for modern teams. Ship products 10x faster with
+                  AI-powered workflows, real-time collaboration, and
+                  enterprise-grade security."
+                typography:
+                  size: lg
+                  weight: regular
+                  align: center
+                  color: *color-secondary
+                  lineHeight: 1.6
+                spacing:
+                  marginBlock: sm
+
+            - name: paragraph
+              properties:
+                text: "Launch offer ends in:"
+                typography:
+                  size: md
+                  weight: semibold
+                  align: center
+                  color: *color-accent
+                spacing:
+                  marginBlock: sm
+
+            - name: countdown
+              properties:
+                targetDate: '2026-03-31T23:59:59'
+                format: 'DD:HH:MM:SS'
+                expiredText: "Offer has ended!"
+                typography:
+                  size: xxl
+                  weight: bold
+                  color: *color-background
+                  align: center
+
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  wrap: nowrap
+                spacing:
+                  marginBlock: lg
+              components:
+                - name: button
+                  properties:
+                    text: "Start Free Trial"
+                    appearance:
+                      background:
+                        type: solid
+                        color: *color-accent
+                      radius: pill
+                      padding:
+                        block: sm
+                        inline: xl
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: md
+                    layout:
+                      widthMode: fit
+                - name: button
+                  properties:
+                    text: "Watch Demo"
+                    appearance:
+                      background:
+                        type: solid
+                        color: transparent
+                      radius: pill
+                      padding:
+                        block: sm
+                        inline: xl
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-accent
+                    typography:
+                      color: *color-secondary
+                      weight: semibold
+                      size: md
+                    layout:
+                      widthMode: fit
+
+        # ============================================
+        # STATS / COUNTER-UP SECTION
+        # ============================================
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              tag: section
+              verticalAlign: space-between
+              wrap: nowrap
+              gap: none
+              widthMode: stretch
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+              marginBlock: none
+              marginInline: none
+            appearance:
+              background:
+                color: *color-accent
+                transparency: 100
+                type: color
+              padding:
+                block: sm
+                inline: sm
+              border:
+                width: 0
+                style: solid
+                color: *color-background
+              radius: none
+              shadow: none
+              shadowColor: *color-primary
+          components:
+            - name: eyebrow
+              properties:
+                text: "TRUSTED BY THOUSANDS"
+                typography:
+                  size: sm
+                  weight: semibold
+                  align: center
+                  color: *color-background
+                  letterSpacing: wider
+                  transform: uppercase
+                  lineHeight: "1.4"
+                spacing:
+                  marginBlock: xs
+                  marginInline: none
+                layout:
+                  widthMode: fit
+                appearance:
+                  background:
+                    type: ""
+                    color: *color-background
+                    transparency: 0
+                  radius: none
+                  padding:
+                    block: none
+                    inline: none
+
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  wrap: wrap
+                spacing:
+                  marginBlock: lg
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: "25"
+                    spacing:
+                      paddingBlock: md
+                  components:
+                    - name: counter-up
+                      properties:
+                        endValue: 12500
+                        duration: 2500
+                        suffix: "+"
+                        typography:
+                          size: xxxl
+                          weight: extrabold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Active Users"
+                        typography:
+                          size: sm
+                          weight: medium
+                          align: center
+                          color: *color-background
+                          lineHeight: "1.6"
+                          transform: none
+                          letterSpacing: normal
+                        layout:
+                          widthMode: fit
+                        appearance:
+                          background:
+                            type: ""
+                            color: *color-background
+                            transparency: 0
+                          radius: none
+                          padding:
+                            block: none
+                            inline: none
+                        spacing:
+                          marginBlock: sm
+                          marginInline: none
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: "25"
+                    spacing:
+                      paddingBlock: md
+                  components:
+                    - name: counter-up
+                      properties:
+                        endValue: 98
+                        duration: 2000
+                        suffix: "%"
+                        typography:
+                          size: xxxl
+                          weight: extrabold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Uptime SLA"
+                        typography:
+                          size: sm
+                          weight: bold
+                          align: center
+                          color: *color-background
+                          lineHeight: "1.6"
+                          transform: none
+                          letterSpacing: normal
+                        layout:
+                          widthMode: fit
+                        appearance:
+                          background:
+                            type: ""
+                            color: *color-background
+                            transparency: 0
+                          radius: none
+                          padding:
+                            block: none
+                            inline: none
+                        spacing:
+                          marginBlock: sm
+                          marginInline: none
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: "25"
+                    spacing:
+                      paddingBlock: md
+                  components:
+                    - name: counter-up
+                      properties:
+                        endValue: 350
+                        duration: 2000
+                        prefix: "$"
+                        suffix: "M"
+                        typography:
+                          size: xxxl
+                          weight: extrabold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Revenue Generated"
+                        typography:
+                          size: sm
+                          weight: medium
+                          align: center
+                          color: *color-background
+                          lineHeight: "1.6"
+                          transform: none
+                          letterSpacing: normal
+                        layout:
+                          widthMode: fit
+                        appearance:
+                          background:
+                            type: ""
+                            color: *color-background
+                            transparency: 0
+                          radius: none
+                          padding:
+                            block: none
+                            inline: none
+                        spacing:
+                          marginBlock: sm
+                          marginInline: none
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: "25"
+                    spacing:
+                      paddingBlock: md
+                  components:
+                    - name: counter-up
+                      properties:
+                        endValue: 45
+                        duration: 1800
+                        suffix: "+"
+                        typography:
+                          size: xxxl
+                          weight: extrabold
+                          color: *color-primary
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Integrations"
+                        typography:
+                          size: sm
+                          weight: medium
+                          align: center
+                          color: *color-background
+                          lineHeight: "1.6"
+                          transform: none
+                          letterSpacing: normal
+                        layout:
+                          widthMode: fit
+                        appearance:
+                          background:
+                            type: ""
+                            color: *color-background
+                            transparency: 0
+                          radius: none
+                          padding:
+                            block: none
+                            inline: none
+                        spacing:
+                          marginBlock: sm
+                          marginInline: none
+
+        # ============================================
+        # WAVE DIVIDER
+        # ============================================
+        - name: br
+          properties:
+            type: wave
+            thickness: 5
+            color: *color-accent
+            size: md
+            orientation: horizontal
+            invert: true
+            mirror: true
+
+        # ============================================
+        # FEATURES WITH ICONS
+        # ============================================
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+          components:
+            - name: eyebrow
+              properties:
+                text: "FEATURES"
+                typography:
+                  size: sm
+                  weight: semibold
+                  align: center
+                  color: *color-accent
+                  letterSpacing: wider
+                  transform: uppercase
+                spacing:
+                  marginBlock: xs
+
+            - name: heading
+              properties:
+                text: "Everything you need to ship fast"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: bold
+                  align: center
+                  color: *color-primary
+                spacing:
+                  marginBlock: sm
+
+            - name: paragraph
+              properties:
+                text: "Powerful features designed for modern development teams"
+                typography:
+                  size: md
+                  align: center
+                  color: *color-secondary
+                spacing:
+                  marginBlock: sm
+
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  wrap: wrap
+                spacing:
+                  marginBlock: lg
+              components:
+                # Feature 1
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: "33"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: local_fire_department
+                        size: xxl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: "Lightning Fast"
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: semibold
+                          align: center
+                          color: *color-primary
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: "Optimized build pipelines that deploy in seconds, not minutes."
+                        typography:
+                          size: sm
+                          align: center
+                          color: *color-secondary
+                          lineHeight: 1.6
+
+                # Feature 2
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: "33"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: visibility
+                        size: xxl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: "Real-Time Monitoring"
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: semibold
+                          align: center
+                          color: *color-primary
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: "Live dashboards with instant alerts keep your team informed 24/7."
+                        typography:
+                          size: sm
+                          align: center
+                          color: *color-secondary
+                          lineHeight: 1.6
+
+                # Feature 3
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: "33"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: settings
+                        size: xxl
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: "Fully Configurable"
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: semibold
+                          align: center
+                          color: *color-primary
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: "Customize every aspect of your workflow with flexible configuration."
+                        typography:
+                          size: sm
+                          align: center
+                          color: *color-secondary
+                          lineHeight: 1.6
+
+        # ============================================
+        # SLANT DIVIDER
+        # ============================================
+        - name: br
+          properties:
+            type: slant
+            thickness: 4
+            color: *color-secondary
+            size: sm
+            orientation: horizontal
+            invert: false
+            mirror: false
+
+        # ============================================
+        # PRICING WITH PROGRESS BARS & BADGES
+        # ============================================
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              tag: section
+              verticalAlign: space-between
+              wrap: nowrap
+              gap: none
+              widthMode: stretch
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+              marginBlock: none
+              marginInline: none
+            appearance:
+              background:
+                color: *color-secondary
+                transparency: 100
+                type: ""
+              padding:
+                block: sm
+                inline: sm
+              border:
+                width: 0
+                style: solid
+                color: *color-primary
+              radius: none
+              shadow: none
+              shadowColor: *color-primary
+          components:
+            - name: eyebrow
+              properties:
+                text: "PRICING"
+                typography:
+                  size: sm
+                  weight: semibold
+                  align: center
+                  color: *color-accent
+                  letterSpacing: wider
+                  transform: uppercase
+                spacing:
+                  marginBlock: xs
+
+            - name: heading
+              properties:
+                text: "Simple, transparent pricing"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: bold
+                  align: center
+                  color: *color-primary
+                spacing:
+                  marginBlock: sm
+
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  wrap: wrap
+                spacing:
+                  marginBlock: lg
+              components:
+                # Free Plan
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      widthMode: "33"
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                      shadow: md
+                  components:
+                    - name: heading
+                      properties:
+                        text: "Starter"
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: semibold
+                          color: *color-secondary
+                        spacing:
+                          marginBlock: xxs
+                    - name: heading
+                      properties:
+                        text: "$0/mo"
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: extrabold
+                          color: *color-primary
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: "Perfect for side projects and experiments."
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: 1.5
+                        spacing:
+                          marginBlock: xs
+                    - name: br
+                      properties:
+                        type: dashed
+                        thickness: 1
+                        color: *color-secondary
+                        size: sm
+                    - name: paragraph
+                      properties:
+                        text: "Storage used"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                        spacing:
+                          marginBlock: xxs
+                    - name: progress-bar
+                      properties:
+                        percent: 25
+                        thickness: small
+                        color: *color-accent
+                        trackColor: *color-secondary
+                    - name: paragraph
+                      properties:
+                        text: "250 MB / 1 GB"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: right
+                        spacing:
+                          marginBlock: xxs
+                    - name: button
+                      properties:
+                        text: "Get Started"
+                        appearance:
+                          background:
+                            type: solid
+                            color: *color-secondary
+                          radius: md
+                          padding:
+                            block: sm
+                            inline: lg
+                        typography:
+                          color: *color-primary
+                          weight: semibold
+                          size: sm
+
+                # Pro Plan
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      widthMode: "33"
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-primary
+                        transparency: 100
+                      radius: lg
+                      shadow: xl
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          wrap: nowrap
+                        spacing:
+                          marginBlock: none
+                      components:
+                        - name: heading
+                          properties:
+                            text: "Pro"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-secondary
+                            spacing:
+                              marginBlock: xxs
+                            layout:
+                              widthMode: fit
+                        - name: badge
+                          properties:
+                            text: "POPULAR"
+                            variant: warning
+                            pill: true
+                            layout:
+                              widthMode: fit
+                    - name: heading
+                      properties:
+                        text: "$29/mo"
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: extrabold
+                          color: *color-background
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: "For growing teams that need more power and flexibility."
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: 1.5
+                        spacing:
+                          marginBlock: xs
+                    - name: br
+                      properties:
+                        type: dashed
+                        thickness: 1
+                        color: *color-primary
+                        size: sm
+                    - name: paragraph
+                      properties:
+                        text: "Storage used"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                        spacing:
+                          marginBlock: xxs
+                    - name: progress-bar
+                      properties:
+                        percent: 60
+                        thickness: small
+                        color: *color-accent
+                        trackColor: *color-primary
+                    - name: paragraph
+                      properties:
+                        text: "6 GB / 10 GB"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: right
+                        spacing:
+                          marginBlock: xxs
+                    - name: button
+                      properties:
+                        text: "Upgrade to Pro"
+                        appearance:
+                          background:
+                            type: solid
+                            color: *color-accent
+                          radius: md
+                          padding:
+                            block: sm
+                            inline: lg
+                        typography:
+                          color: *color-background
+                          weight: semibold
+                          size: sm
+
+                # Enterprise Plan
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      widthMode: "33"
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-background
+                        transparency: 100
+                      radius: lg
+                      shadow: md
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          wrap: nowrap
+                        spacing:
+                          marginBlock: none
+                      components:
+                        - name: heading
+                          properties:
+                            text: "Enterprise"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-secondary
+                            spacing:
+                              marginBlock: xxs
+                            layout:
+                              widthMode: fit
+                        - name: badge
+                          properties:
+                            text: "CUSTOM"
+                            variant: info
+                            pill: true
+                            layout:
+                              widthMode: fit
+                    - name: heading
+                      properties:
+                        text: "Contact Us"
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: extrabold
+                          color: *color-primary
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: "Unlimited everything with dedicated support and custom SLAs."
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: 1.5
+                        spacing:
+                          marginBlock: xs
+                    - name: br
+                      properties:
+                        type: dashed
+                        thickness: 1
+                        color: *color-secondary
+                        size: sm
+                    - name: paragraph
+                      properties:
+                        text: "Storage used"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                        spacing:
+                          marginBlock: xxs
+                    - name: progress-bar
+                      properties:
+                        percent: 85
+                        thickness: small
+                        colorGradient: true
+                        trackColor: *color-secondary
+                    - name: paragraph
+                      properties:
+                        text: "85 GB / 100 GB"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: right
+                        spacing:
+                          marginBlock: xxs
+                    - name: button
+                      properties:
+                        text: "Contact Sales"
+                        appearance:
+                          background:
+                            type: solid
+                            color: *color-secondary
+                          radius: md
+                          padding:
+                            block: sm
+                            inline: lg
+                        typography:
+                          color: *color-primary
+                          weight: semibold
+                          size: sm
+
+        # ============================================
+        # TESTIMONIALS WITH RATINGS
+        # ============================================
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+          components:
+            - name: eyebrow
+              properties:
+                text: "TESTIMONIALS"
+                typography:
+                  size: sm
+                  weight: semibold
+                  align: center
+                  color: *color-accent
+                  letterSpacing: wider
+                  transform: uppercase
+                spacing:
+                  marginBlock: xs
+
+            - name: heading
+              properties:
+                text: "Loved by developers worldwide"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: bold
+                  align: center
+                  color: *color-primary
+                spacing:
+                  marginBlock: md
+
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  wrap: wrap
+                spacing:
+                  marginBlock: lg
+              components:
+                # Testimonial 1
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      widthMode: "33"
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        transparency: 100
+                      radius: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        showCount: false
+                        color: *color-accent
+                        typography:
+                          size: md
+                          color: *color-secondary
+                    - name: paragraph
+                      properties:
+                        text: '"LaunchPad cut our deployment time by 80%. We went from weekly releases
+                          to shipping multiple times a day."'
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: 1.7
+                        spacing:
+                          marginBlock: sm
+                    - name: br
+                      properties:
+                        type: solid
+                        thickness: 1
+                        color: *color-secondary
+                        size: xs
+                    - name: paragraph
+                      properties:
+                        text: "Sarah Chen"
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                        spacing:
+                          marginBlock: xxs
+                    - name: paragraph
+                      properties:
+                        text: "CTO, TechFlow"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                        spacing:
+                          marginBlock: none
+
+                # Testimonial 2
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      widthMode: "33"
+                      tag: section
+                      verticalAlign: space-between
+                      wrap: nowrap
+                      gap: none
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                      marginBlock: none
+                      marginInline: none
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        transparency: 100
+                        type: ""
+                      radius: lg
+                      padding:
+                        block: sm
+                        inline: sm
+                      border:
+                        width: 0
+                        style: solid
+                        color: *color-primary
+                      shadow: none
+                      shadowColor: *color-primary
+                  components:
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        showCount: true
+                        color: *color-accent
+                        typography:
+                          size: md
+                          color: *color-secondary
+                    - name: paragraph
+                      properties:
+                        text: '"The real-time collaboration features are game-changing. Our distributed
+                          team feels like we are all in the same room."'
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: 1.7
+                        spacing:
+                          marginBlock: sm
+                    - name: br
+                      properties:
+                        type: solid
+                        thickness: 1
+                        color: *color-secondary
+                        size: xs
+                    - name: paragraph
+                      properties:
+                        text: "Marcus Rodriguez"
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                        spacing:
+                          marginBlock: xxs
+                    - name: paragraph
+                      properties:
+                        text: "VP Engineering, DataBridge"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                        spacing:
+                          marginBlock: none
+
+                # Testimonial 3
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      widthMode: "33"
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        transparency: 100
+                      radius: lg
+                  components:
+                    - name: rating
+                      properties:
+                        value: 3.5
+                        iconType: star
+                        showCount: true
+                        color: *color-accent
+                        typography:
+                          size: md
+                          color: *color-secondary
+                    - name: paragraph
+                      properties:
+                        text: '"Migrating from our old CI/CD was seamless. The integrations work out of
+                          the box and the docs are excellent."'
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          lineHeight: 1.7
+                        spacing:
+                          marginBlock: sm
+                    - name: br
+                      properties:
+                        type: solid
+                        thickness: 1
+                        color: *color-secondary
+                        size: xs
+                    - name: paragraph
+                      properties:
+                        text: "Aisha Patel"
+                        typography:
+                          size: sm
+                          weight: semibold
+                          color: *color-primary
+                        spacing:
+                          marginBlock: xxs
+                    - name: paragraph
+                      properties:
+                        text: "Lead Developer, CloudNine"
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                        spacing:
+                          marginBlock: none
+
+        # ============================================
+        # DOTTED DIVIDER
+        # ============================================
+        - name: br
+          properties:
+            type: slant
+            thickness: 3
+            color: *color-accent
+            size: lg
+            orientation: horizontal
+
+        # ============================================
+        # LOTTIE ANIMATION + CTA SECTION
+        # ============================================
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              tag: section
+              verticalAlign: space-between
+              wrap: nowrap
+              gap: none
+              widthMode: stretch
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+              marginBlock: none
+              marginInline: none
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-accent
+                  colorEnd: *color-primary
+                  direction: to bottom
+                transparency: 0
+              padding:
+                block: sm
+                inline: sm
+              border:
+                width: 0
+                style: solid
+                color: *color-primary
+              radius: none
+              shadow: none
+              shadowColor: *color-primary
+          components:
+            - name: heading
+              properties:
+                text: "Ready to transform your workflow?"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: bold
+                  align: center
+                  color: *color-background
+                spacing:
+                  marginBlock: sm
+
+            - name: paragraph
+              properties:
+                text: "Join 12,500+ developers who already ship faster with LaunchPad."
+                typography:
+                  size: lg
+                  align: center
+                  color: *color-secondary
+                  lineHeight: 1.6
+                spacing:
+                  marginBlock: sm
+
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  wrap: nowrap
+                spacing:
+                  marginBlock: lg
+              components:
+                - name: button
+                  properties:
+                    text: "Start Building Today"
+                    appearance:
+                      background:
+                        type: solid
+                        color: *color-background
+                      radius: pill
+                      padding:
+                        block: sm
+                        inline: xl
+                    typography:
+                      color: *color-accent
+                      weight: bold
+                      size: md
+                    layout:
+                      widthMode: fit
+
+        # ============================================
+        # FOOTER
+        # ============================================
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+            appearance:
+              background:
+                color: *color-primary
+                transparency: 100
+          components:
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-evenly
+                  wrap: nowrap
+                  tag: section
+                  verticalAlign: stretch
+                  gap: sm
+                spacing:
+                  marginBlock: sm
+                  marginInline: none
+                appearance:
+                  padding:
+                    block: sm
+                    inline: sm
+                  background:
+                    type: ""
+                    color: *color-background
+                    transparency: 0
+                  border:
+                    width: 0
+                    style: solid
+                    color: *color-primary
+                  radius: none
+                  shadow: none
+                  shadowColor: *color-primary
+              components:
+                - name: icon
+                  properties:
+                    name: mail
+                    size: md
+                    color: *color-secondary
+                    layout:
+                      widthMode: fit
+                - name: icon
+                  properties:
+                    name: phone
+                    size: md
+                    color: *color-secondary
+                    layout:
+                      widthMode: fit
+                - name: icon
+                  properties:
+                    name: language
+                    size: md
+                    color: *color-secondary
+                    layout:
+                      widthMode: fit
+                - name: icon
+                  properties:
+                    name: location_on
+                    size: md
+                    color: *color-secondary
+                    layout:
+                      widthMode: fit
+
+            - name: br
+              properties:
+                type: solid
+                thickness: 1
+                color: *color-primary
+                size: sm
+
+            - name: paragraph
+              properties:
+                text: "© 2026 LaunchPad Inc. All rights reserved."
+                typography:
+                  size: xs
+                  align: center
+                  color: *color-secondary
+                spacing:
+                  marginBlock: xs

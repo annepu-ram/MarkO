@@ -20,180 +20,180 @@
 
 - name: page
   properties:
-    appearance: { background: { color: '#ffffff', transparency: 100 } }
+    appearance: {background: {color: '#ffffff', transparency: 100}}
   components:
-    - name: heading
-      properties:
-        text: "Countdown Component Test"
-        level: 1
-        typography: { size: xxl, weight: bold, align: center, color: '#111827' }
-        spacing: { marginBlock: lg }
+  - name: heading
+    properties:
+      text: "Countdown Component Test"
+      level: 1
+      typography: {size: xxl, weight: bold, align: center, color: '#111827'}
+      spacing: {marginBlock: lg}
 
     # ─────────────────────────────────────────
     # FORMAT: DD:HH:MM:SS (full format)
     # Shows Days, Hours, Minutes, Seconds
     # ─────────────────────────────────────────
-    - name: paragraph
-      properties:
-        text: "format: DD:HH:MM:SS — Full countdown"
-        typography: { size: sm, weight: semibold, color: '#6b7280' }
-        spacing: { marginBlock: sm }
+  - name: paragraph
+    properties:
+      text: "format: DD:HH:MM:SS — Full countdown"
+      typography: {size: sm, weight: semibold, color: '#6b7280'}
+      spacing: {marginBlock: sm}
 
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: lg}
+      appearance: {background: {color: '#1e1b4b', transparency: 100}, radius: lg}
+    components:
+    - name: countdown
       properties:
-        layout: { horizontalAlign: center }
-        spacing: { paddingBlock: lg }
-        appearance: { background: { color: '#1e1b4b', transparency: 100 }, radius: lg }
-      components:
-        - name: countdown
-          properties:
-            targetDate: '2026-12-31T23:59:59'
-            format: 'DD:HH:MM:SS'
-            expiredText: 'Happy New Year!'
-            typography:
-              size: xxl
-              weight: bold
-              color: '#ffffff'
-              align: center
+        targetDate: '2026-12-31T23:59:59'
+        format: 'DD:HH:MM:SS'
+        expiredText: 'Happy New Year!'
+        typography:
+          size: xxl
+          weight: bold
+          color: '#ffffff'
+          align: center
 
-    - name: br
-      properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+  - name: br
+    properties: {type: solid, thickness: 1, color: '#e5e7eb', size: lg}
 
     # ─────────────────────────────────────────
     # FORMAT: HH:MM:SS
     # Omits days — just Hours, Minutes, Seconds
     # ─────────────────────────────────────────
-    - name: paragraph
-      properties:
-        text: "format: HH:MM:SS — No days segment"
-        typography: { size: sm, weight: semibold, color: '#6b7280' }
-        spacing: { marginBlock: sm }
+  - name: paragraph
+    properties:
+      text: "format: HH:MM:SS — No days segment"
+      typography: {size: sm, weight: semibold, color: '#6b7280'}
+      spacing: {marginBlock: sm}
 
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: lg}
+      appearance: {background: {color: '#f8fafc', transparency: 100}, radius: lg}
+    components:
+    - name: countdown
       properties:
-        layout: { horizontalAlign: center }
-        spacing: { paddingBlock: lg }
-        appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: lg }
-      components:
-        - name: countdown
-          properties:
-            targetDate: '2026-12-31T23:59:59'
-            format: 'HH:MM:SS'
-            expiredText: 'Time is up!'
-            typography:
-              size: xl
-              weight: bold
-              color: '#111827'
-              align: center
+        targetDate: '2026-12-31T23:59:59'
+        format: 'HH:MM:SS'
+        expiredText: 'Time is up!'
+        typography:
+          size: xl
+          weight: bold
+          color: '#111827'
+          align: center
 
-    - name: br
-      properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+  - name: br
+    properties: {type: solid, thickness: 1, color: '#e5e7eb', size: lg}
 
     # ─────────────────────────────────────────
     # FORMAT: MM:SS
     # Minimal — just Minutes and Seconds
     # ─────────────────────────────────────────
-    - name: paragraph
-      properties:
-        text: "format: MM:SS — Minutes and seconds only"
-        typography: { size: sm, weight: semibold, color: '#6b7280' }
-        spacing: { marginBlock: sm }
+  - name: paragraph
+    properties:
+      text: "format: MM:SS — Minutes and seconds only"
+      typography: {size: sm, weight: semibold, color: '#6b7280'}
+      spacing: {marginBlock: sm}
 
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: lg}
+      appearance: {background: {color: '#fef2f2', transparency: 100}, radius: lg}
+    components:
+    - name: countdown
       properties:
-        layout: { horizontalAlign: center }
-        spacing: { paddingBlock: lg }
-        appearance: { background: { color: '#fef2f2', transparency: 100 }, radius: lg }
-      components:
-        - name: countdown
-          properties:
-            targetDate: '2026-12-31T23:59:59'
-            format: 'MM:SS'
-            expiredText: 'Done!'
-            typography:
-              size: xl
-              weight: bold
-              color: '#ef4444'
-              align: center
+        targetDate: '2026-12-31T23:59:59'
+        format: 'MM:SS'
+        expiredText: 'Done!'
+        typography:
+          size: xl
+          weight: bold
+          color: '#ef4444'
+          align: center
 
-    - name: br
-      properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+  - name: br
+    properties: {type: solid, thickness: 1, color: '#e5e7eb', size: lg}
 
     # ─────────────────────────────────────────
     # EXPIRED STATE
     # Set targetDate to a past date to see expiredText
     # ─────────────────────────────────────────
-    - name: paragraph
-      properties:
-        text: "Expired state — targetDate in the past"
-        typography: { size: sm, weight: semibold, color: '#6b7280' }
-        spacing: { marginBlock: sm }
+  - name: paragraph
+    properties:
+      text: "Expired state — targetDate in the past"
+      typography: {size: sm, weight: semibold, color: '#6b7280'}
+      spacing: {marginBlock: sm}
 
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: lg}
+      appearance: {background: {color: '#f8fafc', transparency: 100}, radius: lg}
+    components:
+    - name: countdown
       properties:
-        layout: { horizontalAlign: center }
-        spacing: { paddingBlock: lg }
-        appearance: { background: { color: '#f8fafc', transparency: 100 }, radius: lg }
-      components:
-        - name: countdown
-          properties:
-            targetDate: '2020-01-01T00:00:00'   # Past date
-            format: 'DD:HH:MM:SS'
-            expiredText: 'This event has ended'
-            typography:
-              size: xl
-              weight: bold
-              color: '#94a3b8'
-              align: center
+        targetDate: '2020-01-01T00:00:00'       # Past date
+        format: 'DD:HH:MM:SS'
+        expiredText: 'This event has ended'
+        typography:
+          size: xl
+          weight: bold
+          color: '#94a3b8'
+          align: center
 
-    - name: br
-      properties: { type: solid, thickness: 1, color: '#e5e7eb', size: lg }
+  - name: br
+    properties: {type: solid, thickness: 1, color: '#e5e7eb', size: lg}
 
     # ─────────────────────────────────────────
     # REAL-WORLD: Launch countdown with context
     # ─────────────────────────────────────────
-    - name: paragraph
-      properties:
-        text: "Real-world usage — Product launch countdown"
-        typography: { size: sm, weight: semibold, color: '#6b7280' }
-        spacing: { marginBlock: sm }
+  - name: paragraph
+    properties:
+      text: "Real-world usage — Product launch countdown"
+      typography: {size: sm, weight: semibold, color: '#6b7280'}
+      spacing: {marginBlock: sm}
 
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: xl, paddingInline: lg}
+      appearance:
+        background:
+          type: gradient
+          gradient:
+            colorStart: '#6366f1'
+            colorEnd: '#8b5cf6'
+            direction: to right
+        radius: lg
+    components:
+    - name: eyebrow
       properties:
-        layout: { horizontalAlign: center }
-        spacing: { paddingBlock: xl, paddingInline: lg }
-        appearance:
-          background:
-            type: gradient
-            gradient:
-              colorStart: '#6366f1'
-              colorEnd: '#8b5cf6'
-              direction: to right
-          radius: lg
-      components:
-        - name: eyebrow
-          properties:
-            text: "LAUNCHING SOON"
-            typography: { size: xs, weight: semibold, color: '#c7d2fe', transform: uppercase, letterSpacing: wider, align: center }
-        - name: heading
-          properties:
-            text: "Something Amazing is Coming"
-            level: 2
-            typography: { size: xl, weight: bold, color: '#ffffff', align: center }
-            spacing: { marginBlock: sm }
-        - name: countdown
-          properties:
-            targetDate: '2027-01-01T00:00:00'
-            format: 'DD:HH:MM:SS'
-            expiredText: 'We are live!'
-            typography:
-              size: xxl
-              weight: extrabold
-              color: '#ffffff'
-              align: center
-        - name: button
-          properties:
-            text: "Notify Me"
-            appearance: { background: { color: '#ffffff' }, radius: pill, padding: { block: sm, inline: xl } }
-            typography: { color: '#6366f1', weight: semibold }
-            spacing: { marginBlock: md }
+        text: "LAUNCHING SOON"
+        typography: {size: xs, weight: semibold, color: '#c7d2fe', transform: uppercase, letterSpacing: wider, align: center}
+    - name: heading
+      properties:
+        text: "Something Amazing is Coming"
+        level: 2
+        typography: {size: xl, weight: bold, color: '#ffffff', align: center}
+        spacing: {marginBlock: sm}
+    - name: countdown
+      properties:
+        targetDate: '2027-01-01T00:00:00'
+        format: 'DD:HH:MM:SS'
+        expiredText: 'We are live!'
+        typography:
+          size: xxl
+          weight: extrabold
+          color: '#ffffff'
+          align: center
+    - name: button
+      properties:
+        text: "Notify Me"
+        appearance: {background: {color: '#ffffff'}, radius: pill}
+        typography: {color: '#6366f1', weight: semibold}
+        spacing: {marginBlock: md, paddingBlock: sm, paddingInline: xl}

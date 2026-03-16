@@ -1,0 +1,265 @@
+# Glassmorphism Hero
+# Frosted glass cards floating over a vibrant gradient background
+# Base components: site, page, layout-row, layout-column, heading, paragraph, button
+# Section type: hero
+# Layout: stacked
+# Visual style: glassmorphism
+# Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
+        secondary: &color-secondary "#B0D4E8"
+        accent: &color-accent "#3182CE"
+        background: &color-background "#0f172a"
+  components:
+    - name: page
+      slug: home
+      title: "Glassmorphism Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+
+        # Gradient background — mandatory for glassmorphism blur visibility
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-accent
+                  colorEnd: *color-background
+                  direction: to bottom right
+                transparency: 100
+
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+          components:
+            # Content area
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                  gap: lg
+                appearance:
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: lg
+              components:
+
+                # Glass badge pill
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: nowrap
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        transparency: 15
+                      blur: true
+                      radius: pill
+                      border:
+                        width: 1
+                        style: solid
+                        color: '#ffffff'
+                    spacing:
+                      paddingBlock: xs
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "Launching Q2 2026"
+                        typography:
+                          color: *color-text
+                          size: sm
+                          weight: medium
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "Build faster with less friction"
+                    level: 1
+                    layout:
+                      widthMode: "75"
+                    typography:
+                      color: *color-primary
+                      size: xxxl
+                      weight: bold
+                      align: center
+                      lineHeight: snug
+
+                # Subheading
+                - name: paragraph
+                  properties:
+                    text: |
+                      Ship production-ready apps in hours, not weeks. Our platform handles
+                      the infrastructure so you can focus on what makes your product special.
+                    layout:
+                      widthMode: "50"
+                    typography:
+                      color: *color-secondary
+                      size: lg
+                      align: center
+                      lineHeight: relaxed
+                      weight: light
+
+                # Glass feature card
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: "83"
+                      gap: md
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        transparency: 12
+                      blur: true
+                      radius: lg
+                      border:
+                        width: 1
+                        style: solid
+                        color: '#ffffff'
+                      shadow: soft
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout:
+                          horizontalAlign: space-evenly
+                          verticalAlign: center
+                          wrap: wrap
+                      components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              widthMode: "33"
+                              horizontalAlign: center
+                              gap: xs
+                          components:
+                            - name: paragraph
+                              properties:
+                                text: "10x"
+                                typography:
+                                  color: *color-text
+                                  size: xl
+                                  weight: bold
+                                  align: center
+                            - name: paragraph
+                              properties:
+                                text: "Faster Development"
+                                typography:
+                                  color: *color-secondary
+                                  size: sm
+                                  align: center
+                        - name: layout-column
+                          properties:
+                            layout:
+                              widthMode: "33"
+                              horizontalAlign: center
+                              gap: xs
+                          components:
+                            - name: paragraph
+                              properties:
+                                text: "99.9%"
+                                typography:
+                                  color: *color-text
+                                  size: xl
+                                  weight: bold
+                                  align: center
+                            - name: paragraph
+                              properties:
+                                text: "Uptime SLA"
+                                typography:
+                                  color: *color-secondary
+                                  size: sm
+                                  align: center
+                        - name: layout-column
+                          properties:
+                            layout:
+                              widthMode: "33"
+                              horizontalAlign: center
+                              gap: xs
+                          components:
+                            - name: paragraph
+                              properties:
+                                text: "50K+"
+                                typography:
+                                  color: *color-text
+                                  size: xl
+                                  weight: bold
+                                  align: center
+                            - name: paragraph
+                              properties:
+                                text: "Active Users"
+                                typography:
+                                  color: *color-secondary
+                                  size: sm
+                                  align: center
+
+                # CTA buttons — glass style
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Get Started Free"
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 20
+                          blur: true
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          radius: pill
+                          shadow: soft
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                          paddingBlock: md
+                          paddingInline: xl
+                        typography:
+                          color: *color-primary
+                          weight: bold
+                          size: md
+                    - name: button
+                      properties:
+                        text: "Watch Demo"
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 10
+                          blur: true
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          radius: pill
+                        typography:
+                          color: *color-primary
+                          weight: semibold
+                          size: md

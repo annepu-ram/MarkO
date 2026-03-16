@@ -15,367 +15,359 @@
     # ==========================================
     # 1. TITLEBAR VARIATIONS
     # ==========================================
-    
-    - name: heading
-      properties:
-        text: "1. Titlebar Alignments"
-        level: 2
-        typography:
-          size: xl
-          weight: bold
-        spacing:
-          marginBlock: md
+  - name: heading
+    properties:
+      text: "1. Titlebar Alignments"
+      level: 2
+      typography:
+        size: xl
+        weight: bold
+      spacing:
+        marginBlock: md
 
     # 1a. Left Alignment (Default)
-    - name: titlebar
-      properties:
-        branding:
-          title: "Left Brand"
-          showLogo: true
-          logoUrl: "https://via.placeholder.com/40"
-        navigation:
-          links:
-            - label: "Home"
-              href: "#"
-            - label: "About"
-              href: "#"
-        layout:
-          alignment: "left"
-        appearance:
-          background:
-            color: '#ffffff'
-        spacing:
-          marginBlock: sm
+  - name: titlebar
+    properties:
+      branding:
+        title: "Left Brand"
+        showLogo: true
+        logoUrl: "https://via.placeholder.com/40"
+      navigation:
+        links:
+        - label: "Home"
+          href: "#"
+        - label: "About"
+          href: "#"
+      layout:
+        alignment: "left"
+      appearance:
+        background:
+          color: '#ffffff'
+      spacing:
+        marginBlock: sm
 
     # 1b. Right Alignment
-    - name: titlebar
-      properties:
-        branding:
-          title: "Right Brand"
-          showLogo: true
-          logoUrl: "https://via.placeholder.com/40/0000FF/808080"
-        navigation:
-          links:
-            - label: "Services"
-              href: "#"
-            - label: "Contact"
-              href: "#"
-        layout:
-          alignment: "right"
-        appearance:
-          background:
-            color: '#f0f9ff'
-        spacing:
-          marginBlock: sm
+  - name: titlebar
+    properties:
+      branding:
+        title: "Right Brand"
+        showLogo: true
+        logoUrl: "https://via.placeholder.com/40/0000FF/808080"
+      navigation:
+        links:
+        - label: "Services"
+          href: "#"
+        - label: "Contact"
+          href: "#"
+      layout:
+        alignment: "right"
+      appearance:
+        background:
+          color: '#f0f9ff'
+      spacing:
+        marginBlock: sm
 
     # 1c. Center Alignment
-    - name: titlebar
-      properties:
-        branding:
-          title: "Center Brand"
-          showLogo: true
-          logoUrl: "https://via.placeholder.com/40/FF0000/FFFFFF"
-        navigation:
-          links:
-            - label: "Portfolio"
-              href: "#"
-            - label: "Blog"
-              href: "#"
-            - label: "Shop"
-              href: "#"
-        layout:
-          alignment: "center"
-        appearance:
-          background:
-            color: '#fff1f2'
-        spacing:
-          marginBlock: sm
+  - name: titlebar
+    properties:
+      branding:
+        title: "Center Brand"
+        showLogo: true
+        logoUrl: "https://via.placeholder.com/40/FF0000/FFFFFF"
+      navigation:
+        links:
+        - label: "Portfolio"
+          href: "#"
+        - label: "Blog"
+          href: "#"
+        - label: "Shop"
+          href: "#"
+      layout:
+        alignment: "center"
+      appearance:
+        background:
+          color: '#fff1f2'
+      spacing:
+        marginBlock: sm
 
-    - name: br
-      properties:
-        size: lg
+  - name: br
+    properties:
+      size: lg
 
     # ==========================================
     # 2. CAROUSEL VARIATIONS
     # ==========================================
 
-    - name: heading
-      properties:
-        text: "2. Carousel Features"
-        level: 2
-        spacing:
-          marginBlock: md
+  - name: heading
+    properties:
+      text: "2. Carousel Features"
+      level: 2
+      spacing:
+        marginBlock: md
 
     # 2a. Image Carousel (Auto-play)
-    - name: paragraph
-      properties:
-        text: "Auto-playing Image Carousel (3s delay)"
-        spacing:
-          marginBlock: sm
+  - name: paragraph
+    properties:
+      text: "Auto-playing Image Carousel (3s delay)"
+      spacing:
+        marginBlock: sm
 
-    - name: carousel
-      properties:
-        behavior:
-          autoplay: true
-          delay: 3000
-      slides:
-        - components:
-          - name: image
-            properties:
-              source:
-                url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80"
-                altText: "Landscape 1"
-              presentation:
-                height: "400px"
-                fit: "cover"
-        - components:
-          - name: image
-            properties:
-              source:
-                url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80"
-                altText: "Landscape 2"
-              presentation:
-                height: "400px"
-                fit: "cover"
-        - components:
-          - name: image
-            properties:
-              source:
-                url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80"
-                altText: "Landscape 3"
-              presentation:
-                height: "400px"
-                fit: "cover"
+  - name: carousel
+    properties:
+      behavior:
+        autoplay: true
+        delay: 3000
+    slides:
+    - components:
+      - name: image
+        properties:
+          source:
+            url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80"
+            altText: "Landscape 1"
+          presentation:
+            height: "400px"
+            fit: "cover"
+    - components:
+      - name: image
+        properties:
+          source:
+            url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80"
+            altText: "Landscape 2"
+          presentation:
+            height: "400px"
+            fit: "cover"
+    - components:
+      - name: image
+        properties:
+          source:
+            url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80"
+            altText: "Landscape 3"
+          presentation:
+            height: "400px"
+            fit: "cover"
 
     # 2b. Mixed Content Carousel (Manual)
-    - name: paragraph
-      properties:
-        text: "Mixed Content Carousel (Manual Navigation)"
-        spacing:
-          marginBlock: md
+  - name: paragraph
+    properties:
+      text: "Mixed Content Carousel (Manual Navigation)"
+      spacing:
+        marginBlock: md
 
-    - name: carousel
-      properties:
-        behavior:
-          autoplay: false
-      slides:
-        - components:
-          - name: layout-column
+  - name: carousel
+    properties:
+      behavior:
+        autoplay: false
+    slides:
+    - components:
+      - name: layout-column
+        properties:
+          appearance:
+            background:
+              color: '#e0e7ff'
+          spacing:
+            padding:
+              block: xl
+              inline: xl
+          layout: {}
+        components:
+        - name: heading
+          properties:
+            text: "Slide 1: Text Content"
+            level: 3
+        - name: paragraph
+          properties:
+            text: "This slide contains text components layout in a column."
+    - components:
+      - name: layout-row
+        properties:
+          appearance:
+            background:
+              color: '#dcfce7'
+          spacing:
+            padding:
+              block: lg
+              inline: lg
+          layout:
+            distribution: space-evenly
+        components:
+        - name: image
+          properties:
+            source:
+              url: "https://via.placeholder.com/150"
+            presentation:
+              height: "150px"
+        - name: layout-column
+          properties:
+            layout: {}
+          components:
+          - name: heading
             properties:
-              appearance:
-                background:
-                  color: '#e0e7ff'
-              spacing:
-                padding: 
-                  block: xl
-                  inline: xl
-              layout:
-                align: center
-            components:
-              - name: heading
-                properties:
-                  text: "Slide 1: Text Content"
-                  level: 3
-              - name: paragraph
-                properties:
-                  text: "This slide contains text components layout in a column."
-        
-        - components:
-          - name: layout-row
+              text: "Slide 2: Complex Layout"
+              level: 3
+          - name: button
             properties:
-              appearance:
-                background:
-                  color: '#dcfce7'
-              spacing:
-                padding: 
-                  block: lg
-                  inline: lg
-              layout:
-                distribution: space-evenly
-            components:
-              - name: image
-                properties:
-                  source:
-                    url: "https://via.placeholder.com/150"
-                  presentation:
-                    height: "150px"
-              - name: layout-column
-                properties:
-                  layout:
-                    align: start
-                components:
-                  - name: heading
-                    properties:
-                      text: "Slide 2: Complex Layout"
-                      level: 3
-                  - name: button
-                    properties:
-                      text: "Call to Action"
-                      variant: "primary"
+              text: "Call to Action"
+              variant: "primary"
 
-    - name: br
-      properties:
-        size: lg
+  - name: br
+    properties:
+      size: lg
 
     # ==========================================
     # 3. TABS VARIATIONS
     # ==========================================
 
-    - name: heading
-      properties:
-        text: "3. Tabs Layouts"
-        level: 2
-        spacing:
-          marginBlock: md
+  - name: heading
+    properties:
+      text: "3. Tabs Layouts"
+      level: 2
+      spacing:
+        marginBlock: md
 
     # 3a. Horizontal Tabs
-    - name: tabs
-      properties:
-        layout:
-          orientation: "horizontal"
-      tabs:
-        - title: "First Tab"
-          components:
-            - name: paragraph
-              properties:
-                text: "This is the content of the first tab."
-        - title: "Second Tab"
-          components:
-            - name: paragraph
-              properties:
-                text: "This is the content of the second tab."
-        - title: "Third Tab"
-          components:
-            - name: paragraph
-              properties:
-                text: "This is the content of the third tab."
+  - name: tabs
+    properties:
+      layout:
+        orientation: "horizontal"
+    tabs:
+    - title: "First Tab"
+      components:
+      - name: paragraph
+        properties:
+          text: "This is the content of the first tab."
+    - title: "Second Tab"
+      components:
+      - name: paragraph
+        properties:
+          text: "This is the content of the second tab."
+    - title: "Third Tab"
+      components:
+      - name: paragraph
+        properties:
+          text: "This is the content of the third tab."
 
     # 3b. Vertical Tabs (if supported by CSS)
-    - name: paragraph
-      properties:
-        text: "Vertical Tabs"
-        spacing:
-          marginBlock: md
+  - name: paragraph
+    properties:
+      text: "Vertical Tabs"
+      spacing:
+        marginBlock: md
 
-    - name: tabs
-      properties:
-        layout:
-          orientation: "vertical"
-      tabs:
-        - title: "Profile"
-          components:
-            - name: paragraph
-              properties:
-                text: "User profile settings and information."
-        - title: "Security"
-          components:
-            - name: paragraph
-              properties:
-                text: "Password and security settings."
-        - title: "Notifications"
-          components:
-            - name: paragraph
-              properties:
-                text: "Email and push notification preferences."
+  - name: tabs
+    properties:
+      layout:
+        orientation: "vertical"
+    tabs:
+    - title: "Profile"
+      components:
+      - name: paragraph
+        properties:
+          text: "User profile settings and information."
+    - title: "Security"
+      components:
+      - name: paragraph
+        properties:
+          text: "Password and security settings."
+    - title: "Notifications"
+      components:
+      - name: paragraph
+        properties:
+          text: "Email and push notification preferences."
 
-    - name: br
-      properties:
-        size: lg
+  - name: br
+    properties:
+      size: lg
 
     # ==========================================
     # 4. ACCORDION VARIATIONS
     # ==========================================
 
-    - name: heading
-      properties:
-        text: "4. Accordion"
-        level: 2
-        spacing:
-          marginBlock: md
+  - name: heading
+    properties:
+      text: "4. Accordion"
+      level: 2
+      spacing:
+        marginBlock: md
 
     # 4a. Accordion with text content only
-    - name: accordion
-      properties:
-        behavior:
-          allowMultipleOpen: false
-        spacing:
-          marginBlock: md
-      items:
-        - title: "Frequently Asked Question #1"
-          content: "The answer to the question is simple and concise."
-        
-        - title: "Multi-line Content Example"
-          content: |
-            This is a longer answer with multiple lines.
-            It demonstrates multiline text support in accordion items.
-            Use the pipe operator in YAML for better formatting.
+  - name: accordion
+    properties:
+      behavior:
+        allowMultipleOpen: false
+      spacing:
+        marginBlock: md
+    items:
+    - title: "Frequently Asked Question #1"
+      content: "The answer to the question is simple and concise."
+    - title: "Multi-line Content Example"
+      content: |
+        This is a longer answer with multiple lines.
+        It demonstrates multiline text support in accordion items.
+        Use the pipe operator in YAML for better formatting.
 
     # 4b. Accordion with nested components
-    - name: heading
-      properties:
-        text: "Accordion with Nested Components"
-        level: 3
-        spacing:
-          marginBlock: md
+  - name: heading
+    properties:
+      text: "Accordion with Nested Components"
+      level: 3
+      spacing:
+        marginBlock: md
 
-    - name: accordion
-      properties:
-        behavior:
-          allowMultipleOpen: true
-        spacing:
-          marginBlock: md
-      items:
-        - title: "Can I include components?"
+  - name: accordion
+    properties:
+      behavior:
+        allowMultipleOpen: true
+      spacing:
+        marginBlock: md
+    items:
+    - title: "Can I include components?"
+      components:
+      - name: image
+        properties:
+          source:
+            url: "https://via.placeholder.com/400x200/6366f1/ffffff?text=Accordion+Image"
+          presentation:
+            height: "200px"
+            fit: "cover"
+      - name: paragraph
+        properties:
+          text: "Yes! Accordions can contain images and other components."
+          typography:
+            size: md
+            color: '#374151'
+    - title: "Complex Layout Example"
+      components:
+      - name: layout-row
+        properties:
+          layout:
+            distribution: space-evenly
+            verticalAlign: center
+          spacing:
+            paddingBlock: md
+        components:
+        - name: image
+          properties:
+            source:
+              url: "https://via.placeholder.com/150"
+            presentation:
+              height: "150px"
+        - name: layout-column
+          properties:
+            layout:
+              distribution: space-evenly
           components:
-            - name: image
-              properties:
-                source:
-                  url: "https://via.placeholder.com/400x200/6366f1/ffffff?text=Accordion+Image"
-                presentation:
-                  height: "200px"
-                  fit: "cover"
-            - name: paragraph
-              properties:
-                text: "Yes! Accordions can contain images and other components."
-                typography:
-                  size: md
-                  color: '#374151'
-        
-        - title: "Complex Layout Example"
-          components:
-            - name: layout-row
-              properties:
-                layout:
-                  distribution: space-evenly
-                  align: center
-                spacing:
-                  paddingBlock: md
-              components:
-                - name: image
-                  properties:
-                    source:
-                      url: "https://via.placeholder.com/150"
-                    presentation:
-                      height: "150px"
-                - name: layout-column
-                  properties:
-                    layout:
-                      align: start
-                      distribution: space-evenly
-                  components:
-                    - name: heading
-                      properties:
-                        text: "Nested Layout"
-                        level: 4
-                    - name: paragraph
-                      properties:
-                        text: "Accordion items can contain complex nested layouts!"
-        
-        - title: "Mixed Content"
-          content: "This item has both text content and components below."
-          components:
-            - name: button
-              properties:
-                text: "Learn More"
-                variant: "primary"
+          - name: heading
+            properties:
+              text: "Nested Layout"
+              level: 4
+          - name: paragraph
+            properties:
+              text: "Accordion items can contain complex nested layouts!"
+    - title: "Mixed Content"
+      content: "This item has both text content and components below."
+      components:
+      - name: button
+        properties:
+          text: "Learn More"
+          variant: "primary"
 

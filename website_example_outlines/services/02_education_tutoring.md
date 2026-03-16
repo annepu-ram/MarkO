@@ -31,28 +31,31 @@
 2. **layout-row (Hero Split)**
    Left: eyebrow ("Expert Home Tutoring") + heading + paragraph (subjects taught, teaching approach), button ("Book Free Trial Class"). Right: image (tutor teaching).
 
-3. **counter-up (Results Row)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **counter-up (Results Row)**
    layout-row: "500+ Students Taught", "95% Score Improvement", "8+ Years Experience", "4.9 Rating".
 
-4. **columnsgrid (Subjects Offered — 3 columns)**
+5. **columnsgrid (Subjects Offered — 3 columns)**
    Each: icon + heading + caption. Math, Science, English, Social Studies, Computer Science, etc.
 
-5. **tabs (Class Levels)**
+6. **tabs (Class Levels)**
    Tabs: Primary (1-5), Middle School (6-8), High School (9-10), Board Exam Prep (11-12). Each: paragraph describing curriculum focus + button.
 
-6. **layout-row (Teaching Methodology)**
+7. **layout-row (Teaching Methodology)**
    Left: image/gif (whiteboard/teaching). Right: heading + accordion with items: Personalized Approach, Regular Assessments, Parent Updates, Doubt Clearing Sessions.
 
-7. **carousel (Student/Parent Testimonials)**
+8. **carousel (Student/Parent Testimonials)**
    Slides: blockquote + paragraph + caption (parent name, student grade).
 
-8. **layout-row (Pricing)**
+9. **layout-row (Pricing)**
    columnsgrid — 3 cards: "Individual" / "Group of 3" / "Group of 5" each with heading + paragraph (details) + counter-up (price/month) + button.
 
-9. **form (Book a Demo Class)**
+10. **form (Book a Demo Class)**
    textbox (parent name), textbox (phone), dropdown (subject), dropdown (class/grade), calendar (preferred date), button.
 
-10. **layout-row (Footer)**
+11. **layout-row (Footer)**
     Contact info, areas served, social links.
 
 ---
@@ -67,28 +70,31 @@
 2. **video-background (Hero)**
    Classroom/campus footage, overlay: heading ("Crack Your Dream Exam"), paragraph, two buttons ("Explore Courses", "Enroll Now").
 
-3. **ticker (Achievements Scroll)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **ticker (Achievements Scroll)**
    Scrolling: "AIR 45 — JEE 2025", "98.6% Pass Rate", "500+ Selections", badges and icons.
 
-4. **columnsgrid (Courses — 3 columns)**
+5. **columnsgrid (Courses — 3 columns)**
    Each: icon + heading + paragraph + button. JEE/NEET Prep, Foundation (8-10), Board Exam Crash Course, etc.
 
-5. **tabs (Why Choose Us)**
+6. **tabs (Why Choose Us)**
    Tabs: Expert Faculty, Study Material, Test Series, Doubt Sessions, Results. Each: image + paragraph + progress-bar or counter-up.
 
-6. **layout-row (Toppers Section)**
+7. **layout-row (Toppers Section)**
    heading + carousel of student cards: image + heading (name) + badge (rank/score) + caption (exam).
 
-7. **countdown (Next Batch Starting)**
+8. **countdown (Next Batch Starting)**
    "New JEE Batch Starts In:" countdown + button ("Reserve Your Seat").
 
-8. **accordion (FAQs)**
+9. **accordion (FAQs)**
    Batch timings, fee structure, scholarship, online vs offline, demo class policy.
 
-9. **form (Enquiry Form)**
+10. **form (Enquiry Form)**
    textbox (name), textbox (phone), dropdown (course), dropdown (class), textarea (message), button.
 
-10. **layout-row (Footer)**
+11. **layout-row (Footer)**
     Branches/addresses, contact numbers, social media, quick links.
 
 **Page 2: Results**
@@ -116,29 +122,32 @@
 2. **layout-row (Hero)**
    Left: heading ("Learn Anything, Anywhere") + paragraph + two buttons ("Browse Courses", "Start Free Trial"). Right: image/gif (app screenshot or student studying).
 
-3. **ticker (Trusted By)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **ticker (Trusted By)**
    Scrolling school/college/company logos.
 
-4. **columnsgrid (Course Categories — 4 columns)**
+5. **columnsgrid (Course Categories — 4 columns)**
    Each: icon + heading + caption + link. Academic, Competitive, Skill Development, Language.
 
-5. **layout-row (How It Works)**
+6. **layout-row (How It Works)**
    3-step columnsgrid: icon + heading + paragraph. "Sign Up" → "Choose Your Course" → "Learn & Grow".
 
-6. **tabs (Popular Courses)**
+7. **tabs (Popular Courses)**
    Tab per category, each showing course cards in columnsgrid: image + heading + caption (duration) + rating + button ("Enroll").
 
-7. **counter-up (Platform Stats)**
+8. **counter-up (Platform Stats)**
    "50,000+ Students", "200+ Courses", "100+ Instructors", "4.7 Average Rating".
 
-8. **carousel (Student Success Stories)**
+9. **carousel (Student Success Stories)**
    Video thumbnails or blockquote testimonials.
 
-9. **layout-row (Pricing Plans)**
+10. **layout-row (Pricing Plans)**
    3 cards: Free / Premium / Pro. Each: heading + paragraph (features list) + counter-up (price) + badge ("Most Popular" on Premium) + button.
 
-10. **layout-row (Download App CTA)**
+11. **layout-row (Download App CTA)**
     image (phone mockup) + heading + paragraph + two buttons (App Store, Play Store).
 
-11. **layout-row (Footer)**
+12. **layout-row (Footer)**
     Quick links, legal, social media, newsletter form (textbox email + button).

@@ -1,0 +1,276 @@
+# Monochrome / Dark Mode Hero
+# Sleek dark design with a single bright accent color and sharp elegant corners
+# Base components: site, page, layout-row, layout-column, eyebrow, heading, paragraph, button, image, br
+# Section type: hero
+# Layout: stacked
+# Visual style: monochrome
+# Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#F5F5F5"
+        text: &color-text "#D9D9D9"
+        secondary: &color-secondary "#9CA3AF"
+        accent: &color-accent "#DC143C"
+        background: &color-background "#0F0F0F"
+  components:
+    - name: page
+      slug: home
+      title: "Monochrome Dark Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+
+        # Hero section — sleek dark layout
+        - name: layout-row
+          properties:
+            layout:
+              wrap: wrap
+              verticalAlign: center
+              horizontalAlign: center
+              tag: section
+              gap: lg
+            spacing:
+              marginBlock: none
+              marginInline: none
+              paddingBlock: xxl
+              paddingInline: lg
+            appearance:
+              background:
+                type: ""
+                color: "#ffffff"
+                transparency: 0
+              blur: false
+              border:
+                width: 0
+                style: solid
+                color: "#000000"
+              radius: none
+              shadow: none
+              shadowColor: "#000000"
+          components:
+
+            # Left column — text content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  gap: md
+                appearance:
+                spacing:
+                  paddingInline: md
+              components:
+                - name: eyebrow
+                  properties:
+                    text: "Coming Soon"
+                    typography:
+                      color: *color-accent
+                      size: xs
+                      weight: semibold
+                      letterSpacing: wider
+                      transform: uppercase
+
+                - name: heading
+                  properties:
+                    text: "Precision engineered for performance"
+                    level: 1
+                    typography:
+                      color: *color-primary
+                      size: xxl
+                      weight: semibold
+                      letterSpacing: wide
+                      lineHeight: snug
+
+                - name: paragraph
+                  properties:
+                    text: |
+                      Built for those who demand the best. Minimal interface,
+                      maximum power. Every pixel considered, every interaction refined.
+                    typography:
+                      color: *color-secondary
+                      size: md
+                      weight: light
+                      lineHeight: relaxed
+
+                # Stats in dark cards
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          widthMode: "33"
+                          horizontalAlign: center
+                          gap: xs
+                        appearance:
+                          background:
+                            color: '#1F1F1F'
+                            transparency: 100
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#333333'
+                          radius: xs
+                          shadow: soft
+                          shadowColor: '#000000'
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: sm
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: "<1ms"
+                            typography:
+                              color: *color-text
+                              size: lg
+                              weight: semibold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Latency"
+                            typography:
+                              color: *color-secondary
+                              size: xs
+                              align: center
+
+                    - name: layout-column
+                      properties:
+                        layout:
+                          widthMode: "33"
+                          horizontalAlign: center
+                          gap: xs
+                        appearance:
+                          background:
+                            color: '#1F1F1F'
+                            transparency: 100
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#333333'
+                          radius: xs
+                          shadow: soft
+                          shadowColor: '#000000'
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: sm
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: "10M+"
+                            typography:
+                              color: *color-text
+                              size: lg
+                              weight: semibold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Requests/sec"
+                            typography:
+                              color: *color-secondary
+                              size: xs
+                              align: center
+
+                # CTA — accent color ONLY on primary button
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Request Access"
+                        appearance:
+                          background:
+                            color: *color-accent
+                            transparency: 100
+                          border:
+                            width: 0
+                          radius: xs
+                          shadow: none
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                          paddingBlock: md
+                          paddingInline: xl
+                        typography:
+                          color: '#ffffff'
+                          weight: semibold
+                          size: md
+                    - name: button
+                      properties:
+                        text: "Documentation"
+                        appearance:
+                          background:
+                            color: transparent
+                            transparency: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#444444'
+                          radius: xs
+                          shadow: none
+                        typography:
+                          color: *color-secondary
+                          weight: medium
+                          size: md
+
+            # Right column — dark card with image
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    appearance:
+                      background:
+                        color: '#1F1F1F'
+                        transparency: 100
+                      border:
+                        width: 1
+                        style: solid
+                        color: '#333333'
+                      radius: xs
+                      shadow: soft
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: sm
+                      paddingInline: sm
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=800
+                          altText: Dark abstract technology visualization
+                        appearance:
+                          minHeight: 25
+                          fit: cover
+                          radius: xs
+
+        # Accent divider line
+        - name: br
+          properties:
+            type: solid
+            thickness: 2
+            color: *color-accent
+            size: none

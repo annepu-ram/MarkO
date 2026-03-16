@@ -2,18 +2,40 @@
     {% set properties = component.properties | default({}) %}
     {% set layout_props = properties.layout | default({}) %}
     {% set submit = properties.submit | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
 
-    {# Get direction from layout.direction, default to column #}
-    {% set direction = layout_props.direction | default('column') %}
+    {# Form style determines layout behavior #}
+    {% set form_style = layout_props.style | default('vertical') %}
 
-    {# Outer wrapper styles #}
+    {# Map form style to flex direction for inner content #}
+    {% set direction = 'row' if form_style == 'inline' else 'column' %}
+
+    {# Outer wrapper styles (handles appearance: background, border, radius, shadow, spacing) #}
     {% set outer_styles = build_styles(component, tokens, part='outer') %}
 
     {# Inner wrapper styles: flex layout #}
     {% set inner_styles = build_flex_styles(component, tokens, direction) %}
 
-    <form class="form chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
-        <div class="form__content" style="{{ inner_styles }}">
+    {# Gap for form content #}
+    {% set gap_token = properties.spacing.gap | default('md') if properties.spacing else 'md' %}
+    {% set gap_value = tokens.spacing[gap_token] if tokens and tokens.spacing and gap_token in tokens.spacing else '1rem' %}
+
+    {# Extra inline styles for the inner content based on form style #}
+    {% set extra_inner = '' %}
+    {% if form_style == 'inline' %}
+        {% set extra_inner = 'align-items: flex-end; flex-wrap: wrap; gap: ' ~ gap_value ~ ';' %}
+    {% elif form_style == 'horizontal' %}
+        {% set extra_inner = 'gap: ' ~ gap_value ~ ';' %}
+    {% else %}
+        {% set extra_inner = 'gap: ' ~ gap_value ~ ';' %}
+    {% endif %}
+
+    <form class="form chrome-target"
+          data-component-id="{{ component_id }}"
+          data-component-name="form"
+          data-form-style="{{ form_style }}"
+          style="{{ outer_styles }}">
+        <div class="form__content" style="{{ inner_styles }} {{ extra_inner }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}
                 {{ render_component(child, tokens, child_path) }}

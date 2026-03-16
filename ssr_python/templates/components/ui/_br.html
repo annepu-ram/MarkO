@@ -16,6 +16,7 @@
     {% if div_type == 'wave' %}
         <div class="comp-br comp-br--wave chrome-target"
              data-component-id="{{ component_id }}"
+             data-component-name="br"
              style="width: 100%; overflow: hidden; line-height: 0; position: relative; {{ flip }}">
             <svg viewBox="0 0 1200 120" preserveAspectRatio="none"
                  style="width: 100%; height: {{ thickness * 10 }}px; display: block;">
@@ -26,6 +27,7 @@
     {% elif div_type == 'slant' %}
         <div class="comp-br comp-br--slant chrome-target"
              data-component-id="{{ component_id }}"
+             data-component-name="br"
              style="width: 100%; overflow: hidden; line-height: 0; position: relative; {{ flip }}">
             <svg viewBox="0 0 1200 40" preserveAspectRatio="none"
                  style="width: 100%; height: {{ thickness * 10 }}px; display: block;">
@@ -35,17 +37,20 @@
     {% elif orientation == 'vertical' %}
         <div class="comp-br comp-br--vertical chrome-target"
              data-component-id="{{ component_id }}"
+             data-component-name="br"
              style="border: none; border-left: {{ thickness }}px {{ div_type }} {{ color }}; height: 100%; min-height: 3rem; width: 0; display: inline-block; position: relative;">
         </div>
     {% else %}
         {% if invert %}
         <div class="comp-br chrome-target"
              data-component-id="{{ component_id }}"
+             data-component-name="br"
              style="height: {{ spacing_value }}; width: 100%; border-top: {{ thickness }}px {{ div_type }} {{ color }}; position: relative;">
         </div>
         {% else %}
         <div class="comp-br chrome-target"
              data-component-id="{{ component_id }}"
+             data-component-name="br"
              style="height: {{ spacing_value }}; width: 100%; border-bottom: {{ thickness }}px {{ div_type }} {{ color }}; position: relative;">
         </div>
         {% endif %}

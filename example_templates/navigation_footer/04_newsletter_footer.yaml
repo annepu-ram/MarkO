@@ -1,6 +1,10 @@
-# 04 - The Newsletter Footer
-# layout-row with a paragraph on the left and a form (email textbox + button)
-# on the right. Dark background with accent highlights.
+# The Newsletter Footer
+# Layout-row footer with newsletter copy on the left and an email signup form on the right, plus a copyright bar.
+# Base components: page, layout-column, heading, paragraph, layout-row, eyebrow, form, textbox, button, link
+# Section type: footer
+# Layout: grid
+# Visual style: dark_mode
+# Perfect for: blogs, media sites, and SaaS products wanting to capture email subscribers in the footer
 
 - name: page
   properties:
@@ -10,175 +14,175 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#f1f5f9'
+        text: &color-text '#B2B5B7'
         secondary: &color-secondary '#94a3b8'
         accent: &color-accent '#f59e0b'
         background: &color-background '#ffffff'
-    spacing: { paddingBlock: none, paddingInline: none }
-    appearance: { background: { color: *color-background } }
+    spacing: {paddingBlock: none, paddingInline: none}
+    appearance: {background: {color: *color-background}}
   components:
 
     # ============================================
     # PAGE BODY (Demo Content)
     # ============================================
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: space-evenly}
+      spacing: {paddingBlock: xxxl, paddingInline: xl}
+    components:
+    - name: heading
       properties:
-        layout: { align: center, horizontalAlign: space-evenly }
-        spacing: { paddingBlock: xxxl, paddingInline: xl }
-      components:
-        - name: heading
-          properties:
-            text: Newsletter Footer Pattern
-            level: 1
-            typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
-            spacing: { marginBlock: md }
-        - name: paragraph
-          properties:
-            text: A dark-themed footer with a newsletter signup form. The left side features compelling copy and the right side has an email input with a subscribe button.
-            typography: { size: lg, color: *color-secondary, align: center }
-            layout: { widthMode: 75 }
+        text: Newsletter Footer Pattern
+        level: 1
+        typography: {size: xxxl, weight: extrabold, color: *color-primary, align: center}
+        spacing: {marginBlock: md}
+    - name: paragraph
+      properties:
+        text: A dark-themed footer with a newsletter signup form. The left side features compelling copy and the right side has an email input with a subscribe button.
+        typography: {size: lg, color: *color-secondary, align: center}
+        layout: {widthMode: 75}
 
     # ============================================
     # NEWSLETTER FOOTER
     # ============================================
-    - name: layout-row
-      properties:
-        layout: { horizontalAlign: space-between, align: center, wrap: wrap }
-        spacing: { paddingBlock: xxl, paddingInline: xxl }
-        appearance:
-          background:
-            type: gradient
-            gradient:
-              colorStart: *color-primary
-              colorEnd: *color-primary
-              direction: to bottom right
-      components:
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-between, wrap: wrap, verticalAlign: center}
+      spacing: {paddingBlock: xxl, paddingInline: xxl}
+      appearance:
+        background:
+          type: gradient
+          gradient:
+            colorStart: *color-primary
+            colorEnd: *color-primary
+            direction: to bottom right
+    components:
 
         # Left Side - Newsletter Copy
-        - name: layout-column
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly, widthMode: "50"}
+        spacing: {paddingBlock: sm}
+      components:
+      - name: eyebrow
+        properties:
+          text: STAY IN THE LOOP
+          typography: {size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Subscribe to Our Newsletter
+          level: 2
+          typography: {size: xxl, weight: bold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: Get the latest insights, tutorials, and product updates delivered straight to your inbox. No spam, unsubscribe anytime.
+          typography: {size: md, color: *color-secondary, lineHeight: '1.7'}
+          spacing: {marginBlock: sm}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-evenly, verticalAlign: center}
+          spacing: {marginBlock: sm}
+        components:
+        - name: paragraph
           properties:
-            layout: { align: start, horizontalAlign: space-evenly, widthMode: "50" }
-            spacing: { paddingBlock: sm }
-          components:
-            - name: eyebrow
-              properties:
-                text: STAY IN THE LOOP
-                typography: { size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider }
-            - name: heading
-              properties:
-                text: Subscribe to Our Newsletter
-                level: 2
-                typography: { size: xxl, weight: bold, color: *color-primary }
-                spacing: { marginBlock: sm }
-            - name: paragraph
-              properties:
-                text: Get the latest insights, tutorials, and product updates delivered straight to your inbox. No spam, unsubscribe anytime.
-                typography: { size: md, color: *color-secondary, lineHeight: '1.7' }
-                spacing: { marginBlock: sm }
-            - name: layout-row
-              properties:
-                layout: { horizontalAlign: space-evenly, align: center }
-                spacing: { marginBlock: sm }
-              components:
-                - name: paragraph
-                  properties:
-                    text: "Join 25,000+ subscribers"
-                    typography: { size: sm, weight: medium, color: *color-accent }
-                - name: paragraph
-                  properties:
-                    text: "Weekly digest every Friday"
-                    typography: { size: sm, weight: medium, color: *color-secondary }
+            text: "Join 25,000+ subscribers"
+            typography: {size: sm, weight: medium, color: *color-accent}
+        - name: paragraph
+          properties:
+            text: "Weekly digest every Friday"
+            typography: {size: sm, weight: medium, color: *color-secondary}
 
         # Right Side - Signup Form
-        - name: layout-column
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly, widthMode: "50"}
+        spacing: {paddingBlock: lg, paddingInline: lg}
+        appearance:
+          background: {color: *color-primary, transparency: 100}
+          radius: lg
+          border: {width: 1, style: solid, color: *color-secondary}
+      components:
+      - name: heading
+        properties:
+          text: Get Started Today
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary, align: center}
+          spacing: {marginBlock: sm}
+      - name: form
+        properties:
+          layout: {direction: column, horizontalAlign: space-evenly}
+          submit: {show: false}
+        components:
+        - name: textbox
           properties:
-            layout: { align: center, horizontalAlign: space-evenly, widthMode: "50" }
-            spacing: { paddingBlock: lg, paddingInline: lg }
+            label: {text: 'Email Address', show: true, typography: {size: sm, weight: medium, color: *color-secondary}}
+            field: {placeholder: 'you@example.com'}
             appearance:
-              background: { color: *color-primary, transparency: 100 }
-              radius: lg
-              border: { width: 1, style: solid, color: *color-secondary }
-          components:
-            - name: heading
-              properties:
-                text: Get Started Today
-                level: 3
-                typography: { size: lg, weight: semibold, color: *color-primary, align: center }
-                spacing: { marginBlock: sm }
-            - name: form
-              properties:
-                layout: { direction: column, horizontalAlign: space-evenly }
-                submit: { show: false }
-              components:
-                - name: textbox
-                  properties:
-                    label: { text: 'Email Address', show: true, typography: { size: sm, weight: medium, color: *color-secondary } }
-                    field: { placeholder: 'you@example.com' }
-                    appearance:
-                      background: { color: *color-primary, transparency: 100 }
-                      border: { width: 1, style: solid, color: *color-secondary }
-                      radius: md
-                    typography: { color: *color-primary }
-                    layout: { widthMode: stretch }
-                - name: textbox
-                  properties:
-                    label: { text: 'First Name (optional)', show: true, typography: { size: sm, weight: medium, color: *color-secondary } }
-                    field: { placeholder: 'Your first name' }
-                    appearance:
-                      background: { color: *color-primary, transparency: 100 }
-                      border: { width: 1, style: solid, color: *color-secondary }
-                      radius: md
-                    typography: { color: *color-primary }
-                    layout: { widthMode: stretch }
-                - name: button
-                  properties:
-                    text: Subscribe Now
-                    appearance:
-                      background: { color: *color-accent }
-                      padding: { block: md, inline: xl }
-                      radius: md
-                    typography: { color: *color-primary, weight: bold, size: md }
-                    layout: { widthMode: stretch }
-                    spacing: { marginBlock: sm }
-            - name: paragraph
-              properties:
-                text: "We respect your privacy. Unsubscribe at any time."
-                typography: { size: xs, color: *color-secondary, align: center }
+              background: {color: *color-primary, transparency: 100}
+              border: {width: 1, style: solid, color: *color-secondary}
+              radius: md
+            typography: {color: *color-primary}
+            layout: {widthMode: stretch}
+        - name: textbox
+          properties:
+            label: {text: 'First Name (optional)', show: true, typography: {size: sm, weight: medium, color: *color-secondary}}
+            field: {placeholder: 'Your first name'}
+            appearance:
+              background: {color: *color-primary, transparency: 100}
+              border: {width: 1, style: solid, color: *color-secondary}
+              radius: md
+            typography: {color: *color-primary}
+            layout: {widthMode: stretch}
+        - name: button
+          properties:
+            text: Subscribe Now
+            appearance:
+              background: {color: *color-accent}
+              radius: md
+            typography: {color: *color-primary, weight: bold, size: md}
+            layout: {widthMode: stretch}
+            spacing: {marginBlock: sm, paddingBlock: md, paddingInline: xl}
+      - name: paragraph
+        properties:
+          text: "We respect your privacy. Unsubscribe at any time."
+          typography: {size: xs, color: *color-secondary, align: center}
 
     # ============================================
     # COPYRIGHT BAR
     # ============================================
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-between, wrap: wrap, verticalAlign: center}
+      spacing: {paddingBlock: md, paddingInline: xl}
+      appearance: {background: {color: *color-primary, transparency: 100}}
+    components:
+    - name: paragraph
+      properties:
+        text: "© 2026 The Dispatch. All rights reserved."
+        typography: {size: xs, color: *color-secondary}
     - name: layout-row
       properties:
-        layout: { horizontalAlign: space-between, align: center, wrap: wrap }
-        spacing: { paddingBlock: md, paddingInline: xl }
-        appearance: { background: { color: *color-primary, transparency: 100 } }
+        layout: {horizontalAlign: space-evenly, verticalAlign: center}
       components:
-        - name: paragraph
-          properties:
-            text: "\u00A9 2026 The Dispatch. All rights reserved."
-            typography: { size: xs, color: *color-secondary }
-        - name: layout-row
-          properties:
-            layout: { horizontalAlign: space-evenly, align: center }
-          components:
-            - name: link
-              properties:
-                text: Privacy
-                href: '#privacy'
-                typography: { size: xs, color: *color-secondary }
-                appearance: { underline: false }
-                spacing: { marginInline: sm }
-            - name: link
-              properties:
-                text: Terms
-                href: '#terms'
-                typography: { size: xs, color: *color-secondary }
-                appearance: { underline: false }
-                spacing: { marginInline: sm }
-            - name: link
-              properties:
-                text: Contact
-                href: '#contact'
-                typography: { size: xs, color: *color-secondary }
-                appearance: { underline: false }
-                spacing: { marginInline: sm }
+      - name: link
+        properties:
+          text: Privacy
+          href: '#privacy'
+          typography: {size: xs, color: *color-secondary}
+          appearance: {underline: false}
+          spacing: {marginInline: sm}
+      - name: link
+        properties:
+          text: Terms
+          href: '#terms'
+          typography: {size: xs, color: *color-secondary}
+          appearance: {underline: false}
+          spacing: {marginInline: sm}
+      - name: link
+        properties:
+          text: Contact
+          href: '#contact'
+          typography: {size: xs, color: *color-secondary}
+          appearance: {underline: false}
+          spacing: {marginInline: sm}

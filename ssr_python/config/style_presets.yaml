@@ -1,0 +1,458 @@
+# Visual Design Style Presets
+# Maps style names to concrete YAML property recipes for SwiftSites components.
+# Used by LLM system prompt and RAG retrieval to generate correctly styled YAML.
+#
+# Each preset defines:
+#   - theme_suggestion: recommended colors + fonts (references themesPanel.js presets)
+#   - rules: property values per component role (container, card, button, typography, spacing)
+
+
+glassmorphism:
+  display_name: "Glassmorphism"
+  description: "Frosted glass effect with semi-transparent backgrounds and blur overlay"
+  keywords: [glass, glassmorphism, blur, frosted, translucent, transparent, frost]
+  theme_suggestion:
+    name: "Glass Azure"
+    colors:
+      primary: "#1A365D"
+      secondary: "#B0D4E8"
+      accent: "#3182CE"
+      background: "#D6EBF5"
+    fonts:
+      heading: "'Inter', sans-serif"
+      content: "'Inter', sans-serif"
+  rules:
+    page_background:
+      type: gradient
+      gradient:
+        direction: to bottom right
+      note: "REQUIRED — gradient parent needed for blur visibility"
+    container:
+      background:
+        color: "#ffffff"
+        transparency: 12
+      blur: true
+      border:
+        width: 1
+        style: solid
+        color: "#ffffff"
+      radius: lg
+      shadow: soft
+    card:
+      background:
+        color: "#ffffff"
+        transparency: 15
+      blur: true
+      border:
+        width: 1
+        style: solid
+        color: "#ffffff"
+      radius: lg
+      shadow: soft
+    button:
+      background:
+        color: "#ffffff"
+        transparency: 20
+      blur: true
+      border:
+        width: 1
+        style: solid
+        color: "#ffffff"
+      radius: pill
+      shadow: soft
+    typography:
+      heading:
+        weight: bold
+        letterSpacing: normal
+      body:
+        weight: regular
+        letterSpacing: normal
+    spacing:
+      section_padding:
+        block: xxxl
+        inline: lg
+      container_padding:
+        block: lg
+        inline: lg
+
+
+modern:
+  display_name: "Modern (Minimalist & Functional)"
+  description: "Clean, high-readability design with neutral tones and high whitespace"
+  keywords: [modern, minimalist, clean, simple, minimal, functional]
+  theme_suggestion:
+    name: "Slate Professional"
+    colors:
+      primary: "#1E3A5F"
+      secondary: "#C5D4E3"
+      accent: "#0052CC"
+      background: "#E8EDF2"
+    fonts:
+      heading: "'Inter', sans-serif"
+      content: "'Inter', sans-serif"
+  rules:
+    page_background:
+      type: color
+      note: "Solid light background — no gradients"
+    container:
+      background:
+        color: "theme_background"
+        transparency: 100
+      blur: false
+      border:
+        width: 0
+      radius: sm
+      shadow: soft
+    card:
+      background:
+        color: "#ffffff"
+        transparency: 100
+      blur: false
+      border:
+        width: 1
+        style: solid
+        color: "#e5e7eb"
+      radius: sm
+      shadow: soft
+    button:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 0
+      radius: sm
+      shadow: none
+    typography:
+      heading:
+        weight: semibold
+        letterSpacing: tight
+      body:
+        weight: regular
+        letterSpacing: normal
+    spacing:
+      section_padding:
+        block: xxxl
+        inline: xl
+      container_padding:
+        block: xl
+        inline: xl
+
+
+retro:
+  display_name: "Retro (70s-90s Revival)"
+  description: "Nostalgic design with bold colors, hard blocky shadows, and geometric shapes"
+  keywords: [retro, vintage, nostalgic, 70s, 80s, 90s, revival]
+  theme_suggestion:
+    name: "Pop Art Yellow"
+    colors:
+      primary: "#0D0D0D"
+      secondary: "#FFD600"
+      accent: "#FF0000"
+      background: "#FFEB3B"
+    fonts:
+      heading: "'Bebas Neue', sans-serif"
+      content: "'Merriweather', serif"
+  rules:
+    page_background:
+      type: color
+      note: "Bold, saturated solid color backgrounds"
+    container:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 3
+        style: solid
+        color: "#0D0D0D"
+      radius: none
+      shadow: retro
+      shadowColor: "#0D0D0D"
+    card:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 3
+        style: solid
+        color: "#0D0D0D"
+      radius: none
+      shadow: retro
+      shadowColor: "#0D0D0D"
+    button:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 3
+        style: solid
+        color: "#0D0D0D"
+      radius: none
+      shadow: retro
+    typography:
+      heading:
+        weight: extrabold
+        letterSpacing: wide
+        transform: uppercase
+      body:
+        weight: regular
+        letterSpacing: normal
+    spacing:
+      section_padding:
+        block: xl
+        inline: md
+      container_padding:
+        block: md
+        inline: md
+
+
+neubrutalism:
+  display_name: "Neubrutalism"
+  description: "Bold, high-contrast with vivid colors, thick black borders, and hard-edged shadows"
+  keywords: [neubrutalism, brutalist, neo-brutal, harsh, bold-borders]
+  theme_suggestion:
+    name: "Concrete Raw"
+    colors:
+      primary: "#1A1A1A"
+      secondary: "#C8C4BB"
+      accent: "#FF4D00"
+      background: "#E5E2DD"
+    fonts:
+      heading: "'Space Grotesk', sans-serif"
+      content: "'IBM Plex Sans', sans-serif"
+  rules:
+    page_background:
+      type: color
+      note: "Off-white or bright vivid solid colors"
+    container:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 4
+        style: solid
+        color: "#000000"
+      radius: none
+      shadow: retro
+      shadowColor: "#000000"
+    card:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 4
+        style: solid
+        color: "#000000"
+      radius: none
+      shadow: retro
+      shadowColor: "#000000"
+    button:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 4
+        style: solid
+        color: "#000000"
+      radius: none
+      shadow: retro
+      shadowColor: "#000000"
+    typography:
+      heading:
+        weight: extrabold
+        letterSpacing: normal
+        transform: uppercase
+      body:
+        weight: medium
+        letterSpacing: normal
+    spacing:
+      section_padding:
+        block: xl
+        inline: md
+      container_padding:
+        block: md
+        inline: md
+
+
+claymorphism:
+  display_name: "Claymorphism"
+  description: "Playful 3D clay look with soft pastels, layered shadows, and extremely rounded corners"
+  keywords: [claymorphism, clay, playful, 3d, pastel, bubbly, rounded]
+  theme_suggestion:
+    name: "Bubblegum"
+    colors:
+      primary: "#4A1942"
+      secondary: "#F5B0D0"
+      accent: "#FF1493"
+      background: "#FFD6E6"
+    fonts:
+      heading: "'Poppins', sans-serif"
+      content: "'Nunito Sans', sans-serif"
+  rules:
+    page_background:
+      type: color
+      note: "Soft pastel background"
+    container:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 0
+      radius: xxl
+      shadow: elevated
+    card:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 0
+      radius: xxl
+      shadow: elevated
+    button:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 0
+      radius: pill
+      shadow: medium
+    typography:
+      heading:
+        weight: bold
+        letterSpacing: normal
+      body:
+        weight: medium
+        letterSpacing: normal
+    spacing:
+      section_padding:
+        block: xl
+        inline: lg
+      container_padding:
+        block: lg
+        inline: lg
+
+
+aurora:
+  display_name: "Aurora / Liquid Gradient"
+  description: "Flowing blended colors with multi-color gradients, smooth rounding, and no shadows"
+  keywords: [aurora, liquid, gradient, flowing, colorful, northern-lights]
+  theme_suggestion:
+    name: "Holographic"
+    colors:
+      primary: "#1A2035"
+      secondary: "#C8D8F0"
+      accent: "#EC4899"
+      background: "#E6F0FA"
+    fonts:
+      heading: "'Sora', sans-serif"
+      content: "'Inter', sans-serif"
+  rules:
+    page_background:
+      type: gradient
+      gradient:
+        direction: to bottom right
+      note: "Multi-section gradients: accent->secondary, secondary->background"
+    container:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 0
+      radius: lg
+      shadow: none
+    card:
+      background:
+        type: gradient
+      blur: false
+      border:
+        width: 0
+      radius: lg
+      shadow: none
+    button:
+      background:
+        type: gradient
+      blur: false
+      border:
+        width: 0
+      radius: pill
+      shadow: none
+    typography:
+      heading:
+        weight: bold
+        letterSpacing: tight
+      body:
+        weight: regular
+        letterSpacing: normal
+    spacing:
+      section_padding:
+        block: xxl
+        inline: lg
+      container_padding:
+        block: lg
+        inline: lg
+
+
+monochrome:
+  display_name: "Monochrome / Dark Mode"
+  description: "Sleek dark design with a single bright accent color and sharp corners"
+  keywords: [monochrome, dark, dark-mode, noir, sleek, midnight]
+  theme_suggestion:
+    name: "Cinema Noir"
+    colors:
+      primary: "#F5F5F5"
+      secondary: "#1F1F1F"
+      accent: "#DC143C"
+      background: "#0F0F0F"
+    fonts:
+      heading: "'Space Grotesk', sans-serif"
+      content: "'Inter', sans-serif"
+  rules:
+    page_background:
+      type: color
+      note: "Very dark background (#0F0F0F to #1A1A2E)"
+    container:
+      background:
+        color: "#1F1F1F"
+        transparency: 100
+      blur: false
+      border:
+        width: 1
+        style: solid
+        color: "#333333"
+      radius: xs
+      shadow: soft
+      shadowColor: "#000000"
+    card:
+      background:
+        color: "#1F1F1F"
+        transparency: 100
+      blur: false
+      border:
+        width: 1
+        style: solid
+        color: "#333333"
+      radius: xs
+      shadow: soft
+    button:
+      background:
+        transparency: 100
+      blur: false
+      border:
+        width: 1
+        style: solid
+        color: "#444444"
+      radius: xs
+      shadow: none
+    typography:
+      heading:
+        weight: semibold
+        letterSpacing: wide
+      body:
+        weight: light
+        letterSpacing: normal
+    spacing:
+      section_padding:
+        block: xxl
+        inline: lg
+      container_padding:
+        block: lg
+        inline: lg

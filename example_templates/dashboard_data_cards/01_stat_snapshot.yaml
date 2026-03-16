@@ -1,6 +1,10 @@
 # Dashboard Data Card 01 - "The Stat Snapshot"
-# A clean metric card with a title caption and large number heading.
-# Subtle shadow, rounded corners, professional SaaS styling.
+# A clean metric card with a title caption and large number heading. Subtle shadow, rounded corners, professional SaaS styling.
+# Base components: page, layout-column, caption, heading, paragraph
+# Section type: dashboard
+# Layout: centered
+# Visual style: minimal
+# Perfect for: SaaS, analytics, admin panels, dashboards, business tools
 
 - name: page
   properties:
@@ -10,54 +14,54 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#6366f1'
         background: &color-background '#f8fafc'
-    spacing: { paddingBlock: xl, paddingInline: xl }
+    spacing: {paddingBlock: xl, paddingInline: xl}
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        widthMode: "33"
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        borderRadius: md
+        shadow: soft
+    components:
+    - name: caption
       properties:
-        layout:
-          horizontalAlign: center
+        text: Monthly Revenue
+        typography:
+          size: xs
+          weight: semibold
+          color: *color-secondary
+          transform: uppercase
+          letterSpacing: wider
+    - name: heading
+      properties:
+        text: "$12.4k"
+        level: 2
+        typography:
+          size: xxxl
+          weight: extrabold
+          color: *color-primary
           align: center
-          widthMode: "33"
         spacing:
-          paddingBlock: lg
-          paddingInline: lg
-        appearance:
-          background:
-            color: *color-background
-            transparency: 100
-          borderRadius: md
-          shadow: soft
-      components:
-        - name: caption
-          properties:
-            text: Monthly Revenue
-            typography:
-              size: xs
-              weight: semibold
-              color: *color-secondary
-              transform: uppercase
-              letterSpacing: wider
-        - name: heading
-          properties:
-            text: "$12.4k"
-            level: 2
-            typography:
-              size: xxxl
-              weight: extrabold
-              color: *color-primary
-              align: center
-            spacing:
-              marginBlock: xs
-        - name: paragraph
-          properties:
-            text: vs $10.8k last month
-            typography:
-              size: xs
-              weight: regular
-              color: *color-secondary
-              align: center
+          marginBlock: xs
+    - name: paragraph
+      properties:
+        text: vs $10.8k last month
+        typography:
+          size: xs
+          weight: regular
+          color: *color-secondary
+          align: center

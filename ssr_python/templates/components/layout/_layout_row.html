@@ -9,7 +9,7 @@
     {# Inner wrapper styles: flex layout properties #}
     {% set inner_styles = build_flex_styles(component, tokens, 'row') %}
 
-    <{{ tag }} class="layout-row chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+    <{{ tag }} class="layout-row chrome-target" data-component-id="{{ component_id }}" data-component-name="layout-row" style="{{ outer_styles }}">
         <div class="layout-row__content" data-wrap="{{ layout_props.wrap | default('nowrap') }}" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}

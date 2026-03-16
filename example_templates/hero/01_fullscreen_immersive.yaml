@@ -1,5 +1,9 @@
 # Full-Screen Immersive Hero
 # A dramatic, full-screen hero with stunning background imagery
+# Base components: page, image, layout-column, layout-row, paragraph, heading, button
+# Section type: hero
+# Layout: fullscreen
+# Visual style: dark_mode
 # Perfect for: Travel, hospitality, luxury brands, creative agencies
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
         secondary: &color-secondary "#0a0a0a"
         accent: &color-accent "#ffffff"
         background: &color-background "#0a0a0a"
@@ -36,7 +41,6 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
         spacing:
           paddingBlock: xxxl
@@ -50,18 +54,20 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
+            wrap: nowrap
         components:
         - name: paragraph
           properties:
             text: "DISCOVER THE EXTRAORDINARY"
             typography:
-              color: *color-primary
+              color: *color-text
               size: xs
               weight: medium
               letterSpacing: wider
               transform: uppercase
+              lineHeight: '1'
             spacing:
               marginBlock: none
             appearance:
@@ -70,11 +76,6 @@
                 transparency: 100
               radius: pill
               shadow: medium
-              padding:
-                block: xs
-                inline: md
-
-      # Main Headline - Large & Impactful
       - name: heading
         properties:
           text: "Explore Beyond Horizons"
@@ -111,9 +112,9 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             wrap: wrap
+            verticalAlign: center
           spacing:
             marginBlock: lg
         components:
@@ -128,15 +129,14 @@
                 width: 0
                 style: solid
                 color: transparent
-              padding:
-                block: md
-                inline: xl
             typography:
               color: *color-secondary
               weight: semibold
               size: md
             spacing:
               marginBlock: none
+              paddingBlock: md
+              paddingInline: xl
         - name: button
           properties:
             text: Watch Film
@@ -148,9 +148,6 @@
                 width: 2
                 style: solid
                 color: *color-primary
-              padding:
-                block: md
-                inline: xl
             typography:
               color: *color-primary
               weight: semibold
@@ -159,10 +156,11 @@
               marginBlock: none
 
       # Scroll Indicator
+              paddingBlock: md
+              paddingInline: xl
       - name: layout-column
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
           spacing:
             marginBlock: xl

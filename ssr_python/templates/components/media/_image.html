@@ -8,7 +8,7 @@
     {% set base_styles = build_styles(component, tokens, layout_direction=parent_direction) %}
 
     {# Width mode for responsive CSS (used as data attribute) #}
-    {% set width_mode = layout.widthMode | default('stretch') %}
+    {% set width_mode = layout.widthMode | default('stretch') | string %}
 
     {# Horizontal alignment for child content #}
     {% set h_align = layout.horizontalAlign | default('center') %}
@@ -66,6 +66,12 @@
         {% set radius_style = 'border-radius: ' ~ tokens.border_radius[corner_style] ~ ';' %}
     {% endif %}
 
+    {# Border #}
+    {% set border_style = '' %}
+    {% if appearance.border and appearance.border.width and appearance.border.width > 0 %}
+        {% set border_style = 'border: ' ~ appearance.border.width ~ 'px solid ' ~ (appearance.border.color | default('#e5e7eb')) ~ ';' %}
+    {% endif %}
+
     {# Hover effect class #}
     {% set hover_effect = appearance.hoverEffect | default('none') %}
     {% set hover_class = '' %}
@@ -76,7 +82,7 @@
     {# Lazy loading #}
     {% set lazy_attr = 'lazy' if appearance.lazy | default(true) else 'eager' %}
 
-    {% set extra_styles = 'position: relative; ' ~ width_style ~ ' ' ~ shadow_style ~ ' ' ~ radius_style ~ ' ' ~ filter_var_style ~ ' ' ~ height_style %}
+    {% set extra_styles = 'position: relative; ' ~ width_style ~ ' ' ~ shadow_style ~ ' ' ~ radius_style ~ ' ' ~ border_style ~ ' ' ~ filter_var_style ~ ' ' ~ height_style %}
 
     <figure class="image-container chrome-target {{ hover_class }}"
             data-component-id="{{ component_id }}"

@@ -1,5 +1,9 @@
 # SaaS Conversion Hero - OpenBank Style
 # A clean, professional fintech hero with split layout and visual card grid
+# Base components: page, titlebar, layout-row, layout-column, paragraph, eyebrow, heading, button, image
+# Section type: hero
+# Layout: split_screen
+# Visual style: modern
 # Perfect for: Fintech, SaaS products, B2B software, banking apps
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#1a1a1a"
+        text: &color-text "#313131"
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#2d5a4a"
         background: &color-background "#f8f6f1"
@@ -15,7 +20,7 @@
         color: *color-background
         transparency: 100
   components:
-  # Navigation
+    # Navigation
   - name: titlebar
     properties:
       branding:
@@ -62,13 +67,13 @@
           weight: medium
           color: *color-primary
 
-  # Hero Section - Split Layout
+    # Hero Section - Split Layout
   - name: layout-row
     properties:
       layout:
-        align: center
         horizontalAlign: space-evenly
         wrap: wrap
+        verticalAlign: center
       spacing:
         paddingBlock: xxxl
         paddingInline: xl
@@ -77,47 +82,109 @@
           color: *color-background
           transparency: 100
     components:
-    # Left Content
+        # Left Content
     - name: layout-column
       properties:
         layout:
-          align: start
-          horizontalAlign: space-evenly
+          horizontalAlign: ""
           gap: sm
+          tag: section
+          verticalAlign: space-between
+          wrap: nowrap
+          widthMode: "50"
         appearance:
-          widthMode: 45
+          background:
+            type: ""
+            color: $color-background
+            transparency: 0
+          blur: false
+          border:
+            width: 0
+            style: solid
+            color: $color-primary
+          radius: none
+          shadow: none
+          shadowColor: "#000000"
+        spacing:
+          marginBlock: none
+          marginInline: none
+          paddingBlock: sm
+          paddingInline: sm
       components:
-      # Eyebrow with dash
+            # Eyebrow with dash
       - name: layout-row
         properties:
           layout:
-            align: center
-            horizontalAlign: space-evenly
+            horizontalAlign: center
+            tag: section
+            verticalAlign: center
+            wrap: nowrap
+            gap: sm
           spacing:
             marginBlock: none
+            marginInline: none
+          appearance:
+            background:
+              type: ""
+              color: $color-background
+              transparency: 0
+            blur: false
+            border:
+              width: 0
+              style: solid
+              color: $color-primary
+            radius: none
+            shadow: none
+            shadowColor: "#000000"
         components:
         - name: paragraph
           properties:
             text: "—"
             typography:
-              color: *color-accent
-              size: md
+              color: "#2d5a4a"
+              size: xs
               weight: bold
+              align: left
+              lineHeight: '1'
+              transform: none
+              letterSpacing: normal
+              fontStyle: normal
+              textDecoration: none
             spacing:
               marginBlock: none
+              marginInline: none
+            layout:
+              widthMode: fit
+            appearance:
+              background:
+                type: ""
+                color: $color-background
+                transparency: 0
         - name: eyebrow
           properties:
             text: "TRY IT NOW!"
             typography:
-              color: *color-accent
+              color: "#2d5a4a"
               size: xs
               weight: semibold
               letterSpacing: wider
               transform: uppercase
+              align: left
+              lineHeight: '1'
+              fontStyle: normal
+              textDecoration: none
             spacing:
               marginBlock: none
+              marginInline: none
+            layout:
+              widthMode: fit
+            appearance:
+              background:
+                type: ""
+                color: $color-background
+                transparency: 0
 
-      # Main Headline
+            # Main Headline
       - name: heading
         properties:
           text: "Instant Payment with"
@@ -142,7 +209,7 @@
           spacing:
             marginBlock: none
 
-      # Description
+            # Description
       - name: paragraph
         properties:
           text: |
@@ -156,7 +223,7 @@
           spacing:
             marginBlock: md
 
-      # CTA Button
+            # CTA Button
       - name: button
         properties:
           text: "Get demo account"
@@ -168,9 +235,6 @@
               width: 0
               style: solid
               color: transparent
-            padding:
-              block: md
-              inline: xl
             radius: pill
           typography:
             color: *color-background
@@ -178,14 +242,16 @@
             size: md
           spacing:
             marginBlock: sm
+            paddingBlock: md
+            paddingInline: xl
           layout:
 
-      # Star Rating + Review Count
+                  # Star Rating + Review Count
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
           spacing:
             marginBlock: sm
         components:
@@ -215,24 +281,43 @@
             spacing:
               marginBlock: none
 
-    # Right Side - 2x2 Visual Card Grid
+        # Right Side - 2x2 Visual Card Grid
     - name: layout-column
       properties:
         layout:
-          align: center
-          horizontalAlign: space-evenly
+          horizontalAlign: ""
           gap: sm
+          tag: section
+          verticalAlign: space-between
+          wrap: nowrap
+          widthMode: "50"
         appearance:
-          widthMode: 50
+          background:
+            type: ""
+            color: $color-background
+            transparency: 0
+          blur: false
+          border:
+            width: 0
+            style: solid
+            color: $color-primary
+          radius: none
+          shadow: none
+          shadowColor: "#000000"
+        spacing:
+          marginBlock: none
+          marginInline: none
+          paddingBlock: sm
+          paddingInline: sm
       components:
-      # Top Row
+            # Top Row
       - name: layout-row
         properties:
           layout:
-            align: stretch
             horizontalAlign: space-evenly
+            verticalAlign: stretch
         components:
-        # Credit Cards Image
+                # Credit Cards Image
         - name: image
           properties:
             source:
@@ -246,11 +331,10 @@
             spacing:
               marginBlock: none
 
-        # Successful Transaction Card
+                # Successful Transaction Card
         - name: layout-column
           properties:
             layout:
-              align: center
               horizontalAlign: space-evenly
               gap: xs
             appearance:
@@ -258,9 +342,9 @@
                 color: *color-background
                 transparency: 100
               radius: xl
-              padding:
-                block: lg
-                inline: md
+            spacing:
+              paddingBlock: lg
+              paddingInline: md
           components:
           - name: paragraph
             properties:
@@ -272,14 +356,13 @@
                 align: center
               spacing:
                 marginBlock: none
+                paddingBlock: xs
+                paddingInline: xs
               appearance:
                 background:
                   color: *color-background
                   transparency: 100
                 radius: pill
-                padding:
-                  block: xs
-                  inline: xs
           - name: heading
             properties:
               text: "Successful"
@@ -312,18 +395,17 @@
               spacing:
                 marginBlock: none
 
-      # Bottom Row
+            # Bottom Row
       - name: layout-row
         properties:
           layout:
-            align: stretch
             horizontalAlign: space-evenly
+            verticalAlign: stretch
         components:
-        # $25,000 Card
+                # $25,000 Card
         - name: layout-column
           properties:
             layout:
-              align: center
               horizontalAlign: space-evenly
               gap: xs
             appearance:
@@ -331,9 +413,9 @@
                 color: *color-accent
                 transparency: 100
               radius: xl
-              padding:
-                block: xl
-                inline: md
+            spacing:
+              paddingBlock: xl
+              paddingInline: md
           components:
           - name: paragraph
             properties:
@@ -365,7 +447,7 @@
               spacing:
                 marginBlock: none
 
-        # Payment Terminal Image
+                # Payment Terminal Image
         - name: image
           properties:
             source:

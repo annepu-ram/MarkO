@@ -1,5 +1,10 @@
 import yaml
 import os
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+storage = None  # Set by app.py after create_storage()
 
 TOKENS = {}
 COMPONENT_DEFAULTS = {}

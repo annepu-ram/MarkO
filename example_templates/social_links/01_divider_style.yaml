@@ -1,0 +1,193 @@
+# Social Links - Divider Style
+# A row of social media links separated by "/" dividers with contrasting line heights
+# Base components: layout-row, layout-column, heading, paragraph, link
+# Section type: social_links
+# Layout: centered row
+# Visual style: dark, minimal
+# Perfect for: portfolio, creative agency, freelancer, photographer, designer
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#f8f6f3"
+        text: &color-text "#DBDAD8"
+        secondary: &color-secondary "#a1a1aa"
+        accent: &color-accent "#e879f9"
+        background: &color-background "#0f0f1a"
+  components:
+  - name: page
+    slug: home
+    title: "Social Links - Divider Style"
+    properties:
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+    components:
+        # Section Heading
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          tag: section
+        spacing:
+          marginBlock: none
+          paddingBlock: xxl
+          paddingInline: lg
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+      - name: eyebrow
+        properties:
+          text: "GET IN TOUCH"
+          typography:
+            color: *color-secondary
+            size: xs
+            weight: medium
+            letterSpacing: wider
+            align: center
+            transform: uppercase
+          spacing:
+            marginBlock: none
+
+      - name: heading
+        properties:
+          text: "Let's Connect"
+          level: 2
+          typography:
+            color: *color-primary
+            size: xxl
+            weight: bold
+            align: center
+          spacing:
+            marginBlock: sm
+
+      - name: paragraph
+        properties:
+          text: "Find me on your favorite platform"
+          typography:
+            color: *color-secondary
+            size: md
+            align: center
+          spacing:
+            marginBlock: sm
+
+            # Social Links Row with Dividers
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+            verticalAlign: center
+          spacing:
+            marginBlock: lg
+        components:
+        - name: link
+          properties:
+            text: "Dribbble"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+              lineHeight: "2.5"
+            spacing:
+              marginBlock: none
+              marginInline: xs
+            href: "#"
+            layout:
+              widthMode: fit
+            appearance:
+              underline: true
+              showArrow: false
+        - name: paragraph
+          properties:
+            text: "/"
+            typography:
+              color: "#3f3f5a"
+              size: sm
+              weight: regular
+              lineHeight: "1"
+            spacing:
+              marginBlock: none
+            layout:
+              widthMode: fit
+        - name: link
+          properties:
+            text: "LinkedIn"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+              lineHeight: "2.5"
+            spacing:
+              marginBlock: none
+              marginInline: xs
+            href: "#"
+            layout:
+              widthMode: fit
+            appearance:
+              underline: true
+              showArrow: false
+        - name: paragraph
+          properties:
+            text: "/"
+            typography:
+              color: "#3f3f5a"
+              size: sm
+              weight: regular
+              lineHeight: "1"
+            spacing:
+              marginBlock: none
+            layout:
+              widthMode: fit
+        - name: link
+          properties:
+            text: "Twitter"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+              lineHeight: "2.5"
+            spacing:
+              marginBlock: none
+              marginInline: xs
+            href: "#"
+            layout:
+              widthMode: fit
+            appearance:
+              underline: true
+              showArrow: false
+        - name: paragraph
+          properties:
+            text: "/"
+            typography:
+              color: "#3f3f5a"
+              size: sm
+              weight: regular
+              lineHeight: "1"
+            spacing:
+              marginBlock: none
+            layout:
+              widthMode: fit
+        - name: link
+          properties:
+            text: "Email"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+              lineHeight: "2.5"
+            spacing:
+              marginBlock: none
+              marginInline: xs
+            href: "#"
+            layout:
+              widthMode: fit
+            appearance:
+              underline: true
+              showArrow: false

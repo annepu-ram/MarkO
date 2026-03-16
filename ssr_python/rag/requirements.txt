@@ -1,0 +1,13 @@
+# Core (always needed)
+rank-bm25>=0.2.2                # BM25 keyword search
+tiktoken>=0.7.0                 # Token counting
+numpy>=1.24.0                   # Vector math
+pyyaml>=6.0                     # YAML parsing (likely already installed)
+
+# Reranker (V2, optional)
+# sentence-transformers>=3.0.0  # Only if config.use_reranker=True
+
+# Cloud backends (install only what you use)
+# openai>=1.0.0
+# anthropic>=0.40.0
+# groq>=0.11.0

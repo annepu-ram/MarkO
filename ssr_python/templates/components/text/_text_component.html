@@ -2,29 +2,31 @@
     {% set name = component.name %}
     {% set properties = component.properties | default({}) %}
     {% set styles = build_styles(component, tokens, layout_direction=parent_direction) %}
+    {% set width_mode = (properties.layout.widthMode | default('fit') | string) if properties.layout else 'fit' %}
+    {% set fit_class = ' width-fit' if width_mode == 'fit' else '' %}
     {% if name == 'heading' %}
         {% set size = properties.size | default('md') %}
-        <h{{ properties.level | default(2) }} class="heading chrome-target" data-component-id="{{ component_id }}" data-size="{{ size }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</h{{ properties.level | default(2) }}>
+        <h{{ properties.level | default(2) }} class="heading chrome-target{{ fit_class }}" data-component-id="{{ component_id }}" data-component-name="heading" data-size="{{ size }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</h{{ properties.level | default(2) }}>
     {% elif name == 'paragraph' %}
-        <p class="paragraph chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
+        <p class="paragraph chrome-target{{ fit_class }}" data-component-id="{{ component_id }}" data-component-name="paragraph"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
     {% elif name == 'eyebrow' %}
-        <p class="text-eyebrow chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
+        <p class="text-eyebrow chrome-target{{ fit_class }}" data-component-id="{{ component_id }}" data-component-name="eyebrow"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
     {% elif name == 'caption' %}
-        <small class="text-caption chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</small>
+        <small class="text-caption chrome-target{{ fit_class }}" data-component-id="{{ component_id }}" data-component-name="caption"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</small>
     {% elif name == 'blockquote' %}
         {% set style_str = styles %}
         {% if properties.appearance and properties.appearance.border and properties.appearance.border.accentColor %}
             {% set style_str = style_str ~ ' --blockquote-border: ' ~ properties.appearance.border.accentColor ~ ';' %}
         {% endif %}
         {# Match CSR structure: figure > blockquote + figcaption, support both quote and text properties #}
-        <figure class="text-blockquote chrome-target" data-component-id="{{ component_id }}"{% if style_str %} style="{{ style_str }}"{% endif %}>
+        <figure class="text-blockquote chrome-target{{ fit_class }}" data-component-id="{{ component_id }}" data-component-name="blockquote"{% if style_str %} style="{{ style_str }}"{% endif %}>
             <blockquote>{{ (properties.quote | default(properties.text)) | default('') | replace('\n', '<br>') | safe }}</blockquote>
             {% if properties.cite %}<figcaption class="blockquote-citation">&mdash; {{ properties.cite }}</figcaption>{% endif %}
         </figure>
     {% elif name == 'link' %}
         {# Apply width mode and selection to wrapper div #}
         {% set text_align = properties.textAlign | default('left') %}
-        <div class="link-wrapper chrome-target" data-component-id="{{ component_id }}" style="{{ styles }} text-align: {{ text_align }};">
+        <div class="link-wrapper chrome-target{{ fit_class }}" data-component-id="{{ component_id }}" data-component-name="link" style="{{ styles }} text-align: {{ text_align }};">
             {# Apply link-specific styles (underline) to the anchor #}
             {% set link_classes = ['link'] %}
             {% if properties.appearance and properties.appearance.showArrow %}{% set _ = link_classes.append('link-arrow') %}{% endif %}

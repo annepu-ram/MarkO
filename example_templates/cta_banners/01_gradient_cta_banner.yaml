@@ -1,0 +1,122 @@
+# Gradient Call-to-Action Banner Section
+# A bold gradient background CTA banner with centered heading, persuasive paragraph text, and a prominent call-to-action button for sign-up or conversion with high visual impact
+# Base components: layout-row, layout-column, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: gradient, bold_typography
+# Perfect for: SaaS platform, mobile app, online store, software company, fitness app, online course platform, subscription service, B2B platform, consulting firm, digital agency
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
+        secondary: &color-secondary "#e0e7ff"
+        accent: &color-accent "#818cf8"
+        background: &color-background "#1e1b4b"
+  components:
+  - name: page
+    slug: home
+    title: "Gradient CTA Banner"
+    properties:
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+    components:
+        # Gradient CTA Banner
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+        appearance:
+          background:
+            type: gradient
+            gradient:
+              colorStart: "#1e3a8a"
+              colorEnd: "#7c3aed"
+              direction: to right
+            transparency: 100
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: lg
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "66"
+            horizontalAlign: center
+        components:
+                # Eyebrow Tag
+        - name: eyebrow
+          properties:
+            text: LIMITED TIME
+            typography:
+              size: xs
+              weight: semibold
+              color: *color-accent
+              transform: uppercase
+              letterSpacing: wider
+              align: center
+            spacing:
+              marginBlock: none
+                # Main Heading
+        - name: heading
+          properties:
+            text: "Start Your Free Trial Today"
+            level: 1
+            typography:
+              color: *color-primary
+              size: xxxl
+              weight: bold
+              align: center
+              letterSpacing: tight
+              lineHeight: "1.1"
+            spacing:
+              marginBlock: sm
+            layout:
+              widthMode: stretch
+
+                # Persuasive Copy
+        - name: paragraph
+          properties:
+            text: |
+              Join over 25,000 teams already accelerating their workflow. Get full access
+              to every feature with no credit card required. Cancel anytime, no questions asked.
+            typography:
+              color: *color-secondary
+              size: lg
+              align: center
+              lineHeight: "1.7"
+              weight: light
+            spacing:
+              marginBlock: md
+              paddingBlock: md
+              paddingInline: xxl
+            layout:
+              widthMode: "75"
+
+                # CTA Button
+        - name: button
+          properties:
+            text: Get Started Free
+            appearance:
+              background:
+                color: *color-primary
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              radius: pill
+              shadow: elevated
+            typography:
+              color: *color-background
+              weight: bold
+              size: md
+            spacing:
+              marginBlock: md

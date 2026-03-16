@@ -1,6 +1,10 @@
 # Dashboard Data Card 09 - "Notification Card"
-# A compact alert-style card with an icon image and notification message.
-# Styled as a system notification or alert banner.
+# A compact alert-style card with an icon image and notification message. Styled as a system notification or alert banner.
+# Base components: page, layout-row, image, layout-column, paragraph
+# Section type: dashboard
+# Layout: stacked
+# Visual style: card_based
+# Perfect for: SaaS, analytics, admin panels, dashboards, business tools
 
 - name: page
   properties:
@@ -10,177 +14,178 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#6366f1'
         background: &color-background '#f8fafc'
-    spacing: { paddingBlock: xl, paddingInline: xl }
+    spacing: {paddingBlock: xl, paddingInline: xl}
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
     # Success Notification
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: start
+        wrap: nowrap
+        gap: sm
+        widthMode: "50"
+        verticalAlign: center
+      spacing:
+        paddingBlock: sm
+        paddingInline: md
+        marginBlock: xs
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        borderRadius: md
+        border:
+          width: 1
+          style: solid
+          color: *color-accent
+    components:
+    - name: image
+      properties:
+        source:
+          url: 'https://img.icons8.com/fluency/48/checkmark.png'
+          altText: 'Success check icon'
+        layout:
+          widthMode: fit
+        appearance:
+          fit: contain
+          width: 28
+          height: 28
+    - name: layout-column
       properties:
         layout:
           horizontalAlign: start
-          align: center
-          wrap: nowrap
-          gap: sm
-          widthMode: "50"
-        spacing:
-          paddingBlock: sm
-          paddingInline: md
-          marginBlock: xs
-        appearance:
-          background:
-            color: *color-background
-            transparency: 100
-          borderRadius: md
-          border:
-            width: 1
-            style: solid
-            color: *color-accent
+          widthMode: stretch
+          gap: none
       components:
-        - name: image
-          properties:
-            source:
-              url: 'https://img.icons8.com/fluency/48/checkmark.png'
-              altText: 'Success check icon'
-            layout:
-              widthMode: fit
-            appearance:
-              fit: contain
-              width: 28
-              height: 28
-        - name: layout-column
-          properties:
-            layout:
-              horizontalAlign: start
-              widthMode: stretch
-              gap: none
-          components:
-            - name: paragraph
-              properties:
-                text: "<strong>Deployment successful</strong>"
-                typography:
-                  size: sm
-                  weight: semibold
-                  color: *color-accent
-            - name: paragraph
-              properties:
-                text: "v2.4.1 is now live in production. All health checks passed."
-                typography:
-                  size: xs
-                  weight: regular
-                  color: *color-primary
+      - name: paragraph
+        properties:
+          text: "<strong>Deployment successful</strong>"
+          typography:
+            size: sm
+            weight: semibold
+            color: *color-accent
+      - name: paragraph
+        properties:
+          text: "v2.4.1 is now live in production. All health checks passed."
+          typography:
+            size: xs
+            weight: regular
+            color: *color-text
 
     # Warning Notification
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: start
+        wrap: nowrap
+        gap: sm
+        widthMode: "50"
+        verticalAlign: center
+      spacing:
+        paddingBlock: sm
+        paddingInline: md
+        marginBlock: xs
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        borderRadius: md
+        border:
+          width: 1
+          style: solid
+          color: *color-accent
+    components:
+    - name: image
+      properties:
+        source:
+          url: 'https://img.icons8.com/fluency/48/warning-shield.png'
+          altText: 'Warning icon'
+        layout:
+          widthMode: fit
+        appearance:
+          fit: contain
+          width: 28
+          height: 28
+    - name: layout-column
       properties:
         layout:
           horizontalAlign: start
-          align: center
-          wrap: nowrap
-          gap: sm
-          widthMode: "50"
-        spacing:
-          paddingBlock: sm
-          paddingInline: md
-          marginBlock: xs
-        appearance:
-          background:
-            color: *color-background
-            transparency: 100
-          borderRadius: md
-          border:
-            width: 1
-            style: solid
-            color: *color-accent
+          widthMode: stretch
+          gap: none
       components:
-        - name: image
-          properties:
-            source:
-              url: 'https://img.icons8.com/fluency/48/warning-shield.png'
-              altText: 'Warning icon'
-            layout:
-              widthMode: fit
-            appearance:
-              fit: contain
-              width: 28
-              height: 28
-        - name: layout-column
-          properties:
-            layout:
-              horizontalAlign: start
-              widthMode: stretch
-              gap: none
-          components:
-            - name: paragraph
-              properties:
-                text: "<strong>API rate limit approaching</strong>"
-                typography:
-                  size: sm
-                  weight: semibold
-                  color: *color-accent
-            - name: paragraph
-              properties:
-                text: "You have used 87% of your monthly API quota. Consider upgrading your plan."
-                typography:
-                  size: xs
-                  weight: regular
-                  color: *color-primary
+      - name: paragraph
+        properties:
+          text: "<strong>API rate limit approaching</strong>"
+          typography:
+            size: sm
+            weight: semibold
+            color: *color-accent
+      - name: paragraph
+        properties:
+          text: "You have used 87% of your monthly API quota. Consider upgrading your plan."
+          typography:
+            size: xs
+            weight: regular
+            color: *color-text
 
     # Error Notification
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: start
+        wrap: nowrap
+        gap: sm
+        widthMode: "50"
+        verticalAlign: center
+      spacing:
+        paddingBlock: sm
+        paddingInline: md
+        marginBlock: xs
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        borderRadius: md
+        border:
+          width: 1
+          style: solid
+          color: *color-accent
+    components:
+    - name: image
+      properties:
+        source:
+          url: 'https://img.icons8.com/fluency/48/cancel.png'
+          altText: 'Error icon'
+        layout:
+          widthMode: fit
+        appearance:
+          fit: contain
+          width: 28
+          height: 28
+    - name: layout-column
       properties:
         layout:
           horizontalAlign: start
-          align: center
-          wrap: nowrap
-          gap: sm
-          widthMode: "50"
-        spacing:
-          paddingBlock: sm
-          paddingInline: md
-          marginBlock: xs
-        appearance:
-          background:
-            color: *color-background
-            transparency: 100
-          borderRadius: md
-          border:
-            width: 1
-            style: solid
-            color: *color-accent
+          widthMode: stretch
+          gap: none
       components:
-        - name: image
-          properties:
-            source:
-              url: 'https://img.icons8.com/fluency/48/cancel.png'
-              altText: 'Error icon'
-            layout:
-              widthMode: fit
-            appearance:
-              fit: contain
-              width: 28
-              height: 28
-        - name: layout-column
-          properties:
-            layout:
-              horizontalAlign: start
-              widthMode: stretch
-              gap: none
-          components:
-            - name: paragraph
-              properties:
-                text: "<strong>Payment processing failed</strong>"
-                typography:
-                  size: sm
-                  weight: semibold
-                  color: *color-accent
-            - name: paragraph
-              properties:
-                text: "Transaction #TXN-9847 could not be completed. Retry or contact support."
-                typography:
-                  size: xs
-                  weight: regular
-                  color: *color-primary
+      - name: paragraph
+        properties:
+          text: "<strong>Payment processing failed</strong>"
+          typography:
+            size: sm
+            weight: semibold
+            color: *color-accent
+      - name: paragraph
+        properties:
+          text: "Transaction #TXN-9847 could not be completed. Retry or contact support."
+          typography:
+            size: xs
+            weight: regular
+            color: *color-text

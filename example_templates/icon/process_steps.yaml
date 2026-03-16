@@ -1,5 +1,10 @@
 # Icon: Process Steps
 # Horizontal numbered steps with icons showing a workflow
+# Base components: page, layout-row, layout-column, heading, paragraph, icon, badge
+# Section type: features
+# Layout: grid
+# Visual style: modern
+# Perfect for: SaaS, tech, services, agencies
 
 - name: page
   properties:
@@ -7,6 +12,7 @@
       colors:
         background: &color-background '#ffffff'
         primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#10b981'
       fonts:

@@ -7,7 +7,7 @@
     {% set styles = build_styles(component, tokens, layout_direction=parent_direction) %}
 
     {# Width mode for responsive CSS (used as data attribute) #}
-    {% set width_mode = layout.widthMode | default('stretch') %}
+    {% set width_mode = layout.widthMode | default('stretch') | string %}
 
     {# Object position #}
     {% set obj_position = appearance.objectPosition | default('center') %}
@@ -17,6 +17,12 @@
     {% set radius_style = '' %}
     {% if corner_style != 'none' and tokens.border_radius and corner_style in tokens.border_radius %}
         {% set radius_style = 'border-radius: ' ~ tokens.border_radius[corner_style] ~ ';' %}
+    {% endif %}
+
+    {# Border #}
+    {% set border_style = '' %}
+    {% if appearance.border and appearance.border.width and appearance.border.width > 0 %}
+        {% set border_style = 'border: ' ~ appearance.border.width ~ 'px solid ' ~ (appearance.border.color | default('#e5e7eb')) ~ ';' %}
     {% endif %}
 
     {# Filter effect - use CSS variable for combining with hover effects #}
@@ -36,7 +42,14 @@
         {% set shadow_style = '--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ '; ' ~ shadow_style %}
     {% endif %}
 
-    <figure class="gif-container chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ styles }} position: relative; {{ shadow_style }} {{ radius_style }}">
+    {# Hover effect class #}
+    {% set hover_effect = appearance.hoverEffect | default('none') %}
+    {% set hover_class = '' %}
+    {% if hover_effect != 'none' %}
+        {% set hover_class = 'image-hover-' ~ hover_effect %}
+    {% endif %}
+
+    <figure class="gif-container chrome-target {{ hover_class }}" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ styles }} position: relative; {{ shadow_style }} {{ radius_style }} {{ border_style }}">
         <div class="gif-wrapper" style="position: relative; overflow: hidden; {{ radius_style }}">
             <img src="{{ source.url }}"
                  alt="{{ source.altText | default('') }}"

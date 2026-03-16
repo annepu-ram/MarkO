@@ -1,0 +1,13 @@
+{
+  "source_hash": "a9b3aac76423dea917e218a3e2fa5a955135b2b4702bd5a6dd22c99f6cdf9dc7",
+  "chunk_count": 2884,
+  "tier_counts": {
+    "section": 103,
+    "component": 313,
+    "guide": 494,
+    "style": 23,
+    "icon": 1951
+  },
+  "embedding_model": "nomic-embed-text",
+  "embedding_dim": 768
+}

@@ -1,6 +1,10 @@
 # Dashboard Data Card 04 - "Task Accordion"
-# An accordion component with task names as section titles.
-# Each expanded section contains a textarea for task notes.
+# An accordion component with task names as section titles. Each expanded section contains a textarea for task notes.
+# Base components: page, layout-column, heading, accordion, textarea
+# Section type: dashboard
+# Layout: stacked
+# Visual style: card_based
+# Perfect for: SaaS, analytics, admin panels, dashboards, business tools
 
 - name: page
   properties:
@@ -10,94 +14,94 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#6366f1'
         background: &color-background '#f8fafc'
-    spacing: { paddingBlock: xl, paddingInline: xl }
+    spacing: {paddingBlock: xl, paddingInline: xl}
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        widthMode: "50"
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        borderRadius: md
+        shadow: soft
+    components:
+    - name: heading
       properties:
-        layout:
-          horizontalAlign: center
-          align: start
-          widthMode: "50"
+        text: Task Board
+        level: 3
+        typography:
+          size: md
+          weight: bold
+          color: *color-primary
         spacing:
-          paddingBlock: lg
-          paddingInline: lg
+          marginBlock: xs
+
+    - name: accordion
+      properties:
+        behavior:
+          allowMultipleOpen: true
         appearance:
-          background:
-            color: *color-background
-            transparency: 100
-          borderRadius: md
-          shadow: soft
-      components:
-        - name: heading
+          border:
+            position: bottom
+        spacing:
+          marginBlock: sm
+      items:
+      - title: "Finalize Q1 revenue report"
+        components:
+        - name: textarea
           properties:
-            text: Task Board
-            level: 3
-            typography:
-              size: md
-              weight: bold
-              color: *color-primary
-            spacing:
-              marginBlock: xs
+            label:
+              show: true
+              text: Notes
+            field:
+              placeholder: "Add notes for this task..."
+              value: "Waiting on finance team to confirm APAC numbers. ETA Friday."
+              rows: 3
 
-        - name: accordion
+      - title: "Review onboarding flow redesign"
+        components:
+        - name: textarea
           properties:
-            behavior:
-              allowMultipleOpen: true
-            appearance:
-              border:
-                position: bottom
-            spacing:
-              marginBlock: sm
-          items:
-            - title: "Finalize Q1 revenue report"
-              components:
-                - name: textarea
-                  properties:
-                    label:
-                      show: true
-                      text: Notes
-                    field:
-                      placeholder: "Add notes for this task..."
-                      value: "Waiting on finance team to confirm APAC numbers. ETA Friday."
-                      rows: 3
+            label:
+              show: true
+              text: Notes
+            field:
+              placeholder: "Add notes for this task..."
+              value: "Figma link shared by design. Need UX sign-off before sprint planning."
+              rows: 3
 
-            - title: "Review onboarding flow redesign"
-              components:
-                - name: textarea
-                  properties:
-                    label:
-                      show: true
-                      text: Notes
-                    field:
-                      placeholder: "Add notes for this task..."
-                      value: "Figma link shared by design. Need UX sign-off before sprint planning."
-                      rows: 3
+      - title: "Migrate staging database to v3"
+        components:
+        - name: textarea
+          properties:
+            label:
+              show: true
+              text: Notes
+            field:
+              placeholder: "Add notes for this task..."
+              value: ""
+              rows: 3
 
-            - title: "Migrate staging database to v3"
-              components:
-                - name: textarea
-                  properties:
-                    label:
-                      show: true
-                      text: Notes
-                    field:
-                      placeholder: "Add notes for this task..."
-                      value: ""
-                      rows: 3
-
-            - title: "Prepare investor deck for board meeting"
-              components:
-                - name: textarea
-                  properties:
-                    label:
-                      show: true
-                      text: Notes
-                    field:
-                      placeholder: "Add notes for this task..."
-                      value: "Draft slides due Monday. Include ARR growth chart and churn metrics."
-                      rows: 3
+      - title: "Prepare investor deck for board meeting"
+        components:
+        - name: textarea
+          properties:
+            label:
+              show: true
+              text: Notes
+            field:
+              placeholder: "Add notes for this task..."
+              value: "Draft slides due Monday. Include ARR growth chart and churn metrics."
+              rows: 3

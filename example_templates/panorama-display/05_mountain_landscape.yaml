@@ -1,0 +1,342 @@
+# Mountain Landscape Panorama with Trail Guides and Difficulty Bars
+# Green nature-themed dual panoramic mountain viewer with trail info cards featuring icons, difficulty progress bars, and captions for summit/valley/glacier routes, plus a dark-background Book a Tour CTA section
+# Base components: layout-row, layout-column, eyebrow, heading, paragraph, panorama-display, columnsgrid, icon, progress-bar, caption, button
+# Section type: gallery
+# Layout: stacked
+# Visual style: modern
+# Perfect for: real estate agency, hotel, travel agency, architecture firm, event venue, restaurant, resort, museum, shopping mall
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#14532d'
+        text: &color-text '#2E533D'
+        secondary: &color-secondary '#166534'
+        accent: &color-accent '#15803d'
+        background: &color-background '#f0fdf4'
+  components:
+    - name: page
+      properties:
+        appearance:
+          background:
+            color: '#f0fdf4'
+      components:
+      # Header
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: center
+          appearance:
+            background:
+              color: '#f0fdf4'
+              transparency: 0
+          spacing:
+            paddingBlock: lg
+            paddingInline: md
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              widthMode: "66"
+              gap: sm
+            appearance:
+              background:
+                transparency: 0
+          components:
+          - name: eyebrow
+            properties:
+              text: Alpine Adventures
+              typography:
+                size: xs
+                weight: semibold
+                align: center
+                color: '#15803d'
+                transform: uppercase
+                letterSpacing: wide
+          - name: heading
+            properties:
+              text: Mountain Vista Panorama
+              level: 1
+              typography:
+                size: xxl
+                weight: bold
+                align: center
+                color: '#14532d'
+          - name: paragraph
+            properties:
+              text: Breathe in the beauty of untouched mountain landscapes. Scroll through this sweeping panoramic view of snow-capped peaks, lush valleys, and crystal-clear skies.
+              typography:
+                size: md
+                align: center
+                color: '#166534'
+
+      # Panorama - Mountain
+      - name: panorama-display
+        properties:
+          source:
+            url: https://images.pexels.com/photos/9637652/pexels-photo-9637652.jpeg?auto=compress&cs=tinysrgb&w=3000&h=600&fit=crop
+            altText: Panoramic view of mountain scenery with snow-capped peaks and green valleys
+          behavior:
+            initialPosition: center
+            autoScroll: false
+            stepDistance: 350
+            pauseOnHover: true
+          spacing:
+            marginBlock: lg
+          appearance:
+            radius: xl
+            shadow: soft
+            shadowColor: '#166534'
+
+      # Second Panorama - Different angle
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+          appearance:
+            background:
+              color: '#f0fdf4'
+              transparency: 0
+          spacing:
+            paddingBlock: md
+            paddingInline: md
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              widthMode: "66"
+              gap: sm
+            appearance:
+              background:
+                transparency: 0
+          components:
+          - name: heading
+            properties:
+              text: Snowy Peaks & Green Forests
+              level: 2
+              typography:
+                size: xl
+                weight: bold
+                align: center
+                color: '#14532d'
+          - name: paragraph
+            properties:
+              text: A different perspective of the alpine landscape, starting from the right edge for a unique reveal.
+              typography:
+                size: md
+                align: center
+                color: '#166534'
+
+      - name: panorama-display
+        properties:
+          source:
+            url: https://images.pexels.com/photos/7217/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=3000&h=600&fit=crop
+            altText: Panoramic mountain landscape with snowy peaks and green trees
+          behavior:
+            initialPosition: right
+            autoScroll: false
+            stepDistance: 300
+            pauseOnHover: true
+          spacing:
+            marginBlock: lg
+          appearance:
+            radius: xl
+            shadow: soft
+            shadowColor: '#166534'
+            border:
+              width: 2
+              style: solid
+              color: '#86efac'
+
+      # Trail Info
+      - name: columnsgrid
+        properties:
+          layout:
+            columns: 3
+            gap: lg
+            verticalAlign: stretch
+          responsive:
+            breakpoints:
+              md: 3
+              sm: 1
+          appearance:
+            columnBackground: '#ffffff'
+            columnRadius: lg
+          spacing:
+            marginBlock: lg
+            paddingBlock: lg
+            paddingInline: lg
+        columns:
+        - components:
+          - name: icon
+            properties:
+              name: map-pin
+              size: "36"
+              color: '#15803d'
+          - name: heading
+            properties:
+              text: Summit Trail
+              level: 3
+              typography:
+                size: lg
+                weight: bold
+                color: '#14532d'
+          - name: paragraph
+            properties:
+              text: 12.5 km round trip to the highest peak. Moderate difficulty with stunning ridge views.
+              typography:
+                size: sm
+                color: '#166534'
+          - name: progress-bar
+            properties:
+              percent: 65
+              thickness: medium
+              color: '#22c55e'
+              trackColor: '#dcfce7'
+              appearance:
+                radius: pill
+          - name: caption
+            properties:
+              text: Difficulty - Moderate
+              typography:
+                size: xs
+                color: '#166534'
+                align: left
+        - components:
+          - name: icon
+            properties:
+              name: map-pin
+              size: "36"
+              color: '#15803d'
+          - name: heading
+            properties:
+              text: Valley Loop
+              level: 3
+              typography:
+                size: lg
+                weight: bold
+                color: '#14532d'
+          - name: paragraph
+            properties:
+              text: 8 km gentle loop through wildflower meadows and along the river. Family friendly.
+              typography:
+                size: sm
+                color: '#166534'
+          - name: progress-bar
+            properties:
+              percent: 30
+              thickness: medium
+              color: '#22c55e'
+              trackColor: '#dcfce7'
+              appearance:
+                radius: pill
+          - name: caption
+            properties:
+              text: Difficulty - Easy
+              typography:
+                size: xs
+                color: '#166534'
+                align: left
+        - components:
+          - name: icon
+            properties:
+              name: map-pin
+              size: "36"
+              color: '#15803d'
+          - name: heading
+            properties:
+              text: Glacier Route
+              level: 3
+              typography:
+                size: lg
+                weight: bold
+                color: '#14532d'
+          - name: paragraph
+            properties:
+              text: 18 km advanced trek to the glacier face. Requires experience and proper equipment.
+              typography:
+                size: sm
+                color: '#166534'
+          - name: progress-bar
+            properties:
+              percent: 90
+              thickness: medium
+              color: '#ef4444'
+              trackColor: '#fecaca'
+              appearance:
+                radius: pill
+          - name: caption
+            properties:
+              text: Difficulty - Hard
+              typography:
+                size: xs
+                color: '#dc2626'
+                align: left
+
+      # Footer CTA
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+          appearance:
+            background:
+              color: '#14532d'
+              transparency: 100
+          spacing:
+            paddingBlock: lg
+            paddingInline: md
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              widthMode: "50"
+              gap: sm
+            appearance:
+              background:
+                color: '#14532d'
+                transparency: 100
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+          components:
+          - name: heading
+            properties:
+              text: Ready for Adventure?
+              level: 2
+              typography:
+                size: xl
+                weight: bold
+                align: center
+                color: '#f0fdf4'
+          - name: paragraph
+            properties:
+              text: Book your guided mountain tour today and experience these views in person.
+              typography:
+                size: md
+                align: center
+                color: '#86efac'
+          - name: button
+            properties:
+              text: Book a Tour
+              appearance:
+                background:
+                  color: '#22c55e'
+                  transparency: 100
+                border:
+                  width: 0
+                  style: none
+                  color: '#22c55e'
+                radius: md
+              typography:
+                size: md
+                weight: bold
+                color: '#14532d'

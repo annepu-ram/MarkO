@@ -1,5 +1,10 @@
 # Badge: Pricing Table with Plan Badges
 # Pricing cards with popular/recommended badges
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, columnsgrid, badge, button
+# Section type: product
+# Layout: grid
+# Visual style: modern
+# Perfect for: ecommerce, retail, products, marketing
 
 - name: page
   properties:
@@ -7,6 +12,7 @@
       colors:
         background: &color-background '#f1f5f9'
         primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
         secondary: &color-secondary '#475569'
         accent: &color-accent '#7c3aed'
       fonts:
@@ -55,7 +61,7 @@
                 - name: paragraph
                   properties:
                     text: "$9"
-                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                    typography: { size: xxxl, weight: extrabold, color: *color-text, align: center }
                 - name: paragraph
                   properties:
                     text: per month
@@ -122,7 +128,7 @@
                 - name: paragraph
                   properties:
                     text: "$99"
-                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                    typography: { size: xxxl, weight: extrabold, color: *color-text, align: center }
                 - name: paragraph
                   properties:
                     text: per month

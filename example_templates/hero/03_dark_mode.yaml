@@ -1,5 +1,9 @@
 # Dark Mode Hero
 # A sleek, modern dark-themed hero with high contrast elements
+# Base components: page, titlebar, layout-column, layout-row, paragraph, heading, button, image
+# Section type: hero
+# Layout: centered
+# Visual style: dark_mode
 # Perfect for: Tech companies, gaming, crypto, creative agencies
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#ffffff"
+        text: &color-text "#DFDFDF"
         secondary: &color-secondary "#71717a"
         accent: &color-accent "#8b5cf6"
         background: &color-background "#09090b"
@@ -16,345 +21,335 @@
         transparency: 100
   components:
     # Navigation Bar
-    - name: titlebar
-      properties:
-        branding:
-          showLogo: false
-          title: "NEXUS"
-        navigation:
-          links:
-            - label: Features
-              href: '#features'
-            - label: Pricing
-              href: '#pricing'
-            - label: Docs
-              href: '#docs'
-            - label: Launch App
-              href: '#launch'
-        layout:
-          alignment: left
-          height: 60
-        scroll:
-          shrinkPercentage: 70
-        appearance:
-          background:
-            color: 'rgba(9,9,11,0.8)'
-            transparency: 100
-          border:
-            width: 0
-            style: solid
-            color: transparent
-          focus:
-            background: *color-background
-            color: *color-primary
-        typography:
-          title:
-            size: 20
-            weight: bold
-            color: *color-primary
-          menu:
-            size: 14
-            weight: medium
-            color: *color-secondary
+  - name: titlebar
+    properties:
+      branding:
+        showLogo: false
+        title: "NEXUS"
+      navigation:
+        links:
+        - label: Features
+          href: '#features'
+        - label: Pricing
+          href: '#pricing'
+        - label: Docs
+          href: '#docs'
+        - label: Launch App
+          href: '#launch'
+      layout:
+        alignment: left
+        height: 60
+      scroll:
+        shrinkPercentage: 70
+      appearance:
+        background:
+          color: 'rgba(9,9,11,0.8)'
+          transparency: 100
+        border:
+          width: 0
+          style: solid
+          color: transparent
+        focus:
+          background: *color-background
+          color: *color-primary
+      typography:
+        title:
+          size: 20
+          weight: bold
+          color: *color-primary
+        menu:
+          size: 14
+          weight: medium
+          color: *color-secondary
 
     # Hero Section
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        tag: section
+        verticalAlign: center
+        wrap: nowrap
+        gap: none
+        widthMode: stretch
+      spacing:
+        paddingBlock: xxxl
+        paddingInline: lg
+        marginBlock: none
+        marginInline: none
+      background:
+        color: *color-background
+        transparency: 100
+      appearance:
+        background:
+          type: solid
+          color: *color-primary
+          transparency: 0
+        border:
+          width: 0
+          style: solid
+          color: *color-background
+        radius: none
+        shadow: none
+        shadowColor: *color-background
+    components:
+        # Announcement Banner
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          verticalAlign: center
+          wrap: nowrap
+        appearance:
+          background:
+            color: rgba(139,92,246,0.1)
+            transparency: 100
+          radius: pill
+          border:
+            width: 1
+            style: solid
+            color: rgba(139,92,246,0.3)
+          shadow: soft
+          shadowColor: *color-accent
+      components:
+      - name: paragraph
+        properties:
+          text: "Announcing our $50M Series B"
+          typography:
+            color: *color-accent
+            size: sm
+            weight: medium
+            lineHeight: '1'
+          spacing:
+            marginBlock: none
+      - name: paragraph
+        properties:
+          text: "→"
+          typography:
+            color: *color-accent
+            size: sm
+            weight: bold
+            lineHeight: '1'
+          spacing:
+            marginBlock: none
+
+        # Main Headline with Gradient
+    - name: heading
+      properties:
+        text: "The future of development is here"
+        level: 1
+        typography:
+          color: *color-primary
+          size: xxxl
+          weight: bold
+          align: center
+          lineHeight: '1.1'
+        spacing:
+          marginBlock: none
+        layout:
+          widthMode: "75"
+
+        # Gradient Subtext
+    - name: paragraph
+      properties:
+        text: "Ship faster. Scale infinitely. Sleep better."
+        typography:
+          color: *color-accent
+          size: xl
+          align: center
+          weight: medium
+        spacing:
+          marginBlock: none
+
+        # Description
+    - name: paragraph
+      properties:
+        text: |
+          Build, deploy, and scale applications with zero configuration.
+          Our platform handles infrastructure so you can focus on what matters most.
+        typography:
+          color: *color-secondary
+          size: lg
+          align: center
+          lineHeight: '1.6'
+        spacing:
+          marginBlock: md
+        layout:
+          widthMode: "50"
+
+        # CTA Buttons
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          wrap: wrap
+          verticalAlign: center
+        spacing:
+          marginBlock: lg
+      components:
+      - name: button
+        properties:
+          text: "Start Building"
+          appearance:
+            background:
+              type: gradient
+              gradient:
+                colorStart: *color-accent
+                colorEnd: *color-accent
+                direction: to right
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            shadow: medium
+            shadowColor: *color-accent
+          typography:
+            color: *color-primary
+            weight: semibold
+            size: md
+          spacing:
+            marginBlock: none
+            paddingBlock: md
+            paddingInline: xl
+      - name: button
+        properties:
+          text: "View Demo"
+          appearance:
+            background:
+              color: transparent
+              transparency: 0
+            border:
+              width: 1
+              style: solid
+              color: *color-secondary
+          typography:
+            color: *color-primary
+            weight: semibold
+            size: md
+          spacing:
+            marginBlock: none
+
+        # Stats Row
+            paddingBlock: md
+            paddingInline: xl
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          wrap: wrap
+          verticalAlign: center
+        spacing:
+          marginBlock: xl
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+            widthMode: "25"
+        components:
+        - name: heading
+          properties:
+            text: "10M+"
+            level: 2
+            typography:
+              color: *color-primary
+              size: xxl
+              weight: bold
+              align: center
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Deployments"
+            typography:
+              color: *color-secondary
+              size: sm
+              align: center
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+            widthMode: "25"
+        components:
+        - name: heading
+          properties:
+            text: "99.99%"
+            level: 2
+            typography:
+              color: *color-primary
+              size: xxl
+              weight: bold
+              align: center
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Uptime SLA"
+            typography:
+              color: *color-secondary
+              size: sm
+              align: center
+            spacing:
+              marginBlock: none
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+            widthMode: "25"
+        components:
+        - name: heading
+          properties:
+            text: "150ms"
+            level: 2
+            typography:
+              color: *color-primary
+              size: xxl
+              weight: bold
+              align: center
+            spacing:
+              marginBlock: none
+        - name: paragraph
+          properties:
+            text: "Avg Response"
+            typography:
+              color: *color-secondary
+              size: sm
+              align: center
+            spacing:
+              marginBlock: none
+
+        # Code Preview / Product Screenshot
     - name: layout-column
       properties:
         layout:
-          align: center
-          horizontalAlign: center
-          tag: section
-          verticalAlign: center
-          wrap: nowrap
-          gap: none
-          widthMode: stretch
+          horizontalAlign: none
         spacing:
-          paddingBlock: xxxl
-          paddingInline: lg
-          marginBlock: none
-          marginInline: none
-        background:
-          color: *color-background
-          transparency: 100
+          marginBlock: lg
         appearance:
-          padding:
-            block: sm
-            inline: sm
           background:
-            type: solid
-            color: *color-primary
-            transparency: 0
+            color: *color-background
+            transparency: 100
+          radius: lg
           border:
-            width: 0
+            width: 1
             style: solid
             color: *color-background
-          radius: none
-          shadow: none
-          shadowColor: *color-background
+          shadow: elevated
+          shadowColor: *color-accent
       components:
-        # Announcement Banner
-        - name: layout-row
-          properties:
-            layout:
-              align: center
-              horizontalAlign: space-evenly
-            appearance:
-              background:
-                color: rgba(139,92,246,0.1)
-                transparency: 100
-              radius: pill
-              border:
-                width: 1
-                style: solid
-                color: rgba(139,92,246,0.3)
-              shadow: soft
-              shadowColor: *color-accent
-              padding:
-                block: xs
-                inline: md
-          components:
-            - name: paragraph
-              properties:
-                text: "Announcing our $50M Series B"
-                typography:
-                  color: *color-accent
-                  size: sm
-                  weight: medium
-                spacing:
-                  marginBlock: none
-            - name: paragraph
-              properties:
-                text: "→"
-                typography:
-                  color: *color-accent
-                  size: sm
-                  weight: bold
-                spacing:
-                  marginBlock: none
-
-        # Main Headline with Gradient
-        - name: heading
-          properties:
-            text: "The future of development is here"
-            level: 1
-            typography:
-              color: *color-primary
-              size: xxxl
-              weight: bold
-              align: center
-              lineHeight: '1.1'
-            spacing:
-              marginBlock: none
-            layout:
-              widthMode: "75"
-
-        # Gradient Subtext
-        - name: paragraph
-          properties:
-            text: "Ship faster. Scale infinitely. Sleep better."
-            typography:
-              color: *color-accent
-              size: xl
-              align: center
-              weight: medium
-            spacing:
-              marginBlock: none
-
-        # Description
-        - name: paragraph
-          properties:
-            text: |
-              Build, deploy, and scale applications with zero configuration.
-              Our platform handles infrastructure so you can focus on what matters most.
-            typography:
-              color: *color-secondary
-              size: lg
-              align: center
-              lineHeight: '1.6'
-            spacing:
-              marginBlock: md
-            layout:
-              widthMode: "50"
-
-        # CTA Buttons
-        - name: layout-row
-          properties:
-            layout:
-              align: center
-              horizontalAlign: space-evenly
-              wrap: wrap
-            spacing:
-              marginBlock: lg
-          components:
-            - name: button
-              properties:
-                text: "Start Building"
-                appearance:
-                  background:
-                    type: gradient
-                    gradient:
-                      colorStart: *color-accent
-                      colorEnd: *color-accent
-                      direction: to right
-                  border:
-                    width: 0
-                    style: solid
-                    color: transparent
-                  padding:
-                    block: md
-                    inline: xl
-                  shadow: medium
-                  shadowColor: *color-accent
-                typography:
-                  color: *color-primary
-                  weight: semibold
-                  size: md
-                spacing:
-                  marginBlock: none
-            - name: button
-              properties:
-                text: "View Demo"
-                appearance:
-                  background:
-                    color: transparent
-                    transparency: 0
-                  border:
-                    width: 1
-                    style: solid
-                    color: *color-secondary
-                  padding:
-                    block: md
-                    inline: xl
-                typography:
-                  color: *color-primary
-                  weight: semibold
-                  size: md
-                spacing:
-                  marginBlock: none
-
-        # Stats Row
-        - name: layout-row
-          properties:
-            layout:
-              align: center
-              horizontalAlign: space-evenly
-              wrap: wrap
-            spacing:
-              marginBlock: xl
-          components:
-            - name: layout-column
-              properties:
-                layout:
-                  align: center
-                  horizontalAlign: space-evenly
-                  widthMode: "25"
-              components:
-                - name: heading
-                  properties:
-                    text: "10M+"
-                    level: 2
-                    typography:
-                      color: *color-primary
-                      size: xxl
-                      weight: bold
-                      align: center
-                    spacing:
-                      marginBlock: none
-                - name: paragraph
-                  properties:
-                    text: "Deployments"
-                    typography:
-                      color: *color-secondary
-                      size: sm
-                      align: center
-                    spacing:
-                      marginBlock: none
-            - name: layout-column
-              properties:
-                layout:
-                  align: center
-                  horizontalAlign: space-evenly
-                  widthMode: "25"
-              components:
-                - name: heading
-                  properties:
-                    text: "99.99%"
-                    level: 2
-                    typography:
-                      color: *color-primary
-                      size: xxl
-                      weight: bold
-                      align: center
-                    spacing:
-                      marginBlock: none
-                - name: paragraph
-                  properties:
-                    text: "Uptime SLA"
-                    typography:
-                      color: *color-secondary
-                      size: sm
-                      align: center
-                    spacing:
-                      marginBlock: none
-            - name: layout-column
-              properties:
-                layout:
-                  align: center
-                  horizontalAlign: space-evenly
-                  widthMode: "25"
-              components:
-                - name: heading
-                  properties:
-                    text: "150ms"
-                    level: 2
-                    typography:
-                      color: *color-primary
-                      size: xxl
-                      weight: bold
-                      align: center
-                    spacing:
-                      marginBlock: none
-                - name: paragraph
-                  properties:
-                    text: "Avg Response"
-                    typography:
-                      color: *color-secondary
-                      size: sm
-                      align: center
-                    spacing:
-                      marginBlock: none
-
-        # Code Preview / Product Screenshot
-        - name: layout-column
-          properties:
-            layout:
-              align: center
-              horizontalAlign: none
-            spacing:
-              marginBlock: lg
-            appearance:
-              background:
-                color: *color-background
-                transparency: 100
-              radius: lg
-              border:
-                width: 1
-                style: solid
-                color: *color-background
-              shadow: elevated
-              shadowColor: *color-accent
-          components:
-            - name: image
-              properties:
-                source:
-                  url: https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1200
-                  altText: Developer working on code
-                appearance:
-                  minHeight: 25
-                  fit: cover
-                  cornerStyle: lg
-                  hoverEffect: zoom
-                layout:
-                  widthMode: "stretch"
-                spacing:
-                  marginBlock: none
+      - name: image
+        properties:
+          source:
+            url: https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1200
+            altText: Developer working on code
+          appearance:
+            minHeight: 25
+            fit: cover
+            cornerStyle: lg
+            hoverEffect: zoom
+          layout:
+            widthMode: "stretch"
+          spacing:
+            marginBlock: none

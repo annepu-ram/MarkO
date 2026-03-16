@@ -35,34 +35,37 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Loving Care for Your Furry Family") + paragraph (experienced vets, compassionate care) + two buttons ("Book Appointment", "Emergency: Call Now"). Right: image (vet with pet).
 
-3. **counter-up (Trust Numbers)**
+3. **br (wave divider)**
+   Visual separator between hero and content sections.
+
+4. **counter-up (Trust Numbers)**
    "10,000+ Pets Treated", "5 Experienced Vets", "24/7 Emergency Care", "4.9 Rating".
 
-4. **columnsgrid (Services — 3 columns)**
+5. **columnsgrid (Services — 3 columns)**
    Each: icon + heading + paragraph. Wellness Checkups, Vaccinations, Surgery, Dental Care, Diagnostics (X-Ray, Lab), Pet Pharmacy, Boarding, Grooming.
 
-5. **layout-row (Our Veterinarians)**
+6. **layout-row (Our Veterinarians)**
    columnsgrid: image + heading (name) + caption (specialization: Small Animals, Exotic, Surgery) + paragraph (brief bio).
 
-6. **tabs (Pet Care by Animal)**
+7. **tabs (Pet Care by Animal)**
    Tabs: Dogs, Cats, Birds, Exotic Pets. Each: paragraph (common services, vaccination schedule) + button.
 
-7. **layout-row (Our Facility)**
+8. **layout-row (Our Facility)**
    carousel of clinic images + heading + paragraph (modern equipment, clean environment, separate cat/dog areas).
 
-8. **accordion (Pet Parent FAQs)**
+9. **accordion (Pet Parent FAQs)**
    Vaccination schedule, spay/neuter info, emergency signs, nutrition advice, insurance.
 
-9. **carousel (Happy Pet Parents)**
+10. **carousel (Happy Pet Parents)**
    Image (pet) + blockquote + rating + caption (owner name, pet name).
 
-10. **layout-row (Emergency CTA)**
+11. **layout-row (Emergency CTA)**
     heading ("Is It an Emergency?") + paragraph (signs to watch for) + button ("Call Emergency Line") + badge ("24/7").
 
-11. **form (Book Appointment)**
+12. **form (Book Appointment)**
     textbox (owner name), textbox (phone), textbox (pet name), dropdown (pet type), dropdown (service), calendar (date), dropdown (time), textarea (concern), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Address, emergency number (prominent), regular hours, social links.
 
 ---
@@ -77,34 +80,37 @@
 2. **layout-row (Hero)**
    Image (adorable groomed pet), heading ("Pamper Your Pet, They Deserve It!") + paragraph + button ("Book a Session").
 
-3. **ticker (Services Quick View)**
+3. **br (wave divider)**
+   Visual separator between hero and content sections.
+
+4. **ticker (Services Quick View)**
    Scrolling: icon + caption — Bath, Haircut, Nail Trim, Ear Clean, Teeth Brush, De-shedding, Flea Treatment, Spa.
 
-4. **columnsgrid (Grooming Packages — 3 columns)**
+5. **columnsgrid (Grooming Packages — 3 columns)**
    Each: image + heading + paragraph (services included) + counter-up (price) + badge ("Best Seller" on one). Basic Bath, Full Grooming, Spa Deluxe.
 
-5. **tabs (By Pet Type)**
+6. **tabs (By Pet Type)**
    Tabs: Dogs (by size: Small, Medium, Large), Cats, Specialty Breeds. Each: specific pricing and services.
 
-6. **carousel (Before/After Gallery)**
+7. **carousel (Before/After Gallery)**
    Dramatic grooming transformations.
 
-7. **layout-row (Why Choose Us)**
+8. **layout-row (Why Choose Us)**
    columnsgrid (4 cols): icon + caption. Certified Groomers, Pet-Safe Products, Stress-Free Environment, Individual Attention.
 
-8. **counter-up (Happy Pets)**
+9. **counter-up (Happy Pets)**
    "5,000+ Pets Groomed", "100% Pet-Safe Products", "4.9 Rating", "Gentle Handling Guaranteed".
 
-9. **carousel (Pet Parent Reviews)**
+10. **carousel (Pet Parent Reviews)**
    Pet photo + blockquote + rating + caption.
 
-10. **layout-row (Products We Use)**
+11. **layout-row (Products We Use)**
     heading + paragraph (organic, vet-recommended) + ticker of product brand logos.
 
-11. **form (Book Grooming)**
+12. **form (Book Grooming)**
     textbox (owner name), textbox (phone), textbox (pet name), dropdown (pet type), dropdown (breed/size), dropdown (package), calendar (date), dropdown (time), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Address, hours, phone, WhatsApp, Instagram (pet photos!).
 
 ---
@@ -119,32 +125,35 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Everything Your Pet Needs, Under One Roof") + paragraph + button ("Shop Now"). Right: image (pets with products).
 
-3. **columnsgrid (Shop by Category — 4 columns)**
+3. **br (wave divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Shop by Category — 4 columns)**
    Each: image + heading + link. Dog Food, Cat Supplies, Bird Cages & Feed, Fish & Aquariums, Accessories, Toys, Health & Hygiene, Beds & Carriers.
 
-4. **tabs (Pets Available)**
+5. **tabs (Pets Available)**
    Tabs: Puppies, Kittens, Birds, Fish, Small Animals. Each: columnsgrid of pet cards — image + heading (breed) + caption (age, price) + button ("Enquire").
 
-5. **layout-row (Featured Products)**
+6. **layout-row (Featured Products)**
    carousel of product cards: image + heading + caption (price) + badge ("New" or "Sale") + button.
 
-6. **layout-row (Pet Adoption Section)**
+7. **layout-row (Pet Adoption Section)**
    heading + paragraph (adoption program) + image + button ("View Adoptable Pets") + badge ("Adopt Don't Shop").
 
-7. **counter-up (Store Stats)**
+8. **counter-up (Store Stats)**
    "10,000+ Products", "500+ Happy Pet Families", "All Breeds Available", "Vet-Recommended Products".
 
-8. **accordion (Pet Care Guides)**
+9. **accordion (Pet Care Guides)**
    Items: First-time dog owner guide, Cat care basics, Setting up an aquarium, Bird feeding tips.
 
-9. **carousel (Customer Reviews)**
+10. **carousel (Customer Reviews)**
    Pet photos + blockquote + rating.
 
-10. **layout-row (Store Visit)**
+11. **layout-row (Store Visit)**
     Image (store interior) + heading + paragraph (address, hours) + button ("Get Directions").
 
-11. **form (Enquiry)**
+12. **form (Enquiry)**
     textbox (name), textbox (phone), dropdown (enquiry: Pet Availability / Product / General), textarea (details), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Address, hours, phone, WhatsApp, social links, delivery info.

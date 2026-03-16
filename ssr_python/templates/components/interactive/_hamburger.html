@@ -2,7 +2,7 @@
     {% set properties = component.properties | default({}) %}
     {% set links = component.links | default([]) %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="hamburger-menu chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="hamburger-menu chrome-target" data-component-id="{{ component_id }}" data-component-name="hamburger"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         <button class="mobile-menu-button">
             <span>{{ component.label | default('Menu') }}</span>
         </button>

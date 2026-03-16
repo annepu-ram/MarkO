@@ -1,5 +1,9 @@
 # Minimal Product Showcase Hero
 # A clean, Apple-inspired hero focused on product presentation
+# Base components: page, titlebar, layout-column, layout-row, paragraph, heading, link, image, columnsgrid
+# Section type: hero
+# Layout: centered
+# Visual style: minimal
 # Perfect for: E-commerce, product launches, tech products, consumer goods
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#1d1d1f"
+        text: &color-text "#333334"
         secondary: &color-secondary "#86868b"
         accent: &color-accent "#0071e3"
         background: &color-background "#ffffff"
@@ -16,472 +21,458 @@
         transparency: 100
   components:
     # Clean Navigation
-    - name: titlebar
-      properties:
-        branding:
-          showLogo: false
-          title: "Electronics"
-          logoUrl: https://via.placeholder.com/50x40
-        navigation:
-          links:
-            - label: Products
-              href: "#products"
-            - label: Features
-              href: "#features"
-            - label: Support
-              href: "#support"
-            - label: Buy
-              href: "#buy"
-        layout:
-          alignment: left
-          height: 60
-        scroll:
-          shrinkPercentage: 100
-        appearance:
-          background:
-            color: *color-background
-            transparency: 100
-            type: solid
-          border:
-            width: 0
-            style: solid
-            color: transparent
-          focus:
-            background: *color-background
-            color: *color-primary
-        typography:
-          title:
-            size: 30
-            weight: semibold
-            color: *color-primary
-          menu:
-            size: 20
-            weight: medium
-            color: *color-primary
+  - name: titlebar
+    properties:
+      branding:
+        showLogo: false
+        title: "Electronics"
+        logoUrl: https://via.placeholder.com/50x40
+      navigation:
+        links:
+        - label: Products
+          href: "#products"
+        - label: Features
+          href: "#features"
+        - label: Support
+          href: "#support"
+        - label: Buy
+          href: "#buy"
+      layout:
+        alignment: left
+        height: 60
+      scroll:
+        shrinkPercentage: 100
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+          type: solid
+        border:
+          width: 0
+          style: solid
+          color: transparent
+        focus:
+          background: *color-background
+          color: *color-primary
+      typography:
+        title:
+          size: 30
+          weight: semibold
+          color: *color-primary
+        menu:
+          size: 20
+          weight: medium
+          color: *color-primary
 
     # Hero - Product Centered
-    - name: layout-column
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-        spacing:
-          paddingBlock: xxl
-          paddingInline: lg
-        appearance:
-          background:
-            type: gradient
-            gradient:
-              colorStart: *color-background
-              colorEnd: *color-background
-              direction: to bottom
-            transparency: 100
-      components:
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: xxl
+        paddingInline: lg
+      appearance:
+        background:
+          type: gradient
+          gradient:
+            colorStart: *color-background
+            colorEnd: *color-background
+            direction: to bottom
+          transparency: 100
+    components:
         # Product Name Badge
-        - name: paragraph
-          properties:
-            text: "Introducing"
-            typography:
-              color: *color-secondary
-              size: sm
-              weight: medium
-            spacing:
-              marginBlock: none
+    - name: paragraph
+      properties:
+        text: "Introducing"
+        typography:
+          color: *color-secondary
+          size: sm
+          weight: medium
+        spacing:
+          marginBlock: none
 
         # Product Name - Large & Bold
-        - name: heading
-          properties:
-            text: "AirPods Max"
-            level: 1
-            typography:
-              color: *color-primary
-              size: xxxl
-              weight: bold
-              align: center
-            spacing:
-              marginBlock: xs
+    - name: heading
+      properties:
+        text: "AirPods Max"
+        level: 1
+        typography:
+          color: *color-primary
+          size: xxxl
+          weight: bold
+          align: center
+        spacing:
+          marginBlock: xs
 
         # Tagline
-        - name: paragraph
-          properties:
-            text: "A perfect balance of high-fidelity audio"
-            typography:
-              color: *color-primary
-              size: xl
-              align: center
-              weight: medium
-            spacing:
-              marginBlock: none
+    - name: paragraph
+      properties:
+        text: "A perfect balance of high-fidelity audio"
+        typography:
+          color: *color-text
+          size: xl
+          align: center
+          weight: medium
+        spacing:
+          marginBlock: none
 
-        - name: paragraph
-          properties:
-            text: "and effortless magic."
-            typography:
-              color: *color-primary
-              size: xl
-              align: center
-              weight: medium
-            spacing:
-              marginBlock: none
+    - name: paragraph
+      properties:
+        text: "and effortless magic."
+        typography:
+          color: *color-text
+          size: xl
+          align: center
+          weight: medium
+        spacing:
+          marginBlock: none
 
         # Price & Availability
-        - name: paragraph
-          properties:
-            text: "From $549"
-            typography:
-              color: *color-secondary
-              size: md
-              align: center
-            spacing:
-              marginBlock: md
+    - name: paragraph
+      properties:
+        text: "From $549"
+        typography:
+          color: *color-secondary
+          size: md
+          align: center
+        spacing:
+          marginBlock: md
 
         # CTA Links
-        - name: layout-row
-          properties:
-            layout:
-              align: center
-              horizontalAlign: space-evenly
-          components:
-            - name: link
-              properties:
-                text: "Learn more"
-                typography:
-                  color: *color-accent
-                  size: md
-                  weight: medium
-                  align: left
-                  lineHeight: "1.5"
-                  transform: none
-                  letterSpacing: normal
-                spacing:
-                  marginBlock: none
-                  marginInline: xs
-                href: "#"
-                appearance:
-                  underline: true
-                  showArrow: false
-                  padding:
-                    block: none
-                    inline: none
-                layout:
-            - name: link
-              properties:
-                text: "Buy"
-                typography:
-                  color: *color-accent
-                  size: md
-                  weight: medium
-                  align: left
-                  lineHeight: "1.5"
-                  transform: none
-                  letterSpacing: normal
-                spacing:
-                  marginBlock: none
-                  marginInline: xs
-                href: "#"
-                appearance:
-                  underline: true
-                  showArrow: false
-                  padding:
-                    block: none
-                    inline: none
-                layout:
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          verticalAlign: center
+      components:
+      - name: link
+        properties:
+          text: "Learn more"
+          typography:
+            color: *color-accent
+            size: md
+            weight: medium
+            align: left
+            lineHeight: "1.5"
+            transform: none
+            letterSpacing: normal
+          spacing:
+            marginBlock: none
+            marginInline: xs
+            paddingBlock: none
+            paddingInline: none
+          href: "#"
+          appearance:
+            underline: true
+            showArrow: false
+          layout:
+      - name: link
+        properties:
+          text: "Buy"
+          typography:
+            color: *color-accent
+            size: md
+            weight: medium
+            align: left
+            lineHeight: "1.5"
+            transform: none
+            letterSpacing: normal
+          spacing:
+            marginBlock: none
+            marginInline: xs
+            paddingBlock: none
+            paddingInline: none
+          href: "#"
+          appearance:
+            underline: true
+            showArrow: false
+          layout:
 
         # Product Image - Hero Shot
-        - name: image
-          properties:
-            source:
-              url: https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg?auto=compress&cs=tinysrgb&w=1200
-              altText: Premium headphones product shot
-            appearance:
-              minHeight: 31.25
-              fit: contain
-              cornerStyle: none
-              shadow: dramatic
-              shadowColor: *color-accent
-              hoverEffect: lift
-            layout:
-            spacing:
-              marginBlock: lg
+    - name: image
+      properties:
+        source:
+          url: https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg?auto=compress&cs=tinysrgb&w=1200
+          altText: Premium headphones product shot
+        appearance:
+          minHeight: 31.25
+          fit: contain
+          cornerStyle: none
+          shadow: dramatic
+          shadowColor: *color-accent
+          hoverEffect: lift
+        layout:
+        spacing:
+          marginBlock: lg
 
     # Feature Highlights Grid
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: xl
+        paddingInline: lg
+      background:
+        color: *color-background
+        transparency: 100
+    components:
+    - name: columnsgrid
       properties:
         layout:
-          align: center
-          horizontalAlign: space-evenly
-        spacing:
-          paddingBlock: xl
-          paddingInline: lg
-        background:
-          color: *color-background
-          transparency: 100
-      components:
-        - name: columnsgrid
+          columns: 4
+          gap: md
+          verticalAlign: top
+        responsive:
+          breakpoints:
+            md: 2
+            sm: 1
+      columns:
+      - components:
+        - name: layout-column
           properties:
             layout:
-              columns: 4
-              gap: md
-              verticalAlign: top
-            responsive:
-              breakpoints:
-                md: 2
-                sm: 1
-          columns:
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      align: center
-                      horizontalAlign: space-evenly
-                  components:
-                    - name: heading
-                      properties:
-                        text: "40hr"
-                        level: 2
-                        typography:
-                          color: *color-primary
-                          size: xxl
-                          weight: bold
-                          align: center
-                        spacing:
-                          marginBlock: none
-                    - name: paragraph
-                      properties:
-                        text: "Battery life"
-                        typography:
-                          color: *color-secondary
-                          size: sm
-                          align: center
-                        spacing:
-                          marginBlock: none
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      align: center
-                      horizontalAlign: space-evenly
-                  components:
-                    - name: heading
-                      properties:
-                        text: "H1"
-                        level: 2
-                        typography:
-                          color: *color-primary
-                          size: xxl
-                          weight: bold
-                          align: center
-                        spacing:
-                          marginBlock: none
-                    - name: paragraph
-                      properties:
-                        text: "Apple chip"
-                        typography:
-                          color: *color-secondary
-                          size: sm
-                          align: center
-                        spacing:
-                          marginBlock: none
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      align: center
-                      horizontalAlign: space-evenly
-                  components:
-                    - name: heading
-                      properties:
-                        text: "ANC"
-                        level: 2
-                        typography:
-                          color: *color-primary
-                          size: xxl
-                          weight: bold
-                          align: center
-                        spacing:
-                          marginBlock: none
-                    - name: paragraph
-                      properties:
-                        text: "Active noise cancellation"
-                        typography:
-                          color: *color-secondary
-                          size: sm
-                          align: center
-                        spacing:
-                          marginBlock: none
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      align: center
-                      horizontalAlign: space-evenly
-                  components:
-                    - name: heading
-                      properties:
-                        text: "3D"
-                        level: 2
-                        typography:
-                          color: *color-primary
-                          size: xxl
-                          weight: bold
-                          align: center
-                        spacing:
-                          marginBlock: none
-                    - name: paragraph
-                      properties:
-                        text: "Spatial Audio"
-                        typography:
-                          color: *color-secondary
-                          size: sm
-                          align: center
-                        spacing:
-                          marginBlock: none
-
-    # Color Options
-    - name: layout-column
-      properties:
-        layout:
-          align: center
-          horizontalAlign: space-evenly
-        spacing:
-          paddingBlock: lg
-          paddingInline: lg
-        background:
-          color: *color-background
-          transparency: 100
-      components:
-        - name: paragraph
-          properties:
-            text: "Available in 5 stunning colors"
-            typography:
-              color: *color-secondary
-              size: sm
-              align: center
-            spacing:
-              marginBlock: none
-        - name: layout-row
-          properties:
-            layout:
-              align: center
               horizontalAlign: space-evenly
           components:
-            - name: paragraph
-              properties:
-                text: "●"
-                typography:
-                  color: *color-secondary
-                  size: xl
-                  align: left
-                  weight: regular
-                  lineHeight: "1.6"
-                  transform: none
-                  letterSpacing: normal
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-                layout:
-                appearance:
-                  background:
-                    type: solid
-                    color: *color-background
-                    transparency: 0
-                  radius: none
-                  padding:
-                    block: none
-                    inline: none
-            - name: paragraph
-              properties:
-                text: "●"
-                typography:
-                  color: *color-primary
-                  size: xl
-                  align: left
-                  weight: regular
-                  lineHeight: "1.6"
-                  transform: none
-                  letterSpacing: normal
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-                layout:
-                appearance:
-                  background:
-                    type: solid
-                    color: *color-background
-                    transparency: 0
-                  radius: none
-                  padding:
-                    block: none
-                    inline: none
-            - name: paragraph
-              properties:
-                text: "●"
-                typography:
-                  color: *color-accent
-                  size: xl
-                  align: left
-                  weight: regular
-                  lineHeight: "1.6"
-                  transform: none
-                  letterSpacing: normal
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-                layout:
-                appearance:
-                  background:
-                    type: solid
-                    color: *color-background
-                    transparency: 0
-                  radius: none
-                  padding:
-                    block: none
-                    inline: none
-            - name: paragraph
-              properties:
-                text: "●"
-                typography:
-                  color: *color-accent
-                  size: xl
-                  align: left
-                  weight: regular
-                  lineHeight: "1.6"
-                  transform: none
-                  letterSpacing: normal
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-                layout:
-                appearance:
-                  background:
-                    type: solid
-                    color: *color-background
-                    transparency: 0
-                  radius: none
-                  padding:
-                    block: none
-                    inline: none
-            - name: paragraph
-              properties:
-                text: "●"
-                typography:
-                  color: *color-accent
-                  size: xl
-                  align: left
-                  weight: regular
-                  lineHeight: "1.6"
-                  transform: none
-                  letterSpacing: normal
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-                layout:
-                appearance:
-                  background:
-                    type: solid
-                    color: *color-background
-                    transparency: 0
-                  radius: none
-                  padding:
-                    block: none
-                    inline: none
+          - name: heading
+            properties:
+              text: "40hr"
+              level: 2
+              typography:
+                color: *color-primary
+                size: xxl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Battery life"
+              typography:
+                color: *color-secondary
+                size: sm
+                align: center
+              spacing:
+                marginBlock: none
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+          components:
+          - name: heading
+            properties:
+              text: "H1"
+              level: 2
+              typography:
+                color: *color-primary
+                size: xxl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Apple chip"
+              typography:
+                color: *color-secondary
+                size: sm
+                align: center
+              spacing:
+                marginBlock: none
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+          components:
+          - name: heading
+            properties:
+              text: "ANC"
+              level: 2
+              typography:
+                color: *color-primary
+                size: xxl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Active noise cancellation"
+              typography:
+                color: *color-secondary
+                size: sm
+                align: center
+              spacing:
+                marginBlock: none
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+          components:
+          - name: heading
+            properties:
+              text: "3D"
+              level: 2
+              typography:
+                color: *color-primary
+                size: xxl
+                weight: bold
+                align: center
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "Spatial Audio"
+              typography:
+                color: *color-secondary
+                size: sm
+                align: center
+              spacing:
+                marginBlock: none
+
+    # Color Options
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: space-evenly
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      background:
+        color: *color-background
+        transparency: 100
+    components:
+    - name: paragraph
+      properties:
+        text: "Available in 5 stunning colors"
+        typography:
+          color: *color-secondary
+          size: sm
+          align: center
+        spacing:
+          marginBlock: none
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          verticalAlign: center
+      components:
+      - name: paragraph
+        properties:
+          text: "●"
+          typography:
+            color: *color-secondary
+            size: xl
+            align: left
+            weight: regular
+            lineHeight: "1.6"
+            transform: none
+            letterSpacing: normal
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: none
+            paddingInline: none
+          layout:
+          appearance:
+            background:
+              type: solid
+              color: *color-background
+              transparency: 0
+            radius: none
+      - name: paragraph
+        properties:
+          text: "●"
+          typography:
+            color: *color-text
+            size: xl
+            align: left
+            weight: regular
+            lineHeight: "1.6"
+            transform: none
+            letterSpacing: normal
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: none
+            paddingInline: none
+          layout:
+          appearance:
+            background:
+              type: solid
+              color: *color-background
+              transparency: 0
+            radius: none
+      - name: paragraph
+        properties:
+          text: "●"
+          typography:
+            color: *color-accent
+            size: xl
+            align: left
+            weight: regular
+            lineHeight: "1.6"
+            transform: none
+            letterSpacing: normal
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: none
+            paddingInline: none
+          layout:
+          appearance:
+            background:
+              type: solid
+              color: *color-background
+              transparency: 0
+            radius: none
+      - name: paragraph
+        properties:
+          text: "●"
+          typography:
+            color: *color-accent
+            size: xl
+            align: left
+            weight: regular
+            lineHeight: "1.6"
+            transform: none
+            letterSpacing: normal
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: none
+            paddingInline: none
+          layout:
+          appearance:
+            background:
+              type: solid
+              color: *color-background
+              transparency: 0
+            radius: none
+      - name: paragraph
+        properties:
+          text: "●"
+          typography:
+            color: *color-accent
+            size: xl
+            align: left
+            weight: regular
+            lineHeight: "1.6"
+            transform: none
+            letterSpacing: normal
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: none
+            paddingInline: none
+          layout:
+          appearance:
+            background:
+              type: solid
+              color: *color-background
+              transparency: 0
+            radius: none

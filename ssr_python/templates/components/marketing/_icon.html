@@ -2,13 +2,14 @@
     {% set properties = component.properties | default({}) %}
     {% set icon_name = properties.name | default('star') %}
     {% set size = properties.size | default('24') %}
-    {% set weight = properties.weight | default('400') %}
+    {% set stroke_width = properties.strokeWidth | default('2') %}
     {% set color = properties.color | default('#111827') %}
     {% set base_styles = build_styles(component, tokens) %}
 
-    <span class="comp-icon chrome-target material-symbols-outlined"
+    <span class="comp-icon chrome-target"
           data-component-id="{{ component_id }}"
-          style="{{ base_styles }} display: inline-flex; align-items: center; justify-content: center; color: {{ color }}; font-size: {{ size }}px; font-variation-settings: 'wght' {{ weight }};">
-        {{ icon_name }}
+          data-component-name="icon"
+          style="{{ base_styles }} display: inline-flex; align-items: center; justify-content: center; color: {{ color }};">
+        <i data-lucide="{{ icon_name }}" style="width: {{ size }}px; height: {{ size }}px;" stroke-width="{{ stroke_width }}"></i>
     </span>
 {% endmacro %}

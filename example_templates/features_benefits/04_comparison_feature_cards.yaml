@@ -1,0 +1,235 @@
+# Comparison Feature Cards Section — Before and After Benefits
+# A side-by-side comparison card layout using two layout-columns with contrasting styles showing problems on one side and solutions on the other with icon bullet points
+# Base components: layout-row, layout-column, heading, paragraph, icon, badge, br
+# Section type: features
+# Layout: split_screen, card_based
+# Visual style: modern, card_based
+# Perfect for: SaaS platform, mobile app, software company, online store, consulting firm, logistics company, tutoring center, dental clinic, gym, digital agency
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#f8fafc'
+  components:
+    - name: page
+      slug: home
+      title: "04 Comparison Feature Cards"
+      properties:
+        appearance: { background: { color: *color-background } }
+      components:
+        # Section Header
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center }
+            spacing: { paddingBlock: xl, paddingInline: lg }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '75', horizontalAlign: center }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: THE DIFFERENCE
+                    typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                - name: heading
+                  properties:
+                    text: Why Switch to Us?
+                    level: 2
+                    typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: See the clear advantages of choosing our platform over the alternatives.
+                    typography: { size: md, color: *color-secondary, align: center }
+                    spacing: { marginBlock: sm }
+
+        # Comparison Cards Row
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              verticalAlign: stretch
+              wrap: nowrap
+              gap: lg
+            spacing: { paddingBlock: lg, paddingInline: lg }
+          components:
+            # Left Card — Without Us (Pain Points)
+            - name: layout-column
+              properties:
+                layout: { widthMode: "50", horizontalAlign: left, gap: sm }
+                appearance:
+                  background: { color: '#fef2f2', transparency: 100 }
+                  radius: lg
+                  shadow: soft
+                  border: { width: 1, style: solid, color: '#fecaca' }
+                spacing:
+                  paddingBlock: lg
+                  paddingInline: lg
+              components:
+                - name: badge
+                  properties: { text: "WITHOUT US", variant: danger, pill: false }
+                - name: br
+                  properties: { size: sm }
+                - name: heading
+                  properties:
+                    text: The Old Way
+                    level: 3
+                    typography: { size: xl, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+                - name: br
+                  properties: { size: xs }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: x, size: "24", color: '#dc2626' }
+                    - name: paragraph
+                      properties:
+                        text: Manual data entry wastes hours every week
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: x, size: "24", color: '#dc2626' }
+                    - name: paragraph
+                      properties:
+                        text: Scattered tools with no unified workflow
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: x, size: "24", color: '#dc2626' }
+                    - name: paragraph
+                      properties:
+                        text: No visibility into team progress or bottlenecks
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: x, size: "24", color: '#dc2626' }
+                    - name: paragraph
+                      properties:
+                        text: Slow onboarding takes weeks for new hires
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: x, size: "24", color: '#dc2626' }
+                    - name: paragraph
+                      properties:
+                        text: Security vulnerabilities from outdated systems
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+
+            # Right Card — With Us (Benefits)
+            - name: layout-column
+              properties:
+                layout: { widthMode: "50", horizontalAlign: left, gap: sm }
+                appearance:
+                  background: { color: '#f0fdf4', transparency: 100 }
+                  radius: lg
+                  shadow: soft
+                  border: { width: 1, style: solid, color: '#bbf7d0' }
+                spacing:
+                  paddingBlock: lg
+                  paddingInline: lg
+              components:
+                - name: badge
+                  properties: { text: "WITH US", variant: success, pill: false }
+                - name: br
+                  properties: { size: sm }
+                - name: heading
+                  properties:
+                    text: The Better Way
+                    level: 3
+                    typography: { size: xl, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: xs }
+                - name: br
+                  properties: { size: xs }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: check-circle, size: "24", color: '#16a34a' }
+                    - name: paragraph
+                      properties:
+                        text: Automated workflows save 10+ hours per week
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: check-circle, size: "24", color: '#16a34a' }
+                    - name: paragraph
+                      properties:
+                        text: All-in-one platform replaces 5+ separate tools
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: check-circle, size: "24", color: '#16a34a' }
+                    - name: paragraph
+                      properties:
+                        text: Real-time dashboards show exactly where things stand
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: check-circle, size: "24", color: '#16a34a' }
+                    - name: paragraph
+                      properties:
+                        text: New team members are productive within 24 hours
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                    spacing: { marginBlock: xxs }
+                  components:
+                    - name: icon
+                      properties: { name: check-circle, size: "24", color: '#16a34a' }
+                    - name: paragraph
+                      properties:
+                        text: Enterprise-grade security with SOC 2 compliance
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: none }

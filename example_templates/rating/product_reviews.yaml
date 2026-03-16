@@ -1,5 +1,10 @@
 # Rating: Product Reviews
 # Product cards with star ratings and review counts
+# Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, image, rating
+# Section type: product
+# Layout: grid
+# Visual style: minimal
+# Perfect for: ecommerce, restaurants, reviews, services
 
 - name: page
   properties:
@@ -7,137 +12,138 @@
       colors:
         background: &color-background '#ffffff'
         primary: &color-primary '#1f2937'
+        text: &color-text '#343A43'
         secondary: &color-secondary '#6b7280'
         accent: &color-accent '#f59e0b'
       fonts:
         heading: &font-heading "'Inter', sans-serif"
         content: &font-content "'Inter', sans-serif"
-    appearance: { background: { color: *color-background } }
+    appearance: {background: {color: *color-background}}
   components:
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: xl}
+    components:
+    - name: layout-column
       properties:
-        layout: { horizontalAlign: center }
-        spacing: { paddingBlock: xl }
+        layout: {widthMode: '75', horizontalAlign: center}
       components:
-        - name: layout-column
+      - name: heading
+        properties:
+          text: Top Rated Products
+          level: 2
+          typography: {size: xxl, weight: bold, color: *color-primary, align: center}
+      - name: paragraph
+        properties:
+          text: Loved by thousands of happy customers
+          typography: {size: md, color: *color-secondary, align: center}
+          spacing: {marginBlock: sm}
+
+  - name: columnsgrid
+    properties:
+      layout: {columns: 3, gap: lg}
+      responsive: {breakpoints: {md: 2, sm: 1}}
+      spacing: {paddingBlock: lg, paddingInline: lg}
+    columns:
+    - components:
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center}
+          appearance: {background: {color: '#fafafa'}, radius: lg, shadow: soft}
+          spacing: {paddingBlock: lg, paddingInline: md}
+        components:
+        - name: image
           properties:
-            layout: { widthMode: '75', horizontalAlign: center }
-          components:
-            - name: heading
-              properties:
-                text: Top Rated Products
-                level: 2
-                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
-            - name: paragraph
-              properties:
-                text: Loved by thousands of happy customers
-                typography: { size: md, color: *color-secondary, align: center }
-                spacing: { marginBlock: sm }
+            source: {url: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd'}
+            appearance: {minHeight: 11.25, fit: cover, radius: md}
+        - name: heading
+          properties:
+            text: Wireless Earbuds Pro
+            level: 3
+            typography: {size: lg, weight: semibold, color: *color-primary, align: center}
+            spacing: {marginBlock: sm}
+        - name: rating
+          properties:
+            value: 4.5
+            iconType: star
+            showCount: true
+            color: *color-accent
+            typography: {size: md, color: *color-secondary}
+        - name: paragraph
+          properties:
+            text: "2,847 reviews"
+            typography: {size: xs, color: *color-secondary, align: center}
+        - name: paragraph
+          properties:
+            text: "$89.99"
+            typography: {size: lg, weight: bold, color: *color-text, align: center}
+            spacing: {marginBlock: sm}
 
-    - name: columnsgrid
-      properties:
-        layout: { columns: 3, gap: lg }
-        responsive: { breakpoints: { md: 2, sm: 1 } }
-        spacing: { paddingBlock: lg, paddingInline: lg }
-      columns:
-        - components:
-            - name: layout-column
-              properties:
-                layout: { horizontalAlign: center }
-                appearance: { background: { color: '#fafafa' }, radius: lg, shadow: soft }
-                spacing: { paddingBlock: lg, paddingInline: md }
-              components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd' }
-                    appearance: { minHeight: 180, fit: cover, radius: md }
-                - name: heading
-                  properties:
-                    text: Wireless Earbuds Pro
-                    level: 3
-                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
-                - name: rating
-                  properties:
-                    value: 4.5
-                    iconType: star
-                    showCount: true
-                    color: *color-accent
-                    typography: { size: md, color: *color-secondary }
-                - name: paragraph
-                  properties:
-                    text: "2,847 reviews"
-                    typography: { size: xs, color: *color-secondary, align: center }
-                - name: paragraph
-                  properties:
-                    text: "$89.99"
-                    typography: { size: lg, weight: bold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
+    - components:
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center}
+          appearance: {background: {color: '#fafafa'}, radius: lg, shadow: soft}
+          spacing: {paddingBlock: lg, paddingInline: md}
+        components:
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad'}
+            appearance: {minHeight: 11.25, fit: cover, radius: md}
+        - name: heading
+          properties:
+            text: Leather Wallet
+            level: 3
+            typography: {size: lg, weight: semibold, color: *color-primary, align: center}
+            spacing: {marginBlock: sm}
+        - name: rating
+          properties:
+            value: 5
+            iconType: star
+            showCount: true
+            color: *color-accent
+            typography: {size: md, color: *color-secondary}
+        - name: paragraph
+          properties:
+            text: "1,203 reviews"
+            typography: {size: xs, color: *color-secondary, align: center}
+        - name: paragraph
+          properties:
+            text: "$49.99"
+            typography: {size: lg, weight: bold, color: *color-text, align: center}
+            spacing: {marginBlock: sm}
 
-        - components:
-            - name: layout-column
-              properties:
-                layout: { horizontalAlign: center }
-                appearance: { background: { color: '#fafafa' }, radius: lg, shadow: soft }
-                spacing: { paddingBlock: lg, paddingInline: md }
-              components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad' }
-                    appearance: { minHeight: 180, fit: cover, radius: md }
-                - name: heading
-                  properties:
-                    text: Leather Wallet
-                    level: 3
-                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
-                - name: rating
-                  properties:
-                    value: 5
-                    iconType: star
-                    showCount: true
-                    color: *color-accent
-                    typography: { size: md, color: *color-secondary }
-                - name: paragraph
-                  properties:
-                    text: "1,203 reviews"
-                    typography: { size: xs, color: *color-secondary, align: center }
-                - name: paragraph
-                  properties:
-                    text: "$49.99"
-                    typography: { size: lg, weight: bold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
-
-        - components:
-            - name: layout-column
-              properties:
-                layout: { horizontalAlign: center }
-                appearance: { background: { color: '#fafafa' }, radius: lg, shadow: soft }
-                spacing: { paddingBlock: lg, paddingInline: md }
-              components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1546868871-af0de0ae72be' }
-                    appearance: { minHeight: 180, fit: cover, radius: md }
-                - name: heading
-                  properties:
-                    text: Smart Water Bottle
-                    level: 3
-                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
-                - name: rating
-                  properties:
-                    value: 3.5
-                    iconType: star
-                    showCount: true
-                    color: *color-accent
-                    typography: { size: md, color: *color-secondary }
-                - name: paragraph
-                  properties:
-                    text: "567 reviews"
-                    typography: { size: xs, color: *color-secondary, align: center }
-                - name: paragraph
-                  properties:
-                    text: "$34.99"
-                    typography: { size: lg, weight: bold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
+    - components:
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center}
+          appearance: {background: {color: '#fafafa'}, radius: lg, shadow: soft}
+          spacing: {paddingBlock: lg, paddingInline: md}
+        components:
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1546868871-af0de0ae72be'}
+            appearance: {minHeight: 11.25, fit: cover, radius: md}
+        - name: heading
+          properties:
+            text: Smart Water Bottle
+            level: 3
+            typography: {size: lg, weight: semibold, color: *color-primary, align: center}
+            spacing: {marginBlock: sm}
+        - name: rating
+          properties:
+            value: 3.5
+            iconType: star
+            showCount: true
+            color: *color-accent
+            typography: {size: md, color: *color-secondary}
+        - name: paragraph
+          properties:
+            text: "567 reviews"
+            typography: {size: xs, color: *color-secondary, align: center}
+        - name: paragraph
+          properties:
+            text: "$34.99"
+            typography: {size: lg, weight: bold, color: *color-text, align: center}
+            spacing: {marginBlock: sm}

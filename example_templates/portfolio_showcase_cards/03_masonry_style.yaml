@@ -1,6 +1,10 @@
 # 03 - Masonry Style
-# Columnsgrid with 3 columns where each card is a simple image and caption.
-# Different images with varying aspect ratios for a masonry-like effect.
+# Columnsgrid with 3 columns where each card is a simple image and caption. Different images with varying aspect ratios for a masonry-like effect.
+# Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, image, caption, br
+# Section type: gallery
+# Layout: grid
+# Visual style: minimal
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page
   properties:
@@ -10,6 +14,7 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#1c1917'
+        text: &color-text '#32312F'
         secondary: &color-secondary '#44403c'
         accent: &color-accent '#f97316'
         background: &color-background '#fafaf9'

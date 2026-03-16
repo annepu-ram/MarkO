@@ -1,0 +1,294 @@
+# Theater Auditorium Panorama with Show Times and Booking
+# Dark warm-themed Art Deco theater panoramic viewer with gold accent borders, an Arthur Miller blockquote, and a three-column show schedule grid featuring eyebrow dates, show titles, times, and Book Tickets buttons
+# Base components: layout-row, layout-column, eyebrow, heading, paragraph, panorama-display, br, blockquote, columnsgrid, button
+# Section type: gallery
+# Layout: stacked
+# Visual style: dark_mode
+# Perfect for: real estate agency, hotel, travel agency, architecture firm, event venue, restaurant, resort, museum, shopping mall
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#fef3c7'
+        text: &color-text '#DED8BD'
+        secondary: &color-secondary '#d4a574'
+        accent: &color-accent '#f59e0b'
+        background: &color-background '#1a0a0a'
+  components:
+    - name: page
+      properties:
+        appearance:
+          background:
+            color: '#1a0a0a'
+      components:
+      # Header
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: center
+          appearance:
+            background:
+              color: '#1a0a0a'
+              transparency: 0
+          spacing:
+            paddingBlock: lg
+            paddingInline: md
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              widthMode: "66"
+              gap: sm
+            appearance:
+              background:
+                transparency: 0
+          components:
+          - name: eyebrow
+            properties:
+              text: The Grand Stage
+              typography:
+                size: xs
+                weight: semibold
+                align: center
+                color: '#f59e0b'
+                transform: uppercase
+                letterSpacing: wide
+          - name: heading
+            properties:
+              text: Royal Theater Panorama
+              level: 1
+              typography:
+                size: xxl
+                weight: bold
+                align: center
+                color: '#fef3c7'
+          - name: paragraph
+            properties:
+              text: Experience the grandeur of a classic theater from your screen. Scroll through this immersive panoramic view of the auditorium, from the orchestra pit to the upper balconies.
+              typography:
+                size: md
+                align: center
+                color: '#d4a574'
+
+      # Panorama - Theater
+      - name: panorama-display
+        properties:
+          source:
+            url: https://images.pexels.com/photos/109669/pexels-photo-109669.jpeg?auto=compress&cs=tinysrgb&w=3000&h=600&fit=crop
+            altText: Panoramic interior of an ornate Art Deco theater auditorium
+          behavior:
+            initialPosition: center
+            autoScroll: false
+            stepDistance: 350
+            pauseOnHover: true
+          spacing:
+            marginBlock: lg
+          appearance:
+            radius: sm
+            shadow: dramatic
+            shadowColor: '#000000'
+            border:
+              width: 2
+              style: solid
+              color: '#92400e'
+
+      # Theater Info
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: center
+          appearance:
+            background:
+              color: '#1a0a0a'
+              transparency: 0
+          spacing:
+            paddingBlock: md
+            paddingInline: lg
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              widthMode: "75"
+              gap: md
+            appearance:
+              background:
+                transparency: 0
+          components:
+          - name: br
+            properties:
+              type: solid
+              color: '#92400e'
+              thickness: 1
+          - name: blockquote
+            properties:
+              quote: |
+                The theater is so endlessly fascinating because it is so accidental.
+                It is so much like life.
+              cite: Arthur Miller
+              typography:
+                size: lg
+                weight: medium
+                align: center
+                color: '#fef3c7'
+              appearance:
+                border:
+                  accentColor: '#f59e0b'
+                background:
+                  transparency: 0
+              spacing:
+                paddingBlock: md
+                paddingInline: md
+      # Show Times
+      - name: columnsgrid
+        properties:
+          layout:
+            columns: 3
+            gap: md
+            verticalAlign: stretch
+          responsive:
+            breakpoints:
+              md: 3
+              sm: 1
+          appearance:
+            columnBackground: '#2a1515'
+            columnRadius: md
+          spacing:
+            marginBlock: lg
+            paddingBlock: md
+            paddingInline: lg
+        columns:
+        - components:
+          - name: eyebrow
+            properties:
+              text: This Friday
+              typography:
+                size: xs
+                weight: semibold
+                color: '#f59e0b'
+                align: center
+                transform: uppercase
+          - name: heading
+            properties:
+              text: The Phantom
+              level: 3
+              typography:
+                size: lg
+                weight: bold
+                color: '#fef3c7'
+                align: center
+          - name: paragraph
+            properties:
+              text: 7:30 PM - Orchestra & Balcony
+              typography:
+                size: sm
+                color: '#d4a574'
+                align: center
+          - name: button
+            properties:
+              text: Book Tickets
+              appearance:
+                background:
+                  color: '#92400e'
+                  transparency: 100
+                border:
+                  width: 0
+                  style: none
+                  color: '#92400e'
+                radius: sm
+              typography:
+                size: sm
+                weight: semibold
+                color: '#fef3c7'
+        - components:
+          - name: eyebrow
+            properties:
+              text: This Saturday
+              typography:
+                size: xs
+                weight: semibold
+                color: '#f59e0b'
+                align: center
+                transform: uppercase
+          - name: heading
+            properties:
+              text: Swan Lake
+              level: 3
+              typography:
+                size: lg
+                weight: bold
+                color: '#fef3c7'
+                align: center
+          - name: paragraph
+            properties:
+              text: 8:00 PM - All Sections
+              typography:
+                size: sm
+                color: '#d4a574'
+                align: center
+          - name: button
+            properties:
+              text: Book Tickets
+              appearance:
+                background:
+                  color: '#92400e'
+                  transparency: 100
+                border:
+                  width: 0
+                  style: none
+                  color: '#92400e'
+                radius: sm
+              typography:
+                size: sm
+                weight: semibold
+                color: '#fef3c7'
+        - components:
+          - name: eyebrow
+            properties:
+              text: Next Week
+              typography:
+                size: xs
+                weight: semibold
+                color: '#f59e0b'
+                align: center
+                transform: uppercase
+          - name: heading
+            properties:
+              text: Jazz Night
+              level: 3
+              typography:
+                size: lg
+                weight: bold
+                color: '#fef3c7'
+                align: center
+          - name: paragraph
+            properties:
+              text: 9:00 PM - Intimate Setting
+              typography:
+                size: sm
+                color: '#d4a574'
+                align: center
+          - name: button
+            properties:
+              text: Book Tickets
+              appearance:
+                background:
+                  color: '#92400e'
+                  transparency: 100
+                border:
+                  width: 0
+                  style: none
+                  color: '#92400e'
+                radius: sm
+              typography:
+                size: sm
+                weight: semibold
+                color: '#fef3c7'

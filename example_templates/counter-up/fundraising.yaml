@@ -1,5 +1,10 @@
 # Counter-Up: Fundraising / Campaign Progress
 # Animated counters showing donation milestones
+# Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, icon, counter-up, progress-bar, button
+# Section type: stats
+# Layout: stacked
+# Visual style: modern
+# Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page
   properties:
@@ -7,6 +12,7 @@
       colors:
         background: &color-background '#ecfdf5'
         primary: &color-primary '#064e3b'
+        text: &color-text '#255045'
         secondary: &color-secondary '#047857'
         accent: &color-accent '#10b981'
       fonts:

@@ -1,0 +1,315 @@
+# Appointment Slots - Booking Grid with Available Times
+# A booking section with time slot cards in a 3-column grid, featuring icons, availability status, badges, and book buttons
+# Base components: layout-column, heading, paragraph, eyebrow, columnsgrid, icon, badge, button
+# Section type: schedule, booking, appointments
+# Layout: stacked, grid
+# Visual style: glassmorphism, frosted
+# Perfect for: dental clinic, salon, barbershop, yoga studio, fitness studio, conference, workshop, tutoring center, cooking class, music school
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1A365D'
+        text: &color-text '#314259'
+        secondary: &color-secondary '#B0D4E8'
+        accent: &color-accent '#3182CE'
+        background: &color-background '#D6EBF5'
+  components:
+  - name: page
+    slug: home
+    title: "Appointment Slots"
+    properties:
+      appearance:
+        background:
+          type: gradient
+          gradient:
+            colorStart: *color-background
+            colorEnd: *color-secondary
+            direction: to bottom right
+    components:
+
+        # ============================================
+        # BOOKING HEADER
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+        spacing:
+          paddingBlock: xxl
+          paddingInline: xl
+      components:
+      - name: eyebrow
+        properties:
+          text: BOOK YOUR VISIT
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Available Appointments
+          level: 2
+          typography: {size: xxl, weight: bold, color: *color-primary, align: center}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: Select a convenient time slot below. Same-day and next-day appointments are subject to availability.
+          typography: {size: md, color: *color-text, align: center, lineHeight: '1.7'}
+          layout: {widthMode: 66}
+
+        # ============================================
+        # APPOINTMENT SLOTS GRID
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+      components:
+      - name: columnsgrid
+        properties:
+          layout: {columns: 3, gap: lg, verticalAlign: top}
+          responsive: {breakpoints: {md: 2, sm: 1}}
+        columns:
+                # ── Slot 1: 9:00 AM ──
+        - components:
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: space-evenly}
+              appearance:
+                background: {color: '#ffffff', transparency: 15}
+                blur: true
+                border: {width: 1, style: solid, color: '#ffffff'}
+                radius: lg
+                shadow: soft
+              spacing:
+                paddingBlock: lg
+                paddingInline: lg
+            components:
+            - name: icon
+              properties:
+                name: clock
+                size: 32
+                color: *color-accent
+            - name: heading
+              properties:
+                text: "9:00 AM"
+                level: 3
+                typography: {size: lg, weight: bold, color: *color-primary, align: center}
+                spacing: {marginBlock: xs, paddingBlock: sm, paddingInline: lg}
+            - name: paragraph
+              properties:
+                text: "3 spots available"
+                typography: {size: sm, color: '#4a7c59', align: center}
+            - name: button
+              properties:
+                text: Book Now
+                appearance:
+                  background: {color: *color-accent}
+                  radius: pill
+                typography: {color: '#ffffff', weight: semibold, size: sm}
+
+                # ── Slot 2: 10:00 AM ──
+        - components:
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: space-evenly}
+              appearance:
+                background: {color: '#ffffff', transparency: 15}
+                blur: true
+                border: {width: 1, style: solid, color: '#ffffff'}
+                radius: lg
+                shadow: soft
+              spacing:
+                paddingBlock: lg
+                paddingInline: lg
+            components:
+            - name: badge
+              properties:
+                text: "Popular"
+                appearance: {background: {color: '#e74c3c'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: icon
+              properties:
+                name: clock
+                size: 32
+                color: *color-accent
+            - name: heading
+              properties:
+                text: "10:00 AM"
+                level: 3
+                typography: {size: lg, weight: bold, color: *color-primary, align: center}
+                spacing: {marginBlock: xs, paddingBlock: sm, paddingInline: lg}
+            - name: paragraph
+              properties:
+                text: "1 spot available"
+                typography: {size: sm, color: '#d4a017', align: center}
+            - name: button
+              properties:
+                text: Book Now
+                appearance:
+                  background: {color: *color-accent}
+                  radius: pill
+                typography: {color: '#ffffff', weight: semibold, size: sm}
+
+                # ── Slot 3: 11:00 AM ──
+        - components:
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: space-evenly}
+              appearance:
+                background: {color: '#ffffff', transparency: 15}
+                blur: true
+                border: {width: 1, style: solid, color: '#ffffff'}
+                radius: lg
+                shadow: soft
+              spacing:
+                paddingBlock: lg
+                paddingInline: lg
+            components:
+            - name: icon
+              properties:
+                name: clock
+                size: 32
+                color: *color-accent
+            - name: heading
+              properties:
+                text: "11:00 AM"
+                level: 3
+                typography: {size: lg, weight: bold, color: *color-primary, align: center}
+                spacing: {marginBlock: xs, paddingBlock: sm, paddingInline: lg}
+            - name: paragraph
+              properties:
+                text: "5 spots available"
+                typography: {size: sm, color: '#4a7c59', align: center}
+            - name: button
+              properties:
+                text: Book Now
+                appearance:
+                  background: {color: *color-accent}
+                  radius: pill
+                typography: {color: '#ffffff', weight: semibold, size: sm}
+
+                # ── Slot 4: 1:00 PM ──
+        - components:
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: space-evenly}
+              appearance:
+                background: {color: '#ffffff', transparency: 15}
+                blur: true
+                border: {width: 1, style: solid, color: '#ffffff'}
+                radius: lg
+                shadow: soft
+              spacing:
+                paddingBlock: lg
+                paddingInline: lg
+            components:
+            - name: icon
+              properties:
+                name: clock
+                size: 32
+                color: *color-accent
+            - name: heading
+              properties:
+                text: "1:00 PM"
+                level: 3
+                typography: {size: lg, weight: bold, color: *color-primary, align: center}
+                spacing: {marginBlock: xs, paddingBlock: sm, paddingInline: lg}
+            - name: paragraph
+              properties:
+                text: "4 spots available"
+                typography: {size: sm, color: '#4a7c59', align: center}
+            - name: button
+              properties:
+                text: Book Now
+                appearance:
+                  background: {color: *color-accent}
+                  radius: pill
+                typography: {color: '#ffffff', weight: semibold, size: sm}
+
+                # ── Slot 5: 2:30 PM ──
+        - components:
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: space-evenly}
+              appearance:
+                background: {color: '#ffffff', transparency: 15}
+                blur: true
+                border: {width: 1, style: solid, color: '#ffffff'}
+                radius: lg
+                shadow: soft
+              spacing:
+                paddingBlock: lg
+                paddingInline: lg
+            components:
+            - name: badge
+              properties:
+                text: "Last Spot"
+                appearance: {background: {color: '#e67e22'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: icon
+              properties:
+                name: clock
+                size: 32
+                color: *color-accent
+            - name: heading
+              properties:
+                text: "2:30 PM"
+                level: 3
+                typography: {size: lg, weight: bold, color: *color-primary, align: center}
+                spacing: {marginBlock: xs, paddingBlock: sm, paddingInline: lg}
+            - name: paragraph
+              properties:
+                text: "1 spot available"
+                typography: {size: sm, color: '#d4a017', align: center}
+            - name: button
+              properties:
+                text: Book Now
+                appearance:
+                  background: {color: *color-accent}
+                  radius: pill
+                typography: {color: '#ffffff', weight: semibold, size: sm}
+
+                # ── Slot 6: 4:00 PM ──
+        - components:
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: space-evenly}
+              appearance:
+                background: {color: '#ffffff', transparency: 15}
+                blur: true
+                border: {width: 1, style: solid, color: '#ffffff'}
+                radius: lg
+                shadow: soft
+              spacing:
+                paddingBlock: lg
+                paddingInline: lg
+            components:
+            - name: icon
+              properties:
+                name: clock
+                size: 32
+                color: *color-accent
+            - name: heading
+              properties:
+                text: "4:00 PM"
+                level: 3
+                typography: {size: lg, weight: bold, color: *color-primary, align: center}
+                spacing: {marginBlock: xs, paddingBlock: sm, paddingInline: lg}
+            - name: paragraph
+              properties:
+                text: "2 spots available"
+                typography: {size: sm, color: '#4a7c59', align: center}
+            - name: button
+              properties:
+                text: Book Now
+                appearance:
+                  background: {color: *color-accent}
+                  radius: pill
+                typography: {color: '#ffffff', weight: semibold, size: sm}

@@ -1,0 +1,901 @@
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1E3A5F'
+        secondary: &color-secondary '#C5D4E3'
+        accent: &color-accent '#0052CC'
+        background: &color-background '#E8EDF2'
+  components:
+  - name: page
+    slug: home
+    title: Visakhapatnam Book Haven
+    properties:
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+    components:
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+          verticalAlign: center
+        appearance:
+          background:
+            color: *color-background
+            transparency: 0
+        spacing:
+          paddingBlock: none
+          paddingInline: none
+      components:
+      - name: image
+        properties:
+          source:
+            url: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/3ff4e860dfbd4df9aa266e49291cd1b7.webp
+            altText: Woman relaxing in a cozy bookshop in Istanbul, surrounded by shelves full of books
+          appearance:
+            minHeight: 40
+            fit: cover
+            cornerStyle: none
+            objectPosition: center
+            overlay:
+              enabled: false
+            padding:
+              block: none
+              inline: none
+          spacing:
+            marginBlock: none
+            marginInline: none
+          layout:
+            widthMode: stretch
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: center
+            widthMode: '50'
+          appearance:
+            background:
+              color: *color-background
+              transparency: 0
+            padding:
+              block: sm
+              inline: sm
+          spacing:
+            marginBlock: none
+            marginInline: none
+        components:
+        - name: heading
+          properties:
+            text: Find Your Perfect Read
+            level: 1
+            typography:
+              size: xxxl
+              weight: bold
+              align: center
+              color: *color-primary
+              lineHeight: '1.2'
+              transform: none
+            spacing:
+              marginBlock: none
+              marginInline: none
+        - name: paragraph
+          properties:
+            text: Step into a world of stories and discover your next favorite book in our cozy bookshop.
+            typography:
+              size: md
+              weight: regular
+              align: center
+              color: *color-primary
+              lineHeight: '1.6'
+            spacing:
+              marginBlock: sm
+              marginInline: none
+        - name: button
+          properties:
+            text: Explore Books
+            action:
+              type: link
+              value: /books
+            appearance:
+              background:
+                color: *color-accent
+                transparency: 100
+              border:
+                width: 1
+                style: solid
+                color: *color-accent
+              radius: sm
+              shadow: none
+              iconPlacement: none
+              padding:
+                block: sm
+                inline: md
+            typography:
+              size: md
+              weight: semibold
+              align: center
+              color: *color-background
+              lineHeight: '1.5'
+            spacing:
+              marginBlock: md
+              marginInline: none
+            layout:
+              widthMode: fit
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: '75'
+            horizontalAlign: center
+        components:
+        - name: eyebrow
+          properties:
+            text: OUR COLLECTION
+            typography:
+              size: xs
+              weight: semibold
+              color: *color-accent
+              transform: uppercase
+              letterSpacing: wider
+              align: center
+        - name: heading
+          properties:
+            text: Discover Our Unique Offerings
+            level: 2
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+            spacing:
+              marginBlock: sm
+        - name: paragraph
+          properties:
+            text: Explore our curated selection of books and knowledge resources designed to inspire and educate.
+            typography:
+              size: md
+              color: *color-secondary
+              align: center
+            spacing:
+              marginBlock: sm
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+        spacing:
+          paddingBlock: lg
+          paddingInline: lg
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: '83'
+            horizontalAlign: center
+        components:
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+          columns:
+          - components:
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                appearance:
+                  background:
+                    color: *color-background
+                    transparency: 100
+                  radius: md
+                spacing:
+                  paddingBlock: lg
+                  paddingInline: md
+              components:
+              - name: icon
+                properties:
+                  name: book
+                  size: '40'
+                  color: *color-accent
+              - name: heading
+                properties:
+                  text: Classic Literature
+                  level: 4
+                  typography:
+                    size: md
+                    weight: semibold
+                    color: *color-primary
+                    align: center
+                  spacing:
+                    marginBlock: sm
+              - name: paragraph
+                properties:
+                  text: Timeless stories that have shaped generations of readers.
+                  typography:
+                    size: sm
+                    color: *color-secondary
+                    align: center
+          - components:
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                appearance:
+                  background:
+                    color: *color-background
+                    transparency: 100
+                  radius: md
+                spacing:
+                  paddingBlock: lg
+                  paddingInline: md
+              components:
+              - name: icon
+                properties:
+                  name: book-type
+                  size: '40'
+                  color: *color-accent
+              - name: heading
+                properties:
+                  text: Modern Fiction
+                  level: 4
+                  typography:
+                    size: md
+                    weight: semibold
+                    color: *color-primary
+                    align: center
+                  spacing:
+                    marginBlock: sm
+              - name: paragraph
+                properties:
+                  text: Contemporary works from today's most innovative authors.
+                  typography:
+                    size: sm
+                    color: *color-secondary
+                    align: center
+          - components:
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                appearance:
+                  background:
+                    color: *color-background
+                    transparency: 100
+                  radius: md
+                spacing:
+                  paddingBlock: lg
+                  paddingInline: md
+              components:
+              - name: icon
+                properties:
+                  name: book-search
+                  size: '40'
+                  color: *color-accent
+              - name: heading
+                properties:
+                  text: Reference Works
+                  level: 4
+                  typography:
+                    size: md
+                    weight: semibold
+                    color: *color-primary
+                    align: center
+                  spacing:
+                    marginBlock: sm
+              - name: paragraph
+                properties:
+                  text: Essential guides and encyclopedias for research and learning.
+                  typography:
+                    size: sm
+                    color: *color-secondary
+                    align: center
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          verticalAlign: center
+          wrap: wrap
+          gap: md
+        spacing:
+          marginBlock: none
+          marginInline: none
+        appearance:
+          padding:
+            block: sm
+            inline: sm
+          background:
+            color: *color-background
+            transparency: 0
+          border:
+            width: 0
+            style: solid
+            color: *color-primary
+          radius: none
+          shadow: none
+          shadowColor: ''
+          blur: false
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: '50'
+            horizontalAlign: center
+          spacing:
+            marginBlock: none
+            marginInline: none
+          appearance:
+            padding:
+              block: none
+              inline: none
+            background:
+              color: *color-background
+              transparency: 0
+            border:
+              width: 0
+              style: solid
+              color: *color-primary
+            radius: none
+            shadow: none
+            shadowColor: ''
+            blur: false
+        components:
+        - name: image
+          properties:
+            source:
+              url: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/591d687de50148618dfb6679a0f7cc24.webp
+              altText: Close-up of stacked vintage paperbacks creating a textured, historical ambiance
+            appearance:
+              minHeight: 12.5
+              maxHeight: 0
+              fit: cover
+              cornerStyle: none
+              objectPosition: center
+              filter: none
+              shadow: none
+              shadowColor: ''
+              hoverEffect: none
+              lazy: true
+              overlay:
+                enabled: false
+                color: rgba(0,0,0,0.5)
+                opacity: 0.5
+              padding:
+                block: none
+                inline: none
+            spacing:
+              marginBlock: sm
+              marginInline: none
+            layout:
+              widthMode: stretch
+              horizontalAlign: center
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: '50'
+            horizontalAlign: center
+            verticalAlign: center
+          spacing:
+            marginBlock: none
+            marginInline: none
+          appearance:
+            padding:
+              block: none
+              inline: none
+            background:
+              color: *color-background
+              transparency: 0
+            border:
+              width: 0
+              style: solid
+              color: *color-primary
+            radius: none
+            shadow: none
+            shadowColor: ''
+            blur: false
+        components:
+        - name: heading
+          properties:
+            text: "Elevate your message\nwith a bold statement"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+              lineHeight: '1.2'
+              transform: none
+              letterSpacing: normal
+              fontStyle: normal
+              textDecoration: none
+              align: center
+              color: *color-primary
+            appearance:
+              background:
+                color: *color-background
+                transparency: 0
+              radius: none
+              padding:
+                block: none
+                inline: none
+            spacing:
+              marginBlock: md
+              marginInline: none
+            layout:
+              widthMode: fit
+        - name: paragraph
+          properties:
+            text: "Tell your story across multiple lines.\nContinue the narrative here."
+            typography:
+              size: md
+              weight: regular
+              align: center
+              color: *color-primary
+              lineHeight: '1.6'
+              transform: none
+              letterSpacing: normal
+              fontStyle: normal
+              textDecoration: none
+            spacing:
+              marginBlock: none
+              marginInline: none
+            layout:
+              widthMode: fit
+            appearance:
+              background:
+                color: *color-background
+                transparency: 0
+              radius: none
+              padding:
+                block: sm
+                inline: none
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: space-evenly
+          verticalAlign: stretch
+          wrap: wrap
+          gap: sm
+        spacing:
+          marginBlock: none
+          marginInline: none
+        appearance:
+          padding:
+            block: sm
+            inline: sm
+          background:
+            color: *color-background
+            transparency: 0
+            image: ''
+          border:
+            width: 0
+            style: solid
+            color: *color-primary
+          radius: none
+          shadow: none
+          shadowColor: ''
+          blur: false
+      components:
+      - name: columnsgrid
+        properties:
+          layout:
+            columns: 3
+            gap: md
+            verticalAlign: stretch
+          responsive:
+            breakpoints:
+              md: 2
+              sm: 1
+          appearance:
+            padding:
+              block: none
+              inline: none
+            shadow: none
+            shadowColor: ''
+            columnBackground: *color-background
+            columnTransparency: 0
+            columnBlur: false
+            columnRadius: none
+            columnBorder:
+              width: 0
+              color: '#e5e7eb'
+          spacing:
+            marginBlock: none
+            marginInline: none
+        columns:
+        - components:
+          - name: heading
+            properties:
+              text: 'The Hunger Games: Mockingjay'
+              level: 3
+              typography:
+                size: lg
+                weight: bold
+                lineHeight: '1.2'
+                transform: none
+                letterSpacing: normal
+                fontStyle: normal
+                textDecoration: none
+                align: center
+                color: *color-primary
+              appearance:
+                background:
+                  color: *color-background
+                  transparency: 0
+                radius: none
+                padding:
+                  block: none
+                  inline: none
+              spacing:
+                marginBlock: none
+                marginInline: none
+              layout:
+                widthMode: fit
+          - name: rating
+            properties:
+              value: 4.5
+              iconType: star
+              showCount: false
+              color: '#f59e0b'
+              typography:
+                size: md
+                color: *color-secondary
+          - name: paragraph
+            properties:
+              text: A thrilling conclusion to the dystopian trilogy that keeps you on the edge of your seat.
+              typography:
+                size: md
+                weight: regular
+                align: center
+                color: *color-primary
+                lineHeight: '1.6'
+                transform: none
+                letterSpacing: normal
+                fontStyle: normal
+                textDecoration: none
+              spacing:
+                marginBlock: md
+                marginInline: none
+              layout:
+                widthMode: fit
+              appearance:
+                background:
+                  color: *color-background
+                  transparency: 0
+                radius: none
+                padding:
+                  block: sm
+                  inline: none
+      - components:
+        - name: heading
+          properties:
+            text: Valentine's Day Reading
+            level: 3
+            typography:
+              size: lg
+              weight: bold
+              lineHeight: '1.2'
+              transform: none
+              letterSpacing: normal
+              fontStyle: normal
+              textDecoration: none
+              align: center
+              color: *color-primary
+            appearance:
+              background:
+                color: *color-background
+                transparency: 0
+              radius: none
+              padding:
+                block: none
+                inline: none
+            spacing:
+              marginBlock: none
+              marginInline: none
+            layout:
+              widthMode: fit
+        - name: rating
+          properties:
+            value: 5
+            iconType: heart
+            showCount: false
+            color: '#ec4899'
+            typography:
+              size: md
+              color: *color-secondary
+        - name: paragraph
+          properties:
+            text: A heartwarming collection of stories perfect for sharing love and warmth on Valentine's Day.
+            typography:
+              size: md
+              weight: regular
+              align: center
+              color: *color-primary
+              lineHeight: '1.6'
+              transform: none
+              letterSpacing: normal
+              fontStyle: normal
+              textDecoration: none
+            spacing:
+              marginBlock: md
+              marginInline: none
+            layout:
+              widthMode: fit
+            appearance:
+              background:
+                color: *color-background
+                transparency: 0
+              radius: none
+              padding:
+                block: sm
+                inline: none
+      - components:
+        - name: heading
+          properties:
+            text: Customer Love
+            level: 3
+            typography:
+              size: lg
+              weight: bold
+              lineHeight: '1.2'
+              transform: none
+              letterSpacing: normal
+              fontStyle: normal
+              textDecoration: none
+              align: center
+              color: *color-primary
+            appearance:
+              background:
+                color: *color-background
+                transparency: 0
+              radius: none
+              padding:
+                block: none
+                inline: none
+            spacing:
+              marginBlock: none
+              marginInline: none
+            layout:
+              widthMode: fit
+        - name: rating
+          properties:
+            value: 4
+            iconType: star
+            showCount: false
+            color: '#f59e0b'
+            typography:
+              size: md
+              color: *color-secondary
+        - name: paragraph
+          properties:
+            text: Our customers love the variety and quality of books we offer. Each story is a journey worth taking.
+            typography:
+              size: md
+              weight: regular
+              align: center
+              color: *color-primary
+              lineHeight: '1.6'
+              transform: none
+              letterSpacing: normal
+              fontStyle: normal
+              textDecoration: none
+            spacing:
+              marginBlock: md
+              marginInline: none
+            layout:
+              widthMode: fit
+            appearance:
+              background:
+                color: *color-background
+                transparency: 0
+              radius: none
+              padding:
+                block: sm
+                inline: none
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          wrap: wrap
+          verticalAlign: center
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: image
+        properties:
+          source:
+            url: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/e8cb422eaea0484fac259ffa31ab211d.webp
+            altText: Book, leaf, tea, autumn, fall, nature, reading, beverage, season, top view, cozy
+          appearance:
+            minHeight: 25
+            fit: cover
+            cornerStyle: none
+            hoverEffect: zoom
+          layout:
+            widthMode: '33'
+          spacing:
+            marginBlock: none
+            marginInline: none
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: '66'
+            horizontalAlign: center
+          spacing:
+            paddingBlock: none
+            paddingInline: none
+        components:
+        - name: heading
+          properties:
+            text: Visit Our Store
+            level: 2
+            typography:
+              color: *color-primary
+              size: xl
+              weight: bold
+              lineHeight: '1.2'
+              align: center
+            spacing:
+              marginBlock: none
+              marginInline: none
+        - name: paragraph
+          properties:
+            text: Discover a curated selection of books and cozy essentials to enhance your reading experience.
+            typography:
+              color: *color-secondary
+              size: md
+              align: center
+              lineHeight: '1.6'
+            spacing:
+              marginBlock: sm
+              marginInline: none
+        - name: button
+          properties:
+            text: Explore Now
+            action:
+              type: link
+              value: /store
+            appearance:
+              background:
+                color: *color-accent
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              radius: pill
+              shadow: soft
+            typography:
+              color: *color-background
+              weight: semibold
+              size: md
+            spacing:
+              marginBlock: md
+              marginInline: none
+            layout:
+              widthMode: fit
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          verticalAlign: top
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: '33'
+        components:
+        - name: heading
+          properties:
+            text: Contact Us
+            level: 3
+            typography:
+              size: lg
+              weight: bold
+              color: *color-primary
+        - name: paragraph
+          properties:
+            text: 'Phone: +1 (555) 123-4567 Email: info@company.com Address: 123 Main St, City, Country'
+            typography:
+              size: md
+              color: *color-secondary
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: '33'
+        components:
+        - name: heading
+          properties:
+            text: Quick Links
+            level: 3
+            typography:
+              size: lg
+              weight: bold
+              color: *color-primary
+        - name: link
+          properties:
+            text: Home
+            href: '#'
+            typography:
+              color: *color-accent
+        - name: link
+          properties:
+            text: About
+            href: '#'
+            typography:
+              color: *color-accent
+        - name: link
+          properties:
+            text: Services
+            href: '#'
+            typography:
+              color: *color-accent
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: '33'
+        components:
+        - name: heading
+          properties:
+            text: Resources
+            level: 3
+            typography:
+              size: lg
+              weight: bold
+              color: *color-primary
+        - name: icon
+          properties:
+            name: book
+            color: *color-accent
+        - name: icon
+          properties:
+            name: book-type
+            color: *color-accent
+        - name: icon
+          properties:
+            name: book-search
+            color: *color-accent
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+        spacing:
+          paddingBlock: md
+        appearance:
+          background:
+            color: *color-secondary
+            transparency: 100
+      components:
+      - name: paragraph
+        properties:
+          text: © 2023 Company Name. All rights reserved.
+          typography:
+            size: sm
+            color: *color-primary
+            align: center

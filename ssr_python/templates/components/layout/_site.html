@@ -1,0 +1,41 @@
+{# ============================================================================
+   SITE COMPONENT — Transparent wrapper for multipage support
+   Passes through to render its children (pages).
+   When site-level theme fonts exist, wraps output in a site-wrapper div
+   that carries font CSS variables for inheritance.
+   Theme: prefers site.properties.theme, falls back to first page's theme.
+   ============================================================================ #}
+
+{% macro render_site(component, tokens, path, component_id) %}
+    {# Theme: prefer site.properties.theme, fallback to first page's theme #}
+    {% set site_props = component.properties | default({}) %}
+    {% set site_theme = site_props.theme | default({}) %}
+    {% if not site_theme.fonts %}
+        {% set first_page = (component.components | default([]))[0] if component.components else none %}
+        {% if first_page and first_page.properties and first_page.properties.theme %}
+            {% set site_theme = first_page.properties.theme %}
+        {% endif %}
+    {% endif %}
+    {% set theme_fonts = site_theme.fonts | default({}) %}
+    {% set has_theme_fonts = theme_fonts.heading is defined or theme_fonts.content is defined %}
+
+    {% if has_theme_fonts %}
+        {% set font_vars = '' %}
+        {% if theme_fonts.heading %}
+            {% set font_vars = font_vars ~ '--font-heading: ' ~ theme_fonts.heading ~ '; ' %}
+        {% endif %}
+        {% if theme_fonts.content %}
+            {% set font_vars = font_vars ~ '--font-content: ' ~ theme_fonts.content ~ '; ' %}
+        {% endif %}
+        <div class="site-wrapper" {% if font_vars %}style="{{ font_vars }}"{% endif %}>
+    {% endif %}
+
+    {# Render pages #}
+    {% for child in component.components | default([]) %}
+        {{ render_component(child, tokens, path + ['components', loop.index0]) }}
+    {% endfor %}
+
+    {% if has_theme_fonts %}
+        </div>
+    {% endif %}
+{% endmacro %}

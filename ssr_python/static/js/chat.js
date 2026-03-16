@@ -8,6 +8,7 @@
  */
 
 import { chatService } from './chatService.js';
+import { updateSiteSettings, getCurrentSiteId } from './siteManager.js';
 
 class ChatUI {
     constructor(options = {}) {
@@ -150,6 +151,28 @@ class ChatUI {
         this.scrollToBottom();
     }
 
+    displayActionResponse(response, action) {
+        const messageEl = document.createElement('div');
+        messageEl.className = 'message message-ai';
+
+        let cleanResponse = response.replace(/<!--\s*ACTION:\s*[\w-]+\s*-->/gi, '').trim();
+        let html = '';
+        if (cleanResponse) {
+            html += `<div class="response-text">${this.formatMessageContent(cleanResponse)}</div>`;
+        }
+        html += `<button class="apply-btn" data-action="${action}">Apply Changes</button>`;
+        messageEl.innerHTML = html;
+
+        this.pendingYaml = null;
+        this.pendingAction = action;
+
+        const applyBtn = messageEl.querySelector('.apply-btn');
+        applyBtn.addEventListener('click', () => this.applyYamlChanges());
+
+        this.messagesArea.appendChild(messageEl);
+        this.scrollToBottom();
+    }
+
     escapeHtml(text) {
         return text
             .replace(/&/g, '&amp;')
@@ -216,11 +239,24 @@ class ChatUI {
         this.addMessage('user', message);
         this.showLoading();
 
+        // Poll backend for progress status updates
+        const statusInterval = setInterval(async () => {
+            try {
+                const res = await fetch('/api/chat/status');
+                const data = await res.json();
+                if (data.active && data.message) {
+                    this.updateLoadingText(data.message);
+                }
+            } catch (_) { /* ignore polling errors */ }
+        }, 2000);
+
         const currentYaml = this.getCurrentYaml();
         const selectedComponent = this.getSelectionContext();
+        const siteId = getCurrentSiteId();
 
         try {
-            const result = await chatService.sendMessage(message, currentYaml, selectedComponent);
+            const result = await chatService.sendMessage(message, currentYaml, selectedComponent, siteId);
+            clearInterval(statusInterval);
             this.hideLoading();
 
             if (result.action === 'error') {
@@ -228,6 +264,10 @@ class ChatUI {
                 if (result.error) {
                     console.error('[Chat] Error:', result.error);
                 }
+            } else if (result.action === 'settings' && result.yaml) {
+                this.handleSettingsAction(result);
+            } else if (result.action === 'delete') {
+                this.displayActionResponse(result.response, 'delete');
             } else if (result.yaml) {
                 this.displayYamlResponse(result.response, result.yaml, result.action, result.warning);
             } else {
@@ -235,14 +275,83 @@ class ChatUI {
             }
 
         } catch (error) {
+            clearInterval(statusInterval);
             this.hideLoading();
             this.addMessage('ai', `Error: ${error.message}`, { isError: true });
             console.error('[Chat] Exception:', error);
         }
     }
 
+    async handleSettingsAction(result) {
+        const siteId = getCurrentSiteId();
+        if (!siteId) {
+            this.addMessage('ai', 'Save your site first before applying SEO settings.');
+            return;
+        }
+
+        // Parse YAML content as key-value (metaDescription, ogTitle)
+        let seoData = {};
+        try {
+            // Try JSON parse first
+            seoData = JSON.parse(result.yaml);
+        } catch (_) {
+            // Try simple key:value YAML parsing
+            const lines = result.yaml.split('\n');
+            for (const line of lines) {
+                const match = line.match(/^(\w+):\s*["']?(.*?)["']?\s*$/);
+                if (match) seoData[match[1]] = match[2];
+            }
+        }
+
+        if (!seoData.metaDescription && !seoData.ogTitle) {
+            this.addMessage('ai', result.response || 'Could not parse settings from AI response.');
+            return;
+        }
+
+        // Build settings payload
+        const settingsPayload = { seo: {} };
+        if (seoData.metaDescription) settingsPayload.seo.metaDescription = seoData.metaDescription;
+        if (seoData.ogTitle) settingsPayload.seo.ogTitle = seoData.ogTitle;
+
+        // Show the suggestion with an apply button
+        const messageEl = document.createElement('div');
+        messageEl.className = 'message message-ai';
+        let html = '';
+        if (result.response) {
+            const cleanResponse = result.response.replace(/<!--\s*ACTION:\s*\w+\s*-->/gi, '').trim();
+            if (cleanResponse) html += `<div class="response-text">${this.formatMessageContent(cleanResponse)}</div>`;
+        }
+        html += `<div class="yaml-block"><div class="yaml-block-header"><span>SEO Settings</span></div><pre><code>`;
+        if (seoData.metaDescription) html += `Meta Description: ${this.escapeHtml(seoData.metaDescription)}\n`;
+        if (seoData.ogTitle) html += `OG Title: ${this.escapeHtml(seoData.ogTitle)}`;
+        html += `</code></pre></div>`;
+        html += `<button class="apply-btn" data-action="settings">Apply to Site Settings</button>`;
+        messageEl.innerHTML = html;
+
+        const applyBtn = messageEl.querySelector('.apply-btn');
+        applyBtn.addEventListener('click', async () => {
+            applyBtn.disabled = true;
+            applyBtn.textContent = 'Applying...';
+            try {
+                await updateSiteSettings(settingsPayload);
+                applyBtn.textContent = 'Applied!';
+                this.addMessage('ai', 'SEO settings updated successfully!');
+                // Refresh settings panel if open
+                if (window.renderSettingsPanel) window.renderSettingsPanel();
+            } catch (err) {
+                applyBtn.disabled = false;
+                applyBtn.textContent = 'Apply to Site Settings';
+                this.addMessage('ai', `Failed to apply settings: ${err.message}`, { isError: true });
+            }
+        });
+
+        this.messagesArea.appendChild(messageEl);
+        this.scrollToBottom();
+    }
+
     async applyYamlChanges() {
-        if (!this.pendingYaml || this.isLoading) return;
+        if (this.isLoading) return;
+        if (!this.pendingYaml && this.pendingAction !== 'delete') return;
 
         const yaml = this.pendingYaml;
         const action = this.pendingAction;

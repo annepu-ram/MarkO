@@ -1,5 +1,10 @@
 # Ticker Template: Client Logos Strip
 # Minimal logo + company name cards scrolling continuously
+# Base components: page, layout-column, eyebrow, ticker, layout-row, icon, heading
+# Section type: ticker
+# Layout: stacked
+# Visual style: minimal
+# Perfect for: any business, SaaS, agencies, corporate
 - name: page
   properties:
     theme:
@@ -8,6 +13,7 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#3b82f6'
         background: &color-background '#ffffff'
@@ -16,223 +22,224 @@
         color: *color-background
         transparency: 100
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        gap: sm
+      spacing:
+        paddingBlock: xl
+        paddingInline: lg
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+    components:
+    - name: eyebrow
       properties:
-        layout:
-          horizontalAlign: center
-          gap: sm
-        spacing:
-          paddingBlock: xl
-          paddingInline: lg
-        appearance:
-          background:
-            color: *color-background
-            transparency: 100
-      components:
-        - name: eyebrow
-          properties:
-            text: TRUSTED BY 500+ COMPANIES WORLDWIDE
-            typography:
-              size: xs
-              weight: semibold
-              color: *color-secondary
-              align: center
-              letterSpacing: wider
-              transform: uppercase
+        text: TRUSTED BY 500+ COMPANIES WORLDWIDE
+        typography:
+          size: xs
+          weight: semibold
+          color: *color-secondary
+          align: center
+          letterSpacing: wider
+          transform: uppercase
 
-        - name: ticker
+    - name: ticker
+      properties:
+        behavior:
+          direction: left
+          speed: 30
+          mode: continuous
+          pauseOnHover: false
+        spacing:
+          marginBlock: sm
+          marginInline: none
+        layout:
+          gap: xxl
+      columns:
+      - components:
+        - name: layout-row
           properties:
-            behavior:
-              direction: left
-              speed: 30
-              mode: continuous
-              pauseOnHover: false
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
             spacing:
-              marginBlock: sm
-              marginInline: none
-              gap: xxl
-          columns:
-            - components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      verticalAlign: center
-                      wrap: nowrap
-                    spacing:
-                      gap: xs
-                  components:
-                    - name: icon
-                      properties:
-                        name: language
-                        size: lg
-                        color: *color-primary
-                    - name: heading
-                      properties:
-                        text: Nexora
-                        level: 4
-                        typography:
-                          size: md
-                          weight: bold
-                          color: *color-primary
-            - components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      verticalAlign: center
-                      wrap: nowrap
-                    spacing:
-                      gap: xs
-                  components:
-                    - name: icon
-                      properties:
-                        name: local_fire_department
-                        size: lg
-                        color: *color-accent
-                    - name: heading
-                      properties:
-                        text: Blaze Studio
-                        level: 4
-                        typography:
-                          size: md
-                          weight: bold
-                          color: *color-primary
-            - components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      verticalAlign: center
-                      wrap: nowrap
-                    spacing:
-                      gap: xs
-                  components:
-                    - name: icon
-                      properties:
-                        name: star
-                        size: lg
-                        color: *color-accent
-                    - name: heading
-                      properties:
-                        text: Stellaris
-                        level: 4
-                        typography:
-                          size: md
-                          weight: bold
-                          color: *color-primary
-            - components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      verticalAlign: center
-                      wrap: nowrap
-                    spacing:
-                      gap: xs
-                  components:
-                    - name: icon
-                      properties:
-                        name: settings
-                        size: lg
-                        color: *color-accent
-                    - name: heading
-                      properties:
-                        text: CogWorks
-                        level: 4
-                        typography:
-                          size: md
-                          weight: bold
-                          color: *color-primary
-            - components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      verticalAlign: center
-                      wrap: nowrap
-                    spacing:
-                      gap: xs
-                  components:
-                    - name: icon
-                      properties:
-                        name: sell
-                        size: lg
-                        color: *color-accent
-                    - name: heading
-                      properties:
-                        text: PriceHive
-                        level: 4
-                        typography:
-                          size: md
-                          weight: bold
-                          color: *color-primary
-            - components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      verticalAlign: center
-                      wrap: nowrap
-                    spacing:
-                      gap: xs
-                  components:
-                    - name: icon
-                      properties:
-                        name: bar_chart
-                        size: lg
-                        color: *color-accent
-                    - name: heading
-                      properties:
-                        text: DataPulse
-                        level: 4
-                        typography:
-                          size: md
-                          weight: bold
-                          color: *color-primary
-            - components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      verticalAlign: center
-                      wrap: nowrap
-                    spacing:
-                      gap: xs
-                  components:
-                    - name: icon
-                      properties:
-                        name: favorite
-                        size: lg
-                        color: *color-accent
-                    - name: heading
-                      properties:
-                        text: Hearthly
-                        level: 4
-                        typography:
-                          size: md
-                          weight: bold
-                          color: *color-primary
-            - components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      verticalAlign: center
-                      wrap: nowrap
-                    spacing:
-                      gap: xs
-                  components:
-                    - name: icon
-                      properties:
-                        name: check_circle
-                        size: lg
-                        color: *color-accent
-                    - name: heading
-                      properties:
-                        text: Verifio
-                        level: 4
-                        typography:
-                          size: md
-                          weight: bold
-                          color: *color-primary
+              gap: xs
+          components:
+          - name: icon
+            properties:
+              name: language
+              size: lg
+              color: *color-primary
+          - name: heading
+            properties:
+              text: Nexora
+              level: 4
+              typography:
+                size: md
+                weight: bold
+                color: *color-primary
+      - components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+            spacing:
+              gap: xs
+          components:
+          - name: icon
+            properties:
+              name: local_fire_department
+              size: lg
+              color: *color-accent
+          - name: heading
+            properties:
+              text: Blaze Studio
+              level: 4
+              typography:
+                size: md
+                weight: bold
+                color: *color-primary
+      - components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+            spacing:
+              gap: xs
+          components:
+          - name: icon
+            properties:
+              name: star
+              size: lg
+              color: *color-accent
+          - name: heading
+            properties:
+              text: Stellaris
+              level: 4
+              typography:
+                size: md
+                weight: bold
+                color: *color-primary
+      - components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+            spacing:
+              gap: xs
+          components:
+          - name: icon
+            properties:
+              name: settings
+              size: lg
+              color: *color-accent
+          - name: heading
+            properties:
+              text: CogWorks
+              level: 4
+              typography:
+                size: md
+                weight: bold
+                color: *color-primary
+      - components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+            spacing:
+              gap: xs
+          components:
+          - name: icon
+            properties:
+              name: sell
+              size: lg
+              color: *color-accent
+          - name: heading
+            properties:
+              text: PriceHive
+              level: 4
+              typography:
+                size: md
+                weight: bold
+                color: *color-primary
+      - components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+            spacing:
+              gap: xs
+          components:
+          - name: icon
+            properties:
+              name: bar_chart
+              size: lg
+              color: *color-accent
+          - name: heading
+            properties:
+              text: DataPulse
+              level: 4
+              typography:
+                size: md
+                weight: bold
+                color: *color-primary
+      - components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+            spacing:
+              gap: xs
+          components:
+          - name: icon
+            properties:
+              name: favorite
+              size: lg
+              color: *color-accent
+          - name: heading
+            properties:
+              text: Hearthly
+              level: 4
+              typography:
+                size: md
+                weight: bold
+                color: *color-primary
+      - components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+            spacing:
+              gap: xs
+          components:
+          - name: icon
+            properties:
+              name: check_circle
+              size: lg
+              color: *color-accent
+          - name: heading
+            properties:
+              text: Verifio
+              level: 4
+              typography:
+                size: md
+                weight: bold
+                color: *color-primary

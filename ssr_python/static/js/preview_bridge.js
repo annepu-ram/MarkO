@@ -23,8 +23,7 @@
         UPDATE_CONTENT: 'UPDATE_CONTENT',
         SET_SELECTION: 'SET_SELECTION',
         CLEAR_SELECTION: 'CLEAR_SELECTION',
-        LOAD_FONTS: 'LOAD_FONTS',
-        LOAD_ICON_FONT: 'LOAD_ICON_FONT'
+        LOAD_FONTS: 'LOAD_FONTS'
     };
 
     // Current selection state
@@ -68,9 +67,6 @@
             case ALLOWED_MESSAGE_TYPES.LOAD_FONTS:
                 handleLoadFonts(event.data);
                 break;
-            case ALLOWED_MESSAGE_TYPES.LOAD_ICON_FONT:
-                handleLoadIconFont(event.data);
-                break;
             default:
                 console.warn('[Preview Bridge] Unknown message type:', event.data.type);
         }
@@ -105,6 +101,11 @@
 
         // Notify parent of available components
         notifyParentOfComponents();
+
+        // Initialize Lucide icons (replace data-lucide placeholders with inline SVGs)
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
 
         // Initialize interactive components via runtime
         if (typeof SwiftSites !== 'undefined') {
@@ -159,35 +160,7 @@
     }
 
     /**
-     * Handle LOAD_ICON_FONT message — dynamically load optimized Material Symbols font
-     * with only the icon names used in the current YAML.
-     */
-    function handleLoadIconFont(data) {
-        const existingLink = document.getElementById('material-symbols-icons');
-
-        if (!data.iconNames || !Array.isArray(data.iconNames) || data.iconNames.length === 0) {
-            // No icons — remove font link if present
-            if (existingLink) existingLink.remove();
-            return;
-        }
-
-        const url = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,0&icon_names=' + data.iconNames.join(',');
-
-        if (existingLink) {
-            if (existingLink.href !== url) {
-                existingLink.href = url;
-            }
-        } else {
-            const link = document.createElement('link');
-            link.id = 'material-symbols-icons';
-            link.rel = 'stylesheet';
-            link.href = url;
-            document.head.appendChild(link);
-        }
-    }
-
-    /**
-     * Highlight a component by adding 'selected' class
+     * Highlight a component by adding 'selected' class and appending delete button
      */
     function highlightComponent(componentId) {
         clearHighlight();
@@ -197,22 +170,40 @@
             element.classList.add('selected');
             currentSelection = element;
 
+            // Create delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'chrome-delete';
+            deleteBtn.textContent = '\u00D7';
+            deleteBtn.title = 'Delete component';
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.parent.postMessage({
+                    type: 'COMPONENT_DELETED',
+                    componentId: componentId
+                }, TRUSTED_ORIGIN);
+            });
+            element.appendChild(deleteBtn);
+
             // Scroll into view smoothly
             element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     }
 
     /**
-     * Clear current selection highlight
+     * Clear current selection highlight and remove delete button
      */
     function clearHighlight() {
         if (currentSelection) {
+            const btn = currentSelection.querySelector('.chrome-delete');
+            if (btn) btn.remove();
             currentSelection.classList.remove('selected');
             currentSelection = null;
         }
 
         // Also clear any other selected elements (in case of stale state)
         document.querySelectorAll('.selected').forEach(el => {
+            const btn = el.querySelector('.chrome-delete');
+            if (btn) btn.remove();
             el.classList.remove('selected');
         });
     }
@@ -237,6 +228,11 @@
      * Handle click events and relay to parent
      */
     function handleClick(event) {
+        // Skip delete button clicks — let the button's own handler fire
+        if (event.target.classList.contains('chrome-delete')) {
+            return;
+        }
+
         console.log('[Preview Bridge] Click event on:', event.target);
         const target = event.target.closest('[data-component-id]');
         console.log('[Preview Bridge] Closest component:', target);

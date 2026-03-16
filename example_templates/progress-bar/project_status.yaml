@@ -1,5 +1,10 @@
 # Progress Bar: Project Status Dashboard
 # Cards showing project completion with gradient progress bars
+# Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, icon, progress-bar
+# Section type: stats
+# Layout: grid
+# Visual style: minimal
+# Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page
   properties:
@@ -7,6 +12,7 @@
       colors:
         background: &color-background '#f8fafc'
         primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#0ea5e9'
       fonts:

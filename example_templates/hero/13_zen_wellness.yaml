@@ -1,5 +1,9 @@
 # Zen Wellness Hero
 # A calm, serene hero with soft colors and peaceful imagery
+# Base components: page, titlebar, layout-row, layout-column, eyebrow, heading, paragraph, button, link, image, blockquote
+# Section type: hero
+# Layout: split_screen
+# Visual style: minimal
 # Perfect for: Wellness apps, meditation, spas, yoga studios, health
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#3d4a3f"
+        text: &color-text "#464E47"
         secondary: &color-secondary "#7c8c7e"
         accent: &color-accent "#5c6b5e"
         background: &color-background "#f7f5f2"
@@ -65,9 +70,9 @@
   - name: layout-row
     properties:
       layout:
-        align: center
         horizontalAlign: space-evenly
         wrap: wrap
+        verticalAlign: center
       spacing:
         paddingBlock: xxxl
         paddingInline: xl
@@ -80,13 +85,11 @@
     - name: layout-column
       properties:
         layout:
-          align: start
           horizontalAlign: space-evenly
+          widthMode: "50"
         spacing:
           paddingBlock: lg
           paddingInline: none
-        appearance:
-          widthMode: 45
       components:
       # Small Tag
       - name: eyebrow
@@ -145,9 +148,9 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
             wrap: wrap
+            verticalAlign: center
           spacing:
             marginBlock: sm
         components:
@@ -160,14 +163,13 @@
               weight: medium
             spacing:
               marginBlock: none
+              paddingBlock: xs
+              paddingInline: md
             appearance:
               background:
                 color: *color-background
                 transparency: 100
               radius: pill
-              padding:
-                block: xs
-                inline: md
               shadow: soft
               shadowColor: *color-accent
         - name: paragraph
@@ -179,14 +181,13 @@
               weight: medium
             spacing:
               marginBlock: none
+              paddingBlock: xs
+              paddingInline: md
             appearance:
               background:
                 color: *color-background
                 transparency: 100
               radius: pill
-              padding:
-                block: xs
-                inline: md
               shadow: soft
               shadowColor: *color-accent
         - name: paragraph
@@ -198,14 +199,13 @@
               weight: medium
             spacing:
               marginBlock: none
+              paddingBlock: xs
+              paddingInline: md
             appearance:
               background:
                 color: *color-background
                 transparency: 100
               radius: pill
-              padding:
-                block: xs
-                inline: md
               shadow: soft
               shadowColor: *color-accent
 
@@ -213,8 +213,8 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
           spacing:
             marginBlock: lg
         components:
@@ -232,9 +232,6 @@
                 width: 0
                 style: solid
                 color: transparent
-              padding:
-                block: md
-                inline: xl
               shadow: medium
               shadowColor: *color-accent
             typography:
@@ -243,6 +240,8 @@
               size: md
             spacing:
               marginBlock: none
+              paddingBlock: md
+              paddingInline: xl
         - name: button
           properties:
             text: "Try Free for 7 Days"
@@ -254,15 +253,14 @@
                 width: 1
                 style: solid
                 color: *color-accent
-              padding:
-                block: md
-                inline: xl
             typography:
               color: *color-accent
               weight: medium
               size: md
             spacing:
               marginBlock: none
+              paddingBlock: md
+              paddingInline: xl
         - name: link
           properties:
             text: "Learn more"
@@ -277,8 +275,8 @@
       - name: layout-row
         properties:
           layout:
-            align: center
             horizontalAlign: space-evenly
+            verticalAlign: center
           spacing:
             marginBlock: md
         components:
@@ -295,10 +293,8 @@
     - name: layout-column
       properties:
         layout:
-          align: center
           horizontalAlign: space-evenly
-        appearance:
-          widthMode: 50
+          widthMode: "50"
       components:
       - name: image
         properties:
@@ -321,7 +317,6 @@
   - name: layout-column
     properties:
       layout:
-        align: center
         horizontalAlign: space-evenly
       spacing:
         paddingBlock: lg

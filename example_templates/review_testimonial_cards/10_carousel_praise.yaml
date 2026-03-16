@@ -1,11 +1,17 @@
 # Review Card Variant: Carousel Praise
 # A carousel where each slide is a high-impact video-background with a blockquote overlay
+# Base components: carousel, image, layout-column, blockquote, heading, caption
+# Section type: testimonial
+# Layout: carousel_slider
+# Visual style: dark_mode
+# Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
         secondary: &color-secondary '#a5b4fc'
         accent: &color-accent '#818cf8'
         background: &color-background '#ffffff'

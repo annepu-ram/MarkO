@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Sites - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body class="dashboard-body">
+    <div id="svgSpriteRoot" hidden></div>
+
+    <div class="dashboard-layout">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="header-brand">
+                <h2>
+                    <svg class="icon-logo" aria-hidden="true"><use href="#icon-swift-sites"></use></svg>
+                    Swift Sites
+                </h2>
+            </div>
+            <div class="header-actions">
+                <span class="dashboard-user-info">Default Admin</span>
+            </div>
+        </header>
+
+        <!-- SIDEBAR + CONTENT -->
+        <div class="dashboard-container">
+            <aside class="dashboard-sidebar" id="dashboardSidebar">
+                <button class="sidebar-toggle-btn" id="sidebarToggle" title="Collapse sidebar">
+                    <svg aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+                </button>
+                <nav class="dashboard-sidebar-nav">
+                    <button class="dashboard-nav-btn active" data-view="sites" title="Sites">
+                        <svg aria-hidden="true"><use href="#icon-globe"></use></svg>
+                        <span>Sites</span>
+                    </button>
+                    <button class="dashboard-nav-btn" data-view="media" title="Media Library">
+                        <svg aria-hidden="true"><use href="#icon-image"></use></svg>
+                        <span>Media</span>
+                    </button>
+                    <button class="dashboard-nav-btn" data-view="submissions" title="Submissions">
+                        <svg aria-hidden="true"><use href="#icon-clipboard-list"></use></svg>
+                        <span>Submissions</span>
+                    </button>
+                </nav>
+            </aside>
+
+            <main class="dashboard-main" id="dashboardMain">
+                <div class="dashboard-loading">Loading...</div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        window.SPRITE_PATH = "{{ url_for('static', filename='icon-sprite.svg') }}";
+        window.USER_ROLE = {{ user_role | tojson | default('"owner"') }};
+    </script>
+    <script type="module" src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

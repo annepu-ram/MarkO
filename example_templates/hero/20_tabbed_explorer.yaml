@@ -1,266 +1,255 @@
 # Hero Card Variant: The Tabbed Explorer
 # layout-column with a tabs component to switch between different service categories
+# Base components: page, layout-column, layout-row, eyebrow, heading, paragraph, tabs, button, image
+# Section type: hero
+# Layout: stacked
+# Visual style: dark_mode
+# Perfect for: SaaS platforms, multi-service businesses, product showcases, agencies
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
         secondary: &color-secondary '#94a3b8'
         accent: &color-accent '#818cf8'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: md}
+      spacing: {paddingBlock: xxl, paddingInline: xl}
+      appearance:
+        background: {color: *color-primary}
+    components:
+    - name: eyebrow
       properties:
-        layout: { horizontalAlign: center, gap: md }
-        spacing: { paddingBlock: xxl, paddingInline: xl }
+        text: DISCOVER OUR SERVICES
+        typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+    - name: heading
+      properties:
+        text: Solutions for Every Challenge
+        level: 1
+        typography: {size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight}
+        spacing: {marginBlock: sm}
+    - name: paragraph
+      properties:
+        text: Explore our comprehensive suite of tools designed to accelerate your success.
+        typography: {size: md, color: *color-secondary, align: center}
+        spacing: {marginBlock: md}
+    - name: tabs
+      properties:
+        layout: {orientation: horizontal, widthMode: stretch}
+        typography:
+          label:
+            size: md
+            weight: semibold
+            active: {color: *color-accent}
+            inactive: {color: *color-secondary}
         appearance:
-          background: { color: *color-primary }
-          padding: { block: xl, inline: xl }
-      components:
-        - name: eyebrow
+          tab:
+            background: {active: *color-background, inactive: *color-background}
+            border: {width: 2, style: solid, position: lower}
+          content:
+            background: {color: *color-primary, transparency: 100}
+            border: {color: *color-secondary, width: 1, style: solid}
+            padding: {block: lg, inline: lg}
+          shadow: none
+          shadowColor: *color-primary
+        spacing: {marginBlock: md, marginInline: none}
+      tabs:
+      - title: Marketing
+        components:
+        - name: layout-row
           properties:
-            text: DISCOVER OUR SERVICES
-            typography:
-              {
-                size: xs,
-                weight: semibold,
-                color: *color-accent,
-                transform: uppercase,
-                letterSpacing: wider,
-                align: center
-              }
-        - name: heading
-          properties:
-            text: Solutions for Every Challenge
-            level: 1
-            typography:
-              {
-                size: xxxl,
-                weight: extrabold,
-                color: *color-background,
-                align: center,
-                letterSpacing: tight
-              }
-            spacing: { marginBlock: sm }
-        - name: paragraph
-          properties:
-            text: Explore our comprehensive suite of tools designed to accelerate your
-              success.
-            typography: { size: md, color: *color-secondary, align: center }
-            spacing: { marginBlock: md }
-        - name: tabs
-          properties:
-            layout: { orientation: horizontal, widthMode: stretch }
-            typography:
-              label:
-                size: md
-                weight: semibold
-                active: { color: *color-accent }
-                inactive: { color: *color-secondary }
+            layout:
+              horizontalAlign: space-evenly
+              verticalAlign: center
+              wrap: nowrap
+              gap: lg
             appearance:
-              tab:
-                background: { active: *color-background, inactive: *color-background }
-                border: { width: 2, style: solid, position: lower }
-              content:
-                background: { color: *color-primary, transparency: 100 }
-                border: { color: *color-secondary, width: 1, style: solid }
-                padding: { block: lg, inline: lg }
-              shadow: none
-              shadowColor: *color-primary
-            spacing: { marginBlock: md, marginInline: none }
-          tabs:
-            - title: Marketing
-              components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: space-evenly
-                      verticalAlign: center
-                      wrap: nowrap
-                      gap: lg
-                    appearance:
-                      background:
-                        transparency: 0
-                  components:
-                    - name: layout-column
-                      properties:
-                        layout:
-                          horizontalAlign: left
-                          widthMode: "50"
-                          gap: sm
-                        appearance:
-                          background:
-                            transparency: 0
-                      components:
-                        - name: heading
-                          properties:
-                            text: Digital Marketing Suite
-                            level: 3
-                            typography:
-                              size: xl
-                              weight: bold
-                              color: *color-background
-                              align: left
-                        - name: paragraph
-                          properties:
-                            text: >
-                              Drive traffic, generate leads, and convert
-                              customers
+              background:
+                transparency: 0
+          components:
+          - name: layout-column
+            properties:
+              layout:
+                horizontalAlign: left
+                widthMode: "50"
+                gap: sm
+              appearance:
+                background:
+                  transparency: 0
+            components:
+            - name: heading
+              properties:
+                text: Digital Marketing Suite
+                level: 3
+                typography:
+                  size: xl
+                  weight: bold
+                  color: *color-background
+                  align: left
+            - name: paragraph
+              properties:
+                text: >
+                  Drive traffic, generate leads, and convert
+                  customers
 
-                              with our AI-powered marketing tools.
-                            typography:
-                              size: md
-                              color: *color-secondary
-                              align: left
-                        - name: button
-                          properties:
-                            text: Learn More
-                            appearance:
-                              background:
-                                color: *color-accent
-                              radius: md
-                            typography:
-                              color: *color-background
-                              weight: semibold
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600
-                          altText: Marketing dashboard
-                        appearance:
-                          minHeight: 15
-                          fit: cover
-                          cornerStyle: md
-                        layout:
-                          widthMode: "50"
-            - title: Analytics
-              components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: space-evenly
-                      verticalAlign: center
-                      wrap: nowrap
-                      gap: lg
-                    appearance:
-                      background:
-                        transparency: 0
-                  components:
-                    - name: layout-column
-                      properties:
-                        layout:
-                          horizontalAlign: left
-                          widthMode: "50"
-                          gap: sm
-                        appearance:
-                          background:
-                            transparency: 0
-                      components:
-                        - name: heading
-                          properties:
-                            text: Real-Time Analytics
-                            level: 3
-                            typography:
-                              size: xl
-                              weight: bold
-                              color: *color-background
-                              align: left
-                        - name: paragraph
-                          properties:
-                            text: >
-                              Track every metric that matters with beautiful
-                              dashboards
+                  with our AI-powered marketing tools.
+                typography:
+                  size: md
+                  color: *color-secondary
+                  align: left
+            - name: button
+              properties:
+                text: Learn More
+                appearance:
+                  background:
+                    color: *color-accent
+                  radius: md
+                typography:
+                  color: *color-background
+                  weight: semibold
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600
+                altText: Marketing dashboard
+              appearance:
+                minHeight: 15
+                fit: cover
+                cornerStyle: md
+              layout:
+                widthMode: "50"
+      - title: Analytics
+        components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              verticalAlign: center
+              wrap: nowrap
+              gap: lg
+            appearance:
+              background:
+                transparency: 0
+          components:
+          - name: layout-column
+            properties:
+              layout:
+                horizontalAlign: left
+                widthMode: "50"
+                gap: sm
+              appearance:
+                background:
+                  transparency: 0
+            components:
+            - name: heading
+              properties:
+                text: Real-Time Analytics
+                level: 3
+                typography:
+                  size: xl
+                  weight: bold
+                  color: *color-background
+                  align: left
+            - name: paragraph
+              properties:
+                text: >
+                  Track every metric that matters with beautiful
+                  dashboards
 
-                              and actionable insights.
-                            typography:
-                              size: md
-                              color: *color-secondary
-                              align: left
-                        - name: button
-                          properties:
-                            text: View Demo
-                            appearance:
-                              background:
-                                color: *color-accent
-                              radius: md
-                            typography:
-                              color: *color-background
-                              weight: semibold
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600
-                          altText: Analytics charts
-                        appearance:
-                          minHeight: 15
-                          fit: cover
-                          cornerStyle: md
-                        layout:
-                          widthMode: "50"
-            - title: Automation
-              components:
-                - name: layout-row
-                  properties:
-                    layout:
-                      horizontalAlign: space-evenly
-                      verticalAlign: center
-                      wrap: nowrap
-                      gap: lg
-                    appearance:
-                      background:
-                        transparency: 0
-                  components:
-                    - name: layout-column
-                      properties:
-                        layout:
-                          horizontalAlign: left
-                          widthMode: "50"
-                          gap: sm
-                        appearance:
-                          background:
-                            transparency: 0
-                      components:
-                        - name: heading
-                          properties:
-                            text: Workflow Automation
-                            level: 3
-                            typography:
-                              size: xl
-                              weight: bold
-                              color: *color-background
-                              align: left
-                        - name: paragraph
-                          properties:
-                            text: >
-                              Automate repetitive tasks and focus on what truly
-                              matters
+                  and actionable insights.
+                typography:
+                  size: md
+                  color: *color-secondary
+                  align: left
+            - name: button
+              properties:
+                text: View Demo
+                appearance:
+                  background:
+                    color: *color-accent
+                  radius: md
+                typography:
+                  color: *color-background
+                  weight: semibold
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600
+                altText: Analytics charts
+              appearance:
+                minHeight: 15
+                fit: cover
+                cornerStyle: md
+              layout:
+                widthMode: "50"
+      - title: Automation
+        components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              verticalAlign: center
+              wrap: nowrap
+              gap: lg
+            appearance:
+              background:
+                transparency: 0
+          components:
+          - name: layout-column
+            properties:
+              layout:
+                horizontalAlign: left
+                widthMode: "50"
+                gap: sm
+              appearance:
+                background:
+                  transparency: 0
+            components:
+            - name: heading
+              properties:
+                text: Workflow Automation
+                level: 3
+                typography:
+                  size: xl
+                  weight: bold
+                  color: *color-background
+                  align: left
+            - name: paragraph
+              properties:
+                text: >
+                  Automate repetitive tasks and focus on what truly
+                  matters
 
-                              for your business growth.
-                            typography:
-                              size: md
-                              color: *color-secondary
-                              align: left
-                        - name: button
-                          properties:
-                            text: Get Started
-                            appearance:
-                              background:
-                                color: *color-accent
-                              radius: md
-                            typography:
-                              color: *color-background
-                              weight: semibold
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600
-                          altText: Automation workflow
-                        appearance:
-                          minHeight: 15
-                          fit: cover
-                          cornerStyle: md
-                        layout:
-                          widthMode: "50"
+                  for your business growth.
+                typography:
+                  size: md
+                  color: *color-secondary
+                  align: left
+            - name: button
+              properties:
+                text: Get Started
+                appearance:
+                  background:
+                    color: *color-accent
+                  radius: md
+                typography:
+                  color: *color-background
+                  weight: semibold
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600
+                altText: Automation workflow
+              appearance:
+                minHeight: 15
+                fit: cover
+                cornerStyle: md
+              layout:
+                widthMode: "50"

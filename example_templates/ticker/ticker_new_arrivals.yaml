@@ -1,5 +1,10 @@
 # Ticker Template: New Arrivals
 # Product cards with "NEW" badge on image, name, and price
+# Base components: page, layout-column, eyebrow, heading, paragraph, ticker, image, badge
+# Section type: ticker
+# Layout: stacked
+# Visual style: modern
+# Perfect for: ecommerce, any business
 - name: page
   properties:
     theme:
@@ -8,6 +13,7 @@
         content: &font-content "'Sora', sans-serif"
       colors:
         primary: &color-primary '#171717'
+        text: &color-text '#2F2F2F'
         secondary: &color-secondary '#737373'
         accent: &color-accent '#16a34a'
         background: &color-background '#f0fdf4'
@@ -16,311 +22,311 @@
         color: *color-background
         transparency: 100
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        gap: md
+      spacing:
+        paddingBlock: xxl
+        paddingInline: lg
+    components:
+    - name: eyebrow
       properties:
-        layout:
-          horizontalAlign: center
-          gap: md
-        spacing:
-          paddingBlock: xxl
-          paddingInline: lg
-      components:
-        - name: eyebrow
-          properties:
-            text: JUST DROPPED
-            typography:
-              size: xs
-              weight: semibold
-              color: *color-accent
-              align: center
-              letterSpacing: wider
-              transform: uppercase
-        - name: heading
-          properties:
-            text: New Arrivals
-            level: 2
-            typography:
-              size: xxl
-              weight: bold
-              color: *color-primary
-              align: center
-        - name: paragraph
-          properties:
-            text: Fresh picks added this week — be the first to shop
-            typography:
-              size: md
-              color: *color-secondary
-              align: center
+        text: JUST DROPPED
+        typography:
+          size: xs
+          weight: semibold
+          color: *color-accent
+          align: center
+          letterSpacing: wider
+          transform: uppercase
+    - name: heading
+      properties:
+        text: New Arrivals
+        level: 2
+        typography:
+          size: xxl
+          weight: bold
+          color: *color-primary
+          align: center
+    - name: paragraph
+      properties:
+        text: Fresh picks added this week — be the first to shop
+        typography:
+          size: md
+          color: *color-secondary
+          align: center
 
-        - name: ticker
+    - name: ticker
+      properties:
+        behavior:
+          direction: left
+          speed: 22
+          mode: continuous
+          pauseOnHover: true
+        layout:
+          gap: lg
+          widthMode: "280"
+        spacing:
+          marginBlock: lg
+          marginInline: none
+        appearance:
+          columnBackground: *color-background
+          columnTransparency: 100
+          columnRadius: lg
+          columnBorder:
+            width: 1
+            style: solid
+            color: *color-secondary
+      columns:
+      - components:
+        - name: layout-column
           properties:
-            behavior:
-              direction: left
-              speed: 22
-              mode: continuous
-              pauseOnHover: true
             layout:
-              width: "280"
-            spacing:
-              marginBlock: lg
-              marginInline: none
-              gap: lg
-            appearance:
-              columnBackground: *color-background
-              columnTransparency: 100
-              columnRadius: lg
-              columnBorder:
-                width: 1
-                style: solid
-                color: *color-secondary
-          columns:
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: none
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=350&fit=crop
-                          altText: White Sneakers
-                        appearance:
-                          radius: none
-                          fit: cover
-                          minHeight: 200
-                    - name: badge
-                      properties:
-                        text: NEW
-                        variant: success
-                        pill: true
-                        typography:
-                          size: xs
-                          color: *color-background
-                    - name: layout-column
-                      properties:
-                        layout:
-                          horizontalAlign: center
-                          gap: xs
-                        spacing:
-                          paddingBlock: sm
-                          paddingInline: sm
-                      components:
-                        - name: heading
-                          properties:
-                            text: Cloud Walker Sneakers
-                            level: 4
-                            typography:
-                              size: md
-                              weight: semibold
-                              color: *color-primary
-                              align: center
-                        - name: paragraph
-                          properties:
-                            text: "$129.00"
-                            typography:
-                              size: lg
-                              weight: bold
-                              color: *color-accent
-                              align: center
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: none
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=400&h=350&fit=crop
-                          altText: Ceramic Vase
-                        appearance:
-                          radius: none
-                          fit: cover
-                          minHeight: 200
-                    - name: badge
-                      properties:
-                        text: NEW
-                        variant: success
-                        pill: true
-                        typography:
-                          size: xs
-                          color: *color-background
-                    - name: layout-column
-                      properties:
-                        layout:
-                          horizontalAlign: center
-                          gap: xs
-                        spacing:
-                          paddingBlock: sm
-                          paddingInline: sm
-                      components:
-                        - name: heading
-                          properties:
-                            text: Artisan Ceramic Vase
-                            level: 4
-                            typography:
-                              size: md
-                              weight: semibold
-                              color: *color-primary
-                              align: center
-                        - name: paragraph
-                          properties:
-                            text: "$68.00"
-                            typography:
-                              size: lg
-                              weight: bold
-                              color: *color-accent
-                              align: center
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: none
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=350&fit=crop
-                          altText: Canvas Backpack
-                        appearance:
-                          radius: none
-                          fit: cover
-                          minHeight: 200
-                    - name: badge
-                      properties:
-                        text: NEW
-                        variant: success
-                        pill: true
-                        typography:
-                          size: xs
-                          color: *color-background
-                    - name: layout-column
-                      properties:
-                        layout:
-                          horizontalAlign: center
-                          gap: xs
-                        spacing:
-                          paddingBlock: sm
-                          paddingInline: sm
-                      components:
-                        - name: heading
-                          properties:
-                            text: Heritage Canvas Pack
-                            level: 4
-                            typography:
-                              size: md
-                              weight: semibold
-                              color: *color-primary
-                              align: center
-                        - name: paragraph
-                          properties:
-                            text: "$89.00"
-                            typography:
-                              size: lg
-                              weight: bold
-                              color: *color-accent
-                              align: center
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: none
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=350&fit=crop
-                          altText: Minimal Desk Lamp
-                        appearance:
-                          radius: none
-                          fit: cover
-                          minHeight: 200
-                    - name: badge
-                      properties:
-                        text: NEW
-                        variant: success
-                        pill: true
-                        typography:
-                          size: xs
-                          color: *color-background
-                    - name: layout-column
-                      properties:
-                        layout:
-                          horizontalAlign: center
-                          gap: xs
-                        spacing:
-                          paddingBlock: sm
-                          paddingInline: sm
-                      components:
-                        - name: heading
-                          properties:
-                            text: Arc Desk Lamp
-                            level: 4
-                            typography:
-                              size: md
-                              weight: semibold
-                              color: *color-primary
-                              align: center
-                        - name: paragraph
-                          properties:
-                            text: "$145.00"
-                            typography:
-                              size: lg
-                              weight: bold
-                              color: *color-accent
-                              align: center
-            - components:
-                - name: layout-column
-                  properties:
-                    layout:
-                      horizontalAlign: center
-                      gap: none
-                  components:
-                    - name: image
-                      properties:
-                        source:
-                          url: https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=350&fit=crop
-                          altText: Sport Watch
-                        appearance:
-                          radius: none
-                          fit: cover
-                          minHeight: 200
-                    - name: badge
-                      properties:
-                        text: NEW
-                        variant: success
-                        pill: true
-                        typography:
-                          size: xs
-                          color: *color-background
-                    - name: layout-column
-                      properties:
-                        layout:
-                          horizontalAlign: center
-                          gap: xs
-                        spacing:
-                          paddingBlock: sm
-                          paddingInline: sm
-                      components:
-                        - name: heading
-                          properties:
-                            text: Titan Sport Watch
-                            level: 4
-                            typography:
-                              size: md
-                              weight: semibold
-                              color: *color-primary
-                              align: center
-                        - name: paragraph
-                          properties:
-                            text: "$219.00"
-                            typography:
-                              size: lg
-                              weight: bold
-                              color: *color-accent
-                              align: center
+              horizontalAlign: center
+              gap: none
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=350&fit=crop
+                altText: White Sneakers
+              appearance:
+                radius: none
+                fit: cover
+                minHeight: 12.5
+          - name: badge
+            properties:
+              text: NEW
+              variant: success
+              pill: true
+              typography:
+                size: xs
+                color: *color-background
+          - name: layout-column
+            properties:
+              layout:
+                horizontalAlign: center
+                gap: xs
+              spacing:
+                paddingBlock: sm
+                paddingInline: sm
+            components:
+            - name: heading
+              properties:
+                text: Cloud Walker Sneakers
+                level: 4
+                typography:
+                  size: md
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+            - name: paragraph
+              properties:
+                text: "$129.00"
+                typography:
+                  size: lg
+                  weight: bold
+                  color: *color-accent
+                  align: center
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: none
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=400&h=350&fit=crop
+                altText: Ceramic Vase
+              appearance:
+                radius: none
+                fit: cover
+                minHeight: 12.5
+          - name: badge
+            properties:
+              text: NEW
+              variant: success
+              pill: true
+              typography:
+                size: xs
+                color: *color-background
+          - name: layout-column
+            properties:
+              layout:
+                horizontalAlign: center
+                gap: xs
+              spacing:
+                paddingBlock: sm
+                paddingInline: sm
+            components:
+            - name: heading
+              properties:
+                text: Artisan Ceramic Vase
+                level: 4
+                typography:
+                  size: md
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+            - name: paragraph
+              properties:
+                text: "$68.00"
+                typography:
+                  size: lg
+                  weight: bold
+                  color: *color-accent
+                  align: center
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: none
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=350&fit=crop
+                altText: Canvas Backpack
+              appearance:
+                radius: none
+                fit: cover
+                minHeight: 12.5
+          - name: badge
+            properties:
+              text: NEW
+              variant: success
+              pill: true
+              typography:
+                size: xs
+                color: *color-background
+          - name: layout-column
+            properties:
+              layout:
+                horizontalAlign: center
+                gap: xs
+              spacing:
+                paddingBlock: sm
+                paddingInline: sm
+            components:
+            - name: heading
+              properties:
+                text: Heritage Canvas Pack
+                level: 4
+                typography:
+                  size: md
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+            - name: paragraph
+              properties:
+                text: "$89.00"
+                typography:
+                  size: lg
+                  weight: bold
+                  color: *color-accent
+                  align: center
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: none
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&h=350&fit=crop
+                altText: Minimal Desk Lamp
+              appearance:
+                radius: none
+                fit: cover
+                minHeight: 12.5
+          - name: badge
+            properties:
+              text: NEW
+              variant: success
+              pill: true
+              typography:
+                size: xs
+                color: *color-background
+          - name: layout-column
+            properties:
+              layout:
+                horizontalAlign: center
+                gap: xs
+              spacing:
+                paddingBlock: sm
+                paddingInline: sm
+            components:
+            - name: heading
+              properties:
+                text: Arc Desk Lamp
+                level: 4
+                typography:
+                  size: md
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+            - name: paragraph
+              properties:
+                text: "$145.00"
+                typography:
+                  size: lg
+                  weight: bold
+                  color: *color-accent
+                  align: center
+      - components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: none
+          components:
+          - name: image
+            properties:
+              source:
+                url: https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=350&fit=crop
+                altText: Sport Watch
+              appearance:
+                radius: none
+                fit: cover
+                minHeight: 12.5
+          - name: badge
+            properties:
+              text: NEW
+              variant: success
+              pill: true
+              typography:
+                size: xs
+                color: *color-background
+          - name: layout-column
+            properties:
+              layout:
+                horizontalAlign: center
+                gap: xs
+              spacing:
+                paddingBlock: sm
+                paddingInline: sm
+            components:
+            - name: heading
+              properties:
+                text: Titan Sport Watch
+                level: 4
+                typography:
+                  size: md
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+            - name: paragraph
+              properties:
+                text: "$219.00"
+                typography:
+                  size: lg
+                  weight: bold
+                  color: *color-accent
+                  align: center

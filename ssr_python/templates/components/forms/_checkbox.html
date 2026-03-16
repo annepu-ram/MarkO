@@ -2,14 +2,38 @@
     {% set properties = component.properties | default({}) %}
     {% set label = properties.label | default({}) %}
     {% set field = properties.field | default({}) %}
+    {% set appearance = properties.appearance | default({}) %}
+    {% set options_text = field.options | default('') %}
+    {% set options_list = options_text.split('\n') if options_text else [] %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
-        {% if label.show %}
-            <label>{{ label.text | default('') }}</label>
+    {% set accent_color = appearance.color | default('') %}
+    {% set field_size = appearance.size | default('') %}
+    <div class="form-field form-field--check chrome-target"
+         data-component-id="{{ component_id }}"
+         data-component-name="checkbox"
+         style="{{ styles }}{% if accent_color %} --field-accent: {{ accent_color }};{% endif %}{% if field_size and tokens and tokens.typography_sizes and field_size in tokens.typography_sizes %} --field-size: var(--font-size-{{ field_size }});{% endif %}">
+        {% if label.show | default(true) %}
+            {% set label_typo = label.typography | default({}) %}
+            <span class="form-field__group-label"{% if label_typo.weight or label_typo.color %} style="{% if label_typo.weight and tokens and tokens.font_weights and label_typo.weight in tokens.font_weights %}font-weight: {{ tokens.font_weights[label_typo.weight] }};{% endif %}{% if label_typo.color %} color: {{ label_typo.color }};{% endif %}"{% endif %}>{{ label.text | default('') }}{% if field.required %} <span class="form-field__required" aria-hidden="true">*</span>{% endif %}</span>
         {% endif %}
-        <label>
-            <input type="checkbox" {% if field.checked %}checked{% endif %}>
-            {{ field.text | default('') }}
-        </label>
+        <div class="form-field__options">
+            {% for option in options_list %}
+                {% set trimmed = option | trim %}
+                {% if trimmed %}
+                    {% set opt_id = component_id ~ '_opt_' ~ loop.index0 %}
+                    <label class="form-field__inline-label" for="{{ opt_id }}">
+                        <input type="checkbox"
+                               id="{{ opt_id }}"
+                               {% if field.name %}name="{{ field.name }}"{% endif %}
+                               value="{{ trimmed }}"
+                               {% if field.required and loop.first %}required aria-required="true"{% endif %}>
+                        {{ trimmed }}
+                    </label>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if field.helperText %}
+            <span class="form-field__helper">{{ field.helperText }}</span>
+        {% endif %}
     </div>
 {% endmacro %}

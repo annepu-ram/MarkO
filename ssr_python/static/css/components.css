@@ -1,21 +1,35 @@
+/* === Site Wrapper (only present when header/footer exist) === */
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 /* === Page-Level Font Theme (CSS variable cascade) === */
-/* Scoped to .page to avoid clashing with App UI class names */
-/* Heading fonts from page theme */
+/* Scoped to .page and .site-wrapper to avoid clashing with App UI class names */
+/* .site-wrapper scope enables header/footer font inheritance */
 .page .heading,
-.page .text-eyebrow {
+.site-wrapper .heading,
+.page .text-eyebrow,
+.site-wrapper .text-eyebrow {
     font-family: var(--font-heading, inherit);
 }
 
 /* Content fonts from page theme */
 .page .paragraph,
+.site-wrapper .paragraph,
 .page .text-caption,
+.site-wrapper .text-caption,
 .page .text-blockquote,
-.page .link {
+.site-wrapper .text-blockquote,
+.page .link,
+.site-wrapper .link {
     font-family: var(--font-content, inherit);
 }
 
 /* Titlebar title uses heading font */
-.page .titlebar .titlebar-title {
+.page .titlebar .titlebar-title,
+.site-wrapper .titlebar .titlebar-title {
     font-family: var(--font-heading, inherit);
 }
 
@@ -82,9 +96,21 @@
     min-width: max-content;
 }
 
-/* When row wraps, allow children to grow to full width */
-.layout-row__content[data-wrap="wrap"] > * {
-    max-width: 100% !important;
+/* Responsive wrap: at tablet, children expand to 50% (2 per row) */
+/* Exclude .width-fit elements so widthMode:"fit" is preserved on all viewports */
+@media (max-width: 768px) {
+    .layout-row__content[data-wrap="wrap"] > *:not(.width-fit) {
+        flex: 1 0 48% !important;
+        max-width: 50% !important;
+    }
+}
+
+/* Responsive wrap: at mobile, children go full width (1 per row) */
+@media (max-width: 480px) {
+    .layout-row__content[data-wrap="wrap"] > *:not(.width-fit) {
+        flex: 1 0 100% !important;
+        max-width: 100% !important;
+    }
 }
 
 /* ===================================
@@ -145,6 +171,64 @@ etc.
 
 .form__submit:hover {
     background-color: #2563eb;
+}
+
+/* ─── Form Style: Vertical (default) ─── */
+.form[data-form-style="vertical"] .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+/* ─── Form Style: Inline ─── */
+.form[data-form-style="inline"] .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 0 1 auto;
+    width: auto;
+    min-width: 120px;
+    margin-bottom: 0;
+}
+
+.form[data-form-style="inline"] .form-field input,
+.form[data-form-style="inline"] .form-field select,
+.form[data-form-style="inline"] .form-field textarea {
+    width: auto;
+    min-width: 140px;
+}
+
+.form[data-form-style="inline"] .form__submit {
+    align-self: flex-end;
+    margin-bottom: 0;
+}
+
+/* ─── Form Style: Horizontal ─── */
+.form[data-form-style="horizontal"] .form-field {
+    display: grid;
+    grid-template-columns: minmax(80px, 30%) 1fr;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.form[data-form-style="horizontal"] .form-field label:first-child {
+    text-align: right;
+    margin-bottom: 0;
+}
+
+/* For checkbox/radio in horizontal: keep same grid layout */
+.form[data-form-style="horizontal"] .form-field[data-component-name="checkbox"],
+.form[data-form-style="horizontal"] .form-field[data-component-name="radio"] {
+    grid-template-columns: minmax(80px, 30%) 1fr;
+}
+
+/* Horizontal submit button alignment: offset to right column */
+.form[data-form-style="horizontal"] .form__submit {
+    margin-left: 30%;
+    padding-left: 1rem;
 }
 
 /* Columnsgrid Component */
@@ -240,17 +324,17 @@ etc.
   border: none;
 }
 
-/* Border position handling */
+/* Border position handling — inactive tabs use transparent to reserve space without visible border */
 .tabs-nav label[data-border-position="upper"] {
-  border-top: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
+  border-top: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) transparent;
 }
 
 .tabs-nav label[data-border-position="lower"] {
-  border-bottom: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
+  border-bottom: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) transparent;
 }
 
 .tabs-nav label[data-border-position="full"] {
-  border: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) var(--tabs-label-color-inactive, #6b7280);
+  border: var(--tabs-border-width, 2px) var(--tabs-border-style, solid) transparent;
 }
 
 /* Active label styles (checked radio) */
@@ -990,79 +1074,12 @@ select:focus {
     }
 }
 
-/* --- Carousel Component --- */
-.carousel-container {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
-.carousel-slides {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    height: 100%;
-}
-
-.carousel-slide {
-    min-width: 100%;
-    box-sizing: border-box;
-    position: relative;
-}
-
-.carousel-controls {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-    z-index: 1;
-}
-
-.carousel-controls button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.carousel-dots {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 5px;
-    z-index: 1;
-}
-
-.carousel-dots span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
-    cursor: pointer;
-}
-
-.carousel-dots span.active {
-    background-color: #333;
-}
-
-.carousel-fade .carousel-slide {
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.carousel-fade .carousel-slide.active {
-    opacity: 1;
-}
 
 /* Link Component Wrapper */
 .link-wrapper {
-    /* Ensures proper click area and width mode behavior */
-    display: inline-block;
+    /* Ensures proper click area, width mode behavior, and vertical centering */
+    display: inline-flex;
+    align-items: center;
 }
 
 .link-arrow::after {
@@ -1101,7 +1118,6 @@ select:focus {
 }
 
 .text-blockquote blockquote {
-    font-style: italic;
     margin: 0;
     padding: 0;
     position: relative;
@@ -1142,7 +1158,6 @@ select:focus {
     display: block;
     margin-top: 1rem;
     font-size: 0.95rem;
-    font-style: normal;
     font-weight: 500;
     color: var(--blockquote-border, #3b82f6);
     opacity: 0.85;
@@ -1157,12 +1172,11 @@ select:focus {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-bottom: 1rem;
 }
 
 .form-field label {
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: var(--field-size, 0.9rem);
     color: #374151;
 }
 
@@ -1173,7 +1187,7 @@ select:focus {
     padding: 0.625rem;
     border: 1px solid #d1d5db;
     border-radius: 0.375rem;
-    font-size: 1rem;
+    font-size: var(--field-size, 1rem);
     transition: border-color 0.2s;
 }
 
@@ -1181,8 +1195,102 @@ select:focus {
 .form-field textarea:focus,
 .form-field select:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--field-accent, #3b82f6);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--field-accent, #3b82f6) 10%, transparent);
+}
+
+/* ─── Validation states (shown after user interaction) ─── */
+.form-field input:invalid:not(:placeholder-shown):not(:focus),
+.form-field textarea:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+}
+
+.form-field input:valid:not(:placeholder-shown):not(:focus),
+.form-field textarea:valid:not(:placeholder-shown):not(:focus) {
+    border-color: #22c55e;
+}
+
+/* ─── Form Field: Helper Text ─── */
+.form-field__helper {
+    font-size: 0.8rem;
+    color: #6b7280;
+    line-height: 1.3;
+    margin-top: -0.125rem;
+}
+
+/* ─── Form Field: Required Asterisk ─── */
+.form-field__required {
+    color: #ef4444;
+    font-weight: 700;
+    margin-left: 0.125rem;
+}
+
+/* ─── Form Field: Group Label (for checkbox/radio) ─── */
+.form-field__group-label {
+    font-weight: 500;
+    font-size: var(--field-size, 0.9rem);
+    color: #374151;
+    display: block;
+}
+
+/* ─── Form Field: Inline Label (checkbox/radio wrapper) ─── */
+.form-field__inline-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: var(--field-size, 0.95rem);
+    color: #374151;
+    line-height: 1.4;
+}
+
+/* ─── Checkbox/Radio: Custom accent color via CSS variable ─── */
+.form-field input[type="checkbox"],
+.form-field input[type="radio"] {
+    accent-color: var(--field-accent, #2563eb);
+    width: 1.125rem;
+    height: 1.125rem;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* ─── Checkbox/Radio form-field layout tweak ─── */
+.form-field--check {
+    gap: 0.375rem;
+}
+
+/* ─── Horizontal form: checkbox/radio grid adjustment ─── */
+.form[data-form-style="horizontal"] .form-field--check {
+    grid-template-columns: minmax(80px, 30%) 1fr;
+}
+
+.form[data-form-style="horizontal"] .form-field--check .form-field__group-label {
+    text-align: right;
+}
+
+/* ─── Multi-option container (checkbox/radio groups) ─── */
+.form-field__options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+/* Horizontal form: options in right column */
+.form[data-form-style="horizontal"] .form-field--check .form-field__options {
+    grid-column: 2;
+}
+
+/* Inline form: options flow horizontally */
+.form[data-form-style="inline"] .form-field__options {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+}
+
+/* ─── Dropdown placeholder styling ─── */
+.form-field select option[disabled] {
+    color: #9ca3af;
 }
 
 /* Button Component Defaults */
@@ -1200,6 +1308,10 @@ button.btn,
     transition: all 0.2s;
     min-height: 36px;
     min-width: clamp(60px, 8vw, 80px);
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
 }
 
 /* Mobile: larger touch target for buttons */
@@ -1443,40 +1555,46 @@ a.link-arrow:hover::after {
 .carousel-slide {
     min-width: 100%;
     flex-shrink: 0;
-    /* display: none; - Removed to allow transform animation */
-    display: block;
+    box-sizing: border-box;
 }
 
 .carousel-slide.active {
-    /* display: block; - Not needed if always block */
+    /* Active state handled by translateX positioning */
 }
 
+/* Navigation arrow buttons — positioned by .carousel-navigation wrapper */
 .carousel-prev,
 .carousel-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 1rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    color: #1a1a1a;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.125rem;
     z-index: 10;
-    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    line-height: 1;
 }
 
 .carousel-prev:hover,
 .carousel-next:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.carousel-prev {
-    left: 1rem;
-}
-
-.carousel-next {
-    right: 1rem;
+.carousel-prev:active,
+.carousel-next:active {
+    transform: translateY(0);
 }
 
 /* Break / Divider Component */
@@ -1599,6 +1717,22 @@ a.link-arrow:hover::after {
     box-shadow: 0 12px 20px -8px rgb(0 0 0 / 0.2);
 }
 
+/* Brighten effect */
+.image-hover-brighten img {
+    transition: filter 0.3s ease;
+}
+.image-hover-brighten:hover img {
+    filter: brightness(1.15);
+}
+
+/* Darken effect */
+.image-hover-darken img {
+    transition: filter 0.3s ease;
+}
+.image-hover-darken:hover img {
+    filter: brightness(0.85);
+}
+
 /* =====================================================
    MEDIA CAPTION STYLES
    ===================================================== */
@@ -1651,30 +1785,17 @@ a.link-arrow:hover::after {
 }
 
 /* Arrow positions */
-.carousel-arrows-inside .carousel-prev,
-.carousel-arrows-inside .carousel-next {
-    position: relative;
-    left: auto;
-    right: auto;
-}
-
 .carousel-arrows-outside {
     width: calc(100% + 6rem);
     left: -3rem;
 }
 
-/* Circle arrow style */
+/* Circle arrow style — enhanced variant of default circular buttons */
 .carousel-arrow-circle {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9) !important;
-    border: 1px solid #ccc !important;
-    color: #333 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.25rem;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
 }
 
 .carousel-arrow-circle:hover {
@@ -1833,8 +1954,9 @@ a.link-arrow:hover::after {
 
     .carousel-prev,
     .carousel-next {
-        padding: 0.75rem;
-        font-size: 1.25rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
     }
 
     .carousel-pause {
@@ -1963,3 +2085,72 @@ a.link-arrow:hover::after {
 }
 
 
+/* =====================================================
+   PANORAMA DISPLAY COMPONENT
+   ===================================================== */
+
+.panorama-display {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.pd-track {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.pd-track::-webkit-scrollbar {
+    display: none;
+}
+
+.pd-image {
+    display: block;
+    height: auto;
+    max-width: none;
+}
+
+/* Arrow buttons */
+.pd-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, background 0.2s ease;
+}
+.pd-arrow:hover { background: rgba(0, 0, 0, 0.75); }
+.pd-arrow-left  { left: 0.5rem; }
+.pd-arrow-right { right: 0.5rem; }
+
+.pd-arrow-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.pd-track.is-dragging {
+    scroll-behavior: auto;
+    cursor: grabbing;
+    user-select: none;
+}
+
+.pd-track.is-auto-scrolling {
+    scroll-behavior: auto;
+}
+
+@media (max-width: 768px) {
+    .pd-arrow { width: 2rem; height: 2rem; font-size: 1.2rem; }
+}

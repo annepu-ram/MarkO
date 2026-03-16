@@ -52,7 +52,7 @@ function initializeIframeListener() {
                 }
                 if (pendingFonts) {
                     sendFontsToIframe(pendingFonts);
-                    sendIconFontToIframe(pendingFonts);
+
                     pendingFonts = null;
                 }
                 break;
@@ -67,6 +67,14 @@ function initializeIframeListener() {
                 // This is dispatched as a custom event that selectionManager listens for
                 console.log('[SSR App] COMPONENT_CLICKED received:', event.data.componentId);
                 window.dispatchEvent(new CustomEvent('iframe-component-clicked', {
+                    detail: { componentId: event.data.componentId }
+                }));
+                break;
+
+            case 'COMPONENT_DELETED':
+                // Forward to main.js for YAML deletion
+                console.log('[SSR App] COMPONENT_DELETED received:', event.data.componentId);
+                window.dispatchEvent(new CustomEvent('iframe-component-deleted', {
                     detail: { componentId: event.data.componentId }
                 }));
                 break;
@@ -107,15 +115,20 @@ function extractFontName(cssFontValue) {
 
 /**
  * Send LOAD_FONTS message to iframe so it can inject Google Font links.
- * Extracts fonts from the parsed YAML structure's page theme.
+ * Extracts fonts from site-level theme (preferred) or page-level theme (fallback).
  */
 function sendFontsToIframe(structure) {
     const iframe = document.getElementById('preview-frame');
     if (!iframe || !iframe.contentWindow) return;
     if (!structure || !Array.isArray(structure) || structure.length === 0) return;
 
-    const page = structure[0];
-    const fonts = page?.properties?.theme?.fonts;
+    // Extract fonts: prefer site.properties.theme.fonts, fallback to page
+    const site = structure[0];
+    let fonts = site?.properties?.theme?.fonts;
+    if (!fonts) {
+        const page = site?.components?.[0];
+        fonts = page?.properties?.theme?.fonts;
+    }
     if (!fonts) return;
 
     const fontNames = [];
@@ -134,59 +147,6 @@ function sendFontsToIframe(structure) {
             fonts: fontNames
         }, TRUSTED_ORIGIN);
     }
-}
-
-/**
- * Extract all icon component names from YAML structure.
- * Recursively walks the tree to find every icon component's properties.name.
- * @param {Array} structure - Parsed YAML structure
- * @returns {string[]} Unique icon names
- */
-export function extractIconNames(structure) {
-    const names = new Set();
-
-    function walk(nodes) {
-        if (!Array.isArray(nodes)) return;
-        for (const node of nodes) {
-            if (node.name === 'icon' && node.properties?.name) {
-                names.add(node.properties.name);
-            }
-            if (node.components) walk(node.components);
-            if (node.columns) {
-                for (const col of node.columns) {
-                    if (col.components) walk(col.components);
-                }
-            }
-            if (node.tabs) {
-                for (const tab of node.tabs) {
-                    if (tab.components) walk(tab.components);
-                }
-            }
-            if (node.slides) {
-                for (const slide of node.slides) {
-                    if (slide.components) walk(slide.components);
-                }
-            }
-        }
-    }
-
-    walk(structure);
-    return [...names];
-}
-
-/**
- * Send LOAD_ICON_FONT message to iframe with only the icon names used in the YAML.
- * The iframe dynamically loads a Material Symbols font subset via Google Fonts icon_names parameter.
- */
-function sendIconFontToIframe(structure) {
-    const iframe = document.getElementById('preview-frame');
-    if (!iframe || !iframe.contentWindow) return;
-
-    const iconNames = extractIconNames(structure);
-    iframe.contentWindow.postMessage({
-        type: 'LOAD_ICON_FONT',
-        iconNames: iconNames
-    }, TRUSTED_ORIGIN);
 }
 
 /**
@@ -349,7 +309,6 @@ export const renderPreview = async (yamlContent, yamlStructure = null) => {
             if (iframeReady) {
                 sendContentToIframe(htmlContent);
                 sendFontsToIframe(structure);
-                sendIconFontToIframe(structure);
             } else {
                 // Queue content and fonts until iframe is ready
                 pendingContent = htmlContent;

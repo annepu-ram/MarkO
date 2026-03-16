@@ -1,110 +1,118 @@
 # Product Card Variant: The Bundle
 # layout-column using a columnsgrid to show three small items included in the package
+# Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, image, caption, br, layout-row, button
+# Section type: product
+# Layout: grid
+# Visual style: card_based
+# Perfect for: ecommerce, retail, online store, marketplace, SaaS
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#1e1b4b'
+        text: &color-text '#34324F'
         secondary: &color-secondary '#6b7280'
         accent: &color-accent '#7c3aed'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-column
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: sm}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: medium
+        border: {width: 2, style: solid, color: *color-accent}
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: lg, paddingInline: lg}
+    components:
+    - name: eyebrow
       properties:
-        layout: { horizontalAlign: center, gap: sm }
-        appearance:
-          background: { color: *color-background }
-          radius: lg
-          shadow: medium
-          padding: { block: lg, inline: lg }
-          border: { width: 2, style: solid, color: *color-accent }
-        spacing: { marginBlock: lg, marginInline: lg }
+        text: BUNDLE & SAVE 25%
+        typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+    - name: heading
+      properties:
+        text: Home Office Starter Kit
+        level: 3
+        typography: {size: xl, weight: bold, color: *color-primary, align: center}
+        spacing: {marginBlock: sm}
+    - name: paragraph
+      properties:
+        text: Everything you need for the perfect work-from-home setup.
+        typography: {size: sm, color: *color-secondary, align: center}
+    - name: columnsgrid
+      properties:
+        layout: {columns: 3, gap: md, verticalAlign: center}
+        responsive: {breakpoints: {md: 3, sm: 1}}
+      columns:
+      - components:
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300', altText: 'Ergonomic Chair'}
+            appearance: {minHeight: 8, fit: cover, cornerStyle: md}
+            layout: {widthMode: stretch}
+        - name: caption
+          properties:
+            text: Ergonomic Chair
+            typography: {size: xs, weight: medium, color: *color-primary, align: center}
+        - name: caption
+          properties:
+            text: "$499"
+            typography: {size: xs, color: *color-secondary, align: center}
+      - components:
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=300', altText: 'Standing Desk'}
+            appearance: {minHeight: 8, fit: cover, cornerStyle: md}
+            layout: {widthMode: stretch}
+        - name: caption
+          properties:
+            text: Standing Desk
+            typography: {size: xs, weight: medium, color: *color-primary, align: center}
+        - name: caption
+          properties:
+            text: "$699"
+            typography: {size: xs, color: *color-secondary, align: center}
+      - components:
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=300', altText: 'Monitor Light'}
+            appearance: {minHeight: 8, fit: cover, cornerStyle: md}
+            layout: {widthMode: stretch}
+        - name: caption
+          properties:
+            text: Monitor Light Bar
+            typography: {size: xs, weight: medium, color: *color-primary, align: center}
+        - name: caption
+          properties:
+            text: "$89"
+            typography: {size: xs, color: *color-secondary, align: center}
+    - name: br
+      properties:
+        size: sm
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: center, verticalAlign: center, gap: sm, wrap: nowrap}
+        appearance: {background: {transparency: 0}}
       components:
-        - name: eyebrow
-          properties:
-            text: BUNDLE & SAVE 25%
-            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
-        - name: heading
-          properties:
-            text: Home Office Starter Kit
-            level: 3
-            typography: { size: xl, weight: bold, color: *color-primary, align: center }
-            spacing: { marginBlock: sm }
-        - name: paragraph
-          properties:
-            text: Everything you need for the perfect work-from-home setup.
-            typography: { size: sm, color: *color-secondary, align: center }
-        - name: columnsgrid
-          properties:
-            layout: { columns: 3, gap: md, verticalAlign: center }
-            responsive: { breakpoints: { md: 3, sm: 1 } }
-          columns:
-            - components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=300', altText: 'Ergonomic Chair' }
-                    appearance: { minHeight: 8, fit: cover, cornerStyle: md }
-                    layout: { widthMode: stretch }
-                - name: caption
-                  properties:
-                    text: Ergonomic Chair
-                    typography: { size: xs, weight: medium, color: *color-primary, align: center }
-                - name: caption
-                  properties:
-                    text: "$499"
-                    typography: { size: xs, color: *color-secondary, align: center }
-            - components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=300', altText: 'Standing Desk' }
-                    appearance: { minHeight: 8, fit: cover, cornerStyle: md }
-                    layout: { widthMode: stretch }
-                - name: caption
-                  properties:
-                    text: Standing Desk
-                    typography: { size: xs, weight: medium, color: *color-primary, align: center }
-                - name: caption
-                  properties:
-                    text: "$699"
-                    typography: { size: xs, color: *color-secondary, align: center }
-            - components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=300', altText: 'Monitor Light' }
-                    appearance: { minHeight: 8, fit: cover, cornerStyle: md }
-                    layout: { widthMode: stretch }
-                - name: caption
-                  properties:
-                    text: Monitor Light Bar
-                    typography: { size: xs, weight: medium, color: *color-primary, align: center }
-                - name: caption
-                  properties:
-                    text: "$89"
-                    typography: { size: xs, color: *color-secondary, align: center }
-        - name: br
-          properties:
-            size: sm
-        - name: layout-row
-          properties:
-            layout: { horizontalAlign: center, verticalAlign: baseline, gap: sm, wrap: nowrap }
-            appearance: { background: { transparency: 0 } }
-          components:
-            - name: caption
-              properties:
-                text: "$1,287"
-                typography: { size: md, color: *color-secondary, align: center }
-            - name: heading
-              properties:
-                text: "$965"
-                level: 4
-                typography: { size: xxl, weight: extrabold, color: *color-accent, align: center }
-                spacing: { marginBlock: none }
-        - name: button
-          properties:
-            text: Get the Bundle
-            appearance: { background: { color: *color-accent }, radius: md, padding: { block: md, inline: lg } }
-            typography: { color: *color-background, weight: bold }
-            layout: { widthMode: stretch }
+      - name: caption
+        properties:
+          text: "$1,287"
+          typography: {size: md, color: *color-secondary, align: center}
+      - name: heading
+        properties:
+          text: "$965"
+          level: 4
+          typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+          spacing: {marginBlock: none}
+    - name: button
+      properties:
+        text: Get the Bundle
+        appearance: {background: {color: *color-accent}, radius: md}
+        typography: {color: *color-background, weight: bold}
+        layout: {widthMode: stretch}
+        spacing:
+          paddingBlock: md
+          paddingInline: lg

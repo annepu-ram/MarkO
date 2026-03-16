@@ -1,5 +1,10 @@
 # Badge: Product Cards with Status Badges
 # Cards showing products with sale, new, and bestseller badges
+# Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, image, badge
+# Section type: product
+# Layout: grid
+# Visual style: minimal
+# Perfect for: ecommerce, retail, products, marketing
 
 - name: page
   properties:
@@ -7,107 +12,108 @@
       colors:
         background: &color-background '#ffffff'
         primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#6366f1'
       fonts:
         heading: &font-heading "'Inter', sans-serif"
         content: &font-content "'Inter', sans-serif"
-    appearance: { background: { color: *color-background } }
+    appearance: {background: {color: *color-background}}
   components:
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: xl}
+    components:
+    - name: layout-column
       properties:
-        layout: { horizontalAlign: center }
-        spacing: { paddingBlock: xl }
+        layout: {widthMode: '75', horizontalAlign: center}
       components:
-        - name: layout-column
+      - name: heading
+        properties:
+          text: Shop Our Collection
+          level: 2
+          typography: {size: xxl, weight: bold, color: *color-primary, align: center}
+      - name: paragraph
+        properties:
+          text: Handpicked items just for you
+          typography: {size: md, color: *color-secondary, align: center}
+          spacing: {marginBlock: sm}
+
+  - name: columnsgrid
+    properties:
+      layout: {columns: 3, gap: lg}
+      responsive: {breakpoints: {md: 2, sm: 1}}
+      spacing: {paddingBlock: lg, paddingInline: lg}
+    columns:
+    - components:
+      - name: layout-column
+        properties:
+          appearance: {background: {color: '#f8fafc'}, radius: lg}
+          spacing: {paddingBlock: lg, paddingInline: md}
+          layout: {horizontalAlign: center}
+        components:
+        - name: image
           properties:
-            layout: { widthMode: '75', horizontalAlign: center }
-          components:
-            - name: heading
-              properties:
-                text: Shop Our Collection
-                level: 2
-                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
-            - name: paragraph
-              properties:
-                text: Handpicked items just for you
-                typography: { size: md, color: *color-secondary, align: center }
-                spacing: { marginBlock: sm }
+            source: {url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30'}
+            appearance: {minHeight: 12.5, fit: cover, radius: md}
+        - name: badge
+          properties: {text: "NEW", variant: info, pill: true}
+        - name: heading
+          properties:
+            text: Minimalist Watch
+            level: 3
+            typography: {size: lg, weight: semibold, color: *color-primary, align: center}
+            spacing: {marginBlock: sm}
+        - name: paragraph
+          properties:
+            text: "$129.00"
+            typography: {size: md, weight: bold, color: *color-accent, align: center}
 
-    - name: columnsgrid
-      properties:
-        layout: { columns: 3, gap: lg }
-        responsive: { breakpoints: { md: 2, sm: 1 } }
-        spacing: { paddingBlock: lg, paddingInline: lg }
-      columns:
-        - components:
-            - name: layout-column
-              properties:
-                appearance: { background: { color: '#f8fafc' }, radius: lg }
-                spacing: { paddingBlock: lg, paddingInline: md }
-                layout: { horizontalAlign: center }
-              components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30' }
-                    appearance: { minHeight: 200, fit: cover, radius: md }
-                - name: badge
-                  properties: { text: "NEW", variant: info, pill: true }
-                - name: heading
-                  properties:
-                    text: Minimalist Watch
-                    level: 3
-                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
-                - name: paragraph
-                  properties:
-                    text: "$129.00"
-                    typography: { size: md, weight: bold, color: *color-accent, align: center }
+    - components:
+      - name: layout-column
+        properties:
+          appearance: {background: {color: '#f8fafc'}, radius: lg}
+          spacing: {paddingBlock: lg, paddingInline: md}
+          layout: {horizontalAlign: center}
+        components:
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e'}
+            appearance: {minHeight: 12.5, fit: cover, radius: md}
+        - name: badge
+          properties: {text: "SALE", variant: danger, pill: true}
+        - name: heading
+          properties:
+            text: Premium Headphones
+            level: 3
+            typography: {size: lg, weight: semibold, color: *color-primary, align: center}
+            spacing: {marginBlock: sm}
+        - name: paragraph
+          properties:
+            text: "$79.00"
+            typography: {size: md, weight: bold, color: '#dc2626', align: center}
 
-        - components:
-            - name: layout-column
-              properties:
-                appearance: { background: { color: '#f8fafc' }, radius: lg }
-                spacing: { paddingBlock: lg, paddingInline: md }
-                layout: { horizontalAlign: center }
-              components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e' }
-                    appearance: { minHeight: 200, fit: cover, radius: md }
-                - name: badge
-                  properties: { text: "SALE", variant: danger, pill: true }
-                - name: heading
-                  properties:
-                    text: Premium Headphones
-                    level: 3
-                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
-                - name: paragraph
-                  properties:
-                    text: "$79.00"
-                    typography: { size: md, weight: bold, color: '#dc2626', align: center }
-
-        - components:
-            - name: layout-column
-              properties:
-                appearance: { background: { color: '#f8fafc' }, radius: lg }
-                spacing: { paddingBlock: lg, paddingInline: md }
-                layout: { horizontalAlign: center }
-              components:
-                - name: image
-                  properties:
-                    source: { url: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d' }
-                    appearance: { minHeight: 200, fit: cover, radius: md }
-                - name: badge
-                  properties: { text: "BESTSELLER", variant: success, pill: true }
-                - name: heading
-                  properties:
-                    text: Running Shoes
-                    level: 3
-                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
-                    spacing: { marginBlock: sm }
-                - name: paragraph
-                  properties:
-                    text: "$149.00"
-                    typography: { size: md, weight: bold, color: *color-accent, align: center }
+    - components:
+      - name: layout-column
+        properties:
+          appearance: {background: {color: '#f8fafc'}, radius: lg}
+          spacing: {paddingBlock: lg, paddingInline: md}
+          layout: {horizontalAlign: center}
+        components:
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d'}
+            appearance: {minHeight: 12.5, fit: cover, radius: md}
+        - name: badge
+          properties: {text: "BESTSELLER", variant: success, pill: true}
+        - name: heading
+          properties:
+            text: Running Shoes
+            level: 3
+            typography: {size: lg, weight: semibold, color: *color-primary, align: center}
+            spacing: {marginBlock: sm}
+        - name: paragraph
+          properties:
+            text: "$149.00"
+            typography: {size: md, weight: bold, color: *color-accent, align: center}

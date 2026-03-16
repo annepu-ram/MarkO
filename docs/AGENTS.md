@@ -1,12 +1,12 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI agents (Claude, Gemini, etc.) when working with the **Swift Sites** codebase.
 
 ## Project Overview
 
 **Swift Sites** is a YAML-based website builder with server-side rendering. Users write YAML in an editor, and the application renders a live preview in an isolated iframe with component selection and properties editing. The YAML structure is the single source of truth - all changes flow through it, ensuring the preview, properties panel, history, and export stay synchronized.
 
-**Architecture:** Server-Side Rendering (SSR) using Python Flask + Jinja2 templates. Preview renders in an iframe for complete style isolation. A legacy client-side rendering (CSR) version exists in the root `js/` directory.
+**Architecture:** Server-Side Rendering (SSR) using Python Flask + Jinja2 templates. Preview renders in an iframe for complete style isolation.
 
 DO NOT READ node_modules into context. They are not necessary.
 
@@ -14,21 +14,13 @@ DO NOT READ node_modules into context. They are not necessary.
 
 ## Commands
 
-### SSR Development (Primary)
+### SSR Development
 
 ```bash
 cd ssr_python
 pip install -r requirements.txt    # Install Python dependencies
 python app.py                       # Start Flask server at http://localhost:5000
-```
-
-### CSR Development (Legacy)
-
-```bash
-npm test                            # Run all Jest tests
-npm test -- js/render/__tests__/index.test.js  # Run specific test file
-npx jest <test> --updateSnapshot    # Update snapshot tests
-npm run build:sprite                # Rebuild SVG icon sprite
+python -m pytest tests/ -v          # Run test suite (30 tests)
 ```
 
 ---
@@ -42,7 +34,7 @@ YAML Editor → POST /render → Flask Backend
                               ↓
                          renderer.py: render_yaml_structure()
                               ↓
-                         Jinja2 Macros (_components.html)
+                         Jinja2 Macros (templates/components/)
                               ↓
                          HTML Response
                               ↓
@@ -62,52 +54,31 @@ YAML Editor → POST /render → Flask Backend
 ```
 ssr_python/
 ├── app.py                    # Flask application entry point
+├── config.py                 # Configuration and path constants
 ├── renderer.py               # Core rendering engine
-├── llm_service.py            # Gemini AI integration for chat
+├── llm_service.py            # AI integration for chat (Ollama/Gemini)
 ├── tokens.yaml               # Design tokens (spacing, typography, etc.)
 ├── generate_tokens_css.py    # Token to CSS generator
-├── requirements.txt          # Python dependencies (Flask, PyYAML, google-genai)
+├── requirements.txt          # Python dependencies
+├── config/                   # Component metadata
+│   ├── component_defaults.yaml   # Default properties per component type
+│   ├── component_schemas.yaml    # Inspector form definitions
+│   ├── schema_tokens.yaml        # Token-to-dropdown mappings
+│   └── LLM_COMPONENT_GUIDE.md    # Guide for AI generation
 ├── templates/
 │   ├── index.html            # Main application UI (with iframe)
 │   ├── preview_frame.html    # Iframe preview template
-│   └── macros/
-│       └── _components.html  # Jinja2 component macros (~1000 lines)
+│   └── components/           # Split Jinja2 component macros
 └── static/
-    ├── css/
-    │   ├── style.css         # Application UI styles
-    │   ├── components.css    # Component-specific styles
-    │   ├── preview-chrome.css # Chrome overlay styles for iframe
-    │   ├── chat.css          # AI chat widget styles
-    │   └── tokens.css        # Auto-generated CSS custom properties
-    ├── js/
-    │   ├── main.js           # Application bootstrap
-    │   ├── ssr_app.js        # SSR rendering bridge, iframe communication
-    │   ├── preview_bridge.js # Runs inside iframe, handles content/clicks
-    │   ├── selectionManager.js   # Component selection
-    │   ├── pathMapBuilder.js     # DOM-to-YAML mapping
-    │   ├── propertiesPanel.js    # Properties inspector
-    │   ├── historyManager.js     # Undo/redo
-    │   ├── componentTree.js      # Component hierarchy tree
-    │   ├── metadataLoader.js     # API metadata fetching
-    │   ├── yamlUtils.js          # YAML manipulation
-    │   ├── events.js             # Event wiring
-    │   ├── customRenderers.js    # Complex property editors
-    │   ├── component_interactions.js  # Interactive component init
-    │   ├── chat.js               # AI chat UI component
-    │   ├── chatService.js        # Chat API service
-    │   ├── js-yaml.min.js        # YAML parser library (local copy)
-    │   ├── yamlStorage.js        # SessionStorage persistence for YAML editor
-    │   └── utils/
-    │       ├── object.js     # Deep clone, merge, nested get/set
-    │       └── timing.js     # Debounce helper
-    └── icon-sprite.svg       # SVG icon sprite (includes sparkles icon)
+    ├── css/                  # Stylesheets
+    └── js/                   # Frontend logic
 ```
 
 ---
 
 ## Iframe Preview Architecture
 
-The preview renders inside an isolated iframe for complete CSS isolation between the app UI and preview content.
+The preview renders inside an isolated iframe for complete CSS isolation.
 
 ### Communication Flow
 
@@ -124,109 +95,17 @@ Parent Window (ssr_app.js)          Iframe (preview_bridge.js)
          │<─── COMPONENT_CLICKED {id} ────────│
 ```
 
-### Key Files
-
-| File | Location | Purpose |
-|------|----------|---------|
-| `index.html` | templates/ | Main UI with `<iframe id="preview-frame" src="/preview-frame">` |
-| `preview_frame.html` | templates/ | Iframe HTML with preview-chrome.css and preview_bridge.js |
-| `ssr_app.js` | static/js/ | Parent-side: sends content via postMessage, handles iframe messages |
-| `preview_bridge.js` | static/js/ | Iframe-side: receives content, relays clicks, initializes components |
-| `preview-chrome.css` | static/css/ | Selection highlighting styles for iframe |
-
-### Message Types
-
-| Message | Direction | Purpose |
-|---------|-----------|---------|
-| `IFRAME_READY` | iframe → parent | Iframe loaded, ready for content |
-| `IFRAME_READY_ACK` | parent → iframe | Acknowledges ready, stops retry loop |
-| `UPDATE_CONTENT` | parent → iframe | Sends rendered HTML to display |
-| `COMPONENTS_READY` | iframe → parent | Lists all component IDs in DOM |
-| `SET_SELECTION` | parent → iframe | Highlights a component |
-| `CLEAR_SELECTION` | parent → iframe | Removes selection highlight |
-| `COMPONENT_CLICKED` | iframe → parent | User clicked a component |
-
 ---
 
-## Python Files
-
-### `app.py` - Flask Application
-
-**Purpose:** Main Flask application handling HTTP requests and routes.
-
-**Key Components:**
-- `TOKENS` - Global dictionary storing design tokens from `tokens.yaml`
-- `COMPONENT_DEFAULTS` - Loaded from `component_defaults.yaml`
-- Custom Jinja2 filter: `transparency_to_hex()` - converts transparency (0-100) to hex alpha
-
-**Routes:**
-```python
-@app.route('/')                    # Main UI
-@app.route('/preview-frame')       # Iframe preview content
-@app.route('/render', methods=['POST'])  # YAML to HTML
-@app.route('/api/schemas')         # Component schemas JSON
-@app.route('/api/defaults')        # Component defaults JSON
-@app.route('/api/tokens')          # Schema tokens JSON
-```
-
-### `renderer.py` - Rendering Engine
-
-**Purpose:** Core rendering logic converting YAML structures to HTML.
-
-**Key Functions:**
-- `render_yaml_structure(structure, tokens, defaults)` - Main entry point
-- `deep_merge(base, override)` - Recursive dictionary merging
-- `merge_component_with_defaults(component, defaults)` - Merges YAML with defaults
-
-**Flow:**
-1. Validates structure and tokens
-2. Creates Jinja2 template string
-3. Imports `_components.html` macros
-4. Renders template with structure + tokens
-5. Returns HTML string
-
----
-
-## Flask API Endpoints
-
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/` | GET | Main application UI |
-| `/preview-frame` | GET | Iframe preview template |
-| `/render` | POST | Renders YAML to HTML |
-| `/api/chat` | POST | LLM chat endpoint (Gemini AI) |
-| `/api/schemas` | GET | Component schemas as JSON |
-| `/api/defaults` | GET | Component defaults as JSON |
-| `/api/tokens` | GET | Schema tokens as JSON |
-
----
-
-## Template System (`_components.html`)
+## Template System (Jinja2)
 
 ### Architecture
 
 **Macro-Based Component System:**
-- Each component type has its own macro (e.g., `render_heading()`, `render_button()`)
-- Main dispatcher `render_component()` routes to appropriate macro
-- Macros call `render_component()` recursively for nested components
-
-### Key Macros
-
-#### `render_component(component, tokens, path=[])` - Main Dispatcher
-Routes components based on `component.name`:
-- **Layout:** page, layout-row, layout-column, columnsgrid, form
-- **Interactive:** tabs, accordion, carousel, hamburger
-- **Text:** heading, paragraph, eyebrow, caption, blockquote, link
-- **Media:** image, video, gif
-- **UI:** button, titlebar
-- **Forms:** textbox, textarea, dropdown, checkbox, radio, calendar
-- **Utility:** br
-
-#### `build_styles(component, tokens, part=None)` - Style Generator
-Generates inline CSS styles from component properties and design tokens.
-
-#### `build_flex_styles(component, tokens, direction)` - Flex Layout
-Generates flexbox styles for layout components.
+- Each component type has its own macro.
+- Main dispatcher `render_component()` in `_dispatcher.html` routes to the appropriate macro.
+- Macros call `render_component()` recursively for nested components.
+- Style generation is handled by the `build_styles()` macro in `_utilities.html`.
 
 ---
 
@@ -239,450 +118,21 @@ Generates flexbox styles for layout components.
 | `main.js` | Application bootstrap, DOM init, event wiring |
 | `ssr_app.js` | SSR rendering bridge, iframe postMessage communication |
 | `preview_bridge.js` | Runs in iframe, handles content updates and click relay |
-| `events.js` | Event listeners (editor, preview, buttons, keyboard) |
-
-### State Management
-
-| Module | Purpose |
-|--------|---------|
-| `selectionManager.js` | Component selection state and highlighting |
-| `pathMapBuilder.js` | Maps component IDs to YAML paths |
-| `historyManager.js` | Undo/redo stacks (max 50 states) |
-| `yamlStorage.js` | SessionStorage persistence (survives tab refresh) |
-
-### Properties System
-
-| Module | Purpose |
-|--------|---------|
-| `propertiesPanel.js` | Renders form fields from schema |
-| `metadataLoader.js` | Loads schemas, defaults, tokens from API |
-| `customRenderers.js` | Complex property editors (links, slides) |
-| `yamlUtils.js` | YAML parsing, component updates |
-
-### Component Support
-
-| Module | Purpose |
-|--------|---------|
-| `componentTree.js` | Component hierarchy tree UI |
-| `component_interactions.js` | Runtime init for carousels, tabs, etc. |
-
----
-
-## Titlebar Component
-
-The titlebar has special scroll behavior with a clone-based sticky implementation.
-
-### How It Works
-1. When titlebar initializes, `preview_bridge.js` creates a hidden clone
-2. Clone has `position: fixed; top: 0` and is initially `opacity: 0`
-3. On scroll, when original titlebar's bottom edge goes above viewport, clone shows
-4. Both original and clone get `.scrolled` class for shrink effect when scrollY > 50
-
-### Shrink Effect
-- Logo and title shrink based on `shrinkPercentage` property (default: 30%)
-- Menu items do NOT shrink - only logo and title
-- CSS variable `--shrink-scale` controls shrink amount
-
-### CSS Classes
-- `.titlebar` - Base titlebar styles
-- `.titlebar.scrolled` - Shrunk state (padding, height, logo, title)
-- `.titlebar-clone` - Fixed position clone, hidden by default
-- `.titlebar-clone.visible` - Clone visible when original out of view
-
----
-
-## Component Styling Architecture
-
-### Components Using CSS Variables
-
-These components generate CSS variables consumed by `components.css`:
-
-**1. Tabs Component**
-- `--tabs-gap`, `--tabs-margin-block`, `--tabs-margin-inline`
-- `--tabs-label-font-size`, `--tabs-label-font-weight`
-- `--tabs-label-color-active`, `--tabs-label-color-inactive`
-
-**2. Accordion Component**
-- `--accordion-gap`, `--accordion-margin-*`, `--accordion-border-radius`
-- `--accordion-title-*`, `--accordion-content-*`
-
-**3. Titlebar Component**
-- `--base-height`, `--title-font-size`, `--title-font-weight`, `--shrink-scale`
-- `--titlebar-title-color`, `--titlebar-link-color`
-
-**4. Blockquote Component**
-- `--blockquote-border` - Accent border color
-
-### Components Using Inline Styles Only
-
-These use `build_styles()` to generate inline styles directly:
-- page, layout-row, layout-column, columnsgrid, form
-- heading, paragraph, eyebrow, caption, link
-- image, video, gif, button, carousel, hamburger
-- Form inputs (textbox, textarea, dropdown, checkbox, radio, calendar)
-
----
-
-## Component Selection & Properties Editing
-
-### Component ID Generation
-
-**Server-Side (Jinja2):**
-```jinja2
-{% set component_id = 'comp_' ~ path | join('_') %}
-```
-
-**Path Examples:**
-- `[0]` → `comp_0`
-- `[0, 'components', 1]` → `comp_0_components_1`
-- `[0, 'columns', 0, 'components', 2]` → `comp_0_columns_0_components_2`
-
-### Selection Flow (with Iframe)
-
-```
-1. User clicks in iframe preview
-   ↓
-2. preview_bridge.js: handleClick() finds [data-component-id]
-   ↓
-3. postMessage COMPONENT_CLICKED to parent
-   ↓
-4. ssr_app.js: dispatches 'iframe-component-clicked' event
-   ↓
-5. selectionManager handles selection
-   ↓
-6. postMessage SET_SELECTION back to iframe for highlighting
-   ↓
-7. Properties panel renders form for component
-```
-
----
-
-## Adding New Components to SSR
-
-1. **Add Component Macro** (`_components.html`):
-   ```jinja2
-   {% macro render_mycomponent(component, tokens, path, component_id) %}
-       {% set properties = component.properties | default({}) %}
-       <div class="my-component chrome-target"
-            data-component-id="{{ component_id }}"
-            style="{{ build_styles(component, tokens) }}">
-           {{ properties.text }}
-       </div>
-   {% endmacro %}
-   ```
-
-2. **Add to Dispatcher** (`render_component()` macro)
-
-3. **Add CSS** (`static/css/components.css`)
-
-4. **Add Defaults** (`component_defaults.yaml`)
-
-5. **Add Schema** (`component_schemas.yaml`)
+| `swift-sites-runtime.js` | Standalone runtime for interactive components (carousel, tabs, etc.) |
 
 ---
 
 ## Metadata Files
 
-The following metadata files must stay synchronized:
+The following metadata files in `ssr_python/config/` must stay synchronized:
 
 | File | Purpose |
 |------|---------|
 | `component_defaults.yaml` | Default properties for each component type |
 | `component_schemas.yaml` | Inspector form fields, types, labels, token refs |
 | `schema_tokens.yaml` | Design token options for dropdowns |
-| `COMPONENT_PROPERTIES_MATRIX.md` | Cross-tabulation of components vs properties |
 | `LLM_COMPONENT_GUIDE.md` | LLM-friendly guide for YAML generation |
 
 ---
 
-## Recent Fixes (January 2025)
-
-### Text Component Transparency Fix
-- **Fixed:** Text invisible on dark backgrounds due to opaque white backgrounds
-- **Root cause:** heading, paragraph, eyebrow, caption, blockquote had `transparency: 100` (fully opaque white)
-- **Solution:** Changed `transparency` to `0` (fully transparent) in `component_defaults.yaml`
-- Text components now have transparent backgrounds by default, allowing underlying colors/images to show through
-
-### LLM Chat Widget Implementation
-- **Added:** AI-powered chat widget using Google Gemini (`google-genai` package)
-- **Added:** `llm_service.py` for Gemini API integration with `LLM_COMPONENT_GUIDE.md` as context
-- **Added:** `chat.js` and `chatService.js` for chat UI and API communication
-- **Added:** `chat.css` with accent color styling (#9c9ef0)
-- **Added:** `/api/chat` endpoint in `app.py`
-- **Added:** Sparkles icon to `icon-sprite.svg` for chat bubble
-- Chat bubble positioned at bottom-left corner
-- Supports create, modify, and explain actions
-
-### Bookstore Template
-- **Added:** Comprehensive bookstore template (`example_templates/bookstore_template.yaml`)
-- Uses Unsplash and Pexels images (open source)
-- Sections: Navigation, Hero, New Arrivals, Second Hand Books (50% off), Children's Hard Board Books, Arts & Crafts, Testimonials, Newsletter, Footer
-- Fixed color contrast issues (strikethrough prices, footer text)
-
-### YAML Editor Persistence (SessionStorage)
-- **Added:** New `yamlStorage.js` module for browser storage persistence
-- YAML content now survives tab refresh (F5, Ctrl+R)
-- Uses `sessionStorage` (tab-scoped) - content is lost when tab/browser closes
-- Auto-saves on every editor change via `handleEditorInput()`
-- Auto-loads on page initialization in `main.js`
-- Clear button also clears stored content
-
-**Key Functions:**
-- `yamlStorage.save(content)` - Save YAML to sessionStorage
-- `yamlStorage.load()` - Load YAML from sessionStorage
-- `yamlStorage.clear()` - Clear stored content
-- `yamlStorage.hasContent()` - Check if content exists
-
-### Device Frame Dimensions
-- **Changed:** Tablet viewport from portrait to landscape mode
-  - Width: 1024px, Height: 600px (iPad landscape)
-- **Changed:** Mobile viewport height to 790px
-  - Width: 390px, Height: 790px (iPhone portrait)
-- Defined in `style.css` under `.device-frame.tablet` and `.device-frame.mobile`
-
-### Responsive Font Sizing
-- **Added:** CSS `clamp()` for fluid responsive typography in `preview_frame.html`
-- Root font-size scales with viewport: `clamp(12px, 1vw + 8px, 18px)`
-- Component fonts use `rem` units, automatically scaling with viewport changes
-- UI fonts remain fixed (only preview content is responsive)
-
-### Properties Panel Value Collection Fix
-- **Fixed:** Property changes not applying when value equals default
-- **Root cause:** `collectPropertyValues()` in `propertiesPanel.js` was skipping values that matched defaults
-- **Solution:** Always include collected values; let `main.js` merge handle defaults
-- Example: Setting heading size to "xl" (default) when current was "lg" now works correctly
-
-### Token & Schema Consistency Fixes
-- **Fixed:** Token name mismatch `borderRadius` → `borderRadiusScale` in `component_schemas.yaml`
-- **Fixed:** Titlebar schema path `layout.shrinkPercent` → `scroll.shrinkPercentage` to match macro and defaults
-- **Added:** Missing `appearance.focus.color` to titlebar defaults
-
-### letterSpacing CSS Rendering
-- **Added:** `letter-spacing` CSS generation in `build_styles()` macro
-- Uses `tokens.letter_spacing` mapping: `normal`, `tight`, `wide`, `wider`
-- All text components now render letterSpacing property correctly
-
-### Typography Property Standardization
-All text components now have consistent typography properties:
-
-| Property | heading | paragraph | eyebrow | caption | blockquote | link |
-|----------|:-------:|:---------:|:-------:|:-------:|:----------:|:----:|
-| size | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| weight | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| align | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| color | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| lineHeight | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| transform | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-| letterSpacing | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-
-Both `component_schemas.yaml` and `component_defaults.yaml` updated for consistency.
-
-### Viewport Switching Fix
-- **Fixed:** Replaced inline `onclick` handlers with `data-viewport` attributes
-- **Fixed:** Horizontal scrollbar by changing `overflow-x` to `hidden` on app container
-
-### Component Selection & Properties Panel Fix
-- **Fixed:** YAML parser not loading in ES modules - downloaded `js-yaml.min.js` locally to `static/js/` and updated loading in `index.html`
-- **Fixed:** Properties panel not displaying when clicking components in iframe - fixed `window.jsyaml` access pattern in `yamlUtils.js` and `ssr_app.js`
-- **Fixed:** Component tree not refreshing when YAML changes - ensured path map builds correctly from parsed YAML structure
-
-### Iframe Preview Enhancement
-- **Added:** Preview now renders in isolated iframe for complete CSS separation between app UI and preview content.
-- **Fixed:** Race condition with IFRAME_READY handshake using retry pattern with acknowledgment.
-- **Added:** Clone-based sticky titlebar that appears when original scrolls out of view with configurable shrink percentage (default 30%).
-- **Fixed:** Removed page component chrome overlay label, simplified to `.page` class for cleaner rendering.
-
-### Previous Fixes
-
-**Font Size Property:** Removed UTF-8 BOM from `schema_tokens.yaml` - all 9 font size options now visible.
-
-**Width Mode:** Changed from fixed percentages to proportional flex-grow for proper gap handling in layout-row.
-
-**ColumnsGrid:** Calculate width as `100% / columnCount`, stack on mobile <768px.
-
-**Layout-Column Width Mode:** Changed default `align-items` from `stretch` to `center` so child width modes work.
-
-**Layout Containers:** Set `transparency: 0` (fully transparent) for layout-row and layout-column defaults.
-
----
-
-## Troubleshooting SSR
-
-**Preview not updating?**
-- Check browser console for `[SSR App]` and `[Preview Bridge]` messages
-- Verify IFRAME_READY handshake completed (look for "acknowledged by parent")
-- Check Network tab for `/render` response
-
-**Titlebar not sticking?**
-- Titlebar uses clone-based approach, not CSS sticky
-- Clone appears when original's `rect.bottom < 0`
-- Check `.titlebar-clone.visible` class is being added
-
-**Tokens not loading?**
-- Check `tokens.yaml` exists in `ssr_python/` directory
-- Check Flask console for token loading messages
-
-**Selection not working?**
-- Check components have `data-component-id` attributes
-- Verify postMessage communication in console
-- Check `chrome-target` class is present
-
-**YAML parser not available?**
-- Check console for `[Init] js-yaml loaded successfully` message
-- Ensure `js-yaml.min.js` exists in `static/js/` directory
-- Verify `index.html` loads it before the module script
-- Check both `jsyaml` and `window.jsyaml` in browser console
-
-**Properties panel not updating?**
-- Check console for `[SSR App] Built path map with X components`
-- Click component and look for `[SSR App] COMPONENT_CLICKED received`
-- Verify `[SelectionManager] Path lookup result` shows array (not null)
-- Check `[Main] onSelectionChange called with` has valid selection
-
-**YAML not persisting across refresh?**
-- Check console for `[Main] Restored YAML from sessionStorage` on page load
-- Verify `sessionStorage.getItem('swift_sites_yaml_content')` in browser console
-- Note: sessionStorage is tab-scoped - each tab has isolated storage
-- Note: Content is lost when browser/tab closes (use localStorage for permanent storage)
-
----
-
-## Data Model
-
-### YAML Structure
-
-- Root: array with single `{ name: 'page', properties, components }` object
-- **Simple components**: `{ name, properties }` with typography, spacing, layout, appearance
-- **Container components**: Add nested `components`, `columns`, `tabs`, `slides`. Components with nested content: `page`, `layout-row`, `layout-column`, `columnsgrid`, `form`, `image`, `gif`, `video-background`
-
-### Component Path Map
-
-Maps DOM IDs to YAML paths:
-- `comp_0` → `[0]`
-- `comp_0_components_1` → `[0, 'components', 1]`
-- `comp_0_columns_0_components_2` → `[0, 'columns', 0, 'components', 2]`
-
----
-
-## Legacy CSR Reference
-
-The client-side rendering version exists in the root directory:
-
-**Location:** `js/` directory, entry point `index.html`
-
-**Key Files:**
-- `js/render/index.js` - Main renderer with `renderYamlStructure()`
-- `js/core/state.js` - Global state manager
-- `js/core/yaml.js` - YAML parsing/serialization
-
-**Key Differences from SSR:**
-| Feature | CSR | SSR |
-|---------|-----|-----|
-| Rendering | Browser (JavaScript) | Server (Python/Jinja2) |
-| Preview Isolation | Same document | Iframe |
-| Communication | Direct DOM | postMessage API |
-
----
-
-## Design Tokens Reference
-
-### Typography Tokens (`tokens.yaml`)
-
-| Token | Values |
-|-------|--------|
-| `typography_sizes` | xxs, xs, sm, md, lg, xl, xxl, xxxl, auto |
-| `font_weights` | light, regular, medium, semibold, bold, extrabold |
-| `letter_spacing` | normal, tight, wide, wider |
-
-### Spacing Tokens
-
-| Token | Values |
-|-------|--------|
-| `spacing` | none, xxs, xs, sm, md, lg, xl, xxl, xxxl, auto |
-| `border_radius` | none, xs, sm, md, lg, xl, xxl, pill |
-
-### Schema Token References (`schema_tokens.yaml`)
-
-When adding schema fields that reference tokens, use these token names:
-- `typographySizes` - Font size dropdown
-- `fontWeights` - Font weight dropdown
-- `spacingScale` - Padding/margin dropdowns
-- `gapScale` - Gap between items
-- `borderRadiusScale` - Border radius dropdown
-- `letterSpacingMap` - Letter spacing dropdown
-- `alignmentHorizontal` - Text alignment (left, center, right, justify)
-
----
-
-## AI Chat Feature (Implemented)
-
-An AI-powered chat widget that generates and modifies YAML from natural language descriptions using Google Gemini AI.
-
-### Architecture
-
-```
-User Message + Selected Component → Chat UI → POST /api/chat → Flask Backend
-                                                                    ↓
-                                              llm_service.py: Load LLM_COMPONENT_GUIDE.md
-                                                                    ↓
-                                              Build context (YAML + selection)
-                                                                    ↓
-                                              Call Gemini API (google-genai)
-                                                                    ↓
-                                              Parse response for YAML blocks
-                                                                    ↓
-Chat UI ← JSON Response ← Return action + YAML
-    ↓
-Update Editor → Trigger /render → Preview Updates
-```
-
-### Key Files
-
-| File | Purpose |
-|------|---------|
-| `llm_service.py` | Gemini API integration, prompt building, response parsing |
-| `chat.js` | Chat UI component (bubble button, window, messages) |
-| `chatService.js` | API communication with `/api/chat` endpoint |
-| `chat.css` | Chat widget styling (positioned bottom-left) |
-
-### Configuration
-
-```bash
-# Required environment variable
-GEMINI_API_KEY=your_api_key_here
-
-# Optional environment variables
-GEMINI_MODEL=gemini-2.0-flash  # Default model
-LLM_MAX_TOKENS=4096            # Max response tokens
-LLM_TEMPERATURE=0.7            # Response creativity
-```
-
-### Chat UI Features
-
-- **Floating button:** Bottom-left corner with sparkles icon
-- **Chat window:** 400x500px expandable panel
-- **Selection awareness:** Shows "Editing: [component name]" badge when component selected
-- **YAML responses:** Displayed with syntax highlighting and "Apply Changes" button
-- **Action types:** `create` (new page), `modify` (update component), `explain` (text only)
-
-### Response Handling
-
-The LLM returns responses with `<!-- ACTION: type -->` comments:
-- `create`: Replace entire editor content with new YAML
-- `modify`: Merge YAML at selected component path
-- `explain`: Display text response only, no YAML changes
-- `error`: Display error message
-
----
-
-## Example Templates
-
-Pre-built templates in `example_templates/` directory:
-
-| Template | Description |
-|----------|-------------|
-| `bookstore_template.yaml` | Full bookstore website with navigation, hero, new arrivals, second-hand books (50% off), children's hard board books, arts & crafts, testimonials, newsletter, and footer |
-
----
-
-**Last Updated:** January 2025
+**Last Updated:** March 2026

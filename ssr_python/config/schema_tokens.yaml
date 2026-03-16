@@ -41,6 +41,8 @@ spacingScale:
   options:
     - value: none
       label: None
+    - value: xxs
+      label: XXS
     - value: xs
       label: XS
     - value: sm
@@ -51,6 +53,10 @@ spacingScale:
       label: LG
     - value: xl
       label: XL
+    - value: xxl
+      label: XXL
+    - value: xxxl
+      label: XXXL
     - value: auto
       label: Auto
 gapScale:
@@ -58,6 +64,8 @@ gapScale:
   options:
     - value: none
       label: None
+    - value: xxs
+      label: XXS
     - value: xs
       label: XS
     - value: sm
@@ -68,6 +76,10 @@ gapScale:
       label: LG
     - value: xl
       label: XL
+    - value: xxl
+      label: XXL
+    - value: xxxl
+      label: XXXL
     - value: auto
       label: Auto
 borderRadiusScale:
@@ -271,4 +283,8 @@ hoverEffects:
       label: Zoom In
     - value: lift
       label: Lift (Shadow)
+    - value: brighten
+      label: Brighten
+    - value: darken
+      label: Darken
 

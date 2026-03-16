@@ -1,0 +1,100 @@
+# Top Announcement Bar - Slim Site-Wide Notice Banner
+# A compact, single-row announcement strip with centered text and optional action link, designed to sit at the very top of a page for site-wide notices like free shipping thresholds, new feature launches, or limited-time offers
+# Base components: layout-row, layout-column, paragraph, link, icon
+# Section type: banner
+# Layout: centered
+# Visual style: modern, bold_typography
+# Perfect for: online store, SaaS platform, fashion brand, tech startup, restaurant, event venue, hotel, university website
+
+- name: site
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#4f46e5'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+  components:
+    - name: page
+      slug: home
+      title: "Announcement"
+      properties:
+        appearance: { background: { color: *color-background } }
+      components:
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, verticalAlign: center, wrap: nowrap }
+            appearance: { background: { color: *color-accent } }
+            spacing: { paddingBlock: xs, paddingInline: md }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: 'fit', horizontalAlign: center, direction: row }
+                spacing: { gap: sm }
+              components:
+                - name: icon
+                  properties:
+                    icon: star
+                    appearance: { color: '#ffffff', size: sm }
+                    name: star
+                    size: "36"
+                    strokeWidth: "2"
+                    color: *color-accent
+                - name: paragraph
+                  properties:
+                    text: "Free shipping on all orders over $50 — Limited time only!"
+                    typography:
+                      {
+                        size: sm,
+                        weight: semibold,
+                        color: *color-accent,
+                        align: center,
+                        lineHeight: "1.6",
+                        transform: none,
+                        letterSpacing: normal,
+                        fontStyle: normal,
+                        textDecoration: none
+                      }
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      background:
+                        type: ""
+                        color: $color-background
+                        transparency: 0
+                    spacing:
+                      paddingBlock: sm
+                      paddingInline: none
+                      marginBlock: none
+                      marginInline: none
+                - name: link
+                  properties:
+                    text: "Shop Now →"
+                    url: "#shop"
+                    typography:
+                      {
+                        size: sm,
+                        weight: bold,
+                        color: *color-primary,
+                        align: left,
+                        lineHeight: "1.5",
+                        transform: none,
+                        letterSpacing: normal,
+                        fontStyle: normal,
+                        textDecoration: none
+                      }
+                    href: "#"
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      underline: true
+                      showArrow: false
+                    spacing:
+                      paddingBlock: none
+                      paddingInline: none
+                      marginBlock: xs
+                      marginInline: xs

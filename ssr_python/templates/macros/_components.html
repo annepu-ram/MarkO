@@ -56,7 +56,7 @@
     {% elif name == 'calendar' %}
         {{ render_calendar(component, tokens, path, component_id) }}
     {% else %}
-        <div style="border: 1px solid red; padding: 8px; margin: 8px;" class="chrome-target" data-component-id="{{ component_id }}">
+        <div style="border: 1px solid red; padding: 8px; margin: 8px;" class="chrome-target" data-component-id="{{ component_id }}" data-component-name="{{ name }}">
             <strong>Warning:</strong> Component '{{ name }}' is not implemented in the SSR renderer.
         </div>
     {% endif %}
@@ -72,7 +72,7 @@
     {# Page always uses flex-direction: column, width: 100% #}
     {% set base_styles = 'display: flex; flex-direction: column; width: 100%; box-sizing: border-box;' %}
     
-    <div class="page" data-component-id="{{ component_id }}" style="{{ base_styles }} {{ page_styles }}">
+    <div class="page" data-component-id="{{ component_id }}" data-component-name="page" style="{{ base_styles }} {{ page_styles }}">
         {% if components | length > 0 %}
             {% for child in components %}
                 {% set child_path = path + ['components', loop.index0] %}
@@ -106,7 +106,7 @@
         {% set content_style = '' %}
     {% endif %}
 
-    <div class="tabs chrome-target" data-component-id="{{ component_id }}" data-orientation="{{ orientation }}"{% if tabs_vars %} style="{{ tabs_vars }} position: relative; {{ container_style }}"{% else %} style="position: relative; {{ container_style }}"{% endif %}>
+    <div class="tabs chrome-target" data-component-id="{{ component_id }}" data-component-name="tabs" data-orientation="{{ orientation }}"{% if tabs_vars %} style="{{ tabs_vars }} position: relative; {{ container_style }}"{% else %} style="position: relative; {{ container_style }}"{% endif %}>
         {% for tab in tabs_list %}
             {% set tab_index = loop.index0 %}
             {% set tab_id = tabs_id ~ '_' ~ tab_index %}
@@ -132,7 +132,7 @@
     {% set items = component['items'] | default([]) %}
     {% set border_position = properties.appearance.border.position | default('bottom') if properties.appearance and properties.appearance.border else 'bottom' %}
     {% set accordion_vars = build_accordion_vars(component, tokens) %}
-    <div class="accordion-container chrome-target" data-component-id="{{ component_id }}" data-component-type="accordion" data-allow-multiple="{{ 'true' if behavior.allowMultipleOpen else 'false' }}"{% if accordion_vars %} style="{{ accordion_vars }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="accordion-container chrome-target" data-component-id="{{ component_id }}" data-component-name="accordion" data-component-type="accordion" data-allow-multiple="{{ 'true' if behavior.allowMultipleOpen else 'false' }}"{% if accordion_vars %} style="{{ accordion_vars }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% for item in items %}
             {% set item_index = loop.index0 %}
             {% set item_path = path + ['items', item_index] %}
@@ -162,7 +162,7 @@
     {% set properties = component.properties | default({}) %}
     {% set links = component.links | default([]) %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="hamburger-menu chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="hamburger-menu chrome-target" data-component-id="{{ component_id }}" data-component-name="hamburger"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         <button class="mobile-menu-button">
             <span>{{ component.label | default('Menu') }}</span>
         </button>
@@ -178,7 +178,7 @@
     {% set properties = component.properties | default({}) %}
     {% set size = properties.size | default('md') %}
     {% set spacing_value = (tokens.spacing[size]) if tokens and tokens.spacing and (size in tokens.spacing) else '2rem' %}
-    <div class="comp-br chrome-target" data-component-id="{{ component_id }}"
+    <div class="comp-br chrome-target" data-component-id="{{ component_id }}" data-component-name="br"
          style="height: {{ spacing_value }}; width: 100%; border-bottom: 1px dashed #ccc; margin: 0.5rem 0; position: relative;">
     </div>
 {% endmacro %}
@@ -194,7 +194,7 @@
     {# Inner wrapper styles: flex layout properties #}
     {% set inner_styles = build_flex_styles(component, tokens, 'row') %}
     
-    <{{ tag }} class="layout-row chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+    <{{ tag }} class="layout-row chrome-target" data-component-id="{{ component_id }}" data-component-name="layout-row" style="{{ outer_styles }}">
         <div class="layout-row__content" data-wrap="{{ layout_props.wrap | default('nowrap') }}" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}
@@ -227,7 +227,7 @@
     {# Inner wrapper styles: flex layout properties #}
     {% set inner_styles = build_flex_styles(component, tokens, 'column') %}
 
-    <{{ tag }} class="layout-column chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ outer_styles }}">
+    <{{ tag }} class="layout-column chrome-target" data-component-id="{{ component_id }}" data-component-name="layout-column" data-width-mode="{{ width_mode }}" style="{{ outer_styles }}">
         <div class="layout-column__content" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}
@@ -263,6 +263,7 @@
     {% set col_transparency = appearance.columnTransparency | default(0) %}
     {% set col_blur = appearance.columnBlur | default(false) %}
     {% set col_radius_token = appearance.columnRadius | default('none') %}
+    {% set col_border = appearance.columnBorder | default({}) %}
 
     {# Build column background with transparency — blur auto-applies 50% if opaque #}
     {% if col_blur is sameas true and (not col_transparency or col_transparency == 0) %}
@@ -275,14 +276,20 @@
     {% set col_radius_css = 'border-radius: ' ~ tokens.border_radius[col_radius_token] ~ ';' if col_radius_token != 'none' and tokens and tokens.border_radius and col_radius_token in tokens.border_radius else '' %}
     {% set col_blur_css = 'backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);' if col_blur is sameas true else '' %}
 
-    <div class="columnsgrid chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+    {# Column border #}
+    {% set col_border_css = '' %}
+    {% if col_border.width and col_border.width > 0 %}
+        {% set col_border_css = 'border: ' ~ col_border.width ~ 'px solid ' ~ (col_border.color | default('#e5e7eb')) ~ ';' %}
+    {% endif %}
+
+    <div class="columnsgrid chrome-target" data-component-id="{{ component_id }}" data-component-name="columnsgrid" style="{{ outer_styles }}">
         <div class="columnsgrid__row" style="display: flex; gap: {{ gap_value }}; align-items: {{ v_align_css }}; width: 100%; box-sizing: border-box; min-height: 0;">
             {% for col_index in range(column_count) %}
                 {% set column = columns[col_index] if col_index < columns | length else {} %}
                 {% set column_components = column.components | default([]) %}
 
                 {% set col_justify = 'space-between' if v_align == 'stretch' else v_align_css %}
-                <div class="columnsgrid__col" style="position: relative; flex: 1 1 0; min-width: 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: {{ col_justify }}; background-color: {{ col_bg_final }}; {{ col_radius_css }} {{ col_blur_css }}">
+                <div class="columnsgrid__col" style="position: relative; flex: 1 1 0; min-width: 0; min-height: 0; box-sizing: border-box; display: flex; flex-direction: column; justify-content: {{ col_justify }}; background-color: {{ col_bg_final }}; {{ col_radius_css }} {{ col_blur_css }} {{ col_border_css }}">
                     <div class="column-label">Col {{ col_index + 1 }}</div>
 
                     {% if column_components | length > 0 %}
@@ -313,7 +320,7 @@
     {# Inner wrapper styles: flex layout #}
     {% set inner_styles = build_flex_styles(component, tokens, direction) %}
     
-    <form class="form chrome-target" data-component-id="{{ component_id }}" style="{{ outer_styles }}">
+    <form class="form chrome-target" data-component-id="{{ component_id }}" data-component-name="form" style="{{ outer_styles }}">
         <div class="form__content" style="{{ inner_styles }}">
             {% for child in component.components | default([]) %}
                 {% set child_path = path + ['components', loop.index0] %}
@@ -335,27 +342,27 @@
     {% set styles = build_styles(component, tokens, layout_direction=parent_direction) %}
     {% if name == 'heading' %}
         {% set size = properties.size | default('md') %}
-        <h{{ properties.level | default(2) }} class="heading chrome-target" data-component-id="{{ component_id }}" data-size="{{ size }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</h{{ properties.level | default(2) }}>
+        <h{{ properties.level | default(2) }} class="heading chrome-target" data-component-id="{{ component_id }}" data-component-name="heading" data-size="{{ size }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</h{{ properties.level | default(2) }}>
     {% elif name == 'paragraph' %}
-        <p class="chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
+        <p class="paragraph chrome-target" data-component-id="{{ component_id }}" data-component-name="paragraph"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
     {% elif name == 'eyebrow' %}
-        <p class="text-eyebrow chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
+        <p class="text-eyebrow chrome-target" data-component-id="{{ component_id }}" data-component-name="eyebrow"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</p>
     {% elif name == 'caption' %}
-        <small class="text-caption chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</small>
+        <small class="text-caption chrome-target" data-component-id="{{ component_id }}" data-component-name="caption"{% if styles %} style="{{ styles }}"{% endif %}>{{ properties.text | default('') | replace('\n', '<br>') | safe }}</small>
     {% elif name == 'blockquote' %}
         {% set style_str = styles %}
         {% if properties.appearance and properties.appearance.border and properties.appearance.border.accentColor %}
             {% set style_str = style_str ~ ' --blockquote-border: ' ~ properties.appearance.border.accentColor ~ ';' %}
         {% endif %}
         {# Match CSR structure: figure > blockquote + figcaption, support both quote and text properties #}
-        <figure class="text-blockquote chrome-target" data-component-id="{{ component_id }}"{% if style_str %} style="{{ style_str }}"{% endif %}>
+        <figure class="text-blockquote chrome-target" data-component-id="{{ component_id }}" data-component-name="blockquote"{% if style_str %} style="{{ style_str }}"{% endif %}>
             <blockquote>{{ (properties.quote | default(properties.text)) | default('') | replace('\n', '<br>') | safe }}</blockquote>
             {% if properties.cite %}<figcaption class="blockquote-citation">&mdash; {{ properties.cite }}</figcaption>{% endif %}
         </figure>
     {% elif name == 'link' %}
         {# Apply width mode and selection to wrapper div #}
         {% set text_align = properties.textAlign | default('left') %}
-        <div class="link-wrapper chrome-target" data-component-id="{{ component_id }}" style="{{ styles }} text-align: {{ text_align }};">
+        <div class="link-wrapper chrome-target" data-component-id="{{ component_id }}" data-component-name="link" style="{{ styles }} text-align: {{ text_align }};">
             {# Apply link-specific styles (underline) to the anchor #}
             {% set link_classes = ['link'] %}
             {% if properties.appearance and properties.appearance.showArrow %}{% set _ = link_classes.append('link-arrow') %}{% endif %}
@@ -466,6 +473,7 @@
 
     <figure class="image-container chrome-target {{ hover_class }}"
             data-component-id="{{ component_id }}"
+            data-component-name="image"
             data-width-mode="{{ width_mode }}"
             style="{{ base_styles }} {{ extra_styles }}">
 
@@ -512,7 +520,7 @@
     {# Height fallback #}
     {% set height_value = appearance.height | default(400) %}
 
-    <figure class="video-container chrome-target" data-component-id="{{ component_id }}" style="{{ video_styles }} position: relative;">
+    <figure class="video-container chrome-target" data-component-id="{{ component_id }}" data-component-name="video" style="{{ video_styles }} position: relative;">
         <div class="video-wrapper" style="{{ aspect_style }} width: 100%; overflow: hidden;">
             <iframe src="{{ source.url }}"
                     style="width: 100%; height: 100%; border: none;"
@@ -561,7 +569,7 @@
         {% set shadow_style = '--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ '; ' ~ shadow_style %}
     {% endif %}
 
-    <figure class="gif-container chrome-target" data-component-id="{{ component_id }}" data-width-mode="{{ width_mode }}" style="{{ styles }} position: relative; {{ shadow_style }} {{ radius_style }}">
+    <figure class="gif-container chrome-target" data-component-id="{{ component_id }}" data-component-name="gif" data-width-mode="{{ width_mode }}" style="{{ styles }} position: relative; {{ shadow_style }} {{ radius_style }}">
         <div class="gif-wrapper" style="position: relative; overflow: hidden; {{ radius_style }}">
             <img src="{{ source.url }}"
                  alt="{{ source.altText | default('') }}"
@@ -610,6 +618,7 @@
 
     <figure class="video-background-container chrome-target"
             data-component-id="{{ component_id }}"
+            data-component-name="video-background"
             data-component-type="video-background"
             style="{{ base_styles }} {{ aspect_style }} position: relative; overflow: hidden;">
 
@@ -657,9 +666,10 @@
     {% set properties = component.properties | default({}) %}
     {% set action = properties.action | default({}) %}
     {% set styles = build_styles(component, tokens) %}
-    <button type="button" 
-            class="btn chrome-target" 
+    <button type="button"
+            class="btn chrome-target"
             data-component-id="{{ component_id }}"
+            data-component-name="button"
             {% if styles %}style="{{ styles }} position: relative;"{% else %}style="position: relative;"{% endif %}
             {% if action.href %}onclick="window.location.href='{{ action.href }}'"{% endif %}>
         {{ properties.text | default('Button') }}
@@ -762,7 +772,7 @@
     {% set css_vars = vars | join(' ') | replace('\n', ' ') | replace('  ', ' ') %}
     {% set combined_styles = (styles ~ ' ' ~ css_vars) | trim %}
 
-    <header class="titlebar chrome-target align-{{ alignment }}" data-component-id="{{ component_id }}"{% if combined_styles %} style="{{ combined_styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <header class="titlebar chrome-target align-{{ alignment }}" data-component-id="{{ component_id }}" data-component-name="titlebar"{% if combined_styles %} style="{{ combined_styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         <div class="titlebar-branding">
             {% if branding.showLogo and branding.logoUrl %}
                 <img src="{{ branding.logoUrl }}" alt="Logo" class="titlebar-logo">
@@ -816,6 +826,7 @@
 
     <div class="carousel chrome-target {{ anim_class }}"
          data-component-id="{{ component_id }}"
+         data-component-name="carousel"
          data-component-type="carousel"
          data-autoplay="{{ 'true' if behavior.autoplay else 'false' }}"
          data-delay="{{ behavior.delay | default(3000) }}"
@@ -884,7 +895,7 @@
     {% set label = properties.label | default({}) %}
     {% set field = properties.field | default({}) %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="form-field chrome-target" data-component-id="{{ component_id }}" data-component-name="{{ component.name }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% if label.show %}
             <label>{{ label.text | default('') }}</label>
         {% endif %}
@@ -897,7 +908,7 @@
     {% set label = properties.label | default({}) %}
     {% set field = properties.field | default({}) %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="form-field chrome-target" data-component-id="{{ component_id }}" data-component-name="{{ component.name }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% if label.show %}
             <label>{{ label.text | default('') }}</label>
         {% endif %}
@@ -912,7 +923,7 @@
     {% set options_text = field.options | default('') %}
     {% set options_list = options_text.split('\n') if options_text else [] %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="form-field chrome-target" data-component-id="{{ component_id }}" data-component-name="{{ component.name }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% if label.show %}
             <label>{{ label.text | default('') }}</label>
         {% endif %}
@@ -929,7 +940,7 @@
     {% set label = properties.label | default({}) %}
     {% set field = properties.field | default({}) %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="form-field chrome-target" data-component-id="{{ component_id }}" data-component-name="{{ component.name }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% if label.show %}
             <label>{{ label.text | default('') }}</label>
         {% endif %}
@@ -945,7 +956,7 @@
     {% set label = properties.label | default({}) %}
     {% set field = properties.field | default({}) %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="form-field chrome-target" data-component-id="{{ component_id }}" data-component-name="{{ component.name }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% if label.show %}
             <label>{{ label.text | default('') }}</label>
         {% endif %}
@@ -961,7 +972,7 @@
     {% set label = properties.label | default({}) %}
     {% set field = properties.field | default({}) %}
     {% set styles = build_styles(component, tokens) %}
-    <div class="form-field chrome-target" data-component-id="{{ component_id }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
+    <div class="form-field chrome-target" data-component-id="{{ component_id }}" data-component-name="{{ component.name }}"{% if styles %} style="{{ styles }} position: relative;"{% else %} style="position: relative;"{% endif %}>
         {% if label.show %}
             <label>{{ label.text | default('') }}</label>
         {% endif %}

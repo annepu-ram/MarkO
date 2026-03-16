@@ -40,6 +40,14 @@ class LLMService:
         self.model_name = os.environ.get('OLLAMA_MODEL', 'llama3:latest')
         self.timeout = float(os.environ.get('OLLAMA_TIMEOUT', 300))  # 5 minutes default
 
+        # RAG toggle — when enabled, routes chat through RAG pipeline instead of legacy
+        self.use_rag = os.environ.get('RAG_ENABLED', 'false').lower() == 'true'
+        if self.use_rag:
+            from rag.agent.rag_agent import RAGAgent
+            self.rag_agent = RAGAgent()
+            self.rag_agent.load()
+            llm_logger.info("RAG pipeline enabled and loaded")
+
         # Configure client with optional API key for cloud
         if self.api_key:
             self.client = Client(
@@ -51,22 +59,22 @@ class LLMService:
             # Local Ollama (no auth needed)
             self.client = Client(host=self.base_url, timeout=self.timeout)
 
-        llm_logger.info(f"LLM Service initialized: model={self.model_name}, timeout={self.timeout}s")
+        llm_logger.info(f"LLM Service initialized: model={self.model_name}, timeout={self.timeout}s, rag={self.use_rag}")
 
         self.component_guide = self._load_component_guide()
 
     def _load_component_guide(self) -> str:
         """Load the LLM Component Guide as system context."""
         guide_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-            'LLM_COMPONENT_GUIDE.md'
+            os.path.dirname(os.path.abspath(__file__)),
+            'config', 'COMPONENT_SYNTAX_REFERENCE.md'
         )
 
         try:
             with open(guide_path, 'r', encoding='utf-8') as f:
                 return f.read()
         except FileNotFoundError:
-            print(f"Warning: LLM_COMPONENT_GUIDE.md not found at {guide_path}")
+            print(f"Warning: COMPONENT_SYNTAX_REFERENCE.md not found at {guide_path}")
             return ""
 
     def _navigate_to_path(self, structure, path: list):
@@ -161,6 +169,31 @@ class LLMService:
 - Add `<!-- ACTION: modify -->` comment at the START of your response
 - Output the component starting with `- name: component-name` or just `name: component-name`
 
+### For Component DELETION:
+- When user asks to remove/delete a selected component
+- Do NOT output any YAML — the selected component will be removed from the page
+- Add `<!-- ACTION: delete -->` comment at the START of your response
+- REQUIRES a component to be selected — if none is selected, use ACTION: error instead
+
+### For INSERTING a Component as Child:
+- When user asks to add a new component INSIDE a selected container (page, layout-row, layout-column, form, etc.)
+- Output the new component YAML (just the component to insert, not the whole page)
+- Add `<!-- ACTION: insert_child -->` comment at the START of your response
+- REQUIRES a container to be selected. If selected component is NOT a container, use insert_after instead
+
+### For INSERTING a Component After Selection:
+- When user asks to add a new component AFTER or BELOW the selected component
+- Output the new component YAML (just the component to insert)
+- Add `<!-- ACTION: insert_after -->` comment at the START of your response
+- REQUIRES a component to be selected — if none is selected, use ACTION: create instead
+
+### Choosing the Right Action:
+- "delete/remove this" → ACTION: delete
+- "add X inside this section/column/row" → ACTION: insert_child (container selected)
+- "add X after/below this" → ACTION: insert_after
+- "change/update/modify this" → ACTION: modify
+- "create/build a page/website" → ACTION: create
+
 ### For Explanations/Questions:
 - Provide helpful text response
 - Do NOT output YAML unless explicitly asked
@@ -222,9 +255,51 @@ I've updated the heading to be red and larger:
     typography: {{ size: xxxl, weight: bold, color: '#ff0000' }}
 ```
 
+**CORRECT - Delete action:**
+<!-- ACTION: delete -->
+I've removed the heading component.
+
+**CORRECT - Insert child action (add inside a container):**
+<!-- ACTION: insert_child -->
+I've added a paragraph inside the selected column:
+
+```yaml
+- name: paragraph
+  properties:
+    text: Welcome to our website
+    typography: {{ size: md }}
+```
+
+**CORRECT - Insert after action (add below/after):**
+<!-- ACTION: insert_after -->
+I've added a button after the selected heading:
+
+```yaml
+- name: button
+  properties:
+    text: Get Started
+    appearance: {{ background: {{ color: '#3b82f6' }} }}
+```
+
 **CORRECT - Error action (when you can't fulfill the request):**
 <!-- ACTION: error -->
 I cannot modify that component because [reason]. Please try [suggestion].
+
+**CORRECT - Settings action (when user asks for SEO or site settings):**
+<!-- ACTION: settings -->
+Here are the suggested SEO settings:
+
+```yaml
+metaDescription: "A compelling description for search engines"
+ogTitle: "An engaging social sharing title"
+```
+
+### For Site Settings Generation:
+- When user asks to "generate SEO", "create meta description", or "suggest settings"
+- Add `<!-- ACTION: settings -->` comment at the START
+- Output a YAML block with `metaDescription` and/or `ogTitle` fields
+- Keep `metaDescription` to 150-160 characters
+- Make `ogTitle` engaging for social media sharing
 
 **WRONG - Never output multiple YAML blocks:**
 <!-- ACTION: create -->
@@ -239,9 +314,37 @@ Here's option 2:
 This is WRONG! Only include ONE yaml block per response.
 """
 
-    def _build_prompt(self, message: str, current_yaml: str, selected_component: dict = None) -> str:
+    def _build_image_context(self, selected_images: list) -> str:
+        """Build image context block for the LLM prompt."""
+        if not selected_images:
+            return ""
+
+        lines = ["[AVAILABLE IMAGES - Use these URLs in image components]"]
+        for i, img in enumerate(selected_images, 1):
+            url = img.get('url', '')
+            alt = img.get('altText', '')
+            orientation = img.get('orientation', 'unknown')
+            photographer = img.get('photographer', '')
+            credit = f" (Photo by {photographer})" if photographer else ""
+            lines.append(f"{i}. {url} — \"{alt}\" [{orientation}]{credit}")
+
+        lines.append("""
+Match images to sections by their descriptions and orientation:
+- Use [landscape] images for hero banners, full-width sections, backgrounds
+- Use [portrait] images for sidebars, team cards, testimonial avatars
+- Use [square] images for product cards, grid items, logos
+Do NOT use any external URLs. Only use the images listed above.""")
+        return "\n".join(lines)
+
+    def _build_prompt(self, message: str, current_yaml: str, selected_component: dict = None,
+                      selected_images: list = None) -> str:
         """Build the user prompt with context."""
         prompt_parts = []
+
+        # Available images context
+        image_ctx = self._build_image_context(selected_images or [])
+        if image_ctx:
+            prompt_parts.append(image_ctx)
 
         # Current YAML state
         if current_yaml and current_yaml.strip():
@@ -255,10 +358,19 @@ This is WRONG! Only include ONE yaml block per response.
         # Selected component context
         if selected_component:
             component_path = selected_component.get('path', [])
+            component_name = selected_component.get('name', 'unknown')
+
+            # Determine if selected component is a container
+            container_names = ['page', 'layout-row', 'layout-column', 'columnsgrid',
+                               'form', 'video-background', 'hamburger', 'tabs',
+                               'accordion', 'carousel', 'ticker']
+            is_container = component_name in container_names
+
             prompt_parts.append(f"""
 [SELECTED COMPONENT]
-Currently selected: {selected_component.get('name', 'unknown')} at path {component_path}
-Component ID: {selected_component.get('id', 'unknown')}""")
+Currently selected: {component_name} at path {component_path}
+Component ID: {selected_component.get('id', 'unknown')}
+Is container (can hold children): {is_container}""")
 
             # Extract and include current component's YAML structure
             if current_yaml and component_path:
@@ -270,9 +382,9 @@ Component ID: {selected_component.get('id', 'unknown')}""")
 {component_yaml}```
 Modify this component based on the user's request. Preserve existing structure (items, tabs, slides, columns) unless asked to change them.""")
 
-            prompt_parts.append("\nWhen modifying, output ONLY this component with updated properties.")
+            prompt_parts.append("\nWhen modifying, output ONLY this component with updated properties. You can also delete it, or insert new components as children or after it.")
         else:
-            prompt_parts.append("\n[SELECTED COMPONENT]\nNo component currently selected. For modifications, create or replace the entire page.")
+            prompt_parts.append("\n[SELECTED COMPONENT]\nNo component currently selected. For modifications, create or replace the entire page. Cannot use delete, insert_child, or insert_after without a selection.")
 
         # User request
         prompt_parts.append(f"\n[USER REQUEST]\n{message}")
@@ -292,15 +404,20 @@ Modify this component based on the user's request. Preserve existing structure (
         }
 
         # Extract action type from comment - check first 150 chars first (enforce placement)
-        action_match = re.search(r'<!--\s*ACTION:\s*(\w+)\s*-->', response_text[:150], re.IGNORECASE)
+        action_match = re.search(r'<!--\s*ACTION:\s*([\w-]+)\s*-->', response_text[:150], re.IGNORECASE)
         if not action_match:
             # Fallback: search entire response
-            action_match = re.search(r'<!--\s*ACTION:\s*(\w+)\s*-->', response_text, re.IGNORECASE)
+            action_match = re.search(r'<!--\s*ACTION:\s*([\w-]+)\s*-->', response_text, re.IGNORECASE)
 
         if action_match:
             action = action_match.group(1).lower()
-            if action in ('create', 'modify', 'explain', 'error'):
+            if action in ('create', 'modify', 'explain', 'error', 'settings', 'delete', 'insert_child', 'insert_after'):
                 result["action"] = action
+
+        # Delete action needs no YAML — operates on selected component
+        if result["action"] == 'delete':
+            result["yaml"] = None
+            return result
 
         # Extract YAML from code blocks - try multiple patterns
         yaml_patterns = [
@@ -335,7 +452,8 @@ Modify this component based on the user's request. Preserve existing structure (
 
         return result
 
-    def chat(self, message: str, current_yaml: str, selected_component: dict = None) -> dict:
+    def chat(self, message: str, current_yaml: str, selected_component: dict = None,
+             selected_images: list = None, progress_fn=None) -> dict:
         """
         Send a message to the LLM and get a response.
 
@@ -343,9 +461,8 @@ Modify this component based on the user's request. Preserve existing structure (
             message: User's message
             current_yaml: Current YAML content from editor
             selected_component: Currently selected component info (optional)
-                - id: Component DOM ID
-                - path: YAML path array
-                - name: Component type name
+            selected_images: Downloaded images with local URLs for context (optional)
+            progress_fn: Callback for progress status updates
 
         Returns:
             dict with keys:
@@ -355,9 +472,29 @@ Modify this component based on the user's request. Preserve existing structure (
                 - error: Error message if action is "error"
         """
         try:
+            # RAG pipeline path
+            if self.use_rag:
+                llm_logger.info("=" * 80)
+                llm_logger.info("NEW CHAT REQUEST (RAG pipeline)")
+                llm_logger.info(f"User Message: {message}")
+                llm_logger.info(f"Selected Component: {selected_component}")
+                llm_logger.info(f"Selected Images: {len(selected_images or [])} images")
+                raw = self.rag_agent.chat(message, current_yaml, selected_component,
+                                          selected_images=selected_images, progress_fn=progress_fn)
+                if progress_fn:
+                    progress_fn("Finalizing...")
+                llm_logger.info(f"RAG RESPONSE ({len(raw)} chars):\n{raw}")
+                result = self._parse_response(raw)
+                llm_logger.info(f"PARSED: action={result['action']}, yaml_length={len(result['yaml']) if result['yaml'] else 0}")
+                return result
+
+            # Legacy pipeline path
+            if progress_fn:
+                progress_fn("Generating response...")
             # Build prompts
             system_prompt = self._build_system_prompt()
-            user_prompt = self._build_prompt(message, current_yaml, selected_component)
+            user_prompt = self._build_prompt(message, current_yaml, selected_component,
+                                             selected_images=selected_images)
 
             # Build messages array for Ollama chat API
             messages = [

@@ -1,0 +1,388 @@
+# Class Timetable - Weekly Course Schedule with Tabs
+# A weekly timetable using tabs for each day, with columnsgrid showing class times, names, and instructors
+# Base components: layout-column, heading, paragraph, eyebrow, caption, tabs, columnsgrid
+# Section type: schedule, timetable, classes
+# Layout: stacked, grid
+# Visual style: claymorphism, playful
+# Perfect for: dental clinic, salon, barbershop, yoga studio, fitness studio, conference, workshop, tutoring center, cooking class, music school
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Poppins', sans-serif"
+        content: &font-content "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary '#4A1942'
+        text: &color-text '#4E3149'
+        secondary: &color-secondary '#F5B0D0'
+        accent: &color-accent '#FF1493'
+        background: &color-background '#FFD6E6'
+  components:
+    - name: page
+      slug: home
+      title: "Class Timetable"
+      properties:
+        appearance: { background: { color: *color-background, transparency: 100 } }
+      components:
+
+        # ============================================
+        # TIMETABLE HEADER
+        # ============================================
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly }
+            appearance:
+            spacing:
+              paddingBlock: xxl
+              paddingInline: xl
+          components:
+            - name: eyebrow
+              properties:
+                text: SPRING 2026 SEMESTER
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: Weekly Class Schedule
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Browse classes by day. All sessions are held at the main campus unless noted otherwise.
+                typography: { size: md, color: *color-text, align: center, lineHeight: '1.7' }
+                layout: { widthMode: 66 }
+
+        # ============================================
+        # TABBED TIMETABLE
+        # ============================================
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly }
+            appearance:
+              background: { color: '#ffffff', transparency: 100 }
+              radius: xxl
+              shadow: elevated
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: tabs
+              properties:
+                appearance:
+                  background: { color: '#ffffff', transparency: 100 }
+                  radius: xxl
+                typography:
+                  label: { size: sm, weight: semibold, color: *color-primary }
+              tabs:
+                # ── Monday ──
+                - label: Monday
+                  components:
+                    - name: columnsgrid
+                      properties:
+                        layout: { columns: 2, gap: md, verticalAlign: top }
+                        responsive: { breakpoints: { sm: 1 } }
+                      columns:
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "9:00 — 10:30 AM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Introduction to Design
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Prof. Emily Hart | Room 204"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "11:00 AM — 12:30 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Creative Writing
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Dr. James Lee | Room 108"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "2:00 — 3:30 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Digital Photography
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Maria Santos | Studio B"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "4:00 — 5:30 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Art History
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Dr. Alan Park | Lecture Hall"
+                                    typography: { size: xs, color: '#64748b' }
+
+                # ── Tuesday ──
+                - label: Tuesday
+                  components:
+                    - name: columnsgrid
+                      properties:
+                        layout: { columns: 2, gap: md, verticalAlign: top }
+                        responsive: { breakpoints: { sm: 1 } }
+                      columns:
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "9:00 — 10:30 AM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Web Development
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Chris Nguyen | Lab 3"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "11:00 AM — 12:30 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Data Science Fundamentals
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Dr. Priya Patel | Room 301"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "2:00 — 3:30 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: UX Research Methods
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Sophie Kim | Room 205"
+                                    typography: { size: xs, color: '#64748b' }
+
+                # ── Wednesday ──
+                - label: Wednesday
+                  components:
+                    - name: columnsgrid
+                      properties:
+                        layout: { columns: 2, gap: md, verticalAlign: top }
+                        responsive: { breakpoints: { sm: 1 } }
+                      columns:
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "10:00 — 11:30 AM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Motion Graphics
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Alex Rivera | Studio A"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "1:00 — 2:30 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Typography Workshop
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Prof. Emily Hart | Room 204"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "3:00 — 5:00 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Studio Practice
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Open Studio | Building C"
+                                    typography: { size: xs, color: '#64748b' }
+
+                # ── Thursday ──
+                - label: Thursday
+                  components:
+                    - name: columnsgrid
+                      properties:
+                        layout: { columns: 2, gap: md, verticalAlign: top }
+                        responsive: { breakpoints: { sm: 1 } }
+                      columns:
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "9:00 — 10:30 AM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Introduction to Design
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Prof. Emily Hart | Room 204"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "11:00 AM — 12:30 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Creative Writing
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Dr. James Lee | Room 108"
+                                    typography: { size: xs, color: '#64748b' }
+
+                # ── Friday ──
+                - label: Friday
+                  components:
+                    - name: columnsgrid
+                      properties:
+                        layout: { columns: 2, gap: md, verticalAlign: top }
+                        responsive: { breakpoints: { sm: 1 } }
+                      columns:
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "10:00 — 11:30 AM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Portfolio Review
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "All Faculty | Room 101"
+                                    typography: { size: xs, color: '#64748b' }
+                        - components:
+                            - name: layout-column
+                              properties:
+                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                spacing: { paddingBlock: md, paddingInline: md }
+                              components:
+                                - name: eyebrow
+                                  properties:
+                                    text: "1:00 — 3:00 PM"
+                                    typography: { size: xs, weight: semibold, color: *color-accent }
+                                - name: heading
+                                  properties:
+                                    text: Guest Lecture Series
+                                    level: 4
+                                    typography: { size: md, weight: bold, color: *color-primary }
+                                - name: caption
+                                  properties:
+                                    text: "Visiting Speaker | Auditorium"
+                                    typography: { size: xs, color: '#64748b' }

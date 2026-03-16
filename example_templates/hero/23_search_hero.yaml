@@ -1,101 +1,107 @@
 # Hero Card Variant: Search Hero
 # layout-column centered over a video-background with a large textbox for site-wide search
+# Base components: page, video-background, layout-column, layout-row, heading, paragraph, form, textbox, button, caption, link
+# Section type: hero
+# Layout: fullscreen
+# Visual style: dark_mode
+# Perfect for: Knowledge bases, documentation sites, resource directories, search platforms
 
 - name: page
   properties:
     theme:
       colors:
         primary: &color-primary '#000000'
+        text: &color-text '#222222'
         secondary: &color-secondary '#94a3b8'
         accent: &color-accent '#6366f1'
         background: &color-background '#ffffff'
     appearance:
-      background: { color: *color-primary }
+      background: {color: *color-primary}
   components:
-    - name: video-background
+  - name: video-background
+    properties:
+      source:
+        url: 'https://cdn.pixabay.com/video/2020/05/25/40130_large.mp4'
+        poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200'
+      appearance:
+        minHeight: 31.25
+        objectFit: cover
+        overlay:
+          enabled: true
+          color: 'rgba(15,23,42,0.7)'
+          opacity: 70
+      playback:
+        autoplay: true
+        loop: true
+        muted: true
+        playsinline: true
+      content:
+        verticalAlign: center
+        horizontalAlign: center
+        padding: xl
+      layout: {widthMode: stretch}
+    components:
+    - name: layout-column
       properties:
-        source:
-          url: 'https://cdn.pixabay.com/video/2020/05/25/40130_large.mp4'
-          poster: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200'
-        appearance:
-          minHeight: 500
-          objectFit: cover
-          overlay:
-            enabled: true
-            color: 'rgba(15,23,42,0.7)'
-            opacity: 70
-        playback:
-          autoplay: true
-          loop: true
-          muted: true
-          playsinline: true
-        content:
-          verticalAlign: center
-          horizontalAlign: center
-          padding: xl
-        layout: { widthMode: stretch }
+        layout: {horizontalAlign: center, gap: md}
+        appearance: {background: {transparency: 0}}
       components:
-        - name: layout-column
+      - name: heading
+        properties:
+          text: What are you looking for?
+          level: 1
+          typography: {size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight}
+      - name: paragraph
+        properties:
+          text: Search across thousands of resources, articles, and tools.
+          typography: {size: lg, color: *color-secondary, align: center}
+          spacing: {marginBlock: sm}
+      - name: form
+        properties:
+          layout: {direction: row, horizontalAlign: center}
+          submit: {show: false}
+        components:
+        - name: textbox
           properties:
-            layout: { horizontalAlign: center, gap: md }
-            appearance: { background: { transparency: 0 } }
-          components:
-            - name: heading
-              properties:
-                text: What are you looking for?
-                level: 1
-                typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
-            - name: paragraph
-              properties:
-                text: Search across thousands of resources, articles, and tools.
-                typography: { size: lg, color: *color-secondary, align: center }
-                spacing: { marginBlock: sm }
-            - name: form
-              properties:
-                layout: { direction: row, horizontalAlign: center }
-                submit: { show: false }
-              components:
-                - name: textbox
-                  properties:
-                    label: { show: false }
-                    field: { placeholder: 'Search anything...', required: false }
-                    appearance:
-                      border: { width: 0, color: *color-background }
-                      background: { color: *color-background, transparency: 100 }
-                      radius: pill
-                    layout: { widthMode: "50" }
-                    spacing: { marginBlock: none }
-                - name: button
-                  properties:
-                    text: Search
-                    appearance: { background: { color: *color-accent }, radius: pill, padding: { block: sm, inline: lg } }
-                    typography: { color: *color-background, weight: bold }
-                    spacing: { marginBlock: none }
-            - name: layout-row
-              properties:
-                layout: { horizontalAlign: center, verticalAlign: center, gap: md, wrap: wrap }
-                appearance: { background: { transparency: 0 } }
-                spacing: { marginBlock: md }
-              components:
-                - name: caption
-                  properties:
-                    text: "Popular:"
-                    typography: { size: xs, color: *color-secondary }
-                - name: link
-                  properties:
-                    text: Getting Started
-                    href: '#'
-                    typography: { size: xs, color: *color-accent }
-                    appearance: { underline: false }
-                - name: link
-                  properties:
-                    text: Templates
-                    href: '#'
-                    typography: { size: xs, color: *color-accent }
-                    appearance: { underline: false }
-                - name: link
-                  properties:
-                    text: API Docs
-                    href: '#'
-                    typography: { size: xs, color: *color-accent }
-                    appearance: { underline: false }
+            label: {show: false}
+            field: {placeholder: 'Search anything...', required: false}
+            appearance:
+              border: {width: 0, color: *color-background}
+              background: {color: *color-background, transparency: 100}
+              radius: pill
+            layout: {widthMode: "50"}
+            spacing: {marginBlock: none}
+        - name: button
+          properties:
+            text: Search
+            appearance: {background: {color: *color-accent}, radius: pill}
+            typography: {color: *color-background, weight: bold}
+            spacing: {marginBlock: none, paddingBlock: sm, paddingInline: lg}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: center, verticalAlign: center, gap: md, wrap: wrap}
+          appearance: {background: {transparency: 0}}
+          spacing: {marginBlock: md}
+        components:
+        - name: caption
+          properties:
+            text: "Popular:"
+            typography: {size: xs, color: *color-secondary}
+        - name: link
+          properties:
+            text: Getting Started
+            href: '#'
+            typography: {size: xs, color: *color-accent}
+            appearance: {underline: false}
+        - name: link
+          properties:
+            text: Templates
+            href: '#'
+            typography: {size: xs, color: *color-accent}
+            appearance: {underline: false}
+        - name: link
+          properties:
+            text: API Docs
+            href: '#'
+            typography: {size: xs, color: *color-accent}
+            appearance: {underline: false}

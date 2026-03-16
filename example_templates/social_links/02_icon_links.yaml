@@ -1,0 +1,269 @@
+# Social Links - Icon Links Style
+# Social media links with icon prefixes in a clean horizontal layout
+# Base components: layout-row, layout-column, heading, paragraph, icon, link
+# Section type: social_links
+# Layout: centered row
+# Visual style: light, clean, minimal
+# Perfect for: business website, startup, SaaS, consulting firm, personal brand
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1a1a2e"
+        text: &color-text "#31313D"
+        secondary: &color-secondary "#6b7280"
+        accent: &color-accent "#3b82f6"
+        background: &color-background "#ffffff"
+  components:
+  - name: page
+    slug: home
+    title: "Social Links - Icon Links"
+    properties:
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+    components:
+        # Section
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          tag: section
+        spacing:
+          marginBlock: none
+          paddingBlock: xxl
+          paddingInline: lg
+        appearance:
+          background:
+            color: "#f9fafb"
+            transparency: 100
+      components:
+      - name: eyebrow
+        properties:
+          text: "CONNECT WITH US"
+          typography:
+            color: *color-accent
+            size: xs
+            weight: semibold
+            letterSpacing: wider
+            align: center
+            transform: uppercase
+          spacing:
+            marginBlock: none
+
+      - name: heading
+        properties:
+          text: "Follow Along"
+          level: 2
+          typography:
+            color: *color-primary
+            size: xl
+            weight: bold
+            align: center
+          spacing:
+            marginBlock: sm
+
+      - name: paragraph
+        properties:
+          text: "Stay updated with our latest news and projects"
+          typography:
+            color: *color-secondary
+            size: md
+            align: center
+          spacing:
+            marginBlock: sm
+
+            # Social Links Row with Icons
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+            wrap: wrap
+            verticalAlign: center
+          spacing:
+            marginBlock: lg
+        components:
+                # GitHub
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              widthMode: fit
+              verticalAlign: center
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+              radius: md
+              border:
+                width: 1
+                style: solid
+                color: "#e5e7eb"
+            spacing:
+              paddingBlock: sm
+              paddingInline: md
+          components:
+          - name: icon
+            properties:
+              icon: code
+              size: 18
+              color: *color-primary
+              layout:
+                widthMode: fit
+              spacing:
+                marginBlock: none
+          - name: link
+            properties:
+              text: "GitHub"
+              href: "#"
+              typography:
+                color: *color-primary
+                size: sm
+                weight: medium
+                lineHeight: "2.5"
+              spacing:
+                marginBlock: none
+              layout:
+                widthMode: fit
+              appearance:
+                underline: false
+
+                # LinkedIn
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              widthMode: fit
+              verticalAlign: center
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+              radius: md
+              border:
+                width: 1
+                style: solid
+                color: "#e5e7eb"
+            spacing:
+              paddingBlock: sm
+              paddingInline: md
+          components:
+          - name: icon
+            properties:
+              icon: users
+              size: 18
+              color: "#0077b5"
+              layout:
+                widthMode: fit
+              spacing:
+                marginBlock: none
+          - name: link
+            properties:
+              text: "LinkedIn"
+              href: "#"
+              typography:
+                color: *color-primary
+                size: sm
+                weight: medium
+                lineHeight: "2.5"
+              spacing:
+                marginBlock: none
+              layout:
+                widthMode: fit
+              appearance:
+                underline: false
+
+                # Twitter / X
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              widthMode: fit
+              verticalAlign: center
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+              radius: md
+              border:
+                width: 1
+                style: solid
+                color: "#e5e7eb"
+            spacing:
+              paddingBlock: sm
+              paddingInline: md
+          components:
+          - name: icon
+            properties:
+              icon: share-2
+              size: 18
+              color: "#1da1f2"
+              layout:
+                widthMode: fit
+              spacing:
+                marginBlock: none
+          - name: link
+            properties:
+              text: "Twitter"
+              href: "#"
+              typography:
+                color: *color-primary
+                size: sm
+                weight: medium
+                lineHeight: "2.5"
+              spacing:
+                marginBlock: none
+              layout:
+                widthMode: fit
+              appearance:
+                underline: false
+
+                # Email
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              widthMode: fit
+              verticalAlign: center
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+              radius: md
+              border:
+                width: 1
+                style: solid
+                color: "#e5e7eb"
+            spacing:
+              paddingBlock: sm
+              paddingInline: md
+          components:
+          - name: icon
+            properties:
+              icon: mail
+              size: 18
+              color: *color-accent
+              layout:
+                widthMode: fit
+              spacing:
+                marginBlock: none
+          - name: link
+            properties:
+              text: "Email"
+              href: "#"
+              typography:
+                color: *color-primary
+                size: sm
+                weight: medium
+                lineHeight: "2.5"
+              spacing:
+                marginBlock: none
+              layout:
+                widthMode: fit
+              appearance:
+                underline: false

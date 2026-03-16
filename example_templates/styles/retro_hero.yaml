@@ -1,0 +1,267 @@
+# Retro 70s-90s Revival Hero
+# Nostalgic design with bold saturated colors, hard blocky shadows, and chunky typography
+# Base components: site, page, layout-row, layout-column, heading, paragraph, badge, button
+# Section type: hero
+# Layout: stacked
+# Visual style: retro
+# Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Bebas Neue', sans-serif"
+        content: &font-content "'Merriweather', serif"
+      colors:
+        primary: &color-primary "#0D0D0D"
+        text: &color-text "#292929"
+        secondary: &color-secondary "#FFD600"
+        accent: &color-accent "#FF0000"
+        background: &color-background "#FFEB3B"
+  components:
+  - name: page
+    slug: home
+    title: "Retro Hero"
+    properties:
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+    components:
+
+        # Hero section — bold retro layout
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          gap: lg
+        appearance:
+        spacing:
+          paddingBlock: xl
+          paddingInline: md
+      components:
+
+            # Retro badge
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: center
+        components:
+        - name: badge
+          properties:
+            text: "EST. 1978"
+            variant: danger
+            pill: false
+            layout: {widthMode: fit}
+
+            # Main heading — chunky uppercase
+      - name: heading
+        properties:
+          text: "GOOD VIBES ONLY"
+          level: 1
+          layout:
+            widthMode: "83"
+          typography:
+            color: *color-primary
+            size: xxxl
+            weight: extrabold
+            align: center
+            letterSpacing: wide
+            transform: uppercase
+
+            # Subheadline
+      - name: paragraph
+        properties:
+          text: |
+            Step back in time with designs that never go out of style.
+            Bold colors, chunky type, and unapologetic attitude.
+          layout:
+            widthMode: "66"
+          typography:
+            color: *color-text
+            size: md
+            align: center
+            lineHeight: relaxed
+
+            # Retro feature cards — thick borders, hard shadows
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: start
+            wrap: wrap
+            gap: lg
+          appearance:
+          spacing:
+            paddingBlock: lg
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: "33"
+              horizontalAlign: center
+              gap: sm
+            appearance:
+              background:
+                color: '#ffffff'
+                transparency: 100
+              border:
+                width: 3
+                style: solid
+                color: '#0D0D0D'
+              radius: none
+              shadow: retro
+              shadowColor: '#0D0D0D'
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+          components:
+          - name: heading
+            properties:
+              text: "DESIGN"
+              level: 3
+              typography:
+                color: *color-primary
+                size: lg
+                weight: extrabold
+                align: center
+                transform: uppercase
+          - name: paragraph
+            properties:
+              text: "Bold layouts that demand attention and refuse to blend in"
+              typography:
+                color: *color-text
+                size: sm
+                align: center
+
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: "33"
+              horizontalAlign: center
+              gap: sm
+            appearance:
+              background:
+                color: *color-accent
+                transparency: 100
+              border:
+                width: 3
+                style: solid
+                color: '#0D0D0D'
+              radius: none
+              shadow: retro
+              shadowColor: '#0D0D0D'
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+          components:
+          - name: heading
+            properties:
+              text: "COLOR"
+              level: 3
+              typography:
+                color: '#ffffff'
+                size: lg
+                weight: extrabold
+                align: center
+                transform: uppercase
+          - name: paragraph
+            properties:
+              text: "Saturated palettes inspired by pop art and vintage posters"
+              typography:
+                color: '#ffffff'
+                size: sm
+                align: center
+
+        - name: layout-column
+          properties:
+            layout:
+              widthMode: "33"
+              horizontalAlign: center
+              gap: sm
+            appearance:
+              background:
+                color: *color-secondary
+                transparency: 100
+              border:
+                width: 3
+                style: solid
+                color: '#0D0D0D'
+              radius: none
+              shadow: retro
+              shadowColor: '#0D0D0D'
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+          components:
+          - name: heading
+            properties:
+              text: "VIBES"
+              level: 3
+              typography:
+                color: *color-primary
+                size: lg
+                weight: extrabold
+                align: center
+                transform: uppercase
+          - name: paragraph
+            properties:
+              text: "Nostalgia meets modern craft — timeless and unapologetic"
+              typography:
+                color: *color-text
+                size: sm
+                align: center
+
+            # CTA buttons — retro style
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: center
+            wrap: wrap
+            gap: md
+        components:
+        - name: button
+          properties:
+            text: "EXPLORE NOW"
+            appearance:
+              background:
+                color: *color-primary
+                transparency: 100
+              border:
+                width: 3
+                style: solid
+                color: *color-primary
+              radius: none
+              shadow: retro
+              shadowColor: '#0D0D0D'
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
+            typography:
+              color: *color-background
+              weight: extrabold
+              size: md
+              transform: uppercase
+        - name: button
+          properties:
+            text: "SEE PORTFOLIO"
+            appearance:
+              background:
+                color: transparent
+                transparency: 0
+              border:
+                width: 3
+                style: solid
+                color: *color-primary
+              radius: none
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
+            typography:
+              color: *color-primary
+              weight: extrabold
+              size: md
+              transform: uppercase

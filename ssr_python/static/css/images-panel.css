@@ -400,6 +400,37 @@
     width: 100%;
 }
 
+/* Download status badge on selected images */
+.images-download-badge {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.images-download-badge.downloaded {
+    background: #22c55e;
+    color: #fff;
+}
+
+.images-download-badge.pending {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fbbf24;
+    animation: pulse-badge 1.5s infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
 /* Upload Button (inline in selected section header) */
 .images-upload-btn {
     display: inline-flex;

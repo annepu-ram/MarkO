@@ -1,5 +1,10 @@
 # Rating: Customer Testimonials
 # Testimonial cards with heart ratings and customer photos
+# Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, rating
+# Section type: product
+# Layout: grid
+# Visual style: modern
+# Perfect for: ecommerce, restaurants, reviews, services
 
 - name: page
   properties:
@@ -7,6 +12,7 @@
       colors:
         background: &color-background '#fdf2f8'
         primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#ec4899'
       fonts:
@@ -57,7 +63,7 @@
                 - name: paragraph
                   properties:
                     text: '"This product completely changed my morning routine. I cannot recommend it enough!"'
-                    typography: { size: sm, color: *color-primary, align: center }
+                    typography: { size: sm, color: *color-text, align: center }
                     spacing: { marginBlock: md }
                 - name: heading
                   properties:
@@ -86,7 +92,7 @@
                 - name: paragraph
                   properties:
                     text: '"Outstanding quality and the customer service team went above and beyond. Five stars!"'
-                    typography: { size: sm, color: *color-primary, align: center }
+                    typography: { size: sm, color: *color-text, align: center }
                     spacing: { marginBlock: md }
                 - name: heading
                   properties:
@@ -115,7 +121,7 @@
                 - name: paragraph
                   properties:
                     text: '"Great value for money. The packaging was beautiful and delivery was super fast."'
-                    typography: { size: sm, color: *color-primary, align: center }
+                    typography: { size: sm, color: *color-text, align: center }
                     spacing: { marginBlock: md }
                 - name: heading
                   properties:

@@ -1,10 +1,19 @@
+# Color placeholders: $color-primary, $color-text, $color-secondary, $color-accent, $color-background
+# These resolve to the user's theme colors at render time.
+# Fallback defaults (when no theme): primary=#111827, text=#374151, secondary=#6b7280, accent=#6366f1, background=#ffffff
+
+site:
+  id: ''
 page:
+  id: ''
+  slug: ''
+  title: ''
+  spacing:
+    paddingBlock: none
+    paddingInline: none
   appearance:
-    padding:
-      block: none
-      inline: none
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 100
       image: ''
 layout-row:
@@ -12,23 +21,22 @@ layout-row:
     tag: section
     horizontalAlign: space-evenly
     verticalAlign: stretch
-    wrap: nowrap
+    wrap: wrap
     gap: sm
   spacing:
     marginBlock: none
     marginInline: none
+    paddingBlock: sm
+    paddingInline: sm
   appearance:
-    padding:
-      block: sm
-      inline: sm
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 0
       image: ''
     border:
       width: 0
       style: solid
-      color: '#000000'
+      color: $color-primary
     radius: none
     shadow: none
     shadowColor: ''
@@ -44,18 +52,17 @@ layout-column:
   spacing:
     marginBlock: none
     marginInline: none
+    paddingBlock: sm
+    paddingInline: sm
   appearance:
-    padding:
-      block: sm
-      inline: sm
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 0
       image: ''
     border:
       width: 0
       style: solid
-      color: '#000000'
+      color: $color-primary
     radius: none
     shadow: none
     shadowColor: ''
@@ -64,24 +71,26 @@ columnsgrid:
   layout:
     columns: 2
     gap: md
-    verticalAlign: center
+    verticalAlign: stretch
   responsive:
     breakpoints:
       md: 2
       sm: 1
   appearance:
-    padding:
-      block: none
-      inline: none
     shadow: none
     shadowColor: ''
-    columnBackground: '#ffffff'
+    columnBackground: $color-background
     columnTransparency: 0
     columnBlur: false
     columnRadius: none
+    columnBorder:
+      width: 0
+      color: '#e5e7eb'
   spacing:
     marginBlock: none
     marginInline: none
+    paddingBlock: none
+    paddingInline: none
 titlebar:
   branding:
     showLogo: true
@@ -102,7 +111,7 @@ titlebar:
     shrinkPercentage: 70
   appearance:
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 100
     border:
       width: 1
@@ -110,12 +119,12 @@ titlebar:
       color: '#dddddd'
     focus:
       background: '#f0f0f0'
-      color: '#111827'
+      color: $color-primary
   typography:
     title:
       size: 24
       weight: bold
-      color: '#111827'
+      color: $color-primary
     menu:
       size: 16
       weight: medium
@@ -131,19 +140,20 @@ heading:
     lineHeight: 1.2
     transform: none
     letterSpacing: normal
+    fontStyle: normal
+    textDecoration: none
     align: center
-    color: '#111827'
+    color: $color-primary
   appearance:
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 0
     radius: none
-    padding:
-      block: none
-      inline: none
   spacing:
     marginBlock: md
     marginInline: none
+    paddingBlock: none
+    paddingInline: none
   layout:
     widthMode: fit
 paragraph:
@@ -154,23 +164,24 @@ paragraph:
     size: md
     weight: regular
     align: left
-    color: '#1f2937'
+    color: $color-text
     lineHeight: 1.6
     transform: none
     letterSpacing: normal
+    fontStyle: normal
+    textDecoration: none
   spacing:
-    marginBlock: sm
+    marginBlock: none
     marginInline: none
+    paddingBlock: sm
+    paddingInline: none
   layout:
     widthMode: fit
   appearance:
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 0
     radius: none
-    padding:
-      block: none
-      inline: none
 eyebrow:
   text: |
     Featured insight
@@ -179,23 +190,24 @@ eyebrow:
     size: xs
     weight: semibold
     align: left
-    color: '#6366f1'
+    color: $color-accent
     lineHeight: 1.4
     transform: uppercase
     letterSpacing: wide
+    fontStyle: normal
+    textDecoration: none
   spacing:
-    marginBlock: xs
+    marginBlock: none
     marginInline: none
+    paddingBlock: sm
+    paddingInline: none
   layout:
     widthMode: fit
   appearance:
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 0
     radius: none
-    padding:
-      block: none
-      inline: none
 caption:
   text: |
     Photo by Jane Doe
@@ -204,23 +216,24 @@ caption:
     size: sm
     weight: regular
     align: center
-    color: '#6b7280'
+    color: $color-secondary
     lineHeight: 1.4
     transform: none
     letterSpacing: normal
+    fontStyle: normal
+    textDecoration: none
   spacing:
     marginBlock: xs
     marginInline: none
+    paddingBlock: none
+    paddingInline: none
   layout:
     widthMode: fit
   appearance:
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 0
     radius: none
-    padding:
-      block: none
-      inline: none
 blockquote:
   quote: |
     Design is intelligence made visible.
@@ -230,23 +243,24 @@ blockquote:
     size: xl
     weight: medium
     align: center
-    color: '#111827'
+    color: $color-text
     lineHeight: 1.6
     transform: none
     letterSpacing: normal
+    fontStyle: italic
+    textDecoration: none
   spacing:
     marginBlock: lg
     marginInline: none
+    paddingBlock: md
+    paddingInline: md
   appearance:
     border:
-      accentColor: '#6366f1'
+      accentColor: $color-accent
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 0
     radius: none
-    padding:
-      block: md
-      inline: md
     shadow: none
     shadowColor: ''
   layout:
@@ -270,12 +284,11 @@ image:
       enabled: false
       color: rgba(0,0,0,0.5)
       opacity: 0.5
-    padding:
-      block: none
-      inline: none
   spacing:
     marginBlock: sm
     marginInline: none
+    paddingBlock: none
+    paddingInline: none
   layout:
     widthMode: stretch
     horizontalAlign: center
@@ -318,92 +331,46 @@ gif:
       enabled: false
       color: rgba(0,0,0,0.5)
       opacity: 0.5
-    padding:
-      block: none
-      inline: none
   spacing:
     marginBlock: sm
     marginInline: none
+    paddingBlock: none
+    paddingInline: none
   layout:
     widthMode: stretch
 textbox:
   label:
-    text: Textbox Label
+    text: Label
     show: true
     typography:
-      size: sm
       weight: medium
       color: '#374151'
   field:
+    name: ''
     placeholder: Enter text...
     initialValue: ''
+    validation: none
     helperText: ''
     required: false
   appearance:
-    border:
-      width: 1
-      style: solid
-      color: '#cccccc'
-    background:
-      color: '#ffffff'
-      transparency: 100
-    radius: none
-    icon:
-      position: none
-    padding:
-      block: sm
-      inline: sm
-  typography:
-    size: md
-    weight: regular
-    align: left
-    color: '#000000'
-    lineHeight: 1.5
-    transform: none
-    letterSpacing: normal
-  spacing:
-    marginBlock: sm
-    marginInline: none
-  layout:
-    widthMode: fit
+    size: sm
+    accentColor: '#3b82f6'
 textarea:
   label:
-    text: Textarea Label
+    text: Label
     show: true
     typography:
-      size: sm
       weight: medium
       color: '#374151'
   field:
+    name: ''
     placeholder: Enter text...
-    rows: 3
+    rows: 4
     helperText: ''
     required: false
   appearance:
-    border:
-      width: 1
-      style: solid
-      color: '#cccccc'
-    background:
-      color: '#ffffff'
-      transparency: 100
-    radius: none
-    padding:
-      block: sm
-      inline: sm
-  typography:
-    size: md
-    weight: regular
-    align: left
-    color: '#000000'
-    lineHeight: 1.5
-    transform: none
-    letterSpacing: normal
-  spacing:
-    marginBlock: sm
-    marginInline: none
-  layout:
-    widthMode: fit
+    size: sm
+    accentColor: '#3b82f6'
 button:
   text: Click Me
   action:
@@ -411,7 +378,7 @@ button:
     value: alert("Clicked!")
   appearance:
     background:
-      color: '#ffffff'
+      color: $color-background
       transparency: 100
     border:
       width: 1
@@ -421,79 +388,83 @@ button:
     shadow: none
     shadowColor: ''
     iconPlacement: none
-    padding:
-      block: sm
-      inline: md
   typography:
     size: md
     weight: semibold
     align: center
-    color: '#ffffff'
+    color: $color-background
     lineHeight: 1.5
     transform: none
     letterSpacing: normal
   spacing:
     marginBlock: sm
     marginInline: xs
+    paddingBlock: sm
+    paddingInline: md
   layout:
     widthMode: fit
 dropdown:
   label:
-    text: Dropdown Label
+    text: Label
     show: true
     typography:
-      size: sm
       weight: medium
       color: '#374151'
   field:
+    name: ''
     placeholder: Choose an option
-    selected: ''
-    options: 'Option 1
-
-      Option 2
-
-      Option 3'
-  appearance:
-    border:
-      width: 1
-      style: solid
-      color: '#cccccc'
-    background:
-      color: '#ffffff'
-      transparency: 100
-    radius: none
-calendar:
-  display:
-    month: 8
-    year: 2024
-  appearance:
-    showWeekNumbers: false
-checkbox:
-  label:
-    text: Checkbox Label
-    typography:
-      size: sm
-      weight: medium
-      color: rgba(55,65,81,1)
-  field:
-    text: Check me
-    checked: false
+    options: "Option 1\nOption 2\nOption 3"
+    helperText: ''
     required: false
   appearance:
+    size: sm
+    accentColor: '#3b82f6'
+calendar:
+  label:
+    text: Date
+    show: true
+    typography:
+      weight: medium
+      color: '#374151'
+  field:
+    name: ''
+    value: ''
+    min: ''
+    max: ''
+    helperText: ''
+    required: false
+  appearance:
+    size: sm
+    accentColor: '#3b82f6'
+checkbox:
+  label:
+    text: Select options
+    show: true
+    typography:
+      weight: medium
+      color: '#374151'
+  field:
+    name: ''
+    options: "Option 1\nOption 2\nOption 3"
+    helperText: ''
+    required: false
+  appearance:
+    size: sm
     color: '#2563eb'
 radio:
   label:
-    text: Radio Label
+    text: Choose one
+    show: true
     typography:
-      size: sm
       weight: medium
-      color: rgba(55,65,81,1)
+      color: '#374151'
   field:
-    text: Select me
-    groupName: radio1
-    value: option1
-    checked: false
+    name: radio1
+    options: "Option 1\nOption 2\nOption 3"
+    helperText: ''
+    required: false
   appearance:
+    size: sm
     color: '#2563eb'
 accordion:
   items:
@@ -508,33 +479,32 @@ accordion:
     title:
       size: lg
       weight: semibold
-      color: '#000000'
+      color: $color-primary
     content:
       size: md
       weight: regular
-      color: '#000000'
+      color: $color-primary
   layout:
     widthMode: stretch
   appearance:
     titleBackground:
-      color: '#ffffff'
+      color: $color-background
     border:
       width: 1
       style: solid
       color: '#d1d5db'
       position: bottom
     contentBackground:
-      color: '#ffffff'
+      color: $color-background
       transparency: 100
     radius: sm
-    padding:
-      block: sm
-      inline: sm
     shadow: none
     shadowColor: ''
   spacing:
     marginBlock: md
     marginInline: none
+    paddingBlock: sm
+    paddingInline: sm
 tabs:
   layout:
     orientation: horizontal
@@ -544,21 +514,21 @@ tabs:
       size: md
       weight: semibold
       active:
-        color: '#000000'
+        color: $color-primary
       inactive:
-        color: '#6b7280'
+        color: $color-secondary
   appearance:
     tab:
       background:
-        active: '#ffffff'
-        inactive: '#ffffff'
+        active: $color-background
+        inactive: $color-background
       border:
         width: 2
         style: solid
         position: lower
     content:
       background:
-        color: '#ffffff'
+        color: $color-background
         transparency: 100
       border:
         color: '#d1d5db'
@@ -596,8 +566,8 @@ br:
 icon:
   name: star
   size: "36"
-  weight: "500"
-  color: '#111827'
+  strokeWidth: "2"
+  color: $color-primary
 badge:
   text: Badge
   variant: info
@@ -612,7 +582,7 @@ rating:
   color: '#f59e0b'
   typography:
     size: md
-    color: '#6b7280'
+    color: $color-secondary
 progress-bar:
   percent: 50
   thickness: medium
@@ -629,7 +599,7 @@ counter-up:
   typography:
     size: xxl
     weight: bold
-    color: '#111827'
+    color: $color-primary
     align: center
 countdown:
   targetDate: ''
@@ -638,7 +608,7 @@ countdown:
   typography:
     size: xl
     weight: bold
-    color: '#111827'
+    color: $color-primary
     align: center
 link:
   text: Click Me
@@ -646,9 +616,6 @@ link:
   appearance:
     underline: true
     showArrow: false
-    padding:
-      block: none
-      inline: none
   typography:
     size: md
     weight: regular
@@ -657,21 +624,35 @@ link:
     lineHeight: 1.5
     transform: none
     letterSpacing: normal
+    fontStyle: normal
+    textDecoration: none
   spacing:
     marginBlock: xs
     marginInline: xs
+    paddingBlock: none
+    paddingInline: none
   layout:
     widthMode: fit
 form:
   layout:
-    direction: column
-    horizontalAlign: space-evenly
+    style: vertical
   submit:
     buttonText: Submit
     show: true
   appearance:
+    background:
+      color: $color-background
+      transparency: 0
+    border:
+      width: 0
+      color: '#e5e7eb'
+    radius: none
     shadow: none
     shadowColor: ''
+  spacing:
+    paddingBlock: md
+    paddingInline: md
+    marginBlock: none
 carousel:
   behavior:
     autoplay: true
@@ -735,19 +716,19 @@ ticker:
     pauseOnHover: true
     pauseDuration: 3000
   layout:
-    width: fit
+    widthMode: fit
+    gap: lg
   spacing:
     marginBlock: md
     marginInline: none
-    gap: lg
   appearance:
-    columnBackground: '#ffffff'
+    columnBackground: $color-background
     columnTransparency: 0
     columnRadius: none
     columnBorder:
       width: 0
       style: solid
-      color: '#000000'
+      color: $color-primary
   columns:
   - components:
     - name: heading
@@ -779,8 +760,8 @@ video-background:
     poster: ''
   appearance:
     aspectRatio: '16/9'
-    minHeight: 400
-    objectFit: cover
+    minHeight: 25
+    fit: cover
     objectPosition: center
     overlay:
       enabled: true
@@ -801,3 +782,24 @@ video-background:
   layout:
     widthMode: stretch
 
+panorama-display:
+  source:
+    url: https://placehold.co/2400x600/e2e8f0/475569?text=Panorama+Image
+    altText: Panorama image
+  behavior:
+    autoScroll: false
+    autoScrollSpeed: 30
+    stepDistance: 300
+    pauseOnHover: true
+    initialPosition: left
+  spacing:
+    marginBlock: md
+    marginInline: none
+  appearance:
+    border:
+      width: 0
+      style: solid
+      color: '#e5e7eb'
+    radius: none
+    shadow: none
+    shadowColor: ''

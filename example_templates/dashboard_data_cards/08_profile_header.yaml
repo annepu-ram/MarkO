@@ -1,6 +1,10 @@
 # Dashboard Data Card 08 - "The Profile Header"
-# A horizontal profile card with large avatar, name/role column, and edit button.
-# Vertically centered layout-row with mixed content.
+# A horizontal profile card with large avatar, name/role column, and edit button. Vertically centered layout-row with mixed content.
+# Base components: page, layout-row, image, layout-column, heading, paragraph, button
+# Section type: dashboard
+# Layout: split_screen
+# Visual style: card_based
+# Perfect for: SaaS, analytics, admin panels, dashboards, business tools
 
 - name: page
   properties:
@@ -10,90 +14,92 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
         secondary: &color-secondary '#64748b'
         accent: &color-accent '#6366f1'
         background: &color-background '#f8fafc'
-    spacing: { paddingBlock: xl, paddingInline: xl }
+    spacing: {paddingBlock: xl, paddingInline: xl}
     appearance:
-      background: { color: *color-background }
+      background: {color: *color-background}
   components:
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: start
+        wrap: nowrap
+        gap: md
+        widthMode: "66"
+        verticalAlign: center
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      appearance:
+        background:
+          color: *color-background
+          transparency: 100
+        borderRadius: md
+        shadow: soft
+    components:
+        # Avatar
+    - name: image
+      properties:
+        source:
+          url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop'
+          altText: 'Jordan Rivera profile photo'
+        layout:
+          widthMode: fit
+        appearance:
+          borderRadius: pill
+          fit: cover
+          width: 72
+          height: 72
+          shadow: soft
+
+        # Name and role
+    - name: layout-column
       properties:
         layout:
           horizontalAlign: start
-          align: center
-          wrap: nowrap
-          gap: md
-          widthMode: "66"
-        spacing:
-          paddingBlock: lg
-          paddingInline: lg
-        appearance:
-          background:
-            color: *color-background
-            transparency: 100
-          borderRadius: md
-          shadow: soft
+          widthMode: stretch
+          gap: none
       components:
-        # Avatar
-        - name: image
-          properties:
-            source:
-              url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop'
-              altText: 'Jordan Rivera profile photo'
-            layout:
-              widthMode: fit
-            appearance:
-              borderRadius: pill
-              fit: cover
-              width: 72
-              height: 72
-              shadow: soft
-
-        # Name and role
-        - name: layout-column
-          properties:
-            layout:
-              horizontalAlign: start
-              align: start
-              widthMode: stretch
-              gap: none
-          components:
-            - name: heading
-              properties:
-                text: Jordan Rivera
-                level: 3
-                typography:
-                  size: lg
-                  weight: bold
-                  color: *color-primary
-            - name: paragraph
-              properties:
-                text: Senior Product Manager
-                typography:
-                  size: sm
-                  weight: regular
-                  color: *color-secondary
-            - name: paragraph
-              properties:
-                text: "San Francisco, CA"
-                typography:
-                  size: xs
-                  weight: regular
-                  color: *color-secondary
+      - name: heading
+        properties:
+          text: Jordan Rivera
+          level: 3
+          typography:
+            size: lg
+            weight: bold
+            color: *color-primary
+      - name: paragraph
+        properties:
+          text: Senior Product Manager
+          typography:
+            size: sm
+            weight: regular
+            color: *color-secondary
+      - name: paragraph
+        properties:
+          text: "San Francisco, CA"
+          typography:
+            size: xs
+            weight: regular
+            color: *color-secondary
 
         # Edit button
-        - name: button
-          properties:
-            text: "Edit Profile"
-            layout:
-              widthMode: fit
-            appearance:
-              background:
-                color: *color-secondary
-              padding: { block: sm, inline: md }
-              borderRadius: sm
-            typography:
-              color: *color-primary
-              weight: semibold
-              size: sm
+    - name: button
+      properties:
+        text: "Edit Profile"
+        layout:
+          widthMode: fit
+        appearance:
+          background:
+            color: *color-secondary
+          borderRadius: sm
+        typography:
+          color: *color-primary
+          weight: semibold
+          size: sm
+        spacing:
+          paddingBlock: sm
+          paddingInline: md

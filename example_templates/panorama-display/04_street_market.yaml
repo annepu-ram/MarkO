@@ -1,0 +1,315 @@
+# Street Market Panorama with Vendor Highlights and Ratings
+# Warm amber-themed bustling market panoramic viewer with golden border styling, a four-column highlights grid featuring icons, descriptions, and star ratings for produce/crafts/food/music, plus visiting hours and Get Directions CTA
+# Base components: layout-row, layout-column, eyebrow, heading, paragraph, panorama-display, columnsgrid, icon, rating, button
+# Section type: gallery
+# Layout: stacked
+# Visual style: modern
+# Perfect for: real estate agency, hotel, travel agency, architecture firm, event venue, restaurant, resort, museum, shopping mall
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#451a03'
+        text: &color-text '#4B3123'
+        secondary: &color-secondary '#78350f'
+        accent: &color-accent '#b45309'
+        background: &color-background '#fffbeb'
+  components:
+    - name: page
+      properties:
+        appearance:
+          background:
+            color: '#fffbeb'
+      components:
+      # Header
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: center
+          appearance:
+            background:
+              color: '#fffbeb'
+              transparency: 0
+          spacing:
+            paddingBlock: lg
+            paddingInline: md
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              widthMode: "66"
+              gap: sm
+            appearance:
+              background:
+                transparency: 0
+          components:
+          - name: eyebrow
+            properties:
+              text: Local Discovery
+              typography:
+                size: xs
+                weight: semibold
+                align: center
+                color: '#b45309'
+                transform: uppercase
+                letterSpacing: wide
+          - name: heading
+            properties:
+              text: Street Market Panorama
+              level: 1
+              typography:
+                size: xxl
+                weight: bold
+                align: center
+                color: '#451a03'
+          - name: paragraph
+            properties:
+              text: Immerse yourself in the vibrant atmosphere of a bustling street market. Scroll through colorful vendor stalls, fresh produce, and the energy of local commerce.
+              typography:
+                size: md
+                align: center
+                color: '#78350f'
+
+      # Panorama - Street Market
+      - name: panorama-display
+        properties:
+          source:
+            url: https://images.pexels.com/photos/30709459/pexels-photo-30709459.jpeg?auto=compress&cs=tinysrgb&w=3000&h=600&fit=crop
+            altText: Panoramic view of a vibrant street market with vendors and shoppers
+          behavior:
+            initialPosition: left
+            autoScroll: false
+            stepDistance: 300
+            pauseOnHover: true
+          spacing:
+            marginBlock: lg
+          appearance:
+            radius: lg
+            shadow: soft
+            shadowColor: '#92400e'
+            border:
+              width: 3
+              style: solid
+              color: '#fbbf24'
+
+      # Market Highlights
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+          appearance:
+            background:
+              color: '#fffbeb'
+              transparency: 0
+          spacing:
+            paddingBlock: md
+            paddingInline: md
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              widthMode: "75"
+              gap: xs
+            appearance:
+              background:
+                transparency: 0
+          components:
+          - name: heading
+            properties:
+              text: What You'll Find
+              level: 2
+              typography:
+                size: xl
+                weight: bold
+                align: center
+                color: '#451a03'
+
+      - name: columnsgrid
+        properties:
+          layout:
+            columns: 4
+            gap: md
+            verticalAlign: stretch
+          responsive:
+            breakpoints:
+              md: 2
+              sm: 1
+          appearance:
+            columnBackground: '#ffffff'
+            columnRadius: lg
+          spacing:
+            marginBlock: md
+            paddingBlock: md
+            paddingInline: lg
+        columns:
+        - components:
+          - name: icon
+            properties:
+              name: leaf
+              size: "36"
+              color: '#16a34a'
+          - name: heading
+            properties:
+              text: Fresh Produce
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: '#451a03'
+          - name: paragraph
+            properties:
+              text: Locally sourced fruits, vegetables, and herbs picked fresh daily from nearby farms.
+              typography:
+                size: sm
+                color: '#78350f'
+          - name: rating
+            properties:
+              value: 5
+              iconType: star
+              color: '#f59e0b'
+        - components:
+          - name: icon
+            properties:
+              name: shopping-bag
+              size: "36"
+              color: '#9333ea'
+          - name: heading
+            properties:
+              text: Artisan Crafts
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: '#451a03'
+          - name: paragraph
+            properties:
+              text: Handmade jewelry, pottery, textiles, and unique souvenirs from local artisans.
+              typography:
+                size: sm
+                color: '#78350f'
+          - name: rating
+            properties:
+              value: 4.5
+              iconType: star
+              color: '#f59e0b'
+        - components:
+          - name: icon
+            properties:
+              name: coffee
+              size: "36"
+              color: '#b45309'
+          - name: heading
+            properties:
+              text: Street Food
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: '#451a03'
+          - name: paragraph
+            properties:
+              text: Savor authentic local cuisine from sizzling grills, spice stalls, and bakery stands.
+              typography:
+                size: sm
+                color: '#78350f'
+          - name: rating
+            properties:
+              value: 4.5
+              iconType: star
+              color: '#f59e0b'
+        - components:
+          - name: icon
+            properties:
+              name: music
+              size: "36"
+              color: '#e11d48'
+          - name: heading
+            properties:
+              text: Live Music
+              level: 4
+              typography:
+                size: md
+                weight: semibold
+                color: '#451a03'
+          - name: paragraph
+            properties:
+              text: Street performers and local musicians add rhythm and life to the market atmosphere.
+              typography:
+                size: sm
+                color: '#78350f'
+          - name: rating
+            properties:
+              value: 4
+              iconType: star
+              color: '#f59e0b'
+
+      # Visiting Info
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: center
+          appearance:
+            background:
+              color: '#fef3c7'
+              transparency: 100
+          spacing:
+            paddingBlock: lg
+            paddingInline: md
+        components:
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              widthMode: "50"
+              gap: sm
+            appearance:
+              background:
+                color: '#fef3c7'
+                transparency: 100
+              radius: lg
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+          components:
+          - name: heading
+            properties:
+              text: Visit Hours
+              level: 3
+              typography:
+                size: lg
+                weight: bold
+                align: center
+                color: '#451a03'
+          - name: paragraph
+            properties:
+              text: |
+                Open every Saturday & Sunday
+                8:00 AM - 4:00 PM
+              typography:
+                size: md
+                align: center
+                color: '#78350f'
+          - name: button
+            properties:
+              text: Get Directions
+              appearance:
+                background:
+                  color: '#b45309'
+                  transparency: 100
+                border:
+                  width: 0
+                  style: none
+                  color: '#b45309'
+                radius: md
+              typography:
+                size: md
+                weight: semibold
+                color: '#ffffff'

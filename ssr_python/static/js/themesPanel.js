@@ -1,6 +1,8 @@
 /**
- * Themes Panel - Manage page-level fonts and color themes
- * Uses native YAML anchors via eemeli/yaml Document API
+ * Themes Panel - Manage site-level fonts and color themes
+ * Theme is stored at site.properties.theme (anchors defined before all content).
+ * Falls back to page.properties.theme for backward compat with old YAML.
+ * Uses native YAML anchors via eemeli/yaml Document API.
  */
 
 import { getYamlStructureFromEditor, updateYamlEditor } from './yamlUtils.js';
@@ -9,59 +11,60 @@ import { renderPreview } from './ssr_app.js';
 import { historyManager } from './historyManager.js';
 
 // WCAG 2.1 Accessible Color Themes - organized by category
-// All themes meet 4.5:1 contrast ratio for Primary (text) on Background
-// Color Distribution: Background (60%), Primary (30% - TEXT), Secondary (10% - UI), Accent (CTAs only)
+// All themes meet 4.5:1 contrast ratio for text colors on Background
+// Color Distribution: Background (60%), Primary (headings 30%), Text (body), Secondary (10% - UI), Accent (CTAs only)
 const COLOR_THEMES = [
     // === TIMELESS & CLASSIC ===
-    { name: 'Warm Ivory', category: 'Classic', colors: { background: '#FDF8F0', primary: '#2D2420', secondary: '#E8DED0', accent: '#B8510D' }},
-    { name: 'Slate Professional', category: 'Classic', colors: { background: '#E8EDF2', primary: '#1E3A5F', secondary: '#C5D4E3', accent: '#0052CC' }},
-    { name: 'Champagne Luxe', category: 'Classic', colors: { background: '#F5F0E6', primary: '#1C1810', secondary: '#E0D8C8', accent: '#996515' }},
-    { name: 'Bauhaus Primary', category: 'Classic', colors: { background: '#FFFBE6', primary: '#0D0D0D', secondary: '#F5E6B8', accent: '#DD0100' }},
-    { name: 'Concrete Raw', category: 'Classic', colors: { background: '#E5E2DD', primary: '#1A1A1A', secondary: '#C8C4BB', accent: '#FF4D00' }},
-    { name: 'Midnight Prestige', category: 'Classic', colors: { background: '#1A1A2E', primary: '#F5F5F5', secondary: '#2D2D45', accent: '#D4AF37' }},
+    { name: 'Warm Ivory', category: 'Classic', colors: { background: '#FDF8F0', primary: '#2D2420', text: '#4A4440', secondary: '#E8DED0', accent: '#B8510D' }},
+    { name: 'Slate Professional', category: 'Classic', colors: { background: '#E8EDF2', primary: '#1E3A5F', text: '#374151', secondary: '#C5D4E3', accent: '#0052CC' }},
+    { name: 'Champagne Luxe', category: 'Classic', colors: { background: '#F5F0E6', primary: '#1C1810', text: '#3D3830', secondary: '#E0D8C8', accent: '#996515' }},
+    { name: 'Bauhaus Primary', category: 'Classic', colors: { background: '#FFFBE6', primary: '#0D0D0D', text: '#2D2D2D', secondary: '#F5E6B8', accent: '#DD0100' }},
+    { name: 'Concrete Raw', category: 'Classic', colors: { background: '#E5E2DD', primary: '#1A1A1A', text: '#3D3D3D', secondary: '#C8C4BB', accent: '#FF4D00' }},
+    { name: 'Midnight Prestige', category: 'Classic', colors: { background: '#1A1A2E', primary: '#F5F5F5', text: '#C8C8D8', secondary: '#2D2D45', accent: '#D4AF37' }},
 
     // === RETRO & NOSTALGIC ===
-    { name: 'Atomic Cream', category: 'Retro', colors: { background: '#FFF5D6', primary: '#1A3A3A', secondary: '#E8DEB0', accent: '#008B8B' }},
-    { name: 'Synthwave Dark', category: 'Retro', colors: { background: '#1A0A2E', primary: '#F5E6FA', secondary: '#2E1650', accent: '#FF00FF' }},
-    { name: 'Grunge Ochre', category: 'Retro', colors: { background: '#DED5B8', primary: '#2C2416', secondary: '#C4B898', accent: '#8B0000' }},
-    { name: 'Sepia Vintage', category: 'Retro', colors: { background: '#F5E6D3', primary: '#3D2B1F', secondary: '#E0CDB5', accent: '#8B4513' }},
-    { name: 'Vaporwave Pink', category: 'Retro', colors: { background: '#FFD6E8', primary: '#2D1B4E', secondary: '#F0B8D4', accent: '#9B59B6' }},
-    { name: 'Art Deco Noir', category: 'Retro', colors: { background: '#0F0F0F', primary: '#F5F0E6', secondary: '#2A2520', accent: '#D4AF37' }},
-    { name: 'Pop Art Yellow', category: 'Retro', colors: { background: '#FFEB3B', primary: '#0D0D0D', secondary: '#FFD600', accent: '#FF0000' }},
+    { name: 'Atomic Cream', category: 'Retro', colors: { background: '#FFF5D6', primary: '#1A3A3A', text: '#3D4A4A', secondary: '#E8DEB0', accent: '#008B8B' }},
+    { name: 'Synthwave Dark', category: 'Retro', colors: { background: '#1A0A2E', primary: '#F5E6FA', text: '#C8B8D8', secondary: '#2E1650', accent: '#FF00FF' }},
+    { name: 'Grunge Ochre', category: 'Retro', colors: { background: '#DED5B8', primary: '#2C2416', text: '#4A4030', secondary: '#C4B898', accent: '#8B0000' }},
+    { name: 'Sepia Vintage', category: 'Retro', colors: { background: '#F5E6D3', primary: '#3D2B1F', text: '#5A4838', secondary: '#E0CDB5', accent: '#8B4513' }},
+    { name: 'Vaporwave Pink', category: 'Retro', colors: { background: '#FFD6E8', primary: '#2D1B4E', text: '#4A3860', secondary: '#F0B8D4', accent: '#9B59B6' }},
+    { name: 'Art Deco Noir', category: 'Retro', colors: { background: '#0F0F0F', primary: '#F5F0E6', text: '#C8C4B8', secondary: '#2A2520', accent: '#D4AF37' }},
+    { name: 'Pop Art Yellow', category: 'Retro', colors: { background: '#FFEB3B', primary: '#0D0D0D', text: '#2D2D00', secondary: '#FFD600', accent: '#FF0000' }},
 
     // === FUTURISTIC & TECH ===
-    { name: 'Cyberpunk Neon', category: 'Tech', colors: { background: '#0D0A14', primary: '#F0E6FA', secondary: '#1E1428', accent: '#FF0080' }},
-    { name: 'Solarpunk Leaf', category: 'Tech', colors: { background: '#E6F5E0', primary: '#1A3A1A', secondary: '#C8E8B8', accent: '#2E8B57' }},
-    { name: 'Glass Azure', category: 'Tech', colors: { background: '#D6EBF5', primary: '#1A365D', secondary: '#B0D4E8', accent: '#3182CE' }},
-    { name: 'Soft Lavender', category: 'Tech', colors: { background: '#E8E0F0', primary: '#2D1B4E', secondary: '#D0C0E0', accent: '#6C63FF' }},
-    { name: 'Terminal Green', category: 'Tech', colors: { background: '#0A1A0A', primary: '#E8FCE8', secondary: '#142814', accent: '#00FF41' }},
-    { name: 'Nebula Purple', category: 'Tech', colors: { background: '#14101E', primary: '#E8E0F8', secondary: '#251D38', accent: '#9D4EDD' }},
-    { name: 'Holographic', category: 'Tech', colors: { background: '#E6F0FA', primary: '#1A2035', secondary: '#C8D8F0', accent: '#EC4899' }},
+    { name: 'Cyberpunk Neon', category: 'Tech', colors: { background: '#0D0A14', primary: '#F0E6FA', text: '#B8A8D0', secondary: '#1E1428', accent: '#FF0080' }},
+    { name: 'Solarpunk Leaf', category: 'Tech', colors: { background: '#E6F5E0', primary: '#1A3A1A', text: '#3A5A3A', secondary: '#C8E8B8', accent: '#2E8B57' }},
+    { name: 'Glass Azure', category: 'Tech', colors: { background: '#D6EBF5', primary: '#1A365D', text: '#334E68', secondary: '#B0D4E8', accent: '#3182CE' }},
+    { name: 'Soft Lavender', category: 'Tech', colors: { background: '#E8E0F0', primary: '#2D1B4E', text: '#4A3868', secondary: '#D0C0E0', accent: '#6C63FF' }},
+    { name: 'Terminal Green', category: 'Tech', colors: { background: '#0A1A0A', primary: '#E8FCE8', text: '#A8D8A8', secondary: '#142814', accent: '#00FF41' }},
+    { name: 'Nebula Purple', category: 'Tech', colors: { background: '#14101E', primary: '#E8E0F8', text: '#B0A8C8', secondary: '#251D38', accent: '#9D4EDD' }},
+    { name: 'Holographic', category: 'Tech', colors: { background: '#E6F0FA', primary: '#1A2035', text: '#384860', secondary: '#C8D8F0', accent: '#EC4899' }},
 
     // === NATURE & ORGANIC ===
-    { name: 'Sage Garden', category: 'Nature', colors: { background: '#E0EBD8', primary: '#1A3318', secondary: '#C0D8B0', accent: '#228B22' }},
-    { name: 'Terracotta', category: 'Nature', colors: { background: '#F5E0D0', primary: '#3D2B1F', secondary: '#E8C8B0', accent: '#C2703B' }},
-    { name: 'Deep Ocean', category: 'Nature', colors: { background: '#D0E8F0', primary: '#1A3A4A', secondary: '#A8D0E0', accent: '#0077B6' }},
-    { name: 'Moss Forest', category: 'Nature', colors: { background: '#D8E8D0', primary: '#1E3E1E', secondary: '#B8D0A8', accent: '#2E7D32' }},
-    { name: 'Desert Sunset', category: 'Nature', colors: { background: '#FFE8D6', primary: '#4A2C17', secondary: '#F5D0B0', accent: '#D2691E' }},
-    { name: 'Coral Reef', category: 'Nature', colors: { background: '#FFE6E0', primary: '#2D1A1A', secondary: '#F5C8C0', accent: '#FF6B35' }},
-    { name: 'Lavender Field', category: 'Nature', colors: { background: '#E8E0F0', primary: '#2D2040', secondary: '#D0C0E0', accent: '#7C3AED' }},
+    { name: 'Sage Garden', category: 'Nature', colors: { background: '#E0EBD8', primary: '#1A3318', text: '#3A5338', secondary: '#C0D8B0', accent: '#228B22' }},
+    { name: 'Terracotta', category: 'Nature', colors: { background: '#F5E0D0', primary: '#3D2B1F', text: '#5A4838', secondary: '#E8C8B0', accent: '#C2703B' }},
+    { name: 'Deep Ocean', category: 'Nature', colors: { background: '#D0E8F0', primary: '#1A3A4A', text: '#385868', secondary: '#A8D0E0', accent: '#0077B6' }},
+    { name: 'Moss Forest', category: 'Nature', colors: { background: '#D8E8D0', primary: '#1E3E1E', text: '#3A5A3A', secondary: '#B8D0A8', accent: '#2E7D32' }},
+    { name: 'Desert Sunset', category: 'Nature', colors: { background: '#FFE8D6', primary: '#4A2C17', text: '#5A4030', secondary: '#F5D0B0', accent: '#D2691E' }},
+    { name: 'Coral Reef', category: 'Nature', colors: { background: '#FFE6E0', primary: '#2D1A1A', text: '#4A3838', secondary: '#F5C8C0', accent: '#FF6B35' }},
+    { name: 'Lavender Field', category: 'Nature', colors: { background: '#E8E0F0', primary: '#2D2040', text: '#4A3860', secondary: '#D0C0E0', accent: '#7C3AED' }},
 
     // === EMOTIONAL MOODS ===
-    { name: 'Cinema Noir', category: 'Mood', colors: { background: '#0F0F0F', primary: '#F5F5F5', secondary: '#1F1F1F', accent: '#DC143C' }},
-    { name: 'Bubblegum', category: 'Mood', colors: { background: '#FFD6E6', primary: '#4A1942', secondary: '#F5B0D0', accent: '#FF1493' }},
-    { name: 'Fire & Ice', category: 'Mood', colors: { background: '#1A0A0A', primary: '#E8F0FA', secondary: '#2D1414', accent: '#FF4500' }},
-    { name: 'Zen Stone', category: 'Mood', colors: { background: '#E8E6E0', primary: '#3D3D35', secondary: '#D0CEC5', accent: '#708090' }},
-    { name: 'Ivy League', category: 'Mood', colors: { background: '#E6EBE0', primary: '#1A2E28', secondary: '#C8D8C0', accent: '#00356B' }},
-    { name: 'Gothic Rose', category: 'Mood', colors: { background: '#1A0F0F', primary: '#F5E6E6', secondary: '#2D1818', accent: '#C41E3A' }},
-    { name: 'Hygge Warm', category: 'Mood', colors: { background: '#FFF5E6', primary: '#2D3436', secondary: '#F0E0C8', accent: '#D35400' }},
-    { name: 'Neon Street', category: 'Mood', colors: { background: '#1A1A1A', primary: '#F5F5F5', secondary: '#2D2D2D', accent: '#FFEA00' }},
-    { name: 'Digital Realm', category: 'Mood', colors: { background: '#0A0A1A', primary: '#E6E6FF', secondary: '#14142D', accent: '#00FFFF' }},
+    { name: 'Cinema Noir', category: 'Mood', colors: { background: '#0F0F0F', primary: '#F5F5F5', text: '#C8C8C8', secondary: '#1F1F1F', accent: '#DC143C' }},
+    { name: 'Bubblegum', category: 'Mood', colors: { background: '#FFD6E6', primary: '#4A1942', text: '#5A3058', secondary: '#F5B0D0', accent: '#FF1493' }},
+    { name: 'Fire & Ice', category: 'Mood', colors: { background: '#1A0A0A', primary: '#E8F0FA', text: '#B8C0D0', secondary: '#2D1414', accent: '#FF4500' }},
+    { name: 'Zen Stone', category: 'Mood', colors: { background: '#E8E6E0', primary: '#3D3D35', text: '#5A5A50', secondary: '#D0CEC5', accent: '#708090' }},
+    { name: 'Ivy League', category: 'Mood', colors: { background: '#E6EBE0', primary: '#1A2E28', text: '#384840', secondary: '#C8D8C0', accent: '#00356B' }},
+    { name: 'Gothic Rose', category: 'Mood', colors: { background: '#1A0F0F', primary: '#F5E6E6', text: '#C8B8B8', secondary: '#2D1818', accent: '#C41E3A' }},
+    { name: 'Hygge Warm', category: 'Mood', colors: { background: '#FFF5E6', primary: '#2D3436', text: '#4A5050', secondary: '#F0E0C8', accent: '#D35400' }},
+    { name: 'Neon Street', category: 'Mood', colors: { background: '#1A1A1A', primary: '#F5F5F5', text: '#C8C8C8', secondary: '#2D2D2D', accent: '#FFEA00' }},
+    { name: 'Digital Realm', category: 'Mood', colors: { background: '#0A0A1A', primary: '#E6E6FF', text: '#B0B0D8', secondary: '#14142D', accent: '#00FFFF' }},
 ];
 
 // Shared theme color config — single source of truth for color keys, anchor names, and labels
 export const THEME_COLOR_CONFIG = [
-    { key: 'primary', anchor: 'color-primary', label: 'Primary' },
+    { key: 'primary', anchor: 'color-primary', label: 'Primary (Headings)' },
+    { key: 'text', anchor: 'color-text', label: 'Text (Body)' },
     { key: 'secondary', anchor: 'color-secondary', label: 'Secondary' },
     { key: 'accent', anchor: 'color-accent', label: 'Accent' },
     { key: 'background', anchor: 'color-background', label: 'Background' },
@@ -154,7 +157,9 @@ function ensureFontLoaded(fontCssValue) {
 }
 
 /**
- * Get current theme from page component if it exists
+ * Get current theme from site or page component.
+ * Prefers site.properties.theme (new format), falls back to page-level (backward compat).
+ * Returns the same { fonts, colors } object regardless of source.
  */
 export function getCurrentTheme() {
     const structure = getYamlStructureFromEditor();
@@ -162,10 +167,15 @@ export function getCurrentTheme() {
         return null;
     }
 
-    const page = structure[0];
-    if (page && page.properties && page.properties.theme) {
-        return page.properties.theme;
-    }
+    const site = structure[0];
+
+    // Prefer site-level theme (new format)
+    if (site.properties?.theme) return site.properties.theme;
+
+    // Fallback: page-level theme (backward compat for old YAML)
+    const page = site.components?.[0];
+    if (page?.properties?.theme) return page.properties.theme;
+
     return null;
 }
 
@@ -375,11 +385,12 @@ function selectTheme(index) {
 }
 
 /**
- * Apply theme to YAML using native Document API with anchors and aliases
- * This is a clean implementation using eemeli/yaml's native anchor support
+ * Apply theme to YAML using native Document API with anchors and aliases.
+ * Sets theme at SITE level (site.properties.theme) so anchors are defined
+ * before all page content — enabling aliases everywhere.
  */
 export async function applyTheme() {
-    console.log('[Themes] Applying theme with native YAML anchors...');
+    console.log('[Themes] Applying theme at site level with native YAML anchors...');
 
     const editor = document.getElementById('codeEditor');
     if (!editor || !editor.value.trim()) {
@@ -396,24 +407,17 @@ export async function applyTheme() {
             return;
         }
 
-        // Get the page component (first item in array)
+        // Get the site component (first item in array)
         const contents = doc.contents;
         if (!YAML.isSeq(contents) || contents.items.length === 0) {
             console.warn('[Themes] Invalid document structure - expected array');
             return;
         }
 
-        const pageNode = contents.items[0];
-        if (!YAML.isMap(pageNode)) {
-            console.warn('[Themes] Page component is not a map');
+        const siteNode = contents.items[0];
+        if (!YAML.isMap(siteNode)) {
+            console.warn('[Themes] Root component is not a map');
             return;
-        }
-
-        // Get or create properties map
-        let propsNode = pageNode.get('properties', true);
-        if (!propsNode || !YAML.isMap(propsNode)) {
-            propsNode = doc.createNode({});
-            pageNode.set('properties', propsNode);
         }
 
         // Ensure fonts are loaded before render
@@ -453,8 +457,30 @@ export async function applyTheme() {
             }
         }
 
-        // Set theme on page properties
-        propsNode.set('theme', themeNode);
+        // Set theme on SITE properties (not page)
+        let sitePropsNode = siteNode.get('properties', true);
+        if (!sitePropsNode || !YAML.isMap(sitePropsNode)) {
+            sitePropsNode = doc.createNode({});
+            siteNode.set('properties', sitePropsNode);
+        }
+        sitePropsNode.set('theme', themeNode);
+
+        // Reorder site node keys so 'properties' is before header/footer/components
+        // This ensures YAML anchors (in properties.theme) appear before aliases
+        reorderSiteKeys(siteNode);
+
+        // Remove page-level theme from all pages (clean migration)
+        const siteComponents = siteNode.get('components', true);
+        if (YAML.isSeq(siteComponents)) {
+            for (const pageNode of siteComponents.items) {
+                if (YAML.isMap(pageNode)) {
+                    const pageProps = pageNode.get('properties', true);
+                    if (pageProps && YAML.isMap(pageProps) && pageProps.has('theme')) {
+                        pageProps.delete('theme');
+                    }
+                }
+            }
+        }
 
         // Build map of color values to their anchor nodes for alias creation
         const colorToAnchorNode = new Map();
@@ -467,10 +493,22 @@ export async function applyTheme() {
             }
         }
 
-        // Walk components and replace matching colors with aliases
-        const componentsNode = pageNode.get('components', true);
-        if (YAML.isSeq(componentsNode)) {
-            walkAndReplaceWithAliases(doc, componentsNode, colorToAnchorNode);
+        // Walk all pages for alias replacement
+        if (YAML.isSeq(siteComponents)) {
+            for (const pageNode of siteComponents.items) {
+                if (YAML.isMap(pageNode)) {
+                    // Replace page background color alias too
+                    const pageProps = pageNode.get('properties', true);
+                    if (YAML.isMap(pageProps)) {
+                        const pageBg = pageProps.get('appearance', true)?.get('background', true);
+                        if (pageBg && YAML.isMap(pageBg)) {
+                            replaceColorWithAliasInMap(doc, pageBg, 'color', colorToAnchorNode);
+                        }
+                    }
+                    const pageComps = pageNode.get('components', true);
+                    if (YAML.isSeq(pageComps)) walkAndReplaceWithAliases(doc, pageComps, colorToAnchorNode);
+                }
+            }
         }
 
         // Generate YAML string (anchors and aliases preserved automatically!)
@@ -485,10 +523,38 @@ export async function applyTheme() {
         // Trigger render with the new YAML content
         await renderPreview(yamlText);
 
-        console.log('[Themes] Theme applied successfully with native YAML anchors');
+        console.log('[Themes] Theme applied successfully at site level');
 
     } catch (error) {
         console.error('[Themes] Failed to apply theme:', error);
+    }
+}
+
+/**
+ * Reorder site node keys so 'properties' appears before components.
+ * This ensures YAML anchors in properties.theme are defined before aliases.
+ * @param {Map} siteNode - YAML Map node for the site component
+ */
+function reorderSiteKeys(siteNode) {
+    if (!YAML.isMap(siteNode)) return;
+    const items = siteNode.items;
+    const propsIdx = items.findIndex(p =>
+        YAML.isPair(p) && YAML.isScalar(p.key) && p.key.value === 'properties'
+    );
+    if (propsIdx < 0) return;
+
+    // Find insert position: after 'name' and 'id', before everything else
+    let insertAfter = -1;
+    for (let i = 0; i < items.length; i++) {
+        if (YAML.isPair(items[i]) && YAML.isScalar(items[i].key)) {
+            const k = items[i].key.value;
+            if (k === 'name' || k === 'id') insertAfter = i;
+        }
+    }
+    const insertIdx = insertAfter + 1;
+    if (propsIdx > insertIdx) {
+        const [propsPair] = items.splice(propsIdx, 1);
+        items.splice(insertIdx, 0, propsPair);
     }
 }
 

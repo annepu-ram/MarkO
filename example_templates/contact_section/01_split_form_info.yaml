@@ -1,0 +1,243 @@
+# Split Contact Form with Info Cards Section
+# A two-column split-screen contact section with a form on one side containing textbox, textarea, and dropdown fields, and contact information cards with icons on the other side
+# Base components: layout-row, layout-column, form, textbox, textarea, dropdown, heading, paragraph, eyebrow, icon, button
+# Section type: contact
+# Layout: split_screen
+# Visual style: modern
+# Perfect for: consulting firm, law firm, dental clinic, real estate agency, digital agency, photography studio, architecture firm, accounting firm, tutoring center, wellness center
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#3b82f6'
+        background: &color-background '#f8fafc'
+  components:
+  - name: page
+    slug: home
+    title: "01 Split Form Info"
+    properties:
+      appearance: {background: {color: *color-background}}
+    components:
+
+        # ============================================
+        # SPLIT CONTACT SECTION
+        # ============================================
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          wrap: nowrap
+          gap: none
+          verticalAlign: stretch
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+      components:
+
+            # ── Left Column: Contact Form ──
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: start
+          appearance:
+            background:
+              color: '#ffffff'
+              transparency: 100
+            radius: lg
+            shadow: soft
+          spacing:
+            paddingBlock: lg
+            paddingInline: lg
+        components:
+        - name: eyebrow
+          properties:
+            text: GET IN TOUCH
+            typography: {size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+            spacing: {marginBlock: xs}
+
+        - name: heading
+          properties:
+            text: Contact Us
+            level: 2
+            typography: {size: xxl, weight: bold, color: *color-primary}
+            spacing: {marginBlock: sm}
+
+        - name: paragraph
+          properties:
+            text: Have a question or want to work together? Fill out the form below and we'll get back to you within 24 hours.
+            typography: {size: md, color: *color-secondary, lineHeight: '1.6'}
+            spacing: {marginBlock: sm}
+
+        - name: form
+          properties:
+            layout: {style: vertical}
+            submit: {show: false}
+          components:
+          - name: textbox
+            properties:
+              label:
+                text: Full Name
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: name
+                placeholder: "John Doe"
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: textbox
+            properties:
+              label:
+                text: Email Address
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: email
+                placeholder: "john@example.com"
+                validation: email
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: dropdown
+            properties:
+              label:
+                text: Subject
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: subject
+                placeholder: Choose a topic
+                options: "General\nSupport\nPartnership\nOther"
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: textarea
+            properties:
+              label:
+                text: Message
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: message
+                placeholder: "Tell us how we can help..."
+                rows: 5
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: button
+            properties:
+              text: Send Message
+              appearance:
+                background: {color: *color-accent, transparency: 100}
+                radius: md
+              typography: {color: '#ffffff', weight: semibold, size: md}
+              spacing: {marginBlock: sm, paddingBlock: sm, paddingInline: xl}
+
+            # ── Right Column: Contact Info Cards ──
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: center
+            gap: md
+          appearance:
+          spacing:
+            paddingBlock: lg
+            paddingInline: lg
+        components:
+
+                # Phone Card
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: start, widthMode: stretch}
+            appearance:
+              background: {color: '#ffffff', transparency: 100}
+              radius: lg
+              shadow: soft
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+          components:
+          - name: icon
+            properties: {name: phone, size: "40", color: *color-accent}
+          - name: heading
+            properties:
+              text: Phone
+              level: 4
+              typography: {size: md, weight: semibold, color: *color-primary}
+              spacing: {marginBlock: xs}
+          - name: paragraph
+            properties:
+              text: "+1 (555) 123-4567\nMon-Fri, 9am-6pm EST"
+              typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+
+                # Email Card
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: start, widthMode: stretch}
+            appearance:
+              background: {color: '#ffffff', transparency: 100}
+              radius: lg
+              shadow: soft
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+          components:
+          - name: icon
+            properties: {name: mail, size: "40", color: *color-accent}
+          - name: heading
+            properties:
+              text: Email
+              level: 4
+              typography: {size: md, weight: semibold, color: *color-primary}
+              spacing: {marginBlock: xs}
+          - name: paragraph
+            properties:
+              text: "hello@company.com\nWe reply within 24 hours"
+              typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+
+                # Address Card
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: start, widthMode: stretch}
+            appearance:
+              background: {color: '#ffffff', transparency: 100}
+              radius: lg
+              shadow: soft
+            spacing:
+              paddingBlock: lg
+              paddingInline: lg
+          components:
+          - name: icon
+            properties: {name: map-pin, size: "40", color: *color-accent}
+          - name: heading
+            properties:
+              text: Address
+              level: 4
+              typography: {size: md, weight: semibold, color: *color-primary}
+              spacing: {marginBlock: xs}
+          - name: paragraph
+            properties:
+              text: "123 Innovation Drive\nSan Francisco, CA 94107"
+              typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}

@@ -1,6 +1,10 @@
 # 08 - The Interactive Gallery
-# Tabs where each tab shows a different columnsgrid of images.
-# 3 tabs (Branding, Web, Mobile) with image grids.
+# Tabs where each tab shows a different columnsgrid of images. 3 tabs (Branding, Web, Mobile) with image grids.
+# Base components: page, layout-column, eyebrow, heading, paragraph, tabs, columnsgrid, image, caption
+# Section type: gallery
+# Layout: grid
+# Visual style: modern
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page
   properties:
@@ -10,6 +14,7 @@
         content: &font-content "'Inter', sans-serif"
       colors:
         primary: &color-primary '#18181b'
+        text: &color-text '#303032'
         secondary: &color-secondary '#52525b'
         accent: &color-accent '#ec4899'
         background: &color-background '#fafafa'

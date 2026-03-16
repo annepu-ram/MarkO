@@ -10,18 +10,18 @@
   properties:
     layout:
       orientation: horizontal
-    tabs:
-      - title: Tab 1
+  tabs:
+    - title: Tab 1
       components:
         - name: paragraph
           properties:
             text: This is the content for the first tab.
-      - title: Tab 2
+    - title: Tab 2
       components:
         - name: paragraph
           properties:
             text: This is the content for the second tab. It is a bit longer to see how it wraps.
-      - title: Tab 3
+    - title: Tab 3
       components:
         - name: paragraph
           properties:
@@ -38,15 +38,24 @@
   properties:
     behavior:
       allowMultipleOpen: false
-    items:
-      - title: Question 1?
-        content: This is the answer to the first question.
-      - title: Another Question?
-        content: |
-          This is a longer answer with a line break.
-          It demonstrates multi-line content support.
-      - title: Final Question?
-        content: This is the final answer in the accordion.
+  items:
+    - title: Question 1?
+      components:
+        - name: paragraph
+          properties:
+            text: This is the answer to the first question.
+    - title: Another Question?
+      components:
+        - name: paragraph
+          properties:
+            text: |
+              This is a longer answer with a line break.
+              It demonstrates multi-line content support.
+    - title: Final Question?
+      components:
+        - name: paragraph
+          properties:
+            text: This is the final answer in the accordion.
 
 - name: heading
   properties:
@@ -68,6 +77,7 @@
     text: This is some text after the break. The hamburger menu is below.
 
 - name: hamburger
+  properties:
     label: Main Menu
     links:
       - label: Home

@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="/static/css/tokens.css">
     <link rel="stylesheet" href="/static/css/components.css">
     <link rel="stylesheet" href="/static/css/preview-chrome.css">
-    <!-- Material Symbols Outlined loaded dynamically by preview_bridge.js (LOAD_ICON_FONT) -->
+    <!-- Lucide Icons (for icon component rendering) -->
+    <script src="/static/js/lucide.min.js"></script>
     <style>
         /* Reset and base styles for preview */
         * {
@@ -31,24 +32,8 @@
             background: #ffffff;
         }
 
-        /* No body padding - allows titlebar sticky positioning to work at viewport edge */
-
         #preview-content {
             min-height: 100vh;
-        }
-
-        /* Add padding to content that is NOT a titlebar or page component */
-        #preview-content > :not(.titlebar):not(.page) {
-            margin-left: 2rem;
-            margin-right: 2rem;
-        }
-
-        #preview-content > :first-child:not(.titlebar):not(.page) {
-            margin-top: 2rem;
-        }
-
-        #preview-content > :last-child:not(.page) {
-            margin-bottom: 2rem;
         }
 
         /* Page component - container for page content with sticky support */

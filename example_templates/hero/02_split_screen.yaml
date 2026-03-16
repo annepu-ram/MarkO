@@ -1,5 +1,9 @@
 # Split-Screen Hero
 # A modern 50/50 layout with content on one side and imagery on the other
+# Base components: page, layout-row, layout-column, paragraph, heading, textbox, button, image
+# Section type: hero
+# Layout: split_screen
+# Visual style: modern
 # Perfect for: SaaS products, apps, portfolios, startups
 
 - name: page
@@ -7,6 +11,7 @@
     theme:
       colors:
         primary: &color-primary "#111827"
+        text: &color-text "#2C3039"
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#6366f1"
         background: &color-background "#ffffff"
@@ -16,318 +21,303 @@
         transparency: 100
   components:
     # Split-Screen Hero Container
-    - name: layout-row
+  - name: layout-row
+    properties:
+      layout:
+        horizontalAlign: none
+        wrap: wrap
+        verticalAlign: stretch
+      spacing:
+        paddingBlock: none
+        paddingInline: none
+      background:
+        color: *color-background
+        transparency: 100
+    components:
+        # Left Side - Content
+    - name: layout-column
       properties:
         layout:
-          align: stretch
-          horizontalAlign: none
-          wrap: wrap
+          horizontalAlign: space-evenly
+          widthMode: "50"
         spacing:
-          paddingBlock: none
-          paddingInline: none
-        background:
-          color: *color-background
-          transparency: 100
+          paddingBlock: xxxl
+          paddingInline: xl
+        appearance:
+          background:
+            type: gradient
+            gradient:
+              colorStart: *color-background
+              colorEnd: *color-background
+              direction: to bottom
+            transparency: 100
       components:
-        # Left Side - Content
-        - name: layout-column
+            # Badge
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+            tag: section
+            verticalAlign: center
+            wrap: nowrap
+          spacing:
+            marginBlock: none
+            marginInline: none
+          appearance:
+            background:
+              type: solid
+              color: *color-background
+              transparency: 0
+            border:
+              width: 0
+              style: solid
+              color: *color-primary
+            radius: none
+            shadow: none
+            shadowColor: *color-primary
+        components:
+        - name: paragraph
           properties:
-            layout:
-              align: start
-              horizontalAlign: space-evenly
-              widthMode: "50"
+            text: "NEW"
+            typography:
+              color: *color-background
+              size: sm
+              weight: medium
+              transform: uppercase
+              align: left
+              lineHeight: '1'
+              letterSpacing: normal
             spacing:
-              paddingBlock: xxxl
-              paddingInline: xl
+              marginBlock: none
+              marginInline: none
+              paddingBlock: xxs
+              paddingInline: xs
+            appearance:
+              background:
+                color: *color-accent
+                transparency: 100
+                type: solid
+              radius: pill
+        - name: paragraph
+          properties:
+            text: "Version 3.0 just launched"
+            typography:
+              color: *color-secondary
+              size: sm
+              weight: medium
+              align: left
+              lineHeight: '1'
+              transform: none
+              letterSpacing: normal
+            spacing:
+              marginBlock: none
+              marginInline: none
+              paddingBlock: none
+              paddingInline: none
+            appearance:
+              background:
+                type: solid
+                color: *color-background
+                transparency: 0
+              radius: none
+      - name: heading
+        properties:
+          text: "Build products faster with AI-powered tools"
+          level: 1
+          typography:
+            color: *color-primary
+            size: xxl
+            weight: bold
+            lineHeight: '1.1'
+            align: center
+            transform: none
+            letterSpacing: normal
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: none
+            paddingInline: none
+          layout:
+            widthMode: stretch
+          appearance:
+            background:
+              type: solid
+              color: *color-background
+              transparency: 0
+            radius: none
+      - name: paragraph
+        properties:
+          text: |
+            Transform your workflow with intelligent automation. Our platform helps teams
+            ship 10x faster without compromising quality. Join 50,000+ developers already
+            building the future.
+          typography:
+            color: *color-secondary
+            size: md
+            lineHeight: '1.7'
+          spacing:
+            marginBlock: sm
+
+            # Email Signup Form
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+            wrap: wrap
+            verticalAlign: center
+          spacing:
+            marginBlock: md
+        components:
+        - name: textbox
+          properties:
+            label:
+              show: false
+            field:
+              placeholder: "Enter your email"
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+              border:
+                width: 1
+                style: solid
+                color: *color-secondary
+              radius: md
+              shadow: soft
+            spacing:
+              paddingBlock: sm
+              paddingInline: md
+        - name: button
+          properties:
+            text: "Get Started Free"
             appearance:
               background:
                 type: gradient
                 gradient:
-                  colorStart: *color-background
-                  colorEnd: *color-background
-                  direction: to bottom
-                transparency: 100
-          components:
-            # Badge
-            - name: layout-row
-              properties:
-                layout:
-                  align: start
-                  horizontalAlign: space-evenly
-                  tag: section
-                  verticalAlign: stretch
-                  wrap: wrap
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-                appearance:
-                  padding:
-                    block: sm
-                    inline: sm
-                  background:
-                    type: solid
-                    color: *color-background
-                    transparency: 0
-                  border:
-                    width: 0
-                    style: solid
-                    color: *color-primary
-                  radius: none
-                  shadow: none
-                  shadowColor: *color-primary
-              components:
-                - name: paragraph
-                  properties:
-                    text: "NEW"
-                    typography:
-                      color: *color-background
-                      size: sm
-                      weight: medium
-                      transform: uppercase
-                      align: left
-                      lineHeight: "1.6"
-                      letterSpacing: normal
-                    spacing:
-                      marginBlock: none
-                      marginInline: none
-                    appearance:
-                      background:
-                        color: *color-accent
-                        transparency: 100
-                        type: solid
-                      radius: pill
-                      padding:
-                        block: xxs
-                        inline: xs
-                - name: paragraph
-                  properties:
-                    text: "Version 3.0 just launched"
-                    typography:
-                      color: *color-secondary
-                      size: sm
-                      weight: medium
-                      align: left
-                      lineHeight: "1.6"
-                      transform: none
-                      letterSpacing: normal
-                    spacing:
-                      marginBlock: none
-                      marginInline: none
-                    appearance:
-                      background:
-                        type: solid
-                        color: *color-background
-                        transparency: 0
-                      radius: none
-                      padding:
-                        block: none
-                        inline: none
-
-            # Main Headline
-            - name: heading
-              properties:
-                text: "Build products faster with AI-powered tools"
-                level: 1
-                typography:
-                  color: *color-primary
-                  size: xxl
-                  weight: bold
-                  lineHeight: '1.1'
-                  align: center
-                  transform: none
-                  letterSpacing: normal
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-                layout:
-                  widthMode: stretch
-                appearance:
-                  background:
-                    type: solid
-                    color: *color-background
-                    transparency: 0
-                  radius: none
-                  padding:
-                    block: none
-                    inline: none
-
-            # Description
-            - name: paragraph
-              properties:
-                text: |
-                  Transform your workflow with intelligent automation. Our platform helps teams
-                  ship 10x faster without compromising quality. Join 50,000+ developers already
-                  building the future.
-                typography:
-                  color: *color-secondary
-                  size: md
-                  lineHeight: '1.7'
-                spacing:
-                  marginBlock: sm
-
-            # Email Signup Form
-            - name: layout-row
-              properties:
-                layout:
-                  align: center
-                  horizontalAlign: space-evenly
-                  wrap: wrap
-                spacing:
-                  marginBlock: md
-              components:
-                - name: textbox
-                  properties:
-                    label:
-                      show: false
-                    field:
-                      placeholder: "Enter your email"
-                    appearance:
-                      background:
-                        color: *color-background
-                        transparency: 100
-                      border:
-                        width: 1
-                        style: solid
-                        color: *color-secondary
-                      radius: md
-                      shadow: soft
-                      padding:
-                        block: sm
-                        inline: md
-                - name: button
-                  properties:
-                    text: "Get Started Free"
-                    appearance:
-                      background:
-                        type: gradient
-                        gradient:
-                          colorStart: *color-primary
-                          colorEnd: *color-primary
-                          direction: to right
-                      border:
-                        width: 0
-                        style: solid
-                        color: transparent
-                      padding:
-                        block: sm
-                        inline: lg
-                      shadow: elevated
-                      shadowColor: *color-accent
-                    typography:
-                      color: *color-background
-                      weight: semibold
-                      size: sm
-                    spacing:
-                      marginBlock: none
-
-            # Trust Indicators
-            - name: paragraph
-              properties:
-                text: "No credit card required  •  14-day free trial  •  Cancel anytime"
-                typography:
-                  color: *color-secondary
-                  size: xs
-                spacing:
-                  marginBlock: sm
-
-            # Social Proof - Logos
-            - name: layout-column
-              properties:
-                layout:
-                  align: start
-                  horizontalAlign: center
-                  tag: section
-                  verticalAlign: top
-                  wrap: nowrap
-                  gap: none
-                  widthMode: stretch
-                spacing:
-                  marginBlock: none
-                  marginInline: none
-                appearance:
-                  padding:
-                    block: sm
-                    inline: sm
-                  background:
-                    type: solid
-                    color: *color-background
-                    transparency: 0
-                  border:
-                    width: 0
-                    style: solid
-                    color: *color-primary
-                  radius: none
-                  shadow: none
-                  shadowColor: *color-primary
-              components:
-                - name: paragraph
-                  properties:
-                    text: "Trusted by teams at"
-                    typography:
-                      color: *color-secondary
-                      size: xs
-                      weight: medium
-                      transform: uppercase
-                      letterSpacing: wide
-                    spacing:
-                      marginBlock: none
-                - name: layout-row
-                  properties:
-                    layout:
-                      align: center
-                      horizontalAlign: space-evenly
-                      wrap: wrap
-                  components:
-                    - name: paragraph
-                      properties:
-                        text: "STRIPE"
-                        typography:
-                          color: *color-secondary
-                          size: md
-                          weight: bold
-                        spacing:
-                          marginBlock: none
-                    - name: paragraph
-                      properties:
-                        text: "NOTION"
-                        typography:
-                          color: *color-secondary
-                          size: md
-                          weight: bold
-                        spacing:
-                          marginBlock: none
-                    - name: paragraph
-                      properties:
-                        text: "FIGMA"
-                        typography:
-                          color: *color-secondary
-                          size: md
-                          weight: bold
-                        spacing:
-                          marginBlock: none
-                    - name: paragraph
-                      properties:
-                        text: "LINEAR"
-                        typography:
-                          color: *color-secondary
-                          size: md
-                          weight: bold
-                        spacing:
-                          marginBlock: none
-
-        # Right Side - Image
-        - name: image
-          properties:
-            source:
-              url: https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1200
-              altText: Team collaborating on a project
-            appearance:
-              minHeight: 43.75
-              fit: cover
-              cornerStyle: none
-              hoverEffect: zoom
-            layout:
-              widthMode: "50"
+                  colorStart: *color-primary
+                  colorEnd: *color-primary
+                  direction: to right
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              shadow: elevated
+              shadowColor: *color-accent
+            typography:
+              color: *color-background
+              weight: semibold
+              size: sm
             spacing:
               marginBlock: none
-              marginInline: none
+
+            # Trust Indicators
+              paddingBlock: sm
+              paddingInline: lg
+      - name: paragraph
+        properties:
+          text: "No credit card required  •  14-day free trial  •  Cancel anytime"
+          typography:
+            color: *color-secondary
+            size: xs
+          spacing:
+            marginBlock: sm
+
+            # Social Proof - Logos
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: center
+            tag: section
+            verticalAlign: top
+            wrap: nowrap
+            gap: none
+            widthMode: stretch
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: sm
+            paddingInline: sm
+          appearance:
+            background:
+              type: solid
+              color: *color-background
+              transparency: 0
+            border:
+              width: 0
+              style: solid
+              color: *color-primary
+            radius: none
+            shadow: none
+            shadowColor: *color-primary
+        components:
+        - name: paragraph
+          properties:
+            text: "Trusted by teams at"
+            typography:
+              color: *color-secondary
+              size: xs
+              weight: medium
+              transform: uppercase
+              letterSpacing: wide
+            spacing:
+              marginBlock: none
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+              verticalAlign: center
+          components:
+          - name: paragraph
+            properties:
+              text: "STRIPE"
+              typography:
+                color: *color-secondary
+                size: md
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "NOTION"
+              typography:
+                color: *color-secondary
+                size: md
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "FIGMA"
+              typography:
+                color: *color-secondary
+                size: md
+                weight: bold
+              spacing:
+                marginBlock: none
+          - name: paragraph
+            properties:
+              text: "LINEAR"
+              typography:
+                color: *color-secondary
+                size: md
+                weight: bold
+              spacing:
+                marginBlock: none
+
+        # Right Side - Image
+    - name: image
+      properties:
+        source:
+          url: https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1200
+          altText: Team collaborating on a project
+        appearance:
+          minHeight: 43.75
+          fit: cover
+          cornerStyle: none
+          hoverEffect: zoom
+        layout:
+          widthMode: "50"
+        spacing:
+          marginBlock: none
+          marginInline: none

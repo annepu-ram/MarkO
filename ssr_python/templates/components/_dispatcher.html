@@ -9,7 +9,9 @@
     {% endif %}
 
     {# Route to the correct macro based on component name #}
-    {% if name == 'page' %}
+    {% if name == 'site' %}
+        {{ render_site(component, tokens, path, component_id) }}
+    {% elif name == 'page' %}
         {{ render_page(component, tokens, path, component_id) }}
     {% elif name == 'layout-row' %}
         {{ render_layout_row(component, tokens, path, component_id, parent_direction) }}
@@ -20,9 +22,9 @@
     {% elif name == 'form' %}
         {{ render_form(component, tokens, path, component_id) }}
     {% elif name == 'tabs' %}
-        {{ render_tabs(component, tokens, path, component_id) }}
+        {{ render_tabs(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'accordion' %}
-        {{ render_accordion(component, tokens, path, component_id) }}
+        {{ render_accordion(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'hamburger' %}
         {{ render_hamburger(component, tokens, path, component_id) }}
     {% elif name == 'br' %}
@@ -43,6 +45,8 @@
         {{ render_carousel(component, tokens, path, component_id) }}
     {% elif name == 'ticker' %}
         {{ render_ticker(component, tokens, path, component_id) }}
+    {% elif name == 'panorama-display' %}
+        {{ render_panorama_display(component, tokens, path, component_id) }}
     {% elif name == 'video-background' %}
         {{ render_video_background(component, tokens, path, component_id, parent_direction) }}
     {% elif name == 'textbox' %}
@@ -70,7 +74,7 @@
     {% elif name == 'countdown' %}
         {{ render_countdown(component, tokens, path, component_id) }}
     {% else %}
-        <div style="border: 1px solid red; padding: 8px; margin: 8px;" class="chrome-target" data-component-id="{{ component_id }}">
+        <div style="border: 1px solid red; padding: 8px; margin: 8px;" class="chrome-target" data-component-id="{{ component_id }}" data-component-name="{{ name }}">
             <strong>Warning:</strong> Component '{{ name }}' is not implemented in the SSR renderer.
         </div>
     {% endif %}

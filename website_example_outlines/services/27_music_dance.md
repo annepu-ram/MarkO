@@ -36,40 +36,43 @@
 2. **layout-row (Hero)**
    Image (music performance or teaching), heading ("Discover the Music Within You") + paragraph (all ages, all levels, multiple instruments) + button ("Explore Courses").
 
-3. **ticker (Instruments & Courses)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **ticker (Instruments & Courses)**
    Scrolling: icon + caption — Piano, Guitar, Violin, Drums, Vocal, Flute, Tabla, Keyboard, Music Theory, Music Production.
 
-4. **columnsgrid (Courses — 3 columns)**
+5. **columnsgrid (Courses — 3 columns)**
    Each: image + heading + caption (age group, level) + button. Keyboard/Piano, Guitar, Vocal Training, Drums, Violin, Music Production.
 
-5. **tabs (By Level)**
+6. **tabs (By Level)**
    Tabs: Beginner, Intermediate, Advanced, Professional/Exam Prep. Each: paragraph (curriculum) + schedule + pricing.
 
-6. **layout-row (Our Faculty)**
+7. **layout-row (Our Faculty)**
    columnsgrid: image + heading (name) + caption (instrument, qualifications — Trinity, ABRSM grades) + paragraph.
 
-7. **carousel (Student Performances)**
+8. **carousel (Student Performances)**
    Video thumbnails or performance photos + caption (student, event).
 
-8. **layout-row (Exam & Certification)**
+9. **layout-row (Exam & Certification)**
    heading + paragraph (Trinity, ABRSM, university exam prep) + badge ("Authorized Exam Center") + button.
 
-9. **counter-up (Academy Numbers)**
+10. **counter-up (Academy Numbers)**
    "2,000+ Students Trained", "50+ Concerts Organized", "Trinity/ABRSM Certified", "15+ Expert Teachers".
 
-10. **layout-row (Practice Rooms & Facilities)**
+11. **layout-row (Practice Rooms & Facilities)**
     carousel: soundproofed rooms, instruments, recording studio + paragraph.
 
-11. **carousel (Parent & Student Reviews)**
+12. **carousel (Parent & Student Reviews)**
     blockquote + rating + caption.
 
-12. **accordion (FAQs)**
+13. **accordion (FAQs)**
     Instrument rental, missed class policy, age requirements, online classes, performance opportunities.
 
-13. **form (Enrollment / Trial Class)**
+14. **form (Enrollment / Trial Class)**
     textbox (student name), textbox (parent name if minor), textbox (phone), dropdown (instrument/course), dropdown (experience level), dropdown (preferred schedule), button ("Book Trial Class").
 
-14. **layout-row (Footer)**
+15. **layout-row (Footer)**
     Address, phone, email, hours, social media (YouTube prominent), exam board affiliations.
 
 ---
@@ -84,40 +87,43 @@
 2. **video-background (Hero)**
    Dance performance footage (energetic montage), overlay: heading ("Move Your Body, Free Your Soul") + paragraph + button ("Explore Dance Styles").
 
-3. **columnsgrid (Dance Styles — 4 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Dance Styles — 4 columns)**
    Each: image + heading + caption. Bharatanatyam, Contemporary, Hip Hop, Bollywood, Salsa, Ballet, Jazz, Folk.
 
-4. **tabs (Classes by Age)**
+5. **tabs (Classes by Age)**
    Tabs: Kids (4-8), Juniors (9-14), Teens & Adults, Senior Citizens. Each: available styles + schedule + pricing.
 
-5. **layout-row (Our Choreographers)**
+6. **layout-row (Our Choreographers)**
    columnsgrid: image + heading + caption (dance style, achievements: "Performed at [venue]", "Trained under [master]").
 
-6. **carousel (Performance Gallery)**
+7. **carousel (Performance Gallery)**
    Stage performances, competitions, annual shows — photos and video thumbnails.
 
-7. **layout-row (Annual Showcase)**
+8. **layout-row (Annual Showcase)**
    heading + paragraph (annual dance production, student performances) + image + countdown ("Next Show In:") + button ("Book Tickets").
 
-8. **counter-up (Academy Highlights)**
+9. **counter-up (Academy Highlights)**
    "3,000+ Students", "20+ Dance Styles", "50+ Stage Shows", "National Competition Winners".
 
-9. **layout-row (Studio Facilities)**
+10. **layout-row (Studio Facilities)**
    carousel of studio images (mirrors, sprung floor, sound system, changing rooms) + paragraph.
 
-10. **layout-row (Competition Team)**
+11. **layout-row (Competition Team)**
     heading + paragraph (competitive training, achievements) + image + badge ("National Champions 2025").
 
-11. **carousel (Student & Parent Reviews)**
+12. **carousel (Student & Parent Reviews)**
     blockquote + rating + caption.
 
-12. **layout-row (Pricing)**
+13. **layout-row (Pricing)**
     columnsgrid: Drop-In / Monthly / Quarterly / Annual. Each: heading + counter-up + button.
 
-13. **form (Enrollment / Free Demo)**
+14. **form (Enrollment / Free Demo)**
     textbox (name), textbox (phone), dropdown (dance style interest), dropdown (age group), dropdown (experience), button ("Book Free Demo").
 
-14. **layout-row (Footer)**
+15. **layout-row (Footer)**
     Address, phone, schedule, social media (Instagram/YouTube prominent), performance calendar link.
 
 ---
@@ -132,35 +138,38 @@
 2. **layout-row (Hero)**
    Dark image (DJ setup / studio), heading ("Create Music That Moves the World") + paragraph + button ("View Courses").
 
-3. **columnsgrid (Courses — 3 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Courses — 3 columns)**
    Each: image + heading + paragraph + counter-up (fee). DJ Fundamentals, Music Production (Ableton/FL Studio), Sound Engineering, Beat Making, Live Performance, Mixing & Mastering.
 
-4. **tabs (Course Levels)**
+5. **tabs (Course Levels)**
    Tabs: Beginner (3 months), Intermediate (6 months), Professional (1 year), Weekend Workshop. Each: curriculum outline + schedule + pricing.
 
-5. **layout-row (Our Studio)**
+6. **layout-row (Our Studio)**
    carousel: equipment, consoles, speakers, recording booth + heading + paragraph (industry-standard equipment list).
 
-6. **layout-row (Instructors)**
+7. **layout-row (Instructors)**
    columnsgrid: image + heading + caption (DJ name, genre, gigs played) + paragraph.
 
-7. **counter-up (School Stats)**
+8. **counter-up (School Stats)**
    "500+ Producers Trained", "Industry-Standard Equipment", "Placement Assistance", "50+ Live Events".
 
-8. **carousel (Student Tracks / Performances)**
+9. **carousel (Student Tracks / Performances)**
    Audio player widgets or event photos + student name + track/event name.
 
-9. **layout-row (Placement & Opportunities)**
+10. **layout-row (Placement & Opportunities)**
    heading + paragraph (club gigs, event management connections, record label introductions) + ticker of partner venues/labels.
 
-10. **carousel (Student Reviews)**
+11. **carousel (Student Reviews)**
     blockquote + rating + caption.
 
-11. **accordion (FAQs)**
+12. **accordion (FAQs)**
     Equipment needed, software included, age limit, career prospects, certification.
 
-12. **form (Enrollment)**
+13. **form (Enrollment)**
     textbox (name), textbox (phone), textbox (email), dropdown (course), dropdown (experience level), textarea (music background/goals), button.
 
-13. **layout-row (Footer)**
+14. **layout-row (Footer)**
     Address, phone, email, SoundCloud, Instagram, YouTube, event calendar link.

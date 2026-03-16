@@ -1,0 +1,63 @@
+# Cookie Consent Privacy Notice Banner - Bottom Page Notification
+# A compact, bottom-anchored privacy notice banner with a brief cookie usage explanation paragraph and two side-by-side action buttons (Accept and Decline), using subtle muted styling and small text for unobtrusive legal compliance
+# Base components: layout-row, layout-column, paragraph, button, icon
+# Section type: banner
+# Layout: centered
+# Visual style: minimal
+# Perfect for: online store, SaaS platform, fashion brand, tech startup, restaurant, event venue, hotel, university website
+
+- name: site
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#2563eb'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+  components:
+    - name: page
+      slug: home
+      title: "Cookie Notice"
+      properties:
+        appearance: { background: { color: *color-background } }
+      components:
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, verticalAlign: center, wrap: nowrap }
+            appearance: { background: { color: '#f1f5f9', transparency: 100 }, border: { width: "1px", color: '#e2e8f0' }, radius: md }
+            spacing: { paddingBlock: sm, paddingInline: lg }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: 'stretch', horizontalAlign: left, direction: row, verticalAlign: center }
+                spacing: { gap: sm }
+              components:
+                - name: icon
+                  properties:
+                    icon: lock
+                    appearance: { color: *color-secondary, size: sm }
+                - name: paragraph
+                  properties:
+                    text: "We use cookies to improve your experience on our site. By continuing to browse, you agree to our use of cookies."
+                    typography: { size: sm, color: *color-secondary }
+
+            - name: layout-column
+              properties:
+                layout: { widthMode: 'fit', horizontalAlign: right, direction: row }
+                spacing: { gap: sm }
+              components:
+                - name: button
+                  properties:
+                    text: "Decline"
+                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: md }
+                    typography: { color: *color-secondary, weight: medium, size: sm }
+                    border: { width: "1px", color: '#cbd5e1' }
+                - name: button
+                  properties:
+                    text: "Accept All"
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: '#ffffff', weight: semibold, size: sm }

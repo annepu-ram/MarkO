@@ -36,34 +36,37 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Your Trusted Neighborhood Pharmacy") + paragraph (genuine medicines, free delivery, pharmacist consultation) + two buttons ("Upload Prescription", "Shop OTC"). Right: image (pharmacist / store).
 
-3. **counter-up (Trust Stats)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **counter-up (Trust Stats)**
    "50,000+ Prescriptions Filled", "Licensed Pharmacist On-Site", "Free Home Delivery", "4.9 Rating".
 
-4. **columnsgrid (Product Categories — 4 columns)**
+5. **columnsgrid (Product Categories — 4 columns)**
    Each: icon + heading + link. Prescription Medicines, OTC Medicines, Health Supplements, Personal Care, Baby Care, Medical Devices, Ayurvedic/Herbal, First Aid.
 
-5. **layout-row (Prescription Upload)**
+6. **layout-row (Prescription Upload)**
    heading + paragraph (how it works: upload, we prepare, deliver/pickup) + button ("Upload Prescription") + caption ("We call to confirm within 15 minutes").
 
-6. **tabs (Services)**
+7. **tabs (Services)**
    Tabs: Medicine Delivery, Health Checkup Packages, Blood Pressure Monitoring, Sugar Testing, Medicine Reminders. Each: paragraph + button.
 
-7. **layout-row (Why Choose Us)**
+8. **layout-row (Why Choose Us)**
    columnsgrid (4 cols): icon + caption. 100% Genuine Medicines, Licensed Pharmacist, Competitive Prices, Fast Delivery, Drug Interaction Check, Insurance Bills.
 
-8. **accordion (Health Information)**
+9. **accordion (Health Information)**
    Items: Common medicine interactions, Seasonal health tips, Diabetes management, First aid basics.
 
-9. **carousel (Customer Reviews)**
+10. **carousel (Customer Reviews)**
    rating + blockquote + caption.
 
-10. **layout-row (Delivery Areas & Timing)**
+11. **layout-row (Delivery Areas & Timing)**
     heading + paragraph + columnsgrid of area badges + caption ("Free delivery on orders above ₹500").
 
-11. **form (Quick Order / Enquiry)**
+12. **form (Quick Order / Enquiry)**
     textbox (name), textbox (phone), textbox (address), textarea (medicine list / upload prescription), checkbox (need pharmacist callback), button.
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Address, phone (24/7 if applicable), hours, drug license number, pharmacist registration, WhatsApp order link.
 
 ---
@@ -78,34 +81,37 @@
 2. **layout-row (Hero)**
    Image (medicine delivery), heading ("Medicines Delivered to Your Door — Up to 25% Off") + paragraph + form inline: textbox (search medicine) + button ("Search").
 
-3. **ticker (Offers)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **ticker (Offers)**
    Scrolling: "Flat 20% Off on First Order", "Free Delivery Above ₹499", "Extra 5% on Prepaid", badges.
 
-4. **columnsgrid (Categories — 4 columns)**
+5. **columnsgrid (Categories — 4 columns)**
    Each: icon + heading + link. Prescription, OTC, Vitamins, Personal Care, Baby & Mom, Ayurvedic, Devices, Wellness.
 
-5. **layout-row (How to Order)**
+6. **layout-row (How to Order)**
    3-step: icon + heading + paragraph. "Search or Upload Rx" → "Add to Cart & Pay" → "Delivered in 24-48 hrs".
 
-6. **tabs (Popular Categories)**
+7. **tabs (Popular Categories)**
    Tab per category with product cards: image + heading + caption (price, discount) + button ("Add to Cart").
 
-7. **counter-up (Platform Scale)**
+8. **counter-up (Platform Scale)**
    "1 Million+ Orders", "50,000+ Products", "Pan-India Delivery", "Licensed Pharmacists".
 
-8. **layout-row (Lab Tests at Home)**
+9. **layout-row (Lab Tests at Home)**
    heading + paragraph (home sample collection) + columnsgrid of popular tests + button ("Book a Test").
 
-9. **layout-row (Doctor Consultation)**
+10. **layout-row (Doctor Consultation)**
    heading + paragraph (video consultation) + columnsgrid of specialties + button ("Consult Now").
 
-10. **carousel (Customer Reviews)**
+11. **carousel (Customer Reviews)**
     rating + blockquote + caption.
 
-11. **layout-row (Download App)**
+12. **layout-row (Download App)**
     Phone mockup image + heading + paragraph + two buttons (App Store, Play Store).
 
-12. **layout-row (Footer)**
+13. **layout-row (Footer)**
     Quick links, legal (drug license, FSSAI), contact, social, payment methods, return policy.
 
 ---
@@ -120,29 +126,32 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Quality Medical Equipment for Home & Hospital") + paragraph + button ("Browse Products"). Right: image (medical equipment display).
 
-3. **columnsgrid (Product Categories — 4 columns)**
+3. **br (divider)**
+   Visual separator between hero and content sections.
+
+4. **columnsgrid (Product Categories — 4 columns)**
    Each: image + heading + caption. Wheelchairs & Mobility, Oxygen Concentrators, Hospital Beds, BP Monitors, Glucometers, Nebulizers, Orthopedic Aids, Patient Care Kits.
 
-4. **tabs (Shop by Need)**
+5. **tabs (Shop by Need)**
    Tabs: Home Healthcare, Hospital Equipment, Diagnostic Devices, Elderly Care, Post-Surgery Recovery. Each: product grid.
 
-5. **layout-row (Rental Services)**
+6. **layout-row (Rental Services)**
    heading + paragraph (rent wheelchairs, hospital beds, oxygen equipment) + columnsgrid of rental items + button ("View Rental Plans").
 
-6. **layout-row (For Hospitals & Clinics)**
+7. **layout-row (For Hospitals & Clinics)**
    heading + paragraph (bulk supply, annual maintenance contracts) + counter-up ("200+ Hospital Partners") + button ("Hospital Enquiry").
 
-7. **counter-up (Store Trust)**
+8. **counter-up (Store Trust)**
    "10,000+ Products Sold", "All Brands Available", "AMC Available", "Expert Guidance".
 
-8. **accordion (Buying Guide)**
+9. **accordion (Buying Guide)**
    Items: How to choose a wheelchair, Oxygen concentrator guide, Home hospital bed setup, Insurance coverage for equipment.
 
-9. **carousel (Customer Reviews)**
+10. **carousel (Customer Reviews)**
    rating + blockquote + caption.
 
-10. **form (Product Enquiry / Quote)**
+11. **form (Product Enquiry / Quote)**
     textbox (name), textbox (phone), dropdown (need: Purchase / Rental / Hospital Bulk), dropdown (product category), textarea (specific requirements), button.
 
-11. **layout-row (Footer)**
+12. **layout-row (Footer)**
     Address, phone, delivery info, service center, drug license (if applicable), brands stocked.

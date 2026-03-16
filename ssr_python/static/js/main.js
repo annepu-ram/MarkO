@@ -1,17 +1,19 @@
 import { initializeEvents } from './events.js';
-import { renderPreview, extractIconNames } from './ssr_app.js';
+import { renderPreview, getPathMapBuilder } from './ssr_app.js';
 import { SelectionManager } from './selectionManager.js';
 import { loadMetadata, getComponentDefaults } from './metadataLoader.js';
 import { renderPropertiesPanel, clearPropertiesPanel, collectPropertyValues, getActiveComponentInfo } from './propertiesPanel.js';
-import { getYamlStructureFromEditor, getYamlDocumentFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, generateYamlFromDocument, updateYamlEditor, updateComponentPropertiesInDocument, navigateToComponent, replacePropertiesWithAliases } from './yamlUtils.js';
+import { getYamlStructureFromEditor, getYamlDocumentFromEditor, getComponentByPath, updateComponentByPath, generateYamlFromStructure, generateYamlFromDocument, updateYamlEditor, updateComponentPropertiesInDocument, navigateToComponent, replacePropertiesWithAliases, deleteComponentInDocument, insertComponentInDocument, moveComponentInDocument, getChildrenKey } from './yamlUtils.js';
 import { historyManager } from './historyManager.js';
 import { loadSvgSprite } from './sprite.js';
 import { deepMerge } from './utils/object.js';
-import { initComponentTree, buildTreeFromStructure, renderTree, highlightTreeItem, clearTreeSelection } from './componentTree.js';
+import { initComponentTree, buildTreeFromStructure, renderTree, highlightTreeItem, clearTreeSelection, initTreeActions, showComponentPicker, getClipboard, setClipboard } from './componentTree.js';
 import { debounce } from './utils/timing.js';
-import { yamlStorage } from './yamlStorage.js';
 import { renderThemesPanel, applyTheme } from './themesPanel.js';
 import { renderImagesPanel } from './imagesPanel.js';
+import { renderSettingsPanel } from './settingsPanel.js';
+import { getPageFromStructure, renderPagesPanel, addPage } from './pageManager.js';
+import { autosave, saveNow, loadSite, loadPage, listPages, createPage, deletePage, setCurrentSite, setCurrentPage, getSiteSettings } from './siteManager.js';
 
 // Create singleton selection manager instance
 export const selectionManager = new SelectionManager();
@@ -83,12 +85,13 @@ function updateHistoryButtons() {
  * Build a self-contained HTML page from rendered component HTML.
  * Fetches and inlines CSS, JS, and SVG sprite so the result works standalone.
  */
-async function buildStandaloneHtml(renderedHtml, iconNames = []) {
-    const [tokensCss, componentsCss, runtimeJs, spriteSvg] = await Promise.all([
+async function buildStandaloneHtml(renderedHtml, pageTitle = 'Swift Sites Export', seoMeta = {}) {
+    const [tokensCss, componentsCss, runtimeJs, spriteSvg, lucideJs] = await Promise.all([
         fetch('/static/css/tokens.css').then(r => r.text()),
         fetch('/static/css/components.css').then(r => r.text()),
         fetch('/static/js/swift-sites-runtime.js').then(r => r.text()),
         fetch('/static/icon-sprite.svg').then(r => r.text()),
+        fetch('/static/js/lucide.min.js').then(r => r.text()),
     ]);
 
     const baseStyles = `* { box-sizing: border-box; }
@@ -98,9 +101,31 @@ body { margin:0; padding:0; min-height:100%; font-family:-apple-system,BlinkMacS
 .page { min-height:100vh; position:relative; }
 .page > .titlebar { position:sticky; top:0; z-index:100; }`;
 
-    // Build optimized Material Symbols font link (only icons used in YAML)
-    const iconFontLink = iconNames.length > 0
-        ? `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,0&icon_names=${iconNames.join(',')}" />`
+    // Escape </script> in Lucide JS content
+    const safeLucideJs = lucideJs.replace(/<\/script>/gi, '<\\/script>');
+
+    // Build SEO meta tags from settings
+    const esc = s => s ? s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';
+    let seoTags = '';
+    if (seoMeta.metaDescription) {
+        seoTags += `\n    <meta name="description" content="${esc(seoMeta.metaDescription)}">`;
+    }
+    if (seoMeta.ogTitle || pageTitle) {
+        seoTags += `\n    <meta property="og:title" content="${esc(seoMeta.ogTitle || pageTitle)}">`;
+        seoTags += `\n    <meta property="og:type" content="website">`;
+    }
+    if (seoMeta.metaDescription) {
+        seoTags += `\n    <meta property="og:description" content="${esc(seoMeta.metaDescription)}">`;
+    }
+    if (seoMeta.ogImage) {
+        seoTags += `\n    <meta property="og:image" content="${esc(seoMeta.ogImage)}">`;
+    }
+    if (seoMeta.twitterHandle) {
+        seoTags += `\n    <meta name="twitter:card" content="summary_large_image">`;
+        seoTags += `\n    <meta name="twitter:site" content="${esc(seoMeta.twitterHandle)}">`;
+    }
+    const faviconLink = seoMeta.faviconUrl
+        ? `\n    <link rel="icon" href="${esc(seoMeta.faviconUrl)}">`
         : '';
 
     // Escape </script> inside JS content so it doesn't break the HTML parser
@@ -111,15 +136,16 @@ body { margin:0; padding:0; min-height:100%; font-family:-apple-system,BlinkMacS
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swift Sites Export</title>
-    ${iconFontLink}
+    <title>${pageTitle}</title>${faviconLink}${seoTags}
     <style>${baseStyles}</style>
     <style>${tokensCss}</style>
     <style>${componentsCss}</style>
+
 </head>
 <body>
     <div id="svgSpriteRoot" hidden>${spriteSvg}</div>
     <div id="preview-content">${renderedHtml}</div>
+    <script>${safeLucideJs}<\/script>
     <script>${safeJs}<\/script>
 </body>
 </html>`;
@@ -133,6 +159,135 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.renderThemesPanel = renderThemesPanel;
     window.applyTheme = applyTheme;
     window.renderImagesPanel = renderImagesPanel;
+    window.renderSettingsPanel = renderSettingsPanel;
+
+    // Page management state (API-backed when SITE_ID is present)
+    let _sitePages = [];
+    let _activePageIndex = 0;
+
+    window.renderPagesPanel = async () => {
+        const container = document.getElementById('pagesContent');
+        const footer = document.getElementById('pagesFooter');
+
+        if (window.SITE_ID) {
+            // API-backed: fetch page list from server
+            try {
+                _sitePages = await listPages(window.SITE_ID);
+            } catch (err) {
+                console.error('[Main] Failed to load pages list:', err);
+                _sitePages = [];
+            }
+
+            renderPagesPanel(container, footer, {
+                onPageSwitch: async (index, page) => {
+                    if (index === _activePageIndex) return;
+                    console.log('[Main] Switching to page:', page.title, page.id);
+
+                    // Save current page first
+                    if (dom.editor.value.trim()) {
+                        await saveNow(dom.editor.value);
+                    }
+
+                    // Load new page YAML from API
+                    try {
+                        const pageData = await loadPage(page.id, window.SITE_ID);
+                        if (pageData.yaml_content) {
+                            _activePageIndex = index;
+                            dom.editor.value = pageData.yaml_content;
+                            updateLineNumbers(dom.editor, dom.lineNumbers);
+
+                            // Reset history for new page context
+                            historyManager.clear();
+                            historyManager.push(pageData.yaml_content);
+                            updateHistoryButtons();
+
+                            // Re-render preview and tree
+                            await renderPreview(pageData.yaml_content);
+                            updateComponentTree();
+
+                            // Clear selection
+                            selectionManager.clearSelection();
+                            clearPropertiesPanel();
+                            clearTreeSelection();
+                        }
+                    } catch (err) {
+                        console.error('[Main] Failed to load page:', err);
+                    }
+                },
+                onAddPage: async () => {
+                    const title = prompt('Page title:');
+                    if (!title) return;
+                    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    if (!slug) return;
+
+                    try {
+                        await createPage(title, slug, window.SITE_ID);
+                        // Refresh pages panel with new list
+                        await window.renderPagesPanel();
+                    } catch (err) {
+                        alert('Failed to create page: ' + err.message);
+                    }
+                },
+                onDeletePage: async (index, page) => {
+                    if (!confirm(`Delete "${page.title}"? This cannot be undone.`)) return;
+                    try {
+                        await deletePage(page.id, window.SITE_ID);
+
+                        // If we deleted the active page, switch to the first remaining page
+                        if (index === _activePageIndex) {
+                            _activePageIndex = 0;
+                        } else if (index < _activePageIndex) {
+                            _activePageIndex--;
+                        }
+
+                        // Refresh pages panel
+                        await window.renderPagesPanel();
+
+                        // If the deleted page was active, load the new active page
+                        if (index === _activePageIndex || _sitePages.length > 0) {
+                            const newActivePage = _sitePages[_activePageIndex];
+                            if (newActivePage) {
+                                const pageData = await loadPage(newActivePage.id, window.SITE_ID);
+                                if (pageData.yaml_content) {
+                                    dom.editor.value = pageData.yaml_content;
+                                    updateLineNumbers(dom.editor, dom.lineNumbers);
+                                    historyManager.clear();
+                                    historyManager.push(pageData.yaml_content);
+                                    updateHistoryButtons();
+                                    await renderPreview(pageData.yaml_content);
+                                    updateComponentTree();
+                                    selectionManager.clearSelection();
+                                    clearPropertiesPanel();
+                                    clearTreeSelection();
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        alert('Failed to delete page: ' + err.message);
+                    }
+                }
+            }, {
+                pages: _sitePages,
+                activeIndex: _activePageIndex,
+            });
+        } else {
+            // Fallback: read pages from editor YAML (no site context)
+            renderPagesPanel(container, footer, {
+                onPageSwitch: (index) => {
+                    console.log('[Main] Page switch to index:', index);
+                },
+                onAddPage: async () => {
+                    const yamlText = await addPage();
+                    if (yamlText) {
+                        updateYamlEditor(yamlText);
+                        historyManager.push(yamlText);
+                        actions.handleEditorInput(yamlText, { pushHistory: false });
+                        window.renderPagesPanel();
+                    }
+                }
+            });
+        }
+    };
 
     // Load SVG sprite first
     const spritePath = window.SPRITE_PATH || '/static/icon-sprite.svg';
@@ -159,11 +314,240 @@ document.addEventListener('DOMContentLoaded', async () => {
             dom.componentTree.innerHTML = '<p class="tree-empty">No components</p>';
         }
     };
+    window.updateComponentTree = updateComponentTree;
 
     // Initialize component tree with selection handler
     initComponentTree(dom.componentTree, (componentId, path) => {
         // Sync tree selection with preview selection
         selectionManager.selectComponent(componentId);
+    });
+
+    // --- Tree Action Handlers ---
+
+    /**
+     * Standard save/render flow after a YAML document mutation
+     */
+    async function commitDocChange(yamlDoc) {
+        const yamlText = generateYamlFromDocument(yamlDoc);
+        if (!yamlText) return null;
+
+        updateYamlEditor(yamlText);
+        autosave(yamlText);
+        historyManager.push(yamlText);
+        updateHistoryButtons();
+
+        const updatedStructure = getYamlStructureFromEditor();
+        await renderPreview(yamlText, updatedStructure);
+        updateComponentTree();
+        return updatedStructure;
+    }
+
+    /**
+     * Build a new component object from defaults
+     */
+    function buildNewComponent(componentName) {
+        const defaults = getComponentDefaults(componentName);
+        const component = { name: componentName };
+
+        // Separate component-level arrays from properties
+        const componentLevelKeys = ['items', 'tabs', 'slides', 'columns', 'components'];
+        const properties = {};
+
+        for (const [key, value] of Object.entries(defaults)) {
+            if (componentLevelKeys.includes(key)) {
+                component[key] = value;
+            } else {
+                properties[key] = value;
+            }
+        }
+
+        if (Object.keys(properties).length > 0) {
+            component.properties = properties;
+        }
+
+        return component;
+    }
+
+    /**
+     * Handle tree action events
+     */
+    initTreeActions(dom.componentTree, async (action, nodeData) => {
+        const { path, name, isVirtual, isContainer, sourceElement } = nodeData;
+
+        switch (action) {
+            case 'move-up':
+            case 'move-down': {
+                const direction = action === 'move-up' ? -1 : 1;
+                const yamlDoc = getYamlDocumentFromEditor();
+                if (!yamlDoc) return;
+
+                const result = moveComponentInDocument(yamlDoc, path, direction);
+                if (!result.success) return;
+
+                const updatedStructure = await commitDocChange(yamlDoc);
+                if (updatedStructure) {
+                    // Select the component at its new position
+                    const newId = 'comp_' + result.newPath.join('_');
+                    setTimeout(() => {
+                        selectionManager.selectComponent(newId);
+                        highlightTreeItem(newId);
+                    }, 100);
+                }
+                break;
+            }
+
+            case 'delete': {
+                const yamlDoc = getYamlDocumentFromEditor();
+                if (!yamlDoc) return;
+
+                const deleted = deleteComponentInDocument(yamlDoc, path);
+                if (!deleted) return;
+
+                await commitDocChange(yamlDoc);
+                selectionManager.clearSelection();
+                clearPropertiesPanel();
+                clearTreeSelection();
+                break;
+            }
+
+            case 'add-child': {
+                // Determine the children key for this container
+                const childrenKey = isVirtual ? 'components' : getChildrenKey(name);
+                if (!childrenKey) return;
+
+                // Complex containers (columnsgrid, tabs, carousel, accordion, ticker) —
+                // directly insert a structural group instead of showing picker
+                const complexContainers = ['columnsgrid', 'ticker', 'tabs', 'carousel', 'accordion'];
+                if (!isVirtual && complexContainers.includes(name)) {
+                    const yamlDoc = getYamlDocumentFromEditor();
+                    if (!yamlDoc) return;
+
+                    let newGroup;
+                    if (name === 'columnsgrid' || name === 'ticker') {
+                        newGroup = { components: [] };
+                    } else if (name === 'tabs') {
+                        newGroup = { title: 'New Tab', components: [] };
+                    } else if (name === 'carousel') {
+                        newGroup = { components: [] };
+                    } else if (name === 'accordion') {
+                        newGroup = { title: 'New Item', components: [] };
+                    }
+
+                    const parentSeqPath = [...path, childrenKey];
+                    const inserted = insertComponentInDocument(yamlDoc, parentSeqPath, newGroup);
+                    if (!inserted) return;
+
+                    await commitDocChange(yamlDoc);
+                    break;
+                }
+
+                // Simple containers and virtual nodes — show picker
+                showComponentPicker(sourceElement, async (componentName) => {
+                    const yamlDoc = getYamlDocumentFromEditor();
+                    if (!yamlDoc) return;
+
+                    const newComponent = buildNewComponent(componentName);
+                    const parentSeqPath = [...path, childrenKey];
+                    const inserted = insertComponentInDocument(yamlDoc, parentSeqPath, newComponent);
+                    if (!inserted) return;
+
+                    const updatedStructure = await commitDocChange(yamlDoc);
+                    // Select the newly inserted component (last child)
+                    if (updatedStructure) {
+                        const newComp = getComponentByPath(updatedStructure, path);
+                        if (newComp) {
+                            const children = newComp[childrenKey] || newComp.components;
+                            if (children) {
+                                const newPath = [...parentSeqPath, children.length - 1];
+                                const newId = 'comp_' + newPath.join('_');
+                                setTimeout(() => {
+                                    selectionManager.selectComponent(newId);
+                                    highlightTreeItem(newId);
+                                }, 100);
+                            }
+                        }
+                    }
+                });
+                break;
+            }
+
+            case 'copy': {
+                const structure = getYamlStructureFromEditor();
+                if (!structure) return;
+
+                const component = getComponentByPath(structure, path);
+                if (!component) return;
+
+                // Deep clone to detach from original
+                const cloned = JSON.parse(JSON.stringify(component));
+                setClipboard({ component: cloned, name: component.name || name });
+
+                // Refresh tree so paste buttons appear
+                updateComponentTree();
+
+                // Re-select the copied component
+                const copiedId = 'comp_' + path.join('_');
+                setTimeout(() => {
+                    selectionManager.selectComponent(copiedId);
+                    highlightTreeItem(copiedId);
+                }, 50);
+                break;
+            }
+
+            case 'paste': {
+                const clipData = getClipboard();
+                if (!clipData) return;
+
+                const yamlDoc = getYamlDocumentFromEditor();
+                if (!yamlDoc) return;
+
+                // Deep clone so pasting twice creates independent copies
+                const pastedComponent = JSON.parse(JSON.stringify(clipData.component));
+
+                let inserted;
+                if (isContainer || name === 'page' || isVirtual) {
+                    // Paste as last child of container
+                    const childrenKey = isVirtual ? 'components' : getChildrenKey(name);
+                    if (!childrenKey) return;
+                    const parentSeqPath = [...path, childrenKey];
+                    inserted = insertComponentInDocument(yamlDoc, parentSeqPath, pastedComponent);
+                } else {
+                    // Paste after the selected leaf
+                    const parentSeqPath = path.slice(0, -1);
+                    const insertIndex = path[path.length - 1] + 1;
+                    inserted = insertComponentInDocument(yamlDoc, parentSeqPath, pastedComponent, insertIndex);
+                }
+
+                if (!inserted) return;
+                await commitDocChange(yamlDoc);
+                break;
+            }
+
+            case 'add-after': {
+                showComponentPicker(sourceElement, async (componentName) => {
+                    const yamlDoc = getYamlDocumentFromEditor();
+                    if (!yamlDoc) return;
+
+                    const newComponent = buildNewComponent(componentName);
+                    // Parent sequence path is everything except last index
+                    const parentSeqPath = path.slice(0, -1);
+                    const insertIndex = path[path.length - 1] + 1;
+                    const inserted = insertComponentInDocument(yamlDoc, parentSeqPath, newComponent, insertIndex);
+                    if (!inserted) return;
+
+                    const updatedStructure = await commitDocChange(yamlDoc);
+                    if (updatedStructure) {
+                        const newPath = [...parentSeqPath, insertIndex];
+                        const newId = 'comp_' + newPath.join('_');
+                        setTimeout(() => {
+                            selectionManager.selectComponent(newId);
+                            highlightTreeItem(newId);
+                        }, 100);
+                    }
+                });
+                break;
+            }
+        }
     });
 
     // Set up selection change handler to update properties panel and tree
@@ -227,8 +611,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 historyManager.push(yamlContent);
             }
 
-            // Save to sessionStorage for persistence across tab refresh
-            yamlStorage.save(yamlContent);
+            // Save to DB (debounced 2s)
+            autosave(yamlContent);
 
             // Store current selection before re-render
             const currentSelection = selectionManager.getSelection();
@@ -255,10 +639,32 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
                 const html = await response.text();
 
-                // Extract icon names from YAML for optimized font loading
+                // Extract page title from YAML
                 const structure = getYamlStructureFromEditor();
-                const iconNames = structure ? extractIconNames(structure) : [];
-                const standaloneHtml = await buildStandaloneHtml(html, iconNames);
+                const page = structure ? getPageFromStructure(structure) : null;
+                const pageTitle = page?.title || 'Swift Sites Export';
+
+                // Fetch site settings for SEO metadata (if editing a site)
+                let seoMeta = {};
+                if (window.SITE_ID) {
+                    try {
+                        const settings = await getSiteSettings();
+                        const seo = settings.seo || {};
+                        const branding = settings.branding || {};
+                        const social = settings.social || {};
+                        seoMeta = {
+                            metaDescription: seo.metaDescription,
+                            ogTitle: seo.ogTitle,
+                            ogImage: seo.ogImage || social.defaultShareImage,
+                            faviconUrl: branding.faviconUrl,
+                            twitterHandle: social.twitterHandle,
+                        };
+                    } catch (err) {
+                        console.warn('[Export] Could not load site settings:', err);
+                    }
+                }
+
+                const standaloneHtml = await buildStandaloneHtml(html, pageTitle, seoMeta);
 
                 const blob = new Blob([standaloneHtml], { type: 'text/html' });
                 const url = URL.createObjectURL(blob);
@@ -278,7 +684,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 clearPropertiesPanel();
                 clearTreeSelection();
                 historyManager.clear();
-                yamlStorage.clear(); // Clear sessionStorage
                 updateHistoryButtons();
                 renderPreview('').then(() => {
                     updateComponentTree();
@@ -302,8 +707,30 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
                 const html = await response.text();
                 const structure = getYamlStructureFromEditor();
-                const iconNames = structure ? extractIconNames(structure) : [];
-                const standaloneHtml = await buildStandaloneHtml(html, iconNames);
+                const page = structure ? getPageFromStructure(structure) : null;
+                const pageTitle = page?.title || 'Swift Sites Export';
+
+                // Fetch site settings for SEO metadata (if editing a site)
+                let seoMeta = {};
+                if (window.SITE_ID) {
+                    try {
+                        const settings = await getSiteSettings();
+                        const seo = settings.seo || {};
+                        const branding = settings.branding || {};
+                        const social = settings.social || {};
+                        seoMeta = {
+                            metaDescription: seo.metaDescription,
+                            ogTitle: seo.ogTitle,
+                            ogImage: seo.ogImage || social.defaultShareImage,
+                            faviconUrl: branding.faviconUrl,
+                            twitterHandle: social.twitterHandle,
+                        };
+                    } catch (err) {
+                        console.warn('[Fullscreen] Could not load site settings:', err);
+                    }
+                }
+
+                const standaloneHtml = await buildStandaloneHtml(html, pageTitle, seoMeta);
                 frame.srcdoc = standaloneHtml;
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
@@ -458,15 +885,68 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateLineNumbers(dom.editor, dom.lineNumbers);
     });
 
-    // 6. Load persisted YAML from sessionStorage (survives tab refresh)
-    const storedYaml = yamlStorage.load();
-    if (storedYaml) {
-        console.log('[Main] Restored YAML from sessionStorage');
-        dom.editor.value = storedYaml;
-        updateLineNumbers(dom.editor, dom.lineNumbers);
+    // 6. Load site and page YAML from database
+    const siteId = window.SITE_ID;
+    if (siteId) {
+        try {
+            console.log('[Main] Loading site from API:', siteId);
+            const siteData = await loadSite(siteId);
+            if (siteData.pages && siteData.pages.length > 0) {
+                _sitePages = siteData.pages;
+                const homepage = siteData.pages.find(p => p.is_homepage) || siteData.pages[0];
+                _activePageIndex = siteData.pages.findIndex(p => p.id === homepage.id);
+                if (_activePageIndex < 0) _activePageIndex = 0;
+                const pageData = await loadPage(homepage.id, siteId);
+                if (pageData.yaml_content) {
+                    dom.editor.value = pageData.yaml_content;
+                    updateLineNumbers(dom.editor, dom.lineNumbers);
+                    console.log('[Main] Loaded page YAML from API:', homepage.slug);
+                }
+            }
+        } catch (err) {
+            console.error('[Main] Failed to load site:', err);
+        }
     }
 
-    // 7. Initialize history with current editor content
+    // 7. Listen for component deletion from iframe
+    window.addEventListener('iframe-component-deleted', async (event) => {
+        const { componentId } = event.detail;
+        const pathMap = getPathMapBuilder();
+        const path = pathMap.getPath(componentId);
+        if (!path) {
+            console.warn('[Main] No path found for deleted component:', componentId);
+            return;
+        }
+
+        const yamlDoc = getYamlDocumentFromEditor();
+        if (!yamlDoc) return;
+
+        const deleted = deleteComponentInDocument(yamlDoc, path);
+        if (!deleted) {
+            console.error('[Main] Failed to delete component at path:', path);
+            return;
+        }
+
+        const yamlText = generateYamlFromDocument(yamlDoc);
+        if (!yamlText) return;
+
+        updateYamlEditor(yamlText);
+        autosave(yamlText);
+        historyManager.push(yamlText);
+        updateHistoryButtons();
+
+        // Clear selection (component no longer exists)
+        selectionManager.clearSelection();
+        clearPropertiesPanel();
+        clearTreeSelection();
+
+        // Re-render preview
+        const updatedStructure = getYamlStructureFromEditor();
+        await renderPreview(yamlText, updatedStructure);
+        updateComponentTree();
+    });
+
+    // 8. Initialize history with current editor content
     if (dom.editor.value) {
         historyManager.push(dom.editor.value);
         renderPreview(dom.editor.value).then(() => {
