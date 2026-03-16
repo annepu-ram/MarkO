@@ -56,18 +56,37 @@ class BuilderAgent:
         section_type = section.get("type", "other")
         description = section.get("description", "")
 
-        # Enrich search query with style name for better template matching
+        # Normalize style name for metadata filter (e.g. "Glassmorphism" → "glassmorphism")
+        style_key = style_name.lower().replace(" ", "_") if style_name else ""
+
+        # Enrich search query with style name for better semantic matching
         search_query = f"{section_type} {style_name} section" if style_name else f"{section_type} section template"
 
-        # Retrieve section-level template chunks matching this section type
-        chunks = self.search.search(
-            search_query,
-            top_k=config.vector_top_k,
-            metadata_filter={"section_type": section_type},
-            tier="section",
-        )
+        # Try style-filtered retrieval first when a style name is known
+        chunks = []
+        if style_key:
+            chunks = self.search.search(
+                search_query,
+                top_k=config.vector_top_k,
+                metadata_filter={"section_type": section_type, "visual_style": style_key},
+                tier="section",
+            )
+            if chunks:
+                logger.info(
+                    f"Builder: found {len(chunks)} style-tagged chunks "
+                    f"(section_type={section_type}, visual_style={style_key})"
+                )
 
-        # Fallback: if section tier returned nothing, try without tier filter
+        # Fallback: section_type only (no style filter)
+        if not chunks:
+            chunks = self.search.search(
+                search_query,
+                top_k=config.vector_top_k,
+                metadata_filter={"section_type": section_type},
+                tier="section",
+            )
+
+        # Final fallback: component tier
         if not chunks:
             logger.info(f"Section tier empty for {section_type}, falling back to component tier")
             chunks = self.search.search(
