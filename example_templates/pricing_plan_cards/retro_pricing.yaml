@@ -1,0 +1,491 @@
+# Retro Vintage Pricing Plans
+# Nostalgic pricing tiers with poster-style typography and chunky borders
+# Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, button
+# Section type: pricing
+# Layout: grid
+# Visual style: retro
+# Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Bebas Neue', sans-serif"
+        content: "'Merriweather', serif"
+      colors:
+        primary: '#0D0D0D'
+        text: '#292929'
+        secondary: '#FFD600'
+        accent: '#FF0000'
+        background: '#FF0000'
+  components:
+    - name: page
+      slug: home
+      title: "Retro Vintage Pricing Plans"
+      properties:
+        appearance:
+          background:
+            color: '#FF0000'
+            transparency: 100
+      components:
+
+        # Section Header
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '75'
+                  horizontalAlign: center
+              components:
+                - name: eyebrow
+                  properties:
+                    text: PRICING
+                    typography:
+                      size: sm
+                      weight: extrabold
+                      color: '#FFD600'
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: xs
+                - name: heading
+                  properties:
+                    text: CHOOSE YOUR PLAN
+                    level: 2
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: '#ffffff'
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: No hidden fees, no fine print. Pick the tier that suits your hustle and get moving. Cancel anytime — we're not the clingy type.
+                    typography:
+                      size: md
+                      color: '#ffffff'
+                      align: center
+                      lineHeight: '1.7'
+                    spacing:
+                      marginBlock: sm
+
+        # Pricing Cards Grid
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            spacing:
+              marginBlock: lg
+              paddingInline: lg
+          columns:
+
+            # Basic Plan — white card
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: STARTER
+                        typography:
+                          size: xs
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: heading
+                      properties:
+                        text: BASIC
+                        level: 3
+                        typography:
+                          size: xxl
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: heading
+                      properties:
+                        text: "$19"
+                        level: 2
+                        typography:
+                          size: xxxl
+                          weight: extrabold
+                          color: '#FF0000'
+                          align: center
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: per month
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: "— Up to 3 projects"
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— 5 GB storage"
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— Email support"
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— Standard templates"
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.8'
+                        spacing:
+                          marginBlock: md
+                    - name: button
+                      properties:
+                        text: GET STARTED
+                        appearance:
+                          background:
+                            color: '#0D0D0D'
+                            transparency: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#0D0D0D'
+                          border:
+                            width: 3
+                            style: solid
+                            color: '#0D0D0D'
+                        typography:
+                          color: '#ffffff'
+                          weight: extrabold
+                          size: sm
+                          transform: uppercase
+                          letterSpacing: wide
+                        layout:
+                          widthMode: stretch
+                        spacing:
+                          paddingBlock: md
+
+            # Standard Plan — gold card (featured)
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFD600'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: MOST POPULAR
+                        typography:
+                          size: xs
+                          weight: extrabold
+                          color: '#FF0000'
+                          transform: uppercase
+                          letterSpacing: wide
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: heading
+                      properties:
+                        text: STANDARD
+                        level: 3
+                        typography:
+                          size: xxl
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: heading
+                      properties:
+                        text: "$49"
+                        level: 2
+                        typography:
+                          size: xxxl
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          align: center
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: per month
+                        typography:
+                          size: sm
+                          color: '#0D0D0D'
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: "— Unlimited projects"
+                        typography:
+                          size: sm
+                          color: '#0D0D0D'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— 50 GB storage"
+                        typography:
+                          size: sm
+                          color: '#0D0D0D'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— Priority support"
+                        typography:
+                          size: sm
+                          color: '#0D0D0D'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— Premium templates"
+                        typography:
+                          size: sm
+                          color: '#0D0D0D'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— Custom branding"
+                        typography:
+                          size: sm
+                          color: '#0D0D0D'
+                          lineHeight: '1.8'
+                        spacing:
+                          marginBlock: md
+                    - name: button
+                      properties:
+                        text: GET STANDARD
+                        appearance:
+                          background:
+                            color: '#FF0000'
+                            transparency: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#0D0D0D'
+                          border:
+                            width: 3
+                            style: solid
+                            color: '#0D0D0D'
+                        typography:
+                          color: '#ffffff'
+                          weight: extrabold
+                          size: sm
+                          transform: uppercase
+                          letterSpacing: wide
+                        layout:
+                          widthMode: stretch
+                        spacing:
+                          paddingBlock: md
+
+            # Pro Plan — black card
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#0D0D0D'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#FFD600'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#FFD600'
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: TOP TIER
+                        typography:
+                          size: xs
+                          weight: extrabold
+                          color: '#FFD600'
+                          transform: uppercase
+                          letterSpacing: wide
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: heading
+                      properties:
+                        text: PRO
+                        level: 3
+                        typography:
+                          size: xxl
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: heading
+                      properties:
+                        text: "$99"
+                        level: 2
+                        typography:
+                          size: xxxl
+                          weight: extrabold
+                          color: '#FFD600'
+                          align: center
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: per month
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: "— Everything in Standard"
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— 500 GB storage"
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— Dedicated account manager"
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— API access & webhooks"
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.8'
+                    - name: paragraph
+                      properties:
+                        text: "— White-label exports"
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.8'
+                        spacing:
+                          marginBlock: md
+                    - name: button
+                      properties:
+                        text: GO PRO
+                        appearance:
+                          background:
+                            color: '#FFD600'
+                            transparency: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#FFD600'
+                          border:
+                            width: 3
+                            style: solid
+                            color: '#FFD600'
+                        typography:
+                          color: '#0D0D0D'
+                          weight: extrabold
+                          size: sm
+                          transform: uppercase
+                          letterSpacing: wide
+                        layout:
+                          widthMode: stretch
+                        spacing:
+                          paddingBlock: md
+
+        # Footer note
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: md
+              paddingInline: lg
+          components:
+            - name: paragraph
+              properties:
+                text: All plans include a 14-day free trial. No credit card required.
+                typography:
+                  size: sm
+                  color: '#ffffff'
+                  align: center
+                  weight: bold

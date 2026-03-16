@@ -1,0 +1,282 @@
+# Glassmorphism Feature Cards
+# Frosted glass feature cards on gradient background showing 3 key benefits
+# Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, icon, button
+# Section type: features
+# Layout: grid
+# Visual style: glassmorphism
+# Perfect for: SaaS platform, tech startup, fintech, creative portfolio, design studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Inter', sans-serif"
+        content: "'Inter', sans-serif"
+      colors:
+        primary: '#ffffff'
+        text: '#DFDFDF'
+        secondary: '#B0D4E8'
+        accent: '#3182CE'
+        background: '#0f172a'
+  components:
+    - name: page
+      slug: home
+      title: "Glassmorphism Feature Cards"
+      properties:
+        appearance:
+          background:
+            color: '#0f172a'
+            transparency: 100
+      components:
+
+        # Gradient outer wrapper — mandatory for glassmorphism blur visibility
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: '#3182CE'
+                  colorEnd: '#0f172a'
+                  direction: to bottom right
+                transparency: 100
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+          components:
+
+            # Section header
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                spacing:
+                  paddingBlock: xl
+                  paddingInline: lg
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '75'
+                      horizontalAlign: center
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: FEATURES
+                        typography:
+                          size: xs
+                          weight: semibold
+                          color: '#B0D4E8'
+                          transform: uppercase
+                          letterSpacing: wider
+                          align: center
+                    - name: heading
+                      properties:
+                        text: Everything you need to ship faster
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: bold
+                          color: '#ffffff'
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Powerful tools built for modern teams. From automation to security, we cover every layer of your workflow so you can move fast without breaking things.
+                        typography:
+                          size: md
+                          color: '#DFDFDF'
+                          align: center
+                          lineHeight: relaxed
+                        spacing:
+                          marginBlock: sm
+
+            # Feature cards — 3-column glass grid
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+                  paddingInline: xl
+              columns:
+
+                # Card 1 — Smart Automation
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 12
+                          blur: true
+                          radius: lg
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          shadow: soft
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: zap
+                            size: "48"
+                            color: '#3182CE'
+                        - name: heading
+                          properties:
+                            text: Smart Automation
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: '#ffffff'
+                              align: center
+                            spacing:
+                              marginBlock: sm
+                        - name: paragraph
+                          properties:
+                            text: Eliminate repetitive tasks with intelligent workflows that adapt to your process. Set it once and let the platform handle the rest automatically.
+                            typography:
+                              size: sm
+                              color: '#DFDFDF'
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 2 — Real-time Sync
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 12
+                          blur: true
+                          radius: lg
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          shadow: soft
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: refresh-cw
+                            size: "48"
+                            color: '#3182CE'
+                        - name: heading
+                          properties:
+                            text: Real-time Sync
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: '#ffffff'
+                              align: center
+                            spacing:
+                              marginBlock: sm
+                        - name: paragraph
+                          properties:
+                            text: Keep every team member on the same page with live updates across all devices and integrations. Changes propagate instantly, zero lag.
+                            typography:
+                              size: sm
+                              color: '#DFDFDF'
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 3 — Enterprise Security
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 12
+                          blur: true
+                          radius: lg
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          shadow: soft
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: shield-check
+                            size: "48"
+                            color: '#3182CE'
+                        - name: heading
+                          properties:
+                            text: Enterprise Security
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: '#ffffff'
+                              align: center
+                            spacing:
+                              marginBlock: sm
+                        - name: paragraph
+                          properties:
+                            text: SOC 2 Type II certified with end-to-end encryption, SSO, and role-based access control. Your data is protected at every layer.
+                            typography:
+                              size: sm
+                              color: '#DFDFDF'
+                              align: center
+                              lineHeight: relaxed
+
+            # CTA button row
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                spacing:
+                  paddingBlock: xl
+                  paddingInline: lg
+              components:
+                - name: button
+                  properties:
+                    text: Explore All Features
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        transparency: 20
+                      blur: true
+                      border:
+                        width: 1
+                        style: solid
+                        color: '#ffffff'
+                      radius: pill
+                      shadow: soft
+                    typography:
+                      color: '#ffffff'
+                      weight: bold
+                      size: md
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
