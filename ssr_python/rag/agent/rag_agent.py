@@ -13,6 +13,7 @@ from rag.agent.prompt_builder import PromptBuilder
 from rag.agent.model_backend import ModelBackend
 from rag.agent.planner_agent import PlannerAgent
 from rag.agent.builder_agent import BuilderAgent
+from rag.agent.styler_agent import StylerAgent
 from rag.agent.stitcher import stitch_page
 
 # ── RAG Agent Logging ──
@@ -65,6 +66,7 @@ class RAGAgent:
         self.prompt_builder = PromptBuilder()
         self.model = ModelBackend()
         self.planner = PlannerAgent(self.search, self.model)
+        self.styler = StylerAgent(self.model)
         self.builder = BuilderAgent(self.search, self.reranker, self.model)
         self._loaded = False
 
@@ -219,7 +221,7 @@ class RAGAgent:
             progress_fn("Planning site structure...")
         logger.info("-" * 40)
         logger.info("PLANNER AGENT: starting")
-        outline = self.planner.plan(message, selected_images=selected_images)
+        outline, style_context = self.planner.plan(message, selected_images=selected_images)
         sections = outline.get("sections", [])
         logger.info(f"PLANNER AGENT: produced {len(sections)} sections")
         logger.info(f"PLANNER OUTPUT:\n{_json.dumps(outline, indent=2)}")
@@ -265,11 +267,22 @@ class RAGAgent:
                 else:
                     logger.warning("No visual sections available for image redistribution")
 
+        # Agent 1.5: Apply visual style props to each section
+        if progress_fn:
+            progress_fn("Applying visual style...")
+        logger.info("-" * 40)
+        logger.info("STYLER AGENT: starting")
+        styled_outline = self.styler.style(outline, style_context)
+        sections = styled_outline.get("sections", [])
+        style_name = styled_outline.get("style_name", "")
+        logger.info(f"STYLER AGENT: style_name='{style_name}', enriched {len(sections)} sections")
+        logger.info(f"STYLER OUTPUT:\n{_json.dumps(styled_outline.get('sections', []), indent=2)}")
+
         # Agent 2: Build each section
         if progress_fn:
             progress_fn("Building components...")
         section_yamls = []
-        theme = outline.get("theme", {})
+        theme = styled_outline.get("theme", outline.get("theme", {}))
         for i, section in enumerate(sections):
             logger.info("-" * 40)
             logger.info(f"BUILDER AGENT: section {i + 1}/{len(sections)} — type={section.get('type')}")
@@ -279,7 +292,12 @@ class RAGAgent:
             section_images = section.get("images", [])
             section_image_context = self._build_image_context(section_images) if section_images else ""
 
-            yaml_str = self.builder.build_section(section, theme, image_context=section_image_context)
+            yaml_str = self.builder.build_section(
+                section, theme,
+                image_context=section_image_context,
+                style_name=style_name,
+                style_context=style_context,
+            )
             logger.info(f"BUILDER OUTPUT ({len(yaml_str)} chars):\n{yaml_str}")
             section_yamls.append(yaml_str)
 
@@ -288,11 +306,11 @@ class RAGAgent:
             progress_fn("Assembling page...")
         logger.info("-" * 40)
         logger.info("STITCHER: assembling final page")
-        full_yaml = stitch_page(outline, section_yamls)
+        full_yaml = stitch_page(styled_outline, section_yamls)
         logger.info(f"STITCHER OUTPUT ({len(full_yaml)} chars):\n{full_yaml}")
 
         # Return in expected format (ACTION comment + YAML block)
-        page_title = outline.get("page_title", "page")
+        page_title = styled_outline.get("page_title", "page")
         return (
             f"<!-- ACTION: create -->\n"
             f"Here's your {page_title}:\n\n"
