@@ -51,8 +51,13 @@ class PlannerAgent:
         self.search = search
         self.model = model
 
-    def plan(self, query: str, selected_images: list | None = None) -> dict:
-        """Generate a site outline from user query, optionally assigning images to sections."""
+    def plan(self, query: str, selected_images: list | None = None) -> tuple[dict, str]:
+        """Generate a site outline from user query, optionally assigning images to sections.
+
+        Returns:
+            (outline, style_context) tuple — outline is the parsed JSON dict,
+            style_context is the raw style chunk text for the Styler Agent.
+        """
         # Retrieve relevant website outlines for structural guidance (guide tier)
         outline_chunks = self.search.search(
             query,
@@ -113,7 +118,8 @@ class PlannerAgent:
         logger.info(f"Planner raw LLM response ({len(response)} chars):\n{response}")
 
         # Parse JSON (strip markdown if model wraps it)
-        return self._parse_outline(response)
+        outline = self._parse_outline(response)
+        return outline, style_context
 
     def _parse_outline(self, response: str) -> dict:
         """Extract JSON from model response."""

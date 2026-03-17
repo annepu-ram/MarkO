@@ -1,0 +1,325 @@
+# Glassmorphism Footer
+# Frosted glass footer bar with links and brand on dark gradient background
+# Base components: site, page, layout-column, layout-row, heading, paragraph, link
+# Section type: footer
+# Layout: split_screen
+# Visual style: glassmorphism
+# Perfect for: SaaS platform, tech startup, creative portfolio, design studio, fintech
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Inter', sans-serif"
+        content: "'Inter', sans-serif"
+      colors:
+        primary: '#ffffff'
+        text: '#DFDFDF'
+        secondary: '#B0D4E8'
+        accent: '#3182CE'
+        background: '#0f172a'
+  components:
+    - name: page
+      slug: home
+      title: "Glassmorphism Footer"
+      properties:
+        appearance:
+          background:
+            color: '#0f172a'
+            transparency: 100
+      components:
+
+        # Gradient outer wrapper — mandatory for glassmorphism blur visibility
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: '#3182CE'
+                  colorEnd: '#0f172a'
+                  direction: to bottom right
+                transparency: 100
+            spacing:
+              paddingBlock: xxl
+              paddingInline: xl
+          components:
+
+            # Glass footer container
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                  gap: lg
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    transparency: 10
+                  blur: true
+                  radius: lg
+                  border:
+                    width: 1
+                    style: solid
+                    color: '#ffffff'
+                spacing:
+                  paddingBlock: xl
+                  paddingInline: xxl
+              components:
+
+                # Top row — brand left, link columns right
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: space-between
+                      verticalAlign: start
+                      wrap: wrap
+                      gap: xl
+                  components:
+
+                    # Brand column — left
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          widthMode: '25'
+                          gap: sm
+                      components:
+                        - name: heading
+                          properties:
+                            text: SwiftSites
+                            level: 3
+                            typography:
+                              size: xl
+                              weight: extrabold
+                              color: '#ffffff'
+                        - name: paragraph
+                          properties:
+                            text: Build beautiful, fast websites with a simple YAML editor and real-time preview. No code required.
+                            typography:
+                              size: sm
+                              color: '#DFDFDF'
+                              lineHeight: relaxed
+                            spacing:
+                              marginBlock: sm
+                        - name: paragraph
+                          properties:
+                            text: "© 2026 SwiftSites Inc."
+                            typography:
+                              size: xs
+                              color: '#B0D4E8'
+
+                    # Link columns — right (3 columns in a columnsgrid)
+                    - name: columnsgrid
+                      properties:
+                        layout:
+                          columns: 3
+                          gap: xl
+                          verticalAlign: top
+                        responsive:
+                          breakpoints:
+                            md: 3
+                            sm: 2
+                      columns:
+
+                        # Products column
+                        - components:
+                            - name: heading
+                              properties:
+                                text: Products
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: '#ffffff'
+                                spacing:
+                                  marginBlock: sm
+                            - name: link
+                              properties:
+                                text: Features
+                                href: '#features'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Pricing
+                                href: '#pricing'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Changelog
+                                href: '#changelog'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+
+                        # Company column
+                        - components:
+                            - name: heading
+                              properties:
+                                text: Company
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: '#ffffff'
+                                spacing:
+                                  marginBlock: sm
+                            - name: link
+                              properties:
+                                text: About
+                                href: '#about'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Blog
+                                href: '#blog'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Careers
+                                href: '#careers'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+
+                        # Legal column
+                        - components:
+                            - name: heading
+                              properties:
+                                text: Legal
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: '#ffffff'
+                                spacing:
+                                  marginBlock: sm
+                            - name: link
+                              properties:
+                                text: Privacy Policy
+                                href: '#privacy'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Terms of Service
+                                href: '#terms'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Security
+                                href: '#security'
+                                typography:
+                                  size: sm
+                                  color: '#DFDFDF'
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+
+                # Divider spacer
+                - name: br
+                  properties:
+                    size: xs
+
+                # Bottom copyright row — centered
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: lg
+                    appearance:
+                      border:
+                        width: 1
+                        style: solid
+                        color: '#ffffff'
+                    spacing:
+                      paddingBlock: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "All rights reserved. Built with SwiftSites."
+                        typography:
+                          size: xs
+                          color: '#B0D4E8'
+                          align: center
+                    - name: layout-row
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          verticalAlign: center
+                          gap: md
+                      components:
+                        - name: link
+                          properties:
+                            text: Privacy
+                            href: '#privacy'
+                            typography:
+                              size: xs
+                              color: '#B0D4E8'
+                            appearance:
+                              underline: false
+                        - name: link
+                          properties:
+                            text: Terms
+                            href: '#terms'
+                            typography:
+                              size: xs
+                              color: '#B0D4E8'
+                            appearance:
+                              underline: false
+                        - name: link
+                          properties:
+                            text: Sitemap
+                            href: '#sitemap'
+                            typography:
+                              size: xs
+                              color: '#B0D4E8'
+                            appearance:
+                              underline: false

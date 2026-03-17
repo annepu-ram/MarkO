@@ -1,0 +1,282 @@
+# Glassmorphism Testimonial Cards
+# Customer quotes in frosted glass cards on dark gradient background
+# Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, caption
+# Section type: testimonials
+# Layout: grid
+# Visual style: glassmorphism
+# Perfect for: SaaS platform, tech startup, creative portfolio, design studio, fintech
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Inter', sans-serif"
+        content: "'Inter', sans-serif"
+      colors:
+        primary: '#ffffff'
+        text: '#DFDFDF'
+        secondary: '#B0D4E8'
+        accent: '#3182CE'
+        background: '#0f172a'
+  components:
+    - name: page
+      slug: home
+      title: "Glassmorphism Testimonial Cards"
+      properties:
+        appearance:
+          background:
+            color: '#0f172a'
+            transparency: 100
+      components:
+
+        # Gradient outer wrapper — mandatory for glassmorphism blur visibility
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: '#3182CE'
+                  colorEnd: '#0f172a'
+                  direction: to bottom right
+                transparency: 100
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+          components:
+
+            # Section header
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                spacing:
+                  paddingBlock: xl
+                  paddingInline: lg
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '66'
+                      horizontalAlign: center
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: TESTIMONIALS
+                        typography:
+                          size: xs
+                          weight: semibold
+                          color: '#B0D4E8'
+                          transform: uppercase
+                          letterSpacing: wider
+                          align: center
+                    - name: heading
+                      properties:
+                        text: Loved by teams worldwide
+                        level: 2
+                        typography:
+                          size: xxl
+                          weight: bold
+                          color: '#ffffff'
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Thousands of teams trust us to deliver results. Here is what some of them have to say.
+                        typography:
+                          size: md
+                          color: '#DFDFDF'
+                          align: center
+                          lineHeight: relaxed
+                        spacing:
+                          marginBlock: sm
+
+            # Testimonial cards — 3-column glass grid
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                  verticalAlign: top
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+                  paddingInline: xl
+              columns:
+
+                # Card 1 — Sofia M.
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 12
+                          blur: true
+                          radius: lg
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          shadow: soft
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        # Large decorative quote mark
+                        - name: paragraph
+                          properties:
+                            text: "\u201C"
+                            typography:
+                              size: xxxl
+                              weight: extrabold
+                              color: '#3182CE'
+                              lineHeight: '0.8'
+                        - name: paragraph
+                          properties:
+                            text: The automation alone saved our team 12 hours a week. We shipped three major features in the time it used to take us to ship one. Genuinely transformative.
+                            typography:
+                              size: sm
+                              color: '#DFDFDF'
+                              lineHeight: relaxed
+                            spacing:
+                              marginBlock: md
+                        - name: heading
+                          properties:
+                            text: Sofia Martinez
+                            level: 5
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: '#ffffff'
+                        - name: caption
+                          properties:
+                            text: Head of Engineering, Lumina SaaS
+                            typography:
+                              size: xs
+                              color: '#B0D4E8'
+
+                # Card 2 — James K.
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 12
+                          blur: true
+                          radius: lg
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          shadow: soft
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        # Large decorative quote mark
+                        - name: paragraph
+                          properties:
+                            text: "\u201C"
+                            typography:
+                              size: xxxl
+                              weight: extrabold
+                              color: '#3182CE'
+                              lineHeight: '0.8'
+                        - name: paragraph
+                          properties:
+                            text: Security was our biggest concern when evaluating vendors. The SOC 2 certification, SSO, and role-based controls gave our compliance team immediate confidence.
+                            typography:
+                              size: sm
+                              color: '#DFDFDF'
+                              lineHeight: relaxed
+                            spacing:
+                              marginBlock: md
+                        - name: heading
+                          properties:
+                            text: James Kowalski
+                            level: 5
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: '#ffffff'
+                        - name: caption
+                          properties:
+                            text: CTO, Vertex Financial
+                            typography:
+                              size: xs
+                              color: '#B0D4E8'
+
+                # Card 3 — Priya N.
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 12
+                          blur: true
+                          radius: lg
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          shadow: soft
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        # Large decorative quote mark
+                        - name: paragraph
+                          properties:
+                            text: "\u201C"
+                            typography:
+                              size: xxxl
+                              weight: extrabold
+                              color: '#3182CE'
+                              lineHeight: '0.8'
+                        - name: paragraph
+                          properties:
+                            text: Onboarding our 40-person team took under a day. The real-time sync means everyone is always looking at the same data. No more Slack messages asking for the latest version.
+                            typography:
+                              size: sm
+                              color: '#DFDFDF'
+                              lineHeight: relaxed
+                            spacing:
+                              marginBlock: md
+                        - name: heading
+                          properties:
+                            text: Priya Nair
+                            level: 5
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: '#ffffff'
+                        - name: caption
+                          properties:
+                            text: VP Product, NovaDev Studio
+                            typography:
+                              size: xs
+                              color: '#B0D4E8'
+
+            # Bottom spacer
+            - name: layout-row
+              properties:
+                spacing:
+                  paddingBlock: xl

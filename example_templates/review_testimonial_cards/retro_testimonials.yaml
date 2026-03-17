@@ -1,0 +1,411 @@
+# Retro Vintage Testimonial Cards
+# Customer quotes in retro-poster style with chunky borders
+# Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, caption
+# Section type: testimonials
+# Layout: grid
+# Visual style: retro
+# Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Bebas Neue', sans-serif"
+        content: "'Merriweather', serif"
+      colors:
+        primary: '#0D0D0D'
+        text: '#292929'
+        secondary: '#FFD600'
+        accent: '#FF0000'
+        background: '#FFEB3B'
+  components:
+    - name: page
+      slug: home
+      title: "Retro Vintage Testimonial Cards"
+      properties:
+        appearance:
+          background:
+            color: '#FFD600'
+            transparency: 100
+      components:
+
+        # Section Header
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '75'
+                  horizontalAlign: center
+              components:
+                - name: eyebrow
+                  properties:
+                    text: WHAT PEOPLE SAY
+                    typography:
+                      size: sm
+                      weight: extrabold
+                      color: '#FF0000'
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: xs
+                - name: heading
+                  properties:
+                    text: STRAIGHT FROM THE FANS
+                    level: 2
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: '#0D0D0D'
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: sm
+
+        # Testimonials Grid — 3 columns
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            spacing:
+              marginBlock: lg
+              paddingInline: lg
+          columns:
+
+            # Card 1 — white bg
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"Hands down the most authentic gear I've ever owned. Wore it to the record fair and three strangers stopped me to ask where I got it. Pure gold.\""
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.7'
+                        spacing:
+                          marginBlock: md
+                    - name: heading
+                      properties:
+                        text: DEREK FONTAINE
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+                    - name: caption
+                      properties:
+                        text: Vinyl collector, Chicago IL
+                        typography:
+                          size: xs
+                          color: '#FF0000'
+                          weight: bold
+
+            # Card 2 — red bg, white text
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FF0000'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"I've been in the music business for 25 years and I haven't seen anything this good since the heyday of the 80s. Every stitch, every print screams quality.\""
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.7'
+                        spacing:
+                          marginBlock: md
+                    - name: heading
+                      properties:
+                        text: ROSA VALENTINI
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+                    - name: caption
+                      properties:
+                        text: Music producer, Nashville TN
+                        typography:
+                          size: xs
+                          color: '#FFD600'
+                          weight: bold
+
+            # Card 3 — yellow bg
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFEB3B'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"Ordered a poster print on Friday, had it on my wall by Tuesday. The colors are so saturated in person — photos don't do it justice. Already ordered three more.\""
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.7'
+                        spacing:
+                          marginBlock: md
+                    - name: heading
+                      properties:
+                        text: MARCUS CHEN
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+                    - name: caption
+                      properties:
+                        text: Graphic designer, Brooklyn NY
+                        typography:
+                          size: xs
+                          color: '#FF0000'
+                          weight: bold
+
+            # Card 4 — white bg
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"Showed up to my band's reunion wearing this and the whole room stopped. My old guitarist said it was the most vintage-accurate thing he'd seen outside of a museum.\""
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.7'
+                        spacing:
+                          marginBlock: md
+                    - name: heading
+                      properties:
+                        text: TAMMY GILMORE
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+                    - name: caption
+                      properties:
+                        text: Session musician, Austin TX
+                        typography:
+                          size: xs
+                          color: '#FF0000'
+                          weight: bold
+
+            # Card 5 — red bg, white text
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FF0000'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"This brand gets it. Everyone else is doing faded prints on cheap cotton. These guys use the real deal — heavyweight fabric, precision screen prints, zero compromises.\""
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.7'
+                        spacing:
+                          marginBlock: md
+                    - name: heading
+                      properties:
+                        text: JOEL HARRINGTON
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+                    - name: caption
+                      properties:
+                        text: Streetwear collector, Los Angeles CA
+                        typography:
+                          size: xs
+                          color: '#FFD600'
+                          weight: bold
+
+            # Card 6 — yellow bg
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFEB3B'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"I gifted one to my dad who grew up in the 70s. He literally teared up. Said it reminded him of the concert shirts from his youth. That's the highest praise I can give.\""
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.7'
+                        spacing:
+                          marginBlock: md
+                    - name: heading
+                      properties:
+                        text: PRIYA SHARMA
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+                    - name: caption
+                      properties:
+                        text: Fashion blogger, New York NY
+                        typography:
+                          size: xs
+                          color: '#FF0000'
+                          weight: bold
+
+        # Bottom padding row
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBottom: xl
+              paddingInline: lg
+          components:
+            - name: paragraph
+              properties:
+                text: Join thousands of fans who've already made the switch to real retro quality.
+                typography:
+                  size: md
+                  color: '#0D0D0D'
+                  align: center
+                  weight: bold
+                  lineHeight: '1.6'

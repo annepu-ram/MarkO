@@ -1,0 +1,374 @@
+# Retro Vintage Feature Cards
+# Bold 70s-inspired feature section with chunky borders and saturated card colors
+# Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, button
+# Section type: features
+# Layout: grid
+# Visual style: retro
+# Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Bebas Neue', sans-serif"
+        content: "'Merriweather', serif"
+      colors:
+        primary: '#0D0D0D'
+        text: '#292929'
+        secondary: '#FFD600'
+        accent: '#FF0000'
+        background: '#FFEB3B'
+  components:
+    - name: page
+      slug: home
+      title: "Retro Vintage Feature Cards"
+      properties:
+        appearance:
+          background:
+            color: '#FFEB3B'
+            transparency: 100
+      components:
+
+        # Section Header
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '75'
+                  horizontalAlign: center
+              components:
+                - name: eyebrow
+                  properties:
+                    text: THE GOODS
+                    typography:
+                      size: sm
+                      weight: extrabold
+                      color: '#0D0D0D'
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: xs
+                - name: heading
+                  properties:
+                    text: WHY WE'RE DIFFERENT
+                    level: 2
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: '#0D0D0D'
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: We don't do ordinary. Every product, every move, every drop is made to turn heads and break rules. This is how we do it differently.
+                    typography:
+                      size: md
+                      color: '#292929'
+                      align: center
+                      lineHeight: '1.7'
+                    spacing:
+                      marginBlock: sm
+
+        # Feature Grid — 3 columns
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            spacing:
+              marginBlock: lg
+              paddingInline: lg
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: RAW CRAFT
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Every piece is hand-finished by artisans who've been doing this since before you were born. No shortcuts, no compromises — just pure craft.
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.7'
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FF0000'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: BOLD VISION
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: We design for impact, not trends. Our aesthetic is rooted in the era when graphics meant something — loud, proud, and impossible to ignore.
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.7'
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFD600'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: REAL QUALITY
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Premium materials sourced from the same suppliers who dressed rock legends. Built to last decades, not just one season on your shelf.
+                        typography:
+                          size: sm
+                          color: '#0D0D0D'
+                          lineHeight: '1.7'
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFD600'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: LIMITED DROPS
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: We run in small batches. When it's gone, it's gone. No restocks, no reprints — own something that can't be replicated once the run closes.
+                        typography:
+                          size: sm
+                          color: '#0D0D0D'
+                          lineHeight: '1.7'
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: UNDERGROUND ROOTS
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: '#0D0D0D'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Born in the underground scene of the late 70s, we carry that independent spirit into everything we make. No corporate polish — just genuine culture.
+                        typography:
+                          size: sm
+                          color: '#292929'
+                          lineHeight: '1.7'
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FF0000'
+                        transparency: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#0D0D0D'
+                      border:
+                        width: 3
+                        style: solid
+                        color: '#0D0D0D'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: FAST SHIPPING
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Orders ship within 48 hours, worldwide. Tracked, packed tight, and delivered to your door like a vinyl record that actually matters.
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          lineHeight: '1.7'
+
+        # CTA Row
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: button
+              properties:
+                text: SHOP THE COLLECTION
+                appearance:
+                  background:
+                    color: '#0D0D0D'
+                    transparency: 100
+                  radius: none
+                  shadow: retro
+                  shadowColor: '#0D0D0D'
+                  border:
+                    width: 3
+                    style: solid
+                    color: '#0D0D0D'
+                typography:
+                  color: '#ffffff'
+                  weight: extrabold
+                  size: md
+                  transform: uppercase
+                  letterSpacing: wide
+                spacing:
+                  paddingBlock: md
+                  paddingInline: xl

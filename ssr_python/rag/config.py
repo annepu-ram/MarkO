@@ -43,7 +43,7 @@ class RAGConfig:
     vector_top_k: int = 15              # Candidates from vector search
     bm25_top_k: int = 15               # Candidates from BM25
     rrf_k: int = 60                     # RRF constant
-    final_top_k: int = 2               # Chunks sent to SLM after fusion
+    final_top_k: int = 3               # Chunks sent to SLM after fusion
     use_reranker: bool = False          # V2 feature, off by default
     mmr_lambda: float = 0.8            # MMR diversity (0=diverse, 1=relevant)
     planner_top_k: int = 1            # Outline chunks for planner agent

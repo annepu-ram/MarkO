@@ -1,0 +1,177 @@
+# Glassmorphism CTA Banner
+# Frosted glass call-to-action card floating over gradient background
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button
+# Section type: cta
+# Layout: centered
+# Visual style: glassmorphism
+# Perfect for: SaaS platform, tech startup, creative portfolio, fintech, design studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Inter', sans-serif"
+        content: "'Inter', sans-serif"
+      colors:
+        primary: '#ffffff'
+        text: '#DFDFDF'
+        secondary: '#B0D4E8'
+        accent: '#3182CE'
+        background: '#0f172a'
+  components:
+    - name: page
+      slug: home
+      title: "Glassmorphism CTA Banner"
+      properties:
+        appearance:
+          background:
+            color: '#0f172a'
+            transparency: 100
+      components:
+
+        # Gradient outer wrapper — mandatory for glassmorphism blur visibility
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: '#3182CE'
+                  colorEnd: '#0f172a'
+                  direction: to bottom right
+                transparency: 100
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+          components:
+
+            # Frosted glass CTA card — centered
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                  widthMode: '75'
+                  gap: md
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    transparency: 12
+                  blur: true
+                  radius: xl
+                  border:
+                    width: 1
+                    style: solid
+                    color: '#ffffff'
+                  shadow: soft
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: xxl
+              components:
+
+                # Eyebrow label
+                - name: eyebrow
+                  properties:
+                    text: GET STARTED TODAY
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: '#B0D4E8'
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: Start your free trial today
+                    level: 2
+                    typography:
+                      color: '#ffffff'
+                      size: xxxl
+                      weight: bold
+                      align: center
+                      lineHeight: snug
+                    spacing:
+                      marginBlock: sm
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: "Join over 40,000 teams already shipping faster with our platform. Full access to every feature — no credit card required. Cancel anytime."
+                    typography:
+                      color: '#DFDFDF'
+                      size: lg
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: '75'
+                    spacing:
+                      marginBlock: md
+
+                # CTA buttons row
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: sm
+                  components:
+
+                    # Primary CTA — Get Started Free
+                    - name: button
+                      properties:
+                        text: Get Started Free
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 20
+                          blur: true
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          radius: pill
+                          shadow: soft
+                        typography:
+                          color: '#ffffff'
+                          weight: bold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+
+                    # Secondary CTA — Talk to Sales
+                    - name: button
+                      properties:
+                        text: Talk to Sales
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            transparency: 10
+                          blur: true
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#ffffff'
+                          radius: pill
+                        typography:
+                          color: '#ffffff'
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+
+                # Fine print
+                - name: paragraph
+                  properties:
+                    text: "Free 14-day trial. No credit card needed."
+                    typography:
+                      color: '#B0D4E8'
+                      size: sm
+                      align: center

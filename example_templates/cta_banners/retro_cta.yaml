@@ -1,0 +1,163 @@
+# Retro Vintage CTA Banner
+# Bold retro call-to-action with poster typography and hard-edged borders
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button
+# Section type: cta
+# Layout: centered
+# Visual style: retro
+# Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Bebas Neue', sans-serif"
+        content: "'Merriweather', serif"
+      colors:
+        primary: '#0D0D0D'
+        text: '#292929'
+        secondary: '#FFD600'
+        accent: '#FF0000'
+        background: '#FFEB3B'
+  components:
+    - name: page
+      slug: home
+      title: "Retro Vintage CTA Banner"
+      properties:
+        appearance:
+          background:
+            color: '#0D0D0D'
+            transparency: 100
+      components:
+
+        # Outer section — black bg, centered content box
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '66'
+                  horizontalAlign: center
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    transparency: 100
+                  border:
+                    width: 3
+                    style: solid
+                    color: '#FFD600'
+                  radius: none
+                  shadow: retro
+                  shadowColor: '#FFD600'
+                spacing:
+                  paddingBlock: xxl
+                  paddingInline: xxl
+              components:
+
+                # Eyebrow label
+                - name: eyebrow
+                  properties:
+                    text: DON'T MISS OUT
+                    typography:
+                      size: sm
+                      weight: extrabold
+                      color: '#FF0000'
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: xs
+
+                # Main headline
+                - name: heading
+                  properties:
+                    text: YOUR MOMENT IS NOW
+                    level: 2
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: '#0D0D0D'
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: sm
+
+                # Supporting subtext
+                - name: paragraph
+                  properties:
+                    text: The crowd is already moving. The records are spinning. Don't stand on the sidelines when the greatest show of the decade is happening right now — join us and make history.
+                    typography:
+                      size: md
+                      color: '#292929'
+                      align: center
+                      lineHeight: '1.7'
+                    spacing:
+                      marginBlock: lg
+
+                # Button row
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: md
+                      wrap: wrap
+                    spacing:
+                      marginBlock: none
+                  components:
+
+                    # Primary CTA button — red bg, black border, white uppercase text
+                    - name: button
+                      properties:
+                        text: JOIN THE MOVEMENT
+                        appearance:
+                          background:
+                            color: '#FF0000'
+                            transparency: 100
+                          border:
+                            width: 3
+                            style: solid
+                            color: '#0D0D0D'
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#0D0D0D'
+                        typography:
+                          color: '#ffffff'
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+
+                    # Secondary CTA button — black bg, black border, white uppercase text
+                    - name: button
+                      properties:
+                        text: LEARN MORE
+                        appearance:
+                          background:
+                            color: '#0D0D0D'
+                            transparency: 100
+                          border:
+                            width: 3
+                            style: solid
+                            color: '#0D0D0D'
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#0D0D0D'
+                        typography:
+                          color: '#ffffff'
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl

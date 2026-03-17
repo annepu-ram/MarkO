@@ -33,13 +33,22 @@ class BuilderAgent:
         self.reranker = reranker
         self.model = model
 
-    def build_section(self, section: dict, theme: dict, image_context: str = "") -> str:
+    def build_section(
+        self,
+        section: dict,
+        theme: dict,
+        image_context: str = "",
+        style_name: str = "",
+        style_context: str = "",
+    ) -> str:
         """Generate YAML for a single section.
 
         Args:
-            section: {type, description, components} from planner outline
+            section: {type, description, components, style_props} from planner/styler outline
             theme: {primary, secondary, accent, background, heading_font, content_font}
             image_context: Pre-built image context string with available local URLs
+            style_name: Identified style name (e.g. "Glassmorphism") for search query enrichment
+            style_context: Raw style reference text (capped excerpt) for LLM context
 
         Returns:
             YAML string for this section's components
@@ -47,15 +56,37 @@ class BuilderAgent:
         section_type = section.get("type", "other")
         description = section.get("description", "")
 
-        # Retrieve section-level template chunks matching this section type
-        chunks = self.search.search(
-            f"{section_type} section template",
-            top_k=config.vector_top_k,
-            metadata_filter={"section_type": section_type},
-            tier="section",
-        )
+        # Normalize style name for metadata filter (e.g. "Glassmorphism" → "glassmorphism")
+        style_key = style_name.lower().replace(" ", "_") if style_name else ""
 
-        # Fallback: if section tier returned nothing, try without tier filter
+        # Enrich search query with style name for better semantic matching
+        search_query = f"{section_type} {style_name} section" if style_name else f"{section_type} section template"
+
+        # Try style-filtered retrieval first when a style name is known
+        chunks = []
+        if style_key:
+            chunks = self.search.search(
+                search_query,
+                top_k=config.vector_top_k,
+                metadata_filter={"section_type": section_type, "visual_style": style_key},
+                tier="section",
+            )
+            if chunks:
+                logger.info(
+                    f"Builder: found {len(chunks)} style-tagged chunks "
+                    f"(section_type={section_type}, visual_style={style_key})"
+                )
+
+        # Fallback: section_type only (no style filter)
+        if not chunks:
+            chunks = self.search.search(
+                search_query,
+                top_k=config.vector_top_k,
+                metadata_filter={"section_type": section_type},
+                tier="section",
+            )
+
+        # Final fallback: component tier
         if not chunks:
             logger.info(f"Section tier empty for {section_type}, falling back to component tier")
             chunks = self.search.search(
@@ -107,6 +138,64 @@ class BuilderAgent:
         # Include available images if provided
         image_block = f"\n\n{image_context}\n" if image_context else ""
 
+        # Build structured style rules block from styler's style_props
+        style_props = section.get("style_props", {})
+        style_rules_lines = []
+        if style_props:
+            shadow = style_props.get("container_shadow")
+            radius = style_props.get("container_radius")
+            blur = style_props.get("container_blur")
+            border = style_props.get("container_border")
+            btn_radius = style_props.get("button_radius")
+            btn_shadow = style_props.get("button_shadow")
+            bg_gradient = style_props.get("background_gradient")
+            bg_transparency = style_props.get("background_transparency")
+            dark_section = style_props.get("dark_section")
+
+            if shadow:
+                style_rules_lines.append(f"- Layout containers: shadow: {shadow}")
+            if radius:
+                style_rules_lines.append(f"- Layout containers: cornerStyle: {radius}")
+            if blur:
+                style_rules_lines.append(
+                    "- Layout containers: blur: true  # glassmorphism backdrop-filter"
+                )
+            if border:
+                style_rules_lines.append(f"- Layout containers: border color/width: {border}")
+            if btn_radius:
+                style_rules_lines.append(f"- Buttons: cornerStyle: {btn_radius}")
+            if btn_shadow:
+                style_rules_lines.append(f"- Buttons: shadow: {btn_shadow}")
+            if bg_gradient:
+                style_rules_lines.append(
+                    "- Section background: use type: gradient with colorStart/colorEnd/direction"
+                )
+            if bg_transparency is not None and bg_transparency < 100:
+                style_rules_lines.append(
+                    f"- Section background: transparency: {bg_transparency}  "
+                    f"# frosted/translucent effect"
+                )
+            if dark_section:
+                style_rules_lines.append(
+                    "- DARK SECTION: use *color-primary for background. "
+                    "ALL text (heading/paragraph/eyebrow/caption) must use *color-background."
+                )
+
+        style_props_block = ""
+        if style_rules_lines:
+            style_props_block = (
+                "\n[Component Style Rules — APPLY THESE to every layout container and button]\n"
+                + "\n".join(style_rules_lines) + "\n"
+            )
+
+        # Include a brief style reference excerpt for additional context
+        style_ref_block = ""
+        if style_context and style_name:
+            style_ref_block = (
+                f"\n[Style Reference: {style_name} — follow these visual rules]\n"
+                f"{style_context[:600]}\n"
+            )
+
         # Include style guidance from planner if available
         style_notes = section.get("style_notes", "")
         style_block = f"\n[Style Guide for this section]\n{style_notes}\n" if style_notes else ""
@@ -120,6 +209,8 @@ class BuilderAgent:
             f"[Reference Templates]\n{context}\n\n"
             f"For Font, Background colors recommended to use only theme alias"
             f" \n{theme_str}\n\n"
+            f"{style_props_block}"
+            f"{style_ref_block}"
             f"{image_block}"
             f"{style_block}"
             f"Description: {description}\n"

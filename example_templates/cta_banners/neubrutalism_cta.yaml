@@ -1,0 +1,159 @@
+# Neubrutalism CTA Banner
+# Full-width bold CTA with thick border box and vivid accent background
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button
+# Section type: cta
+# Layout: centered
+# Visual style: neubrutalism
+# Perfect for: SaaS platform, creative portfolio, design studio, fashion brand, tech startup
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Space Grotesk', sans-serif"
+        content: "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: '#1A1A1A'
+        text: '#313131'
+        secondary: '#C8C4BB'
+        accent: '#FF4D00'
+        background: '#E5E2DD'
+  components:
+    - name: page
+      slug: home
+      title: "Neubrutalism CTA Banner"
+      properties:
+        appearance:
+          background:
+            color: '#A3E635'
+      components:
+
+        # Outer section — lime green bg, centers the inner bordered box
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Inner CTA box — white bg, thick black border, retro shadow
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '66'
+                  horizontalAlign: center
+                  gap: md
+                appearance:
+                  background:
+                    color: '#ffffff'
+                  border:
+                    width: 4
+                    style: solid
+                    color: '#000000'
+                  radius: none
+                  shadow: retro
+                  shadowColor: '#000000'
+                spacing:
+                  paddingBlock: xxl
+                  paddingInline: xxl
+              components:
+
+                # Main headline
+                - name: heading
+                  properties:
+                    text: READY TO GET LOUD?
+                    level: 1
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: '#1A1A1A'
+                      align: center
+                      transform: uppercase
+                    spacing:
+                      marginBlock: none
+
+                # Supporting copy
+                - name: paragraph
+                  properties:
+                    text: Stop blending in. Start making noise. Join thousands of brands that chose bold over boring.
+                    typography:
+                      size: lg
+                      weight: medium
+                      color: '#313131'
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+
+                # Button pair
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: sm
+                  components:
+
+                    # Primary — orange accent
+                    - name: button
+                      properties:
+                        text: START FOR FREE
+                        appearance:
+                          background:
+                            color: '#FF4D00'
+                          border:
+                            width: 4
+                            style: solid
+                            color: '#000000'
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#000000'
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                        typography:
+                          color: '#ffffff'
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+
+                    # Secondary — transparent outline
+                    - name: button
+                      properties:
+                        text: SEE HOW IT WORKS
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                          border:
+                            width: 4
+                            style: solid
+                            color: '#000000'
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#000000'
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                        typography:
+                          color: '#1A1A1A'
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+
+                # Fine print
+                - name: paragraph
+                  properties:
+                    text: No credit card required. Cancel anytime.
+                    typography:
+                      size: xs
+                      weight: medium
+                      color: '#C8C4BB'
+                      align: center
+                    spacing:
+                      marginBlock: none

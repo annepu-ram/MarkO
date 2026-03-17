@@ -1,0 +1,375 @@
+# Retro Vintage Footer
+# Chunky retro footer with thick borders and vintage typography
+# Base components: site, page, layout-column, layout-row, heading, paragraph, link
+# Section type: footer
+# Layout: split_screen
+# Visual style: retro
+# Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Bebas Neue', sans-serif"
+        content: "'Merriweather', serif"
+      colors:
+        primary: '#0D0D0D'
+        text: '#292929'
+        secondary: '#FFD600'
+        accent: '#FF0000'
+        background: '#FFEB3B'
+  components:
+    - name: page
+      slug: home
+      title: "Retro Vintage Footer"
+      properties:
+        appearance:
+          background:
+            color: '#0D0D0D'
+            transparency: 100
+      components:
+
+        # Footer Main Row — brand left, nav columns right
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-between
+              verticalAlign: start
+              wrap: wrap
+              gap: xl
+            spacing:
+              paddingBlock: xxl
+              paddingInline: xxl
+          components:
+
+            # Brand column — left side
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '33'
+                  horizontalAlign: left
+                  gap: sm
+              components:
+                - name: heading
+                  properties:
+                    text: THUNDER RECORDS
+                    level: 3
+                    typography:
+                      size: xxl
+                      weight: extrabold
+                      color: '#ffffff'
+                      transform: uppercase
+                      letterSpacing: wide
+                    spacing:
+                      marginBlock: xs
+                - name: paragraph
+                  properties:
+                    text: Born in the underground. Built for the believers. We've been pressing bold culture onto cotton and vinyl since 1978.
+                    typography:
+                      size: sm
+                      color: '#FFD600'
+                      lineHeight: '1.7'
+                    spacing:
+                      marginBlock: md
+                - name: paragraph
+                  properties:
+                    text: "Est. 1978 — Still Rolling"
+                    typography:
+                      size: xs
+                      color: '#ffffff'
+                      weight: bold
+                      letterSpacing: wide
+                      transform: uppercase
+                    spacing:
+                      marginBlock: sm
+
+            # Nav columns — right side (3 link columns)
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-between
+                  verticalAlign: start
+                  wrap: wrap
+                  gap: xl
+                layout:
+                  widthMode: '66'
+                  horizontalAlign: space-between
+                  gap: xl
+                  wrap: wrap
+              components:
+
+                # Column 1 — Shop
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: xs
+                  components:
+                    - name: heading
+                      properties:
+                        text: SHOP
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: md
+                    - name: link
+                      properties:
+                        text: New Arrivals
+                        href: '#new-arrivals'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: T-Shirts
+                        href: '#tshirts'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Posters & Prints
+                        href: '#posters'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Vinyl Records
+                        href: '#vinyl'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Limited Drops
+                        href: '#drops'
+                        typography:
+                          size: sm
+                          color: '#FF0000'
+                          weight: bold
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+
+                # Column 2 — About
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: xs
+                  components:
+                    - name: heading
+                      properties:
+                        text: ABOUT
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: md
+                    - name: link
+                      properties:
+                        text: Our Story
+                        href: '#story'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: The Craft
+                        href: '#craft'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Artists We Love
+                        href: '#artists'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Press
+                        href: '#press'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Careers
+                        href: '#careers'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+
+                # Column 3 — Support
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: xs
+                  components:
+                    - name: heading
+                      properties:
+                        text: SUPPORT
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: md
+                    - name: link
+                      properties:
+                        text: Shipping Info
+                        href: '#shipping'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Returns & Exchanges
+                        href: '#returns'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Size Guide
+                        href: '#sizing'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: FAQ
+                        href: '#faq'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Contact Us
+                        href: '#contact'
+                        typography:
+                          size: sm
+                          color: '#ffffff'
+                          weight: medium
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+
+        # Divider row — gold top border
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              border:
+                width: 3
+                style: solid
+                color: '#FFD600'
+            spacing:
+              paddingBlock: none
+              paddingInline: xxl
+
+          components: []
+
+        # Copyright bar
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: lg
+              paddingInline: xxl
+          components:
+            - name: paragraph
+              properties:
+                text: "© 2026 Thunder Records. All rights reserved. Keep it loud."
+                typography:
+                  size: xs
+                  color: '#ffffff'
+                  align: center
+                  weight: medium
+                  letterSpacing: wide
+                  transform: uppercase
