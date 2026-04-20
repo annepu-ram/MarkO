@@ -1,0 +1,341 @@
+# Bohemian Eclectic Features
+# Warm feature cards with rounded corners, soft shadows, and earthy artisan aesthetic
+# Base components: site, page, layout-column, heading, paragraph, eyebrow, columnsgrid, icon, button
+# Section type: features
+# Layout: grid
+# Visual style: bohemian_eclectic
+# Perfect for: boutique hotel, artisan bakery, yoga studio, handmade jewelry, organic skincare, vintage shop, travel blog, wellness retreat
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Lora', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#5C2018"
+        text: &color-text "#5A3828"
+        secondary: &color-secondary "#F4A261"
+        accent: &color-accent "#E76F51"
+        background: &color-background "#FFF5EB"
+  components:
+    - name: page
+      slug: home
+      title: "Bohemian Eclectic Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: xl
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Italic eyebrow
+            - name: eyebrow
+              properties:
+                text: "What makes us different"
+                typography:
+                  color: *color-accent
+                  size: sm
+                  weight: regular
+                  align: center
+                  letterSpacing: wide
+                  fontStyle: italic
+
+            # Section heading
+            - name: heading
+              properties:
+                text: "Crafted with Purpose, Designed with Soul"
+                level: 2
+                layout:
+                  widthMode: "66"
+                typography:
+                  color: *color-primary
+                  size: xxl
+                  weight: semibold
+                  align: center
+                  lineHeight: snug
+
+            - name: paragraph
+              properties:
+                text: "Every offering is a reflection of our commitment to authenticity, sustainability, and the timeless art of making things by hand."
+                layout:
+                  widthMode: "50"
+                typography:
+                  color: *color-text
+                  size: md
+                  align: center
+                  lineHeight: relaxed
+
+            # Feature cards grid — lg radius, soft shadow
+            - name: columnsgrid
+              properties:
+                layout: { columns: 3, gap: lg }
+                responsive: { breakpoints: { md: 2, sm: 1 } }
+              columns:
+
+                # Card 1
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 90
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: palette
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Natural Dyes"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: semibold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Colors extracted from turmeric, indigo, and pomegranate. Rich hues that age beautifully and carry no chemical residue."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 2
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 90
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: hand-metal
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Artisan Techniques"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: semibold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Traditional weaving, block printing, and pottery methods passed down through generations of skilled craftspeople."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 3
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 90
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: recycle
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Zero Waste"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: semibold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Every scrap finds a purpose. Offcuts become bookmarks, fabric remnants transform into patchwork quilts."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 4
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 90
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: globe
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Fair Trade"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: semibold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Direct partnerships with artisan cooperatives ensuring fair wages, safe conditions, and community investment."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 5
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 90
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: package
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Eco Packaging"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: semibold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Wrapped in recycled kraft paper with dried flowers and hand-written notes. Unboxing is part of the experience."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 6
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 90
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: book-open
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "Origin Stories"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: semibold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Every product ships with a card telling the story of the artisan who made it and the traditions behind it."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed

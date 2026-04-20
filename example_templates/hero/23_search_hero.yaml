@@ -3,7 +3,7 @@
 # Base components: page, video-background, layout-column, layout-row, heading, paragraph, form, textbox, button, caption, link
 # Section type: hero
 # Layout: fullscreen
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: Knowledge bases, documentation sites, resource directories, search platforms
 
 - name: page
@@ -44,17 +44,19 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: center, gap: md}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: heading
         properties:
           text: What are you looking for?
           level: 1
           typography: {size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight}
+          appearance: {textShadow: soft}
       - name: paragraph
         properties:
           text: Search across thousands of resources, articles, and tools.
           typography: {size: lg, color: *color-secondary, align: center}
+          appearance: {textShadow: soft}
           spacing: {marginBlock: sm}
       - name: form
         properties:
@@ -67,7 +69,7 @@
             field: {placeholder: 'Search anything...', required: false}
             appearance:
               border: {width: 0, color: *color-background}
-              background: {color: *color-background, transparency: 100}
+              background: {color: *color-background, opacity: 100}
               radius: pill
             layout: {widthMode: "50"}
             spacing: {marginBlock: none}
@@ -80,13 +82,14 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: center, verticalAlign: center, gap: md, wrap: wrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
           spacing: {marginBlock: md}
         components:
         - name: caption
           properties:
             text: "Popular:"
             typography: {size: xs, color: *color-secondary}
+            appearance: {textShadow: soft}
         - name: link
           properties:
             text: Getting Started

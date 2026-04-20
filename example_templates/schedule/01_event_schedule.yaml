@@ -3,7 +3,7 @@
 # Base components: layout-column, heading, paragraph, eyebrow, accordion, icon, badge
 # Section type: schedule, event, agenda
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: dental clinic, salon, barbershop, yoga studio, fitness studio, conference, workshop, tutoring center, cooking class, music school
 
 
@@ -24,7 +24,7 @@
     slug: home
     title: "Event Schedule"
     properties:
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
 
         # ============================================
@@ -34,7 +34,7 @@
       properties:
         layout: {horizontalAlign: space-evenly}
         appearance:
-          background: {color: '#ffffff', transparency: 100}
+          background: {color: '#ffffff', opacity: 100}
         spacing:
           paddingBlock: xxl
           paddingInline: xl
@@ -63,7 +63,7 @@
       properties:
         layout: {horizontalAlign: space-evenly}
         appearance:
-          background: {color: '#ffffff', transparency: 100}
+          background: {color: '#ffffff', opacity: 100}
         spacing:
           paddingBlock: xl
           paddingInline: xl
@@ -72,7 +72,7 @@
         properties:
           behavior: {allowMultiple: false}
           appearance:
-            background: {color: *color-background, transparency: 100}
+            background: {color: *color-background, opacity: 100}
             border: {width: 1, style: solid, color: *color-secondary}
             radius: sm
           typography:

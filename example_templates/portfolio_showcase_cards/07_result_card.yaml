@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, layout-row, caption
 # Section type: gallery
 # Layout: grid
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page
@@ -64,7 +64,7 @@
                 layout: { horizontalAlign: left }
                 spacing: { paddingBlock: xl, paddingInline: lg }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: soft
                   border: { width: 1, style: solid, color: *color-secondary }
@@ -128,14 +128,14 @@
                 layout: { horizontalAlign: left }
                 spacing: { paddingBlock: xl, paddingInline: lg }
                 appearance:
-                  background: { color: *color-primary, transparency: 100 }
+                  background: { color: *color-primary, opacity: 100 }
                   radius: lg
                   shadow: elevated
               components:
                 - name: eyebrow
                   properties:
                     text: ARTISAN COLLECTIVE
-                    typography: { size: xs, weight: semibold, color: *color-secondary, transform: uppercase, letterSpacing: wider }
+                    typography: { size: xs, weight: semibold, color: *color-background, transform: uppercase, letterSpacing: wider }
                 - name: heading
                   properties:
                     text: "340%"
@@ -151,7 +151,7 @@
                 - name: paragraph
                   properties:
                     text: E-commerce redesign with UX research-led approach transformed the shopping experience, resulting in a 340% conversion rate increase.
-                    typography: { size: sm, color: *color-secondary }
+                    typography: { size: sm, color: *color-background }
                     spacing: { marginBlock: md }
                 - name: layout-row
                   properties:
@@ -169,7 +169,7 @@
                         - name: caption
                           properties:
                             text: Annual GMV
-                            typography: { size: xs, color: *color-secondary }
+                            typography: { size: xs, color: *color-background }
                     - name: layout-column
                       properties:
                         layout: { horizontalAlign: left }
@@ -182,7 +182,7 @@
                         - name: caption
                           properties:
                             text: Return Rate
-                            typography: { size: xs, color: *color-secondary }
+                            typography: { size: xs, color: *color-background }
 
         # Card 3 - User Engagement
         - components:
@@ -191,7 +191,7 @@
                 layout: { horizontalAlign: left }
                 spacing: { paddingBlock: xl, paddingInline: lg }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: soft
                   border: { width: 1, style: solid, color: *color-secondary }
@@ -255,7 +255,7 @@
       properties:
         layout: { columns: 2, gap: lg }
         responsive: { breakpoints: { md: 1, sm: 1 } }
-        spacing: { paddingBlock: none, paddingInline: lg }
+        spacing: { paddingBlock: sm, paddingInline: lg }
       columns:
 
         # Card 4 - App Downloads
@@ -293,7 +293,7 @@
                 - name: paragraph
                   properties:
                     text: End-to-end mobile app design and development for a fitness platform that reached 2.5 million downloads within its first 6 months, becoming the #3 ranked health app in the App Store.
-                    typography: { size: sm, color: *color-secondary }
+                    typography: { size: sm, color: *color-background }
 
         # Card 5 - Brand Awareness
         - components:
@@ -302,7 +302,7 @@
                 layout: { horizontalAlign: left }
                 spacing: { paddingBlock: xl, paddingInline: lg }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: soft
                   border: { width: 1, style: solid, color: *color-secondary }

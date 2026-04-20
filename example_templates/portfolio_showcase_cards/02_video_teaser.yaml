@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, video, layout-row, link, caption
 # Section type: gallery
 # Layout: grid
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page
@@ -63,7 +63,7 @@
               properties:
                 layout: { horizontalAlign: stretch }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: none }
@@ -120,7 +120,7 @@
               properties:
                 layout: { horizontalAlign: stretch }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: none }
@@ -177,7 +177,7 @@
               properties:
                 layout: { horizontalAlign: stretch }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: none }
@@ -234,7 +234,7 @@
               properties:
                 layout: { horizontalAlign: stretch }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: elevated
                 spacing: { paddingBlock: none }

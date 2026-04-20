@@ -1,0 +1,200 @@
+# Progress Bar: Fundraising Goals
+# Charity/nonprofit section showing fundraising progress toward campaign goals
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, caption, progress-bar
+# Section type: stats
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: nonprofit, charity, education, crowdfunding
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#10b981'
+        border: &color-border '#e5e7eb'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: MAKE A DIFFERENCE
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Our Fundraising Campaigns
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Every contribution brings us closer to our goals. See how your generosity is making an impact.
+                typography: { size: md, color: *color-secondary, align: center }
+                spacing: { marginBlock: md }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66' }
+          components:
+            - name: layout-column
+              properties:
+                appearance: { border: { color: '#e5e7eb', width: 1 }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: heading
+                  properties:
+                    text: Clean Water Initiative
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: Building wells and water purification systems in underserved communities across East Africa.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: progress-bar
+                  properties:
+                    percent: 78
+                    thickness: medium
+                    color: *color-accent
+                    trackColor: '#d1fae5'
+                    appearance: { radius: pill }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between }
+                    spacing: { marginBlock: xs }
+                  components:
+                    - name: caption
+                      properties:
+                        text: "$78,400 raised"
+                        typography: { size: sm, weight: semibold, color: *color-accent }
+                    - name: caption
+                      properties:
+                        text: "Goal: $100,000"
+                        typography: { size: sm, color: *color-secondary }
+
+            - name: layout-column
+              properties:
+                appearance: { border: { color: '#e5e7eb', width: 1 }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: heading
+                  properties:
+                    text: School Rebuilding Fund
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: Reconstructing classrooms and providing learning materials for children affected by natural disasters.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: progress-bar
+                  properties:
+                    percent: 45
+                    thickness: medium
+                    color: '#3b82f6'
+                    trackColor: '#dbeafe'
+                    appearance: { radius: pill }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between }
+                    spacing: { marginBlock: xs }
+                  components:
+                    - name: caption
+                      properties:
+                        text: "$112,500 raised"
+                        typography: { size: sm, weight: semibold, color: '#3b82f6' }
+                    - name: caption
+                      properties:
+                        text: "Goal: $250,000"
+                        typography: { size: sm, color: *color-secondary }
+
+            - name: layout-column
+              properties:
+                appearance: { border: { color: '#e5e7eb', width: 1 }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: heading
+                  properties:
+                    text: Community Garden Project
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: Creating sustainable urban gardens to provide fresh produce and green spaces in food deserts.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: progress-bar
+                  properties:
+                    percent: 92
+                    thickness: medium
+                    color: '#f59e0b'
+                    trackColor: '#fef3c7'
+                    appearance: { radius: pill }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between }
+                    spacing: { marginBlock: xs }
+                  components:
+                    - name: caption
+                      properties:
+                        text: "$23,000 raised"
+                        typography: { size: sm, weight: semibold, color: '#f59e0b' }
+                    - name: caption
+                      properties:
+                        text: "Goal: $25,000"
+                        typography: { size: sm, color: *color-secondary }
+
+            - name: layout-column
+              properties:
+                appearance: { border: { color: '#e5e7eb', width: 1 }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: heading
+                  properties:
+                    text: Youth Mentorship Program
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: Pairing at-risk youth with professional mentors to provide guidance, skills training, and career support.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: progress-bar
+                  properties:
+                    percent: 61
+                    thickness: medium
+                    color: '#8b5cf6'
+                    trackColor: '#ede9fe'
+                    appearance: { radius: pill }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between }
+                    spacing: { marginBlock: xs }
+                  components:
+                    - name: caption
+                      properties:
+                        text: "$30,500 raised"
+                        typography: { size: sm, weight: semibold, color: '#8b5cf6' }
+                    - name: caption
+                      properties:
+                        text: "Goal: $50,000"
+                        typography: { size: sm, color: *color-secondary }

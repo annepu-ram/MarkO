@@ -32,8 +32,8 @@
 2. **layout-row (Hero)**
    Left: heading ("Fast, Reliable AC Repair & Service") + paragraph (same-day service, certified technicians) + two buttons ("Book Service", "Emergency: Call Now"). Right: image (technician at work).
 
-3. **br (divider)**
-   Visual separator between hero and content sections.
+3. **br (slant section breaker, inverted, light gray)**
+   Angled slant transition from hero to trust stats section.
 
 4. **counter-up (Trust Stats)**
    "10,000+ Services Completed", "1-Hour Response Time", "4.8 Star Rating", "5+ Years Warranty".

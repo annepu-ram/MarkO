@@ -3,7 +3,7 @@
 # Base components: page, layout-row, heading, layout-column, image, eyebrow, paragraph, columnsgrid, button
 # Section type: navigation
 # Layout: stacked
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: mobile app interfaces, progressive web apps, and responsive mobile-first navigation patterns
 
 - name: page
@@ -30,7 +30,7 @@
       layout: {horizontalAlign: space-between, wrap: nowrap, verticalAlign: center}
       spacing: {paddingBlock: sm, paddingInline: md}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
     - name: heading
@@ -46,7 +46,7 @@
     properties:
       layout: {horizontalAlign: space-evenly}
       spacing: {paddingBlock: lg, paddingInline: md}
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
 
         # Featured Card
@@ -54,7 +54,7 @@
       properties:
         layout: {horizontalAlign: space-evenly}
         appearance:
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: lg
           shadow: soft
         spacing: {marginBlock: sm}
@@ -98,7 +98,7 @@
             layout: {horizontalAlign: space-evenly}
             spacing: {paddingBlock: lg, paddingInline: md}
             appearance:
-              background: {color: *color-background, transparency: 100}
+              background: {color: *color-background, opacity: 100}
               radius: lg
               shadow: soft
           components:
@@ -117,7 +117,7 @@
             layout: {horizontalAlign: space-evenly}
             spacing: {paddingBlock: lg, paddingInline: md}
             appearance:
-              background: {color: *color-background, transparency: 100}
+              background: {color: *color-background, opacity: 100}
               radius: lg
               shadow: soft
           components:
@@ -137,7 +137,7 @@
         layout: {horizontalAlign: space-evenly}
         spacing: {paddingBlock: md, paddingInline: md, marginBlock: sm}
         appearance:
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: lg
           shadow: soft
       components:
@@ -171,7 +171,7 @@
       layout: {horizontalAlign: space-evenly, wrap: nowrap, verticalAlign: center}
       spacing: {paddingBlock: sm, paddingInline: sm}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
 
@@ -185,7 +185,7 @@
         properties:
           text: Home
           appearance:
-            background: {color: *color-background, transparency: 0}
+            background: {color: *color-background, opacity: 0}
             border: {width: 0, style: solid, color: *color-background}
           typography: {size: xs, weight: medium, color: *color-secondary, align: center}
           layout: {widthMode: stretch}
@@ -203,7 +203,7 @@
         properties:
           text: Search
           appearance:
-            background: {color: *color-background, transparency: 0}
+            background: {color: *color-background, opacity: 0}
             border: {width: 0, style: solid, color: *color-background}
           typography: {size: xs, weight: medium, color: *color-secondary, align: center}
           layout: {widthMode: stretch}
@@ -221,7 +221,7 @@
         properties:
           text: Explore
           appearance:
-            background: {color: *color-background, transparency: 0}
+            background: {color: *color-background, opacity: 0}
             border: {width: 0, style: solid, color: *color-background}
           typography: {size: xs, weight: semibold, color: *color-accent, align: center}
           layout: {widthMode: stretch}
@@ -239,7 +239,7 @@
         properties:
           text: Profile
           appearance:
-            background: {color: *color-background, transparency: 0}
+            background: {color: *color-background, opacity: 0}
             border: {width: 0, style: solid, color: *color-background}
           typography: {size: xs, weight: medium, color: *color-secondary, align: center}
           layout: {widthMode: stretch}

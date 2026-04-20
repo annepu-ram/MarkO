@@ -1,0 +1,291 @@
+# Rating: Course Catalog
+# Online course listing with star ratings in a 3-column grid
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, caption, columnsgrid, rating, button
+# Section type: product
+# Layout: grid
+# Visual style: modern_minimalist
+# Perfect for: education, e-learning, courses, workshops
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: LEARN & GROW
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Popular Courses
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Expand your skills with our top-rated courses taught by industry experts.
+                typography: { size: md, color: *color-secondary, align: center }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: caption
+                  properties:
+                    text: DEVELOPMENT
+                    typography: { size: xs, weight: bold, color: *color-accent, letterSpacing: wider }
+                - name: heading
+                  properties:
+                    text: Full-Stack Web Development
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Master HTML, CSS, JavaScript, React, and Node.js to build complete web applications from scratch.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: rating
+                  properties:
+                    value: 4.8
+                    iconType: star
+                    showCount: true
+                    color: '#f59e0b'
+                    typography: { size: md, color: *color-secondary }
+                - name: caption
+                  properties:
+                    text: "12,450 students enrolled"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: button
+                  properties:
+                    text: Enroll Now
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: *color-background, size: sm, weight: semibold }
+                    spacing: { marginBlock: sm }
+
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: caption
+                  properties:
+                    text: DATA SCIENCE
+                    typography: { size: xs, weight: bold, color: '#10b981', letterSpacing: wider }
+                - name: heading
+                  properties:
+                    text: Machine Learning A-Z
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Learn supervised and unsupervised learning, neural networks, and real-world ML project workflows.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: rating
+                  properties:
+                    value: 4.6
+                    iconType: star
+                    showCount: true
+                    color: '#f59e0b'
+                    typography: { size: md, color: *color-secondary }
+                - name: caption
+                  properties:
+                    text: "8,230 students enrolled"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: button
+                  properties:
+                    text: Enroll Now
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: *color-background, size: sm, weight: semibold }
+                    spacing: { marginBlock: sm }
+
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: caption
+                  properties:
+                    text: DESIGN
+                    typography: { size: xs, weight: bold, color: '#f59e0b', letterSpacing: wider }
+                - name: heading
+                  properties:
+                    text: UI/UX Design Masterclass
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: From wireframes to high-fidelity prototypes. Learn Figma, design systems, and user research methods.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: rating
+                  properties:
+                    value: 4.9
+                    iconType: star
+                    showCount: true
+                    color: '#f59e0b'
+                    typography: { size: md, color: *color-secondary }
+                - name: caption
+                  properties:
+                    text: "15,780 students enrolled"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: button
+                  properties:
+                    text: Enroll Now
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: *color-background, size: sm, weight: semibold }
+                    spacing: { marginBlock: sm }
+
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: caption
+                  properties:
+                    text: MARKETING
+                    typography: { size: xs, weight: bold, color: '#ef4444', letterSpacing: wider }
+                - name: heading
+                  properties:
+                    text: Digital Marketing Strategy
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: SEO, content marketing, social media ads, and email campaigns to grow your business online.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: rating
+                  properties:
+                    value: 4.5
+                    iconType: star
+                    showCount: true
+                    color: '#f59e0b'
+                    typography: { size: md, color: *color-secondary }
+                - name: caption
+                  properties:
+                    text: "6,890 students enrolled"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: button
+                  properties:
+                    text: Enroll Now
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: *color-background, size: sm, weight: semibold }
+                    spacing: { marginBlock: sm }
+
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: caption
+                  properties:
+                    text: BUSINESS
+                    typography: { size: xs, weight: bold, color: '#8b5cf6', letterSpacing: wider }
+                - name: heading
+                  properties:
+                    text: Product Management Essentials
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Learn roadmap planning, stakeholder management, agile methodologies, and product-market fit analysis.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: rating
+                  properties:
+                    value: 4.7
+                    iconType: star
+                    showCount: true
+                    color: '#f59e0b'
+                    typography: { size: md, color: *color-secondary }
+                - name: caption
+                  properties:
+                    text: "4,120 students enrolled"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: button
+                  properties:
+                    text: Enroll Now
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: *color-background, size: sm, weight: semibold }
+                    spacing: { marginBlock: sm }
+
+        - components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: caption
+                  properties:
+                    text: CLOUD
+                    typography: { size: xs, weight: bold, color: '#06b6d4', letterSpacing: wider }
+                - name: heading
+                  properties:
+                    text: AWS Cloud Practitioner
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Prepare for the AWS certification exam with hands-on labs covering EC2, S3, Lambda, and more.
+                    typography: { size: sm, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+                - name: rating
+                  properties:
+                    value: 4.4
+                    iconType: star
+                    showCount: true
+                    color: '#f59e0b'
+                    typography: { size: md, color: *color-secondary }
+                - name: caption
+                  properties:
+                    text: "9,560 students enrolled"
+                    typography: { size: xs, color: *color-secondary }
+                    spacing: { marginBlock: xs }
+                - name: button
+                  properties:
+                    text: Enroll Now
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: *color-background, size: sm, weight: semibold }
+                    spacing: { marginBlock: sm }

@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-column, layout-row, paragraph, heading, button
 # Section type: hero
 # Layout: stacked
-# Visual style: bold_typography
+# Visual style: bold_editorial
 # Perfect for: Creative agencies, portfolios, editorial, branding studios
 
 - name: page
@@ -22,7 +22,7 @@
           colorStart: *color-background
           colorEnd: *color-background
           direction: to bottom
-        transparency: 100
+        opacity: 100
   components:
   # Minimal Navigation
   - name: titlebar
@@ -46,7 +46,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
         border:
           width: 0
           style: solid
@@ -80,7 +80,7 @@
             colorStart: *color-background
             colorEnd: *color-background
             direction: to bottom right
-          transparency: 100
+          opacity: 100
     components:
     # Small Intro Text
     - name: paragraph
@@ -219,7 +219,7 @@
               appearance:
                 background:
                   color: transparent
-                  transparency: 0
+                  opacity: 0
                 border:
                   width: 2
                   style: solid

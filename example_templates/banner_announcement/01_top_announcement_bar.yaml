@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, paragraph, link, icon
 # Section type: banner
 # Layout: centered
-# Visual style: modern, bold_typography
+# Visual style: bold_editorial
 # Perfect for: online store, SaaS platform, fashion brand, tech startup, restaurant, event venue, hotel, university website
 
 - name: site
@@ -39,7 +39,7 @@
                 - name: icon
                   properties:
                     icon: star
-                    appearance: { color: '#ffffff', size: sm }
+                    appearance: { color: *color-background, size: sm }
                     name: star
                     size: "36"
                     strokeWidth: "2"
@@ -64,8 +64,8 @@
                     appearance:
                       background:
                         type: ""
-                        color: $color-background
-                        transparency: 0
+                        color: *color-background
+                        opacity: 0
                     spacing:
                       paddingBlock: sm
                       paddingInline: none

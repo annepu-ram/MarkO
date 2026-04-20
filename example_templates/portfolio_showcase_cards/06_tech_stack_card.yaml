@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, layout-row, image, caption, br
 # Section type: gallery
 # Layout: grid
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page
@@ -64,7 +64,7 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: lg, paddingInline: lg }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: soft
                   border: { width: 1, style: solid, color: *color-secondary }
@@ -142,7 +142,7 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: lg, paddingInline: lg }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: soft
                   border: { width: 1, style: solid, color: *color-secondary }
@@ -220,7 +220,7 @@
                 layout: { horizontalAlign: center }
                 spacing: { paddingBlock: lg, paddingInline: lg }
                 appearance:
-                  background: { color: *color-background, transparency: 100 }
+                  background: { color: *color-background, opacity: 100 }
                   radius: lg
                   shadow: soft
                   border: { width: 1, style: solid, color: *color-secondary }

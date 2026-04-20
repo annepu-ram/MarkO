@@ -13,11 +13,11 @@
         heading: "'Space Grotesk', sans-serif"
         content: "'IBM Plex Sans', sans-serif"
       colors:
-        primary: '#1A1A1A'
-        text: '#313131'
-        secondary: '#C8C4BB'
-        accent: '#FF4D00'
-        background: '#E5E2DD'
+        primary: &color-primary '#1A1A1A'
+        text: &color-text '#313131'
+        secondary: &color-secondary '#C8C4BB'
+        accent: &color-accent '#FF4D00'
+        background: &color-background '#E5E2DD'
   components:
     - name: page
       slug: home
@@ -25,7 +25,7 @@
       properties:
         appearance:
           background:
-            color: '#E5E2DD'
+            color: *color-background
       components:
 
         # Footer Top — thick top border row containing brand + link columns
@@ -60,7 +60,7 @@
                     typography:
                       size: xxl
                       weight: extrabold
-                      color: '#1A1A1A'
+                      color: *color-primary
                       transform: uppercase
                     spacing:
                       marginBlock: none
@@ -70,7 +70,7 @@
                     typography:
                       size: sm
                       weight: medium
-                      color: '#313131'
+                      color: *color-text
                       lineHeight: '1.6'
                     spacing:
                       marginBlock: sm
@@ -90,7 +90,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                         appearance:
                           underline: false
                     - name: link
@@ -100,7 +100,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                         appearance:
                           underline: false
                     - name: link
@@ -110,7 +110,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                         appearance:
                           underline: false
 
@@ -139,7 +139,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: sm
@@ -150,7 +150,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -162,7 +162,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -174,7 +174,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -194,7 +194,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: sm
@@ -205,7 +205,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -217,7 +217,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -229,7 +229,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -249,7 +249,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: sm
@@ -260,7 +260,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -272,7 +272,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -284,7 +284,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         appearance:
                           underline: false
                         spacing:
@@ -299,7 +299,7 @@
               wrap: wrap
             appearance:
               background:
-                color: '#1A1A1A'
+                color: *color-primary
               border:
                 width: 4
                 style: solid
@@ -314,7 +314,7 @@
                 typography:
                   size: xs
                   weight: medium
-                  color: '#C8C4BB'
+                  color: *color-secondary
             - name: layout-row
               properties:
                 layout:
@@ -329,7 +329,7 @@
                     typography:
                       size: xs
                       weight: medium
-                      color: '#C8C4BB'
+                      color: *color-secondary
                     appearance:
                       underline: false
                 - name: link
@@ -339,7 +339,7 @@
                     typography:
                       size: xs
                       weight: medium
-                      color: '#C8C4BB'
+                      color: *color-secondary
                     appearance:
                       underline: false
                 - name: link
@@ -349,6 +349,6 @@
                     typography:
                       size: xs
                       weight: medium
-                      color: '#C8C4BB'
+                      color: *color-secondary
                     appearance:
                       underline: false

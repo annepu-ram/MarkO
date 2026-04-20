@@ -4,7 +4,7 @@
 # Base components: layout-column, eyebrow, heading, paragraph, br, button, caption
 # Section type: pricing
 # Layout: centered
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: SaaS, subscriptions, memberships, services, ecommerce
 
 - name: page
@@ -40,7 +40,7 @@
         typography:
           size: xxs
           weight: bold
-          color: *color-secondary
+          color: *color-background
           align: center
           transform: uppercase
           letterSpacing: wider
@@ -56,7 +56,7 @@
     - name: paragraph
       properties:
         text: "Tailored solutions for organizations with 100+ users"
-        typography: {size: md, color: *color-secondary, align: center}
+        typography: {size: md, color: *color-background, align: center}
         spacing: {marginBlock: xs}
     - name: br
       properties:
@@ -66,7 +66,7 @@
       properties:
         layout: {horizontalAlign: left, gap: xs}
         appearance:
-          background: {color: *color-primary, transparency: 100}
+          background: {color: *color-primary, opacity: 100}
           radius: md
         spacing:
           paddingBlock: md
@@ -116,5 +116,5 @@
     - name: caption
       properties:
         text: "No commitment required. Get a custom quote in 24 hours."
-        typography: {size: xs, color: *color-secondary, align: center}
+        typography: {size: xs, color: *color-background, align: center}
         spacing: {marginBlock: xs}

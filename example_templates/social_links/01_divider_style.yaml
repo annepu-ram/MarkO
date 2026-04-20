@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, heading, paragraph, link
 # Section type: social_links
 # Layout: centered row
-# Visual style: dark, minimal
+# Visual style: monochrome_dark
 # Perfect for: portfolio, creative agency, freelancer, photographer, designer
 
 - name: site
@@ -26,7 +26,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
         # Section Heading
     - name: layout-column
@@ -41,7 +41,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
       - name: eyebrow
         properties:

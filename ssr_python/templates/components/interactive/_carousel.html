@@ -59,10 +59,12 @@
                      role="group"
                      aria-roledescription="slide"
                      aria-label="Slide {{ loop.index }} of {{ slides | length }}">
-                    {% for child in slide.components | default([]) %}
-                        {% set child_path = path + ['slides', slide_index, 'components', loop.index0] %}
-                        {{ render_component(child, tokens, child_path) }}
-                    {% endfor %}
+                    <div class="carousel-slide__content" style="{{ build_flex_styles(slide, tokens, 'column') }}">
+                        {% for child in slide.components | default([]) %}
+                            {% set child_path = path + ['slides', slide_index, 'components', loop.index0] %}
+                            {{ render_component(child, tokens, child_path, 'column') }}
+                        {% endfor %}
+                    </div>
                 </div>
             {% endfor %}
         </div>

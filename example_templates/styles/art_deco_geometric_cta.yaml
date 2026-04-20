@@ -1,0 +1,204 @@
+# Art Deco Geometric CTA Banner
+# Theatrical call-to-action with dark background, gold typography, and ornamental borders
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: art_deco_geometric
+# Perfect for: Luxury hotel, fine dining, jewelry brand, cocktail bar, fashion house, theater, gala event
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Playfair Display', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#0D0D0D"
+        text: &color-text "#C8C8B8"
+        secondary: &color-secondary "#D4AF37"
+        accent: &color-accent "#B8860B"
+        background: &color-background "#1A1A2E"
+  components:
+    - name: page
+      slug: home
+      title: "Art Deco Geometric CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — dark background with gold bordered inner frame
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-primary
+                opacity: 100
+              border:
+                width: 0
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Inner bordered frame — gold double border effect
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "75"
+                  horizontalAlign: center
+                  gap: md
+                appearance:
+                  background:
+                    color: *color-primary
+                    opacity: 100
+                  border:
+                    width: 2
+                    style: solid
+                    color: *color-secondary
+                  radius: none
+                spacing:
+                  paddingBlock: xxl
+                  paddingInline: xl
+              components:
+
+                # Top decorative divider
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          widthMode: "16"
+                        appearance:
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                          radius: none
+                        spacing:
+                          paddingBlock: none
+
+                # Eyebrow — italic gold
+                - name: eyebrow
+                  properties:
+                    text: "An Invitation"
+                    typography:
+                      size: sm
+                      weight: regular
+                      color: *color-accent
+                      letterSpacing: wider
+                      align: center
+                      fontStyle: italic
+
+                # Main heading — gold uppercase
+                - name: heading
+                  properties:
+                    text: "THE DOORS ARE OPEN"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-secondary
+                      align: center
+                      lineHeight: snug
+                      transform: uppercase
+                      letterSpacing: wider
+
+                # Supporting paragraph — light text
+                - name: paragraph
+                  properties:
+                    text: |
+                      Secure your place among a distinguished circle of guests who
+                      demand nothing less than perfection. Reservations for our spring
+                      season open on the first of next month.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "83"
+                    spacing:
+                      marginBlock: md
+
+                # CTA buttons — gold themed
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "MAKE A RESERVATION"
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          border:
+                            width: 2
+                            style: solid
+                            color: *color-secondary
+                          radius: none
+                          shadow: medium
+                        typography:
+                          color: *color-primary
+                          weight: bold
+                          size: md
+                          transform: uppercase
+                          letterSpacing: wider
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "VIEW THE COLLECTION"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 2
+                            style: solid
+                            color: *color-secondary
+                          radius: none
+                          shadow: none
+                        typography:
+                          color: *color-secondary
+                          weight: bold
+                          size: md
+                          transform: uppercase
+                          letterSpacing: wider
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Bottom decorative divider
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          widthMode: "16"
+                        appearance:
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                          radius: none
+                        spacing:
+                          paddingBlock: none

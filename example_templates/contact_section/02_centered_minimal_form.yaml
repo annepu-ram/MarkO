@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, form, textbox, textarea, heading, paragraph, eyebrow, button
 # Section type: contact
 # Layout: centered, stacked
-# Visual style: minimal, modern
+# Visual style: modern_minimalist
 # Perfect for: consulting firm, law firm, dental clinic, real estate agency, digital agency, photography studio, architecture firm, accounting firm, tutoring center, wellness center
 
 
@@ -39,7 +39,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
         spacing:
           paddingBlock: xxxl
           paddingInline: xl
@@ -53,7 +53,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 0
+              opacity: 0
           spacing:
             paddingBlock: xl
             paddingInline: xl
@@ -143,8 +143,8 @@
             properties:
               text: Send Message
               appearance:
-                background: {color: *color-accent, transparency: 100}
+                background: {color: *color-accent, opacity: 100}
                 radius: md
-              typography: {color: '#ffffff', weight: semibold, size: md}
+              typography: {color: *color-background, weight: semibold, size: md}
               spacing: {marginBlock: sm, paddingBlock: md, paddingInline: xl}
               layout: {widthMode: stretch}

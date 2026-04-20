@@ -3,7 +3,7 @@
 # Base components: layout-row, columnsgrid, layout-column, image, heading, caption, paragraph, eyebrow
 # Section type: team
 # Layout: grid, card_based
-# Visual style: modern, minimal
+# Visual style: modern_minimalist
 # Perfect for: digital agency, tech startup, consulting firm, law firm, restaurant, bakery, creative studio, architecture firm, dental clinic, accounting firm
 
 
@@ -66,7 +66,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: image
@@ -101,7 +101,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: image
@@ -136,7 +136,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: image
@@ -171,7 +171,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: image

@@ -27,7 +27,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
 
         # Gradient background — mandatory for glassmorphism blur visibility
@@ -42,7 +42,7 @@
                   colorStart: *color-accent
                   colorEnd: *color-background
                   direction: to bottom right
-                transparency: 100
+                opacity: 100
 
             spacing:
               paddingBlock: none
@@ -69,14 +69,14 @@
                       wrap: nowrap
                     appearance:
                       background:
-                        color: '#ffffff'
-                        transparency: 15
+                        color: *color-primary
+                        opacity: 15
                       blur: true
                       radius: pill
                       border:
                         width: 1
                         style: solid
-                        color: '#ffffff'
+                        color: *color-primary
                     spacing:
                       paddingBlock: xs
                       paddingInline: md
@@ -127,14 +127,14 @@
                       gap: md
                     appearance:
                       background:
-                        color: '#ffffff'
-                        transparency: 12
+                        color: *color-primary
+                        opacity: 12
                       blur: true
                       radius: lg
                       border:
                         width: 1
                         style: solid
-                        color: '#ffffff'
+                        color: *color-primary
                       shadow: soft
                     spacing:
                       paddingBlock: lg
@@ -228,13 +228,13 @@
                         text: "Get Started Free"
                         appearance:
                           background:
-                            color: '#ffffff'
-                            transparency: 20
+                            color: *color-primary
+                            opacity: 20
                           blur: true
                           border:
                             width: 1
                             style: solid
-                            color: '#ffffff'
+                            color: *color-primary
                           radius: pill
                           shadow: soft
                         spacing:
@@ -251,13 +251,13 @@
                         text: "Watch Demo"
                         appearance:
                           background:
-                            color: '#ffffff'
-                            transparency: 10
+                            color: *color-primary
+                            opacity: 10
                           blur: true
                           border:
                             width: 1
                             style: solid
-                            color: '#ffffff'
+                            color: *color-primary
                           radius: pill
                         typography:
                           color: *color-primary

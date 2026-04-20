@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-row, columnsgrid, eyebrow, link, image, heading, paragraph, layout-column, button
 # Section type: navigation
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS platforms, enterprise sites, and content-heavy websites needing organized multi-category navigation
 
 - name: page
@@ -47,7 +47,7 @@
       scroll:
         shrinkPercentage: 70
       appearance:
-        background: {color: *color-primary, transparency: 100}
+        background: {color: *color-primary, opacity: 100}
         border: {width: 0, style: solid, color: *color-primary}
       typography:
         title: {size: 22, weight: bold, color: *color-background}
@@ -61,7 +61,7 @@
       layout: {horizontalAlign: space-evenly, wrap: nowrap, verticalAlign: start}
       spacing: {paddingBlock: none, paddingInline: none}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
 
@@ -69,7 +69,7 @@
     - name: columnsgrid
       properties:
         layout: {columns: 4, gap: md, verticalAlign: top}
-        spacing: {paddingBlock: none, paddingInline: none}
+        spacing: {paddingBlock: sm, paddingInline: sm}
         responsive: {breakpoints: {md: 2, sm: 1}}
       columns:
 
@@ -242,7 +242,7 @@
     properties:
       layout: {horizontalAlign: space-evenly}
       spacing: {paddingBlock: xxxl, paddingInline: xl}
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
     - name: eyebrow
       properties:

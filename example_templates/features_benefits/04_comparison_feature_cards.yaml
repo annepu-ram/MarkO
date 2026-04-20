@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, heading, paragraph, icon, badge, br
 # Section type: features
 # Layout: split_screen, card_based
-# Visual style: modern, card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, mobile app, software company, online store, consulting firm, logistics company, tutoring center, dental clinic, gym, digital agency
 
 
@@ -67,7 +67,7 @@
               properties:
                 layout: { widthMode: "50", horizontalAlign: left, gap: sm }
                 appearance:
-                  background: { color: '#fef2f2', transparency: 100 }
+                  background: { color: '#fef2f2', opacity: 100 }
                   radius: lg
                   shadow: soft
                   border: { width: 1, style: solid, color: '#fecaca' }
@@ -153,7 +153,7 @@
               properties:
                 layout: { widthMode: "50", horizontalAlign: left, gap: sm }
                 appearance:
-                  background: { color: '#f0fdf4', transparency: 100 }
+                  background: { color: '#f0fdf4', opacity: 100 }
                   radius: lg
                   shadow: soft
                   border: { width: 1, style: solid, color: '#bbf7d0' }

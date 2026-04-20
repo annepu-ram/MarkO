@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, layout-row, image, blockquote, link
 # Section type: gallery
 # Layout: split_screen
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page

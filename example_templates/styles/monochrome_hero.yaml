@@ -3,7 +3,7 @@
 # Base components: site, page, layout-row, layout-column, eyebrow, heading, paragraph, button, image, br
 # Section type: hero
 # Layout: stacked
-# Visual style: monochrome
+# Visual style: monochrome_dark
 # Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
 
 - name: site
@@ -26,7 +26,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
 
         # Hero section — sleek dark layout
@@ -47,7 +47,7 @@
               background:
                 type: ""
                 color: "#ffffff"
-                transparency: 0
+                opacity: 0
               blur: false
               border:
                 width: 0
@@ -119,7 +119,7 @@
                         appearance:
                           background:
                             color: '#1F1F1F'
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 1
                             style: solid
@@ -156,7 +156,7 @@
                         appearance:
                           background:
                             color: '#1F1F1F'
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 1
                             style: solid
@@ -201,7 +201,7 @@
                         appearance:
                           background:
                             color: *color-accent
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 0
                           radius: xs
@@ -221,7 +221,7 @@
                         appearance:
                           background:
                             color: transparent
-                            transparency: 0
+                            opacity: 0
                           border:
                             width: 1
                             style: solid
@@ -245,7 +245,7 @@
                     appearance:
                       background:
                         color: '#1F1F1F'
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 1
                         style: solid

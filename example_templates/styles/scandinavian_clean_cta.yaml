@@ -1,0 +1,146 @@
+# Scandinavian Clean CTA Banner
+# Understated call-to-action with accent background and clean white typography
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: scandinavian_clean
+# Perfect for: Furniture brand, architecture studio, interior design, Nordic lifestyle, home goods
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A2B3C"
+        text: &color-text "#4A5568"
+        secondary: &color-secondary "#E2E8F0"
+        accent: &color-accent "#2B6CB0"
+        background: &color-background "#F7FAFC"
+  components:
+    - name: page
+      slug: home
+      title: "Scandinavian Clean CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — accent background, white text
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              border:
+                width: 0
+              radius: none
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Inner content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                  gap: md
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Get Started"
+                    typography:
+                      size: xs
+                      weight: medium
+                      color: "rgba(255,255,255,0.7)"
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "Ready to simplify?"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: medium
+                      color: "#ffffff"
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Start with what you need. Add as you grow. Our modular approach
+                      means you never pay for more than what serves you.
+                    typography:
+                      size: md
+                      color: "rgba(255,255,255,0.85)"
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "75"
+                    spacing:
+                      marginBlock: md
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Browse Catalog"
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: md
+                          shadow: none
+                        typography:
+                          color: *color-accent
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "Book Consultation"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#ffffff"
+                          radius: md
+                          shadow: none
+                        typography:
+                          color: "#ffffff"
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl

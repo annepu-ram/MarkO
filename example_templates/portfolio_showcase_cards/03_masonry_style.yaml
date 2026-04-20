@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, image, caption, br
 # Section type: gallery
 # Layout: grid
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page

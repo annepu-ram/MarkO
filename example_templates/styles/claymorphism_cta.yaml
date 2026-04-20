@@ -1,0 +1,161 @@
+# Claymorphism CTA
+# Playful bubbly call-to-action with extreme rounding and candy-colored accent background
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: claymorphism
+# Perfect for: Kids education, wellness app, food delivery, creative tools, social media, lifestyle brand
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Poppins', sans-serif"
+        content: &font-content "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary "#4A1942"
+        text: &color-text "#5A3058"
+        secondary: &color-secondary "#F5B0D0"
+        accent: &color-accent "#FF1493"
+        background: &color-background "#FFD6E6"
+  components:
+    - name: page
+      slug: home
+      title: "Claymorphism CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — accent background with bubbly feel
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              radius: xxl
+              shadow: none
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+              marginBlock: xl
+              marginInline: lg
+          components:
+
+            # Inner content container
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                  gap: md
+              components:
+
+                # Playful eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "READY TO PLAY?"
+                    typography:
+                      size: xs
+                      weight: bold
+                      color: *color-background
+                      letterSpacing: wider
+                      transform: uppercase
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "Jump in and start creating something amazing"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-background
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      No complicated setup, no boring tutorials. Just pure creative fun
+                      from the very first click. Your next masterpiece is waiting to be
+                      squished into shape.
+                    typography:
+                      size: md
+                      color: *color-background
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "83"
+                    spacing:
+                      marginBlock: md
+
+                # CTA buttons — bubbly pill style
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Get Started Free"
+                        appearance:
+                          background:
+                            color: *color-background
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: elevated
+                          shadowColor: "#C01070"
+                        typography:
+                          color: *color-accent
+                          weight: bold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "Watch the Tour"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 2
+                            style: solid
+                            color: *color-background
+                          radius: pill
+                          shadow: none
+                        typography:
+                          color: *color-background
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Fun trust line
+                - name: paragraph
+                  properties:
+                    text: "Loved by 25,000+ creators. Rated 4.9 stars. Seriously fun to use."
+                    typography:
+                      size: sm
+                      color: rgba(255,214,230,0.8)
+                      align: center
+                      weight: medium
+                    spacing:
+                      marginBlock: md

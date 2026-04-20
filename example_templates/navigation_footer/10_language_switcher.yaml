@@ -3,7 +3,7 @@
 # Base components: page, layout-row, paragraph, dropdown, button, titlebar, image, layout-column, eyebrow, heading, form, textbox, columnsgrid, link
 # Section type: navigation
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: international travel sites, multilingual platforms, and global e-commerce with language selection
 
 - name: page
@@ -30,7 +30,7 @@
       layout: {horizontalAlign: space-between, wrap: nowrap, verticalAlign: center}
       spacing: {paddingBlock: xs, paddingInline: xl}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
 
@@ -74,14 +74,14 @@
               Korean
           appearance:
             border: {width: 1, style: solid, color: *color-secondary}
-            background: {color: *color-background, transparency: 100}
+            background: {color: *color-background, opacity: 100}
             radius: sm
           spacing: {marginInline: sm}
       - name: button
         properties:
           text: Login
           appearance:
-            background: {color: *color-background, transparency: 100}
+            background: {color: *color-background, opacity: 100}
             border: {width: 1, style: solid, color: *color-secondary}
             radius: sm
           typography: {color: *color-primary, weight: medium, size: xs}
@@ -122,7 +122,7 @@
       scroll:
         shrinkPercentage: 70
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
         focus:
           background: *color-background
@@ -169,7 +169,7 @@
         properties:
           layout: {horizontalAlign: space-evenly, wrap: nowrap, verticalAlign: center}
           appearance:
-            background: {color: *color-background, transparency: 100}
+            background: {color: *color-background, opacity: 100}
             radius: lg
             shadow: elevated
           spacing: {paddingBlock: sm, paddingInline: sm}
@@ -184,7 +184,7 @@
               label: {show: false}
               field: {placeholder: 'Where do you want to go?'}
               appearance:
-                background: {color: *color-background, transparency: 100}
+                background: {color: *color-background, opacity: 100}
                 border: {width: 1, style: solid, color: *color-secondary}
                 radius: md
               typography: {size: md, color: *color-primary}
@@ -305,10 +305,10 @@
     properties:
       layout: {horizontalAlign: space-evenly, verticalAlign: center}
       spacing: {paddingBlock: md, paddingInline: xl}
-      appearance: {background: {color: *color-primary, transparency: 100}}
+      appearance: {background: {color: *color-primary, opacity: 100}}
     components:
     - name: paragraph
       properties:
         text: "© 2026 GlobalTravel. Available in 10 languages. All rights reserved."
-        typography: {size: xs, color: *color-secondary, align: center}
+        typography: {size: xs, color: *color-background, align: center}
         layout: {widthMode: stretch}

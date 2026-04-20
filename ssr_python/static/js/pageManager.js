@@ -93,7 +93,7 @@ export async function addPage(title, slug) {
             appearance: {
                 background: {
                     color: '#ffffff',
-                    transparency: 100
+                    opacity: 100
                 }
             }
         },

@@ -3,7 +3,7 @@
 # Base components: page, image, layout-column, layout-row, paragraph, heading, button
 # Section type: hero
 # Layout: fullscreen
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: Travel, hospitality, luxury brands, creative agencies
 
 - name: page
@@ -18,170 +18,247 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
-  # Full-Screen Hero with Centered Content
-  - name: image
-    properties:
-      source:
-        url: https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1920
-        altText: Majestic mountain landscape at golden hour
-      appearance:
-        minHeight: 100vh
-        fit: cover
-        cornerStyle: none
-        hoverEffect: zoom
-      spacing:
-        marginBlock: none
-        marginInline: none
-      layout:
-        widthMode: stretch
-    components:
-    # Dark Gradient Overlay for Text Readability
-    - name: layout-column
+    # Full-Screen Hero with Centered Content
+    - name: image
       properties:
-        layout:
-          horizontalAlign: space-evenly
-        spacing:
-          paddingBlock: xxxl
-          paddingInline: lg
+        source:
+          url: https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1920
+          altText: Majestic mountain landscape at golden hour
         appearance:
-          background:
-            color: rgba(0,0,0,0.45)
-            transparency: 100
-      components:
-      # Eyebrow Badge
-      - name: layout-row
-        properties:
-          layout:
-            horizontalAlign: space-evenly
-            verticalAlign: center
-            wrap: nowrap
-        components:
-        - name: paragraph
-          properties:
-            text: "DISCOVER THE EXTRAORDINARY"
-            typography:
-              color: *color-text
-              size: xs
-              weight: medium
-              letterSpacing: wider
-              transform: uppercase
-              lineHeight: '1'
-            spacing:
-              marginBlock: none
-            appearance:
-              background:
-                color: rgba(255,255,255,0.15)
-                transparency: 100
-              radius: pill
-              shadow: medium
-      - name: heading
-        properties:
-          text: "Explore Beyond Horizons"
-          level: 1
-          typography:
-            color: *color-primary
-            size: xxxl
-            weight: bold
-            align: center
-            letterSpacing: tight
-          spacing:
-            marginBlock: none
+          minHeight: 100vh
+          fit: cover
+          cornerStyle: none
+          hoverEffect: zoom
+        spacing:
+          marginBlock: none
+          marginInline: none
         layout:
-          widthMode: 75
-
-      # Sub-headline
-      - name: paragraph
-        properties:
-          text: |
-            Embark on journeys that transform. From snow-capped peaks to endless coastlines,
-            discover destinations that speak to your soul and awaken your sense of wonder.
-          typography:
-            color: rgba(255,255,255,0.9)
-            size: lg
-            align: center
-            lineHeight: '1.7'
-            weight: light
-          spacing:
-            marginBlock: md
-          layout:
-            widthMode: 50
-
-      # CTA Buttons
-      - name: layout-row
-        properties:
-          layout:
-            horizontalAlign: space-evenly
-            wrap: wrap
-            verticalAlign: center
-          spacing:
-            marginBlock: lg
-        components:
-        - name: button
+          widthMode: stretch
+      components:
+        # Dark Gradient Overlay for Text Readability
+        - name: layout-column
           properties:
-            text: Start Your Journey
+            layout:
+              horizontalAlign: center
+              tag: section
+              verticalAlign: space-between
+              wrap: nowrap
+              gap: none
+              widthMode: stretch
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+              marginBlock: none
+              marginInline: none
             appearance:
               background:
-                color: *color-accent
-                transparency: 100
+                color: "#000000"
+                opacity: 0
+                type: ""
+              blur: false
               border:
                 width: 0
                 style: solid
-                color: transparent
-            typography:
-              color: *color-secondary
-              weight: semibold
-              size: md
-            spacing:
-              marginBlock: none
-              paddingBlock: md
-              paddingInline: xl
-        - name: button
-          properties:
-            text: Watch Film
-            appearance:
-              background:
-                color: transparent
-                transparency: 0
-              border:
-                width: 2
-                style: solid
-                color: *color-primary
-            typography:
-              color: *color-primary
-              weight: semibold
-              size: md
-            spacing:
-              marginBlock: none
+                color: $color-primary
+              radius: none
+              shadow: none
+              shadowColor: "#000000"
+          components:
+            # Eyebrow Badge
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-evenly
+                  verticalAlign: center
+                  wrap: nowrap
+              components:
+                - name: paragraph
+                  properties:
+                    text: "DISCOVER THE EXTRAORDINARY"
+                    typography:
+                      color: *color-text
+                      size: xs
+                      weight: medium
+                      letterSpacing: wider
+                      transform: uppercase
+                      lineHeight: '1'
+                    spacing:
+                      marginBlock: none
+                    appearance:
+                      background:
+                        color: rgba(255,255,255,0.15)
+                        opacity: 100
+                      radius: pill
+                      shadow: medium
+                      textShadow: soft
+            - name: heading
+              properties:
+                text: "Explore Beyond Horizons"
+                level: ""
+                typography:
+                  color: *color-accent
+                  size: xxxl
+                  weight: bold
+                  align: center
+                  letterSpacing: tight
+                  lineHeight: "1.2"
+                  transform: none
+                  fontStyle: normal
+                  textDecoration: none
+                appearance:
+                  textShadow: soft
+                  background:
+                    type: ""
+                    color: $color-background
+                    opacity: 0
+                spacing:
+                  marginBlock: none
+                  paddingBlock: none
+                  paddingInline: none
+                  marginInline: none
+                layout:
+                  widthMode: fit
+              layout:
+                widthMode: 75
 
-      # Scroll Indicator
-              paddingBlock: md
-              paddingInline: xl
-      - name: layout-column
-        properties:
-          layout:
-            horizontalAlign: space-evenly
-          spacing:
-            marginBlock: xl
-        components:
-        - name: paragraph
-          properties:
-            text: "Scroll to explore"
-            typography:
-              color: rgba(255,255,255,0.6)
-              size: xs
-              align: center
-              weight: light
-              letterSpacing: wide
-            spacing:
-              marginBlock: none
-        - name: paragraph
-          properties:
-            text: "↓"
-            typography:
-              color: rgba(255,255,255,0.6)
-              size: lg
-              align: center
-            spacing:
-              marginBlock: none
+            # Sub-headline
+            - name: paragraph
+              properties:
+                text: |
+                  Embark on journeys that transform. From snow-capped peaks to endless coastlines,
+                  discover destinations that speak to your soul and awaken your sense of wonder.
+                typography:
+                  color: *color-accent
+                  size: lg
+                  align: center
+                  lineHeight: '1.7'
+                  weight: light
+                  transform: none
+                  letterSpacing: normal
+                  fontStyle: normal
+                  textDecoration: none
+                appearance:
+                  textShadow: strong
+                  background:
+                    type: ""
+                    color: $color-background
+                    opacity: 0
+                spacing:
+                  marginBlock: md
+                  paddingBlock: sm
+                  paddingInline: none
+                  marginInline: none
+                layout:
+                  widthMode: "50"
+
+            # CTA Buttons
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-evenly
+                  wrap: wrap
+                  verticalAlign: center
+                spacing:
+                  marginBlock: lg
+              components:
+                - name: button
+                  properties:
+                    text: Start Your Journey
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 0
+                        style: solid
+                        color: transparent
+                    typography:
+                      color: *color-secondary
+                      weight: semibold
+                      size: md
+                    spacing:
+                      marginBlock: none
+                      paddingBlock: md
+                      paddingInline: xl
+                - name: button
+                  properties:
+                    text: Watch Film
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-primary
+                    typography:
+                      color: *color-primary
+                      weight: semibold
+                      size: md
+                    spacing:
+                      marginBlock: none
+
+                      # Scroll Indicator
+                      paddingBlock: md
+                      paddingInline: xl
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: space-evenly
+                spacing:
+                  marginBlock: xl
+              components:
+                - name: paragraph
+                  properties:
+                    text: "Scroll to explore"
+                    typography:
+                      color: *color-accent
+                      size: xs
+                      align: center
+                      weight: light
+                      letterSpacing: wide
+                      lineHeight: "1.6"
+                      transform: none
+                      fontStyle: normal
+                      textDecoration: none
+                    appearance:
+                      textShadow: strong
+                      background:
+                        type: ""
+                        color: $color-background
+                        opacity: 0
+                    spacing:
+                      marginBlock: none
+                      paddingBlock: sm
+                      paddingInline: none
+                      marginInline: none
+                    layout:
+                      widthMode: fit
+                - name: paragraph
+                  properties:
+                    text: "↓"
+                    typography:
+                      color: *color-accent
+                      size: lg
+                      align: center
+                      weight: regular
+                      lineHeight: "1.6"
+                      transform: none
+                      letterSpacing: normal
+                      fontStyle: normal
+                      textDecoration: none
+                    appearance:
+                      textShadow: strong
+                      background:
+                        type: ""
+                        color: $color-background
+                        opacity: 0
+                    spacing:
+                      marginBlock: none
+                      paddingBlock: sm
+                      paddingInline: none
+                      marginInline: none
+                    layout:
+                      widthMode: fit

@@ -3,7 +3,7 @@
 # Base components: site, page, layout-column, layout-row, heading, paragraph, link
 # Section type: footer
 # Layout: split_screen
-# Visual style: retro
+# Visual style: retro_vintage
 # Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
 
 - name: site
@@ -13,11 +13,11 @@
         heading: "'Bebas Neue', sans-serif"
         content: "'Merriweather', serif"
       colors:
-        primary: '#0D0D0D'
-        text: '#292929'
-        secondary: '#FFD600'
-        accent: '#FF0000'
-        background: '#FFEB3B'
+        primary: &color-primary '#0D0D0D'
+        text: &color-text '#292929'
+        secondary: &color-secondary '#FFD600'
+        accent: &color-accent '#FF0000'
+        background: &color-background '#FFEB3B'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#0D0D0D'
-            transparency: 100
+            color: *color-primary
+            opacity: 100
       components:
 
         # Footer Main Row — brand left, nav columns right
@@ -67,7 +67,7 @@
                     text: Born in the underground. Built for the believers. We've been pressing bold culture onto cotton and vinyl since 1978.
                     typography:
                       size: sm
-                      color: '#FFD600'
+                      color: *color-background
                       lineHeight: '1.7'
                     spacing:
                       marginBlock: md
@@ -171,7 +171,7 @@
                         href: '#drops'
                         typography:
                           size: sm
-                          color: '#FF0000'
+                          color: *color-background
                           weight: bold
                         appearance:
                           underline: false
@@ -347,7 +347,7 @@
               border:
                 width: 3
                 style: solid
-                color: '#FFD600'
+                color: *color-secondary
             spacing:
               paddingBlock: none
               paddingInline: xxl

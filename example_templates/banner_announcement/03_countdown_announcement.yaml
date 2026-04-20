@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, heading, paragraph, countdown, button, badge
 # Section type: banner
 # Layout: split_screen
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: online store, SaaS platform, fashion brand, tech startup, restaurant, event venue, hotel, university website
 
 - name: site

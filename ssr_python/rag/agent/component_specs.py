@@ -57,12 +57,13 @@ def build_component_specs(component_names: list[str]) -> str:
     return "\n\n".join(parts) if parts else ""
 
 
-VALID_TOKENS = """Spacing (padding.block, padding.inline, marginBlock, marginInline, gap): none, xxs, xs, sm, md, lg, xl, xxl, xxxl
+VALID_TOKENS = """Spacing (paddingBlock, paddingInline, marginBlock, marginInline, gap): none, xxs, xs, sm, md, lg, xl, xxl, xxxl
 Typography size: xxs, xs, sm, md, lg, xl, xxl, xxxl
 Font weight: light, regular, medium, semibold, bold, extrabold
 Border radius: none, xs, sm, md, lg, xl, xxl, pill
 Shadow: none, soft, medium, elevated, dramatic, retro
-Width mode (layout.widthMode as STRING): fit, "25", "33", "50", "66", "75", "stretch"
-Hover effect: none, zoom, lift
+Width mode (layout.widthMode as STRING): fit, "16", "25", "33", "50", "66", "75", "83", "stretch"
+Hover effect: none, zoom, lift, brighten, darken
+Letter spacing: normal, tight, wide, wider
 Horizontal align: center, left, right, space-between, space-around, space-evenly
 Vertical align: center, start, end, stretch, baseline"""

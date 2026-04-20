@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, badge, heading, paragraph, panorama-display, columnsgrid, counter-up, button
 # Section type: gallery
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: real estate agency, hotel, travel agency, architecture firm, event venue, restaurant, resort, museum, shopping mall
 
 - name: site
@@ -23,7 +23,7 @@
       properties:
         appearance:
           background:
-            color: '#fafaf9'
+            color: *color-background
       components:
       # Header
       - name: layout-row
@@ -33,8 +33,8 @@
             verticalAlign: center
           appearance:
             background:
-              color: '#fafaf9'
-              transparency: 0
+              color: *color-background
+              opacity: 0
           spacing:
             paddingBlock: lg
             paddingInline: md
@@ -48,7 +48,7 @@
               gap: sm
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: badge
             properties:
@@ -63,14 +63,14 @@
                 size: xxl
                 weight: bold
                 align: center
-                color: '#1c1917'
+                color: *color-primary
           - name: paragraph
             properties:
               text: Take a virtual stroll through our stunning multi-level shopping destination. Scroll to explore the architectural marvel and luxury retail spaces.
               typography:
                 size: md
                 align: center
-                color: '#57534e'
+                color: *color-secondary
 
       # Panorama - Mall Interior
       - name: panorama-display
@@ -123,7 +123,7 @@
               typography:
                 size: xxl
                 weight: bold
-                color: '#059669'
+                color: *color-accent
                 align: center
           - name: paragraph
             properties:
@@ -132,7 +132,7 @@
                 size: sm
                 weight: medium
                 align: center
-                color: '#57534e'
+                color: *color-secondary
         - components:
           - name: counter-up
             properties:
@@ -141,7 +141,7 @@
               typography:
                 size: xxl
                 weight: bold
-                color: '#059669'
+                color: *color-accent
                 align: center
           - name: paragraph
             properties:
@@ -150,7 +150,7 @@
                 size: sm
                 weight: medium
                 align: center
-                color: '#57534e'
+                color: *color-secondary
         - components:
           - name: counter-up
             properties:
@@ -160,7 +160,7 @@
               typography:
                 size: xxl
                 weight: bold
-                color: '#059669'
+                color: *color-accent
                 align: center
           - name: paragraph
             properties:
@@ -169,7 +169,7 @@
                 size: sm
                 weight: medium
                 align: center
-                color: '#57534e'
+                color: *color-secondary
         - components:
           - name: counter-up
             properties:
@@ -180,7 +180,7 @@
               typography:
                 size: xxl
                 weight: bold
-                color: '#059669'
+                color: *color-accent
                 align: center
           - name: paragraph
             properties:
@@ -189,7 +189,7 @@
                 size: sm
                 weight: medium
                 align: center
-                color: '#57534e'
+                color: *color-secondary
 
       # Call to Action
       - name: layout-row
@@ -199,8 +199,8 @@
             verticalAlign: center
           appearance:
             background:
-              color: '#fafaf9'
-              transparency: 0
+              color: *color-background
+              opacity: 0
           spacing:
             paddingBlock: lg
             paddingInline: md
@@ -213,7 +213,7 @@
               gap: sm
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: paragraph
             properties:
@@ -227,12 +227,12 @@
               text: Plan Your Visit
               appearance:
                 background:
-                  color: '#059669'
-                  transparency: 100
+                  color: *color-accent
+                  opacity: 100
                 border:
                   width: 0
                   style: none
-                  color: '#059669'
+                  color: *color-accent
                 radius: md
               typography:
                 size: md

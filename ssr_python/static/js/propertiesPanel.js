@@ -3,6 +3,29 @@ import { deepClone, deepMerge, getNestedValue, setNestedValue } from './utils/ob
 import { customRenderers } from './customRenderers.js';
 import { getCurrentTheme, THEME_COLOR_CONFIG } from './themesPanel.js';
 
+// Alpine store for conditional field visibility.
+// fieldValues tracks the current value of fields that drive showWhen conditions.
+// When a token pill is clicked, the store is updated and dependent fields react.
+document.addEventListener('alpine:init', () => {
+    Alpine.store('props', {
+        fieldValues: {},
+        setFieldValue(path, value) {
+            this.fieldValues[path] = value;
+        },
+        isFieldVisible(conditionField, expectedValue) {
+            if (!conditionField) return true;
+            const actual = this.fieldValues[conditionField];
+            // Default: background type defaults to 'color' if not yet set
+            const effective = actual !== undefined ? actual :
+                (conditionField === 'appearance.background.type' ? 'color' : undefined);
+            return effective === expectedValue;
+        },
+        clear() {
+            this.fieldValues = {};
+        },
+    });
+});
+
 // Consistent empty-state markup (matches index.html initial state)
 const NO_SELECTION_HTML = `
     <div class="no-selection">
@@ -391,7 +414,12 @@ const renderTokenPills = ({ field, value, fieldId }) => {
             container.querySelectorAll('.token-pill').forEach(p => p.classList.remove('active'));
             pill.classList.add('active');
 
-            // Toggle visibility of dependent fields
+            // Update Alpine store — dependent fields react via data-hidden binding
+            if (field.path && typeof Alpine !== 'undefined') {
+                Alpine.store('props')?.setFieldValue(field.path, pill.dataset.value);
+            }
+
+            // Also update data-hidden attributes for collectPropertyValues() compatibility
             const propertiesContent = document.getElementById('propertiesContent');
             if (propertiesContent && field.path) {
                 const dependentFields = propertiesContent.querySelectorAll(
@@ -612,7 +640,8 @@ const renderColorInputWithSwatch = ({ field, value, fieldId }) => {
 };
 
 /**
- * Create field wrapper with optional showWhen support
+ * Create field wrapper with optional showWhen support.
+ * Uses data-hidden attribute for CSS visibility and Alpine store for reactivity.
  */
 const createFieldWrapper = (field, fieldId, resolvedProps = null) => {
     const wrapper = document.createElement('div');
@@ -628,6 +657,18 @@ const createFieldWrapper = (field, fieldId, resolvedProps = null) => {
         if (resolvedProps) {
             const isVisible = evaluateShowWhen(field, resolvedProps);
             wrapper.dataset.hidden = (!isVisible).toString();
+        }
+
+        // Seed Alpine store with the condition field's current value
+        if (resolvedProps && typeof Alpine !== 'undefined') {
+            const condPath = field.showWhen.field;
+            const pathSegments = pathToSegments(condPath);
+            const currentValue = getNestedValue(resolvedProps, pathSegments);
+            const effective = currentValue !== undefined ? currentValue :
+                (condPath === 'appearance.background.type' ? 'color' : undefined);
+            if (effective !== undefined) {
+                Alpine.store('props')?.setFieldValue(condPath, effective);
+            }
         }
     }
 
@@ -890,6 +931,11 @@ export function clearPropertiesPanel() {
     activeComponentId = null;
     activePath = null;
     activeFieldMeta.clear();
+
+    // Clear Alpine store field values for next component
+    if (typeof Alpine !== 'undefined' && Alpine.store) {
+        Alpine.store('props')?.clear();
+    }
 }
 
 /**

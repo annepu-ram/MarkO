@@ -9,6 +9,7 @@ import logging
 from ruamel.yaml import YAML
 
 from rag.config import config
+from rag.agent.yaml_fixer import fix_structure
 
 logger = logging.getLogger(__name__)
 
@@ -17,161 +18,6 @@ _yaml = YAML()
 _yaml.default_flow_style = False
 _yaml.allow_unicode = True
 _yaml.width = config.yaml_line_width
-
-# Valid component names for inline-format detection
-_VALID_NAMES = frozenset({
-    "site", "page",
-    "layout-row", "layout-column", "columnsgrid", "form",
-    "heading", "paragraph", "eyebrow", "caption", "blockquote", "link",
-    "image", "video", "gif", "video-background", "br",
-    "button", "titlebar", "hamburger",
-    "tabs", "accordion", "carousel", "ticker", "panorama-display",
-    "icon", "badge", "rating", "progress-bar", "counter-up", "countdown",
-    "textbox", "textarea", "dropdown", "checkbox", "radio", "calendar",
-})
-
-# Keys that are array properties at component level, not inside properties
-_ARRAY_KEYS = {"items", "tabs", "slides", "columns"}
-_CHILD_KEYS = {"components", "children"}
-
-# Keys that belong inside `properties:`, not at component level
-_PROPERTY_KEYS = {
-    "layout", "appearance", "spacing", "typography", "label", "field",
-    "behavior", "source", "playback", "responsive", "scroll",
-    "branding", "navigation", "submit", "display", "action",
-    "content", "animation", "poster",
-}
-
-
-def _fix_structure(node):
-    """Recursively fix common LLM structural errors in parsed YAML.
-
-    Fixes:
-    1. Inline component format: {layout-row: {props}} → {name: layout-row, properties: {props}}
-    2. children → components
-    3. Array props (items/tabs/slides/columns) inside properties → move to component level
-    4. Properties outside properties wrapper → move inside
-    5. Icon names as component names → convert to name: icon with properties.name
-    """
-    if isinstance(node, list):
-        fixed = []
-        for item in node:
-            result = _fix_structure(item)
-            if result is not None:
-                fixed.append(result)
-        return fixed
-    if not isinstance(node, dict):
-        return node
-
-    # Fix 1: Inline component format
-    if "name" not in node:
-        for key in list(node.keys()):
-            if key in _VALID_NAMES:
-                props = node.pop(key)
-                node["name"] = key
-                if isinstance(props, dict):
-                    for ak in _ARRAY_KEYS | _CHILD_KEYS:
-                        if ak in props:
-                            target = "components" if ak in _CHILD_KEYS else ak
-                            node[target] = props.pop(ak)
-                    if props:
-                        node["properties"] = props
-                break
-
-    # Fix 2: children → components
-    if "children" in node:
-        existing = node.get("components", [])
-        children = node.pop("children")
-        if isinstance(children, list):
-            if isinstance(existing, list) and existing:
-                existing.extend(children)
-                node["components"] = existing
-            else:
-                node["components"] = children
-
-    # Fix 3: Array props inside properties → move to component level
-    if "properties" in node and isinstance(node["properties"], dict):
-        for key in list(_ARRAY_KEYS):
-            if key in node["properties"]:
-                node[key] = node["properties"].pop(key)
-
-    # Fix 4: Properties outside `properties:` wrapper → move inside
-    if "name" in node:
-        orphaned = {k: node[k] for k in list(node.keys()) if k in _PROPERTY_KEYS}
-        if orphaned:
-            props = node.setdefault("properties", {})
-            if isinstance(props, dict):
-                for k, v in orphaned.items():
-                    props.setdefault(k, v)
-                    del node[k]
-
-    # Fix 5: Container key mismatches
-    if "name" in node:
-        comp_name = node["name"]
-
-        # layout-row/layout-column: `columns:` list → `components:`
-        if comp_name in ("layout-row", "layout-column") and "columns" in node and isinstance(node["columns"], list):
-            node["components"] = node.pop("columns")
-            logger.debug(f"Fixed {comp_name}: columns → components")
-
-        # columnsgrid/ticker: `components:` → `columns:`
-        if comp_name in ("columnsgrid", "ticker") and "components" in node and isinstance(node["components"], list):
-            node["columns"] = node.pop("components")
-            logger.debug(f"Fixed {comp_name}: components → columns")
-
-        # columnsgrid: `columns: <int>` at root → move to properties.layout.columns
-        if comp_name == "columnsgrid" and "columns" in node and isinstance(node["columns"], int):
-            col_count = node.pop("columns")
-            props = node.setdefault("properties", {})
-            if isinstance(props, dict):
-                layout = props.setdefault("layout", {})
-                if isinstance(layout, dict):
-                    layout.setdefault("columns", col_count)
-            logger.debug(f"Fixed columnsgrid: columns={col_count} → properties.layout.columns")
-
-        # tabs: `items:` → `tabs:`
-        if comp_name == "tabs" and "items" in node and "tabs" not in node:
-            node["tabs"] = node.pop("items")
-            logger.debug("Fixed tabs: items → tabs")
-
-        # accordion: `tabs:` → `items:`
-        if comp_name == "accordion" and "tabs" in node and "items" not in node:
-            node["items"] = node.pop("tabs")
-            logger.debug("Fixed accordion: tabs → items")
-
-        # carousel: `items:` → `slides:`
-        if comp_name == "carousel" and "items" in node and "slides" not in node:
-            node["slides"] = node.pop("items")
-            logger.debug("Fixed carousel: items → slides")
-
-        # Coerce widthMode to string (YAML may parse 33 as int)
-        if "properties" in node and isinstance(node["properties"], dict):
-            layout = node["properties"].get("layout")
-            if isinstance(layout, dict) and "widthMode" in layout:
-                layout["widthMode"] = str(layout["widthMode"])
-
-    # Fix 6: Icon names used as component names
-    if "name" in node and node["name"] not in _VALID_NAMES:
-        icon_name = node["name"]
-        props = node.get("properties", {})
-        has_icon_props = isinstance(props, dict) and any(
-            k in props for k in ("size", "color", "weight", "name")
-        )
-        has_no_children = not any(k in node for k in ("components", "items", "tabs", "slides", "columns"))
-        if has_icon_props or has_no_children:
-            node["name"] = "icon"
-            if not isinstance(props, dict):
-                props = {}
-            props["name"] = icon_name
-            node["properties"] = props
-            logger.debug(f"Fixed icon: '{icon_name}' → name: icon, properties.name: {icon_name}")
-
-    # Recurse into all nested structures
-    for key in ("components", "items", "tabs", "slides", "columns"):
-        if key in node and isinstance(node[key], list):
-            node[key] = _fix_structure(node[key])
-
-    return node
 
 
 def _resolve_aliases(section_yaml: str, theme: dict) -> str:
@@ -290,7 +136,7 @@ def stitch_page(outline: dict, section_yamls: list[str]) -> str:
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components: []
 """
 
@@ -317,12 +163,12 @@ def stitch_page(outline: dict, section_yamls: list[str]) -> str:
                 logger.warning(f"Section {i} produced empty YAML after parsing, skipping")
                 continue
             # Fix structural issues from LLM output
-            parsed = _fix_structure(parsed)
+            parsed = fix_structure(parsed)
             if isinstance(parsed, list):
                 page_components.extend(parsed)
             elif isinstance(parsed, dict):
                 page_components.append(parsed)
-            logger.info(f"Section {i} stitched successfully ({type(parsed).__name__})")
+            logger.debug(f"Section {i} stitched successfully ({type(parsed).__name__})")
         except pyyaml.YAMLError as e:
             logger.error(f"Section {i} has invalid YAML: {e}")
             logger.debug(f"Section {i} raw YAML:\n{section_yaml[:500]}")
@@ -337,5 +183,5 @@ def stitch_page(outline: dict, section_yamls: list[str]) -> str:
     # Restore aliases in component sections (replace hex values back to *color-xxx)
     result = _restore_aliases(dumped, theme)
 
-    logger.info(f"Stitcher final output ({len(result)} chars)")
+    logger.debug(f"Stitcher final output ({len(result)} chars)")
     return result

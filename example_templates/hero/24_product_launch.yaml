@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, gif, eyebrow, heading, paragraph, calendar, button
 # Section type: hero
 # Layout: split_screen
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: Product launches, SaaS demos, B2B software, tech startups
 
 - name: page

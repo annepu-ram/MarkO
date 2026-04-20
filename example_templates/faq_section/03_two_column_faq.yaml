@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, accordion, heading, paragraph, eyebrow
 # Section type: faq
 # Layout: split_screen, grid
-# Visual style: modern, card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, online store, consulting firm, dental clinic, law firm, tutoring center, real estate agency, insurance company, software company, subscription service
 
 
@@ -30,7 +30,7 @@
         - name: layout-column
           properties:
             layout: { horizontalAlign: center, gap: md }
-            appearance: { background: { color: *color-background, transparency: 100 } }
+            appearance: { background: { color: *color-background, opacity: 100 } }
             spacing: { paddingBlock: xxl, paddingInline: lg }
           components:
             - name: eyebrow
@@ -75,7 +75,7 @@
                   gap: lg
                   wrap: nowrap
                 appearance:
-                  background: { transparency: 0 }
+                  background: { opacity: 0 }
                 spacing: { marginBlock: lg }
               components:
                 # Left Column — General Questions
@@ -83,7 +83,7 @@
                   properties:
                     layout: { horizontalAlign: left, gap: md, widthMode: "50" }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: '#ffffff', opacity: 100 }
                       radius: lg
                       shadow: soft
                     spacing:
@@ -144,7 +144,7 @@
                   properties:
                     layout: { horizontalAlign: left, gap: md, widthMode: "50" }
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: '#ffffff', opacity: 100 }
                       radius: lg
                       shadow: soft
                     spacing:

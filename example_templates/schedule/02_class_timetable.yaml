@@ -3,7 +3,7 @@
 # Base components: layout-column, heading, paragraph, eyebrow, caption, tabs, columnsgrid
 # Section type: schedule, timetable, classes
 # Layout: stacked, grid
-# Visual style: claymorphism, playful
+# Visual style: claymorphism
 # Perfect for: dental clinic, salon, barbershop, yoga studio, fitness studio, conference, workshop, tutoring center, cooking class, music school
 
 
@@ -24,7 +24,7 @@
       slug: home
       title: "Class Timetable"
       properties:
-        appearance: { background: { color: *color-background, transparency: 100 } }
+        appearance: { background: { color: *color-background, opacity: 100 } }
       components:
 
         # ============================================
@@ -61,7 +61,7 @@
           properties:
             layout: { align: center, horizontalAlign: space-evenly }
             appearance:
-              background: { color: '#ffffff', transparency: 100 }
+              background: { color: '#ffffff', opacity: 100 }
               radius: xxl
               shadow: elevated
             spacing:
@@ -71,10 +71,11 @@
             - name: tabs
               properties:
                 appearance:
-                  background: { color: '#ffffff', transparency: 100 }
+                  background: { color: '#ffffff', opacity: 100 }
                   radius: xxl
                 typography:
                   label: { size: sm, weight: semibold, color: *color-primary }
+                spacing: { paddingBlock: sm, paddingInline: sm }
               tabs:
                 # ── Monday ──
                 - label: Monday
@@ -87,7 +88,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -106,7 +107,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -125,7 +126,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -144,7 +145,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -172,7 +173,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -191,7 +192,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -210,7 +211,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -238,7 +239,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -257,7 +258,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -276,7 +277,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -304,7 +305,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -323,7 +324,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -351,7 +352,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow
@@ -370,7 +371,7 @@
                         - components:
                             - name: layout-column
                               properties:
-                                appearance: { background: { color: *color-background, transparency: 100 }, radius: xxl, shadow: elevated }
+                                appearance: { background: { color: *color-background, opacity: 100 }, radius: xxl, shadow: elevated }
                                 spacing: { paddingBlock: md, paddingInline: md }
                               components:
                                 - name: eyebrow

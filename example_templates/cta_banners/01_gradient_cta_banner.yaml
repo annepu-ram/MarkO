@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, heading, paragraph, button, eyebrow
 # Section type: cta
 # Layout: centered
-# Visual style: gradient, bold_typography
+# Visual style: aurora_gradient, bold_editorial
 # Perfect for: SaaS platform, mobile app, online store, software company, fitness app, online course platform, subscription service, B2B platform, consulting firm, digital agency
 
 - name: site
@@ -26,7 +26,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
         # Gradient CTA Banner
     - name: layout-row
@@ -40,7 +40,7 @@
               colorStart: "#1e3a8a"
               colorEnd: "#7c3aed"
               direction: to right
-            transparency: 100
+            opacity: 100
         spacing:
           paddingBlock: xxxl
           paddingInline: lg
@@ -107,7 +107,7 @@
             appearance:
               background:
                 color: *color-primary
-                transparency: 100
+                opacity: 100
               border:
                 width: 0
                 style: solid

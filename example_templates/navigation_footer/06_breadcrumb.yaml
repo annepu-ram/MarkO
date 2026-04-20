@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-row, link, caption, image, layout-column, eyebrow, heading, paragraph, button
 # Section type: navigation
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: e-commerce product pages, documentation sites, and multi-level content hierarchies
 
 - name: page
@@ -43,7 +43,7 @@
           href: '#support'
       layout: {alignment: left, height: 60}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
       typography:
         title: {size: 22, weight: bold, color: *color-primary}
@@ -57,7 +57,7 @@
       layout: {horizontalAlign: space-evenly, wrap: wrap, verticalAlign: center}
       spacing: {paddingBlock: sm, paddingInline: lg}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
     - name: link
@@ -166,7 +166,7 @@
           properties:
             text: Save for Later
             appearance:
-              background: {color: *color-background, transparency: 100}
+              background: {color: *color-background, opacity: 100}
               border: {width: 2, style: solid, color: *color-secondary}
               radius: md
             typography: {color: *color-secondary, weight: medium, size: md}
@@ -181,7 +181,7 @@
     properties:
       layout: {horizontalAlign: space-evenly}
       spacing: {paddingBlock: lg, paddingInline: lg}
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
     - name: heading
       properties:
@@ -196,7 +196,7 @@
         layout: {horizontalAlign: space-evenly, verticalAlign: center}
         spacing: {paddingBlock: sm, paddingInline: md}
         appearance:
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: md
           border: {width: 1, style: solid, color: *color-secondary}
       components:
@@ -248,7 +248,7 @@
         layout: {horizontalAlign: space-evenly, verticalAlign: center}
         spacing: {paddingBlock: sm, paddingInline: md, marginBlock: sm}
         appearance:
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: md
           border: {width: 1, style: solid, color: *color-secondary}
       components:

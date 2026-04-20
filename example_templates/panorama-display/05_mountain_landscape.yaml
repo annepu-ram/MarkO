@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, eyebrow, heading, paragraph, panorama-display, columnsgrid, icon, progress-bar, caption, button
 # Section type: gallery
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: real estate agency, hotel, travel agency, architecture firm, event venue, restaurant, resort, museum, shopping mall
 
 - name: site
@@ -23,7 +23,7 @@
       properties:
         appearance:
           background:
-            color: '#f0fdf4'
+            color: *color-background
       components:
       # Header
       - name: layout-row
@@ -33,8 +33,8 @@
             verticalAlign: center
           appearance:
             background:
-              color: '#f0fdf4'
-              transparency: 0
+              color: *color-background
+              opacity: 0
           spacing:
             paddingBlock: lg
             paddingInline: md
@@ -48,7 +48,7 @@
               gap: sm
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: eyebrow
             properties:
@@ -57,7 +57,7 @@
                 size: xs
                 weight: semibold
                 align: center
-                color: '#15803d'
+                color: *color-accent
                 transform: uppercase
                 letterSpacing: wide
           - name: heading
@@ -68,14 +68,14 @@
                 size: xxl
                 weight: bold
                 align: center
-                color: '#14532d'
+                color: *color-primary
           - name: paragraph
             properties:
               text: Breathe in the beauty of untouched mountain landscapes. Scroll through this sweeping panoramic view of snow-capped peaks, lush valleys, and crystal-clear skies.
               typography:
                 size: md
                 align: center
-                color: '#166534'
+                color: *color-secondary
 
       # Panorama - Mountain
       - name: panorama-display
@@ -93,7 +93,7 @@
           appearance:
             radius: xl
             shadow: soft
-            shadowColor: '#166534'
+            shadowColor: *color-secondary
 
       # Second Panorama - Different angle
       - name: layout-row
@@ -102,8 +102,8 @@
             horizontalAlign: center
           appearance:
             background:
-              color: '#f0fdf4'
-              transparency: 0
+              color: *color-background
+              opacity: 0
           spacing:
             paddingBlock: md
             paddingInline: md
@@ -116,7 +116,7 @@
               gap: sm
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: heading
             properties:
@@ -126,14 +126,14 @@
                 size: xl
                 weight: bold
                 align: center
-                color: '#14532d'
+                color: *color-primary
           - name: paragraph
             properties:
               text: A different perspective of the alpine landscape, starting from the right edge for a unique reveal.
               typography:
                 size: md
                 align: center
-                color: '#166534'
+                color: *color-secondary
 
       - name: panorama-display
         properties:
@@ -150,7 +150,7 @@
           appearance:
             radius: xl
             shadow: soft
-            shadowColor: '#166534'
+            shadowColor: *color-secondary
             border:
               width: 2
               style: solid
@@ -180,7 +180,7 @@
             properties:
               name: map-pin
               size: "36"
-              color: '#15803d'
+              color: *color-accent
           - name: heading
             properties:
               text: Summit Trail
@@ -188,13 +188,13 @@
               typography:
                 size: lg
                 weight: bold
-                color: '#14532d'
+                color: *color-primary
           - name: paragraph
             properties:
               text: 12.5 km round trip to the highest peak. Moderate difficulty with stunning ridge views.
               typography:
                 size: sm
-                color: '#166534'
+                color: *color-secondary
           - name: progress-bar
             properties:
               percent: 65
@@ -208,14 +208,14 @@
               text: Difficulty - Moderate
               typography:
                 size: xs
-                color: '#166534'
+                color: *color-secondary
                 align: left
         - components:
           - name: icon
             properties:
               name: map-pin
               size: "36"
-              color: '#15803d'
+              color: *color-accent
           - name: heading
             properties:
               text: Valley Loop
@@ -223,13 +223,13 @@
               typography:
                 size: lg
                 weight: bold
-                color: '#14532d'
+                color: *color-primary
           - name: paragraph
             properties:
               text: 8 km gentle loop through wildflower meadows and along the river. Family friendly.
               typography:
                 size: sm
-                color: '#166534'
+                color: *color-secondary
           - name: progress-bar
             properties:
               percent: 30
@@ -243,14 +243,14 @@
               text: Difficulty - Easy
               typography:
                 size: xs
-                color: '#166534'
+                color: *color-secondary
                 align: left
         - components:
           - name: icon
             properties:
               name: map-pin
               size: "36"
-              color: '#15803d'
+              color: *color-accent
           - name: heading
             properties:
               text: Glacier Route
@@ -258,13 +258,13 @@
               typography:
                 size: lg
                 weight: bold
-                color: '#14532d'
+                color: *color-primary
           - name: paragraph
             properties:
               text: 18 km advanced trek to the glacier face. Requires experience and proper equipment.
               typography:
                 size: sm
-                color: '#166534'
+                color: *color-secondary
           - name: progress-bar
             properties:
               percent: 90
@@ -288,8 +288,8 @@
             horizontalAlign: center
           appearance:
             background:
-              color: '#14532d'
-              transparency: 100
+              color: *color-primary
+              opacity: 100
           spacing:
             paddingBlock: lg
             paddingInline: md
@@ -302,8 +302,8 @@
               gap: sm
             appearance:
               background:
-                color: '#14532d'
-                transparency: 100
+                color: *color-primary
+                opacity: 100
             spacing:
               paddingBlock: lg
               paddingInline: lg
@@ -316,7 +316,7 @@
                 size: xl
                 weight: bold
                 align: center
-                color: '#f0fdf4'
+                color: *color-background
           - name: paragraph
             properties:
               text: Book your guided mountain tour today and experience these views in person.
@@ -330,7 +330,7 @@
               appearance:
                 background:
                   color: '#22c55e'
-                  transparency: 100
+                  opacity: 100
                 border:
                   width: 0
                   style: none
@@ -339,4 +339,4 @@
               typography:
                 size: md
                 weight: bold
-                color: '#14532d'
+                color: *color-primary

@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, rating
 # Section type: product
 # Layout: grid
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, restaurants, reviews, services
 
 - name: page

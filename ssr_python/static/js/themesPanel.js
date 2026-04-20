@@ -264,6 +264,7 @@ function renderThemesByCategory() {
                         <div class="theme-row-colors">
                             <div class="theme-row-pill" style="background: ${theme.colors.background}; border: 1px solid #ddd;"></div>
                             <div class="theme-row-pill" style="background: ${theme.colors.primary}"></div>
+                            <div class="theme-row-pill" style="background: ${theme.colors.text}"></div>
                             <div class="theme-row-pill" style="background: ${theme.colors.secondary}"></div>
                             <div class="theme-row-pill" style="background: ${theme.colors.accent}"></div>
                         </div>
@@ -313,6 +314,7 @@ function renderEditableSwatches() {
     const colors = [
          { key: 'background', label: 'Bg' },
         { key: 'primary', label: 'Pri' },
+        { key: 'text', label: 'Txt' },
         { key: 'secondary', label: 'Sec' },
         { key: 'accent', label: 'Acc' }
     ];
@@ -432,6 +434,7 @@ export async function applyTheme() {
             fonts: fontData,
             colors: {
                 primary: selectedTheme.primary,
+                text: selectedTheme.text,
                 secondary: selectedTheme.secondary,
                 accent: selectedTheme.accent,
                 background: selectedTheme.background

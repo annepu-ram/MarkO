@@ -1,0 +1,189 @@
+# Badge: Team Roles Grid
+# Team member cards with role badges in a responsive grid layout
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, badge, columnsgrid, icon
+# Section type: team
+# Layout: grid
+# Visual style: modern_minimalist
+# Perfect for: agencies, startups, corporate, consulting
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#0f172a'
+        text: &color-text '#334155'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: OUR TEAM
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Meet the People Behind the Product
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: A diverse team of experts dedicated to building exceptional experiences.
+                typography: { size: md, color: *color-secondary, align: center }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: icon
+                  properties: { name: palette, size: "40", color: '#ec4899' }
+                - name: heading
+                  properties:
+                    text: Sarah Chen
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: badge
+                  properties: { text: "Lead Designer", variant: danger, pill: true }
+                - name: paragraph
+                  properties:
+                    text: 10+ years crafting intuitive interfaces for Fortune 500 companies. Passionate about design systems and accessibility.
+                    typography: { size: sm, color: *color-text, align: center }
+                    spacing: { marginBlock: md }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: icon
+                  properties: { name: code, size: "40", color: '#3b82f6' }
+                - name: heading
+                  properties:
+                    text: Marcus Johnson
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: badge
+                  properties: { text: "Senior Engineer", variant: info, pill: true }
+                - name: paragraph
+                  properties:
+                    text: Full-stack architect specializing in scalable distributed systems. Open-source contributor and conference speaker.
+                    typography: { size: sm, color: *color-text, align: center }
+                    spacing: { marginBlock: md }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: icon
+                  properties: { name: briefcase, size: "40", color: '#f59e0b' }
+                - name: heading
+                  properties:
+                    text: Priya Sharma
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: badge
+                  properties: { text: "Product Manager", variant: warning, pill: true }
+                - name: paragraph
+                  properties:
+                    text: Former startup founder turned PM. Expert in customer-driven development and agile methodology.
+                    typography: { size: sm, color: *color-text, align: center }
+                    spacing: { marginBlock: md }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: icon
+                  properties: { name: bar-chart-3, size: "40", color: '#10b981' }
+                - name: heading
+                  properties:
+                    text: David Kim
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: badge
+                  properties: { text: "Data Scientist", variant: success, pill: true }
+                - name: paragraph
+                  properties:
+                    text: PhD in Machine Learning from MIT. Turns complex data into actionable insights that drive product decisions.
+                    typography: { size: sm, color: *color-text, align: center }
+                    spacing: { marginBlock: md }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: icon
+                  properties: { name: megaphone, size: "40", color: '#8b5cf6' }
+                - name: heading
+                  properties:
+                    text: Elena Rodriguez
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: badge
+                  properties: { text: "Marketing Lead", variant: info, pill: true }
+                - name: paragraph
+                  properties:
+                    text: Growth marketing strategist with a track record of scaling SaaS brands from seed to Series B.
+                    typography: { size: sm, color: *color-text, align: center }
+                    spacing: { marginBlock: md }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: lg }
+              components:
+                - name: icon
+                  properties: { name: users, size: "40", color: '#06b6d4' }
+                - name: heading
+                  properties:
+                    text: James Walker
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: badge
+                  properties: { text: "VP Operations", variant: success, pill: true }
+                - name: paragraph
+                  properties:
+                    text: Operational excellence expert who built and scaled teams across 3 continents. Six Sigma certified.
+                    typography: { size: sm, color: *color-text, align: center }
+                    spacing: { marginBlock: md }

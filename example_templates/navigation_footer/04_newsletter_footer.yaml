@@ -3,7 +3,7 @@
 # Base components: page, layout-column, heading, paragraph, layout-row, eyebrow, form, textbox, button, link
 # Section type: footer
 # Layout: grid
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: blogs, media sites, and SaaS products wanting to capture email subscribers in the footer
 
 - name: page
@@ -99,7 +99,7 @@
         layout: {horizontalAlign: space-evenly, widthMode: "50"}
         spacing: {paddingBlock: lg, paddingInline: lg}
         appearance:
-          background: {color: *color-primary, transparency: 100}
+          background: {color: *color-primary, opacity: 100}
           radius: lg
           border: {width: 1, style: solid, color: *color-secondary}
       components:
@@ -119,7 +119,7 @@
             label: {text: 'Email Address', show: true, typography: {size: sm, weight: medium, color: *color-secondary}}
             field: {placeholder: 'you@example.com'}
             appearance:
-              background: {color: *color-primary, transparency: 100}
+              background: {color: *color-primary, opacity: 100}
               border: {width: 1, style: solid, color: *color-secondary}
               radius: md
             typography: {color: *color-primary}
@@ -129,7 +129,7 @@
             label: {text: 'First Name (optional)', show: true, typography: {size: sm, weight: medium, color: *color-secondary}}
             field: {placeholder: 'Your first name'}
             appearance:
-              background: {color: *color-primary, transparency: 100}
+              background: {color: *color-primary, opacity: 100}
               border: {width: 1, style: solid, color: *color-secondary}
               radius: md
             typography: {color: *color-primary}
@@ -155,7 +155,7 @@
     properties:
       layout: {horizontalAlign: space-between, wrap: wrap, verticalAlign: center}
       spacing: {paddingBlock: md, paddingInline: xl}
-      appearance: {background: {color: *color-primary, transparency: 100}}
+      appearance: {background: {color: *color-primary, opacity: 100}}
     components:
     - name: paragraph
       properties:

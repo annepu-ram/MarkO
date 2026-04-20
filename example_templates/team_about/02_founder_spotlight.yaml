@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, image, heading, paragraph, eyebrow, counter-up, button
 # Section type: team
 # Layout: split_screen
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: digital agency, tech startup, consulting firm, law firm, restaurant, bakery, creative studio, architecture firm, dental clinic, accounting firm
 
 
@@ -61,7 +61,7 @@
             widthMode: "50"
             horizontalAlign: start
           appearance:
-            background: {color: *color-background, transparency: 100}
+            background: {color: *color-background, opacity: 100}
           spacing:
             paddingBlock: xxxl
             paddingInline: xl

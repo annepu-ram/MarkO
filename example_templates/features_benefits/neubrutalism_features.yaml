@@ -13,11 +13,11 @@
         heading: "'Space Grotesk', sans-serif"
         content: "'IBM Plex Sans', sans-serif"
       colors:
-        primary: '#1A1A1A'
-        text: '#313131'
-        secondary: '#C8C4BB'
-        accent: '#FF4D00'
-        background: '#E5E2DD'
+        primary: &color-primary '#1A1A1A'
+        text: &color-text '#313131'
+        secondary: &color-secondary '#C8C4BB'
+        accent: &color-accent '#FF4D00'
+        background: &color-background '#E5E2DD'
   components:
     - name: page
       slug: home
@@ -25,7 +25,7 @@
       properties:
         appearance:
           background:
-            color: '#E5E2DD'
+            color: *color-background
       components:
 
         # Section Header
@@ -49,7 +49,7 @@
                     typography:
                       size: xs
                       weight: semibold
-                      color: '#FF4D00'
+                      color: *color-accent
                       transform: uppercase
                       letterSpacing: wider
                       align: center
@@ -62,7 +62,7 @@
                     typography:
                       size: xxxl
                       weight: extrabold
-                      color: '#1A1A1A'
+                      color: *color-primary
                       transform: uppercase
                       align: center
                     spacing:
@@ -73,7 +73,7 @@
                     typography:
                       size: md
                       weight: medium
-                      color: '#313131'
+                      color: *color-text
                       align: center
                     spacing:
                       marginBlock: sm
@@ -120,7 +120,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: xs
@@ -130,7 +130,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
 
             # Card 2 — Blue
@@ -161,7 +161,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: xs
@@ -171,7 +171,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
 
             # Card 3 — Orange
@@ -183,7 +183,7 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FF4D00'
+                        color: *color-accent
                       border:
                         width: 4
                         style: solid
@@ -243,7 +243,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: xs
@@ -253,7 +253,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
 
             # Card 5 — Lime
@@ -284,7 +284,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: xs
@@ -294,7 +294,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
 
             # Card 6 — Blue
@@ -325,7 +325,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: xs
@@ -335,7 +335,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
 
         # CTA Row
@@ -352,7 +352,7 @@
                 text: SEE ALL FEATURES
                 appearance:
                   background:
-                    color: '#FF4D00'
+                    color: *color-accent
                   border:
                     width: 4
                     style: solid

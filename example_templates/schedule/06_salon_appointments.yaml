@@ -1,0 +1,566 @@
+# Salon Appointment Slots - Beauty & Spa Booking Schedule with Accordion
+# A salon/spa booking schedule with accordion per service category (Hair, Nails, Facial, Massage), each expanding to show time slots with service name, duration + price, and availability badge
+# Base components: layout-column, heading, paragraph, eyebrow, accordion, badge, caption
+# Section type: schedule, appointment
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: salon, spa, barbershop, beauty studio, wellness center, nail bar, skincare clinic
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Playfair Display', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1C1917'
+        text: &color-text '#44403C'
+        secondary: &color-secondary '#D6D3D1'
+        accent: &color-accent '#BE185D'
+        background: &color-background '#FAFAF9'
+  components:
+  - name: page
+    slug: home
+    title: "Salon Appointment Slots"
+    properties:
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+
+        # ============================================
+        # SCHEDULE HEADER
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: xxl
+          paddingInline: xl
+      components:
+      - name: eyebrow
+        properties:
+          text: BOOK YOUR SESSION
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Today's Available Appointments
+          level: 2
+          typography: {size: xxl, weight: semibold, color: *color-primary, align: center, letterSpacing: tight}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: Browse our services and pick a time that works for you. Walk-ins welcome, but appointments are recommended to guarantee your preferred slot.
+          typography: {size: md, color: '#78716C', align: center, lineHeight: '1.7'}
+          layout: {widthMode: "66"}
+          spacing: {marginBlock: md}
+
+        # ============================================
+        # AVAILABILITY LEGEND
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: sm
+          paddingInline: xl
+      components:
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-evenly, verticalAlign: center}
+          spacing: {marginBlock: sm}
+        components:
+        - name: badge
+          properties:
+            text: "Available"
+            appearance: {background: {color: '#10B981'}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+        - name: badge
+          properties:
+            text: "Few Left"
+            appearance: {background: {color: '#F59E0B'}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+        - name: badge
+          properties:
+            text: "Fully Booked"
+            appearance: {background: {color: '#EF4444'}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        # ============================================
+        # HAIR SERVICES ACCORDION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: heading
+        properties:
+          text: "Hair Services"
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: true}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "10:00 AM — Women's Cut & Style"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Women's Cut & Blowout"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "45 min — $65"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Precision haircut with consultation, shampoo, conditioning treatment, and a polished blowout finish. Includes complimentary scalp massage."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Available"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "11:00 AM — Balayage Highlights"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Balayage Color Treatment"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "120 min — $180"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Hand-painted balayage for a natural, sun-kissed look. Includes toner, deep conditioning gloss, and style. Consultation required for first-time clients."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Few Left"
+                appearance: {background: {color: '#F59E0B'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "1:30 PM — Men's Haircut"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Classic Men's Cut"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "30 min — $35"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Traditional or modern men's cut with hot towel neck shave, shampoo, and styling. Beard trim add-on available for $15."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Available"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "3:00 PM — Keratin Treatment"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Brazilian Keratin Smoothing"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "90 min — $250"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Professional keratin smoothing treatment that eliminates frizz and adds shine for up to 12 weeks. Best for medium to long hair."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Fully Booked"
+                appearance: {background: {color: '#EF4444'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        # ============================================
+        # NAIL SERVICES ACCORDION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: heading
+        properties:
+          text: "Nail Services"
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: true}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "9:30 AM — Gel Manicure"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Gel Manicure with Nail Art"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "60 min — $55"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Long-lasting gel polish application with cuticle care, nail shaping, and up to two accent nails with custom art. Chip-free for 2-3 weeks."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Available"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "11:30 AM — Spa Pedicure"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Luxury Spa Pedicure"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "75 min — $70"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Full pedicure with warm soak, exfoliating scrub, paraffin wax treatment, extended calf massage, and polish of your choice."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Few Left"
+                appearance: {background: {color: '#F59E0B'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "2:00 PM — Acrylic Full Set"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Acrylic Full Set — Any Shape"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "90 min — $85"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Custom acrylic extensions in your preferred shape — coffin, stiletto, almond, or square. Includes gel top coat and one free fill within two weeks."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Available"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        # ============================================
+        # FACIAL SERVICES ACCORDION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: heading
+        properties:
+          text: "Facial Treatments"
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: true}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "10:00 AM — Classic Facial"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Deep Cleansing Facial"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "60 min — $90"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Thorough cleansing, exfoliation, steam, extractions, and a hydrating mask tailored to your skin type. Finished with SPF moisturizer."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Available"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "12:30 PM — Microdermabrasion"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Crystal Microdermabrasion"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "45 min — $120"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Non-invasive exfoliation that removes dead skin cells and stimulates collagen production. Reduces fine lines, sun damage, and acne scars."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Few Left"
+                appearance: {background: {color: '#F59E0B'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "3:00 PM — LED Light Therapy"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "LED Rejuvenation Session"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "30 min — $75"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Targeted LED light therapy using red and blue wavelengths to reduce inflammation, boost collagen, and improve overall skin tone. No downtime."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Available"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        # ============================================
+        # MASSAGE SERVICES ACCORDION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: heading
+        properties:
+          text: "Massage & Body"
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: true}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "9:00 AM — Swedish Relaxation"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Swedish Full Body Massage"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "60 min — $95"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Gentle, flowing strokes to promote relaxation and improve circulation. Aromatherapy oils selected to your preference. Perfect for stress relief."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Available"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "11:00 AM — Deep Tissue"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Deep Tissue Therapeutic Massage"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "75 min — $130"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Targeted pressure on chronic muscle tension and knots. Ideal for athletes and those with persistent back, neck, or shoulder pain."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Fully Booked"
+                appearance: {background: {color: '#EF4444'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "2:00 PM — Hot Stone Therapy"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Hot Stone Relaxation"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "90 min — $150"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Heated basalt stones placed along energy points combined with massage techniques. Deeply relaxing and helps relieve muscle stiffness and joint pain."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Few Left"
+                appearance: {background: {color: '#F59E0B'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        - title: "4:30 PM — Prenatal Massage"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: heading
+              properties:
+                text: "Prenatal Comfort Massage"
+                level: 4
+                typography: {size: md, weight: semibold, color: *color-primary}
+            - name: caption
+              properties:
+                text: "60 min — $105"
+                typography: {size: xs, color: *color-accent, weight: medium}
+            - name: paragraph
+              properties:
+                text: "Gentle, supportive massage designed for expectant mothers. Reduces swelling, eases back pain, and promotes restful sleep. Side-lying position with pregnancy pillow."
+                typography: {size: sm, color: '#78716C', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Available"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}

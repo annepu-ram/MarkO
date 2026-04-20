@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-column, layout-row, paragraph, heading, link, image, button
 # Section type: hero
 # Layout: centered
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: Designers, photographers, artists, freelancers
 
 - name: page
@@ -25,7 +25,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
   # Minimal Name Header
   - name: titlebar
@@ -49,7 +49,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
         border:
           width: 0
           style: solid
@@ -82,7 +82,7 @@
             colorStart: *color-background
             colorEnd: *color-surface-alt
             direction: to bottom
-          transparency: 100
+          opacity: 100
     components:
     # Availability Badge
     - name: layout-row
@@ -94,7 +94,7 @@
         appearance:
           background:
             color: rgba(16,185,129,0.1)
-            transparency: 100
+            opacity: 100
           radius: pill
           border:
             width: 1
@@ -290,7 +290,7 @@
               appearance:
                 background:
                   color: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%)
-                  transparency: 100
+                  opacity: 100
             components:
             - name: paragraph
               properties:
@@ -348,7 +348,7 @@
               appearance:
                 background:
                   color: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%)
-                  transparency: 100
+                  opacity: 100
             components:
             - name: paragraph
               properties:
@@ -418,7 +418,7 @@
         paddingInline: xl
       background:
         color: *color-dark
-        transparency: 100
+        opacity: 100
     components:
     - name: layout-column
       properties:

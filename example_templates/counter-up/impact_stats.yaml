@@ -1,0 +1,166 @@
+# Impact Statistics
+# NGO and nonprofit impact statistics with animated counters showing lives changed, projects, and volunteers
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, counter-up, icon, columnsgrid
+# Section type: stats
+# Layout: grid
+# Visual style: default
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E293B"
+        text: &color-text "#475569"
+        secondary: &color-secondary "#94A3B8"
+        accent: &color-accent "#3B82F6"
+        background: &color-background "#F8FAFC"
+  components:
+    - name: page
+      slug: home
+      title: "Impact Statistics"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # ============================================
+        # SECTION HEADER
+        # ============================================
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center }
+            spacing: { paddingBlock: xl }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '75', horizontalAlign: center }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: OUR IMPACT
+                    typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                - name: heading
+                  properties:
+                    text: Making a Difference Together
+                    level: 2
+                    typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Since 2010, our foundation has been working tirelessly to create positive change in communities around the world.
+                    typography: { size: md, color: *color-text, align: center }
+
+        # ============================================
+        # IMPACT COUNTERS
+        # ============================================
+        - name: columnsgrid
+          properties:
+            layout: { columns: 4, gap: lg }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+            spacing: { paddingBlock: xl, paddingInline: lg }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: xl, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: heart, size: "48", color: '#ef4444' }
+                    - name: counter-up
+                      properties:
+                        endValue: 250000
+                        duration: 2500
+                        suffix: "+"
+                        typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Lives Changed
+                        typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Through health, education, and community programs
+                        typography: { size: xs, color: *color-secondary, align: center }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: xl, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: folder, size: "48", color: *color-accent }
+                    - name: counter-up
+                      properties:
+                        endValue: 1200
+                        duration: 2000
+                        suffix: "+"
+                        typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Projects Completed
+                        typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Across 45 countries on 6 continents
+                        typography: { size: xs, color: *color-secondary, align: center }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: xl, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: users, size: "48", color: '#10b981' }
+                    - name: counter-up
+                      properties:
+                        endValue: 18000
+                        duration: 2200
+                        suffix: "+"
+                        typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Active Volunteers
+                        typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Dedicated people giving their time and skills
+                        typography: { size: xs, color: *color-secondary, align: center }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: xl, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: dollar-sign, size: "48", color: '#f59e0b' }
+                    - name: counter-up
+                      properties:
+                        endValue: 85
+                        duration: 2000
+                        prefix: "$"
+                        suffix: "M"
+                        typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Funds Raised
+                        typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Invested directly into community programs
+                        typography: { size: xs, color: *color-secondary, align: center }
+                        spacing: { marginBlock: sm }

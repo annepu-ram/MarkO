@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-column, eyebrow, heading, paragraph, layout-row, button, columnsgrid
 # Section type: navigation
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS landing pages, corporate sites, and product pages needing persistent top navigation
 
 - name: page
@@ -47,7 +47,7 @@
       scroll:
         shrinkPercentage: 75
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
         focus:
           background: *color-background
@@ -105,7 +105,7 @@
         properties:
           text: Watch Demo
           appearance:
-            background: {color: *color-background, transparency: 100}
+            background: {color: *color-background, opacity: 100}
             border: {width: 2, style: solid, color: *color-accent}
             radius: md
           typography: {color: *color-accent, weight: semibold, size: md}
@@ -137,7 +137,7 @@
           properties:
             layout: {horizontalAlign: space-evenly}
             spacing: {paddingBlock: lg, paddingInline: lg}
-            appearance: {background: {color: *color-background, transparency: 100}, radius: lg}
+            appearance: {background: {color: *color-background, opacity: 100}, radius: lg}
           components:
           - name: heading
             properties:
@@ -153,7 +153,7 @@
           properties:
             layout: {horizontalAlign: space-evenly}
             spacing: {paddingBlock: lg, paddingInline: lg}
-            appearance: {background: {color: *color-background, transparency: 100}, radius: lg}
+            appearance: {background: {color: *color-background, opacity: 100}, radius: lg}
           components:
           - name: heading
             properties:
@@ -169,7 +169,7 @@
           properties:
             layout: {horizontalAlign: space-evenly}
             spacing: {paddingBlock: lg, paddingInline: lg}
-            appearance: {background: {color: *color-background, transparency: 100}, radius: lg}
+            appearance: {background: {color: *color-background, opacity: 100}, radius: lg}
           components:
           - name: heading
             properties:
@@ -188,7 +188,7 @@
     properties:
       layout: {horizontalAlign: space-evenly}
       spacing: {paddingBlock: xxxl, paddingInline: xl}
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
     - name: heading
       properties:

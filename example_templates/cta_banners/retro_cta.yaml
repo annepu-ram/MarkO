@@ -3,7 +3,7 @@
 # Base components: site, page, layout-column, layout-row, heading, paragraph, button
 # Section type: cta
 # Layout: centered
-# Visual style: retro
+# Visual style: retro_vintage
 # Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
 
 - name: site
@@ -13,11 +13,11 @@
         heading: "'Bebas Neue', sans-serif"
         content: "'Merriweather', serif"
       colors:
-        primary: '#0D0D0D'
-        text: '#292929'
-        secondary: '#FFD600'
-        accent: '#FF0000'
-        background: '#FFEB3B'
+        primary: &color-primary '#0D0D0D'
+        text: &color-text '#292929'
+        secondary: &color-secondary '#FFD600'
+        accent: &color-accent '#FF0000'
+        background: &color-background '#FFEB3B'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#0D0D0D'
-            transparency: 100
+            color: *color-primary
+            opacity: 100
       components:
 
         # Outer section — black bg, centered content box
@@ -47,14 +47,14 @@
                 appearance:
                   background:
                     color: '#ffffff'
-                    transparency: 100
+                    opacity: 100
                   border:
                     width: 3
                     style: solid
-                    color: '#FFD600'
+                    color: *color-secondary
                   radius: none
                   shadow: retro
-                  shadowColor: '#FFD600'
+                  shadowColor: *color-secondary
                 spacing:
                   paddingBlock: xxl
                   paddingInline: xxl
@@ -67,7 +67,7 @@
                     typography:
                       size: sm
                       weight: extrabold
-                      color: '#FF0000'
+                      color: *color-accent
                       transform: uppercase
                       letterSpacing: wide
                       align: center
@@ -82,7 +82,7 @@
                     typography:
                       size: xxxl
                       weight: extrabold
-                      color: '#0D0D0D'
+                      color: *color-primary
                       transform: uppercase
                       letterSpacing: wide
                       align: center
@@ -95,7 +95,7 @@
                     text: The crowd is already moving. The records are spinning. Don't stand on the sidelines when the greatest show of the decade is happening right now — join us and make history.
                     typography:
                       size: md
-                      color: '#292929'
+                      color: *color-text
                       align: center
                       lineHeight: '1.7'
                     spacing:
@@ -118,15 +118,15 @@
                         text: JOIN THE MOVEMENT
                         appearance:
                           background:
-                            color: '#FF0000'
-                            transparency: 100
+                            color: *color-accent
+                            opacity: 100
                           border:
                             width: 3
                             style: solid
-                            color: '#0D0D0D'
+                            color: *color-primary
                           radius: none
                           shadow: retro
-                          shadowColor: '#0D0D0D'
+                          shadowColor: *color-primary
                         typography:
                           color: '#ffffff'
                           weight: extrabold
@@ -143,15 +143,15 @@
                         text: LEARN MORE
                         appearance:
                           background:
-                            color: '#0D0D0D'
-                            transparency: 100
+                            color: *color-primary
+                            opacity: 100
                           border:
                             width: 3
                             style: solid
-                            color: '#0D0D0D'
+                            color: *color-primary
                           radius: none
                           shadow: retro
-                          shadowColor: '#0D0D0D'
+                          shadowColor: *color-primary
                         typography:
                           color: '#ffffff'
                           weight: extrabold

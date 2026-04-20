@@ -1,0 +1,189 @@
+# Wave Section Breaker — Decorative wave dividers between page sections
+# Full-width SVG wave transitions connecting hero, features, and CTA sections
+# Base components: page, layout-column, layout-row, heading, paragraph, eyebrow, button, columnsgrid, icon, br
+# Section type: divider
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: SaaS, tech startup, creative agency, portfolio, landing page
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ── HERO SECTION (white background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxxl, paddingInline: lg }
+        appearance: { background: { color: *color-background, opacity: 100 } }
+      components:
+        - name: eyebrow
+          properties:
+            text: INTRODUCING SWIFTFLOW
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+        - name: heading
+          properties:
+            text: Build faster. Ship smarter.
+            level: 1
+            typography: { size: xxxl, weight: bold, color: *color-primary, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: The developer platform that removes friction from every step of your workflow — from idea to production in minutes, not months.
+            typography: { size: lg, color: *color-secondary, align: center }
+            layout: { widthMode: '66' }
+            spacing: { marginBlock: md }
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, gap: md }
+          components:
+            - name: button
+              properties:
+                text: Start Free Trial
+                appearance: { background: { color: *color-accent }, radius: md }
+                typography: { color: *color-background, weight: semibold }
+                spacing: { paddingBlock: md, paddingInline: lg }
+            - name: button
+              properties:
+                text: Watch Demo
+                appearance: { background: { color: *color-background }, border: { width: 1, color: *color-accent }, radius: md }
+                typography: { color: *color-accent, weight: semibold }
+                spacing: { paddingBlock: md, paddingInline: lg }
+
+    # ── WAVE DIVIDER: white → indigo ──
+    # Color matches the NEXT section's background so the wave blends seamlessly
+    - name: br
+      properties:
+        type: wave
+        color: '#eef2ff'
+        thickness: 5
+        invert: false
+
+    # ── FEATURES SECTION (light indigo background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance: { background: { color: '#eef2ff', opacity: 100 } }
+      components:
+        - name: eyebrow
+          properties:
+            text: FEATURES
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+        - name: heading
+          properties:
+            text: Everything you need to ship
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: A complete toolkit for modern development teams.
+            typography: { size: md, color: *color-secondary, align: center }
+            spacing: { marginBlock: lg }
+
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: lg }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: sm }
+                    appearance: { background: { color: *color-background }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: icon
+                      properties: { iconName: zap, size: lg, color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Instant Deploy
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Push to main and your changes are live in seconds. Zero-config CI/CD built right in.
+                        typography: { size: sm, color: *color-secondary, align: center }
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: sm }
+                    appearance: { background: { color: *color-background }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: icon
+                      properties: { iconName: shield, size: lg, color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Enterprise Security
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: SOC 2 compliant with end-to-end encryption, SSO, and role-based access controls.
+                        typography: { size: sm, color: *color-secondary, align: center }
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, gap: sm }
+                    appearance: { background: { color: *color-background }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: icon
+                      properties: { iconName: bar-chart, size: lg, color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Real-time Analytics
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Monitor performance, errors, and user behavior with built-in observability dashboards.
+                        typography: { size: sm, color: *color-secondary, align: center }
+
+    # ── WAVE DIVIDER: indigo → dark (inverted wave) ──
+    # invert: true flips the wave so the curve points upward
+    - name: br
+      properties:
+        type: wave
+        color: *color-primary
+        thickness: 5
+        invert: true
+
+    # ── CTA SECTION (dark background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxxl, paddingInline: lg }
+        appearance: { background: { color: *color-primary, opacity: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: Ready to build something amazing?
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-background, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Join 10,000+ developers shipping faster with SwiftFlow. Free tier available — no credit card required.
+            typography: { size: lg, color: '#94a3b8', align: center }
+            layout: { widthMode: '66' }
+            spacing: { marginBlock: lg }
+        - name: button
+          properties:
+            text: Get Started for Free
+            appearance: { background: { color: *color-accent }, radius: md }
+            typography: { color: *color-background, weight: bold, size: lg }
+            spacing: { paddingBlock: md, paddingInline: xl }

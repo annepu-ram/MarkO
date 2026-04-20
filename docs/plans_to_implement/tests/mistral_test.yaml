@@ -1,583 +1,1751 @@
 - name: site
   properties:
     theme:
-      colors:
-        background: &color-background '#f8fafc'
-        primary: &color-primary '#1e293b'
-        secondary: &color-secondary '#475569'
-        accent: &color-accent '#2563eb'
       fonts:
-        heading: &font-heading "'Inter', sans-serif"
+        heading: &font-heading "'Lora', serif"
         content: &font-content "'Inter', sans-serif"
-
+      colors:
+        primary: &color-primary '#4A1942'
+        text: &color-text '#5A3050'
+        secondary: &color-secondary '#E8A0BF'
+        accent: &color-accent '#C74B7A'
+        background: &color-background '#FFF0F5'
   components:
     - name: page
       slug: home
-      title: "Mistral Test"
+      title: Pages Store
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            transparency: 100
       components:
         - name: titlebar
           properties:
             branding:
               showLogo: true
-              logoUrl: 'https://www.swift-sites.com/assets/logo.png'
-              title: 'Swift Clean'
+              logoUrl: https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=60&h=60&fit=crop
+              title: Book Haven
             navigation:
               links:
-                - label: Services
-                  href: '#services'
-                - label: Pricing
-                  href: '#pricing'
-                - label: About
+                - label: Home
+                  href: '#home'
+                - label: Fiction
+                  href: '#fiction'
+                - label: Non-Fiction
+                  href: '#non-fiction'
+                - label: Self-Help & Business
+                  href: '#self-help'
+                - label: Academic
+                  href: '#academic'
+                - label: Crafts & Art Supplies
+                  href: '#crafts'
+                - label: About Us
                   href: '#about'
                 - label: Contact
                   href: '#contact'
-            layout: { alignment: left }
+            layout:
+              alignment: left
+              height: 64
+            scroll:
+              shrinkPercentage: 80
             appearance:
-              background: { color: *color-primary }
-              border: { width: 0 }
-            spacing: { paddingInline: lg }
-
+              background:
+                color: *color-background
+                transparency: 100
+              border:
+                width: 0
+                style: solid
+                color: *color-primary
+              focus:
+                background: *color-accent
+                color: *color-background
+            typography:
+              title:
+                size: 22
+                weight: bold
+                color: *color-primary
+              menu:
+                size: 15
+                weight: medium
+                color: *color-text
         - name: layout-row
           properties:
-            layout: { horizontalAlign: center, verticalAlign: center }
-            spacing: { paddingBlock: xl }
+            layout:
+              horizontalAlign: space-between
+              verticalAlign: center
+              wrap: nowrap
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
+            spacing:
+              paddingBlock: sm
+              paddingInline: md
           components:
             - name: layout-column
               properties:
-                layout: { widthMode: '75' }
-                spacing: { paddingBlock: md }
+                layout:
+                  horizontalAlign: left
+                  widthMode: fit
               components:
-                - name: heading
+                - name: icon
                   properties:
-                    text: Professional Home Cleaning Services
-                    level: 1
+                    name: search
+                    size: '20'
+                    color: *color-text
+                - name: link
+                  properties:
+                    text: Search
+                    href: '#search'
+                    appearance:
+                      underline: false
+                      showArrow: false
                     typography:
-                      size: xxxl
-                      weight: bold
-                      color: *color-primary
-                      align: center
-
-                - name: paragraph
-                  properties:
-                    text: Transform your home with our comprehensive cleaning services. From quick tidy-ups to deep cleaning and everything in between.
-                    typography:
-                      size: lg
-                      color: *color-secondary
-                      align: center
-                    spacing: { marginBlock: md }
-
-                - name: layout-row
-                  properties:
-                    layout: { horizontalAlign: center, gap: sm }
-                  components:
-                    - name: button
-                      properties:
-                        text: Get Free Quote
-                        appearance:
-                          background: { color: *color-accent }
-                        typography:
-                          color: '#ffffff'
-                          weight: semibold
-                    - name: button
-                      properties:
-                        text: View Pricing
-                        appearance:
-                          background: { color: *color-background }
-                          border: { width: 1, color: *color-accent }
-                        typography:
-                          color: *color-accent
-                          weight: semibold
-
-        - name: layout-row
-          properties:
-            layout: { horizontalAlign: center, verticalAlign: center }
-            spacing: { paddingBlock: lg }
-          components:
+                      size: md
+                      color: *color-text
+                    spacing:
+                      marginInline: xs
             - name: layout-column
               properties:
-                layout: { widthMode: '75' }
-                spacing: { paddingBlock: md }
+                layout:
+                  horizontalAlign: right
+                  widthMode: fit
               components:
-                - name: heading
+                - name: badge
                   properties:
-                    text: Our Services
-                    level: 2
+                    text: 50% Off Old Books
+                    pill: true
                     typography:
-                      size: xxl
-                      weight: bold
-                      color: *color-primary
-
-                - name: columnsgrid
+                      color: *color-background
+                    appearance:
+                      background:
+                        color: *color-accent
+                      radius: pill
+                      shadow: soft
+                - name: icon
                   properties:
-                    layout: { columns: 3, gap: lg }
-                    responsive: { breakpoints: { md: 2, sm: 1 } }
-                  columns:
-                    - components:
-                        - name: layout-column
-                          properties:
-                            appearance: { background: { color: '#dbeafe' }, radius: lg }
-                            spacing: { paddingBlock: lg, paddingInline: lg }
-                          components:
-                            - name: icon
-                              properties:
-                                name: clean_hands
-                                size: xxl
-                                color: *color-accent
-                            - name: heading
-                              properties:
-                                text: Flat Cleaning
-                                level: 3
-                                typography: { color: *color-primary, align: center }
-                            - name: paragraph
-                              properties:
-                                text: Thorough cleaning of your entire home. We tackle every room from top to bottom.
-                                typography: { size: sm, align: center }
-
-                    - components:
-                        - name: layout-column
-                          properties:
-                            appearance: { background: { color: '#e0f2fe' }, radius: lg }
-                            spacing: { paddingBlock: lg, paddingInline: lg }
-                          components:
-                            - name: icon
-                              properties:
-                                name: shower
-                                size: xxl
-                                color: *color-accent
-                            - name: heading
-                              properties:
-                                text: Deep Clean
-                                level: 3
-                                typography: { color: *color-primary, align: center }
-                            - name: paragraph
-                              properties:
-                                text: Scrubbing machine deep cleaning for stubborn stains and grime in every corner.
-                                typography: { size: sm, align: center }
-
-                    - components:
-                        - name: layout-column
-                          properties:
-                            appearance: { background: { color: '#f3e8ff' }, radius: lg }
-                            spacing: { paddingBlock: lg, paddingInline: lg }
-                          components:
-                            - name: icon
-                              properties:
-                                name: schedule
-                                size: xxl
-                                color: *color-accent
-                            - name: heading
-                              properties:
-                                text: Routine Cleaning
-                                level: 3
-                                typography: { color: *color-primary, align: center }
-                            - name: paragraph
-                              properties:
-                                text: Regular cleaning for a consistently fresh home. Perfect for busy households.
-                                typography: { size: sm, align: center }
-
+                    name: shopping-cart
+                    size: '20'
+                    color: *color-text
+                    spacing:
+                      marginInline: xs
+                - name: link
+                  properties:
+                    text: Cart
+                    href: '#cart'
+                    appearance:
+                      underline: false
+                      showArrow: false
+                    typography:
+                      size: md
+                      color: *color-text
+                    spacing:
+                      marginInline: xs
         - name: layout-row
           properties:
-            layout: { horizontalAlign: center, verticalAlign: center }
-            spacing: { paddingBlock: lg }
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+              gap: none
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+            appearance:
+              background:
+                color: *color-background
+                transparency: 100
           components:
-            - name: layout-column
+            - name: image
               properties:
-                layout: { widthMode: '75' }
-                spacing: { paddingBlock: md }
+                source:
+                  url: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/bfcb9654dcb4495a9516729e2ee9ea9d.webp
+                  altText: Cozy bookstore corner with warm lighting and bookshelves
+                appearance:
+                  minHeight: 40
+                  fit: cover
+                  overlay:
+                    enabled: true
+                    color: *color-secondary
+                    opacity: 80
+                  hoverEffect: none
+                layout:
+                  widthMode: stretch
+                spacing:
+                  marginBlock: none
+                  marginInline: none
               components:
-                - name: heading
-                  properties:
-                    text: Our Pricing
-                    level: 2
-                    typography:
-                      size: xxl
-                      weight: bold
-                      color: *color-primary
-
-                - name: paragraph
-                  properties:
-                    text: Affordable home cleaning services tailored to your needs.
-                    typography: { size: lg, color: *color-secondary }
-                    spacing: { marginBlock: md }
-
-                - name: columnsgrid
-                  properties:
-                    layout: { columns: 3, gap: lg }
-                    responsive: { breakpoints: { md: 2, sm: 1 } }
-                  columns:
-                    - components:
-                        - name: layout-column
-                          properties:
-                            appearance: { radius: lg }
-                            spacing: { paddingBlock: lg, paddingInline: lg }
-                          components:
-                            - name: heading
-                              properties:
-                                text: '1-Bedroom Flat'
-                                level: 3
-                                typography: { color: *color-primary, align: center }
-                            - name: paragraph
-                              properties:
-                                text: £35
-                                typography: { size: xxxl, weight: bold, align: center, color: *color-accent }
-                            - name: paragraph
-                              properties:
-                                text: Perfect for small apartments and studios.
-                                typography: { size: sm, align: center }
-
-                    - components:
-                        - name: layout-column
-                          properties:
-                            appearance: { radius: lg }
-                            spacing: { paddingBlock: lg, paddingInline: lg }
-                          components:
-                            - name: heading
-                              properties:
-                                text: '2-Bedroom Flat'
-                                level: 3
-                                typography: { color: *color-primary, align: center }
-                            - name: paragraph
-                              properties:
-                                text: £55
-                                typography: { size: xxxl, weight: bold, align: center, color: *color-accent }
-                            - name: paragraph
-                              properties:
-                                text: Ideal for family homes and small terraces.
-                                typography: { size: sm, align: center }
-
-                    - components:
-                        - name: layout-column
-                          properties:
-                            appearance: { radius: lg }
-                            spacing: { paddingBlock: lg, paddingInline: lg }
-                          components:
-                            - name: heading
-                              properties:
-                                text: '3+ Bedroom Flat'
-                                level: 3
-                                typography: { color: *color-primary, align: center }
-                            - name: paragraph
-                              properties:
-                                text: £75+
-                                typography: { size: xxxl, weight: bold, align: center, color: *color-accent }
-                            - name: paragraph
-                              properties:
-                                text: Large family homes and spacious apartments.
-                                typography: { size: sm, align: center }
-
-                - name: paragraph
-                  properties:
-                    text: "Prices include: All rooms, bathrooms, windows, and floors. Discounts for regular bookings."
-                    typography: { size: sm, color: *color-secondary, align: center }
-                    spacing: { marginBlock: lg }
-
-        - name: layout-row
-          properties:
-            layout: { horizontalAlign: center, verticalAlign: center }
-            spacing: { paddingBlock: lg }
-          components:
-            - name: layout-column
-              properties:
-                layout: { widthMode: '75' }
-                spacing: { paddingBlock: md }
-              components:
-                - name: heading
-                  properties:
-                    text: What We Offer
-                    level: 2
-                    typography:
-                      size: xxl
-                      weight: bold
-                      color: *color-primary
-
                 - name: layout-column
                   properties:
-                    appearance: { background: { color: '#fef3c7' }, radius: lg }
-                    spacing: { paddingBlock: lg, paddingInline: lg }
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                    spacing:
+                      paddingBlock: xxl
+                      paddingInline: lg
                   components:
                     - name: heading
                       properties:
-                        text: Furnished or Unfurnished
-                        level: 3
-                        typography: { color: *color-primary }
+                        text: Welcome to Pages Store, Where Stories Come to Life
+                        level: 1
+                        typography:
+                          color: *color-primary
+                          size: xxxl
+                          weight: bold
+                          align: center
+                          lineHeight: snug
+                          fontStyle: italic
+                        appearance:
+                          textShadow: soft
+                        spacing:
+                          marginBlock: none
+                          marginInline: none
                     - name: paragraph
                       properties:
-                        text: We clean both furnished and unfurnished properties. Whether your furniture is brand new or well-loved, we'll make it sparkle.
-                        spacing: { marginBlock: md }
-                    - name: layout-row
-                      properties: { layout: { horizontalAlign: center, wrap: wrap } }
-                      components:
-                        - name: icon
-                          properties:
-                            name: weekend
-                            size: xxl
-                            color: *color-accent
-                            spacing: { marginInline: md }
-
-                    - name: heading
+                        text: At Pages Store, we believe that every book has the power to transport you
+                          to new worlds, spark your imagination, and enrich your
+                          life. Our carefully curated collection of books, from
+                          timeless classics to contemporary bestsellers, is here
+                          to inspire and delight you.
+                        typography:
+                          color: *color-text
+                          size: lg
+                          align: center
+                          lineHeight: relaxed
+                        spacing:
+                          marginBlock: md
+                          marginInline: none
+                    - name: button
                       properties:
-                        text: Deep Clean Options
-                        level: 3
-                        typography: { color: *color-primary }
-                        spacing: { marginBlock: lg }
-                    - name: paragraph
-                      properties:
-                        text: Choose between normal routine cleaning or our premium deep clean with scrubbing machines.
-                        spacing: { marginBlock: md }
-                    - name: layout-row
-                      properties: { layout: { horizontalAlign: center, wrap: wrap } }
-                      components:
-                        - name: icon
-                          properties:
-                            name: cleaning_services
-                            size: xxl
+                        text: Explore Our Collection
+                        action:
+                          type: link
+                          value: /collection
+                        appearance:
+                          background:
                             color: *color-accent
-                            spacing: { marginInline: md }
-
+                            transparency: 100
+                          border:
+                            width: 0
+                          radius: lg
+                          shadow: none
+                        typography:
+                          color: *color-background
+                          weight: bold
+                          size: md
+                          align: center
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                        layout:
+                          widthMode: fit
         - name: layout-row
           properties:
-            layout: { horizontalAlign: center, verticalAlign: center }
-            spacing: { paddingBlock: lg }
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+            appearance:
+              background:
+                color: *color-background
           components:
             - name: layout-column
               properties:
-                layout: { widthMode: '75' }
-                spacing: { paddingBlock: md }
+                layout:
+                  widthMode: '83'
+                  horizontalAlign: center
               components:
+                - name: eyebrow
+                  properties:
+                    text: SPECIAL OFFERS
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
                 - name: heading
                   properties:
-                    text: Why Choose Us
+                    text: 50% Off Old Books
                     level: 2
                     typography:
                       size: xxl
                       weight: bold
                       color: *color-primary
-
-                - name: layout-row
-                  properties: { layout: { horizontalAlign: center, gap: sm } }
-                  components:
-                    - name: layout-column
-                      properties: { layout: { widthMode: "50" } }
-                      components:
-                        - name: image
-                          properties:
-                            source: { url: 'https://images.unsplash.com/photo-1579562459319-c515479701d0' }
-                            appearance: { minHeight: 30, fit: cover }
-                        - name: heading
-                          properties:
-                            text: Professional Team
-                            level: 3
-                            typography: { color: *color-primary, align: center }
-                            spacing: { marginBlock: sm }
-                        - name: paragraph
-                          properties:
-                            text: All our cleaners are trained professionals with years of experience.
-                            typography: { align: center }
-
-                    - name: layout-column
-                      properties: { layout: { widthMode: "50" } }
-                      components:
-                        - name: image
-                          properties:
-                            source: { url: 'https://images.unsplash.com/photo-1583512639765-240012224d11' }
-                            appearance: { minHeight: 30, fit: cover }
-                        - name: heading
-                          properties:
-                            text: Quality Products
-                            level: 3
-                            typography: { color: *color-primary, align: center }
-                            spacing: { marginBlock: sm }
-                        - name: paragraph
-                          properties:
-                            text: We use only the best eco-friendly cleaning products for your home.
-                            typography: { align: center }
-
-        - name: layout-row
-          properties:
-            layout: { horizontalAlign: center, verticalAlign: center }
-            spacing: { paddingBlock: lg }
-          components:
-            - name: layout-column
-              properties:
-                layout: { widthMode: '75' }
-                spacing: { paddingBlock: md }
-              components:
-                - name: heading
-                  properties:
-                    text: Ready to Book?
-                    level: 2
-                    typography:
-                      size: xxl
-                      weight: bold
-                      color: *color-primary
-
+                      align: center
+                      fontStyle: italic
+                    spacing:
+                      marginBlock: sm
                 - name: paragraph
                   properties:
-                    text: Contact us today to schedule your cleaning service or to get a free quote.
-                    typography: { size: lg, color: *color-secondary }
-                    spacing: { marginBlock: lg }
-
-                - name: layout-row
+                    text: Don't miss out on our exclusive discount on a curated selection of classic
+                      literature.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+                - name: countdown
                   properties:
-                    layout: { horizontalAlign: center, gap: sm }
-                  components:
-                    - name: button
-                      properties:
-                        text: Get Free Quote
-                        appearance:
-                          background: { color: *color-accent }
-                        typography:
-                          color: '#ffffff'
-                          weight: semibold
-                    - name: button
-                      properties:
-                        text: View Availability
-                        appearance:
-                          background: { color: *color-background }
-                          border: { width: 1, color: *color-accent }
-                        typography:
-                          color: *color-accent
-                          weight: semibold
-
-                - name: layout-row
+                    targetDate: '2024-12-31T23:59:59'
+                    format: DD:HH:MM:SS
+                    typography:
+                      size: xl
+                      weight: bold
+                      color: *color-accent
+                      align: center
+                    spacing:
+                      marginBlock: lg
+                - name: button
                   properties:
-                    layout: { horizontalAlign: center, gap: lg, wrap: wrap }
-                    spacing: { marginBlock: lg }
-                  components:
-                    - name: layout-column
-                      properties: { layout: { widthMode: "33" } }
-                      components:
-                        - name: icon
-                          properties:
-                            name: phone
-                            size: xxl
-                            color: *color-accent
-                        - name: heading
-                          properties:
-                            text: Call Us
-                            level: 3
-                            typography: { color: *color-primary }
-                            spacing: { marginBlock: sm }
-                        - name: link
-                          properties:
-                            text: +44 20 1234 5678
-                            appearance: { underline: true }
-                            typography: { color: *color-accent }
-
-                    - name: layout-column
-                      properties: { layout: { widthMode: "33" } }
-                      components:
-                        - name: icon
-                          properties:
-                            name: email
-                            size: xxl
-                            color: *color-accent
-                        - name: heading
-                          properties:
-                            text: Email Us
-                            level: 3
-                            typography: { color: *color-primary }
-                            spacing: { marginBlock: sm }
-                        - name: link
-                          properties:
-                            text: info@swiftclean.co.uk
-                            appearance: { underline: true }
-                            typography: { color: *color-accent }
-
-                    - name: layout-column
-                      properties: { layout: { widthMode: "33" } }
-                      components:
-                        - name: icon
-                          properties:
-                            name: location_on
-                            size: xxl
-                            color: *color-accent
-                        - name: heading
-                          properties:
-                            text: Visit Us
-                            level: 3
-                            typography: { color: *color-primary }
-                            spacing: { marginBlock: sm }
-                        - name: paragraph
-                          properties:
-                            text: 123 Clean Street, London, UK
-                            typography: { color: *color-secondary }
-
+                    text: Shop Now
+                    appearance:
+                      background:
+                        color: *color-accent
+                      radius: lg
+                      padding:
+                        block: md
+                        inline: lg
+                    typography:
+                      size: md
+                      weight: bold
+                      color: *color-background
+                      transform: uppercase
+                      letterSpacing: wider
+                    spacing:
+                      marginBlock: sm
         - name: layout-row
           properties:
-            layout: { horizontalAlign: center, verticalAlign: center }
-            spacing: { paddingBlock: lg }
-            appearance: { background: { color: '#1e293b' } }
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+            appearance:
+              background:
+                color: *color-background
           components:
             - name: layout-column
               properties:
-                layout: { widthMode: 'stretch' }
-                spacing: { paddingBlock: lg }
+                layout:
+                  widthMode: 'stretch'
+                  horizontalAlign: center
+                  tag: section
+                  verticalAlign: space-between
+                  wrap: nowrap
+                  gap: none
+                spacing:
+                  paddingBlock: sm
+                  paddingInline: sm
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  background:
+                    type: ""
+                    color: $color-background
+                    transparency: 0
+                  blur: false
+                  border:
+                    width: 0
+                    style: solid
+                    color: $color-primary
+                  radius: none
+                  shadow: none
+                  shadowColor: "#000000"
               components:
-                - name: layout-row
+                - name: eyebrow
                   properties:
-                    layout: { horizontalAlign: center, wrap: wrap, gap: lg }
+                    text: EXPLORE OUR COLLECTIONS
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+                - name: heading
+                  properties:
+                    text: Curated Collections
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                      fontStyle: italic
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: Discover our carefully selected genres to suit every reading taste and
+                      interest.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 3
+                      gap: lg
+                      verticalAlign: center
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                    appearance:
+                      columnRadius: lg
+                      shadow: soft
+                      shadowColor: "#000000"
+                      columnBackground: $color-background
+                      columnTransparency: 0
+                      columnBlur: false
+                      columnBorder:
+                        width: 0
+                        color: "#e5e7eb"
+                    spacing:
+                      paddingBlock: none
+                      paddingInline: none
+                      marginBlock: none
+                      marginInline: none
+                  columns:
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: md
+                            appearance:
+                              background:
+                                color: *color-background
+                                transparency: 100
+                              radius: lg
+                              shadow: soft
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: md
+                          components:
+                            - name: icon
+                              properties:
+                                name: book-open
+                                appearance:
+                                  color: *color-primary
+                                  size: lg
+                            - name: heading
+                              properties:
+                                text: Classic Literature
+                                level: 3
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-primary
+                                  align: center
+                                  fontStyle: italic
+                                spacing:
+                                  marginBlock: sm
+                            - name: paragraph
+                              properties:
+                                text: Timeless masterpieces that have shaped generations of readers.
+                                typography:
+                                  size: sm
+                                  color: *color-text
+                                  align: center
+                                  lineHeight: '1.6'
+                            - name: image
+                              properties:
+                                src: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/0e251a83e71f4745a444dfb7fe9f75ab.webp
+                                alt: Collection of various paintbrushes
+                                layout:
+                                  widthMode: '100'
+                                appearance:
+                                  radius: sm
+                                spacing:
+                                  marginBlock: sm
+                        - name: button
+                          properties:
+                            text: Explore
+                            appearance:
+                              background:
+                                color: *color-accent
+                              radius: lg
+                              padding:
+                                block: sm
+                                inline: md
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: *color-background
+                              transform: uppercase
+                              letterSpacing: wider
+                            spacing:
+                              marginBlock: sm
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: md
+                            appearance:
+                              background:
+                                color: *color-background
+                                transparency: 100
+                              radius: lg
+                              shadow: soft
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: md
+                          components:
+                            - name: icon
+                              properties:
+                                name: book-plus
+                                appearance:
+                                  color: *color-primary
+                                  size: lg
+                            - name: heading
+                              properties:
+                                text: Modern Fiction
+                                level: 3
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-primary
+                                  align: center
+                                  fontStyle: italic
+                                spacing:
+                                  marginBlock: sm
+                            - name: paragraph
+                              properties:
+                                text: Contemporary stories that reflect the pulse of today's world.
+                                typography:
+                                  size: sm
+                                  color: *color-text
+                                  align: center
+                                  lineHeight: '1.6'
+                            - name: image
+                              properties:
+                                src: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/cbf22c01261d4e2cbc7bbfa5499ca4dd.webp
+                                alt: Creative flat lay of colorful art supplies
+                                layout:
+                                  widthMode: '100'
+                                appearance:
+                                  radius: sm
+                                spacing:
+                                  marginBlock: sm
+                        - name: button
+                          properties:
+                            text: Explore
+                            appearance:
+                              background:
+                                color: *color-accent
+                              radius: lg
+                              padding:
+                                block: sm
+                                inline: md
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: *color-background
+                              transform: uppercase
+                              letterSpacing: wider
+                            spacing:
+                              marginBlock: sm
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: md
+                            appearance:
+                              background:
+                                color: *color-background
+                                transparency: 100
+                              radius: lg
+                              shadow: soft
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: md
+                          components:
+                            - name: icon
+                              properties:
+                                name: book-template
+                                appearance:
+                                  color: *color-primary
+                                  size: lg
+                            - name: heading
+                              properties:
+                                text: Children's Books
+                                level: 3
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-primary
+                                  align: center
+                                  fontStyle: italic
+                                spacing:
+                                  marginBlock: sm
+                            - name: paragraph
+                              properties:
+                                text: Whimsical tales and educational stories perfect for young readers.
+                                typography:
+                                  size: sm
+                                  color: *color-text
+                                  align: center
+                                  lineHeight: '1.6'
+                            - name: image
+                              properties:
+                                src: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/0e251a83e71f4745a444dfb7fe9f75ab.webp
+                                alt: Collection of various paintbrushes
+                                layout:
+                                  widthMode: '100'
+                                appearance:
+                                  radius: sm
+                                spacing:
+                                  marginBlock: sm
+                        - name: button
+                          properties:
+                            text: Explore
+                            appearance:
+                              background:
+                                color: *color-accent
+                              radius: lg
+                              padding:
+                                block: sm
+                                inline: md
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: *color-background
+                              transform: uppercase
+                              letterSpacing: wider
+                            spacing:
+                              marginBlock: sm
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+            appearance:
+              background:
+                color: *color-background
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: 'stretch'
+                  horizontalAlign: center
+                  tag: section
+                  verticalAlign: space-between
+                  wrap: nowrap
+                  gap: none
+                spacing:
+                  paddingBlock: sm
+                  paddingInline: sm
+                  marginBlock: none
+                  marginInline: none
+                appearance:
+                  background:
+                    type: ""
+                    color: $color-background
+                    transparency: 0
+                  blur: false
+                  border:
+                    width: 0
+                    style: solid
+                    color: $color-primary
+                  radius: none
+                  shadow: none
+                  shadowColor: "#000000"
+              components:
+                - name: eyebrow
+                  properties:
+                    text: CREATIVE CORNER
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+                - name: heading
+                  properties:
+                    text: Creative Corner
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                      fontStyle: italic
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: Unleash your creativity with our wide range of art supplies and craft
+                      materials.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 2
+                      gap: lg
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                    appearance:
+                      columnRadius: lg
+                      shadow: soft
+                  columns:
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: md
+                            appearance:
+                              background:
+                                color: *color-background
+                                transparency: 100
+                              radius: lg
+                              shadow: soft
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: md
+                          components:
+                            - name: icon
+                              properties:
+                                name: book-image
+                                appearance:
+                                  color: *color-primary
+                                  size: lg
+                            - name: heading
+                              properties:
+                                text: Art Supplies
+                                level: 3
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-primary
+                                  align: center
+                                  fontStyle: italic
+                                spacing:
+                                  marginBlock: sm
+                            - name: paragraph
+                              properties:
+                                text: High-quality paints, brushes, and canvases for artists of all levels.
+                                typography:
+                                  size: sm
+                                  color: *color-text
+                                  align: center
+                                  lineHeight: '1.6'
+                            - name: image
+                              properties:
+                                src: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/cbf22c01261d4e2cbc7bbfa5499ca4dd.webp
+                                alt: Creative flat lay of colorful art supplies
+                                layout:
+                                  widthMode: '100'
+                                appearance:
+                                  radius: sm
+                                spacing:
+                                  marginBlock: sm
+                        - name: button
+                          properties:
+                            text: Shop Art Supplies
+                            appearance:
+                              background:
+                                color: *color-accent
+                              radius: lg
+                              padding:
+                                block: sm
+                                inline: md
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: *color-background
+                              transform: uppercase
+                              letterSpacing: wider
+                            spacing:
+                              marginBlock: sm
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: md
+                            appearance:
+                              background:
+                                color: *color-background
+                                transparency: 100
+                              radius: lg
+                              shadow: soft
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: md
+                          components:
+                            - name: icon
+                              properties:
+                                name: book-open
+                                appearance:
+                                  color: *color-primary
+                                  size: lg
+                            - name: heading
+                              properties:
+                                text: Craft Kits
+                                level: 3
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-primary
+                                  align: center
+                                  fontStyle: italic
+                                spacing:
+                                  marginBlock: sm
+                            - name: paragraph
+                              properties:
+                                text: DIY kits for knitting, jewelry making, and other hands-on crafts.
+                                typography:
+                                  size: sm
+                                  color: *color-text
+                                  align: center
+                                  lineHeight: '1.6'
+                            - name: image
+                              properties:
+                                src: /uploads/default/f6657f4b-1845-4e37-a439-4a0f4a2cb493/0e251a83e71f4745a444dfb7fe9f75ab.webp
+                                alt: Collection of various paintbrushes
+                                layout:
+                                  widthMode: '100'
+                                appearance:
+                                  radius: sm
+                                spacing:
+                                  marginBlock: sm
+                        - name: button
+                          properties:
+                            text: Shop Craft Kits
+                            appearance:
+                              background:
+                                color: *color-accent
+                              radius: lg
+                              padding:
+                                block: sm
+                                inline: md
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: *color-background
+                              transform: uppercase
+                              letterSpacing: wider
+                            spacing:
+                              marginBlock: sm
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '66'
+                  horizontalAlign: center
+              components:
+                - name: heading
+                  properties:
+                    text: "Transparent Pricing\nfor Book Lovers"
+                    level: 2
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: *color-primary
+                      fontStyle: italic
+                      align: center
+                    spacing:
+                      marginBlock: none
+                - name: paragraph
+                  properties:
+                    text: Find your perfect read at honest prices. No hidden fees, just great books
+                      waiting for you.
+                    typography:
+                      size: md
+                      weight: medium
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: lg
+        - name: carousel
+          properties:
+            behavior:
+              autoplay: true
+              delay: 4000
+              loop: true
+              pauseOnHover: true
+              swipeEnabled: true
+              swipeThreshold: 50
+              keyboardNavigation: true
+            animation:
+              effect: slide
+              duration: 400
+            navigation:
+              showArrows: true
+              showDots: true
+              arrowStyle: chevron
+              arrowPosition: outside
+            indicators:
+              style: dots
+              position: bottom
+            spacing:
+              marginBlock: lg
+          slides:
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: best-sellers-book-1.jpg
+                      altText: Best Seller Book 1
+                    appearance:
+                      fit: cover
+                      cornerStyle: lg
+                - name: heading
+                  properties:
+                    text: The Midnight Library
+                    level: 3
+                    typography:
+                      size: lg
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                      textShadow: soft
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: By Matt Haig - A profound exploration of regret and possibility
+                    typography:
+                      size: sm
+                      color: *color-text
+                      align: center
+                      textShadow: soft
+                    spacing:
+                      marginBlock: none
+                - name: button
+                  properties:
+                    text: Add to Cart - $14.99
+                    action:
+                      type: link
+                      value: /shop/the-midnight-library
+                    appearance:
+                      background:
+                        color: *color-accent
+                      border:
+                        width: 1
+                        color: *color-accent
+                      radius: lg
+                      padding:
+                        block: sm
+                        inline: md
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: sm
+                      transform: uppercase
+                    spacing:
+                      marginBlock: md
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: best-sellers-book-2.jpg
+                      altText: Best Seller Book 2
+                    appearance:
+                      fit: cover
+                      cornerStyle: lg
+                - name: heading
+                  properties:
+                    text: Project Hail Mary
+                    level: 3
+                    typography:
+                      size: lg
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                      textShadow: soft
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: By Andy Weir - A lone astronaut's fight for survival in space
+                    typography:
+                      size: sm
+                      color: *color-text
+                      align: center
+                      textShadow: soft
+                    spacing:
+                      marginBlock: none
+                - name: button
+                  properties:
+                    text: Add to Cart - $16.99
+                    action:
+                      type: link
+                      value: /shop/project-hail-mary
+                    appearance:
+                      background:
+                        color: *color-accent
+                      border:
+                        width: 1
+                        color: *color-accent
+                      radius: lg
+                      padding:
+                        block: sm
+                        inline: md
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: sm
+                      transform: uppercase
+                    spacing:
+                      marginBlock: md
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: best-sellers-book-3.jpg
+                      altText: Best Seller Book 3
+                    appearance:
+                      fit: cover
+                      cornerStyle: lg
+                - name: heading
+                  properties:
+                    text: Where the Crawdads Sing
+                    level: 3
+                    typography:
+                      size: lg
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                      textShadow: soft
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: By Delia Owens - A haunting mystery of love and survival
+                    typography:
+                      size: sm
+                      color: *color-text
+                      align: center
+                      textShadow: soft
+                    spacing:
+                      marginBlock: none
+                - name: button
+                  properties:
+                    text: Add to Cart - $13.99
+                    action:
+                      type: link
+                      value: /shop/where-the-crawdads-sing
+                    appearance:
+                      background:
+                        color: *color-accent
+                      border:
+                        width: 1
+                        color: *color-accent
+                      radius: lg
+                      padding:
+                        block: sm
+                        inline: md
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: sm
+                      transform: uppercase
+                    spacing:
+                      marginBlock: md
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '66'
+                  horizontalAlign: center
+              components:
+                - name: heading
+                  properties:
+                    text: New Arrivals
+                    level: 3
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                    spacing:
+                      marginBlock: none
+                - name: paragraph
+                  properties:
+                    text: Fresh from the shelves - explore our latest additions to the collection.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: lg
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+              verticalAlign: stretch
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            appearance:
+              columnRadius: lg
+              columnShadow: soft
+              columnBackground: *color-background
+              columnTransparency: 100
+            spacing:
+              paddingBlock: lg
+          columns:
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: new-arrival-1.jpg
+                      altText: New Arrival Book 1
+                    appearance:
+                      fit: cover
+                      cornerStyle: lg
+                - name: heading
+                  properties:
+                    text: The House in the Cerulean Sea
+                    level: 4
+                    typography:
+                      size: lg
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: A heartwarming fantasy about found family and second chances.
+                    typography:
+                      size: sm
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+                - name: button
+                  properties:
+                    text: View Details
+                    action:
+                      type: link
+                      value: /shop/the-house-in-the-cerulean-sea
+                    appearance:
+                      background:
+                        color: *color-accent
+                      border:
+                        width: 1
+                        color: *color-accent
+                      radius: lg
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: sm
+                      transform: uppercase
+                    spacing:
+                      marginBlock: md
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: new-arrival-2.jpg
+                      altText: New Arrival Book 2
+                    appearance:
+                      fit: cover
+                      cornerStyle: lg
+                - name: heading
+                  properties:
+                    text: Klara and the Sun
+                    level: 4
+                    typography:
+                      size: lg
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: From Nobel Prize winner Kazuo Ishiguro - an AI's perspective on humanity.
+                    typography:
+                      size: sm
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+                - name: button
+                  properties:
+                    text: View Details
+                    action:
+                      type: link
+                      value: /shop/klara-and-the-sun
+                    appearance:
+                      background:
+                        color: *color-accent
+                      border:
+                        width: 1
+                        color: *color-accent
+                      radius: lg
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: sm
+                      transform: uppercase
+                    spacing:
+                      marginBlock: md
+            - components:
+                - name: image
+                  properties:
+                    source:
+                      url: new-arrival-3.jpg
+                      altText: New Arrival Book 3
+                    appearance:
+                      fit: cover
+                      cornerStyle: lg
+                - name: heading
+                  properties:
+                    text: The Vanishing Half
+                    level: 4
+                    typography:
+                      size: lg
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: A powerful story of identity, family, and the choices we make.
+                    typography:
+                      size: sm
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+                - name: button
+                  properties:
+                    text: View Details
+                    action:
+                      type: link
+                      value: /shop/the-vanishing-half
+                    appearance:
+                      background:
+                        color: *color-accent
+                      border:
+                        width: 1
+                        color: *color-accent
+                      radius: lg
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: sm
+                      transform: uppercase
+                    spacing:
+                      marginBlock: md
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              background:
+                color: *color-primary
+                transparency: 100
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+            appearance:
+              radius: lg
+              shadow: soft
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '66'
+                  horizontalAlign: center
+              components:
+                - name: heading
+                  properties:
+                    text: 50% Off Old Books
+                    level: ""
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: *color-text
+                      align: center
+                      lineHeight: "1.2"
+                      transform: none
+                      letterSpacing: normal
+                      fontStyle: normal
+                      textDecoration: none
+                    spacing:
+                      marginBlock: none
+                      paddingBlock: none
+                      paddingInline: none
+                      marginInline: none
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      background:
+                        type: ""
+                        color: $color-background
+                        transparency: 0
+                      textShadow: none
+                - name: paragraph
+                  properties:
+                    text: Clear space for new treasures. These beloved classics are now half price!
+                    typography:
+                      size: md
+                      color: *color-accent
+                      align: center
+                      lineHeight: '1.6'
+                      weight: regular
+                      transform: none
+                      letterSpacing: normal
+                      fontStyle: normal
+                      textDecoration: none
+                    spacing:
+                      marginBlock: sm
+                      paddingBlock: sm
+                      paddingInline: none
+                      marginInline: none
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      background:
+                        type: ""
+                        color: $color-background
+                        transparency: 0
+                      textShadow: none
+                - name: button
+                  properties:
+                    text: Shop the Sale
+                    action:
+                      type: link
+                      value: /shop/sale
+                    appearance:
+                      background:
+                        color: *color-accent
+                      border:
+                        width: 1
+                        color: *color-accent
+                      radius: lg
+                      padding:
+                        block: md
+                        inline: lg
+                    typography:
+                      color: *color-background
+                      weight: extrabold
+                      size: lg
+                      transform: uppercase
+                    spacing:
+                      marginBlock: md
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-primary
+                transparency: 90
+            spacing:
+              paddingBlock: xxl
+              paddingInline: xl
+          components:
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-between
+                  verticalAlign: start
+                  wrap: wrap
+                  gap: xl
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: 'stretch'
+                      horizontalAlign: left
+                      gap: sm
+                      tag: section
+                      verticalAlign: space-between
+                      wrap: nowrap
+                    appearance:
+                      background:
+                        transparency: 0
+                        type: ""
+                        color: $color-background
+                      blur: false
+                      border:
+                        width: 0
+                        style: solid
+                        color: $color-primary
+                      radius: none
+                      shadow: none
+                      shadowColor: "#000000"
+                    spacing:
+                      paddingBlock: sm
+                      paddingInline: sm
+                      marginBlock: none
+                      marginInline: none
                   components:
                     - name: heading
                       properties:
-                        text: Swift Clean Services
+                        text: Bookish Haven
                         level: 3
-                        typography: { color: *color-background, align: center }
-
+                        typography:
+                          size: xxl
+                          weight: extrabold
+                          color: *color-background
+                          transform: uppercase
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: Discover a world of stories, knowledge, and inspiration. Our curated
+                          collection of books awaits you.
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-background
+                          lineHeight: '1.6'
+                        spacing:
+                          marginBlock: sm
+                    - name: layout-row
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          verticalAlign: center
+                          gap: sm
+                          wrap: wrap
+                          tag: section
+                        appearance:
+                          background:
+                            transparency: 0
+                            type: ""
+                            color: $color-background
+                          blur: false
+                          border:
+                            width: 0
+                            style: solid
+                            color: $color-primary
+                          radius: none
+                          shadow: none
+                          shadowColor: "#000000"
+                        spacing:
+                          paddingBlock: sm
+                          paddingInline: sm
+                          marginBlock: none
+                          marginInline: none
+                      components:
+                        - name: link
+                          properties:
+                            text: Twitter
+                            href: https://twitter.com
+                            typography:
+                              size: sm
+                              weight: extrabold
+                              color: *color-accent
+                            appearance:
+                              underline: false
+                        - name: link
+                          properties:
+                            text: Instagram
+                            href: https://instagram.com
+                            typography:
+                              size: sm
+                              weight: extrabold
+                              color: *color-accent
+                            appearance:
+                              underline: false
+                        - name: link
+                          properties:
+                            text: Facebook
+                            href: https://facebook.com
+                            typography:
+                              size: sm
+                              weight: extrabold
+                              color: *color-accent
+                            appearance:
+                              underline: false
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: xl
+                  verticalAlign: top
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+              columns:
+                - components:
+                    - name: heading
+                      properties:
+                        text: Shop
+                        level: 4
+                        typography:
+                          size: sm
+                          weight: bold
+                          color: *color-background
+                          transform: uppercase
+                        spacing:
+                          marginBlock: sm
                     - name: link
                       properties:
-                        text: 'Services'
-                        href: '#services'
-                        appearance: { underline: true }
-                        typography: { color: *color-background }
-
+                        text: Best Sellers
+                        href: '#best-sellers'
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
                     - name: link
                       properties:
-                        text: 'Pricing'
-                        href: '#pricing'
-                        appearance: { underline: true }
-                        typography: { color: *color-background }
-
+                        text: New Arrivals
+                        href: '#new-arrivals'
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
                     - name: link
                       properties:
-                        text: 'About'
-                        href: '#about'
-                        appearance: { underline: true }
-                        typography: { color: *color-background }
-
+                        text: Special Editions
+                        href: '#special-editions'
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: icon
+                      properties:
+                        name: book
+                        size: '36'
+                        strokeWidth: '2'
+                        color: *color-accent
+                - components:
+                    - name: heading
+                      properties:
+                        text: Resources
+                        level: 4
+                        typography:
+                          size: sm
+                          weight: bold
+                          color: *color-background
+                          transform: uppercase
+                        spacing:
+                          marginBlock: sm
                     - name: link
                       properties:
-                        text: 'Contact'
+                        text: About Us
+                        href: '#about-us'
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Contact
                         href: '#contact'
-                        appearance: { underline: true }
-                        typography: { color: *color-background }
-
-                - name: layout-row
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Blog
+                        href: '#blog'
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: icon
+                      properties:
+                        name: book-open
+                        size: '36'
+                        strokeWidth: '2'
+                        color: *color-accent
+                - components:
+                    - name: heading
+                      properties:
+                        text: Support
+                        level: 4
+                        typography:
+                          size: sm
+                          weight: bold
+                          color: *color-background
+                          transform: uppercase
+                        spacing:
+                          marginBlock: sm
+                    - name: link
+                      properties:
+                        text: Shipping
+                        href: '#shipping'
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Returns
+                        href: '#returns'
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: FAQ
+                        href: '#faq'
+                        typography:
+                          size: sm
+                          color: *color-background
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: icon
+                      properties:
+                        name: book-plus
+                        size: '36'
+                        strokeWidth: '2'
+                        color: *color-accent
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                  gap: sm
+                appearance:
+                  background:
+                    color: *color-secondary
+                    transparency: 100
+                  radius: lg
+                spacing:
+                  paddingBlock: md
+                  paddingInline: md
+              components:
+                - name: heading
                   properties:
-                    layout: { horizontalAlign: center, gap: sm }
-                  components:
-                    - name: icon
-                      properties:
-                        name: facebook
-                        size: lg
-                        color: *color-background
-                    - name: icon
-                      properties:
-                        name: twitter
-                        size: lg
-                        color: *color-background
-                    - name: icon
-                      properties:
-                        name: instagram
-                        size: lg
-                        color: *color-background
-                    - name: icon
-                      properties:
-                        name: linkedin
-                        size: lg
-                        color: *color-background
-
+                    text: Join Our Newsletter
+                    level: 4
+                    typography:
+                      size: md
+                      weight: bold
+                      color: *color-primary
+                      transform: uppercase
+                    spacing:
+                      marginBlock: none
                 - name: paragraph
                   properties:
-                    text: © 2023 Swift Clean Services. All rights reserved.
-                    typography: { color: *color-background, size: xs }
+                    text: Subscribe to receive updates, promotions, and exclusive offers.
+                    typography:
+                      size: sm
+                      color: *color-primary
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+                - name: textbox
+                  properties:
+                    label:
+                      text: Email
+                      show: true
+                      typography:
+                        weight: medium
+                        color: *color-primary
+                    field:
+                      name: email
+                      placeholder: your@email.com
+                      initialValue: ''
+                      validation: email
+                      helperText: ''
+                      required: true
+                    appearance:
+                      size: sm
+                      accentColor: *color-accent
+                - name: button
+                  properties:
+                    text: Subscribe
+                    action:
+                      type: submit
+                      value: ''
+                    appearance:
+                      background:
+                        color: *color-accent
+                        transparency: 100
+                      border:
+                        width: 1
+                        style: solid
+                        color: *color-accent
+                      radius: lg
+                      shadow: soft
+                    typography:
+                      size: md
+                      weight: bold
+                      color: *color-background
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: © 2026 Bookish Haven. All rights reserved.
+                    typography:
+                      size: xs
+                      color: *color-primary
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: none

@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, eyebrow, heading, paragraph, panorama-display, br, blockquote, columnsgrid, button
 # Section type: gallery
 # Layout: stacked
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: real estate agency, hotel, travel agency, architecture firm, event venue, restaurant, resort, museum, shopping mall
 
 - name: site
@@ -23,7 +23,7 @@
       properties:
         appearance:
           background:
-            color: '#1a0a0a'
+            color: *color-background
       components:
       # Header
       - name: layout-row
@@ -33,8 +33,8 @@
             verticalAlign: center
           appearance:
             background:
-              color: '#1a0a0a'
-              transparency: 0
+              color: *color-background
+              opacity: 0
           spacing:
             paddingBlock: lg
             paddingInline: md
@@ -48,7 +48,7 @@
               gap: sm
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: eyebrow
             properties:
@@ -57,7 +57,7 @@
                 size: xs
                 weight: semibold
                 align: center
-                color: '#f59e0b'
+                color: *color-accent
                 transform: uppercase
                 letterSpacing: wide
           - name: heading
@@ -68,14 +68,14 @@
                 size: xxl
                 weight: bold
                 align: center
-                color: '#fef3c7'
+                color: *color-primary
           - name: paragraph
             properties:
               text: Experience the grandeur of a classic theater from your screen. Scroll through this immersive panoramic view of the auditorium, from the orchestra pit to the upper balconies.
               typography:
                 size: md
                 align: center
-                color: '#d4a574'
+                color: *color-secondary
 
       # Panorama - Theater
       - name: panorama-display
@@ -107,8 +107,8 @@
             verticalAlign: center
           appearance:
             background:
-              color: '#1a0a0a'
-              transparency: 0
+              color: *color-background
+              opacity: 0
           spacing:
             paddingBlock: md
             paddingInline: lg
@@ -121,7 +121,7 @@
               gap: md
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: br
             properties:
@@ -138,12 +138,12 @@
                 size: lg
                 weight: medium
                 align: center
-                color: '#fef3c7'
+                color: *color-primary
               appearance:
                 border:
-                  accentColor: '#f59e0b'
+                  accentColor: *color-accent
                 background:
-                  transparency: 0
+                  opacity: 0
               spacing:
                 paddingBlock: md
                 paddingInline: md
@@ -173,7 +173,7 @@
               typography:
                 size: xs
                 weight: semibold
-                color: '#f59e0b'
+                color: *color-accent
                 align: center
                 transform: uppercase
           - name: heading
@@ -183,14 +183,14 @@
               typography:
                 size: lg
                 weight: bold
-                color: '#fef3c7'
+                color: *color-primary
                 align: center
           - name: paragraph
             properties:
               text: 7:30 PM - Orchestra & Balcony
               typography:
                 size: sm
-                color: '#d4a574'
+                color: *color-secondary
                 align: center
           - name: button
             properties:
@@ -198,7 +198,7 @@
               appearance:
                 background:
                   color: '#92400e'
-                  transparency: 100
+                  opacity: 100
                 border:
                   width: 0
                   style: none
@@ -207,7 +207,7 @@
               typography:
                 size: sm
                 weight: semibold
-                color: '#fef3c7'
+                color: *color-primary
         - components:
           - name: eyebrow
             properties:
@@ -215,7 +215,7 @@
               typography:
                 size: xs
                 weight: semibold
-                color: '#f59e0b'
+                color: *color-accent
                 align: center
                 transform: uppercase
           - name: heading
@@ -225,14 +225,14 @@
               typography:
                 size: lg
                 weight: bold
-                color: '#fef3c7'
+                color: *color-primary
                 align: center
           - name: paragraph
             properties:
               text: 8:00 PM - All Sections
               typography:
                 size: sm
-                color: '#d4a574'
+                color: *color-secondary
                 align: center
           - name: button
             properties:
@@ -240,7 +240,7 @@
               appearance:
                 background:
                   color: '#92400e'
-                  transparency: 100
+                  opacity: 100
                 border:
                   width: 0
                   style: none
@@ -249,7 +249,7 @@
               typography:
                 size: sm
                 weight: semibold
-                color: '#fef3c7'
+                color: *color-primary
         - components:
           - name: eyebrow
             properties:
@@ -257,7 +257,7 @@
               typography:
                 size: xs
                 weight: semibold
-                color: '#f59e0b'
+                color: *color-accent
                 align: center
                 transform: uppercase
           - name: heading
@@ -267,14 +267,14 @@
               typography:
                 size: lg
                 weight: bold
-                color: '#fef3c7'
+                color: *color-primary
                 align: center
           - name: paragraph
             properties:
               text: 9:00 PM - Intimate Setting
               typography:
                 size: sm
-                color: '#d4a574'
+                color: *color-secondary
                 align: center
           - name: button
             properties:
@@ -282,7 +282,7 @@
               appearance:
                 background:
                   color: '#92400e'
-                  transparency: 100
+                  opacity: 100
                 border:
                   width: 0
                   style: none
@@ -291,4 +291,4 @@
               typography:
                 size: sm
                 weight: semibold
-                color: '#fef3c7'
+                color: *color-primary

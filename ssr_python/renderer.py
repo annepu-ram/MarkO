@@ -9,19 +9,19 @@ import os
 # Custom Jinja2 Filters
 # ============================================================================
 
-def transparency_to_hex(transparency):
+def opacity_to_hex(opacity):
     """
-    Convert transparency (0-100) to hex alpha (00-ff).
-    Used as a Jinja2 filter in _components.html for background colors.
+    Convert opacity (0-100) to hex alpha (00-ff).
+    Used as a Jinja2 filter in component templates for background colors.
 
     0 = fully transparent (00)
     100 = fully opaque (ff)
     """
-    if transparency is None:
+    if opacity is None:
         return 'ff'  # Default to fully opaque
 
     try:
-        trans_int = int(transparency)
+        trans_int = int(opacity)
         # Clamp to 0-100
         trans_int = max(0, min(100, trans_int))
         # Convert to 0-255 range

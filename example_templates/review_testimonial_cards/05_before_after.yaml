@@ -3,7 +3,7 @@
 # Base components: layout-column, heading, layout-row, eyebrow, image, caption, blockquote
 # Section type: testimonial
 # Layout: split_screen
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
@@ -22,7 +22,7 @@
     properties:
       layout: {horizontalAlign: center, gap: md}
       spacing: {paddingBlock: xl, paddingInline: lg}
-      appearance: {background: {transparency: 0}}
+      appearance: {background: {opacity: 0}}
     components:
     - name: heading
       properties:
@@ -43,7 +43,7 @@
       - name: layout-column
         properties:
           layout: {horizontalAlign: center, widthMode: "50", gap: sm}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: eyebrow
           properties:
@@ -61,7 +61,7 @@
       - name: layout-column
         properties:
           layout: {horizontalAlign: center, widthMode: "50", gap: sm}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: eyebrow
           properties:
@@ -83,7 +83,7 @@
         typography: {size: md, weight: medium, color: *color-secondary, align: center}
         appearance:
           border: {accentColor: *color-accent}
-          background: {transparency: 0}
+          background: {opacity: 0}
         layout: {widthMode: "75"}
         spacing:
           paddingBlock: md

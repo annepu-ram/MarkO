@@ -1,0 +1,219 @@
+# Corporate Professional Features
+# Clean feature cards with icons, semibold headings, and subtle borders
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: corporate_professional
+# Perfect for: SaaS, consulting, finance, enterprise, B2B, legal, insurance, accounting
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E3A5F"
+        text: &color-text "#4B5563"
+        secondary: &color-secondary "#E2E8F0"
+        accent: &color-accent "#2563EB"
+        background: &color-background "#F8FAFC"
+        border: &color-border '#e5e7eb'
+  components:
+    - name: page
+      slug: home
+      title: "Corporate Professional Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — clean cards with subtle borders
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "Why Choose Us"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: "Built for teams that demand results"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+
+            - name: paragraph
+              properties:
+                text: "Everything your organization needs to operate at peak efficiency, backed by enterprise-grade security and 24/7 support."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 professional cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: md
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: sm
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#e5e7eb"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: shield-check
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Enterprise Security"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "SOC 2 certified with end-to-end encryption, role-based access controls, and continuous monitoring to protect your data."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+
+                # Card 2
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: sm
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#e5e7eb"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: bar-chart-3
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Advanced Analytics"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Real-time dashboards and custom reports that surface actionable insights, helping your team make smarter decisions faster."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+
+                # Card 3
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: sm
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#e5e7eb"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: users
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Team Collaboration"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Unified workspace with shared projects, inline comments, and approval workflows that keep every stakeholder aligned."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed

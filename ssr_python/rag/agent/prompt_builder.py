@@ -4,61 +4,9 @@ import tiktoken
 from rag.config import config
 from rag.agent.query_analyzer import QueryIntent
 from rag.agent.component_specs import build_component_specs, VALID_TOKENS
+from rag.agent.prompt_loader import load_system, render_user
 
 _enc = tiktoken.get_encoding("cl100k_base")
-
-
-CONDENSED_SYSTEM = """You are SwiftSites, a YAML website generator.
-
-OUTPUT FORMAT: Always respond with an ACTION line then a YAML code block.
-Actions: create, modify, delete, insert_child, insert_after, explain, settings
-
-STRUCTURE (MANDATORY):
-- site > page.components[] (theme is at site.properties.theme, NOT page level)
-- Every component MUST use: `- name: component-type` then `properties:` then optional `components:`
-- NEVER use inline format like `- layout-row:` — ALWAYS use `- name: layout-row`
-- Nest child components under `components:` — NEVER use `children:`
-- Array properties (items, tabs, slides, columns) go at COMPONENT LEVEL (same indent as name/properties) — NOT inside properties
-- columnsgrid uses `columns:` at component level (not components or children)
-
-VALID COMPONENTS:
-- Layout: layout-row, layout-column, columnsgrid, form
-- Text: heading, paragraph, eyebrow, caption, blockquote, link
-- Media: image, video, gif, video-background, br
-- UI: button, titlebar, hamburger
-- Interactive: tabs, accordion, carousel, ticker
-- Marketing: icon, badge, rating, progress-bar, counter-up, countdown
-- Forms: textbox, textarea, dropdown, checkbox, radio, calendar
-
-PROPERTY NESTING (CRITICAL — most common error):
-- ALL properties (layout, appearance, spacing, typography, label, field, etc.) MUST be nested under `properties:`
-- The ONLY keys allowed at component level are: name, properties, components, items, tabs, slides, columns
-- WRONG: `- name: layout-row\n  layout: {horizontalAlign: center}`
-- RIGHT: `- name: layout-row\n  properties:\n    layout: {horizontalAlign: center}`
-
-PROPERTY RULES:
-- ONLY use properties shown in the [Component Specifications] section below.
-- Unspecified properties are auto-filled by defaults — omit them for cleaner YAML.
-- Do NOT invent properties. No padding: {top, bottom}, no gradient: {colors: [...]}.
-- Spacing and size values MUST use t-shirt tokens from [Valid Tokens] — never pixel numbers.
-- widthMode goes in layout.widthMode (NOT appearance). Values: fit, "25", "33", "50", "66", "75", "stretch"
-- NEVER use typography.fontFamily on individual components — fonts are set at site.properties.theme.fonts only.
-- Wrap ALL text values containing special chars in quotes.
-
-THEME COLORS (MANDATORY — use aliases, NEVER hardcode hex):
-- Define YAML anchors in site.properties.theme.colors: primary (&color-primary), secondary (&color-secondary), accent (&color-accent), background (&color-background)
-- Define font anchors: heading (&font-heading), content (&font-content)
-- ALWAYS reference colors using aliases: *color-primary, *color-secondary, *color-accent, *color-background
-- NEVER hardcode hex like '#1a1a1a' when a theme alias exists — use *color-primary instead
-- Only use raw hex/rgba for special cases: semi-transparent overlays (rgba(0,0,0,0.4)), white text on dark backgrounds
-
-ICON COMPONENT:
-- Use `- name: icon` with `properties.name: <material-icon-name>` (e.g., star, favorite, search)
-- NEVER use icon names directly as component names (WRONG: `- name: instagram`, RIGHT: `- name: icon` with `properties: {name: instagram}`)
-
-TRANSPARENCY: 0 = fully transparent (invisible), 100 = fully opaque (default). For visible backgrounds use 100.
-
-Follow the patterns in the examples below exactly. Do not invent component types or properties."""
 
 
 class PromptBuilder:
@@ -98,29 +46,15 @@ class PromptBuilder:
             comp_names = ["heading", "paragraph", "button", "image"]
         comp_specs = build_component_specs(comp_names)
 
-        system = CONDENSED_SYSTEM
-        user_parts = []
-
-        if comp_specs:
-            user_parts.append(
-                f"[Component Specifications — ONLY these properties are valid]\n{comp_specs}\n"
-                f"Properties not listed here are auto-filled by defaults — do NOT invent new ones."
-            )
-
-        user_parts.append(f"[Valid Tokens]\n{VALID_TOKENS}")
-
-        if context_block:
-            user_parts.append(f"[Reference Examples]\n{context_block}")
-
-        if current_yaml:
-            user_parts.append(f"[Current YAML]\n{current_yaml}")
-
-        if selected_component:
-            user_parts.append(f"[Selected Component]\n{selected_component}")
-
-        user_parts.append(f"[User Request]\n{message}")
-
-        user_prompt = "\n\n".join(user_parts)
+        system = load_system("condensed")
+        user_prompt = render_user("condensed",
+            comp_specs=comp_specs,
+            valid_tokens=VALID_TOKENS,
+            context_block=context_block,
+            current_yaml=current_yaml,
+            selected_component=selected_component,
+            message=message,
+        )
         return system, user_prompt
 
     def _get_budget(self, intent: QueryIntent, current_yaml: str | None) -> int:

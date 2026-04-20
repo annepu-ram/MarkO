@@ -3,7 +3,7 @@
 # Base components: layout-row, carousel, layout-column, image, heading, caption, paragraph, icon, eyebrow
 # Section type: team
 # Layout: carousel_slider
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: digital agency, tech startup, consulting firm, law firm, restaurant, bakery, creative studio, architecture firm, dental clinic, accounting firm
 
 
@@ -86,7 +86,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: lg }
                   components:
                     - name: image
@@ -133,7 +133,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: lg }
                   components:
                     - name: image
@@ -180,7 +180,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: lg }
                   components:
                     - name: image
@@ -227,7 +227,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: lg }
                   components:
                     - name: image
@@ -274,7 +274,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: lg }
                   components:
                     - name: image

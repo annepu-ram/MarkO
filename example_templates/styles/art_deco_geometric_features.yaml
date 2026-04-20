@@ -1,0 +1,255 @@
+# Art Deco Geometric Features
+# Glamorous feature cards with gold borders, dark backgrounds, and ornamental styling
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: art_deco_geometric
+# Perfect for: Luxury hotel, fine dining, jewelry brand, cocktail bar, fashion house, theater, gala event
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Playfair Display', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#0D0D0D"
+        text: &color-text "#C8C8B8"
+        secondary: &color-secondary "#D4AF37"
+        accent: &color-accent "#B8860B"
+        background: &color-background "#1A1A2E"
+  components:
+    - name: page
+      slug: home
+      title: "Art Deco Geometric Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — dark background, gold accents
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "The Experience"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-secondary
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: "CRAFTED WITH DISTINCTION"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: bold
+                  color: *color-secondary
+                  align: center
+                  lineHeight: snug
+                  transform: uppercase
+                  letterSpacing: wider
+
+            - name: paragraph
+              properties:
+                text: "Every element reflects an unwavering commitment to artistry, precision, and the timeless allure of the golden age."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 gold-bordered cards on dark
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: md
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1 — Bespoke Cuisine
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#12122A"
+                            opacity: 100
+                          radius: none
+                          shadow: medium
+                          border:
+                            width: 2
+                            style: solid
+                            color: *color-secondary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: crown
+                            appearance:
+                              color: *color-secondary
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "BESPOKE CUISINE"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-secondary
+                              align: center
+                              transform: uppercase
+                              letterSpacing: wider
+                        - name: paragraph
+                          properties:
+                            text: "Our award-winning chef crafts each dish as a work of art, drawing from seasonal ingredients and classical French technique with a modern sensibility."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+                              align: center
+
+                # Card 2 — Grand Ballroom
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#12122A"
+                            opacity: 100
+                          radius: none
+                          shadow: medium
+                          border:
+                            width: 2
+                            style: solid
+                            color: *color-secondary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: gem
+                            appearance:
+                              color: *color-secondary
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "GRAND BALLROOM"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-secondary
+                              align: center
+                              transform: uppercase
+                              letterSpacing: wider
+                        - name: paragraph
+                          properties:
+                            text: "A soaring cathedral of crystal chandeliers and geometric marble floors, our ballroom hosts up to 400 guests for celebrations of unmatched grandeur."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+                              align: center
+
+                # Card 3 — Private Suites
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#12122A"
+                            opacity: 100
+                          radius: none
+                          shadow: medium
+                          border:
+                            width: 2
+                            style: solid
+                            color: *color-secondary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: star
+                            appearance:
+                              color: *color-secondary
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "PRIVATE SUITES"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-secondary
+                              align: center
+                              transform: uppercase
+                              letterSpacing: wider
+                        - name: paragraph
+                          properties:
+                            text: "Twelve individually appointed suites, each adorned with hand-selected furnishings, Egyptian cotton linens, and panoramic views of the city skyline."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+                              align: center
+
+            # Decorative bottom divider
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "25"
+                    appearance:
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-secondary
+                      radius: none
+                    spacing:
+                      paddingBlock: none

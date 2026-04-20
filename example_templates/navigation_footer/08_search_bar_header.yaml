@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-row, form, textbox, button, link, image, layout-column, eyebrow, heading, paragraph, columnsgrid
 # Section type: navigation
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: e-commerce marketplaces, directory sites, and content platforms with search-driven navigation
 
 - name: page
@@ -45,7 +45,7 @@
       scroll:
         shrinkPercentage: 70
       appearance:
-        background: {color: *color-primary, transparency: 100}
+        background: {color: *color-primary, opacity: 100}
         border: {width: 0, style: solid, color: *color-primary}
       typography:
         title: {size: 22, weight: bold, color: *color-background}
@@ -59,7 +59,7 @@
       layout: {horizontalAlign: space-evenly, wrap: nowrap, verticalAlign: center}
       spacing: {paddingBlock: sm, paddingInline: xl}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
     - name: form
@@ -72,7 +72,7 @@
           label: {show: false}
           field: {placeholder: 'Search for products, brands, or categories...'}
           appearance:
-            background: {color: *color-background, transparency: 100}
+            background: {color: *color-background, opacity: 100}
             border: {width: 1, style: solid, color: *color-secondary}
             radius: md
           typography: {size: md, color: *color-primary}
@@ -98,7 +98,7 @@
     properties:
       layout: {horizontalAlign: space-evenly, wrap: wrap, verticalAlign: center}
       spacing: {paddingBlock: sm, paddingInline: lg}
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
     - name: link
       properties:

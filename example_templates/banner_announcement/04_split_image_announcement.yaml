@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, image, eyebrow, heading, paragraph, button
 # Section type: banner
 # Layout: split_screen
-# Visual style: modern, card_based
+# Visual style: modern_minimalist
 # Perfect for: online store, SaaS platform, fashion brand, tech startup, restaurant, event venue, hotel, university website
 
 - name: site
@@ -73,5 +73,5 @@
                   properties:
                     text: "Learn More"
                     appearance: { background: { color: *color-accent }, radius: md }
-                    typography: { color: '#ffffff', weight: bold, size: md }
+                    typography: { color: *color-background, weight: bold, size: md }
                     spacing: { marginBlock: md }

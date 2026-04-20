@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, badge, heading, paragraph, icon, counter-up, br, eyebrow
 # Section type: team
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: digital agency, tech startup, consulting firm, law firm, restaurant, bakery, creative studio, architecture firm, dental clinic, accounting firm
 
 
@@ -60,7 +60,7 @@
               align: center
               horizontalAlign: center
               wrap: wrap
-            appearance: { background: { color: '#f8fafc', transparency: 100 } }
+            appearance: { background: { color: '#f8fafc', opacity: 100 } }
             spacing: { paddingBlock: lg, paddingInline: lg }
           components:
             - name: layout-column
@@ -111,7 +111,7 @@
               align: center
               horizontalAlign: center
               wrap: wrap
-            appearance: { background: { color: *color-background, transparency: 100 } }
+            appearance: { background: { color: *color-background, opacity: 100 } }
             spacing: { paddingBlock: lg, paddingInline: lg }
           components:
             - name: layout-column
@@ -162,7 +162,7 @@
               align: center
               horizontalAlign: center
               wrap: wrap
-            appearance: { background: { color: '#f8fafc', transparency: 100 } }
+            appearance: { background: { color: '#f8fafc', opacity: 100 } }
             spacing: { paddingBlock: lg, paddingInline: lg }
           components:
             - name: layout-column
@@ -213,7 +213,7 @@
               align: center
               horizontalAlign: center
               wrap: wrap
-            appearance: { background: { color: *color-background, transparency: 100 } }
+            appearance: { background: { color: *color-background, opacity: 100 } }
             spacing: { paddingBlock: lg, paddingInline: lg }
           components:
             - name: layout-column

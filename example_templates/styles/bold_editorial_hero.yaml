@@ -1,0 +1,150 @@
+# Bold Editorial Hero
+# Dramatic oversized serif heading with minimal elements and strong contrast
+# Base components: site, page, layout-column, eyebrow, heading, paragraph, button, layout-row
+# Section type: hero
+# Layout: centered
+# Visual style: bold_editorial
+# Perfect for: Magazine, news, media, publishing, blog, creative agency, portfolio, fashion
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Playfair Display', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A1A"
+        text: &color-text "#374151"
+        secondary: &color-secondary "#F5F5F0"
+        accent: &color-accent "#DC2626"
+        background: &color-background "#FFFFFF"
+  components:
+    - name: page
+      slug: home
+      title: "Bold Editorial Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — dramatic oversized typography
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+              border:
+                width: 0
+              radius: none
+              shadow: none
+          components:
+
+            # Red accent eyebrow
+            - name: eyebrow
+              properties:
+                text: "Issue No. 47"
+                typography:
+                  color: *color-accent
+                  size: sm
+                  weight: bold
+                  letterSpacing: wider
+                  transform: uppercase
+                  align: center
+
+            # Oversized dramatic heading
+            - name: heading
+              properties:
+                text: "Stories that define a generation"
+                level: 1
+                typography:
+                  color: *color-primary
+                  size: xxxl
+                  weight: extrabold
+                  lineHeight: tight
+                  letterSpacing: tight
+                  align: center
+                layout:
+                  widthMode: "75"
+
+            # Thin horizontal rule via br
+            - name: br
+              properties:
+                appearance:
+                  color: *color-accent
+                  width: 80
+
+            # Subheading paragraph
+            - name: paragraph
+              properties:
+                text: |
+                  Fearless journalism, bold perspectives, and the unfiltered truth.
+                  We go where others won't to bring you the stories that matter most.
+                typography:
+                  color: *color-text
+                  size: lg
+                  weight: regular
+                  lineHeight: relaxed
+                  align: center
+                layout:
+                  widthMode: "50"
+
+            # CTA buttons
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  marginBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "Read Now"
+                    appearance:
+                      background:
+                        color: *color-primary
+                        opacity: 100
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-primary
+                      radius: none
+                      shadow: none
+                    typography:
+                      color: *color-background
+                      weight: bold
+                      size: md
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                - name: button
+                  properties:
+                    text: "Subscribe"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-primary
+                      radius: none
+                      shadow: none
+                    typography:
+                      color: *color-primary
+                      weight: bold
+                      size: md
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl

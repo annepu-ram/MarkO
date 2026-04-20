@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, countdown, heading, paragraph, button, badge, eyebrow
 # Section type: cta, countdown
 # Layout: centered
-# Visual style: dark_mode, bold_typography
+# Visual style: bold_editorial, monochrome_dark
 # Perfect for: SaaS platform, mobile app, online store, software company, fitness app, online course platform, subscription service, B2B platform, consulting firm, digital agency
 
 - name: site
@@ -26,7 +26,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
         # Urgency CTA Banner
     - name: layout-row
@@ -36,7 +36,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
         spacing:
           paddingBlock: xxxl
           paddingInline: lg
@@ -109,7 +109,7 @@
             appearance:
               background:
                 color: *color-accent
-                transparency: 100
+                opacity: 100
               border:
                 width: 0
                 style: solid

@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, image, caption, br, layout-row, button
 # Section type: product
 # Layout: grid
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, retail, online store, marketplace, SaaS
 
 - name: page
@@ -95,7 +95,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: center, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: caption
         properties:

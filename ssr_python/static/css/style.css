@@ -1,3 +1,6 @@
+/* Alpine.js cloak: hide elements until Alpine initializes */
+[x-cloak] { display: none !important; }
+
 :root {
     /* Dark Theme Color Palette (from wireframe) */
     --bg-dark: #09090b;
@@ -351,6 +354,14 @@ body {
 /* Prevent content from collapsing when panel animates */
 .right-panel > * {
     min-width: var(--properties-width);
+}
+
+/* Chat panel gets extra width so the guided wizard grids breathe. */
+.right-panel#chatPanel.open {
+    width: 360px;
+}
+.right-panel#chatPanel > * {
+    min-width: 360px;
 }
 
 /* Chat panel content fills available space */
@@ -1459,7 +1470,7 @@ div.preview-area {
     font-size: 1.2rem;
 }
 
-/* Range slider for transparency control */
+/* Range slider for opacity control */
 .range-input-container {
     display: flex;
     align-items: center;

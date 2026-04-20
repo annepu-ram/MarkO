@@ -1,7 +1,7 @@
 from flask import Flask
 from dotenv import load_dotenv
 from config import DevelopmentConfig, ProductionConfig
-from renderer import transparency_to_hex, hex_to_rgb
+from renderer import opacity_to_hex, hex_to_rgb
 import os
 
 load_dotenv()
@@ -18,7 +18,7 @@ def create_app(config_name=None):
     app.config.from_object(configs.get(config_name, DevelopmentConfig))
 
     # Register custom Jinja2 filters (defined in renderer.py)
-    app.template_filter('transparency_to_hex')(transparency_to_hex)
+    app.template_filter('opacity_to_hex')(opacity_to_hex)
     app.template_filter('hex_to_rgb')(hex_to_rgb)
 
     # Initialize database
@@ -35,6 +35,7 @@ def create_app(config_name=None):
         db.create_all()
         _run_migrations(app)
         _bootstrap_default_org(app)
+        _bootstrap_industry_config(app)
 
     # Initialize storage backend
     from storage import create_storage
@@ -113,6 +114,20 @@ def _bootstrap_default_org(app):
     app.logger.info(f"Bootstrapped default org '{default_org.slug}' with user '{default_user.email}'")
 
 
+def _bootstrap_industry_config(app):
+    """Seed `industry_configs` table from rag/industry_defaults.py if empty."""
+    from models import IndustryConfig
+    if IndustryConfig.query.first() is not None:
+        return  # Already seeded
+
+    try:
+        from rag.scripts.seed_industry_config import seed_industry_config
+        result = seed_industry_config(force=False)
+        app.logger.info(f"Seeded industry_configs table: {result}")
+    except Exception as e:
+        app.logger.warning(f"Failed to seed industry_configs: {e}")
+
+
 def _register_security_headers(app):
     @app.after_request
     def add_security_headers(response):
@@ -123,7 +138,7 @@ def _register_security_headers(app):
         # Content Security Policy
         response.headers['Content-Security-Policy'] = (
             "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline'; "
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval'; "
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
             "font-src 'self' https://fonts.gstatic.com; "
             "img-src 'self' data: blob: https:; "

@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, caption, form, textbox, button
 # Section type: hero
 # Layout: split_screen
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: B2B SaaS, lead generation, free trial signups, business services
 
 - name: page
@@ -30,7 +30,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, widthMode: "50", gap: sm}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: eyebrow
         properties:
@@ -51,7 +51,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: left, verticalAlign: center, gap: md, wrap: wrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: caption
           properties:

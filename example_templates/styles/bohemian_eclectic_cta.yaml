@@ -1,0 +1,241 @@
+# Bohemian Eclectic CTA
+# Warm accent-background call-to-action with inviting tone, serif headings, and earthy charm
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, button, icon, br
+# Section type: cta
+# Layout: stacked
+# Visual style: bohemian_eclectic
+# Perfect for: boutique hotel, artisan bakery, yoga studio, handmade jewelry, organic skincare, vintage shop, travel blog, wellness retreat
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Lora', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#5C2018"
+        text: &color-text "#5A3828"
+        secondary: &color-secondary "#F4A261"
+        accent: &color-accent "#E76F51"
+        background: &color-background "#FFF5EB"
+  components:
+    - name: page
+      slug: home
+      title: "Bohemian Eclectic CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — warm accent background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              radius: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+              marginBlock: lg
+              marginInline: lg
+          components:
+
+            # Decorative icon
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: icon
+                  properties:
+                    name: sun
+                    size: xl
+                    color: *color-background
+
+            # Italic eyebrow
+            - name: eyebrow
+              properties:
+                text: "Begin your journey"
+                typography:
+                  color: *color-background
+                  size: sm
+                  weight: regular
+                  align: center
+                  letterSpacing: wide
+                  fontStyle: italic
+
+            # Main CTA heading — light on warm accent
+            - name: heading
+              properties:
+                text: "Let Us Help You Create Something Beautiful"
+                level: 2
+                layout:
+                  widthMode: "66"
+                typography:
+                  color: *color-background
+                  size: xxl
+                  weight: semibold
+                  align: center
+                  lineHeight: snug
+
+            # Supporting copy
+            - name: paragraph
+              properties:
+                text: |
+                  Whether you are looking for a one-of-a-kind gift, redecorating your space
+                  with handmade treasures, or simply want to support artisan communities
+                  around the world — we are here to guide you every step of the way.
+                layout:
+                  widthMode: "50"
+                typography:
+                  color: *color-background
+                  size: md
+                  align: center
+                  lineHeight: relaxed
+
+            # Warm benefit highlights
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: xl
+                spacing:
+                  paddingBlock: md
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: gift
+                        size: md
+                        color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: "Gift wrapping included"
+                        typography:
+                          color: *color-background
+                          size: sm
+                          align: center
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: truck
+                        size: md
+                        color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: "Free worldwide shipping"
+                        typography:
+                          color: *color-background
+                          size: sm
+                          align: center
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: refresh-cw
+                        size: md
+                        color: *color-background
+                    - name: paragraph
+                      properties:
+                        text: "30-day returns"
+                        typography:
+                          color: *color-background
+                          size: sm
+                          align: center
+
+            # Divider
+            - name: br
+              properties:
+                appearance:
+                  divider: true
+                  dividerColor: *color-background
+
+            # CTA buttons — cream on warm
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  paddingBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "Shop the Collection"
+                    appearance:
+                      background:
+                        color: *color-background
+                        opacity: 100
+                      border:
+                        width: 0
+                      radius: md
+                      shadow: soft
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-accent
+                      weight: semibold
+                      size: md
+
+                - name: button
+                  properties:
+                    text: "Meet the Artisans"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-background
+                      radius: md
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: md
+
+            # Warm closing note
+            - name: paragraph
+              properties:
+                text: "Every purchase supports independent artisans and their families. Thank you for choosing handmade."
+                typography:
+                  color: *color-background
+                  size: xs
+                  align: center
+                  lineHeight: relaxed
+                  fontStyle: italic

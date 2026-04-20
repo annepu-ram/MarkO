@@ -3,7 +3,7 @@
 # Base components: page, layout-column, layout-row, checkbox, eyebrow, image, heading, paragraph, link
 # Section type: product
 # Layout: stacked
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, retail, online store, marketplace, SaaS
 
 - name: page
@@ -31,7 +31,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: sm
           paddingInline: md
@@ -55,7 +55,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: xs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: md
           paddingInline: md
@@ -75,7 +75,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: heading
           properties:

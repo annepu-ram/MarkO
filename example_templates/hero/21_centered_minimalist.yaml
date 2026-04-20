@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, button
 # Section type: hero
 # Layout: centered
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: Product launches, SaaS, creative tools, design platforms
 
 - name: page

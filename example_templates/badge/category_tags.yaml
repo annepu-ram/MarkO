@@ -1,0 +1,191 @@
+# Category Tags
+# Category and tag badges for a blog or product catalog with various colors and pill shapes
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, badge, columnsgrid, image
+# Section type: blog
+# Layout: grid
+# Visual style: default
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E293B"
+        text: &color-text "#475569"
+        secondary: &color-secondary "#94A3B8"
+        accent: &color-accent "#3B82F6"
+        background: &color-background "#F8FAFC"
+  components:
+    - name: page
+      slug: home
+      title: "Category Tags"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # ============================================
+        # SECTION HEADER
+        # ============================================
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center }
+            spacing: { paddingBlock: xl }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '75', horizontalAlign: center }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: OUR BLOG
+                    typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                - name: heading
+                  properties:
+                    text: Browse by Category
+                    level: 2
+                    typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Explore our latest articles organized by topic. Find exactly what interests you.
+                    typography: { size: md, color: *color-secondary, align: center }
+
+        # ============================================
+        # CATEGORY FILTER BAR
+        # ============================================
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, wrap: wrap }
+            spacing: { paddingBlock: sm, paddingInline: lg }
+          components:
+            - name: badge
+              properties: { text: "All Posts", variant: primary, pill: true }
+            - name: badge
+              properties: { text: "Technology", variant: info, pill: true }
+            - name: badge
+              properties: { text: "Design", variant: secondary, pill: true }
+            - name: badge
+              properties: { text: "Business", variant: success, pill: true }
+            - name: badge
+              properties: { text: "Marketing", variant: warning, pill: true }
+            - name: badge
+              properties: { text: "Lifestyle", variant: danger, pill: true }
+
+        # ============================================
+        # BLOG POST CARDS WITH TAGS
+        # ============================================
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: lg }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+            spacing: { paddingBlock: lg, paddingInline: lg }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1518770660439-4636190af475' }
+                        appearance: { minHeight: 11.25, fit: cover, radius: md }
+                    - name: layout-row
+                      properties:
+                        layout: { wrap: wrap }
+                        spacing: { marginBlock: sm }
+                      components:
+                        - name: badge
+                          properties: { text: "Technology", variant: info, pill: true }
+                        - name: badge
+                          properties: { text: "AI", variant: secondary, pill: true }
+                    - name: heading
+                      properties:
+                        text: The Future of Artificial Intelligence in 2026
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Exploring the latest breakthroughs in machine learning and how they reshape industries from healthcare to finance.
+                        typography: { size: sm, color: *color-text }
+                    - name: caption
+                      properties:
+                        text: "Mar 15, 2026 · 8 min read"
+                        typography: { size: xs, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5' }
+                        appearance: { minHeight: 11.25, fit: cover, radius: md }
+                    - name: layout-row
+                      properties:
+                        layout: { wrap: wrap }
+                        spacing: { marginBlock: sm }
+                      components:
+                        - name: badge
+                          properties: { text: "Design", variant: secondary, pill: true }
+                        - name: badge
+                          properties: { text: "UX", variant: info, pill: true }
+                    - name: heading
+                      properties:
+                        text: Design Systems That Scale Across Teams
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: How leading companies build and maintain design systems that grow with their organization.
+                        typography: { size: sm, color: *color-text }
+                    - name: caption
+                      properties:
+                        text: "Mar 12, 2026 · 6 min read"
+                        typography: { size: xs, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f' }
+                        appearance: { minHeight: 11.25, fit: cover, radius: md }
+                    - name: layout-row
+                      properties:
+                        layout: { wrap: wrap }
+                        spacing: { marginBlock: sm }
+                      components:
+                        - name: badge
+                          properties: { text: "Business", variant: success, pill: true }
+                        - name: badge
+                          properties: { text: "Strategy", variant: warning, pill: true }
+                    - name: heading
+                      properties:
+                        text: Building a Sustainable Growth Strategy
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Proven frameworks for sustainable business growth that balance short-term wins with long-term vision.
+                        typography: { size: sm, color: *color-text }
+                    - name: caption
+                      properties:
+                        text: "Mar 10, 2026 · 5 min read"
+                        typography: { size: xs, color: *color-secondary }
+                        spacing: { marginBlock: sm }

@@ -3,7 +3,7 @@
 # Base components: site, page, layout-row, layout-column, heading, paragraph, columnsgrid, button
 # Section type: hero
 # Layout: stacked
-# Visual style: aurora
+# Visual style: aurora_gradient
 # Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
 
 - name: site
@@ -26,7 +26,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
 
         # Aurora gradient background section
@@ -41,7 +41,7 @@
                   colorStart: *color-accent
                   colorEnd: '#8B5CF6'
                   direction: to bottom right
-                transparency: 100
+                opacity: 100
             spacing:
               paddingBlock: none
               paddingInline: none
@@ -81,7 +81,7 @@
                               colorStart: *color-secondary
                               colorEnd: '#f0f0ff'
                               direction: to right
-                            transparency: 30
+                            opacity: 30
                           radius: pill
                           shadow: none
                           border:
@@ -116,7 +116,7 @@
                               background:
                                 type: ""
                                 color: "#ffffff"
-                                transparency: 0
+                                opacity: 0
                             spacing:
                               marginBlock: none
                               marginInline: none
@@ -172,7 +172,7 @@
                                   colorStart: '#EC4899'
                                   colorEnd: '#F97316'
                                   direction: to bottom right
-                                transparency: 100
+                                opacity: 100
                               radius: lg
                               shadow: none
                               border:
@@ -211,7 +211,7 @@
                                   colorStart: '#8B5CF6'
                                   colorEnd: '#06B6D4'
                                   direction: to bottom right
-                                transparency: 100
+                                opacity: 100
                               radius: lg
                               shadow: none
                               border:
@@ -250,7 +250,7 @@
                                   colorStart: '#06B6D4'
                                   colorEnd: '#10B981'
                                   direction: to bottom right
-                                transparency: 100
+                                opacity: 100
                               radius: lg
                               shadow: none
                               border:
@@ -291,7 +291,7 @@
                         appearance:
                           background:
                             color: '#ffffff'
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 0
                           radius: pill
@@ -311,7 +311,7 @@
                         appearance:
                           background:
                             color: transparent
-                            transparency: 0
+                            opacity: 0
                           border:
                             width: 2
                             style: solid

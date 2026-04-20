@@ -1,0 +1,171 @@
+# Icon: Service Offerings
+# Services section with icon-topped cards in a 3-column grid layout
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, columnsgrid, icon
+# Section type: features
+# Layout: grid
+# Visual style: modern_minimalist
+# Perfect for: agencies, consulting, tech companies, SaaS
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: OUR SERVICES
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: What We Offer
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Comprehensive digital solutions tailored to help your business thrive in the modern landscape.
+                typography: { size: md, color: *color-secondary, align: center }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { marginBlock: lg, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: code, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Web Development
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Custom web applications built with modern frameworks and best practices for performance and scalability.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: smartphone, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Mobile Apps
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Native and cross-platform mobile applications that deliver seamless experiences on iOS and Android.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: cloud, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Cloud Solutions
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Scalable cloud infrastructure and migration services to keep your operations running smoothly.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: palette, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: UI/UX Design
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: User-centered design that balances aesthetics with usability to create engaging digital experiences.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: shield, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Security
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: End-to-end security audits, penetration testing, and compliance solutions to protect your data.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f9fafb' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: bar-chart, size: "48", color: *color-accent }
+                - name: heading
+                  properties:
+                    text: Analytics
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Data-driven insights and custom dashboards to track performance and inform strategic decisions.
+                    typography: { size: sm, color: *color-secondary, align: center }

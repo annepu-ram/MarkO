@@ -3,7 +3,7 @@
 # Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, button
 # Section type: pricing
 # Layout: grid
-# Visual style: aurora
+# Visual style: aurora_gradient
 # Perfect for: SaaS platform, tech startup, creative portfolio, design studio, fintech
 
 - name: site
@@ -13,11 +13,11 @@
         heading: "'Sora', sans-serif"
         content: "'Inter', sans-serif"
       colors:
-        primary: '#1A2035'
-        text: '#313541'
-        secondary: '#C8D8F0'
-        accent: '#EC4899'
-        background: '#E6F0FA'
+        primary: &color-primary '#1A2035'
+        text: &color-text '#313541'
+        secondary: &color-secondary '#C8D8F0'
+        accent: &color-accent '#EC4899'
+        background: &color-background '#E6F0FA'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#E6F0FA'
-            transparency: 100
+            color: *color-background
+            opacity: 100
       components:
 
         # Outer aurora gradient wrapper
@@ -41,7 +41,7 @@
                   colorStart: '#8B5CF6'
                   colorEnd: '#06B6D4'
                   direction: to bottom right
-                transparency: 100
+                opacity: 100
             spacing:
               paddingBlock: none
               paddingInline: none
@@ -122,7 +122,7 @@
                                   colorStart: '#EC4899'
                                   colorEnd: '#F97316'
                                   direction: to bottom right
-                                transparency: 100
+                                opacity: 100
                               radius: lg
                               shadow: none
                               border:
@@ -178,7 +178,7 @@
                                   gap: xs
                                 appearance:
                                   background:
-                                    transparency: 0
+                                    opacity: 0
                               components:
                                 - name: paragraph
                                   properties:
@@ -218,13 +218,13 @@
                                 appearance:
                                   background:
                                     color: '#ffffff'
-                                    transparency: 100
+                                    opacity: 100
                                   border:
                                     width: 0
                                   radius: pill
                                   shadow: none
                                 typography:
-                                  color: '#EC4899'
+                                  color: *color-accent
                                   weight: bold
                                   size: sm
                                 layout:
@@ -247,7 +247,7 @@
                                   colorStart: '#8B5CF6'
                                   colorEnd: '#06B6D4'
                                   direction: to bottom right
-                                transparency: 100
+                                opacity: 100
                               radius: lg
                               shadow: none
                               border:
@@ -313,7 +313,7 @@
                                   gap: xs
                                 appearance:
                                   background:
-                                    transparency: 0
+                                    opacity: 0
                               components:
                                 - name: paragraph
                                   properties:
@@ -361,7 +361,7 @@
                                 appearance:
                                   background:
                                     color: '#ffffff'
-                                    transparency: 100
+                                    opacity: 100
                                   border:
                                     width: 0
                                   radius: pill
@@ -390,7 +390,7 @@
                                   colorStart: '#06B6D4'
                                   colorEnd: '#10B981'
                                   direction: to bottom right
-                                transparency: 100
+                                opacity: 100
                               radius: lg
                               shadow: none
                               border:
@@ -446,7 +446,7 @@
                                   gap: xs
                                 appearance:
                                   background:
-                                    transparency: 0
+                                    opacity: 0
                               components:
                                 - name: paragraph
                                   properties:
@@ -502,7 +502,7 @@
                                 appearance:
                                   background:
                                     color: '#ffffff'
-                                    transparency: 100
+                                    opacity: 100
                                   border:
                                     width: 0
                                   radius: pill

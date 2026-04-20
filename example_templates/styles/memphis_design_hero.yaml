@@ -1,0 +1,318 @@
+# Memphis Design Hero
+# Bold 80s-inspired hero with geometric shapes, thick borders, retro shadows, and playful typography
+# Base components: site, page, layout-column, layout-row, heading, paragraph, badge, button, icon
+# Section type: hero
+# Layout: stacked
+# Visual style: memphis_design
+# Perfect for: Creative agency, design studio, art gallery, music label, youth brand, streetwear, event, pop-up shop
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A1A"
+        text: &color-text "#2D2D2D"
+        secondary: &color-secondary "#FFD700"
+        accent: &color-accent "#FF3366"
+        background: &color-background "#00BFFF"
+  components:
+    - name: page
+      slug: home
+      title: "Memphis Design Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — bold blue background, thick borders, retro shadows
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+          components:
+
+            # Geometric badge row
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: fit
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        opacity: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                      border:
+                        width: 3
+                        style: solid
+                        color: *color-primary
+                    spacing:
+                      paddingBlock: xs
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "DESIGN IS NOT DEAD"
+                        typography:
+                          color: *color-primary
+                          size: sm
+                          weight: bold
+                          transform: uppercase
+                          letterSpacing: wider
+                          align: center
+
+            # Main heading — extrabold uppercase massive
+            - name: heading
+              properties:
+                text: "BREAK EVERY RULE"
+                level: 1
+                layout:
+                  widthMode: "83"
+                typography:
+                  color: *color-primary
+                  size: xxxl
+                  weight: extrabold
+                  align: center
+                  letterSpacing: wide
+                  transform: uppercase
+                  lineHeight: snug
+
+            # Subheading
+            - name: paragraph
+              properties:
+                text: |
+                  We build brands that refuse to sit still. Bold colors,
+                  wild shapes, and designs that make people stop scrolling
+                  and start paying attention.
+                layout:
+                  widthMode: "66"
+                typography:
+                  color: *color-text
+                  size: lg
+                  align: center
+                  lineHeight: relaxed
+                  weight: medium
+
+            # Feature blocks — retro card row
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: start
+                  wrap: wrap
+                  gap: lg
+                spacing:
+                  paddingBlock: lg
+              components:
+
+                # Card 1 — yellow bg
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "33"
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        opacity: 100
+                      border:
+                        width: 3
+                        style: solid
+                        color: *color-primary
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: zap
+                        appearance:
+                          color: *color-primary
+                          size: lg
+                    - name: heading
+                      properties:
+                        text: "LOUD"
+                        level: 3
+                        typography:
+                          color: *color-primary
+                          size: lg
+                          weight: extrabold
+                          align: center
+                          transform: uppercase
+                    - name: paragraph
+                      properties:
+                        text: "Designs that scream from the rooftops and refuse to whisper"
+                        typography:
+                          color: *color-text
+                          size: sm
+                          align: center
+
+                # Card 2 — accent bg
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "33"
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 3
+                        style: solid
+                        color: *color-primary
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: shapes
+                        appearance:
+                          color: '#ffffff'
+                          size: lg
+                    - name: heading
+                      properties:
+                        text: "BOLD"
+                        level: 3
+                        typography:
+                          color: '#ffffff'
+                          size: lg
+                          weight: extrabold
+                          align: center
+                          transform: uppercase
+                    - name: paragraph
+                      properties:
+                        text: "Colors that clash on purpose and somehow look incredible together"
+                        typography:
+                          color: '#ffffff'
+                          size: sm
+                          align: center
+
+                # Card 3 — white bg
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "33"
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        opacity: 100
+                      border:
+                        width: 3
+                        style: solid
+                        color: *color-primary
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: md
+                  components:
+                    - name: icon
+                      properties:
+                        name: sparkles
+                        appearance:
+                          color: *color-accent
+                          size: lg
+                    - name: heading
+                      properties:
+                        text: "FUN"
+                        level: 3
+                        typography:
+                          color: *color-primary
+                          size: lg
+                          weight: extrabold
+                          align: center
+                          transform: uppercase
+                    - name: paragraph
+                      properties:
+                        text: "Because life is too short for boring websites and safe branding"
+                        typography:
+                          color: *color-text
+                          size: sm
+                          align: center
+
+            # CTA buttons — pill with retro shadow and thick border
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+              components:
+                - name: button
+                  properties:
+                    text: "START A PROJECT"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 3
+                        style: solid
+                        color: *color-primary
+                      radius: pill
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: '#ffffff'
+                      weight: extrabold
+                      size: md
+                      transform: uppercase
+                - name: button
+                  properties:
+                    text: "SEE OUR WORK"
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        opacity: 100
+                      border:
+                        width: 3
+                        style: solid
+                        color: *color-primary
+                      radius: pill
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-primary
+                      weight: extrabold
+                      size: md
+                      transform: uppercase

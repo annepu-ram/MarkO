@@ -70,12 +70,12 @@
             {% else %}
                 {% set fallback_color = bg.color | default('#ffffff') %}
             {% endif %}
-            {# Apply transparency: blur auto-applies 50% if background is opaque #}
-            {% if appearance.blur is sameas true and (not bg.transparency or bg.transparency == 0) %}
-                {% set alpha_hex = 50 | transparency_to_hex %}
+            {# Apply opacity: blur auto-applies 50% if background is opaque #}
+            {% if appearance.blur is sameas true and (not bg.opacity or bg.opacity == 0) %}
+                {% set alpha_hex = 50 | opacity_to_hex %}
                 {% set fallback_color = fallback_color ~ alpha_hex %}
-            {% elif bg.transparency is defined %}
-                {% set alpha_hex = bg.transparency | transparency_to_hex %}
+            {% elif bg.opacity is defined %}
+                {% set alpha_hex = bg.opacity | opacity_to_hex %}
                 {% set fallback_color = fallback_color ~ alpha_hex %}
             {% endif %}
             {# Always output background-color for fallback/compatibility #}
@@ -112,6 +112,7 @@
         {% if appearance.radius and tokens and tokens.border_radius and appearance.radius in tokens.border_radius %}{% set _ = styles.append('border-radius: ' ~ tokens.border_radius[appearance.radius] ~ ';') %}{% endif %}
         {% if appearance.shadow and appearance.shadow != 'none' and tokens and tokens.shadows and appearance.shadow in tokens.shadows %}{% set _ = styles.append('box-shadow: ' ~ tokens.shadows[appearance.shadow] ~ ';') %}{% endif %}
         {% if appearance.shadowColor %}{% set _ = styles.append('--shadow-rgb: ' ~ (appearance.shadowColor | hex_to_rgb) ~ ';') %}{% endif %}
+        {% if appearance.textShadow and appearance.textShadow != 'none' and tokens and tokens.text_shadows and appearance.textShadow in tokens.text_shadows %}{% set _ = styles.append('text-shadow: ' ~ tokens.text_shadows[appearance.textShadow] ~ ';') %}{% endif %}
         {% if appearance.blur is sameas true %}{% set _ = styles.append('backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);') %}{% elif appearance.backdropBlur and appearance.backdropBlur != 'none' %}{% set _ = styles.append('backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px); -webkit-backdrop-filter: blur(' ~ appearance.backdropBlur ~ 'px);') %}{% endif %}
         {# DEPRECATED: appearance.padding — use spacing.paddingBlock/paddingInline instead #}
         {% if appearance.padding and not (props.spacing and (props.spacing.paddingBlock or props.spacing.paddingInline)) %}

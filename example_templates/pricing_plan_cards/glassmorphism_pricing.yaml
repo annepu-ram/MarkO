@@ -13,11 +13,11 @@
         heading: "'Inter', sans-serif"
         content: "'Inter', sans-serif"
       colors:
-        primary: '#ffffff'
-        text: '#DFDFDF'
-        secondary: '#B0D4E8'
-        accent: '#3182CE'
-        background: '#0f172a'
+        primary: &color-primary '#ffffff'
+        text: &color-text '#DFDFDF'
+        secondary: &color-secondary '#B0D4E8'
+        accent: &color-accent '#3182CE'
+        background: &color-background '#0f172a'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#0f172a'
-            transparency: 100
+            color: *color-background
+            opacity: 100
       components:
 
         # Gradient outer wrapper — mandatory for glassmorphism blur visibility
@@ -41,7 +41,7 @@
                   colorStart: '#3182CE'
                   colorEnd: '#0f172a'
                   direction: to bottom right
-                transparency: 100
+                opacity: 100
             spacing:
               paddingBlock: none
               paddingInline: none
@@ -68,7 +68,7 @@
                         typography:
                           size: xs
                           weight: semibold
-                          color: '#B0D4E8'
+                          color: *color-secondary
                           transform: uppercase
                           letterSpacing: wider
                           align: center
@@ -79,7 +79,7 @@
                         typography:
                           size: xxl
                           weight: bold
-                          color: '#ffffff'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -88,7 +88,7 @@
                         text: Choose the plan that fits your team. No hidden fees, no surprises. Upgrade or downgrade at any time.
                         typography:
                           size: md
-                          color: '#DFDFDF'
+                          color: *color-text
                           align: center
                           lineHeight: relaxed
                         spacing:
@@ -118,14 +118,14 @@
                           gap: sm
                         appearance:
                           background:
-                            color: '#ffffff'
-                            transparency: 15
+                            color: *color-primary
+                            opacity: 15
                           blur: true
                           radius: lg
                           border:
                             width: 1
                             style: solid
-                            color: '#ffffff'
+                            color: *color-primary
                           shadow: soft
                         spacing:
                           paddingBlock: xl
@@ -138,7 +138,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-primary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -147,7 +147,7 @@
                             text: Perfect for individuals and small projects
                             typography:
                               size: sm
-                              color: '#B0D4E8'
+                              color: *color-secondary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -158,7 +158,7 @@
                             typography:
                               size: xxxl
                               weight: extrabold
-                              color: '#ffffff'
+                              color: *color-primary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -167,7 +167,7 @@
                             text: per month, forever free
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
                               align: center
                             spacing:
                               marginBlock: md
@@ -176,7 +176,7 @@
                             text: "Up to 3 projects"
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -184,7 +184,7 @@
                             text: "1 team member"
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -192,7 +192,7 @@
                             text: "5 GB storage"
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -200,7 +200,7 @@
                             text: "Community support"
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                             spacing:
                               marginBlock: md
                         - name: button
@@ -208,16 +208,16 @@
                             text: Get Started Free
                             appearance:
                               background:
-                                color: '#ffffff'
-                                transparency: 20
+                                color: *color-primary
+                                opacity: 20
                               blur: true
                               border:
                                 width: 1
                                 style: solid
-                                color: '#ffffff'
+                                color: *color-primary
                               radius: pill
                             typography:
-                              color: '#ffffff'
+                              color: *color-primary
                               weight: semibold
                               size: sm
                             layout:
@@ -234,14 +234,14 @@
                           gap: sm
                         appearance:
                           background:
-                            color: '#3182CE'
-                            transparency: 80
+                            color: *color-accent
+                            opacity: 80
                           blur: true
                           radius: lg
                           border:
                             width: 1
                             style: solid
-                            color: '#ffffff'
+                            color: *color-primary
                           shadow: soft
                         spacing:
                           paddingBlock: xl
@@ -253,7 +253,7 @@
                             typography:
                               size: xxs
                               weight: semibold
-                              color: '#ffffff'
+                              color: *color-primary
                               transform: uppercase
                               letterSpacing: wider
                               align: center
@@ -266,7 +266,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-primary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -275,7 +275,7 @@
                             text: Ideal for growing teams and businesses
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                               align: center
                             spacing:
                               marginBlock: xs
@@ -286,7 +286,7 @@
                             typography:
                               size: xxxl
                               weight: extrabold
-                              color: '#ffffff'
+                              color: *color-primary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -295,7 +295,7 @@
                             text: per month, billed annually
                             typography:
                               size: xs
-                              color: '#DFDFDF'
+                              color: *color-text
                               align: center
                             spacing:
                               marginBlock: md
@@ -304,7 +304,7 @@
                             text: "Unlimited projects"
                             typography:
                               size: sm
-                              color: '#ffffff'
+                              color: *color-primary
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -312,7 +312,7 @@
                             text: "Up to 25 team members"
                             typography:
                               size: sm
-                              color: '#ffffff'
+                              color: *color-primary
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -320,7 +320,7 @@
                             text: "100 GB storage"
                             typography:
                               size: sm
-                              color: '#ffffff'
+                              color: *color-primary
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -328,7 +328,7 @@
                             text: "Priority email support"
                             typography:
                               size: sm
-                              color: '#ffffff'
+                              color: *color-primary
                             spacing:
                               marginBlock: md
                         - name: button
@@ -336,8 +336,8 @@
                             text: Start Pro Trial
                             appearance:
                               background:
-                                color: '#ffffff'
-                                transparency: 100
+                                color: *color-primary
+                                opacity: 100
                               border:
                                 width: 0
                                 style: solid
@@ -345,7 +345,7 @@
                               radius: pill
                               shadow: soft
                             typography:
-                              color: '#3182CE'
+                              color: *color-accent
                               weight: bold
                               size: sm
                             layout:
@@ -362,14 +362,14 @@
                           gap: sm
                         appearance:
                           background:
-                            color: '#ffffff'
-                            transparency: 15
+                            color: *color-primary
+                            opacity: 15
                           blur: true
                           radius: lg
                           border:
                             width: 1
                             style: solid
-                            color: '#ffffff'
+                            color: *color-primary
                           shadow: soft
                         spacing:
                           paddingBlock: xl
@@ -382,7 +382,7 @@
                             typography:
                               size: xl
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-primary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -391,7 +391,7 @@
                             text: For large organizations with advanced needs
                             typography:
                               size: sm
-                              color: '#B0D4E8'
+                              color: *color-secondary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -402,7 +402,7 @@
                             typography:
                               size: xxxl
                               weight: extrabold
-                              color: '#ffffff'
+                              color: *color-primary
                               align: center
                             spacing:
                               marginBlock: xs
@@ -411,7 +411,7 @@
                             text: per month, billed annually
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
                               align: center
                             spacing:
                               marginBlock: md
@@ -420,7 +420,7 @@
                             text: "Unlimited everything"
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -428,7 +428,7 @@
                             text: "Dedicated account manager"
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -436,7 +436,7 @@
                             text: "Custom SLA & SSO"
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -444,7 +444,7 @@
                             text: "24/7 phone support"
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                             spacing:
                               marginBlock: md
                         - name: button
@@ -452,16 +452,16 @@
                             text: Contact Sales
                             appearance:
                               background:
-                                color: '#ffffff'
-                                transparency: 20
+                                color: *color-primary
+                                opacity: 20
                               blur: true
                               border:
                                 width: 1
                                 style: solid
-                                color: '#ffffff'
+                                color: *color-primary
                               radius: pill
                             typography:
-                              color: '#ffffff'
+                              color: *color-primary
                               weight: semibold
                               size: sm
                             layout:

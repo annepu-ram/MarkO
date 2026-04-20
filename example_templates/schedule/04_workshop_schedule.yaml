@@ -1,0 +1,426 @@
+# Workshop Schedule - Multi-Day Workshop Agenda with Accordion
+# A multi-day workshop schedule using accordion for each day, with time slots showing session titles, speaker names, room info, and session type badges
+# Base components: layout-column, heading, paragraph, eyebrow, accordion, badge, caption
+# Section type: schedule, event, agenda
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: workshop, bootcamp, training center, hackathon, developer conference, corporate training
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1A1A2E'
+        text: &color-text '#374151'
+        secondary: &color-secondary '#CBD5E1'
+        accent: &color-accent '#6366F1'
+        background: &color-background '#F1F5F9'
+  components:
+  - name: page
+    slug: home
+    title: "Workshop Schedule"
+    properties:
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+
+        # ============================================
+        # SCHEDULE HEADER
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: xxl
+          paddingInline: xl
+      components:
+      - name: eyebrow
+        properties:
+          text: MARCH 18–20, 2026
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Full-Stack Engineering Bootcamp
+          level: 2
+          typography: {size: xxl, weight: semibold, color: *color-primary, align: center, letterSpacing: tight}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: Three days of intensive hands-on workshops, expert-led lectures, and collaborative panel discussions to level up your engineering skills.
+          typography: {size: md, color: '#64748b', align: center, lineHeight: '1.7'}
+          layout: {widthMode: "66"}
+          spacing: {marginBlock: md}
+
+        # ============================================
+        # LEGEND BADGES
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: sm
+          paddingInline: xl
+      components:
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-evenly, verticalAlign: center}
+          spacing: {marginBlock: sm}
+        components:
+        - name: badge
+          properties:
+            text: "Hands-on"
+            appearance: {background: {color: '#10B981'}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+        - name: badge
+          properties:
+            text: "Lecture"
+            appearance: {background: {color: *color-accent}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+        - name: badge
+          properties:
+            text: "Panel"
+            appearance: {background: {color: '#F59E0B'}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        # ============================================
+        # DAY 1 ACCORDION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: heading
+        properties:
+          text: "Day 1 — Foundations"
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: true}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "9:00 AM — Welcome & Orientation"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Meet your instructors, get your development environment set up, and learn the bootcamp workflow. Laptops required."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Lecture"
+                appearance: {background: {color: *color-accent}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Jamie Park | Room: Auditorium A"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "10:30 AM — HTML & CSS Deep Dive"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Build responsive layouts from scratch using modern CSS techniques including Grid, Flexbox, and custom properties. Pair-coding exercises included."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Hands-on"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Alex Rivera | Room: Lab 101"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "1:00 PM — JavaScript Fundamentals"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "From variables and functions to closures and async/await — a comprehensive walkthrough of JavaScript essentials with live coding demos."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Lecture"
+                appearance: {background: {color: *color-accent}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Priya Sharma | Room: Auditorium A"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "3:00 PM — Build Your First Web App"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Apply everything from today in a guided hands-on session. Build a to-do app from scratch using vanilla HTML, CSS, and JavaScript."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Hands-on"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Alex Rivera | Room: Lab 101"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        # ============================================
+        # DAY 2 ACCORDION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: heading
+        properties:
+          text: "Day 2 — Backend & APIs"
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: true}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "9:00 AM — Introduction to Node.js"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Learn server-side JavaScript with Node.js. Cover modules, event loop, file system, and building your first HTTP server."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Lecture"
+                appearance: {background: {color: *color-accent}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Marcus Chen | Room: Auditorium A"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "11:00 AM — REST API Workshop"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Design and build a RESTful API using Express.js. Implement CRUD operations, middleware, error handling, and request validation."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Hands-on"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Marcus Chen | Room: Lab 102"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "2:00 PM — Database Integration"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Connect your API to PostgreSQL and MongoDB. Learn schema design, queries, migrations, and ORM patterns with real-world examples."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Hands-on"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Dana Okafor | Room: Lab 102"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "4:00 PM — Industry Panel: Backend at Scale"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Senior engineers from top tech companies share their experiences scaling backend systems, handling millions of requests, and maintaining reliability."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Panel"
+                appearance: {background: {color: '#F59E0B'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Moderator: Jamie Park | Room: Auditorium A"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        # ============================================
+        # DAY 3 ACCORDION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: heading
+        properties:
+          text: "Day 3 — Deployment & Capstone"
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: true}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "9:00 AM — DevOps & Deployment"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Learn Docker basics, CI/CD pipelines, and cloud deployment using AWS and Vercel. Ship your project to production by end of session."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Hands-on"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Sam Kowalski | Room: Lab 101"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "11:00 AM — Testing & Quality"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Write unit tests, integration tests, and end-to-end tests. Learn Jest, Supertest, and Cypress to ensure your code is production-ready."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Lecture"
+                appearance: {background: {color: *color-accent}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Speaker: Priya Sharma | Room: Auditorium A"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "1:30 PM — Capstone Project"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Teams of 3–4 build a full-stack application from scratch. Mentors available for guidance. Present your project to judges at the end of the day."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Hands-on"
+                appearance: {background: {color: '#10B981'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "All Mentors | Room: Labs 101 & 102"
+                typography: {size: xs, color: *color-accent, weight: medium}
+
+        - title: "4:30 PM — Demos & Closing Ceremony"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: paragraph
+              properties:
+                text: "Each team presents their capstone project. Judges award prizes for best design, best code quality, and most innovative solution. Certificates distributed."
+                typography: {size: sm, color: '#64748b', lineHeight: '1.6'}
+            - name: badge
+              properties:
+                text: "Panel"
+                appearance: {background: {color: '#F59E0B'}, radius: pill}
+                typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "All Speakers | Room: Auditorium A"
+                typography: {size: xs, color: *color-accent, weight: medium}

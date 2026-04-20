@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, accordion, heading, paragraph, eyebrow
 # Section type: faq
 # Layout: centered, stacked
-# Visual style: modern, minimal
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, online store, consulting firm, dental clinic, law firm, tutoring center, real estate agency, insurance company, software company, subscription service
 
 
@@ -30,7 +30,7 @@
         - name: layout-column
           properties:
             layout: { horizontalAlign: center, gap: md }
-            appearance: { background: { color: *color-background, transparency: 100 } }
+            appearance: { background: { color: *color-background, opacity: 100 } }
             spacing: { paddingBlock: xxl, paddingInline: lg }
           components:
             - name: eyebrow

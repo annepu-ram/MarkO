@@ -20,13 +20,13 @@ Ready-to-use patterns for common website sections.
         spacing: { paddingBlock: xxl }
       components:
         - name: eyebrow
-          properties: { text: Welcome to Our Site, typography: { color: '#fff', align: center } }
+          properties: { text: Welcome to Our Site, typography: { color: *color-background, align: center } }
         - name: heading
-          properties: { text: Your Bold Headline, level: 1, typography: { color: '#fff', size: xxxl, weight: bold, align: center } }
+          properties: { text: Your Bold Headline, level: 1, typography: { color: *color-background, size: xxxl, weight: bold, align: center } }
         - name: paragraph
-          properties: { text: Supporting description text, typography: { color: '#fff', align: center } }
+          properties: { text: Supporting description text, typography: { color: *color-background, align: center } }
         - name: button
-          properties: { text: Get Started, appearance: { background: { color: *color-accent } }, typography: { color: '#fff' } }
+          properties: { text: Get Started, appearance: { background: { color: *color-accent } }, typography: { color: *color-background } }
 ```
 
 ### Hero Section (Split — Text Left, Image Right)
@@ -62,7 +62,7 @@ Ready-to-use patterns for common website sections.
   properties:
     layout: { columns: 3, gap: lg }
     responsive: { breakpoints: { md: 2, sm: 1 } }
-    appearance: { columnRadius: md, columnBackground: *color-background, columnTransparency: 100 }
+    appearance: { columnRadius: md, columnBackground: *color-background, columnOpacity: 100 }
   columns:
     - components:
         - name: image
@@ -80,7 +80,7 @@ Ready-to-use patterns for common website sections.
 - name: layout-row
   properties:
     layout: { horizontalAlign: center, wrap: wrap }
-    appearance: { background: { color: *color-primary, transparency: 100 } }
+    appearance: { background: { color: *color-primary, opacity: 100 } }
     spacing: { paddingBlock: xxl }
   components:
     - name: layout-column
@@ -128,7 +128,7 @@ Ready-to-use patterns for common website sections.
 - name: form
   properties:
     submit: { buttonText: Send Message }
-    appearance: { radius: md, shadow: soft, background: { color: *color-background, transparency: 100 } }
+    appearance: { radius: md, shadow: soft, background: { color: *color-background, opacity: 100 } }
     spacing: { paddingBlock: lg, paddingInline: lg }
   components:
     - name: textbox
@@ -165,7 +165,7 @@ Ready-to-use patterns for common website sections.
 - name: layout-row
   properties:
     layout: { tag: footer, wrap: wrap }
-    appearance: { background: { color: *color-primary, transparency: 100 } }
+    appearance: { background: { color: *color-primary, opacity: 100 } }
     spacing: { paddingBlock: xl, paddingInline: lg }
   components:
     - name: layout-column
@@ -442,7 +442,7 @@ Only set properties you want to CHANGE. Default values are applied automatically
       shadow: none
       shadowColor: ''
       blur: false
-      background: { color: *color-background, transparency: 0 }
+      background: { color: *color-background, opacity: 0 }
     spacing: { marginBlock: none, marginInline: none }
 
 # CORRECT — only set what you need

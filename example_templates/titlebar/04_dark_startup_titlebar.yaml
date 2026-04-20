@@ -1,0 +1,179 @@
+# Dark Startup Titlebar - Tech Startup Header
+# A dark-themed titlebar for tech startups with logo, navigation links, and bright accent CTA button, followed by a minimal hero section
+# Base components: titlebar, layout-column, heading, paragraph, button, layout-row, eyebrow
+# Section type: navigation
+# Layout: stacked
+# Visual style: monochrome_dark
+# Perfect for: tech startup, SaaS, developer tools, fintech, AI company, API platform
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#F9FAFB'
+        text: &color-text '#D1D5DB'
+        secondary: &color-secondary '#1F2937'
+        accent: &color-accent '#22D3EE'
+        background: &color-background '#0A0A0F'
+  components:
+  - name: page
+    slug: home
+    title: "Dark Startup Titlebar"
+    properties:
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+
+        # ============================================
+        # DARK STARTUP TITLEBAR
+        # ============================================
+    - name: titlebar
+      properties:
+        branding:
+          showLogo: true
+          logoUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=60&h=60&fit=crop'
+          title: 'NovaCLI'
+        navigation:
+          links:
+          - label: Product
+            href: '#product'
+          - label: Features
+            href: '#features'
+          - label: Pricing
+            href: '#pricing'
+          - label: Blog
+            href: '#blog'
+        layout: {alignment: left, height: 64}
+        scroll:
+          shrinkPercentage: 80
+        appearance:
+          background: {color: *color-secondary, opacity: 100}
+          border: {width: 1, style: solid, color: '#374151'}
+          focus:
+            background: *color-secondary
+            color: *color-accent
+        typography:
+          title: {size: 22, weight: bold, color: *color-primary}
+          menu: {size: 14, weight: medium, color: '#9CA3AF'}
+        action:
+          text: 'Get Started'
+          href: '#signup'
+          background: *color-accent
+          color: *color-background
+
+        # ============================================
+        # HERO SECTION
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {align: center, horizontalAlign: space-evenly}
+        appearance:
+          background: {color: *color-background, opacity: 100}
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+      components:
+      - name: badge
+        properties:
+          text: "Now in Public Beta"
+          appearance: {background: {color: '#1E293B'}, radius: pill, border: {width: 1, style: solid, color: '#334155'}}
+          typography: {color: *color-accent, size: xs, weight: semibold}
+      - name: heading
+        properties:
+          text: "Ship faster with the CLI built for modern teams"
+          level: 1
+          typography:
+            size: xxxl
+            weight: bold
+            color: *color-primary
+            align: center
+            letterSpacing: tight
+          spacing: {marginBlock: md}
+          layout: {widthMode: "75"}
+      - name: paragraph
+        properties:
+          text: "NovaCLI streamlines your development workflow with intelligent code generation, automated testing, and one-command deployments. Stop wrestling with config files."
+          typography:
+            size: lg
+            color: '#9CA3AF'
+            align: center
+            lineHeight: '1.7'
+          layout: {widthMode: "66"}
+          spacing: {marginBlock: md}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-evenly, verticalAlign: center}
+          spacing: {marginBlock: lg}
+        components:
+        - name: button
+          properties:
+            text: "Start Free Trial"
+            appearance:
+              background: {color: *color-accent}
+              radius: sm
+            typography: {color: *color-background, weight: bold, size: md}
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
+        - name: button
+          properties:
+            text: "View Documentation"
+            appearance:
+              background: {color: 'transparent'}
+              border: {width: 1, style: solid, color: '#374151'}
+              radius: sm
+            typography: {color: '#9CA3AF', weight: medium, size: md}
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
+
+        # ============================================
+        # TRUST BAR
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center}
+        appearance:
+          background: {color: *color-background, opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: paragraph
+        properties:
+          text: "Trusted by engineering teams at"
+          typography: {size: xs, color: '#6B7280', align: center, transform: uppercase, letterSpacing: wider, weight: medium}
+          spacing: {marginBlock: sm}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-evenly, verticalAlign: center}
+          spacing: {marginBlock: sm}
+        components:
+        - name: paragraph
+          properties:
+            text: "Stripe"
+            typography: {size: md, weight: semibold, color: '#4B5563'}
+            layout: {widthMode: fit}
+        - name: paragraph
+          properties:
+            text: "Vercel"
+            typography: {size: md, weight: semibold, color: '#4B5563'}
+            layout: {widthMode: fit}
+        - name: paragraph
+          properties:
+            text: "Linear"
+            typography: {size: md, weight: semibold, color: '#4B5563'}
+            layout: {widthMode: fit}
+        - name: paragraph
+          properties:
+            text: "Raycast"
+            typography: {size: md, weight: semibold, color: '#4B5563'}
+            layout: {widthMode: fit}
+        - name: paragraph
+          properties:
+            text: "Resend"
+            typography: {size: md, weight: semibold, color: '#4B5563'}
+            layout: {widthMode: fit}

@@ -1,8 +1,18 @@
 """ssr_python/rag/agent/model_backend.py — Pluggable generation backend."""
 import os
+import re
 import requests
 
 from rag.config import config
+
+
+_THINK_BLOCK_RE = re.compile(r"<think\b[^>]*>.*?</think>", re.DOTALL | re.IGNORECASE)
+
+
+def _strip_thinking(text: str) -> str:
+    if not text:
+        return text
+    return _THINK_BLOCK_RE.sub("", text).lstrip()
 
 
 class ModelBackend:
@@ -11,14 +21,16 @@ class ModelBackend:
     def generate(self, system: str, user_prompt: str) -> str:
         backend = config.model_backend
         if backend == "ollama":
-            return self._ollama(system, user_prompt)
+            raw = self._ollama(system, user_prompt)
         elif backend == "openai":
-            return self._openai(system, user_prompt)
+            raw = self._openai(system, user_prompt)
         elif backend == "anthropic":
-            return self._anthropic(system, user_prompt)
+            raw = self._anthropic(system, user_prompt)
         elif backend == "groq":
-            return self._groq(system, user_prompt)
-        raise ValueError(f"Unknown backend: {backend}")
+            raw = self._groq(system, user_prompt)
+        else:
+            raise ValueError(f"Unknown backend: {backend}")
+        return _strip_thinking(raw)
 
     # -- Ollama (local or cloud) --
 
@@ -40,9 +52,10 @@ class ModelBackend:
                 "system": system,
                 "prompt": user_prompt,
                 "stream": False,
+                "think": False,
                 "options": {"temperature": config.temperature_ollama, "num_predict": config.max_generation_tokens},
             },
-            timeout=300,
+            timeout=600,
         )
         resp.raise_for_status()
         return resp.json()["response"]

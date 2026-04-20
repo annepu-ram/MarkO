@@ -95,7 +95,7 @@ class TestSiteRendering:
     appearance:
       background:
         color: '#ffffff'
-        transparency: 100
+        opacity: 100
   components:
     - name: heading
       properties:
@@ -123,7 +123,7 @@ class TestSiteRendering:
         appearance:
           background:
             color: '#ffffff'
-            transparency: 100
+            opacity: 100
       components:
         - name: heading
           properties:

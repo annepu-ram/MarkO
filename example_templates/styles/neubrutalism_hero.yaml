@@ -27,7 +27,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
 
         # Hero section — brutally bold
@@ -69,7 +69,7 @@
                     appearance:
                       background:
                         color: *color-accent
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 4
                         style: solid
@@ -106,7 +106,7 @@
                         appearance:
                           background:
                             color: '#A3E635'
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 4
                             style: solid
@@ -141,7 +141,7 @@
                         appearance:
                           background:
                             color: '#60A5FA'
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 4
                             style: solid
@@ -176,7 +176,7 @@
                         appearance:
                           background:
                             color: *color-accent
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 4
                             style: solid
@@ -222,7 +222,7 @@
                     appearance:
                       background:
                         color: *color-accent
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 4
                         style: solid
@@ -244,7 +244,7 @@
                     appearance:
                       background:
                         color: *color-background
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 4
                         style: solid

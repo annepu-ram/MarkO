@@ -3,7 +3,7 @@
 # Base components: page, layout-column, image, eyebrow, heading, caption, button
 # Section type: product
 # Layout: stacked
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, retail, online store, marketplace, SaaS
 
 - name: page
@@ -37,7 +37,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: xs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: md
           paddingInline: md

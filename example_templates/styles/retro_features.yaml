@@ -1,0 +1,384 @@
+# Retro Vintage Features
+# Bold feature cards with thick borders, hard shadows, and pop art energy
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: retro_vintage
+# Perfect for: Creative portfolio, fashion brand, music platform, vinyl shop, design studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Bebas Neue', sans-serif"
+        content: &font-content "'Merriweather', serif"
+      colors:
+        primary: &color-primary "#0D0D0D"
+        text: &color-text "#2D2D00"
+        secondary: &color-secondary "#FFD600"
+        accent: &color-accent "#FF0000"
+        background: &color-background "#FFEB3B"
+  components:
+    - name: page
+      slug: home
+      title: "Retro Vintage Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — retro pop art cards
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "What Makes Us Different"
+                typography:
+                  size: xs
+                  weight: bold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: "FEATURES THAT PACK A PUNCH"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: extrabold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+                  transform: uppercase
+
+            - name: paragraph
+              properties:
+                text: "No gimmicks, no filler. Every feature designed to make your creative work louder and more memorable."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 retro cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1 — Bold Typography
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: type
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "BOLD TYPE"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: *color-primary
+                              align: center
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Chunky headlines and expressive lettering that command attention from across the room."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 2 — Saturated Colors
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: palette
+                            appearance:
+                              color: "#ffffff"
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "HOT COLORS"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: "#ffffff"
+                              align: center
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Saturated palettes pulled straight from vintage posters and neon signs. Nothing subtle here."
+                            typography:
+                              size: sm
+                              color: "#ffffff"
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 3 — Retro Layouts
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: layout-grid
+                            appearance:
+                              color: *color-primary
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "GRID POWER"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: *color-primary
+                              align: center
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Magazine-inspired layouts with asymmetric grids and overlapping elements that feel alive."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+            # Second row of cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+              columns:
+
+                # Card 4 — Animation
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: clapperboard
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "MOTION"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: *color-primary
+                              align: center
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Bouncy transitions and playful hover effects that bring the nostalgia factor to every interaction."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 5 — Vinyl Textures
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: disc
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "TEXTURE"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: *color-primary
+                              align: center
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Grainy overlays and tactile surfaces that give digital designs the warmth of analog media."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 6 — Export
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: download
+                            appearance:
+                              color: "#ffffff"
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "EXPORT"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: "#ffffff"
+                              align: center
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "One-click export to print, web, and social. Your retro creations ready for any medium."
+                            typography:
+                              size: sm
+                              color: "#ffffff"
+                              align: center
+                              lineHeight: relaxed

@@ -3,7 +3,7 @@
 # Base components: page, image, layout-column, eyebrow, heading, paragraph, button
 # Section type: blog
 # Layout: centered
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: media, publishing, blogs, content marketing, news
 
 - name: page
@@ -36,7 +36,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: center, gap: sm}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: xl
           paddingInline: lg
@@ -58,7 +58,7 @@
       - name: button
         properties:
           text: Browse Collection
-          appearance: {background: {color: *color-background, transparency: 80}, radius: pill}
+          appearance: {background: {color: *color-background, opacity: 80}, radius: pill}
           typography: {color: *color-primary, weight: semibold}
           spacing:
             paddingBlock: sm

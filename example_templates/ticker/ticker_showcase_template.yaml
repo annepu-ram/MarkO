@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, ticker, layout-row, icon, heading, paragraph, badge, image, button, rating
 # Section type: ticker
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, SaaS, agencies, corporate, any business
 - name: page
   properties:
@@ -20,7 +20,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
 
     # ============================================
@@ -37,7 +37,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
     - name: eyebrow
       properties:
@@ -216,7 +216,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
     - name: heading
       properties:
@@ -263,7 +263,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
               shadow: medium
           components:
@@ -321,7 +321,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
               shadow: medium
           components:
@@ -379,7 +379,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
               shadow: medium
           components:
@@ -437,7 +437,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
               shadow: medium
           components:
@@ -495,7 +495,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
               shadow: medium
           components:
@@ -547,7 +547,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
     - name: heading
       properties:
@@ -594,7 +594,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
           components:
           - name: rating
@@ -637,7 +637,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
           components:
           - name: rating
@@ -680,7 +680,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
           components:
           - name: rating
@@ -723,7 +723,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
           components:
           - name: rating
@@ -766,7 +766,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: lg
           components:
           - name: rating
@@ -813,7 +813,7 @@
       appearance:
         background:
           color: *color-primary
-          transparency: 100
+          opacity: 100
     components:
     - name: heading
       properties:
@@ -867,7 +867,7 @@
               text: Same-day shipping on all orders
               typography:
                 size: xs
-                color: *color-secondary
+                color: *color-background
                 align: center
       - components:
         - name: layout-column
@@ -897,7 +897,7 @@
               text: 100% satisfaction or your money back
               typography:
                 size: xs
-                color: *color-secondary
+                color: *color-background
                 align: center
       - components:
         - name: layout-column
@@ -927,7 +927,7 @@
               text: Round-the-clock customer care
               typography:
                 size: xs
-                color: *color-secondary
+                color: *color-background
                 align: center
       - components:
         - name: layout-column
@@ -957,7 +957,7 @@
               text: Delivering to 150+ countries
               typography:
                 size: xs
-                color: *color-secondary
+                color: *color-background
                 align: center
       - components:
         - name: layout-column
@@ -987,7 +987,7 @@
               text: Price match guarantee on everything
               typography:
                 size: xs
-                color: *color-secondary
+                color: *color-background
                 align: center
       - components:
         - name: layout-column
@@ -1017,5 +1017,5 @@
               text: Sustainable packaging and practices
               typography:
                 size: xs
-                color: *color-secondary
+                color: *color-background
                 align: center

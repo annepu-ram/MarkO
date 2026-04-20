@@ -3,7 +3,7 @@
 # Base components: page, layout-column, heading, paragraph, layout-row, link
 # Section type: footer
 # Layout: grid
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: creative agencies, design studios, and portfolio sites needing social media presence in the footer
 
 - name: page
@@ -29,7 +29,7 @@
     properties:
       layout: {horizontalAlign: space-evenly}
       spacing: {paddingBlock: xxxl, paddingInline: xl}
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
     - name: heading
       properties:
@@ -51,7 +51,7 @@
       layout: {horizontalAlign: space-between, wrap: wrap, verticalAlign: center}
       spacing: {paddingBlock: lg, paddingInline: xl}
       appearance:
-        background: {color: *color-primary, transparency: 100}
+        background: {color: *color-primary, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
 
@@ -65,16 +65,16 @@
         properties:
           text: Vivid Studio
           level: 3
-          typography: {size: xl, weight: bold, color: *color-secondary}
+          typography: {size: xl, weight: bold, color: *color-background}
       - name: paragraph
         properties:
           text: Crafting digital experiences that inspire. Building the future of web design, one pixel at a time.
-          typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+          typography: {size: sm, color: *color-background, lineHeight: '1.6'}
           spacing: {marginBlock: xs}
       - name: paragraph
         properties:
           text: "© 2026 Vivid Studio. All rights reserved."
-          typography: {size: xs, color: *color-secondary}
+          typography: {size: xs, color: *color-background}
           spacing: {marginBlock: sm}
 
         # Right Side - Social Links
@@ -86,7 +86,7 @@
       - name: paragraph
         properties:
           text: Follow Us
-          typography: {size: sm, weight: semibold, color: *color-secondary, align: right}
+          typography: {size: sm, weight: semibold, color: *color-background, align: right}
           spacing: {marginBlock: xs}
       - name: layout-row
         properties:
@@ -96,7 +96,7 @@
             background:
               type: ""
               color: *color-background
-              transparency: 0
+              opacity: 0
             border:
               width: 0
               style: solid
@@ -109,35 +109,35 @@
           properties:
             text: Twitter
             href: 'https://twitter.com'
-            typography: {size: sm, weight: medium, color: *color-accent}
+            typography: {size: sm, weight: medium, color: *color-background}
             appearance: {underline: false}
             spacing: {marginInline: sm}
         - name: link
           properties:
             text: GitHub
             href: 'https://github.com'
-            typography: {size: sm, weight: medium, color: *color-accent}
+            typography: {size: sm, weight: medium, color: *color-background}
             appearance: {underline: false}
             spacing: {marginInline: sm}
         - name: link
           properties:
             text: LinkedIn
             href: 'https://linkedin.com'
-            typography: {size: sm, weight: medium, color: *color-accent}
+            typography: {size: sm, weight: medium, color: *color-background}
             appearance: {underline: false}
             spacing: {marginInline: sm}
         - name: link
           properties:
             text: Dribbble
             href: 'https://dribbble.com'
-            typography: {size: sm, weight: medium, color: *color-accent}
+            typography: {size: sm, weight: medium, color: *color-background}
             appearance: {underline: false}
             spacing: {marginInline: sm}
         - name: link
           properties:
             text: YouTube
             href: 'https://youtube.com'
-            typography: {size: sm, weight: medium, color: *color-accent}
+            typography: {size: sm, weight: medium, color: *color-background}
             appearance: {underline: false}
             spacing: {marginInline: sm}
 
@@ -148,7 +148,7 @@
     properties:
       layout: {horizontalAlign: space-between, wrap: wrap, verticalAlign: center}
       spacing: {paddingBlock: sm, paddingInline: xl}
-      appearance: {background: {color: *color-primary, transparency: 100}}
+      appearance: {background: {color: *color-primary, opacity: 100}}
     components:
     - name: layout-row
       properties:
@@ -158,24 +158,24 @@
         properties:
           text: Privacy Policy
           href: '#privacy'
-          typography: {size: xs, weight: regular, color: *color-secondary}
+          typography: {size: xs, weight: regular, color: *color-background}
           appearance: {underline: false}
           spacing: {marginInline: sm}
       - name: link
         properties:
           text: Terms of Service
           href: '#terms'
-          typography: {size: xs, weight: regular, color: *color-secondary}
+          typography: {size: xs, weight: regular, color: *color-background}
           appearance: {underline: false}
           spacing: {marginInline: sm}
       - name: link
         properties:
           text: Cookie Policy
           href: '#cookies'
-          typography: {size: xs, weight: regular, color: *color-secondary}
+          typography: {size: xs, weight: regular, color: *color-background}
           appearance: {underline: false}
           spacing: {marginInline: sm}
     - name: paragraph
       properties:
         text: "Made with care in San Francisco"
-        typography: {size: xs, color: *color-secondary, align: right}
+        typography: {size: xs, color: *color-background, align: right}

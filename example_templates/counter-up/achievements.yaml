@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, counter-up
 # Section type: stats
 # Layout: grid
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page
@@ -34,7 +34,7 @@
               properties:
                 text: Our Impact So Far
                 level: 2
-                typography: { size: xxl, weight: bold, color: '#ffffff', align: center }
+                typography: { size: xxl, weight: bold, color: *color-background, align: center }
             - name: paragraph
               properties:
                 text: Numbers that speak for themselves

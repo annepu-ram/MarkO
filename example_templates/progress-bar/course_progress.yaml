@@ -1,0 +1,176 @@
+# Progress Bar: Course Progress Dashboard
+# Online learning dashboard showing course completion with multiple progress bars
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, caption, progress-bar
+# Section type: dashboard
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: education, e-learning, courses, LMS
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66' }
+          components:
+            - name: eyebrow
+              properties:
+                text: MY LEARNING
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: Course Progress
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Track your learning journey across all enrolled courses. Keep up the momentum!
+                typography: { size: md, color: *color-secondary }
+                spacing: { marginBlock: md }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: md, paddingInline: md, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Introduction to Python
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                    - name: caption
+                      properties:
+                        text: 92% Complete
+                        typography: { size: sm, weight: semibold, color: '#10b981' }
+                - name: progress-bar
+                  properties:
+                    percent: 92
+                    thickness: medium
+                    color: '#10b981'
+                    trackColor: '#d1fae5'
+                    appearance: { radius: pill }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: md, paddingInline: md, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Advanced JavaScript Patterns
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                    - name: caption
+                      properties:
+                        text: 74% Complete
+                        typography: { size: sm, weight: semibold, color: '#3b82f6' }
+                - name: progress-bar
+                  properties:
+                    percent: 74
+                    thickness: medium
+                    color: '#3b82f6'
+                    trackColor: '#dbeafe'
+                    appearance: { radius: pill }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: md, paddingInline: md, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: UX Design Fundamentals
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                    - name: caption
+                      properties:
+                        text: 58% Complete
+                        typography: { size: sm, weight: semibold, color: *color-accent }
+                - name: progress-bar
+                  properties:
+                    percent: 58
+                    thickness: medium
+                    color: *color-accent
+                    trackColor: '#e0e7ff'
+                    appearance: { radius: pill }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: md, paddingInline: md, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Data Science with R
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                    - name: caption
+                      properties:
+                        text: 35% Complete
+                        typography: { size: sm, weight: semibold, color: '#f59e0b' }
+                - name: progress-bar
+                  properties:
+                    percent: 35
+                    thickness: medium
+                    color: '#f59e0b'
+                    trackColor: '#fef3c7'
+                    appearance: { radius: pill }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: md, paddingInline: md, marginBlock: sm }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Cloud Architecture Essentials
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                    - name: caption
+                      properties:
+                        text: 12% Complete
+                        typography: { size: sm, weight: semibold, color: '#ef4444' }
+                - name: progress-bar
+                  properties:
+                    percent: 12
+                    thickness: medium
+                    color: '#ef4444'
+                    trackColor: '#fee2e2'
+                    appearance: { radius: pill }

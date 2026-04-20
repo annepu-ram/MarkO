@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, columnsgrid, icon, counter-up
 # Section type: stats
 # Layout: grid
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page

@@ -205,3 +205,32 @@ class SiteVersionPage(db.Model):
     yaml_content = db.Column(db.Text, nullable=False)
     sort_order = db.Column(db.Integer, nullable=False, default=0)
     is_homepage = db.Column(db.Boolean, nullable=False, default=False)
+
+
+class IndustryConfig(db.Model):
+    """
+    Stores JSON-encoded configuration data used by the guided chat flow.
+
+    Rows are keyed by config_key:
+      - 'industries'         → INDUSTRY_REGISTRY  (industry → variants → sections)
+      - 'section_questions'  → SECTION_QUESTIONS  (content questions per section type)
+      - 'recommendations'    → {section_pairs, category_flows}  (co-occurrence upsells)
+      - 'page_purposes'      → PAGE_PURPOSES       (cross-industry page intents)
+
+    Seed data lives in rag/industry_defaults.py (git-tracked).
+    """
+    __tablename__ = 'industry_configs'
+
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    config_key = db.Column(db.String(50), unique=True, nullable=False)
+    data = db.Column(db.Text, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def get_data(self):
+        try:
+            return json.loads(self.data) if self.data else {}
+        except (json.JSONDecodeError, TypeError):
+            return {}
+
+    def set_data(self, data_dict):
+        self.data = json.dumps(data_dict)

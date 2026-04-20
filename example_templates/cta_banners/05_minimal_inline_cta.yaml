@@ -3,7 +3,7 @@
 # Base components: layout-row, heading, button, paragraph
 # Section type: cta
 # Layout: split_screen
-# Visual style: minimal, modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, mobile app, online store, software company, fitness app, online course platform, subscription service, B2B platform, consulting firm, digital agency
 
 - name: site
@@ -26,7 +26,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
         # Compact CTA Strip
     - name: layout-row
@@ -38,7 +38,7 @@
         appearance:
           background:
             color: *color-accent
-            transparency: 100
+            opacity: 100
           radius: lg
         spacing:
           paddingBlock: lg
@@ -67,7 +67,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             border:
               width: 0
               style: solid

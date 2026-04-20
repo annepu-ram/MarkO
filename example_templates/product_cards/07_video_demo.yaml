@@ -3,7 +3,7 @@
 # Base components: page, layout-column, video, eyebrow, heading, paragraph, layout-row, button
 # Section type: product
 # Layout: stacked
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: ecommerce, retail, online store, marketplace, SaaS
 
 - name: page
@@ -37,7 +37,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: xs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: md
           paddingInline: md
@@ -61,7 +61,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: heading
           properties:

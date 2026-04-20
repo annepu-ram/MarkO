@@ -1,0 +1,202 @@
+# Notification Badges
+# Status and alert notification badges in different variants (success, warning, danger, info) with status indicators
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, badge, icon, columnsgrid
+# Section type: status
+# Layout: grid
+# Visual style: default
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E293B"
+        text: &color-text "#475569"
+        secondary: &color-secondary "#94A3B8"
+        accent: &color-accent "#3B82F6"
+        background: &color-background "#F8FAFC"
+  components:
+    - name: page
+      slug: home
+      title: "Notification Badges"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # ============================================
+        # SECTION HEADER
+        # ============================================
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center }
+            spacing: { paddingBlock: xl }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '75', horizontalAlign: center }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: SYSTEM STATUS
+                    typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                - name: heading
+                  properties:
+                    text: Notification Center
+                    level: 2
+                    typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Stay informed with real-time status updates and alerts across all your services.
+                    typography: { size: md, color: *color-secondary, align: center }
+
+        # ============================================
+        # STATUS BADGES ROW
+        # ============================================
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-evenly, wrap: wrap }
+            spacing: { paddingBlock: md, paddingInline: lg }
+          components:
+            - name: badge
+              properties: { text: "All Systems Operational", variant: success, pill: true }
+            - name: badge
+              properties: { text: "3 Warnings", variant: warning, pill: true }
+            - name: badge
+              properties: { text: "1 Critical Alert", variant: danger, pill: true }
+            - name: badge
+              properties: { text: "2 Informational", variant: info, pill: true }
+
+        # ============================================
+        # NOTIFICATION CARDS
+        # ============================================
+        - name: columnsgrid
+          properties:
+            layout: { columns: 2, gap: lg }
+            responsive: { breakpoints: { sm: 1 } }
+            spacing: { paddingBlock: lg, paddingInline: lg }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: space-between, verticalAlign: center }
+                      components:
+                        - name: icon
+                          properties: { name: check-circle, size: "24", color: '#16a34a' }
+                        - name: badge
+                          properties: { text: "Resolved", variant: success, pill: false }
+                    - name: heading
+                      properties:
+                        text: Deployment Successful
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Production deployment v2.4.1 completed successfully. All health checks passing.
+                        typography: { size: sm, color: *color-text }
+                    - name: caption
+                      properties:
+                        text: "2 minutes ago"
+                        typography: { size: xs, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: space-between, verticalAlign: center }
+                      components:
+                        - name: icon
+                          properties: { name: alert-triangle, size: "24", color: '#d97706' }
+                        - name: badge
+                          properties: { text: "Warning", variant: warning, pill: false }
+                    - name: heading
+                      properties:
+                        text: High Memory Usage
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Server us-east-1 memory usage has exceeded 85% threshold. Consider scaling resources.
+                        typography: { size: sm, color: *color-text }
+                    - name: caption
+                      properties:
+                        text: "15 minutes ago"
+                        typography: { size: xs, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: space-between, verticalAlign: center }
+                      components:
+                        - name: icon
+                          properties: { name: x-circle, size: "24", color: '#dc2626' }
+                        - name: badge
+                          properties: { text: "Critical", variant: danger, pill: false }
+                    - name: heading
+                      properties:
+                        text: Database Connection Failed
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Primary database replica in eu-west-2 is unreachable. Failover initiated automatically.
+                        typography: { size: sm, color: *color-text }
+                    - name: caption
+                      properties:
+                        text: "1 hour ago"
+                        typography: { size: xs, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: space-between, verticalAlign: center }
+                      components:
+                        - name: icon
+                          properties: { name: info, size: "24", color: *color-accent }
+                        - name: badge
+                          properties: { text: "Info", variant: info, pill: false }
+                    - name: heading
+                      properties:
+                        text: Scheduled Maintenance
+                        level: 4
+                        typography: { size: md, weight: semibold, color: *color-primary }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Planned maintenance window on March 25, 2026 from 2:00 AM to 4:00 AM UTC.
+                        typography: { size: sm, color: *color-text }
+                    - name: caption
+                      properties:
+                        text: "3 hours ago"
+                        typography: { size: xs, color: *color-secondary }
+                        spacing: { marginBlock: sm }

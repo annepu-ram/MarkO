@@ -1,0 +1,218 @@
+# Pastel Soft Features
+# Gentle rounded feature cards with soft shadows and lavender accents
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: pastel_soft
+# Perfect for: Wellness, kids apps, beauty, skincare, meditation, yoga studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Quicksand', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#4A4A6A"
+        text: &color-text "#5A5A78"
+        secondary: &color-secondary "#E8E0F0"
+        accent: &color-accent "#B794F4"
+        background: &color-background "#FAF5FF"
+  components:
+    - name: page
+      slug: home
+      title: "Pastel Soft Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — soft rounded cards
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "What We Offer"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: "Everything you need to feel your best"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+
+            - name: paragraph
+              properties:
+                text: "Simple, thoughtful tools designed to bring calm and clarity to your daily routine."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 soft cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: md
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: xl
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: heart
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "Mindful Wellness"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Guided exercises and personalized plans that adapt to your mood and energy levels."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 2
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: xl
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: sparkles
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "Daily Rituals"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Build gentle habits with soft reminders and progress tracking that celebrates every step."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 3
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: xl
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: moon
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "Restful Sleep"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Wind down with curated soundscapes and breathing exercises for deeper, more restorative rest."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed

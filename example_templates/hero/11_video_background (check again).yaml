@@ -3,7 +3,7 @@
 # Base components: carousel, image, layout-column, layout-row, paragraph, heading, button
 # Section type: hero
 # Layout: carousel_slider
-# Visual style: dark_mode, bold_typography
+# Visual style: bold_editorial, monochrome_dark
 # Perfect for: SaaS platform, online store, digital agency, law firm, consulting firm, dental clinic, real estate agency, restaurant, gym, photography studio
 
 
@@ -27,7 +27,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
       # Hero with Carousel Background (simulating video)
       - name: carousel
@@ -67,7 +67,7 @@
                 appearance:
                   background:
                     color: rgba(0,0,0,0.6)
-                    transparency: 100
+                    opacity: 100
                 spacing:
                   paddingBlock: xxxl
                   paddingInline: lg
@@ -81,7 +81,7 @@
                   appearance:
                     background:
                       color: rgba(239,68,68,0.15)
-                      transparency: 100
+                      opacity: 100
                     radius: pill
                     border:
                       width: 1
@@ -186,7 +186,7 @@
                     appearance:
                       background:
                         color: transparent
-                        transparency: 0
+                        opacity: 0
                       border:
                         width: 2
                         style: solid
@@ -328,7 +328,7 @@
                 appearance:
                   background:
                     color: rgba(0,0,0,0.6)
-                    transparency: 100
+                    opacity: 100
                 spacing:
                   paddingBlock: xxxl
                   paddingInline: lg

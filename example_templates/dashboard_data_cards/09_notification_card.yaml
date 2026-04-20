@@ -3,7 +3,7 @@
 # Base components: page, layout-row, image, layout-column, paragraph
 # Section type: dashboard
 # Layout: stacked
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS, analytics, admin panels, dashboards, business tools
 
 - name: page
@@ -38,8 +38,8 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
-        borderRadius: md
+          opacity: 100
+        radius: md
         border:
           width: 1
           style: solid
@@ -94,8 +94,8 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
-        borderRadius: md
+          opacity: 100
+        radius: md
         border:
           width: 1
           style: solid
@@ -150,8 +150,8 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
-        borderRadius: md
+          opacity: 100
+        radius: md
         border:
           width: 1
           style: solid

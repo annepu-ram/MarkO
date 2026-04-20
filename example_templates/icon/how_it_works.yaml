@@ -1,0 +1,171 @@
+# Icon: How It Works Process
+# A 4-step process section with numbered icons showing onboarding flow
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, caption, columnsgrid, icon
+# Section type: features
+# Layout: grid
+# Visual style: modern_minimalist
+# Perfect for: SaaS, apps, services, onboarding
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#f9fafb'
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: HOW IT WORKS
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Get Started in 4 Simple Steps
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Our streamlined process gets you from sign-up to success in no time.
+                typography: { size: md, color: *color-secondary, align: center }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 4, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { marginBlock: lg, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center }
+                    appearance: { background: { color: '#eef2ff' }, ; }
+                    spacing: { paddingBlock: md, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: user-plus, size: "36", color: *color-accent }
+                - name: caption
+                  properties:
+                    text: STEP 1
+                    typography: { size: xs, weight: bold, color: *color-accent, align: center, letterSpacing: wider }
+                    spacing: { marginBlock: sm }
+                - name: heading
+                  properties:
+                    text: Sign Up
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: xs }
+                - name: paragraph
+                  properties:
+                    text: Create your free account in under a minute. No credit card required to get started.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center }
+                    appearance: { background: { color: '#eef2ff' }, radius: pill }
+                    spacing: { paddingBlock: md, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: settings, size: "36", color: *color-accent }
+                - name: caption
+                  properties:
+                    text: STEP 2
+                    typography: { size: xs, weight: bold, color: *color-accent, align: center, letterSpacing: wider }
+                    spacing: { marginBlock: sm }
+                - name: heading
+                  properties:
+                    text: Configure
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: xs }
+                - name: paragraph
+                  properties:
+                    text: Customize your workspace, connect integrations, and set up your preferences in minutes.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center }
+                    appearance: { background: { color: '#eef2ff' }, radius: pill }
+                    spacing: { paddingBlock: md, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: rocket, size: "36", color: *color-accent }
+                - name: caption
+                  properties:
+                    text: STEP 3
+                    typography: { size: xs, weight: bold, color: *color-accent, align: center, letterSpacing: wider }
+                    spacing: { marginBlock: sm }
+                - name: heading
+                  properties:
+                    text: Launch
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: xs }
+                - name: paragraph
+                  properties:
+                    text: Go live with one click. Your project is deployed and ready for your audience instantly.
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center }
+                    appearance: { background: { color: '#eef2ff' }, radius: pill }
+                    spacing: { paddingBlock: md, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: trending-up, size: "36", color: *color-accent }
+                - name: caption
+                  properties:
+                    text: STEP 4
+                    typography: { size: xs, weight: bold, color: *color-accent, align: center, letterSpacing: wider }
+                    spacing: { marginBlock: sm }
+                - name: heading
+                  properties:
+                    text: Grow
+                    level: 3
+                    typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                    spacing: { marginBlock: xs }
+                - name: paragraph
+                  properties:
+                    text: Track your progress with built-in analytics and scale effortlessly as your business grows.
+                    typography: { size: sm, color: *color-secondary, align: center }

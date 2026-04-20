@@ -3,7 +3,7 @@
 # Base components: page, layout-column, heading, paragraph, ticker, image, badge
 # Section type: ticker
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: agencies, corporate, SaaS, any business
 - name: page
   properties:
@@ -20,7 +20,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
   - name: layout-column
     properties:
@@ -63,7 +63,7 @@
           marginInline: none
         appearance:
           columnBackground: *color-background
-          columnTransparency: 100
+          columnOpacity: 100
           columnRadius: md
           columnBorder:
             width: 1

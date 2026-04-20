@@ -1,0 +1,246 @@
+# Bohemian Eclectic Hero
+# Warm earthy tones with serif typography, organic shapes, and artisan craft aesthetic
+# Base components: site, page, layout-column, layout-row, eyebrow, heading, paragraph, button, badge, icon
+# Section type: hero
+# Layout: stacked
+# Visual style: bohemian_eclectic
+# Perfect for: boutique hotel, artisan bakery, yoga studio, handmade jewelry, organic skincare, vintage shop, travel blog, wellness retreat
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Lora', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#5C2018"
+        text: &color-text "#5A3828"
+        secondary: &color-secondary "#F4A261"
+        accent: &color-accent "#E76F51"
+        background: &color-background "#FFF5EB"
+  components:
+    - name: page
+      slug: home
+      title: "Bohemian Eclectic Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — warm bohemian layout
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Italic eyebrow
+            - name: eyebrow
+              properties:
+                text: "Handcrafted with intention"
+                typography:
+                  color: *color-accent
+                  size: sm
+                  weight: regular
+                  align: center
+                  letterSpacing: wide
+                  fontStyle: italic
+
+            # Main heading — serif, warm
+            - name: heading
+              properties:
+                text: "Where Every Detail Tells a Story"
+                level: 1
+                layout:
+                  widthMode: "75"
+                typography:
+                  color: *color-primary
+                  size: xxxl
+                  weight: semibold
+                  align: center
+                  lineHeight: snug
+
+            # Subheadline
+            - name: paragraph
+              properties:
+                text: |
+                  We believe in the beauty of imperfection, the warmth of natural materials,
+                  and the magic that happens when skilled hands meet passionate hearts.
+                  Welcome to a world curated with soul.
+                layout:
+                  widthMode: "50"
+                typography:
+                  color: *color-text
+                  size: lg
+                  align: center
+                  lineHeight: relaxed
+                  weight: regular
+
+            # Decorative divider
+            - name: br
+              properties:
+                appearance:
+                  divider: true
+                  dividerColor: *color-secondary
+
+            # Feature highlights
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: start
+                  wrap: wrap
+                  gap: xl
+                spacing:
+                  paddingBlock: lg
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "25"
+                      horizontalAlign: center
+                      gap: sm
+                  components:
+                    - name: icon
+                      properties:
+                        name: leaf
+                        size: lg
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: "Sustainably Sourced"
+                        level: 4
+                        typography:
+                          color: *color-primary
+                          size: md
+                          weight: semibold
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Every material chosen with care for the earth and the communities that harvest them."
+                        typography:
+                          color: *color-text
+                          size: sm
+                          align: center
+                          lineHeight: relaxed
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "25"
+                      horizontalAlign: center
+                      gap: sm
+                  components:
+                    - name: icon
+                      properties:
+                        name: heart
+                        size: lg
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: "Made with Love"
+                        level: 4
+                        typography:
+                          color: *color-primary
+                          size: md
+                          weight: semibold
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Artisans pour their passion into every stitch, fold, and brushstroke."
+                        typography:
+                          color: *color-text
+                          size: sm
+                          align: center
+                          lineHeight: relaxed
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "25"
+                      horizontalAlign: center
+                      gap: sm
+                  components:
+                    - name: icon
+                      properties:
+                        name: sun
+                        size: lg
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: "One of a Kind"
+                        level: 4
+                        typography:
+                          color: *color-primary
+                          size: md
+                          weight: semibold
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "No two pieces are alike. Embrace the beauty of variation and individuality."
+                        typography:
+                          color: *color-text
+                          size: sm
+                          align: center
+                          lineHeight: relaxed
+
+            # CTA buttons — warm, rounded
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  paddingBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "Explore the Collection"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 0
+                      radius: md
+                      shadow: soft
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: md
+
+                - name: button
+                  properties:
+                    text: "Our Story"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-accent
+                      radius: md
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-accent
+                      weight: semibold
+                      size: md

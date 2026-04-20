@@ -3,7 +3,7 @@
 # Base components: carousel, image, layout-column, blockquote, heading, caption
 # Section type: testimonial
 # Layout: carousel_slider
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
@@ -60,7 +60,8 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: md }
-                    appearance: { background: { transparency: 0 }, padding: { block: xxl, inline: xl } }
+                    appearance: { background: { opacity: 0 } }
+                    spacing: { paddingBlock: xxl, paddingInline: xl }
                   components:
                     - name: blockquote
                       properties:
@@ -69,7 +70,7 @@
                           we build digital products. Our team ships 5x faster now.
                         cite: ''
                         typography: { size: xxl, weight: medium, color: *color-background, align: center, lineHeight: "1.6" }
-                        appearance: { border: { accentColor: *color-accent }, background: { transparency: 0 } }
+                        appearance: { border: { accentColor: *color-accent }, background: { opacity: 0 } }
                         layout: { widthMode: "75" }
                     - name: heading
                       properties:
@@ -97,7 +98,8 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: md }
-                    appearance: { background: { transparency: 0 }, padding: { block: xxl, inline: xl } }
+                    appearance: { background: { opacity: 0 } }
+                    spacing: { paddingBlock: xxl, paddingInline: xl }
                   components:
                     - name: blockquote
                       properties:
@@ -106,7 +108,7 @@
                           The ROI paid for itself in the first month.
                         cite: ''
                         typography: { size: xxl, weight: medium, color: *color-background, align: center, lineHeight: "1.6" }
-                        appearance: { border: { accentColor: *color-accent }, background: { transparency: 0 } }
+                        appearance: { border: { accentColor: *color-accent }, background: { opacity: 0 } }
                         layout: { widthMode: "75" }
                     - name: heading
                       properties:
@@ -134,7 +136,8 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: md }
-                    appearance: { background: { transparency: 0 }, padding: { block: xxl, inline: xl } }
+                    appearance: { background: { opacity: 0 } }
+                    spacing: { paddingBlock: xxl, paddingInline: xl }
                   components:
                     - name: blockquote
                       properties:
@@ -143,7 +146,7 @@
                           anything like this in 20 years of building products.
                         cite: ''
                         typography: { size: xxl, weight: medium, color: *color-background, align: center, lineHeight: "1.6" }
-                        appearance: { border: { accentColor: *color-accent }, background: { transparency: 0 } }
+                        appearance: { border: { accentColor: *color-accent }, background: { opacity: 0 } }
                         layout: { widthMode: "75" }
                     - name: heading
                       properties:

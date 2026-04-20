@@ -3,7 +3,7 @@
 # Base components: layout-column, heading, caption, br, columnsgrid, image, paragraph
 # Section type: pricing
 # Layout: grid
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS, subscriptions, memberships, services, ecommerce
 
 - name: page

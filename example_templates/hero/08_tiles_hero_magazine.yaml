@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, paragraph, titlebar, image, heading, link
 # Section type: hero
 # Layout: grid
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: Fashion brands, lifestyle blogs, editorial content, luxury
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
     # Thin Top Bar
   - name: layout-row
@@ -35,12 +35,12 @@
         marginInline: none
       background:
         color: *color-primary
-        transparency: 100
+        opacity: 100
       appearance:
         background:
           type: solid
           color: *color-secondary
-          transparency: 0
+          opacity: 0
         border:
           width: 0
           style: solid
@@ -71,14 +71,14 @@
           background:
             type: solid
             color: *color-background
-            transparency: 0
+            opacity: 0
           radius: none
   - name: titlebar
     properties:
       branding:
         showLogo: false
         title: "VOGUE"
-        logoUrl: https://via.placeholder.com/50x40
+        logoUrl: https://placehold.co/50x40?text=Add+Image
       navigation:
         links:
         - label: Fashion
@@ -97,7 +97,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
           type: solid
         border:
           width: 0
@@ -131,12 +131,12 @@
         marginInline: none
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
       appearance:
         background:
           type: solid
           color: *color-background
-          transparency: 0
+          opacity: 0
         border:
           width: 0
           style: solid
@@ -189,6 +189,8 @@
               weight: bold
               letterSpacing: wider
               transform: uppercase
+            appearance:
+              textShadow: soft
             spacing:
               marginBlock: none
         - name: heading
@@ -200,6 +202,8 @@
               size: xxl
               weight: bold
               lineHeight: '1.1'
+            appearance:
+              textShadow: soft
             spacing:
               marginBlock: none
         - name: paragraph
@@ -208,6 +212,8 @@
             typography:
               color: rgba(255,255,255,0.8)
               size: md
+            appearance:
+              textShadow: soft
             spacing:
               marginBlock: none
         - name: link
@@ -239,7 +245,7 @@
           background:
             type: solid
             color: *color-background
-            transparency: 0
+            opacity: 0
           border:
             width: 0
             style: solid
@@ -286,7 +292,7 @@
             appearance:
               background:
                 color: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%)
-                transparency: 100
+                opacity: 100
           components:
           - name: paragraph
             properties:
@@ -297,6 +303,8 @@
                 weight: bold
                 letterSpacing: wide
                 transform: uppercase
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: xxl
           - name: heading
@@ -307,6 +315,8 @@
                 color: *color-background
                 size: lg
                 weight: bold
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
 
@@ -348,7 +358,7 @@
             appearance:
               background:
                 color: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%)
-                transparency: 100
+                opacity: 100
           components:
           - name: paragraph
             properties:
@@ -359,6 +369,8 @@
                 weight: bold
                 letterSpacing: wide
                 transform: uppercase
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: xxl
           - name: heading
@@ -369,6 +381,8 @@
                 color: *color-background
                 size: lg
                 weight: bold
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
 
@@ -385,7 +399,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
         border:
           width: 1
           style: solid

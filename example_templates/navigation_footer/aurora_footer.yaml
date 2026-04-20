@@ -3,7 +3,7 @@
 # Base components: site, page, layout-column, layout-row, heading, paragraph, link
 # Section type: footer
 # Layout: split_screen
-# Visual style: aurora
+# Visual style: aurora_gradient
 # Perfect for: SaaS platform, tech startup, creative portfolio, design studio, fintech
 
 - name: site
@@ -13,11 +13,11 @@
         heading: "'Sora', sans-serif"
         content: "'Inter', sans-serif"
       colors:
-        primary: '#1A2035'
-        text: '#313541'
-        secondary: '#C8D8F0'
-        accent: '#EC4899'
-        background: '#E6F0FA'
+        primary: &color-primary '#1A2035'
+        text: &color-text '#313541'
+        secondary: &color-secondary '#C8D8F0'
+        accent: &color-accent '#EC4899'
+        background: &color-background '#E6F0FA'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#E6F0FA'
-            transparency: 100
+            color: *color-background
+            opacity: 100
       components:
 
         # Full gradient footer background
@@ -41,7 +41,7 @@
                   colorStart: '#EC4899'
                   colorEnd: '#8B5CF6'
                   direction: to bottom right
-                transparency: 100
+                opacity: 100
             spacing:
               paddingBlock: none
               paddingInline: none

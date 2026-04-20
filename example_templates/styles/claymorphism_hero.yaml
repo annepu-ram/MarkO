@@ -27,7 +27,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
 
         # Hero section — bubbly, rounded, pastel
@@ -55,7 +55,7 @@
                     appearance:
                       background:
                         color: '#ffffff'
-                        transparency: 100
+                        opacity: 100
                       radius: pill
                       shadow: medium
                       border:
@@ -122,7 +122,7 @@
                     appearance:
                       background:
                         color: '#FFF0F5'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -165,7 +165,7 @@
                     appearance:
                       background:
                         color: '#F0F5FF'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -208,7 +208,7 @@
                     appearance:
                       background:
                         color: '#F0FFF4'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -257,7 +257,7 @@
                     appearance:
                       background:
                         color: *color-accent
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 0
                       radius: pill
@@ -277,7 +277,7 @@
                     appearance:
                       background:
                         color: '#ffffff'
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 0
                       radius: pill

@@ -3,7 +3,7 @@
 # Base components: layout-row, columnsgrid, layout-column, counter-up, heading, paragraph, eyebrow, br
 # Section type: features
 # Layout: grid, stacked
-# Visual style: modern, minimal
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, mobile app, software company, online store, consulting firm, logistics company, tutoring center, dental clinic, gym, digital agency
 
 
@@ -69,7 +69,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: sm }
-                    appearance: { background: { color: '#1e293b', transparency: 100 }, radius: lg }
+                    appearance: { background: { color: '#1e293b', opacity: 100 }, radius: lg }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: counter-up
@@ -93,7 +93,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: sm }
-                    appearance: { background: { color: '#1e293b', transparency: 100 }, radius: lg }
+                    appearance: { background: { color: '#1e293b', opacity: 100 }, radius: lg }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: counter-up
@@ -117,7 +117,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: sm }
-                    appearance: { background: { color: '#1e293b', transparency: 100 }, radius: lg }
+                    appearance: { background: { color: '#1e293b', opacity: 100 }, radius: lg }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: counter-up
@@ -141,7 +141,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: sm }
-                    appearance: { background: { color: '#1e293b', transparency: 100 }, radius: lg }
+                    appearance: { background: { color: '#1e293b', opacity: 100 }, radius: lg }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: counter-up

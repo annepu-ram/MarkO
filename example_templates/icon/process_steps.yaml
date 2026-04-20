@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, heading, paragraph, icon, badge
 # Section type: features
 # Layout: grid
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS, tech, services, agencies
 
 - name: page

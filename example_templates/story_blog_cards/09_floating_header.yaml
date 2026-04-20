@@ -3,7 +3,7 @@
 # Base components: page, image, layout-column, eyebrow, heading, layout-row, caption
 # Section type: blog
 # Layout: stacked
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: media, publishing, blogs, content marketing, news
 
 - name: page
@@ -36,7 +36,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: sm}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: xl
           paddingInline: xl
@@ -56,7 +56,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: caption
           properties:

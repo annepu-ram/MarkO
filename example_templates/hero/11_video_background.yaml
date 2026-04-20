@@ -3,7 +3,7 @@
 # Base components: page, carousel, image, layout-column, layout-row, paragraph, heading, button
 # Section type: hero
 # Layout: carousel_slider
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: Entertainment, events, music, nightlife, sports
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
   # Hero with Carousel Background (simulating video)
   - name: carousel
@@ -60,7 +60,7 @@
             appearance:
               background:
                 color: rgba(0,0,0,0.6)
-                transparency: 100
+                opacity: 100
           components:
           # Live Badge
           - name: layout-row
@@ -72,7 +72,7 @@
               appearance:
                 background:
                   color: rgba(239,68,68,0.15)
-                  transparency: 100
+                  opacity: 100
                 radius: pill
                 border:
                   width: 1
@@ -86,6 +86,8 @@
                   color: *color-secondary
                   size: sm
                   lineHeight: '1'
+                appearance:
+                  textShadow: soft
                 spacing:
                   marginBlock: none
             - name: paragraph
@@ -98,6 +100,8 @@
                   letterSpacing: wider
                   transform: uppercase
                   lineHeight: '1'
+                appearance:
+                  textShadow: soft
                 spacing:
                   marginBlock: none
           # Main Headline
@@ -111,6 +115,8 @@
                 weight: bold
                 align: center
                 letterSpacing: wide
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
           - name: heading
@@ -123,6 +129,8 @@
                 weight: bold
                 align: center
                 letterSpacing: wide
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
           # Date & Location
@@ -134,6 +142,8 @@
                 size: md
                 align: center
                 letterSpacing: wide
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: md
           # CTAs
@@ -160,9 +170,6 @@
                     width: 0
                     style: solid
                     color: transparent
-                  padding:
-                    block: md
-                    inline: xl
                   shadow: medium
                   shadowColor: *color-accent
                 typography:
@@ -171,26 +178,27 @@
                   size: md
                 spacing:
                   marginBlock: none
+                  paddingBlock: md
+                  paddingInline: xl
             - name: button
               properties:
                 text: "View Lineup"
                 appearance:
                   background:
                     color: transparent
-                    transparency: 0
+                    opacity: 0
                   border:
                     width: 2
                     style: solid
                     color: *color-primary
-                  padding:
-                    block: md
-                    inline: xl
                 typography:
                   color: *color-primary
                   weight: semibold
                   size: md
                 spacing:
                   marginBlock: none
+                  paddingBlock: md
+                  paddingInline: xl
           # Countdown
           - name: layout-row
             properties:
@@ -215,6 +223,8 @@
                     size: xxl
                     weight: bold
                     align: center
+                  appearance:
+                    textShadow: soft
                   spacing:
                     marginBlock: none
               - name: paragraph
@@ -225,6 +235,8 @@
                     size: xs
                     align: center
                     letterSpacing: wide
+                  appearance:
+                    textShadow: soft
                   spacing:
                     marginBlock: none
             - name: paragraph
@@ -234,6 +246,8 @@
                   color: *color-accent
                   size: xxl
                   weight: bold
+                appearance:
+                  textShadow: soft
                 spacing:
                   marginBlock: none
                 layout:
@@ -252,6 +266,8 @@
                     size: xxl
                     weight: bold
                     align: center
+                  appearance:
+                    textShadow: soft
                   spacing:
                     marginBlock: none
               - name: paragraph
@@ -262,6 +278,8 @@
                     size: xs
                     align: center
                     letterSpacing: wide
+                  appearance:
+                    textShadow: soft
                   spacing:
                     marginBlock: none
             - name: paragraph
@@ -271,6 +289,8 @@
                   color: *color-accent
                   size: xxl
                   weight: bold
+                appearance:
+                  textShadow: soft
                 spacing:
                   marginBlock: none
                 layout:
@@ -289,6 +309,8 @@
                     size: xxl
                     weight: bold
                     align: center
+                  appearance:
+                    textShadow: soft
                   spacing:
                     marginBlock: none
               - name: paragraph
@@ -299,6 +321,8 @@
                     size: xs
                     align: center
                     letterSpacing: wide
+                  appearance:
+                    textShadow: soft
                   spacing:
                     marginBlock: none
     - components:
@@ -327,7 +351,7 @@
             appearance:
               background:
                 color: rgba(0,0,0,0.6)
-                transparency: 100
+                opacity: 100
           components:
           - name: layout-row
             properties:
@@ -341,6 +365,8 @@
                 typography:
                   color: *color-secondary
                   size: sm
+                appearance:
+                  textShadow: soft
                 spacing:
                   marginBlock: none
             - name: paragraph
@@ -352,6 +378,8 @@
                   weight: bold
                   letterSpacing: wider
                   transform: uppercase
+                appearance:
+                  textShadow: soft
                 spacing:
                   marginBlock: none
           - name: heading
@@ -364,6 +392,8 @@
                 weight: bold
                 align: center
                 letterSpacing: wide
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
           - name: heading
@@ -376,5 +406,7 @@
                 weight: bold
                 align: center
                 letterSpacing: wide
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none

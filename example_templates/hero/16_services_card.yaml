@@ -3,7 +3,7 @@
 # Base components: page, titlebar, image, layout-column, layout-row, eyebrow, heading, paragraph, link
 # Section type: hero
 # Layout: fullscreen
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: Construction, architecture, real estate, engineering, agencies
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
   # Navigation
   - name: titlebar
@@ -46,7 +46,7 @@
       appearance:
         background:
           color: 'rgba(255,255,255,0.95)'
-          transparency: 100
+          opacity: 100
         border:
           width: 0
           style: solid
@@ -90,7 +90,7 @@
         appearance:
           background:
             color: 'linear-gradient(to right, rgba(238,240,243,0.92) 0%, rgba(238,240,243,0.7) 45%, rgba(238,240,243,0.1) 70%)'
-            transparency: 100
+            opacity: 100
       components:
       # Eyebrow
       - name: eyebrow
@@ -102,6 +102,8 @@
             weight: semibold
             letterSpacing: wider
             transform: uppercase
+          appearance:
+            textShadow: soft
           spacing:
             marginBlock: none
 
@@ -115,6 +117,8 @@
             size: xxxl
             weight: bold
             lineHeight: '1.1'
+          appearance:
+            textShadow: soft
           spacing:
             marginBlock: none
 
@@ -127,6 +131,8 @@
             size: xxxl
             weight: bold
             lineHeight: '1.1'
+          appearance:
+            textShadow: soft
           spacing:
             marginBlock: none
 
@@ -141,6 +147,8 @@
             color: *color-secondary
             size: md
             lineHeight: '1.6'
+          appearance:
+            textShadow: soft
           spacing:
             marginBlock: md
           layout:
@@ -160,7 +168,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
     # Card 01 - Active State (dark navy)
     - name: layout-column
@@ -172,7 +180,7 @@
         appearance:
           background:
             color: *color-primary
-            transparency: 100
+            opacity: 100
           radius: md
           shadow: elevated
           shadowColor: *color-primary
@@ -213,7 +221,7 @@
         properties:
           text: "Learn More ——"
           typography:
-            color: *color-accent
+            color: *color-background
             size: sm
             weight: semibold
           spacing:
@@ -229,7 +237,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
           radius: md
           shadow: soft
         spacing:
@@ -285,7 +293,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
           radius: md
           shadow: soft
         spacing:
@@ -341,7 +349,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
           radius: md
           shadow: soft
         spacing:

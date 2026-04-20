@@ -3,7 +3,7 @@
 # Base components: titlebar, layout-column, layout-row, heading, paragraph, eyebrow, button, image
 # Section type: navigation
 # Layout: stacked, split
-# Visual style: monochrome, dark
+# Visual style: monochrome_dark
 # Perfect for: consulting firm, law firm, online store, fashion brand, photography studio, design portfolio, creative studio, wellness spa
 
 
@@ -24,7 +24,7 @@
     slug: home
     title: "Ecommerce Titlebar"
     properties:
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
 
         # ============================================
@@ -50,7 +50,7 @@
         scroll:
           shrinkPercentage: 80
         appearance:
-          background: {color: *color-secondary, transparency: 100}
+          background: {color: *color-secondary, opacity: 100}
           border: {width: 1, style: solid, color: '#333333'}
           focus:
             background: *color-secondary
@@ -66,7 +66,7 @@
       properties:
         layout: {horizontalAlign: space-evenly, wrap: nowrap, verticalAlign: center}
         appearance:
-          background: {color: *color-secondary, transparency: 100}
+          background: {color: *color-secondary, opacity: 100}
         spacing:
           paddingBlock: xxxl
           paddingInline: xl

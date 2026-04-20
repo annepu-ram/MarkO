@@ -3,7 +3,7 @@
 # Base components: page, layout-row, heading, button, tabs, image, layout-column, eyebrow, paragraph, columnsgrid, link, form, textbox, textarea
 # Section type: navigation
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: design studios, creative agencies, and portfolio sites using tab-based single-page navigation
 
 - name: page
@@ -30,7 +30,7 @@
       layout: {horizontalAlign: space-between, wrap: nowrap, verticalAlign: center}
       spacing: {paddingBlock: md, paddingInline: xl}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
     - name: heading
@@ -81,7 +81,7 @@
         content:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
           border:
             color: *color-secondary
             width: 1
@@ -89,7 +89,7 @@
           padding:
             block: none
             inline: none
-      spacing: {marginBlock: none, marginInline: none}
+      spacing: {marginBlock: none, marginInline: none, paddingBlock: sm, paddingInline: sm}
     tabs:
 
         # Tab 1 - Home
@@ -150,7 +150,7 @@
                 layout: {horizontalAlign: space-evenly}
                 spacing: {paddingBlock: lg, paddingInline: lg}
                 appearance:
-                  background: {color: *color-background, transparency: 100}
+                  background: {color: *color-background, opacity: 100}
                   radius: lg
                   border: {width: 1, style: solid, color: *color-accent}
               components:
@@ -176,7 +176,7 @@
                 layout: {horizontalAlign: space-evenly}
                 spacing: {paddingBlock: lg, paddingInline: lg}
                 appearance:
-                  background: {color: *color-background, transparency: 100}
+                  background: {color: *color-background, opacity: 100}
                   radius: lg
                   border: {width: 1, style: solid, color: *color-accent}
               components:
@@ -202,7 +202,7 @@
                 layout: {horizontalAlign: space-evenly}
                 spacing: {paddingBlock: lg, paddingInline: lg}
                 appearance:
-                  background: {color: *color-background, transparency: 100}
+                  background: {color: *color-background, opacity: 100}
                   radius: lg
                   border: {width: 1, style: solid, color: *color-accent}
               components:

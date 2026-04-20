@@ -1,0 +1,244 @@
+# Badge: Notification Center
+# Dashboard-style notification panel with status badges for different alert types
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, caption, badge, icon
+# Section type: dashboard
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: SaaS, dashboards, admin panels, CRM
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#f8fafc'
+        primary: &color-primary '#0f172a'
+        text: &color-text '#334155'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66', horizontalAlign: left }
+          components:
+            - name: eyebrow
+              properties:
+                text: NOTIFICATIONS
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: Notification Center
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Stay on top of your latest updates, alerts, and system messages.
+                typography: { size: md, color: *color-secondary }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: md, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66' }
+          components:
+            # Notification 1 - New feature
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: md, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'fit' }
+                  components:
+                    - name: icon
+                      properties: { name: sparkles, size: "28", color: *color-accent }
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'stretch' }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                      components:
+                        - name: heading
+                          properties:
+                            text: New Feature Available
+                            level: 4
+                            typography: { size: md, weight: semibold, color: *color-primary }
+                        - name: badge
+                          properties: { text: "New", variant: info, pill: true }
+                    - name: paragraph
+                      properties:
+                        text: Advanced analytics dashboard is now live. Explore real-time metrics and custom reports.
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: xs }
+                    - name: caption
+                      properties:
+                        text: 2 minutes ago
+                        typography: { size: xs, color: *color-secondary }
+
+            # Notification 2 - Urgent alert
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: md, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'fit' }
+                  components:
+                    - name: icon
+                      properties: { name: alert-triangle, size: "28", color: '#ef4444' }
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'stretch' }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                      components:
+                        - name: heading
+                          properties:
+                            text: Server Load Critical
+                            level: 4
+                            typography: { size: md, weight: semibold, color: *color-primary }
+                        - name: badge
+                          properties: { text: "Urgent", variant: danger, pill: true }
+                    - name: paragraph
+                      properties:
+                        text: CPU usage exceeded 95% on production cluster. Auto-scaling has been triggered.
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: xs }
+                    - name: caption
+                      properties:
+                        text: 15 minutes ago
+                        typography: { size: xs, color: *color-secondary }
+
+            # Notification 3 - Resolved
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: md, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'fit' }
+                  components:
+                    - name: icon
+                      properties: { name: check-circle, size: "28", color: '#10b981' }
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'stretch' }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                      components:
+                        - name: heading
+                          properties:
+                            text: Deployment Successful
+                            level: 4
+                            typography: { size: md, weight: semibold, color: *color-primary }
+                        - name: badge
+                          properties: { text: "Resolved", variant: success, pill: true }
+                    - name: paragraph
+                      properties:
+                        text: Version 3.2.1 has been deployed to production. All health checks passed.
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: xs }
+                    - name: caption
+                      properties:
+                        text: 1 hour ago
+                        typography: { size: xs, color: *color-secondary }
+
+            # Notification 4 - Warning
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: md, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'fit' }
+                  components:
+                    - name: icon
+                      properties: { name: shield-alert, size: "28", color: '#f59e0b' }
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'stretch' }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                      components:
+                        - name: heading
+                          properties:
+                            text: SSL Certificate Expiring
+                            level: 4
+                            typography: { size: md, weight: semibold, color: *color-primary }
+                        - name: badge
+                          properties: { text: "Warning", variant: warning, pill: true }
+                    - name: paragraph
+                      properties:
+                        text: Your SSL certificate for api.example.com expires in 14 days. Renew now to avoid downtime.
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: xs }
+                    - name: caption
+                      properties:
+                        text: 3 hours ago
+                        typography: { size: xs, color: *color-secondary }
+
+            # Notification 5 - Info
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: md, paddingInline: lg, marginBlock: sm }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'fit' }
+                  components:
+                    - name: icon
+                      properties: { name: info, size: "28", color: *color-accent }
+                - name: layout-column
+                  properties:
+                    layout: { widthMode: 'stretch' }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                      components:
+                        - name: heading
+                          properties:
+                            text: Scheduled Maintenance
+                            level: 4
+                            typography: { size: md, weight: semibold, color: *color-primary }
+                        - name: badge
+                          properties: { text: "Info", variant: info, pill: true }
+                    - name: paragraph
+                      properties:
+                        text: Planned maintenance window on Saturday 2:00 AM - 4:00 AM UTC. Expect brief interruptions.
+                        typography: { size: sm, color: *color-text }
+                        spacing: { marginBlock: xs }
+                    - name: caption
+                      properties:
+                        text: Yesterday
+                        typography: { size: xs, color: *color-secondary }

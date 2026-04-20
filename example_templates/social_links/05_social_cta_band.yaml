@@ -1,0 +1,196 @@
+# Social Links - Social CTA Band
+# A call-to-action band encouraging users to follow on social media with split layout: left side heading + paragraph, right side social link buttons
+# Base components: layout-row, layout-column, heading, paragraph, link, button
+# Section type: social_links, cta
+# Layout: split_screen
+# Visual style: modern_minimalist
+# Perfect for: community, startup, brand, newsletter, SaaS, agency, tech company
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#ffffff'
+        text: &color-text '#E2E8F0'
+        secondary: &color-secondary '#CBD5E1'
+        accent: &color-accent '#6366F1'
+        background: &color-background '#F8FAFC'
+  components:
+  - name: page
+    slug: home
+    title: "Social CTA Band"
+    properties:
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+
+        # ============================================
+        # SOCIAL CTA BAND
+        # ============================================
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          verticalAlign: center
+          wrap: nowrap
+        appearance:
+          background: {color: *color-accent, opacity: 100}
+        spacing:
+          paddingBlock: xxl
+          paddingInline: xxl
+      components:
+
+        # Left Side — Heading + Description
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: space-evenly
+          spacing:
+            paddingInline: md
+        components:
+        - name: eyebrow
+          properties:
+            text: "JOIN US"
+            typography: {size: xs, weight: semibold, color: '#C7D2FE', transform: uppercase, letterSpacing: wider}
+        - name: heading
+          properties:
+            text: "Join Our Community"
+            level: 2
+            typography:
+              size: xl
+              weight: bold
+              color: *color-primary
+            spacing:
+              marginBlock: sm
+        - name: paragraph
+          properties:
+            text: "Be part of a growing community of creators, builders, and innovators. Get updates, share ideas, and connect with like-minded people."
+            typography:
+              size: md
+              color: '#E0E7FF'
+              lineHeight: '1.7'
+            spacing:
+              marginBlock: sm
+
+        # Right Side — Social Links
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: center
+          spacing:
+            paddingInline: md
+        components:
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              verticalAlign: center
+              wrap: wrap
+            spacing:
+              marginBlock: sm
+          components:
+          - name: button
+            properties:
+              text: "Twitter / X"
+              appearance:
+                background: {color: *color-primary, opacity: 20}
+                border: {width: 1, style: solid, color: *color-primary}
+                radius: sm
+              typography:
+                color: *color-primary
+                weight: semibold
+                size: sm
+              spacing:
+                paddingBlock: sm
+                paddingInline: md
+                marginBlock: xs
+          - name: button
+            properties:
+              text: "LinkedIn"
+              appearance:
+                background: {color: *color-primary, opacity: 20}
+                border: {width: 1, style: solid, color: *color-primary}
+                radius: sm
+              typography:
+                color: *color-primary
+                weight: semibold
+                size: sm
+              spacing:
+                paddingBlock: sm
+                paddingInline: md
+                marginBlock: xs
+          - name: button
+            properties:
+              text: "GitHub"
+              appearance:
+                background: {color: *color-primary, opacity: 20}
+                border: {width: 1, style: solid, color: *color-primary}
+                radius: sm
+              typography:
+                color: *color-primary
+                weight: semibold
+                size: sm
+              spacing:
+                paddingBlock: sm
+                paddingInline: md
+                marginBlock: xs
+
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              verticalAlign: center
+              wrap: wrap
+            spacing:
+              marginBlock: xs
+          components:
+          - name: button
+            properties:
+              text: "Discord"
+              appearance:
+                background: {color: *color-primary, opacity: 20}
+                border: {width: 1, style: solid, color: *color-primary}
+                radius: sm
+              typography:
+                color: *color-primary
+                weight: semibold
+                size: sm
+              spacing:
+                paddingBlock: sm
+                paddingInline: md
+                marginBlock: xs
+          - name: button
+            properties:
+              text: "YouTube"
+              appearance:
+                background: {color: *color-primary, opacity: 20}
+                border: {width: 1, style: solid, color: *color-primary}
+                radius: sm
+              typography:
+                color: *color-primary
+                weight: semibold
+                size: sm
+              spacing:
+                paddingBlock: sm
+                paddingInline: md
+                marginBlock: xs
+          - name: button
+            properties:
+              text: "Instagram"
+              appearance:
+                background: {color: *color-primary, opacity: 20}
+                border: {width: 1, style: solid, color: *color-primary}
+                radius: sm
+              typography:
+                color: *color-primary
+                weight: semibold
+                size: sm
+              spacing:
+                paddingBlock: sm
+                paddingInline: md
+                marginBlock: xs

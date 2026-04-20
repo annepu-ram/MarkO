@@ -3,7 +3,7 @@
 # Base components: layout-column, eyebrow, blockquote, layout-row, heading, caption, accordion, paragraph, link
 # Section type: testimonial
 # Layout: centered
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
@@ -41,13 +41,13 @@
         typography: {size: lg, weight: medium, color: *color-text, align: left, lineHeight: "1.7"}
         appearance:
           border: {accentColor: *color-accent}
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: md
         spacing: {marginBlock: sm, paddingBlock: md, paddingInline: md}
     - name: layout-row
       properties:
         layout: {horizontalAlign: space-evenly, verticalAlign: center, gap: lg, wrap: nowrap, tag: section}
-        appearance: {background: {transparency: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
+        appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
         spacing:
           marginBlock: none
           marginInline: none
@@ -57,7 +57,7 @@
       - name: layout-column
         properties:
           layout: {horizontalAlign: center, gap: xxs, tag: section, verticalAlign: space-between, wrap: nowrap, widthMode: "16"}
-          appearance: {background: {transparency: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
+          appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
           spacing:
             marginBlock: none
             marginInline: none
@@ -77,7 +77,7 @@
       - name: layout-column
         properties:
           layout: {horizontalAlign: center, gap: xxs, tag: section, verticalAlign: space-between, wrap: nowrap, widthMode: "16"}
-          appearance: {background: {transparency: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
+          appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
           spacing:
             marginBlock: none
             marginInline: none
@@ -97,7 +97,7 @@
       - name: layout-column
         properties:
           layout: {horizontalAlign: center, gap: xxs, tag: section, verticalAlign: space-between, wrap: nowrap, widthMode: "16"}
-          appearance: {background: {transparency: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
+          appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
           spacing:
             marginBlock: none
             marginInline: none

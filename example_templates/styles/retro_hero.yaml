@@ -3,7 +3,7 @@
 # Base components: site, page, layout-row, layout-column, heading, paragraph, badge, button
 # Section type: hero
 # Layout: stacked
-# Visual style: retro
+# Visual style: retro_vintage
 # Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
 
 
@@ -27,7 +27,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
 
         # Hero section — bold retro layout
@@ -106,14 +106,14 @@
             appearance:
               background:
                 color: '#ffffff'
-                transparency: 100
+                opacity: 100
               border:
                 width: 3
                 style: solid
-                color: '#0D0D0D'
+                color: *color-primary
               radius: none
               shadow: retro
-              shadowColor: '#0D0D0D'
+              shadowColor: *color-primary
             spacing:
               paddingBlock: md
               paddingInline: md
@@ -145,14 +145,14 @@
             appearance:
               background:
                 color: *color-accent
-                transparency: 100
+                opacity: 100
               border:
                 width: 3
                 style: solid
-                color: '#0D0D0D'
+                color: *color-primary
               radius: none
               shadow: retro
-              shadowColor: '#0D0D0D'
+              shadowColor: *color-primary
             spacing:
               paddingBlock: md
               paddingInline: md
@@ -184,14 +184,14 @@
             appearance:
               background:
                 color: *color-secondary
-                transparency: 100
+                opacity: 100
               border:
                 width: 3
                 style: solid
-                color: '#0D0D0D'
+                color: *color-primary
               radius: none
               shadow: retro
-              shadowColor: '#0D0D0D'
+              shadowColor: *color-primary
             spacing:
               paddingBlock: md
               paddingInline: md
@@ -229,14 +229,14 @@
             appearance:
               background:
                 color: *color-primary
-                transparency: 100
+                opacity: 100
               border:
                 width: 3
                 style: solid
                 color: *color-primary
               radius: none
               shadow: retro
-              shadowColor: '#0D0D0D'
+              shadowColor: *color-primary
             spacing:
               paddingBlock: md
               paddingInline: xl
@@ -251,7 +251,7 @@
             appearance:
               background:
                 color: transparent
-                transparency: 0
+                opacity: 0
               border:
                 width: 3
                 style: solid

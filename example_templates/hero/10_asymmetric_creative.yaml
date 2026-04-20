@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-row, layout-column, paragraph, heading, button, image, link
 # Section type: hero
 # Layout: split_screen
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: Creative agencies, artists, photographers, avant-garde brands
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
   # Creative Navigation
   - name: titlebar
@@ -42,7 +42,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
         border:
           width: 0
           style: solid
@@ -72,7 +72,7 @@
         paddingInline: none
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
     components:
     # Left Content Area
     - name: layout-column
@@ -369,7 +369,7 @@
         paddingInline: none
       background:
         color: *color-accent
-        transparency: 100
+        opacity: 100
     components:
     - name: paragraph
       properties:

@@ -3,7 +3,7 @@
 # Base components: layout-row, columnsgrid, layout-column, icon, heading, paragraph, eyebrow, blockquote
 # Section type: team
 # Layout: grid, card_based
-# Visual style: modern, card_based
+# Visual style: modern_minimalist
 # Perfect for: digital agency, tech startup, consulting firm, law firm, restaurant, bakery, creative studio, architecture firm, dental clinic, accounting firm
 
 
@@ -73,7 +73,7 @@
                     typography: { size: lg, weight: medium, color: *color-text, align: center, lineHeight: "1.7" }
                     appearance:
                       border: { accentColor: *color-accent }
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: '#ffffff', opacity: 100 }
 
         # ============================================
         # VALUES GRID
@@ -90,7 +90,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: icon
@@ -111,7 +111,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: icon
@@ -132,7 +132,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: icon
@@ -153,7 +153,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: icon
@@ -174,7 +174,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: icon
@@ -195,7 +195,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: '#ffffff', transparency: 100 }, radius: lg, shadow: soft }
+                    appearance: { background: { color: '#ffffff', opacity: 100 }, radius: lg, shadow: soft }
                     spacing: { paddingBlock: xl, paddingInline: md }
                   components:
                     - name: icon

@@ -1,0 +1,280 @@
+# Tropical Vibrant Hero
+# Warm, energetic hero section with beach-inspired colors and rounded elements
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, button, badge
+# Section type: hero
+# Layout: stacked
+# Visual style: tropical_vibrant
+# Perfect for: Travel agency, resort, beach club, surf shop, tropical restaurant, island retreat, outdoor adventure, vacation rental
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Poppins', sans-serif"
+        content: &font-content "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary "#1C1917"
+        text: &color-text "#3D3830"
+        secondary: &color-secondary "#FDBA74"
+        accent: &color-accent "#F97316"
+        background: &color-background "#FFF7ED"
+  components:
+    - name: page
+      slug: home
+      title: "Tropical Vibrant Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — warm light background, bold heading, pill buttons
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+          components:
+
+            # Pill badge
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: badge
+                  properties:
+                    text: "Summer 2026 Season Now Open"
+                    variant: warning
+                    pill: true
+                    layout: { widthMode: fit }
+
+            # Main heading — bold, energetic
+            - name: heading
+              properties:
+                text: "Your paradise is closer than you think"
+                level: 1
+                layout:
+                  widthMode: "75"
+                typography:
+                  color: *color-primary
+                  size: xxxl
+                  weight: bold
+                  align: center
+                  letterSpacing: tight
+                  lineHeight: snug
+
+            # Subheading
+            - name: paragraph
+              properties:
+                text: |
+                  Discover sun-drenched coastlines, crystal-clear waters, and
+                  unforgettable experiences handpicked by our local travel experts.
+                  Adventure starts the moment you say yes.
+                layout:
+                  widthMode: "66"
+                typography:
+                  color: *color-text
+                  size: lg
+                  align: center
+                  lineHeight: relaxed
+                  weight: regular
+
+            # Feature highlights — 3 rounded cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            opacity: 100
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: lg
+                          paddingInline: md
+                      components:
+                        - name: icon
+                          properties:
+                            name: sun
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Beachfront Villas"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: bold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Wake up to ocean views and warm breezes in our handpicked collection of premium coastal properties."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 2
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            opacity: 100
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: lg
+                          paddingInline: md
+                      components:
+                        - name: icon
+                          properties:
+                            name: palm-tree
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Island Hopping"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: bold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Explore hidden coves, vibrant coral reefs, and local villages on guided multi-island adventures."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 3
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            opacity: 100
+                          radius: lg
+                          shadow: soft
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: lg
+                          paddingInline: md
+                      components:
+                        - name: icon
+                          properties:
+                            name: utensils
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Tropical Dining"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: lg
+                              weight: bold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Savor fresh-caught seafood, exotic fruits, and chef-crafted menus inspired by island traditions."
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+                              lineHeight: relaxed
+
+            # CTA buttons — pill shaped
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+              components:
+                - name: button
+                  properties:
+                    text: "Book Your Escape"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 0
+                      radius: pill
+                      shadow: soft
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-background
+                      weight: bold
+                      size: md
+                - name: button
+                  properties:
+                    text: "Browse Destinations"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-accent
+                      radius: pill
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-accent
+                      weight: semibold
+                      size: md

@@ -9,7 +9,7 @@ If a property is omitted from your YAML, the default value shown in each compone
 1. Structure: `- name: component_name` then `properties:` for settings, NEVER use `- component_name:` inline shorthand
 2. Array properties (`items`, `tabs`, `slides`, `columns`) go at COMPONENT level, NOT inside `properties:`
 3. NEVER use `typography.fontFamily` — fonts are controlled exclusively by `site.properties.theme.fonts`
-4. `transparency`: 0 = fully transparent/invisible, 100 = fully opaque (NOT opacity — reversed scale)
+4. `opacity`: 0 = fully transparent/invisible, 100 = fully opaque (matches CSS opacity semantics)
 5. `layout.widthMode` is a STRING ("50", not 50). Only valid on direct children of layout-row.
 6. Color defaults: headings → `*color-primary`, paragraphs/body → `*color-text`. Only set colors when overriding (e.g., inverted/dark sections need `*color-background` for ALL text)
 
@@ -80,7 +80,7 @@ Structure: `- name: page` then `properties:` — NEVER use `- page:` inline form
       background:
         color: *color-background                     # Theme alias or hex color
         # Theme alias: *color-primary | *color-text | *color-secondary | *color-accent | *color-background
-        transparency: 100                            # 0=invisible, 100=opaque (default: 100)
+        opacity: 100                            # 0=invisible, 100=opaque (default: 100)
         image: ''                                    # Background image URL (optional)
   components:
     - name: layout-row
@@ -116,12 +116,12 @@ NEVER use `typography.fontFamily`. Theme fonts apply automatically.
     appearance:
       background:
         color: *color-background           # Theme alias or hex: *color-primary|*color-text|*color-secondary|*color-accent|*color-background
-        transparency: 0                    # 0=transparent (default), 100=opaque
+        opacity: 0                    # 0=transparent (default), 100=opaque
         image: ''                          # Background image URL
       border:
         width: 0                           # Border width in px (default: 0)
         style: solid                       # solid|dashed|dotted (default: solid)
-        color: '@color-primary'             # Border color (default: @color-primary)
+        color: *color-primary             # Border color (default: *color-primary)
       radius: none                         # none|xs|sm|md|lg|xl|xxl|pill (default: none)
       shadow: none                         # none|soft|medium|elevated|retro (default: none)
       shadowColor: ''                      # Shadow tint color — only with retro shadow
@@ -140,7 +140,7 @@ NEVER use `typography.fontFamily`. Theme fonts apply automatically.
 - **NEVER mix `widthMode: "stretch"` with fixed widths** like `"50"` on sibling children — `stretch` takes 100% width causing overflow. All siblings should use compatible widths (e.g., `"50"` + `"50"`, or `"33"` + `"66"`).
 - Padding: use `spacing.paddingBlock` / `spacing.paddingInline` — NEVER use `appearance.padding` on layout-row.
 - Omit properties that match defaults — only set what you change. Don't include `border.width: 0`, `shadow: none`, `blur: false`, `shadowColor: ''`, etc.
-- `transparency: 0` is the default — row backgrounds are transparent by default. Set `transparency: 100` to see the background color.
+- `opacity: 0` is the default — row backgrounds are transparent by default. Set `opacity: 100` to see the background color.
 - Alternate section types for visual rhythm (Standard → Inverted → Highlight). See Theme System section.
 
 | Section Type | Background | Text Color |
@@ -202,13 +202,13 @@ NEVER use `typography.fontFamily`.
       paddingInline: sm                    # Spacing token (default: sm)
     appearance:
       background:
-        color: '@color-background'         # Default: @color-background (auto-resolves to theme)
-        transparency: 0                    # 0=transparent (default), 100=opaque
+        color: *color-background         # Default: *color-background (auto-resolves to theme)
+        opacity: 0                    # 0=transparent (default), 100=opaque
         image: ''                          # Background image URL
       border:
         width: 0                           # (default: 0)
         style: solid                       # solid|dashed|dotted (default: solid)
-        color: '@color-primary'            # Default: @color-primary (auto-resolves to theme)
+        color: *color-primary            # Default: *color-primary (auto-resolves to theme)
       radius: none                         # none|xs|sm|md|lg|xl|xxl|pill (default: none)
       shadow: none                         # none|soft|medium|elevated|retro (default: none)
       shadowColor: ''                      # Shadow tint color
@@ -224,7 +224,7 @@ NEVER use `typography.fontFamily`.
 - Valid widthMode values: `"fit"`, `"16"`, `"25"`, `"33"`, `"50"`, `"66"`, `"75"`, `"83"`, `"stretch"`
 - When inside a `layout-row`, ALWAYS set `layout.widthMode` to a specific value (`"50"`, `"33"`, etc.) — never leave as default `stretch` if siblings have fixed widths
 - Padding: use `spacing.paddingBlock` / `spacing.paddingInline` — NEVER `appearance.padding`
-- Omit default properties — don't set `transparency: 0`, `border.width: 0`, `shadow: none`, `blur: false` explicitly
+- Omit default properties — don't set `opacity: 0`, `border.width: 0`, `shadow: none`, `blur: false` explicitly
 
 <!-- section_type: component | component_name: columnsgrid | category: layout -->
 ## Component: columnsgrid
@@ -246,13 +246,10 @@ Structure: `- name: columnsgrid` then `properties:` + `columns:` — NEVER use `
         md: 2                              # Columns at medium viewport (default: 2)
         sm: 1                              # Columns at small viewport (default: 1)
     appearance:
-      padding:
-        block: none                        # Spacing token (default: none)
-        inline: none                       # Spacing token (default: none)
       shadow: none                         # none|soft|medium|elevated|retro (default: none)
       shadowColor: ''                      # Shadow tint color
-      columnBackground: '@color-background' # Default: @color-background (auto-resolves to theme). Uniform bg for all columns
-      columnTransparency: 0               # 0=transparent (default), 100=opaque
+      columnBackground: *color-background # Default: *color-background (auto-resolves to theme). Uniform bg for all columns
+      columnOpacity: 0               # 0=transparent (default), 100=opaque
       columnBlur: false                    # Glassmorphism blur on columns (default: false)
       columnRadius: none                   # none|xs|sm|md|lg|xl|xxl|pill (default: none)
       columnBorder:
@@ -261,7 +258,11 @@ Structure: `- name: columnsgrid` then `properties:` + `columns:` — NEVER use `
     spacing:
       marginBlock: none                    # Spacing token (default: none)
       marginInline: none                   # Spacing token (default: none)
+      paddingBlock: sm                     # Spacing token (default: sm)
+      paddingInline: sm                    # Spacing token (default: sm)
   columns:                                 # ARRAY AT COMPONENT LEVEL — NOT inside properties
+    # IMPORTANT: Keep column structure CONSISTENT — every column must have the same component types in the same order
+    # IMPORTANT: Do NOT place text directly over images — text may be invisible. Place text above/below images instead
     - components:                          # Each column is a data container with components
         - name: heading
           properties: { text: Card 1 }
@@ -275,9 +276,11 @@ Structure: `- name: columnsgrid` then `properties:` + `columns:` — NEVER use `
 ### Key Notes
 - `columns:` array goes at component level (sibling of `properties:`), never inside `properties:`
 - Each column entry has `components:` — no `name: layout-column` needed
-- `columnBackground`, `columnTransparency`, `columnRadius`, `columnBorder` apply uniformly to ALL columns
+- `columnBackground`, `columnOpacity`, `columnRadius`, `columnBorder` apply uniformly to ALL columns
 - For individual column styling, nest a `layout-column` with its own `appearance` inside a column
 - Do NOT wrap every column's content in `layout-column` by default — columns are already containers. Use `columnBackground`, `columnRadius`, `columnBorder` for uniform styling instead.
+- Keep the component structure CONSISTENT across all columns — each column should have the same types of components in the same order (e.g., if one column has image → heading → paragraph, all columns should follow that pattern).
+- Do NOT place text directly over images — the text may not be visible depending on the image. Place text above or below images instead.
 
 #### Common columnsgrid Mistake
 ```yaml
@@ -317,8 +320,8 @@ Structure: `- name: form` then `properties:` — NEVER use `- form:` inline form
       show: true                           # Show submit button (default: true)
     appearance:
       background:
-        color: '@color-background'           # Default: @color-background (auto-resolves to theme)
-        transparency: 0                    # 0=transparent (default), 100=opaque
+        color: *color-background           # Default: *color-background (auto-resolves to theme)
+        opacity: 0                    # 0=transparent (default), 100=opaque
       border:
         width: 0                           # (default: 0)
         color: '#e5e7eb'                   # (default: '#e5e7eb')
@@ -361,18 +364,18 @@ Omitted properties use defaults — only set what you change.
       fontStyle: normal                    # normal|italic (default: normal)
       textDecoration: none                 # none|underline|line-through|underline line-through (default: none)
       align: center                        # left|center|right (default: center)
-      color: *color-primary                # Default: @color-primary (auto-resolves to theme). Use *color-background on dark bg only
+      color: *color-primary                # Default: *color-primary (auto-resolves to theme). Use *color-background on dark bg only
     appearance:
       background:
-        color: '@color-background'         # Default: @color-background (auto-resolves to theme)
-        transparency: 0                    # 0=transparent (default), 100=opaque
+        color: *color-background         # Default: *color-background (auto-resolves to theme)
+        opacity: 0                    # 0=transparent (default), 100=opaque
       radius: none                         # none|xs|sm|md|lg|xl|xxl|pill (default: none)
-      padding:
-        block: none                        # Spacing token (default: none)
-        inline: none                       # Spacing token (default: none)
+      textShadow: none                     # none|soft|strong (default: none) — diffused halo for text legibility over images
     spacing:
       marginBlock: md                      # Spacing token (default: md)
       marginInline: none                   # Spacing token (default: none)
+      paddingBlock: none                   # Spacing token (default: none)
+      paddingInline: none                  # Spacing token (default: none)
     layout:
       widthMode: fit                       # STRING: "fit"|"16"|"25"|"33"|"50"|"66"|"75"|"83"|"stretch" (default: fit)
                                            # Only effective as direct child of layout-row
@@ -381,7 +384,7 @@ Omitted properties use defaults — only set what you change.
 ### Key Notes
 - `text` supports multiline with YAML `|` block scalar syntax
 - Inside layout-row, set `layout.widthMode` to control width (STRING, not number)
-- Color defaults auto-resolve to theme: heading text defaults to `@color-primary`, paragraph/body text to `@color-text`, background to `@color-background`
+- Color defaults auto-resolve to theme: heading text defaults to `*color-primary`, paragraph/body text to `*color-text`, background to `*color-background`
 - Only override colors for inverted sections (e.g., `*color-background` for text on dark bg)
 
 <!-- section_type: component | component_name: paragraph | category: text -->
@@ -402,7 +405,7 @@ NEVER use `typography.fontFamily`. Omitted properties use defaults.
       size: md                             # xxs|xs|sm|md|lg|xl|xxl|xxxl (default: md)
       weight: regular                      # thin|...|black (default: regular)
       align: left                          # left|center|right (default: left)
-      color: *color-text                   # Default: @color-text (auto-resolves to theme). Use *color-background on dark bg only
+      color: *color-text                   # Default: *color-text (auto-resolves to theme). Use *color-background on dark bg only
       lineHeight: "1.6"                    # (default: "1.6")
       transform: none                      # none|uppercase|lowercase|capitalize (default: none)
       letterSpacing: normal                # tighter|tight|normal|wide|wider|widest (default: normal)
@@ -411,20 +414,20 @@ NEVER use `typography.fontFamily`. Omitted properties use defaults.
     spacing:
       marginBlock: none                    # Spacing token (default: none)
       marginInline: none                   # Spacing token (default: none)
+      paddingBlock: sm                     # Spacing token (default: sm)
+      paddingInline: none                  # Spacing token (default: none)
     layout:
       widthMode: fit                       # STRING (default: fit)
     appearance:
       background:
-        color: '@color-background'         # Default: @color-background (auto-resolves to theme)
-        transparency: 0                    # 0=transparent (default), 100=opaque
+        color: *color-background         # Default: *color-background (auto-resolves to theme)
+        opacity: 0                    # 0=transparent (default), 100=opaque
       radius: none                         # (default: none)
-      padding:
-        block: sm                          # Spacing token (default: sm)
-        inline: none                       # Spacing token (default: none)
+      textShadow: none                     # none|soft|strong (default: none) — diffused halo for text legibility over images
 ```
 
 ### Key Notes
-- Text color defaults to `@color-text` (auto-resolves to theme) — only override for inverted sections
+- Text color defaults to `*color-text` (auto-resolves to theme) — only override for inverted sections
 - Never use `*color-background` for text when the section background is also `*color-background` — text becomes invisible
 
 <!-- section_type: component | component_name: eyebrow | category: text -->
@@ -443,7 +446,7 @@ NEVER use `typography.fontFamily`.
       size: xs                             # (default: xs)
       weight: semibold                     # (default: semibold)
       align: left                          # left|center|right (default: left)
-      color: *color-accent                 # Default: @color-accent (auto-resolves to theme). Use *color-background on dark bg only
+      color: *color-accent                 # Default: *color-accent (auto-resolves to theme). Use *color-background on dark bg only
       lineHeight: "1.4"                    # (default: "1.4")
       transform: uppercase                 # (default: uppercase)
       letterSpacing: wide                  # (default: wide)
@@ -452,20 +455,19 @@ NEVER use `typography.fontFamily`.
     spacing:
       marginBlock: none                    # (default: none)
       marginInline: none                   # (default: none)
+      paddingBlock: sm                     # (default: sm)
+      paddingInline: none                  # (default: none)
     layout:
       widthMode: fit                       # STRING (default: fit)
     appearance:
       background:
-        color: '@color-background'         # Default: @color-background (auto-resolves to theme)
-        transparency: 0                    # (default: 0)
+        color: *color-background         # Default: *color-background (auto-resolves to theme)
+        opacity: 0                    # (default: 0)
       radius: none                         # (default: none)
-      padding:
-        block: sm                          # (default: sm)
-        inline: none                       # (default: none)
 ```
 
 ### Key Notes
-- Text color defaults to `@color-accent` (auto-resolves to theme) — draws attention to category labels above headings
+- Text color defaults to `*color-accent` (auto-resolves to theme) — draws attention to category labels above headings
 - On inverted (dark bg) sections, override with `*color-background`
 
 <!-- section_type: component | component_name: caption | category: text -->
@@ -484,7 +486,7 @@ NEVER use `typography.fontFamily`.
       size: sm                             # (default: sm)
       weight: regular                      # (default: regular)
       align: center                        # (default: center)
-      color: *color-secondary              # Default: @color-secondary (auto-resolves to theme). Use *color-background on dark bg only
+      color: *color-secondary              # Default: *color-secondary (auto-resolves to theme). Use *color-background on dark bg only
       lineHeight: "1.4"                    # (default: "1.4")
       transform: none                      # (default: none)
       letterSpacing: normal                # (default: normal)
@@ -493,20 +495,19 @@ NEVER use `typography.fontFamily`.
     spacing:
       marginBlock: xs                      # (default: xs)
       marginInline: none                   # (default: none)
+      paddingBlock: none                   # (default: none)
+      paddingInline: none                  # (default: none)
     layout:
       widthMode: fit                       # STRING (default: fit)
     appearance:
       background:
-        color: '@color-background'         # Default: @color-background (auto-resolves to theme)
-        transparency: 0                    # (default: 0)
+        color: *color-background         # Default: *color-background (auto-resolves to theme)
+        opacity: 0                    # (default: 0)
       radius: none                         # (default: none)
-      padding:
-        block: none                        # (default: none)
-        inline: none                       # (default: none)
 ```
 
 ### Key Notes
-- Text color defaults to `@color-secondary` (auto-resolves to theme) — subtle supporting text
+- Text color defaults to `*color-secondary` (auto-resolves to theme) — subtle supporting text
 - On inverted (dark bg) sections, override with `*color-background`
 
 <!-- section_type: component | component_name: blockquote | category: text -->
@@ -527,7 +528,7 @@ NEVER use `typography.fontFamily`.
       size: xl                             # (default: xl)
       weight: medium                       # (default: medium)
       align: center                        # (default: center)
-      color: *color-text                   # Default: @color-text (auto-resolves to theme). Use *color-background on dark bg only
+      color: *color-text                   # Default: *color-text (auto-resolves to theme). Use *color-background on dark bg only
       lineHeight: "1.6"                    # (default: "1.6")
       transform: none                      # (default: none)
       letterSpacing: normal                # (default: normal)
@@ -536,16 +537,15 @@ NEVER use `typography.fontFamily`.
     spacing:
       marginBlock: lg                      # (default: lg)
       marginInline: none                   # (default: none)
+      paddingBlock: md                     # (default: md)
+      paddingInline: md                    # (default: md)
     appearance:
       border:
-        accentColor: *color-accent         # Default: @color-accent (auto-resolves to theme)
+        accentColor: *color-accent         # Default: *color-accent (auto-resolves to theme)
       background:
-        color: '@color-background'         # Default: @color-background (auto-resolves to theme)
-        transparency: 0                    # (default: 0)
+        color: *color-background         # Default: *color-background (auto-resolves to theme)
+        opacity: 0                    # (default: 0)
       radius: none                         # (default: none)
-      padding:
-        block: md                          # (default: md)
-        inline: md                         # (default: md)
       shadow: none                         # none|soft|medium|elevated|retro (default: none)
       shadowColor: ''                      # (default: '')
     layout:
@@ -556,7 +556,7 @@ NEVER use `typography.fontFamily`.
 - Uses `quote:` not `text:` for the quote content
 - `cite:` for attribution text (optional)
 - `appearance.border.accentColor` controls the left accent bar — different from regular `border`
-- Quote text defaults to `@color-text`, accent bar to `@color-accent` (both auto-resolve to theme). Use `*color-background` on dark bg sections
+- Quote text defaults to `*color-text`, accent bar to `*color-accent` (both auto-resolve to theme). Use `*color-background` on dark bg sections
 
 <!-- section_type: component | component_name: link | category: text -->
 ## Component: link
@@ -574,14 +574,11 @@ NEVER use `typography.fontFamily`.
     appearance:
       underline: true                      # Show underline (default: true)
       showArrow: false                     # Show arrow icon (default: false)
-      padding:
-        block: none                        # Spacing token (default: none)
-        inline: none                       # Spacing token (default: none)
     typography:
       size: md                             # (default: md)
       weight: regular                      # (default: regular)
       align: left                          # (default: left)
-      color: rgba(0,0,238,1)              # USE *color-accent (standard) or *color-background (dark bg only)
+      color: *color-accent                 # USE *color-accent (light bg) or *color-background (dark bg)
       lineHeight: "1.5"                    # (default: "1.5")
       transform: none                      # (default: none)
       letterSpacing: normal                # (default: normal)
@@ -590,6 +587,8 @@ NEVER use `typography.fontFamily`.
     spacing:
       marginBlock: xs                      # (default: xs)
       marginInline: xs                     # (default: xs)
+      paddingBlock: none                   # Spacing token (default: none)
+      paddingInline: none                  # Spacing token (default: none)
     layout:
       widthMode: fit                       # STRING (default: fit)
 ```
@@ -622,12 +621,11 @@ Structure: `- name: image` then `properties:` — NEVER use `- image:` inline fo
         enabled: false                     # Enable dark overlay for text readability (default: false)
         color: rgba(0,0,0,0.5)            # Overlay color (default: rgba(0,0,0,0.5))
         opacity: 0.5                       # Overlay opacity (default: 0.5)
-      padding:
-        block: none                        # Spacing token (default: none)
-        inline: none                       # Spacing token (default: none)
     spacing:
       marginBlock: sm                      # (default: sm)
       marginInline: none                   # (default: none)
+      paddingBlock: none                   # Spacing token (default: none)
+      paddingInline: none                  # Spacing token (default: none)
     layout:
       widthMode: stretch                   # STRING (default: stretch)
       horizontalAlign: center              # left|center|right (default: center)
@@ -638,7 +636,7 @@ Structure: `- name: image` then `properties:` — NEVER use `- image:` inline fo
         spacing: { paddingBlock: xl }
       components:
         - name: heading
-          properties: { text: Hero Title, typography: { color: '#fff' } }
+          properties: { text: Hero Title, typography: { color: *color-background } }
 ```
 
 ### Key Notes
@@ -728,12 +726,11 @@ Structure: `- name: gif` then `properties:` — NEVER use `- gif:` inline format
         enabled: false                     # (default: false)
         color: rgba(0,0,0,0.5)            # (default: rgba(0,0,0,0.5))
         opacity: 0.5                       # (default: 0.5)
-      padding:
-        block: none                        # (default: none)
-        inline: none                       # (default: none)
     spacing:
       marginBlock: sm                      # (default: sm)
       marginInline: none                   # (default: none)
+      paddingBlock: none                   # (default: none)
+      paddingInline: none                  # (default: none)
     layout:
       widthMode: stretch                   # STRING (default: stretch)
 ```
@@ -777,7 +774,7 @@ Can contain child components that overlay the video.
       widthMode: stretch                   # STRING (default: stretch)
   components:                              # Overlay content
     - name: heading
-      properties: { text: Hero Title, typography: { color: '#fff', size: xxxl } }
+      properties: { text: Hero Title, typography: { color: *color-background, size: xxxl } }
     - name: button
       properties: { text: Get Started }
 ```
@@ -799,8 +796,8 @@ NEVER use `typography.fontFamily`.
       value: https://example.com           # URL for link, JS for inlineScript (default: 'alert("Clicked!")')
     appearance:
       background:
-        color: *color-accent               # Default: @color-background. CTA: *color-accent, Regular: *color-secondary
-        transparency: 100                  # 0=transparent, 100=opaque (default: 100)
+        color: *color-accent               # Default: *color-background. CTA: *color-accent, Regular: *color-secondary
+        opacity: 100                  # 0=transparent, 100=opaque (default: 100)
       border:
         width: 1                           # (default: 1)
         style: solid                       # solid|dashed|dotted (default: solid)
@@ -809,20 +806,19 @@ NEVER use `typography.fontFamily`.
       shadow: none                         # none|soft|medium|elevated|retro (default: none)
       shadowColor: ''                      # (default: '')
       iconPlacement: none                  # none|left|right (default: none)
-      padding:
-        block: sm                          # Spacing token (default: sm)
-        inline: md                         # Spacing token (default: md)
     typography:
       size: md                             # (default: md)
       weight: semibold                     # (default: semibold)
       align: center                        # (default: center)
-      color: '@color-background'             # Default: @color-background (auto-resolves to theme). Light text on colored button bg
+      color: *color-background             # Default: *color-background (auto-resolves to theme). Light text on colored button bg
       lineHeight: "1.5"                    # (default: "1.5")
       transform: none                      # (default: none)
       letterSpacing: normal                # (default: normal)
     spacing:
       marginBlock: sm                      # (default: sm)
       marginInline: xs                     # (default: xs)
+      paddingBlock: sm                     # Spacing token (default: sm)
+      paddingInline: md                    # Spacing token (default: md)
     layout:
       widthMode: fit                       # STRING (default: fit)
 ```
@@ -845,7 +841,7 @@ Structure: `- name: titlebar` then `properties:` — NEVER use `- titlebar:` inl
   properties:
     branding:
       showLogo: true                       # Show logo image (default: true)
-      logoUrl: https://via.placeholder.com/50x40  # Logo image URL
+      logoUrl: https://placehold.co/50x40?text=Add+Image  # Logo image URL
       title: Website Title                 # Site title text (default: 'Website Title')
     navigation:
       links:                               # Array of nav links
@@ -862,24 +858,24 @@ Structure: `- name: titlebar` then `properties:` — NEVER use `- titlebar:` inl
       shrinkPercentage: 70                 # Shrink to this % on scroll (default: 70)
     appearance:
       background:
-        color: *color-background           # Default: @color-background (auto-resolves to theme)
-        transparency: 100                  # (default: 100)
+        color: *color-background           # Default: *color-background (auto-resolves to theme)
+        opacity: 100                  # (default: 100)
       border:
         width: 1                           # (default: 1)
         style: solid                       # (default: solid)
         color: '#dddddd'                   # (default: '#dddddd')
       focus:
         background: '#f0f0f0'              # Hover/focus bg (default: '#f0f0f0')
-        color: '@color-primary'            # Default: @color-primary (auto-resolves to theme)
+        color: *color-primary            # Default: *color-primary (auto-resolves to theme)
     typography:
       title:
         size: 24                           # Title font size in px (default: 24)
         weight: bold                       # (default: bold)
-        color: *color-primary              # Default: @color-primary (auto-resolves to theme)
+        color: *color-primary              # Default: *color-primary (auto-resolves to theme)
       menu:
         size: 16                           # Menu font size in px (default: 16)
         weight: medium                     # (default: medium)
-        color: *color-primary              # Default: @color-primary (auto-resolves to theme)
+        color: *color-primary              # Default: *color-primary (auto-resolves to theme)
 ```
 
 <!-- section_type: component | component_name: hamburger | category: ui -->
@@ -919,6 +915,39 @@ Structure: `- name: br` then `properties:` — NEVER use `- br:` inline format.
     mirror: false                          # Mirror decorative pattern (default: false)
 ```
 
+### Section Breaker Usage
+Use `type: wave` or `type: slant` as full-width decorative section breakers between page sections.
+- Set `color` to match the background of the section BELOW the divider for seamless blending
+- Use `invert: true` to flip the shape vertically (useful at the bottom of a colored section)
+- Use `mirror: true` to flip left-right direction (alternate slant angles)
+- Set `thickness: 4-6` for prominent section transitions (thickness controls SVG height in multiples of 10px)
+- Place directly between layout-row/layout-column sections at the page level
+
+```yaml
+# Example: wave transition from white section to dark section
+- name: br
+  properties:
+    type: wave
+    color: '#1e293b'
+    thickness: 5
+
+# Example: inverted wave at bottom of colored section
+- name: br
+  properties:
+    type: wave
+    color: '#0f172a'
+    thickness: 5
+    invert: true
+
+# Example: slant with alternating direction
+- name: br
+  properties:
+    type: slant
+    color: '#f8fafc'
+    thickness: 4
+    mirror: true
+```
+
 <!-- section_type: component | component_name: tabs | category: interactive -->
 ## Component: tabs
 
@@ -938,22 +967,22 @@ Structure: `- name: tabs` then `properties:` + `tabs:` — NEVER use `- tabs:` i
         size: md                           # (default: md)
         weight: semibold                   # (default: semibold)
         active:
-          color: *color-primary            # Default: @color-primary (auto-resolves to theme)
+          color: *color-primary            # Default: *color-primary (auto-resolves to theme)
         inactive:
-          color: '@color-secondary'        # Default: @color-secondary (auto-resolves to theme)
+          color: *color-secondary        # Default: *color-secondary (auto-resolves to theme)
     appearance:
       tab:
         background:
-          active: *color-background        # Default: @color-background (auto-resolves to theme)
-          inactive: '@color-background'    # Default: @color-background (auto-resolves to theme)
+          active: *color-background        # Default: *color-background (auto-resolves to theme)
+          inactive: *color-background    # Default: *color-background (auto-resolves to theme)
         border:
           width: 2                         # (default: 2)
           style: solid                     # (default: solid)
           position: lower                  # lower|upper (default: lower)
       content:
         background:
-          color: *color-background         # Default: @color-background (auto-resolves to theme)
-          transparency: 100                # (default: 100)
+          color: *color-background         # Default: *color-background (auto-resolves to theme)
+          opacity: 100                # (default: 100)
         border:
           color: '#d1d5db'                 # (default: '#d1d5db')
           width: 1                         # (default: 1)
@@ -998,33 +1027,32 @@ Structure: `- name: accordion` then `properties:` + `items:` — NEVER use `- ac
       title:
         size: lg                           # (default: lg)
         weight: semibold                   # (default: semibold)
-        color: *color-primary              # Default: @color-primary (auto-resolves to theme)
+        color: *color-primary              # Default: *color-primary (auto-resolves to theme)
       content:
         size: md                           # (default: md)
         weight: regular                    # (default: regular)
-        color: *color-text                 # Default: @color-text (auto-resolves to theme)
+        color: *color-text                 # Default: *color-text (auto-resolves to theme)
     layout:
       widthMode: stretch                   # STRING (default: stretch)
     appearance:
       titleBackground:
-        color: *color-background           # Default: @color-background (auto-resolves to theme)
+        color: *color-background           # Default: *color-background (auto-resolves to theme)
       border:
         width: 1                           # (default: 1)
         style: solid                       # (default: solid)
         color: '#d1d5db'                   # (default: '#d1d5db')
         position: bottom                   # top|bottom|left|right|all (default: bottom)
       contentBackground:
-        color: *color-background           # Default: @color-background (auto-resolves to theme)
-        transparency: 100                  # (default: 100)
+        color: *color-background           # Default: *color-background (auto-resolves to theme)
+        opacity: 100                  # (default: 100)
       radius: sm                           # (default: sm)
-      padding:
-        block: sm                          # (default: sm)
-        inline: sm                         # (default: sm)
       shadow: none                         # (default: none)
       shadowColor: ''                      # (default: '')
     spacing:
       marginBlock: md                      # (default: md)
       marginInline: none                   # (default: none)
+      paddingBlock: sm                     # (default: sm)
+      paddingInline: sm                    # (default: sm)
   items:                                   # ARRAY AT COMPONENT LEVEL — NOT inside properties
     - title: First Question                # Panel header text
       components:                          # Panel content
@@ -1122,13 +1150,13 @@ Ticker background is always transparent; only column backgrounds are configurabl
       marginBlock: md                      # (default: md)
       marginInline: none                   # (default: none)
     appearance:
-      columnBackground: '@color-background' # Default: @color-background (auto-resolves to theme)
-      columnTransparency: 0               # 0=transparent (default), 100=opaque
+      columnBackground: *color-background # Default: *color-background (auto-resolves to theme)
+      columnOpacity: 0               # 0=transparent (default), 100=opaque
       columnRadius: none                   # none|xs|sm|md|lg|xl|xxl|pill (default: none)
       columnBorder:
         width: 0                           # (default: 0)
         style: solid                       # (default: solid)
-        color: '@color-primary'            # Default: @color-primary (auto-resolves to theme)
+        color: *color-primary            # Default: *color-primary (auto-resolves to theme)
   columns:                                 # ARRAY AT COMPONENT LEVEL — NOT inside properties
     - components:                          # Each column is a data container
         - name: heading
@@ -1356,7 +1384,7 @@ Structure: `- name: icon` then `properties:` — NEVER use `- star:` or `- heart
     name: star                             # Lucide icon name in kebab-case (default: 'star')
     size: "36"                             # Icon size as STRING in px (default: "36")
     strokeWidth: "2"                       # SVG stroke width as STRING (default: "2")
-    color: *color-primary                  # Default: @color-primary (auto-resolves to theme). Use *color-accent (features), *color-background (dark bg)
+    color: *color-primary                  # Default: *color-primary (auto-resolves to theme). Use *color-accent (features), *color-background (dark bg)
 ```
 
 ### Key Notes
@@ -1403,7 +1431,7 @@ Structure: `- name: rating` then `properties:`.
     color: '#f59e0b'                       # Star/heart fill color (default: '#f59e0b')
     typography:
       size: md                             # (default: md)
-      color: '@color-secondary'             # Default: @color-secondary (auto-resolves to theme)
+      color: *color-secondary             # Default: *color-secondary (auto-resolves to theme)
 ```
 
 <!-- section_type: component | component_name: progress-bar | category: marketing -->
@@ -1443,7 +1471,7 @@ NEVER use `typography.fontFamily`.
     typography:
       size: xxl                            # xxs|xs|sm|md|lg|xl|xxl|xxxl (default: xxl)
       weight: bold                         # (default: bold)
-      color: *color-primary                # Default: @color-primary (auto-resolves to theme). Use *color-background on dark bg only
+      color: *color-primary                # Default: *color-primary (auto-resolves to theme). Use *color-background on dark bg only
       align: center                        # left|center|right (default: center)
 ```
 
@@ -1464,7 +1492,7 @@ NEVER use `typography.fontFamily`.
     typography:
       size: xl                             # (default: xl)
       weight: bold                         # (default: bold)
-      color: *color-primary                # Default: @color-primary (auto-resolves to theme). Use *color-background on dark bg only
+      color: *color-primary                # Default: *color-primary (auto-resolves to theme). Use *color-background on dark bg only
       align: center                        # left|center|right (default: center)
 ```
 

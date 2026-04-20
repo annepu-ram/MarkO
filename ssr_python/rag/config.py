@@ -28,8 +28,6 @@ class RAGConfig:
     })
 
     # ── Chunking ──
-    chunk_max_tokens: int = 400
-    chunk_overlap_tokens: int = 50       # Context bleed between chunks
     yaml_split_on_top_level: bool = True  # Split at `- name:` boundaries
     section_chunk_max_chars: int = 4000  # Max YAML chars in section-level chunks
 
@@ -45,19 +43,19 @@ class RAGConfig:
     rrf_k: int = 60                     # RRF constant
     final_top_k: int = 3               # Chunks sent to SLM after fusion
     use_reranker: bool = False          # V2 feature, off by default
-    mmr_lambda: float = 0.8            # MMR diversity (0=diverse, 1=relevant)
-    planner_top_k: int = 1            # Outline chunks for planner agent
+    mmr_lambda: float = 0.5           # MMR diversity (0=diverse, 1=relevant)
+    planner_top_k: int = 2            # Outline chunks for planner agent
     mmr_pool_multiplier: int = 3       # MMR candidates = top_k * this
     mmr_pool_min_size: int = 15        # Min MMR candidate pool
     min_fallback_results: int = 2      # Tier fallback threshold
-    icon_top_k: int = 20               # Individual icon vectors to retrieve
-    style_top_k: int = 2               # Style chunks for planner agent
+    icon_top_k: int = 30               # Individual icon vectors to retrieve
+    style_top_k: int = 1               # Style chunks for styler agent
 
     # ── Context Budget (tokens) ──
-    context_budget_create_page: int = 4096
+    context_budget_create_page: int = 6096
     context_budget_create_section: int = 3000
     context_budget_modify: int = 1500   # Leaves room for existing YAML
-    context_budget_default: int = 1500
+    context_budget_default: int = 4500
     system_prompt_budget: int = 400     # Condensed rules
     min_context_budget: int = 512       # Floor for context budget
 
@@ -94,3 +92,41 @@ class RAGConfig:
 
 config = RAGConfig()
 TIER_NAMES = tuple(config.tier_doc_types.keys())
+
+# ── Canonical style keys — single source of truth matching STYLE_THEMES_REFERENCE.md ──
+# Used by metadata.py to validate header values, query_analyzer.py for detection,
+# and builder_agent.py for style-filtered retrieval.
+CANONICAL_STYLES = {
+    "modern_minimalist", "glassmorphism", "retro_vintage", "neubrutalism",
+    "claymorphism", "aurora_gradient", "monochrome_dark", "elegant_luxury",
+    "organic_natural", "corporate_professional", "bold_editorial", "cyberpunk_neon",
+    "pastel_soft", "scandinavian_clean", "art_deco_geometric", "tropical_vibrant",
+    "dark_academia", "memphis_design", "zen_japanese", "industrial_grunge",
+    "y2k_retro-futurism", "bohemian_eclectic",
+}
+
+# ── Industry → default style (hard assignment when user specifies no style) ──
+INDUSTRY_DEFAULT_STYLE = {
+    "saas": "modern_minimalist",
+    "restaurant": "organic_natural",
+    "ecommerce": "modern_minimalist",
+    "portfolio": "bold_editorial",
+    "health": "pastel_soft",
+    "education": "scandinavian_clean",
+    "realestate": "elegant_luxury",
+    "logistics": "corporate_professional",
+    "hospitality": "elegant_luxury",
+    "automotive": "monochrome_dark",
+    "entertainment": "retro_vintage",
+    "legal": "corporate_professional",
+    "construction": "industrial_grunge",
+    "homeservices": "corporate_professional",
+    "beauty": "pastel_soft",
+    "automotive_services": "monochrome_dark",
+    "food_services": "organic_natural",
+    "retail_local": "scandinavian_clean",
+    "professional_services": "corporate_professional",
+    "trades": "industrial_grunge",
+    "community": "organic_natural",
+    "fitness_recreation": "bold_editorial",
+}

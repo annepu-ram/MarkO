@@ -1,0 +1,205 @@
+# Rating: Service Reviews
+# Customer service reviews with star ratings in a stacked layout
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, caption, rating
+# Section type: testimonial
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: services, consulting, healthcare, hospitality
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#f59e0b'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: CLIENT REVIEWS
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: What Our Clients Say
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Real feedback from real clients. See why businesses trust us with their most important projects.
+                typography: { size: md, color: *color-secondary, align: center }
+                spacing: { marginBlock: md }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66' }
+          components:
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Sarah Mitchell
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        color: *color-accent
+                        typography: { size: md, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: "Absolutely exceptional service. The team went above and beyond to deliver our website redesign ahead of schedule. The attention to detail in the UI/UX was remarkable, and our conversion rate increased by 40% within the first month."
+                    typography: { size: sm, color: *color-text }
+                    spacing: { marginBlock: sm }
+                - name: caption
+                  properties:
+                    text: "Website Redesign \u2022 March 2026"
+                    typography: { size: xs, color: *color-secondary }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: James Rivera
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: rating
+                      properties:
+                        value: 4.5
+                        iconType: star
+                        color: *color-accent
+                        typography: { size: md, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: "Great experience overall. The consulting team provided clear, actionable recommendations for our digital strategy. Implementation was smooth and the ongoing support has been responsive. Only minor delays on the initial timeline."
+                    typography: { size: sm, color: *color-text }
+                    spacing: { marginBlock: sm }
+                - name: caption
+                  properties:
+                    text: "Digital Strategy Consulting \u2022 February 2026"
+                    typography: { size: xs, color: *color-secondary }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Dr. Emily Chen
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        color: *color-accent
+                        typography: { size: md, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: "They built a custom patient portal that transformed how we manage appointments and records. The HIPAA-compliant system is intuitive for both staff and patients. Our no-show rate dropped significantly since implementation."
+                    typography: { size: sm, color: *color-text }
+                    spacing: { marginBlock: sm }
+                - name: caption
+                  properties:
+                    text: "Healthcare Portal Development \u2022 January 2026"
+                    typography: { size: xs, color: *color-secondary }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Marcus Thompson
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: rating
+                      properties:
+                        value: 4
+                        iconType: star
+                        color: *color-accent
+                        typography: { size: md, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: "Solid work on our hotel booking platform. The integration with our existing PMS was well-executed and the mobile experience is excellent. Would have liked more proactive communication during the development phase."
+                    typography: { size: sm, color: *color-text }
+                    spacing: { marginBlock: sm }
+                - name: caption
+                  properties:
+                    text: "Booking Platform \u2022 December 2025"
+                    typography: { size: xs, color: *color-secondary }
+
+            - name: layout-column
+              properties:
+                appearance: { background: { color: '#f9fafb' }, radius: lg }
+                spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
+              components:
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: space-between, verticalAlign: center }
+                  components:
+                    - name: heading
+                      properties:
+                        text: Lisa Nakamura
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary }
+                    - name: rating
+                      properties:
+                        value: 5
+                        iconType: star
+                        color: *color-accent
+                        typography: { size: md, color: *color-secondary }
+                - name: paragraph
+                  properties:
+                    text: "Outstanding branding and marketing strategy work. They completely reimagined our brand identity and the new look perfectly captures our company values. The campaign launch exceeded all KPI targets."
+                    typography: { size: sm, color: *color-text }
+                    spacing: { marginBlock: sm }
+                - name: caption
+                  properties:
+                    text: "Brand Strategy & Campaign \u2022 November 2025"
+                    typography: { size: xs, color: *color-secondary }

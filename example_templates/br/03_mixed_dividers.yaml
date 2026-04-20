@@ -1,0 +1,380 @@
+# Mixed Dividers Showcase — All br types as section breakers
+# Demonstrates solid, dashed, dotted, wave, and slant divider types with variations
+# Base components: page, layout-column, heading, paragraph, eyebrow, button, br
+# Section type: divider
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: landing page, portfolio, agency, SaaS, product showcase
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
+        secondary: &color-secondary '#eff6ff'
+        accent: &color-accent '#2563eb'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ── SECTION 1: Intro ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+      components:
+        - name: heading
+          properties:
+            text: Welcome to Horizon
+            level: 1
+            typography: { size: xxxl, weight: bold, color: *color-primary, align: center }
+        - name: paragraph
+          properties:
+            text: We design and build digital products that make a difference.
+            typography:
+              {
+                size: lg,
+                color: *color-text,
+                align: center,
+                weight: regular,
+                lineHeight: "1.6",
+                transform: none,
+                letterSpacing: normal,
+                fontStyle: normal,
+                textDecoration: none
+              }
+            layout: { widthMode: '66' }
+            spacing:
+              {
+                marginBlock: md,
+                paddingBlock: sm,
+                paddingInline: none,
+                marginInline: none
+              }
+            appearance:
+              background:
+                type: ""
+                color: *color-background
+                opacity: 0
+
+    # ── SOLID DIVIDER — Classic thin line ──
+    - name: br
+      properties:
+        type: solid
+        thickness: 3
+        color: '#e2e8f0'
+        size: lg
+        orientation: horizontal
+        invert: false
+        mirror: false
+
+    # ── SECTION 2: Services intro ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: eyebrow
+          properties:
+            text: OUR SERVICES
+            typography:
+              {
+                size: xs,
+                weight: semibold,
+                color: *color-accent,
+                transform: uppercase,
+                letterSpacing: wider,
+                align: center
+              }
+        - name: heading
+          properties:
+            text: What we do best
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+        - name: paragraph
+          properties:
+            text: From strategy to execution, we cover every stage of the product lifecycle.
+            typography:
+              {
+                size: md,
+                color: *color-text,
+                align: center,
+                weight: regular,
+                lineHeight: "1.6",
+                transform: none,
+                letterSpacing: normal,
+                fontStyle: normal,
+                textDecoration: none
+              }
+            spacing:
+              {
+                marginBlock: md,
+                paddingBlock: sm,
+                paddingInline: none,
+                marginInline: none
+              }
+            layout:
+              widthMode: fit
+            appearance:
+              background:
+                type: ""
+                color: *color-background
+                opacity: 0
+
+    # ── DASHED DIVIDER — Subtle segmentation ──
+    - name: br
+      properties:
+        type: slant
+        thickness: 5
+        color: *color-secondary
+        size: lg
+        orientation: horizontal
+        invert: false
+        mirror: false
+
+    # ── SECTION 3: Approach ──
+    - name: layout-column
+      properties:
+        layout:
+          {
+            horizontalAlign: center,
+            tag: section,
+            verticalAlign: space-between,
+            wrap: nowrap,
+            gap: none,
+            widthMode: stretch
+          }
+        spacing:
+          {
+            paddingBlock: xl,
+            paddingInline: lg,
+            marginBlock: none,
+            marginInline: none
+          }
+        appearance:
+          {
+            background: { color: *color-secondary, opacity: 100, type: "" },
+            blur: false,
+            border: { width: 0, style: solid, color: *color-primary },
+            radius: none,
+            shadow: none,
+            shadowColor: "#000000"
+          }
+      components:
+        - name: eyebrow
+          properties:
+            text: OUR APPROACH
+            typography:
+              {
+                size: xs,
+                weight: semibold,
+                color: *color-accent,
+                transform: uppercase,
+                letterSpacing: wider,
+                align: center
+              }
+        - name: heading
+          properties:
+            text: Strategy meets craft
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+        - name: paragraph
+          properties:
+            text: Every project starts with deep research and ends with pixel-perfect
+              delivery. We don't just build — we solve problems.
+            typography:
+              {
+                size: md,
+                color: *color-text,
+                align: center,
+                weight: regular,
+                lineHeight: "1.6",
+                transform: none,
+                letterSpacing: normal,
+                fontStyle: normal,
+                textDecoration: none
+              }
+            layout: { widthMode: '66' }
+            spacing:
+              {
+                marginBlock: md,
+                paddingBlock: sm,
+                paddingInline: none,
+                marginInline: none
+              }
+            appearance:
+              background:
+                type: ""
+                color: *color-background
+                opacity: 0
+
+    # ── DOTTED DIVIDER — Playful separation ──
+    - name: br
+      properties:
+        type: wave
+        thickness: 3
+        color: *color-secondary
+        size: lg
+        orientation: horizontal
+        invert: true
+        mirror: false
+
+    # ── SECTION 4: Highlight (light blue background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: heading
+          properties:
+            text: Trusted by 500+ companies worldwide
+            level: 2
+            typography: { size: xl, weight: bold, color: *color-primary, align: center }
+        - name: paragraph
+          properties:
+            text: From scrappy startups to Fortune 100 enterprises — we scale with you.
+            typography:
+              {
+                size: md,
+                color: *color-text,
+                align: center,
+                weight: regular,
+                lineHeight: "1.6",
+                transform: none,
+                letterSpacing: normal,
+                fontStyle: normal,
+                textDecoration: none
+              }
+            spacing:
+              {
+                marginBlock: md,
+                paddingBlock: sm,
+                paddingInline: none,
+                marginInline: none
+              }
+            layout:
+              widthMode: fit
+            appearance:
+              background:
+                type: ""
+                color: *color-background
+                opacity: 0
+
+    # ── WAVE DIVIDER — Decorative transition to colored section ──
+    # color matches the NEXT section's background for seamless blending
+    - name: br
+      properties:
+        type: wave
+        color: *color-secondary
+        thickness: 5
+
+    # ── SECTION 5: Testimonial (light blue background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance: { background: { color: *color-secondary, opacity: 100 } }
+      components:
+        - name: paragraph
+          properties:
+            text: "\"Horizon transformed our product vision into a reality that exceeded
+              every expectation. Their team's attention to detail and strategic
+              thinking is unmatched.\""
+            typography: { size: lg, color: *color-primary, align: center, lineHeight: "1.8" }
+            layout: { widthMode: '66' }
+        - name: heading
+          properties:
+            text: Sarah Chen
+            level: 4
+            typography: { size: md, weight: bold, color: *color-primary, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: VP Product, Meridian Technologies
+            typography: { size: sm, color: *color-secondary, align: center }
+
+    # ── WAVE DIVIDER (inverted) — blue → dark section ──
+    # invert: true flips the wave direction for the bottom of a colored section
+    - name: br
+      properties:
+        type: slant
+        color: *color-primary
+        thickness: 5
+        invert: false
+        size: md
+        orientation: horizontal
+        mirror: false
+
+    # ── SECTION 6: CTA (dark background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance: { background: { color: *color-primary, opacity: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: Let's build your next big thing
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-background, align: center }
+        - name: paragraph
+          properties:
+            text: Schedule a free consultation and discover how we can help you ship faster.
+            typography: { size: md, color: '#94a3b8', align: center }
+            spacing: { marginBlock: lg }
+        - name: button
+          properties:
+            text: Get in Touch
+            appearance: { background: { color: *color-accent }, radius: md }
+            typography: { color: *color-background, weight: bold }
+            spacing: { paddingBlock: md, paddingInline: xl }
+
+    # ── SLANT DIVIDER — dark → white footer transition ──
+    # mirror: true alternates the angle direction
+    - name: br
+      properties:
+        type: slant
+        color: *color-primary
+        thickness: 4
+        mirror: true
+        size: md
+        orientation: horizontal
+        invert: true
+
+    # ── FOOTER SECTION ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      components:
+        - name: paragraph
+          properties:
+            text: "© 2026 Horizon Studio. All rights reserved."
+            typography:
+              {
+                size: xs,
+                color: *color-accent,
+                align: center,
+                weight: regular,
+                lineHeight: "1.6",
+                transform: none,
+                letterSpacing: normal,
+                fontStyle: normal,
+                textDecoration: none
+              }
+            layout:
+              widthMode: fit
+            appearance:
+              background:
+                type: ""
+                color: *color-background
+                opacity: 0
+            spacing:
+              paddingBlock: sm
+              paddingInline: none
+              marginBlock: none
+              marginInline: none

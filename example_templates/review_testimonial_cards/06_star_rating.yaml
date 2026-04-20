@@ -3,7 +3,7 @@
 # Base components: layout-column, layout-row, paragraph, heading, br, image, caption
 # Section type: testimonial
 # Layout: centered
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
@@ -31,7 +31,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: xxs, wrap: nowrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: paragraph
         properties:
@@ -58,7 +58,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: image
         properties:
@@ -69,7 +69,7 @@
       - name: layout-column
         properties:
           layout: {horizontalAlign: left, gap: none}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: paragraph
           properties:

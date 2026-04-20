@@ -1,0 +1,220 @@
+# Modern Minimalist Features
+# Clean feature cards with icons, subtle borders, and soft shadows on light background
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: modern_minimalist
+# Perfect for: SaaS, tech startup, design studio, agency, productivity tool, developer platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Outfit', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1F2937"
+        text: &color-text "#4B5563"
+        secondary: &color-secondary "#D1D5DB"
+        accent: &color-accent "#4F46E5"
+        background: &color-background "#FFFFFF"
+        border: &color-border '#e5e7eb'
+  components:
+    - name: page
+      slug: home
+      title: "Modern Minimalist Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — clean grid with subtle cards
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "Features"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: "Everything you need, nothing you don't"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+                  letterSpacing: tight
+
+            - name: paragraph
+              properties:
+                text: "Powerful tools that stay out of your way. Each feature is designed to reduce friction and help your team focus on what actually matters."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: md
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1 — Instant Deploys
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-background
+                            opacity: 100
+                          radius: sm
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#e5e7eb"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: zap
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Instant Deploys"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Push to main and your changes are live in under a minute. Zero-downtime deployments with automatic rollback if anything goes wrong."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+
+                # Card 2 — Team Workspaces
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-background
+                            opacity: 100
+                          radius: sm
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#e5e7eb"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: users
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Team Workspaces"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Shared environments with granular permissions, audit logs, and real-time collaboration. Every team member sees the same source of truth."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+
+                # Card 3 — Built-in Monitoring
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-background
+                            opacity: 100
+                          radius: sm
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#e5e7eb"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: activity
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Built-in Monitoring"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Traces, logs, and metrics unified in one dashboard. Set alerts on the metrics that matter and debug issues before your users notice."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed

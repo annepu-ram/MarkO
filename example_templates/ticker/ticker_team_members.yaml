@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, ticker, image, paragraph
 # Section type: ticker
 # Layout: stacked
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: agencies, corporate, SaaS, any business
 - name: page
   properties:
@@ -20,7 +20,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
   - name: layout-column
     properties:
@@ -66,7 +66,7 @@
           marginInline: none
         appearance:
           columnBackground: *color-background
-          columnTransparency: 100
+          columnOpacity: 100
           columnRadius: lg
           columnBorder:
             width: 1

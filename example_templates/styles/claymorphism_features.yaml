@@ -1,0 +1,221 @@
+# Claymorphism Features
+# Playful bubbly feature cards with extreme rounding, soft shadows, and pastel backgrounds
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: claymorphism
+# Perfect for: Kids education, wellness app, food delivery, creative tools, social media, lifestyle brand
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Poppins', sans-serif"
+        content: &font-content "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary "#4A1942"
+        text: &color-text "#5A3058"
+        secondary: &color-secondary "#F5B0D0"
+        accent: &color-accent "#FF1493"
+        background: &color-background "#FFD6E6"
+  components:
+    - name: page
+      slug: home
+      title: "Claymorphism Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — bubbly rounded cards
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "WHY YOU'LL LOVE IT"
+                typography:
+                  size: xs
+                  weight: bold
+                  color: *color-accent
+                  letterSpacing: wider
+                  transform: uppercase
+                  align: center
+
+            - name: heading
+              properties:
+                text: "Squishy good features"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: bold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+
+            - name: paragraph
+              properties:
+                text: "Everything you need to bring your wildest ideas to life, wrapped in a delightfully playful package."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 bubbly pastel cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#FFF0F5"
+                            opacity: 100
+                          radius: xxl
+                          shadow: elevated
+                          shadowColor: "#E8A0C0"
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: wand-2
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Magic Builder"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Drag, drop, and squish components into place. Building pages feels like playing with colorful clay — fun, fast, and totally addictive."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 2
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#F0E6FF"
+                            opacity: 100
+                          radius: xxl
+                          shadow: elevated
+                          shadowColor: "#C8A0E0"
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: heart
+                            appearance:
+                              color: "#9333EA"
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Love at First Sight"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Gorgeous templates designed to make visitors smile. Every pixel is crafted with warmth, personality, and a sprinkle of whimsy."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 3
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#E6FFF0"
+                            opacity: 100
+                          radius: xxl
+                          shadow: elevated
+                          shadowColor: "#A0D8B8"
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: rocket
+                            appearance:
+                              color: "#10B981"
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Launch in Minutes"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "From idea to live website in record time. One-click publishing, instant previews, and zero headaches. It really is that easy."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed

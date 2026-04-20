@@ -9,6 +9,7 @@
 
 import { chatService } from './chatService.js';
 import { updateSiteSettings, getCurrentSiteId } from './siteManager.js';
+import { GuidedFlow, CREATE_PAGE_RE } from './guidedFlow.js';
 
 class ChatUI {
     constructor(options = {}) {
@@ -26,8 +27,26 @@ class ChatUI {
         this.pendingYaml = null;
         this.pendingAction = null;
 
+        this.guidedFlow = null;
+
         this.bindDom();
         this.attachEventListeners();
+        this.initWelcomeChips();
+    }
+
+    /** Wire the welcome-state suggestion chips to pre-fill the input. */
+    initWelcomeChips() {
+        const chipsRoot = document.getElementById('chatWelcomeChips');
+        if (!chipsRoot || !this.inputArea) return;
+        chipsRoot.querySelectorAll('.chat-welcome-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const prompt = chip.dataset.prompt || chip.textContent.trim();
+                this.inputArea.value = prompt;
+                this.inputArea.focus();
+                // Fire 'input' so auto-resize recalculates.
+                this.inputArea.dispatchEvent(new Event('input'));
+            });
+        });
     }
 
     /** Bind to existing DOM elements in #chatPanel */
@@ -190,12 +209,28 @@ class ChatUI {
         loadingEl.className = 'chat-loading';
         loadingEl.id = 'chat-loading-indicator';
         loadingEl.innerHTML = `
-            <div class="spinner"></div>
+            <div class="chat-loading-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </div>
             <span class="loading-text">Generating...</span>
+            <button class="chat-stop-btn" title="Stop generating" type="button">
+                <svg aria-hidden="true"><use href="#icon-square"></use></svg>
+                <span>Stop</span>
+            </button>
         `;
+
+        const stopBtn = loadingEl.querySelector('.chat-stop-btn');
+        stopBtn.addEventListener('click', () => this.cancelRequest());
 
         this.messagesArea.appendChild(loadingEl);
         this.scrollToBottom();
+    }
+
+    cancelRequest() {
+        chatService.cancel();
+        this.updateLoadingText('Cancelling...');
+        const stopBtn = document.querySelector('.chat-stop-btn');
+        if (stopBtn) stopBtn.disabled = true;
     }
 
     hideLoading() {
@@ -236,6 +271,13 @@ class ChatUI {
         this.inputArea.value = '';
         this.inputArea.style.height = 'auto';
 
+        // Intercept create-page requests → launch guided flow (zero LLM until final submit)
+        if (CREATE_PAGE_RE.test(message) && (!this.guidedFlow || !this.guidedFlow.isActive())) {
+            this.guidedFlow = new GuidedFlow(this);
+            this.guidedFlow.start(message);
+            return;
+        }
+
         this.addMessage('user', message);
         this.showLoading();
 
@@ -260,8 +302,9 @@ class ChatUI {
             this.hideLoading();
 
             if (result.action === 'error') {
-                this.addMessage('ai', result.response, { isError: true });
-                if (result.error) {
+                const isCancelled = result.errorType === 'cancelled';
+                this.addMessage('ai', result.response, { isError: !isCancelled });
+                if (result.error && !isCancelled) {
                     console.error('[Chat] Error:', result.error);
                 }
             } else if (result.action === 'settings' && result.yaml) {
@@ -347,6 +390,61 @@ class ChatUI {
 
         this.messagesArea.appendChild(messageEl);
         this.scrollToBottom();
+    }
+
+    /**
+     * Handle the result returned by the guided-flow generation.
+     * Mirrors the display branches in sendMessage().
+     */
+    handleGuidedResult(result) {
+        if (!result) return;
+        if (result.action === 'error') {
+            const isCancelled = result.errorType === 'cancelled';
+            this.addMessage('ai', result.response || 'Generation failed', { isError: !isCancelled });
+            if (result.error && !isCancelled) console.error('[Chat] Guided error:', result.error);
+        } else if (result.action === 'settings' && result.yaml) {
+            this.handleSettingsAction(result);
+        } else if (result.action === 'delete') {
+            this.displayActionResponse(result.response, 'delete');
+        } else if (result.yaml) {
+            this.displayYamlResponse(result.response, result.yaml, result.action, result.warning);
+        } else {
+            this.addMessage('ai', result.response || 'Done.');
+        }
+    }
+
+    /**
+     * Fallback path used when the guided-flow config can't load or the user
+     * clicks "Skip wizard". Runs the original single-call pipeline.
+     */
+    async fallbackToStandardChat(message) {
+        if (!message) return;
+        this.addMessage('user', message);
+        this.showLoading();
+
+        const statusInterval = setInterval(async () => {
+            try {
+                const res = await fetch('/api/chat/status');
+                const data = await res.json();
+                if (data.active && data.message) this.updateLoadingText(data.message);
+            } catch (_) { /* ignore */ }
+        }, 2000);
+
+        const currentYaml = this.getCurrentYaml();
+        const selectedComponent = this.getSelectionContext();
+        const siteId = getCurrentSiteId();
+
+        try {
+            const result = await chatService.sendMessage(message, currentYaml, selectedComponent, siteId);
+            clearInterval(statusInterval);
+            this.hideLoading();
+            this.handleGuidedResult(result);
+        } catch (error) {
+            clearInterval(statusInterval);
+            this.hideLoading();
+            this.addMessage('ai', `Error: ${error.message}`, { isError: true });
+            console.error('[Chat] Fallback exception:', error);
+        }
     }
 
     async applyYamlChanges() {

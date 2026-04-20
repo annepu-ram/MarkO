@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, paragraph, heading, textbox, button, image
 # Section type: hero
 # Layout: split_screen
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS products, apps, portfolios, startups
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
     # Split-Screen Hero Container
   - name: layout-row
@@ -32,7 +32,7 @@
         paddingInline: none
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
     components:
         # Left Side - Content
     - name: layout-column
@@ -50,7 +50,7 @@
               colorStart: *color-background
               colorEnd: *color-background
               direction: to bottom
-            transparency: 100
+            opacity: 100
       components:
             # Badge
       - name: layout-row
@@ -67,7 +67,7 @@
             background:
               type: solid
               color: *color-background
-              transparency: 0
+              opacity: 0
             border:
               width: 0
               style: solid
@@ -95,7 +95,7 @@
             appearance:
               background:
                 color: *color-accent
-                transparency: 100
+                opacity: 100
                 type: solid
               radius: pill
         - name: paragraph
@@ -118,7 +118,7 @@
               background:
                 type: solid
                 color: *color-background
-                transparency: 0
+                opacity: 0
               radius: none
       - name: heading
         properties:
@@ -143,7 +143,7 @@
             background:
               type: solid
               color: *color-background
-              transparency: 0
+              opacity: 0
             radius: none
       - name: paragraph
         properties:
@@ -177,7 +177,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               border:
                 width: 1
                 style: solid
@@ -241,7 +241,7 @@
             background:
               type: solid
               color: *color-background
-              transparency: 0
+              opacity: 0
             border:
               width: 0
               style: solid

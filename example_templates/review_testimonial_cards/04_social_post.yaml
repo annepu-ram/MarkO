@@ -3,7 +3,7 @@
 # Base components: layout-row, image, layout-column, heading, caption, paragraph, link
 # Section type: testimonial
 # Layout: split_screen
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
@@ -37,12 +37,12 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, widthMode: "75", gap: xs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: layout-row
         properties:
           layout: {horizontalAlign: left, verticalAlign: center, gap: xs, wrap: nowrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: heading
           properties:
@@ -65,7 +65,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: left, verticalAlign: center, gap: md, wrap: nowrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: caption
           properties:

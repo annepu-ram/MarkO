@@ -3,7 +3,7 @@
 # Base components: page, layout-column, heading, paragraph, layout-row, link, columnsgrid
 # Section type: footer
 # Layout: grid
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: technology companies, cloud platforms, and enterprise sites needing comprehensive footer navigation
 
 - name: page
@@ -51,7 +51,7 @@
     properties:
       layout: {horizontalAlign: space-evenly, wrap: wrap, verticalAlign: start}
       spacing: {paddingBlock: xxl, paddingInline: xl}
-      appearance: {background: {color: *color-primary, transparency: 100}}
+      appearance: {background: {color: *color-primary, opacity: 100}}
     components:
 
         # Branding Column
@@ -247,7 +247,7 @@
       layout: {horizontalAlign: space-between, wrap: wrap, verticalAlign: center}
       spacing: {paddingBlock: md, paddingInline: xl}
       appearance:
-        background: {color: *color-primary, transparency: 100}
+        background: {color: *color-primary, opacity: 100}
         border: {width: 1, style: solid, color: *color-secondary}
     components:
     - name: paragraph

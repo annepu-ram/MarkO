@@ -1,0 +1,560 @@
+/**
+ * Guided Flow UI Styles
+ *
+ * Renders inside #chatMessages (360px chat panel). The outer .chat-messages
+ * owns all vertical scrolling — step bodies must never introduce nested
+ * scrollbars, and step content must never exceed the panel width.
+ */
+
+/* ── Step container ──────────────────────────────────────────── */
+.message.guided-step {
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-left: 3px solid #ea580c;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100% !important;
+    animation: guided-step-in 180ms ease-out both;
+}
+
+@keyframes guided-step-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.message.guided-step.guided-step-dismissed {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.message.guided-step.guided-step-locked {
+    padding: 8px 10px;
+    border-left-color: #fed7aa;
+    background: #f0fdf4;
+    border-color: #d1fae5;
+    animation: none;
+}
+
+/* ── Step header: progress bar + label + skip ────────────────── */
+.guided-step-progress {
+    position: relative;
+    height: 3px;
+    background: #f3f4f6;
+    border-radius: 2px;
+    overflow: hidden;
+    margin: -2px 0 10px 0;
+}
+.guided-step-progress::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: var(--guided-progress, 0%);
+    background: linear-gradient(90deg, #ea580c 0%, #f59e0b 100%);
+    border-radius: 2px;
+    transition: width 240ms ease;
+}
+
+.guided-step-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #e5e7eb;
+}
+
+.guided-step-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: #ea580c;
+}
+
+.guided-step-label {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+.guided-step-label-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+.guided-step-label-sub {
+    font-size: 11px;
+    color: #6b7280;
+    line-height: 1.2;
+}
+
+.guided-step-body {
+    min-width: 0;
+    overflow-x: hidden;
+}
+.guided-step-body > * + * { margin-top: 10px; }
+
+/* ── Compact summary chip (locked step) ─────────────────────── */
+.guided-summary-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    min-width: 0;
+}
+.guided-summary-check {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    color: #10b981;
+}
+.guided-summary-title {
+    font-weight: 600;
+    color: #065f46;
+    flex-shrink: 0;
+}
+.guided-summary-value {
+    color: #374151;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+}
+
+/* ── Prompt text ─────────────────────────────────────────────── */
+.guided-prompt {
+    font-size: 13px;
+    color: #374151;
+    margin: 0 0 10px 0;
+    line-height: 1.5;
+}
+.guided-prompt strong { color: #111827; }
+
+/* ── Form controls ───────────────────────────────────────────── */
+.guided-form-group { display: flex; flex-direction: column; gap: 4px; }
+
+.guided-form-group label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.guided-input,
+.guided-textarea {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #111827;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+.guided-input:focus,
+.guided-textarea:focus {
+    outline: none;
+    border-color: #ea580c;
+    box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+}
+.guided-textarea { resize: vertical; min-height: 60px; font-family: inherit; }
+
+.guided-input-error { border-color: #dc2626; }
+
+/* ── Tabs ─────────────────────────────────────────────────────── */
+.guided-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e5e7eb;
+}
+.guided-tab {
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.guided-tab:hover { color: #ea580c; }
+.guided-tab.active { color: #ea580c; border-bottom-color: #ea580c; }
+
+.guided-tabpanel.hidden { display: none; }
+
+/* ── Card grids (no nested scroll, let outer chat-messages scroll) ── */
+/* Industry / style selectors: content-sized pills that wrap to new lines.
+   Each card hugs its label; oversized labels cap at the panel width and
+   wrap internally instead of overflowing. */
+.guided-card-grid,
+.guided-style-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.guided-card-grid > .guided-card,
+.guided-style-grid > .guided-style-card {
+    flex: 0 1 auto;
+    max-width: 100%;
+}
+
+.guided-variant-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+/* Card base — must shrink below intrinsic content width to prevent overflow. */
+.guided-card,
+.guided-variant-card,
+.guided-style-card {
+    position: relative;
+    min-width: 0;
+    min-height: 48px;
+    text-align: left;
+    padding: 10px 12px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s, background 0.15s;
+    font-family: inherit;
+    color: #111827;
+}
+.guided-card:hover,
+.guided-variant-card:hover,
+.guided-style-card:hover {
+    transform: translateY(-1px);
+    border-color: #fdba74;
+    background: #fffbf5;
+    box-shadow: 0 2px 6px rgba(234, 88, 12, 0.08);
+}
+.guided-card.selected,
+.guided-variant-card.selected,
+.guided-style-card.selected {
+    border: 2px solid #ea580c;
+    background: #fff7ed;
+    padding: 9px 11px;  /* compensate for 1px extra border */
+}
+
+/* Check badge on selected cards */
+.guided-card.selected::after,
+.guided-variant-card.selected::after,
+.guided-style-card.selected::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ea580c url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/10px 10px no-repeat;
+}
+
+.guided-variant-card { padding: 12px 14px; }
+.guided-variant-card.selected { padding: 11px 13px; }
+
+.guided-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+}
+/* Only reserve badge space when the card is actually selected */
+.guided-card.selected .guided-card-title,
+.guided-variant-card.selected .guided-card-title,
+.guided-style-card.selected .guided-card-title {
+    padding-right: 20px;
+}
+.guided-variant-card .guided-card-title { font-size: 13px; }
+
+.guided-card-desc {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 3px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+}
+
+.guided-card-hint {
+    font-size: 10px;
+    color: #ea580c;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 3px;
+}
+
+.guided-style-card {
+    padding: 12px 10px;
+    text-align: center;
+}
+.guided-style-card.selected { padding: 11px 9px; }
+.guided-style-card.guided-card .guided-card-title,
+.guided-style-card.selected .guided-card-title { padding-inline: 20px; }
+
+/* ── Checkbox cards (section select) ─────────────────────────── */
+.guided-check-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.guided-check-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    min-width: 0;
+    min-height: 36px;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s, background 0.15s;
+}
+.guided-check-card:hover {
+    background: #fffbf5;
+    border-color: #fdba74;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(234, 88, 12, 0.08);
+}
+.guided-check-card.selected {
+    background: #fff7ed;
+    border-color: #ea580c;
+}
+
+/* Custom 18px checkbox replacing native one */
+.guided-check-card input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+.guided-check-box {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 4px;
+    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+.guided-check-card.selected .guided-check-box {
+    background: #ea580c;
+    border-color: #ea580c;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>");
+    background-size: 12px 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.guided-check-label {
+    color: #374151;
+    line-height: 1.3;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+}
+
+/* ── Recommendation hint ─────────────────────────────────────── */
+.guided-hint {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    font-size: 12px;
+}
+.guided-hint-icon {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    color: #d97706;
+}
+.guided-hint-text { color: #713f12; min-width: 0; overflow-wrap: anywhere; }
+.guided-hint-text strong { color: #422006; }
+
+.guided-hint-add {
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #713f12;
+    background: #fef9c3;
+    border: 1px solid #fde68a;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.guided-hint-add:hover {
+    background: #fde68a;
+    border-color: #ea580c;
+    color: #ea580c;
+    transform: translateY(-1px);
+}
+
+.guided-hint-dismiss {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: #92400e;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.15s;
+}
+.guided-hint-dismiss:hover { background: #fde68a; color: #78350f; }
+.guided-hint-dismiss svg { width: 12px; height: 12px; }
+
+/* ── Review list ─────────────────────────────────────────────── */
+.guided-review {
+    padding: 4px 0;
+    font-size: 12px;
+    margin: 0;
+}
+.guided-review-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 8px 2px;
+    border-bottom: 1px dashed #e5e7eb;
+    min-width: 0;
+}
+.guided-review-row:last-child { border-bottom: none; }
+.guided-review-label {
+    flex-shrink: 0;
+    width: 100px;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.guided-review-value {
+    flex: 1;
+    min-width: 0;
+    color: #111827;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+}
+
+/* ── Action buttons ──────────────────────────────────────────── */
+.guided-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-top: 6px;
+    border-top: 1px solid #f3f4f6;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.guided-btn-primary,
+.guided-btn-secondary,
+.guided-btn-skip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.12s;
+    border: 1px solid transparent;
+}
+.guided-btn-primary svg,
+.guided-btn-secondary svg,
+.guided-btn-skip svg { width: 12px; height: 12px; }
+
+.guided-btn-primary {
+    background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+    color: #ffffff;
+    border-color: #ea580c;
+    margin-left: auto;
+}
+.guided-btn-primary:hover:not(:disabled) {
+    filter: brightness(1.05);
+    box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+}
+.guided-btn-primary:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(234, 88, 12, 0.25);
+}
+.guided-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.guided-btn-secondary {
+    background: #f3f4f6;
+    color: #374151;
+    border-color: transparent;
+}
+.guided-btn-secondary:hover { background: #e5e7eb; }
+
+.guided-btn-skip {
+    background: transparent;
+    color: #9ca3af;
+    border-color: transparent;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 10px;
+    text-decoration: underline;
+}
+.guided-btn-skip:hover { color: #ea580c; }
+
+/* Header-level skip link (small, muted, bottom-right when in footer) */
+.guided-skip-link {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: #9ca3af;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 2px 4px;
+    flex-shrink: 0;
+}
+.guided-skip-link:hover { color: #ea580c; }
+
+/* ── Responsive tweaks for narrow panels ─────────────────────── */
+@media (max-width: 420px) {
+    .guided-card-grid,
+    .guided-style-grid,
+    .guided-check-grid {
+        grid-template-columns: 1fr;
+    }
+    .guided-actions { flex-wrap: wrap; }
+    .guided-btn-primary { margin-left: 0; flex: 1; justify-content: center; }
+}

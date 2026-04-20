@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-column, blockquote, paragraph, button
 # Section type: hero
 # Layout: centered
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: Creative studios, design agencies, artisan brands, portfolios
 
 - name: page
@@ -20,7 +20,7 @@
   components:
   - name: titlebar
     properties:
-      branding: {showLogo: true, logoUrl: 'https://via.placeholder.com/50x40/854d0e/fef3c7?text=Logo', title: 'Artisan Studio'}
+      branding: {showLogo: true, logoUrl: 'https://placehold.co/50x40?text=Add+Image', title: 'Artisan Studio'}
       navigation:
         links:
         - label: Work
@@ -33,7 +33,7 @@
           href: '#contact'
       layout: {alignment: left, height: 70}
       appearance:
-        background: {color: *color-background, transparency: 100}
+        background: {color: *color-background, opacity: 100}
         border: {width: 1, color: *color-accent}
       typography:
         title: {size: 22, weight: bold, color: *color-primary}
@@ -54,7 +54,7 @@
         typography: {size: xxl, weight: medium, color: *color-text, align: center, lineHeight: "1.6"}
         appearance:
           border: {accentColor: *color-accent}
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: lg
         layout: {widthMode: "75"}
         spacing: {marginBlock: lg, paddingBlock: xl, paddingInline: xl}

@@ -1,7 +1,7 @@
 # Claymorphism Testimonial Cards
 # Soft bubbly customer quotes in rounded pastel clay cards
 # Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, caption
-# Section type: testimonials
+# Section type: testimonial
 # Layout: grid
 # Visual style: claymorphism
 # Perfect for: education, health, SaaS platform, creative portfolio, children's app
@@ -13,11 +13,11 @@
         heading: "'Poppins', sans-serif"
         content: "'Nunito Sans', sans-serif"
       colors:
-        primary: '#4A1942'
-        text: '#4E3149'
-        secondary: '#9D5094'
-        accent: '#FF1493'
-        background: '#FFD6E6'
+        primary: &color-primary '#4A1942'
+        text: &color-text '#4E3149'
+        secondary: &color-secondary '#9D5094'
+        accent: &color-accent '#FF1493'
+        background: &color-background '#FFD6E6'
   components:
     - name: page
       slug: home
@@ -26,7 +26,7 @@
         appearance:
           background:
             color: '#F0F5FF'
-            transparency: 100
+            opacity: 100
       components:
 
         # Section header
@@ -50,7 +50,7 @@
                     typography:
                       size: xs
                       weight: semibold
-                      color: '#FF1493'
+                      color: *color-accent
                       transform: none
                       letterSpacing: wider
                       align: center
@@ -61,7 +61,7 @@
                     typography:
                       size: xxl
                       weight: bold
-                      color: '#4A1942'
+                      color: *color-primary
                       align: center
                     spacing:
                       marginBlock: sm
@@ -70,7 +70,7 @@
                     text: Real stories from real people who found joy using our platform every single day.
                     typography:
                       size: md
-                      color: '#9D5094'
+                      color: *color-secondary
                       align: center
                     spacing:
                       marginBlock: sm
@@ -100,7 +100,7 @@
                     appearance:
                       background:
                         color: '#FFF0F5'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -114,7 +114,7 @@
                         text: "This platform completely changed how I run my studio. It's intuitive, beautiful, and everything just works. My clients are impressed every single time."
                         typography:
                           size: sm
-                          color: '#4E3149'
+                          color: *color-text
                           lineHeight: "1.7"
                         spacing:
                           marginBlock: sm
@@ -125,13 +125,13 @@
                         typography:
                           size: md
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                     - name: caption
                       properties:
                         text: Creative Director, Bloom Studio
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary
 
             # Card 2 — lavender
             - components:
@@ -143,7 +143,7 @@
                     appearance:
                       background:
                         color: '#F5F0FF'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -157,7 +157,7 @@
                         text: "We rolled this out across our entire education platform and the kids absolutely love it. Engagement went up 40% in the first month alone."
                         typography:
                           size: sm
-                          color: '#4E3149'
+                          color: *color-text
                           lineHeight: "1.7"
                         spacing:
                           marginBlock: sm
@@ -168,13 +168,13 @@
                         typography:
                           size: md
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                     - name: caption
                       properties:
                         text: Product Lead, EduSpark
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary
 
             # Card 3 — mint green
             - components:
@@ -186,7 +186,7 @@
                     appearance:
                       background:
                         color: '#F0FFF4'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -200,7 +200,7 @@
                         text: "I was skeptical at first, but after just one week I couldn't imagine going back. The workflows are smooth, the design is gorgeous, and support is incredible."
                         typography:
                           size: sm
-                          color: '#4E3149'
+                          color: *color-text
                           lineHeight: "1.7"
                         spacing:
                           marginBlock: sm
@@ -211,13 +211,13 @@
                         typography:
                           size: md
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                     - name: caption
                       properties:
                         text: Wellness Coach & Founder
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary
 
             # Card 4 — warm yellow
             - components:
@@ -229,7 +229,7 @@
                     appearance:
                       background:
                         color: '#FFFBF0'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -243,7 +243,7 @@
                         text: "Our whole team adopted it within days. No training needed — everything is just so friendly and obvious. Best investment we've made this year."
                         typography:
                           size: sm
-                          color: '#4E3149'
+                          color: *color-text
                           lineHeight: "1.7"
                         spacing:
                           marginBlock: sm
@@ -254,13 +254,13 @@
                         typography:
                           size: md
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                     - name: caption
                       properties:
                         text: Head of Operations, Kite Agency
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary
 
             # Card 5 — soft pink again
             - components:
@@ -272,7 +272,7 @@
                     appearance:
                       background:
                         color: '#FFF0F5'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -286,7 +286,7 @@
                         text: "I've tried everything on the market. Nothing comes close to this. It's the perfect balance of power and playfulness — made for real humans."
                         typography:
                           size: sm
-                          color: '#4E3149'
+                          color: *color-text
                           lineHeight: "1.7"
                         spacing:
                           marginBlock: sm
@@ -297,13 +297,13 @@
                         typography:
                           size: md
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                     - name: caption
                       properties:
                         text: UX Designer, Freebird Co.
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary
 
             # Card 6 — light blue
             - components:
@@ -315,7 +315,7 @@
                     appearance:
                       background:
                         color: '#F0F5FF'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -329,7 +329,7 @@
                         text: "Our patients love the interface we built with this. It's warm, approachable, and easy to navigate — exactly what a health app should feel like."
                         typography:
                           size: sm
-                          color: '#4E3149'
+                          color: *color-text
                           lineHeight: "1.7"
                         spacing:
                           marginBlock: sm
@@ -340,10 +340,10 @@
                         typography:
                           size: md
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                     - name: caption
                       properties:
                         text: Medical Director, HealWell Clinic
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary

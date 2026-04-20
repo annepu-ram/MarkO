@@ -1,0 +1,384 @@
+# Neubrutalism Features
+# Bold feature cards with thick black borders, hard shadows, and raw typographic energy
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: neubrutalism
+# Perfect for: Creative agency, design studio, streetwear brand, indie game studio, art platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A1A"
+        text: &color-text "#3D3D3D"
+        secondary: &color-secondary "#C8C4BB"
+        accent: &color-accent "#FF4D00"
+        background: &color-background "#E5E2DD"
+  components:
+    - name: page
+      slug: home
+      title: "Neubrutalism Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — raw brutalist cards
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "What We Do"
+                typography:
+                  size: xs
+                  weight: bold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: "NO FLUFF. JUST FEATURES."
+                level: 2
+                typography:
+                  size: xxl
+                  weight: extrabold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+                  transform: uppercase
+
+            - name: paragraph
+              properties:
+                text: "Every tool is built to hit hard and ship fast. No bloat, no filler, no apologies."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 brutalist cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1 — Instant Deploy
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: "#000000"
+                          border:
+                            width: 4
+                            style: solid
+                            color: "#000000"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: rocket
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "INSTANT DEPLOY"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: *color-primary
+                              align: left
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Push code and watch it go live in seconds. Zero config, zero drama. Just ship it."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: left
+                              lineHeight: relaxed
+
+                # Card 2 — Raw Analytics
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: "#000000"
+                          border:
+                            width: 4
+                            style: solid
+                            color: "#000000"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: bar-chart-3
+                            appearance:
+                              color: "#ffffff"
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "RAW ANALYTICS"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: "#ffffff"
+                              align: left
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Numbers that matter. No vanity metrics, no sugarcoating. See exactly what your users do."
+                            typography:
+                              size: sm
+                              color: "#ffffff"
+                              align: left
+                              lineHeight: relaxed
+
+                # Card 3 — Team Sync
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: "#000000"
+                          border:
+                            width: 4
+                            style: solid
+                            color: "#000000"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: users
+                            appearance:
+                              color: *color-primary
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "TEAM SYNC"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: *color-primary
+                              align: left
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Real-time collaboration without the overhead. Everyone sees the same thing at the same time."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: left
+                              lineHeight: relaxed
+
+            # Second row — 3 more cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+              columns:
+
+                # Card 4 — Pixel Control
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: "#000000"
+                          border:
+                            width: 4
+                            style: solid
+                            color: "#000000"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: pen-tool
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "PIXEL CONTROL"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: *color-primary
+                              align: left
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Total creative freedom with components that bend to your will. Build weird, build bold."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: left
+                              lineHeight: relaxed
+
+                # Card 5 — Auto Scale
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: "#000000"
+                          border:
+                            width: 4
+                            style: solid
+                            color: "#000000"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: trending-up
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "AUTO SCALE"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: *color-primary
+                              align: left
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Traffic spikes? We eat those for breakfast. Infrastructure scales up and down automatically."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: left
+                              lineHeight: relaxed
+
+                # Card 6 — Lock Tight
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          radius: none
+                          shadow: retro
+                          shadowColor: "#000000"
+                          border:
+                            width: 4
+                            style: solid
+                            color: "#000000"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: lock
+                            appearance:
+                              color: "#ffffff"
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "LOCK TIGHT"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: extrabold
+                              color: "#ffffff"
+                              align: left
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Enterprise-grade security that doesn't slow you down. Encryption everywhere, permissions that make sense."
+                            typography:
+                              size: sm
+                              color: "#ffffff"
+                              align: left
+                              lineHeight: relaxed

@@ -1,4 +1,8 @@
-"""ssr_python/rag/agent/builder_agent.py — Per-section YAML generator."""
+"""ssr_python/rag/agent/builder_agent.py — Per-section YAML generator.
+
+Generates valid SwiftSites YAML for each section using component specs,
+RAG examples, and natural language style direction from the styler.
+"""
 import re
 import logging
 
@@ -6,25 +10,11 @@ from rag.config import config
 from rag.retrieval.hybrid import HybridSearch
 from rag.retrieval.reranker import Reranker
 from rag.agent.model_backend import ModelBackend
-from rag.agent.component_specs import build_component_specs, VALID_TOKENS
+from rag.agent.component_specs import build_component_specs
+from rag.agent.prompt_logger import log_prompt, log_output
+from rag.agent.prompt_loader import load_system, render_user
 
 logger = logging.getLogger(__name__)
-
-BUILDER_SYSTEM = """You are a SwiftSites YAML component builder. Given a section description and theme, generate YAML components.
-
-OUTPUT: Return ONLY valid YAML in a ```yaml code block.
-
-COLORS (wrong colors = invisible text):
-- Light bg sections: text = *color-primary, eyebrow/link = *color-accent, caption = *color-secondary
-- Dark bg sections: ALL text = *color-background
-- Button CTA: bg = *color-accent, text = *color-background
-- NEVER put same color on both text and background
-
-RULES:
-- Follow the component specs and reference templates exactly
-- Icon: `- name: icon` with `properties: {name: <icon-name>}`
-- Use ALL images provided in the image context — they are pre-assigned to this section
-"""
 
 
 class BuilderAgent:
@@ -39,16 +29,24 @@ class BuilderAgent:
         theme: dict,
         image_context: str = "",
         style_name: str = "",
-        style_context: str = "",
+        style_notes: str = "",
+        business_name: str = "",
+        business_content: dict | None = None,
+        business_description: str = "",
     ) -> str:
         """Generate YAML for a single section.
 
         Args:
-            section: {type, description, components, style_props} from planner/styler outline
+            section: Section dict from styled outline (type, description, components, etc.)
             theme: {primary, secondary, accent, background, heading_font, content_font}
             image_context: Pre-built image context string with available local URLs
-            style_name: Identified style name (e.g. "Glassmorphism") for search query enrichment
-            style_context: Raw style reference text (capped excerpt) for LLM context
+            style_name: Identified style name for search query enrichment
+            style_notes: Natural language design direction from the styler
+            business_name: User's business name (guided flow only); empty otherwise
+            business_content: Per-section real content dict from the guided flow
+                (e.g. {"tagline": "...", "cta_text": "..."}). When provided the
+                builder must use these values EXACTLY instead of hallucinating.
+            business_description: Short business pitch (guided flow only)
 
         Returns:
             YAML string for this section's components
@@ -56,13 +54,13 @@ class BuilderAgent:
         section_type = section.get("type", "other")
         description = section.get("description", "")
 
-        # Normalize style name for metadata filter (e.g. "Glassmorphism" → "glassmorphism")
+        # Normalize style name for metadata filter
         style_key = style_name.lower().replace(" ", "_") if style_name else ""
 
         # Enrich search query with style name for better semantic matching
         search_query = f"{section_type} {style_name} section" if style_name else f"{section_type} section template"
 
-        # Try style-filtered retrieval first when a style name is known
+        # Try style-filtered retrieval first
         chunks = []
         if style_key:
             chunks = self.search.search(
@@ -72,12 +70,12 @@ class BuilderAgent:
                 tier="section",
             )
             if chunks:
-                logger.info(
+                logger.debug(
                     f"Builder: found {len(chunks)} style-tagged chunks "
                     f"(section_type={section_type}, visual_style={style_key})"
                 )
 
-        # Fallback: section_type only (no style filter)
+        # Fallback: section_type only
         if not chunks:
             chunks = self.search.search(
                 search_query,
@@ -88,7 +86,7 @@ class BuilderAgent:
 
         # Final fallback: component tier
         if not chunks:
-            logger.info(f"Section tier empty for {section_type}, falling back to component tier")
+            logger.debug(f"Section tier empty for {section_type}, falling back to component tier")
             chunks = self.search.search(
                 f"{section_type} section template",
                 top_k=config.vector_top_k,
@@ -96,24 +94,14 @@ class BuilderAgent:
                 tier="component",
             )
 
-        logger.info(f"Builder retrieved {len(chunks)} chunks for section_type={section_type}")
-        for i, c in enumerate(chunks[:5]):
-            logger.debug(f"  Chunk {i}: {c.get('source_file', '?')} | {c.get('id', '?')}")
-
-        # Rerank for relevance (no-op if disabled)
+        # Rerank for relevance
         ranked = self.reranker.rerank(
             f"{section_type} {description}",
             chunks,
             top_k=config.final_top_k,
         )
 
-        logger.info(f"Builder using {len(ranked)} chunks after rerank")
-
-        # Build context from retrieved templates
-        context = "\n\n".join([
-            f"--- Example: {c['source_file']} ---\n{c['content']}"
-            for c in ranked
-        ])
+        logger.debug(f"Builder using {len(ranked)} chunks after rerank")
 
         # Build compact theme string
         dt = config.default_theme
@@ -131,105 +119,40 @@ class BuilderAgent:
             f"On dark bg, use *color-background for all text."
         )
 
-        # Build component specifications for the suggested components
+        # Build component specifications
         suggested = section.get("components", [])
         comp_specs = build_component_specs(suggested)
 
-        # Include available images if provided
-        image_block = f"\n\n{image_context}\n" if image_context else ""
-
-        # Build structured style rules block from styler's style_props
-        style_props = section.get("style_props", {})
-        style_rules_lines = []
-        if style_props:
-            shadow = style_props.get("container_shadow")
-            radius = style_props.get("container_radius")
-            blur = style_props.get("container_blur")
-            border = style_props.get("container_border")
-            btn_radius = style_props.get("button_radius")
-            btn_shadow = style_props.get("button_shadow")
-            bg_gradient = style_props.get("background_gradient")
-            bg_transparency = style_props.get("background_transparency")
-            dark_section = style_props.get("dark_section")
-
-            if shadow:
-                style_rules_lines.append(f"- Layout containers: shadow: {shadow}")
-            if radius:
-                style_rules_lines.append(f"- Layout containers: cornerStyle: {radius}")
-            if blur:
-                style_rules_lines.append(
-                    "- Layout containers: blur: true  # glassmorphism backdrop-filter"
-                )
-            if border:
-                style_rules_lines.append(f"- Layout containers: border color/width: {border}")
-            if btn_radius:
-                style_rules_lines.append(f"- Buttons: cornerStyle: {btn_radius}")
-            if btn_shadow:
-                style_rules_lines.append(f"- Buttons: shadow: {btn_shadow}")
-            if bg_gradient:
-                style_rules_lines.append(
-                    "- Section background: use type: gradient with colorStart/colorEnd/direction"
-                )
-            if bg_transparency is not None and bg_transparency < 100:
-                style_rules_lines.append(
-                    f"- Section background: transparency: {bg_transparency}  "
-                    f"# frosted/translucent effect"
-                )
-            if dark_section:
-                style_rules_lines.append(
-                    "- DARK SECTION: use *color-primary for background. "
-                    "ALL text (heading/paragraph/eyebrow/caption) must use *color-background."
-                )
-
-        style_props_block = ""
-        if style_rules_lines:
-            style_props_block = (
-                "\n[Component Style Rules — APPLY THESE to every layout container and button]\n"
-                + "\n".join(style_rules_lines) + "\n"
-            )
-
-        # Include a brief style reference excerpt for additional context
-        style_ref_block = ""
-        if style_context and style_name:
-            style_ref_block = (
-                f"\n[Style Reference: {style_name} — follow these visual rules]\n"
-                f"{style_context[:600]}\n"
-            )
-
-        # Include style guidance from planner if available
-        style_notes = section.get("style_notes", "")
-        style_block = f"\n[Style Guide for this section]\n{style_notes}\n" if style_notes else ""
-
-        user_prompt = (
-            f"[Section to Build. Remember Section is just logical structure not actual component.]\n"
-            f"Type: {section_type}\n"
-            f"Below is the Components Definition Yaml, with various properties of Components."
-            f"Default Properties are already Mentioned, if you want to keep default property value, dont use that property."
-            f"STRICTLY FOLLOW COMPONENT PROPERTIES IN SPECS BELOW \n\n\n```{comp_specs}```\n"
-            f"[Reference Templates]\n{context}\n\n"
-            f"For Font, Background colors recommended to use only theme alias"
-            f" \n{theme_str}\n\n"
-            f"{style_props_block}"
-            f"{style_ref_block}"
-            f"{image_block}"
-            f"{style_block}"
-            f"Description: {description}\n"
-            f"Suggested components: {', '.join(suggested)}"
-        )
-
         icons = section.get("icons", [])
-        if icons:
-            user_prompt += (
-                f"\nAvailable icons: {', '.join(icons)}"
+
+        # Guided-flow real content — prefer per-section payload, then fall back
+        # to anything the planner stashed on the section dict (plan_from_context).
+        effective_business_content = business_content
+        if not effective_business_content:
+            effective_business_content = section.get("business_content") or {}
+
+        system = load_system("builder")
+        user_prompt = render_user("builder",
+            section_type=section_type,
+            description=description,
+            suggested=suggested,
+            comp_specs=comp_specs,
+            ranked_chunks=ranked,
+            theme_str=theme_str,
+            style_notes=style_notes,
+            image_context=image_context,
+            icons=icons,
+            business_name=business_name,
+            business_description=business_description,
+            business_content=effective_business_content or {},
         )
 
-        logger.debug(f"Builder user prompt ({len(user_prompt)} chars):\n{user_prompt[:500]}...")
+        log_prompt(f"BUILDER [{section_type}]", system, user_prompt)
 
-        response = self.model.generate(BUILDER_SYSTEM, user_prompt)
-        logger.info(f"Builder raw LLM response ({len(response)} chars):\n{response}")
+        response = self.model.generate(system, user_prompt)
+        log_output(f"BUILDER [{section_type}]", response)
 
         yaml_str = self._extract_yaml(response)
-        logger.info(f"Builder extracted YAML ({len(yaml_str)} chars):\n{yaml_str}")
         return yaml_str
 
     def _extract_yaml(self, response: str) -> str:

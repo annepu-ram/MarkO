@@ -3,7 +3,7 @@
 # Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, button
 # Section type: features
 # Layout: grid
-# Visual style: retro
+# Visual style: retro_vintage
 # Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
 
 - name: site
@@ -13,11 +13,11 @@
         heading: "'Bebas Neue', sans-serif"
         content: "'Merriweather', serif"
       colors:
-        primary: '#0D0D0D'
-        text: '#292929'
-        secondary: '#FFD600'
-        accent: '#FF0000'
-        background: '#FFEB3B'
+        primary: &color-primary '#0D0D0D'
+        text: &color-text '#292929'
+        secondary: &color-secondary '#FFD600'
+        accent: &color-accent '#FF0000'
+        background: &color-background '#FFEB3B'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#FFEB3B'
-            transparency: 100
+            color: *color-background
+            opacity: 100
       components:
 
         # Section Header
@@ -50,7 +50,7 @@
                     typography:
                       size: sm
                       weight: extrabold
-                      color: '#0D0D0D'
+                      color: *color-primary
                       transform: uppercase
                       letterSpacing: wide
                       align: center
@@ -63,7 +63,7 @@
                     typography:
                       size: xxxl
                       weight: extrabold
-                      color: '#0D0D0D'
+                      color: *color-primary
                       transform: uppercase
                       letterSpacing: wide
                       align: center
@@ -74,7 +74,7 @@
                     text: We don't do ordinary. Every product, every move, every drop is made to turn heads and break rules. This is how we do it differently.
                     typography:
                       size: md
-                      color: '#292929'
+                      color: *color-text
                       align: center
                       lineHeight: '1.7'
                     spacing:
@@ -103,14 +103,14 @@
                     appearance:
                       background:
                         color: '#ffffff'
-                        transparency: 100
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -122,7 +122,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#0D0D0D'
+                          color: *color-primary
                           transform: uppercase
                           letterSpacing: wide
                         spacing:
@@ -132,7 +132,7 @@
                         text: Every piece is hand-finished by artisans who've been doing this since before you were born. No shortcuts, no compromises — just pure craft.
                         typography:
                           size: sm
-                          color: '#292929'
+                          color: *color-text
                           lineHeight: '1.7'
 
             - components:
@@ -143,15 +143,15 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FF0000'
-                        transparency: 100
+                        color: *color-accent
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -184,15 +184,15 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FFD600'
-                        transparency: 100
+                        color: *color-secondary
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -204,7 +204,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#0D0D0D'
+                          color: *color-primary
                           transform: uppercase
                           letterSpacing: wide
                         spacing:
@@ -214,7 +214,7 @@
                         text: Premium materials sourced from the same suppliers who dressed rock legends. Built to last decades, not just one season on your shelf.
                         typography:
                           size: sm
-                          color: '#0D0D0D'
+                          color: *color-primary
                           lineHeight: '1.7'
 
             - components:
@@ -225,15 +225,15 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FFD600'
-                        transparency: 100
+                        color: *color-secondary
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -245,7 +245,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#0D0D0D'
+                          color: *color-primary
                           transform: uppercase
                           letterSpacing: wide
                         spacing:
@@ -255,7 +255,7 @@
                         text: We run in small batches. When it's gone, it's gone. No restocks, no reprints — own something that can't be replicated once the run closes.
                         typography:
                           size: sm
-                          color: '#0D0D0D'
+                          color: *color-primary
                           lineHeight: '1.7'
 
             - components:
@@ -267,14 +267,14 @@
                     appearance:
                       background:
                         color: '#ffffff'
-                        transparency: 100
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -286,7 +286,7 @@
                         typography:
                           size: xl
                           weight: extrabold
-                          color: '#0D0D0D'
+                          color: *color-primary
                           transform: uppercase
                           letterSpacing: wide
                         spacing:
@@ -296,7 +296,7 @@
                         text: Born in the underground scene of the late 70s, we carry that independent spirit into everything we make. No corporate polish — just genuine culture.
                         typography:
                           size: sm
-                          color: '#292929'
+                          color: *color-text
                           lineHeight: '1.7'
 
             - components:
@@ -307,15 +307,15 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FF0000'
-                        transparency: 100
+                        color: *color-accent
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -354,15 +354,15 @@
                 text: SHOP THE COLLECTION
                 appearance:
                   background:
-                    color: '#0D0D0D'
-                    transparency: 100
+                    color: *color-primary
+                    opacity: 100
                   radius: none
                   shadow: retro
-                  shadowColor: '#0D0D0D'
+                  shadowColor: *color-primary
                   border:
                     width: 3
                     style: solid
-                    color: '#0D0D0D'
+                    color: *color-primary
                 typography:
                   color: '#ffffff'
                   weight: extrabold

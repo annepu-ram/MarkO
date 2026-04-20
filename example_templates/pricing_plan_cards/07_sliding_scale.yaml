@@ -4,7 +4,7 @@
 # Base components: layout-column, heading, paragraph, br, caption, textbox, layout-row, button
 # Section type: pricing
 # Layout: centered
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS, subscriptions, memberships, services, ecommerce
 
 - name: page
@@ -48,7 +48,7 @@
       properties:
         layout: {horizontalAlign: center, gap: xs}
         appearance:
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: md
           border: {width: 1, style: solid, color: *color-secondary}
         spacing:
@@ -69,7 +69,7 @@
             value: "10"
           appearance:
             border: {width: 2, style: solid, color: *color-accent}
-            background: {color: *color-background, transparency: 100}
+            background: {color: *color-background, opacity: 100}
             radius: md
           typography:
             size: xxl
@@ -83,7 +83,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: center, gap: xxs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: heading
         properties:
@@ -103,7 +103,7 @@
       properties:
         layout: {horizontalAlign: space-between, verticalAlign: center, gap: sm, wrap: nowrap}
         appearance:
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: sm
         spacing:
           paddingBlock: sm

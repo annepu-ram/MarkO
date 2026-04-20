@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, image, heading, paragraph, eyebrow, icon, button
 # Section type: features
 # Layout: split_screen
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, mobile app, software company, online store, consulting firm, logistics company, tutoring center, dental clinic, gym, digital agency
 
 
@@ -76,7 +76,7 @@
             - name: layout-column
               properties:
                 layout: { widthMode: "50", horizontalAlign: left, gap: sm }
-                appearance: { background: { transparency: 0 } }
+                appearance: { background: { opacity: 0 } }
               components:
                 - name: eyebrow
                   properties:
@@ -109,13 +109,13 @@
               verticalAlign: center
               wrap: nowrap
               gap: xl
-            appearance: { background: { color: '#f9fafb', transparency: 100 } }
+            appearance: { background: { color: '#f9fafb', opacity: 100 } }
             spacing: { paddingBlock: xl, paddingInline: lg }
           components:
             - name: layout-column
               properties:
                 layout: { widthMode: "50", horizontalAlign: left, gap: sm }
-                appearance: { background: { transparency: 0 } }
+                appearance: { background: { opacity: 0 } }
               components:
                 - name: eyebrow
                   properties:
@@ -175,7 +175,7 @@
             - name: layout-column
               properties:
                 layout: { widthMode: "50", horizontalAlign: left, gap: sm }
-                appearance: { background: { transparency: 0 } }
+                appearance: { background: { opacity: 0 } }
               components:
                 - name: eyebrow
                   properties:

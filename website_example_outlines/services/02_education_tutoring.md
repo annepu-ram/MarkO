@@ -31,8 +31,8 @@
 2. **layout-row (Hero Split)**
    Left: eyebrow ("Expert Home Tutoring") + heading + paragraph (subjects taught, teaching approach), button ("Book Free Trial Class"). Right: image (tutor teaching).
 
-3. **br (divider)**
-   Visual separator between hero and content sections.
+3. **br (wave section breaker, color matching stats section background)**
+   Decorative wave transition from hero to stats section.
 
 4. **counter-up (Results Row)**
    layout-row: "500+ Students Taught", "95% Score Improvement", "8+ Years Experience", "4.9 Rating".

@@ -14,7 +14,7 @@ page:
   appearance:
     background:
       color: $color-background
-      transparency: 100
+      opacity: 100
       image: ''
 layout-row:
   layout:
@@ -31,7 +31,7 @@ layout-row:
   appearance:
     background:
       color: $color-background
-      transparency: 0
+      opacity: 0
       image: ''
     border:
       width: 0
@@ -57,7 +57,7 @@ layout-column:
   appearance:
     background:
       color: $color-background
-      transparency: 0
+      opacity: 0
       image: ''
     border:
       width: 0
@@ -80,7 +80,7 @@ columnsgrid:
     shadow: none
     shadowColor: ''
     columnBackground: $color-background
-    columnTransparency: 0
+    columnOpacity: 0
     columnBlur: false
     columnRadius: none
     columnBorder:
@@ -89,12 +89,12 @@ columnsgrid:
   spacing:
     marginBlock: none
     marginInline: none
-    paddingBlock: none
-    paddingInline: none
+    paddingBlock: sm
+    paddingInline: sm
 titlebar:
   branding:
     showLogo: true
-    logoUrl: https://via.placeholder.com/50x40
+    logoUrl: https://placehold.co/50x40?text=Add+Image
     title: Website Title
   navigation:
     links:
@@ -112,7 +112,7 @@ titlebar:
   appearance:
     background:
       color: $color-background
-      transparency: 100
+      opacity: 100
     border:
       width: 1
       style: solid
@@ -147,8 +147,9 @@ heading:
   appearance:
     background:
       color: $color-background
-      transparency: 0
+      opacity: 0
     radius: none
+    textShadow: none
   spacing:
     marginBlock: md
     marginInline: none
@@ -180,8 +181,9 @@ paragraph:
   appearance:
     background:
       color: $color-background
-      transparency: 0
+      opacity: 0
     radius: none
+    textShadow: none
 eyebrow:
   text: |
     Featured insight
@@ -206,8 +208,9 @@ eyebrow:
   appearance:
     background:
       color: $color-background
-      transparency: 0
+      opacity: 0
     radius: none
+    textShadow: none
 caption:
   text: |
     Photo by Jane Doe
@@ -232,8 +235,9 @@ caption:
   appearance:
     background:
       color: $color-background
-      transparency: 0
+      opacity: 0
     radius: none
+    textShadow: none
 blockquote:
   quote: |
     Design is intelligence made visible.
@@ -259,15 +263,16 @@ blockquote:
       accentColor: $color-accent
     background:
       color: $color-background
-      transparency: 0
+      opacity: 0
     radius: none
     shadow: none
     shadowColor: ''
+    textShadow: none
   layout:
     widthMode: fit
 image:
   source:
-    url: https://via.placeholder.com/150
+    url: https://placehold.co/150x150?text=Add+Image
     altText: Placeholder image
   appearance:
     minHeight: 12.5
@@ -379,7 +384,7 @@ button:
   appearance:
     background:
       color: $color-background
-      transparency: 100
+      opacity: 100
     border:
       width: 1
       style: solid
@@ -496,7 +501,7 @@ accordion:
       position: bottom
     contentBackground:
       color: $color-background
-      transparency: 100
+      opacity: 100
     radius: sm
     shadow: none
     shadowColor: ''
@@ -529,7 +534,7 @@ tabs:
     content:
       background:
         color: $color-background
-        transparency: 100
+        opacity: 100
       border:
         color: '#d1d5db'
         width: 1
@@ -542,6 +547,8 @@ tabs:
   spacing:
     marginBlock: md
     marginInline: none
+    paddingBlock: sm
+    paddingInline: sm
   tabs:
     - title: Tab 1
       components:
@@ -642,7 +649,7 @@ form:
   appearance:
     background:
       color: $color-background
-      transparency: 0
+      opacity: 0
     border:
       width: 0
       color: '#e5e7eb'
@@ -687,7 +694,7 @@ carousel:
     - name: image
       properties:
         source:
-          url: https://via.placeholder.com/800x400?text=Slide+1
+          url: https://placehold.co/800x400?text=Add+Image
           altText: Slide 1
     - name: heading
       properties:
@@ -697,7 +704,7 @@ carousel:
     - name: image
       properties:
         source:
-          url: https://via.placeholder.com/800x400?text=Slide+2
+          url: https://placehold.co/800x400?text=Add+Image
           altText: Slide 2
     - name: paragraph
       properties:
@@ -706,7 +713,7 @@ carousel:
     - name: image
       properties:
         source:
-          url: https://via.placeholder.com/800x400?text=Slide+3
+          url: https://placehold.co/800x400?text=Add+Image
           altText: Slide 3
 ticker:
   behavior:
@@ -723,7 +730,7 @@ ticker:
     marginInline: none
   appearance:
     columnBackground: $color-background
-    columnTransparency: 0
+    columnOpacity: 0
     columnRadius: none
     columnBorder:
       width: 0

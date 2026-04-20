@@ -95,6 +95,17 @@
             // Check if fade transition
             const isFade = carouselElement.classList.contains('carousel-fade');
 
+            // Sync container height to active slide content
+            function syncHeight() {
+                const activeSlide = slides[currentIndex];
+                if (activeSlide && slidesContainer) {
+                    slidesContainer.style.height = activeSlide.scrollHeight + 'px';
+                }
+            }
+
+            // Set initial height from first slide
+            syncHeight();
+
             function updateCarousel() {
                 // For slide transition
                 if (!isFade && slidesContainer) {
@@ -114,6 +125,9 @@
                     indicator.classList.toggle('active', isActive);
                     indicator.setAttribute('aria-selected', isActive);
                 });
+
+                // Sync height to active slide content
+                syncHeight();
             }
 
             function goToSlide(index) {

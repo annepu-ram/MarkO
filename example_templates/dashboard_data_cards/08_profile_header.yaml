@@ -3,7 +3,7 @@
 # Base components: page, layout-row, image, layout-column, heading, paragraph, button
 # Section type: dashboard
 # Layout: split_screen
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS, analytics, admin panels, dashboards, business tools
 
 - name: page
@@ -36,8 +36,8 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
-        borderRadius: md
+          opacity: 100
+        radius: md
         shadow: soft
     components:
         # Avatar
@@ -49,7 +49,7 @@
         layout:
           widthMode: fit
         appearance:
-          borderRadius: pill
+          radius: pill
           fit: cover
           width: 72
           height: 72
@@ -95,7 +95,7 @@
         appearance:
           background:
             color: *color-secondary
-          borderRadius: sm
+          radius: sm
         typography:
           color: *color-primary
           weight: semibold

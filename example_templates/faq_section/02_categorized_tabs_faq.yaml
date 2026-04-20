@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, tabs, accordion, heading, paragraph, eyebrow
 # Section type: faq
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, online store, consulting firm, dental clinic, law firm, tutoring center, real estate agency, insurance company, software company, subscription service
 
 
@@ -30,7 +30,7 @@
         - name: layout-column
           properties:
             layout: { horizontalAlign: center, gap: md }
-            appearance: { background: { color: *color-background, transparency: 100 } }
+            appearance: { background: { color: *color-background, opacity: 100 } }
             spacing: { paddingBlock: xxl, paddingInline: lg }
           components:
             - name: eyebrow
@@ -81,10 +81,10 @@
                     background: { active: *color-background, inactive: *color-background }
                     border: { width: 2, style: solid, position: lower }
                   content:
-                    background: { color: *color-background, transparency: 100 }
+                    background: { color: *color-background, opacity: 100 }
                     padding: { block: lg, inline: md }
                   shadow: none
-                spacing: { marginBlock: md }
+                spacing: { marginBlock: md, paddingBlock: sm, paddingInline: sm }
               tabs:
                 - title: Getting Started
                   components:

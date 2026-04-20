@@ -3,7 +3,7 @@
 # Base components: page, layout-row, image, layout-column, eyebrow, heading, paragraph, caption, link
 # Section type: blog
 # Layout: split_screen
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: media, publishing, blogs, content marketing, news
 
 - name: page
@@ -37,7 +37,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, widthMode: "50", gap: sm}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: lg
           paddingInline: lg
@@ -61,7 +61,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: caption
           properties:

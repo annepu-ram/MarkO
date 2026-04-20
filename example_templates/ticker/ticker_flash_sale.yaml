@@ -3,7 +3,7 @@
 # Base components: page, layout-column, layout-row, icon, heading, paragraph, ticker, image, badge
 # Section type: ticker
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, any business
 - name: page
   properties:
@@ -20,392 +20,487 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
-  - name: layout-column
-    properties:
-      layout:
-        horizontalAlign: center
-        gap: md
-      spacing:
-        paddingBlock: xxl
-        paddingInline: lg
-    components:
-    - name: layout-row
+    - name: layout-column
       properties:
         layout:
           horizontalAlign: center
-          verticalAlign: center
-          wrap: nowrap
+          gap: md
         spacing:
-          gap: sm
+          paddingBlock: xxl
+          paddingInline: lg
       components:
-      - name: icon
-        properties:
-          name: local_fire_department
-          size: xl
-          color: *color-accent
-      - name: heading
-        properties:
-          text: Flash Sale — Up to 60% Off
-          level: 2
-          typography:
-            size: xxl
-            weight: extrabold
-            color: *color-primary
-            align: center
-    - name: paragraph
-      properties:
-        text: Limited time only. Grab your favorites before they're gone!
-        typography:
-          size: md
-          color: *color-secondary
-          align: center
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: nowrap
+            spacing:
+              gap: sm
+          components:
+            - name: icon
+              properties:
+                name: local_fire_department
+                size: xl
+                color: *color-accent
+            - name: heading
+              properties:
+                text: Flash Sale — Up to 60% Off
+                level: 2
+                typography:
+                  size: xxl
+                  weight: extrabold
+                  color: *color-primary
+                  align: center
+        - name: paragraph
+          properties:
+            text: Limited time only. Grab your favorites before they're gone!
+            typography:
+              size: md
+              color: *color-secondary
+              align: center
 
-    - name: ticker
-      properties:
-        behavior:
-          direction: left
-          speed: 20
-          mode: continuous
-          pauseOnHover: true
-        layout:
-          gap: lg
-          widthMode: "280"
-        spacing:
-          marginBlock: lg
-          marginInline: none
-        appearance:
-          columnBackground: *color-background
-          columnTransparency: 100
-          columnRadius: lg
-          columnBorder:
-            width: 1
-            style: solid
-            color: *color-secondary
-      columns:
-      - components:
-        - name: layout-column
+        - name: ticker
           properties:
+            behavior:
+              direction: left
+              speed: 20
+              mode: continuous
+              pauseOnHover: true
             layout:
-              horizontalAlign: center
-              gap: none
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop
-                altText: Red Running Shoes
-              appearance:
-                radius: none
-                fit: cover
-                minHeight: 12.5
-          - name: badge
-            properties:
-              text: "60% OFF"
-              variant: danger
-              pill: true
-              typography:
-                size: xs
-                color: *color-background
-          - name: layout-column
-            properties:
-              layout:
-                horizontalAlign: center
-                gap: xs
-              spacing:
-                paddingBlock: sm
-                paddingInline: sm
-            components:
-            - name: heading
-              properties:
-                text: Running Shoes Pro
-                level: 4
-                typography:
-                  size: md
-                  weight: semibold
-                  color: *color-primary
-                  align: center
-            - name: layout-row
-              properties:
-                layout:
-                  horizontalAlign: center
-                  verticalAlign: center
-                  wrap: nowrap
-                spacing:
-                  gap: sm
-              components:
-              - name: paragraph
-                properties:
-                  text: "$199.99"
-                  typography:
-                    size: sm
-                    color: *color-secondary
-                    weight: regular
-              - name: paragraph
-                properties:
-                  text: "$79.99"
-                  typography:
-                    size: lg
-                    weight: bold
-                    color: *color-accent
-      - components:
-        - name: layout-column
-          properties:
-            layout:
-              horizontalAlign: center
-              gap: none
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=300&fit=crop
-                altText: Luxury Perfume
-              appearance:
-                radius: none
-                fit: cover
-                minHeight: 12.5
-          - name: badge
-            properties:
-              text: "45% OFF"
-              variant: danger
-              pill: true
-              typography:
-                size: xs
-                color: *color-background
-          - name: layout-column
-            properties:
-              layout:
-                horizontalAlign: center
-                gap: xs
-              spacing:
-                paddingBlock: sm
-                paddingInline: sm
-            components:
-            - name: heading
-              properties:
-                text: Signature Perfume
-                level: 4
-                typography:
-                  size: md
-                  weight: semibold
-                  color: *color-primary
-                  align: center
-            - name: layout-row
-              properties:
-                layout:
-                  horizontalAlign: center
-                  verticalAlign: center
-                  wrap: nowrap
-                spacing:
-                  gap: sm
-              components:
-              - name: paragraph
-                properties:
-                  text: "$120.00"
-                  typography:
-                    size: sm
-                    color: *color-secondary
-                    weight: regular
-              - name: paragraph
-                properties:
-                  text: "$65.99"
-                  typography:
-                    size: lg
-                    weight: bold
-                    color: *color-accent
-      - components:
-        - name: layout-column
-          properties:
-            layout:
-              horizontalAlign: center
-              gap: none
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop
-                altText: Classic Watch
-              appearance:
-                radius: none
-                fit: cover
-                minHeight: 12.5
-          - name: badge
-            properties:
-              text: "50% OFF"
-              variant: danger
-              pill: true
-              typography:
-                size: xs
-                color: *color-background
-          - name: layout-column
-            properties:
-              layout:
-                horizontalAlign: center
-                gap: xs
-              spacing:
-                paddingBlock: sm
-                paddingInline: sm
-            components:
-            - name: heading
-              properties:
-                text: Classic Timepiece
-                level: 4
-                typography:
-                  size: md
-                  weight: semibold
-                  color: *color-primary
-                  align: center
-            - name: layout-row
-              properties:
-                layout:
-                  horizontalAlign: center
-                  verticalAlign: center
-                  wrap: nowrap
-                spacing:
-                  gap: sm
-              components:
-              - name: paragraph
-                properties:
-                  text: "$349.00"
-                  typography:
-                    size: sm
-                    color: *color-secondary
-                    weight: regular
-              - name: paragraph
-                properties:
-                  text: "$174.50"
-                  typography:
-                    size: lg
-                    weight: bold
-                    color: *color-accent
-      - components:
-        - name: layout-column
-          properties:
-            layout:
-              horizontalAlign: center
-              gap: none
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400&h=300&fit=crop
-                altText: Leather Bag
-              appearance:
-                radius: none
-                fit: cover
-                minHeight: 12.5
-          - name: badge
-            properties:
-              text: "40% OFF"
-              variant: danger
-              pill: true
-              typography:
-                size: xs
-                color: *color-background
-          - name: layout-column
-            properties:
-              layout:
-                horizontalAlign: center
-                gap: xs
-              spacing:
-                paddingBlock: sm
-                paddingInline: sm
-            components:
-            - name: heading
-              properties:
-                text: Leather Weekend Bag
-                level: 4
-                typography:
-                  size: md
-                  weight: semibold
-                  color: *color-primary
-                  align: center
-            - name: layout-row
-              properties:
-                layout:
-                  horizontalAlign: center
-                  verticalAlign: center
-                  wrap: nowrap
-                spacing:
-                  gap: sm
-              components:
-              - name: paragraph
-                properties:
-                  text: "$280.00"
-                  typography:
-                    size: sm
-                    color: *color-secondary
-                    weight: regular
-              - name: paragraph
-                properties:
-                  text: "$168.00"
-                  typography:
-                    size: lg
-                    weight: bold
-                    color: *color-accent
-      - components:
-        - name: layout-column
-          properties:
-            layout:
-              horizontalAlign: center
-              gap: none
-          components:
-          - name: image
-            properties:
-              source:
-                url: https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop
-                altText: Wireless Headphones
-              appearance:
-                radius: none
-                fit: cover
-                minHeight: 12.5
-          - name: badge
-            properties:
-              text: "55% OFF"
-              variant: danger
-              pill: true
-              typography:
-                size: xs
-                color: *color-background
-          - name: layout-column
-            properties:
-              layout:
-                horizontalAlign: center
-                gap: xs
-              spacing:
-                paddingBlock: sm
-                paddingInline: sm
-            components:
-            - name: heading
-              properties:
-                text: Studio Headphones
-                level: 4
-                typography:
-                  size: md
-                  weight: semibold
-                  color: *color-primary
-                  align: center
-            - name: layout-row
-              properties:
-                layout:
-                  horizontalAlign: center
-                  verticalAlign: center
-                  wrap: nowrap
-                spacing:
-                  gap: sm
-              components:
-              - name: paragraph
-                properties:
-                  text: "$179.99"
-                  typography:
-                    size: sm
-                    color: *color-secondary
-                    weight: regular
-              - name: paragraph
-                properties:
-                  text: "$80.99"
-                  typography:
-                    size: lg
-                    weight: bold
-                    color: *color-accent
+              gap: lg
+              widthMode: "280"
+            spacing:
+              marginBlock: lg
+              marginInline: none
+            appearance:
+              columnBackground: *color-background
+              columnOpacity: 100
+              columnRadius: lg
+              columnBorder:
+                width: 1
+                style: solid
+                color: *color-secondary
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop
+                          altText: Red Running Shoes
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 12.5
+                    - name: badge
+                      properties:
+                        text: "60% OFF"
+                        variant: danger
+                        pill: true
+                        typography:
+                          size: xs
+                          color: *color-background
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: xs
+                        spacing:
+                          paddingBlock: sm
+                          paddingInline: sm
+                      components:
+                        - name: heading
+                          properties:
+                            text: Running Shoes Pro
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: layout-row
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              verticalAlign: center
+                              wrap: wrap
+                              tag: section
+                              gap: none
+                            spacing:
+                              gap: sm
+                              paddingBlock: sm
+                              paddingInline: sm
+                              marginBlock: none
+                              marginInline: none
+                            appearance:
+                              background:
+                                type: ""
+                                color: $color-background
+                                opacity: 0
+                              blur: false
+                              border:
+                                width: 0
+                                style: solid
+                                color: $color-primary
+                              radius: none
+                              shadow: none
+                              shadowColor: "#000000"
+                          components:
+                            - name: paragraph
+                              properties:
+                                text: "$199.99"
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                  weight: regular
+                            - name: paragraph
+                              properties:
+                                text: "$79.99"
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-accent
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=300&fit=crop
+                          altText: Luxury Perfume
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 12.5
+                    - name: badge
+                      properties:
+                        text: "45% OFF"
+                        variant: danger
+                        pill: true
+                        typography:
+                          size: xs
+                          color: *color-background
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: xs
+                        spacing:
+                          paddingBlock: sm
+                          paddingInline: sm
+                      components:
+                        - name: heading
+                          properties:
+                            text: Signature Perfume
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: layout-row
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              verticalAlign: center
+                              wrap: wrap
+                              tag: section
+                              gap: none
+                            spacing:
+                              gap: sm
+                              paddingBlock: sm
+                              paddingInline: sm
+                              marginBlock: none
+                              marginInline: none
+                            appearance:
+                              background:
+                                type: ""
+                                color: $color-background
+                                opacity: 0
+                              blur: false
+                              border:
+                                width: 0
+                                style: solid
+                                color: $color-primary
+                              radius: none
+                              shadow: none
+                              shadowColor: "#000000"
+                          components:
+                            - name: paragraph
+                              properties:
+                                text: "$120.00"
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                  weight: regular
+                            - name: paragraph
+                              properties:
+                                text: "$65.99"
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-accent
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop
+                          altText: Classic Watch
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 12.5
+                    - name: badge
+                      properties:
+                        text: "50% OFF"
+                        variant: danger
+                        pill: true
+                        typography:
+                          size: xs
+                          color: *color-background
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: xs
+                        spacing:
+                          paddingBlock: sm
+                          paddingInline: sm
+                      components:
+                        - name: heading
+                          properties:
+                            text: Classic Timepiece
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: layout-row
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              verticalAlign: center
+                              wrap: wrap
+                              tag: section
+                              gap: none
+                            spacing:
+                              gap: sm
+                              paddingBlock: sm
+                              paddingInline: sm
+                              marginBlock: none
+                              marginInline: none
+                            appearance:
+                              background:
+                                type: ""
+                                color: $color-background
+                                opacity: 0
+                              blur: false
+                              border:
+                                width: 0
+                                style: solid
+                                color: $color-primary
+                              radius: none
+                              shadow: none
+                              shadowColor: "#000000"
+                          components:
+                            - name: paragraph
+                              properties:
+                                text: "$349.00"
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                  weight: regular
+                            - name: paragraph
+                              properties:
+                                text: "$174.50"
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-accent
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400&h=300&fit=crop
+                          altText: Leather Bag
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 12.5
+                    - name: badge
+                      properties:
+                        text: "40% OFF"
+                        variant: danger
+                        pill: true
+                        typography:
+                          size: xs
+                          color: *color-background
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: xs
+                        spacing:
+                          paddingBlock: sm
+                          paddingInline: sm
+                      components:
+                        - name: heading
+                          properties:
+                            text: Leather Weekend Bag
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: layout-row
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              verticalAlign: center
+                              wrap: wrap
+                              tag: section
+                              gap: none
+                            spacing:
+                              gap: sm
+                              paddingBlock: sm
+                              paddingInline: sm
+                              marginBlock: none
+                              marginInline: none
+                            appearance:
+                              background:
+                                type: ""
+                                color: $color-background
+                                opacity: 0
+                              blur: false
+                              border:
+                                width: 0
+                                style: solid
+                                color: $color-primary
+                              radius: none
+                              shadow: none
+                              shadowColor: "#000000"
+                          components:
+                            - name: paragraph
+                              properties:
+                                text: "$280.00"
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                  weight: regular
+                            - name: paragraph
+                              properties:
+                                text: "$168.00"
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-accent
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: none
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop
+                          altText: Wireless Headphones
+                        appearance:
+                          radius: none
+                          fit: cover
+                          minHeight: 12.5
+                    - name: badge
+                      properties:
+                        text: "55% OFF"
+                        variant: danger
+                        pill: true
+                        typography:
+                          size: xs
+                          color: *color-background
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: xs
+                        spacing:
+                          paddingBlock: sm
+                          paddingInline: sm
+                      components:
+                        - name: heading
+                          properties:
+                            text: Studio Headphones
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: layout-row
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              verticalAlign: center
+                              wrap: wrap
+                              tag: section
+                              gap: none
+                            spacing:
+                              gap: sm
+                              paddingBlock: sm
+                              paddingInline: sm
+                              marginBlock: none
+                              marginInline: none
+                            appearance:
+                              background:
+                                type: ""
+                                color: $color-background
+                                opacity: 0
+                              blur: false
+                              border:
+                                width: 0
+                                style: solid
+                                color: $color-primary
+                              radius: none
+                              shadow: none
+                              shadowColor: "#000000"
+                          components:
+                            - name: paragraph
+                              properties:
+                                text: "$179.99"
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                  weight: regular
+                            - name: paragraph
+                              properties:
+                                text: "$80.99"
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: *color-accent

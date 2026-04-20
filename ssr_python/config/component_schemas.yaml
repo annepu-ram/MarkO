@@ -32,9 +32,9 @@ page:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -156,9 +156,9 @@ layout-row:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -307,9 +307,9 @@ layout-column:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -424,9 +424,9 @@ columnsgrid:
     - path: appearance.columnBackground
       type: color
       label: Column Background
-    - path: appearance.columnTransparency
+    - path: appearance.columnOpacity
       type: range
-      label: Column Transparency
+      label: Column Opacity
       min: 0
       max: 100
       unit: '%'
@@ -515,9 +515,9 @@ titlebar:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -665,9 +665,9 @@ heading:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -694,6 +694,13 @@ heading:
       showWhen:
         field: appearance.background.type
         value: gradient
+    - path: appearance.textShadow
+      type: select
+      label: Text Shadow
+      options:
+        - none
+        - soft
+        - strong
   - id: spacing
     label: Spacing
     fields:
@@ -789,9 +796,9 @@ paragraph:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -818,6 +825,13 @@ paragraph:
       showWhen:
         field: appearance.background.type
         value: gradient
+    - path: appearance.textShadow
+      type: select
+      label: Text Shadow
+      options:
+        - none
+        - soft
+        - strong
   - id: spacing
     label: Spacing
     fields:
@@ -913,9 +927,9 @@ eyebrow:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -942,6 +956,13 @@ eyebrow:
       showWhen:
         field: appearance.background.type
         value: gradient
+    - path: appearance.textShadow
+      type: select
+      label: Text Shadow
+      options:
+        - none
+        - soft
+        - strong
   - id: spacing
     label: Spacing
     fields:
@@ -1043,9 +1064,9 @@ blockquote:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -1079,6 +1100,13 @@ blockquote:
     - path: appearance.shadowColor
       type: color
       label: Shadow Color
+    - path: appearance.textShadow
+      type: select
+      label: Text Shadow
+      options:
+        - none
+        - soft
+        - strong
   - id: spacing
     label: Spacing
     fields:
@@ -1174,9 +1202,9 @@ caption:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -1203,6 +1231,13 @@ caption:
       showWhen:
         field: appearance.background.type
         value: gradient
+    - path: appearance.textShadow
+      type: select
+      label: Text Shadow
+      options:
+        - none
+        - soft
+        - strong
   - id: spacing
     label: Spacing
     fields:
@@ -1676,9 +1711,9 @@ button:
       showWhen:
         field: appearance.background.type
         value: color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Background Transparency
+      label: Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -2028,9 +2063,9 @@ accordion:
     - path: appearance.contentBackground.color
       type: color
       label: Content Background Color
-    - path: appearance.contentBackground.transparency
+    - path: appearance.contentBackground.opacity
       type: range
-      label: Content Background Transparency
+      label: Content Background Opacity
     - path: appearance.radius
       type: select
       label: Border Radius
@@ -2135,9 +2170,9 @@ tabs:
     - path: appearance.content.background.color
       type: color
       label: Content Background Color
-    - path: appearance.content.background.transparency
+    - path: appearance.content.background.opacity
       type: range
-      label: Content Background Transparency
+      label: Content Background Opacity
       min: 0
       max: 100
       unit: '%'
@@ -2182,6 +2217,14 @@ tabs:
     - path: spacing.marginInline
       type: select
       label: Margin (Left+Right)
+      tokens: spacingScale
+    - path: spacing.paddingBlock
+      type: select
+      label: Padding (Top+Bottom)
+      tokens: spacingScale
+    - path: spacing.paddingInline
+      type: select
+      label: Padding (Left+Right)
       tokens: spacingScale
 hamburger:
   groups:
@@ -2580,9 +2623,9 @@ form:
     - path: appearance.background.color
       type: color
       label: Background Color
-    - path: appearance.background.transparency
+    - path: appearance.background.opacity
       type: range
-      label: Transparency
+      label: Opacity
       min: 0
       max: 100
     - path: appearance.border.width
@@ -2806,9 +2849,9 @@ ticker:
     - path: appearance.columnBackground
       type: color
       label: Column Background
-    - path: appearance.columnTransparency
+    - path: appearance.columnOpacity
       type: range
-      label: Column Bg Transparency
+      label: Column Bg Opacity
       min: 0
       max: 100
     - path: appearance.columnRadius

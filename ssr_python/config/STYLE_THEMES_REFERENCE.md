@@ -21,12 +21,12 @@ Properties:
 - Spacing: section paddingBlock xxxl, card paddingBlock xl paddingInline lg
 
 Section style_notes:
-- Hero: light bg, paddingBlock xxxl. paragraph *color-text. Split: wrap nowrap, both widthMode "50". Centered: single column horizontalAlign center
-- Features: columnsgrid columns 3 gap lg. Cards radius sm shadow soft border 1px #e5e7eb. paragraph *color-text
-- Pricing: columnsgrid columns 3. Popular card border *color-accent. paragraph *color-text
-- Footer: inverted — bg *color-primary transparency 100, ALL text *color-background
-- CTA: bg *color-accent transparency 100, text *color-background, paddingBlock xxl
-- Dark sections: bg *color-primary transparency 100, ALL text *color-background
+- Hero: light bg, paddingBlock xxxl. paragraph *color-text. Heading weight semibold
+- Features: Cards radius sm shadow soft border 1px #e5e7eb. paragraph *color-text
+- Pricing: Popular card border *color-accent. paragraph *color-text
+- Footer: inverted — bg *color-primary opacity 100, ALL text *color-background
+- CTA: bg *color-accent opacity 100, text *color-background, paddingBlock xxl
+- Dark sections: bg *color-primary opacity 100, ALL text *color-background
 
 ## Style: Glassmorphism
 
@@ -42,19 +42,19 @@ Themes:
 
 Properties:
 - Page background: REQUIRED gradient (type gradient, direction to bottom right). Blur only visible on gradient parent
-- Container: background color #ffffff, transparency 12, blur true, border width 1 color #ffffff, radius lg, shadow soft
-- Card: background color #ffffff, transparency 15, blur true, border width 1 color #ffffff, radius lg, shadow soft
-- Button: background color #ffffff, transparency 20, blur true, border width 1 color #ffffff, radius pill
+- Container: background color #ffffff, opacity 12, blur true, border width 1 color #ffffff, radius lg, shadow soft
+- Card: background color #ffffff, opacity 15, blur true, border width 1 color #ffffff, radius lg, shadow soft
+- Button: background color #ffffff, opacity 20, blur true, border width 1 color #ffffff, radius pill
 - Heading: weight bold
 - Body: weight regular
 - Spacing: section paddingBlock xxxl paddingInline lg, card paddingBlock lg paddingInline lg
 
 Section style_notes:
-- Hero: page MUST have gradient bg. Container blur true transparency 12. paragraph *color-text. Split: wrap nowrap widthMode "50"
-- Features: columnsgrid columns 3 gap lg. Each card blur true transparency 15 radius lg border 1px #fff. paragraph *color-text
-- Pricing: columnsgrid columns 3. Cards blur true transparency 15. Popular: transparency 25. paragraph *color-text
-- Footer: bg *color-primary transparency 80, blur true, ALL text *color-background
-- Dark sections: dark gradient bg, cards blur true transparency 15, ALL text *color-background
+- Hero: page MUST have gradient bg. Container blur true opacity 12. paragraph *color-text
+- Features: Each card blur true opacity 15 radius lg border 1px #fff. paragraph *color-text
+- Pricing: Cards blur true opacity 15. Popular: opacity 25. paragraph *color-text
+- Footer: bg *color-primary opacity 80, blur true, ALL text *color-background
+- Dark sections: dark gradient bg, cards blur true opacity 15, ALL text *color-background
 
 ## Style: Retro Vintage
 
@@ -77,11 +77,11 @@ Properties:
 - Spacing: section paddingBlock xl paddingInline md, card paddingBlock md paddingInline md
 
 Section style_notes:
-- Hero: bold saturated bg. paragraph *color-text. Split: wrap nowrap widthMode "50". Heading transform uppercase weight extrabold
-- Features: columnsgrid columns 3 gap lg. Cards border 3px #0D0D0D shadow retro radius none. paragraph *color-text
-- Footer: bg *color-primary transparency 100, ALL text *color-background, border-top 3px
+- Hero: bold saturated bg. paragraph *color-text. Heading transform uppercase weight extrabold
+- Features: Cards border 3px #0D0D0D shadow retro radius none. paragraph *color-text
+- Footer: bg *color-primary opacity 100, ALL text *color-background, border-top 3px
 - CTA: bold accent bg, large heading uppercase, shadow retro on button
-- Dark sections: bg *color-primary transparency 100, ALL text *color-secondary or *color-background
+- Dark sections: bg *color-primary opacity 100, ALL text *color-background
 
 ## Style: Neubrutalism
 
@@ -105,9 +105,9 @@ Properties:
 
 Section style_notes:
 - Hero: bg *color-background. Heading extrabold uppercase xxxl. paragraph *color-text. Button border 4px #000 shadow retro
-- Features: columnsgrid columns 3 gap lg. Cards border 4px #000 shadow retro radius none. paragraph *color-text
-- Pricing: columnsgrid columns 3. ALL cards border 4px #000. Popular bg *color-accent. paragraph *color-text
-- Footer: bg *color-primary transparency 100, border-top 4px #000, ALL text *color-background
+- Features: Cards border 4px #000 shadow retro radius none. paragraph *color-text
+- Pricing: ALL cards border 4px #000. Popular bg *color-accent. paragraph *color-text
+- Footer: bg *color-primary opacity 100, border-top 4px #000, ALL text *color-background
 - CTA: bg *color-accent, border 4px #000, text *color-background, heading extrabold uppercase
 
 ## Style: Claymorphism
@@ -131,11 +131,11 @@ Properties:
 - Spacing: section paddingBlock xl paddingInline lg, card paddingBlock lg paddingInline lg
 
 Section style_notes:
-- Hero: light pastel bg. Centered layout. Heading bold xxxl. paragraph *color-text. Button radius pill shadow medium
-- Features: columnsgrid columns 3 gap lg. Cards radius xxl shadow elevated, soft pastel card bg. paragraph *color-text
-- Pricing: columnsgrid columns 3. Cards radius xxl shadow elevated. Popular shadow elevated larger. paragraph *color-text
-- Footer: bg *color-primary transparency 100, radius none, ALL text *color-background
-- CTA: bg *color-accent transparency 100, radius xxl, text *color-background, button radius pill
+- Hero: light pastel bg. Heading bold xxxl. paragraph *color-text. Button radius pill shadow medium
+- Features: Cards radius xxl shadow elevated, soft pastel card bg. paragraph *color-text
+- Pricing: Cards radius xxl shadow elevated. Popular shadow elevated larger. paragraph *color-text
+- Footer: bg *color-primary opacity 100, radius none, ALL text *color-background
+- CTA: bg *color-accent opacity 100, radius xxl, text *color-background, button radius pill
 
 ## Style: Aurora Gradient
 
@@ -160,8 +160,8 @@ Properties:
 
 Section style_notes:
 - Hero: gradient bg (colorStart *color-accent, colorEnd *color-secondary, direction to bottom right). paragraph *color-text. Text *color-background if dark gradient
-- Features: columnsgrid columns 3 gap lg. Cards subtle gradient bg radius lg. paragraph *color-text
-- Pricing: columnsgrid columns 3. Popular card bold gradient bg. paragraph *color-text
+- Features: Cards subtle gradient bg radius lg. paragraph *color-text
+- Pricing: Popular card bold gradient bg. paragraph *color-text
 - Footer: dark gradient bg, ALL text *color-background
 - CTA: bold gradient bg *color-accent to *color-secondary, text *color-background, button gradient
 
@@ -178,16 +178,16 @@ Themes:
 4. Obsidian Red — primary #FEE2E2, text #C8B0B0, secondary #1C1917, accent #EF4444, background #0C0A09, fonts Space Grotesk/Inter
 
 Properties:
-- Container: background color *color-secondary, transparency 100, border width 1 color #333333, radius xs, shadow soft, shadowColor #000000
-- Card: background color *color-secondary, transparency 100, border width 1 color #333333, radius xs, shadow soft
+- Container: background color *color-secondary, opacity 100, border width 1 color #333333, radius xs, shadow soft, shadowColor #000000
+- Card: background color *color-secondary, opacity 100, border width 1 color #333333, radius xs, shadow soft
 - Button: border width 1 color #444444, radius xs, shadow none
 - Heading: weight semibold, letterSpacing wide, color *color-primary
 - Body: weight light, color *color-primary
 - Spacing: section paddingBlock xxl paddingInline lg, card paddingBlock lg paddingInline lg
 
 Section style_notes:
-- Hero: dark bg *color-background transparency 100. ALL text *color-primary. Accent for CTA button only
-- Features: columnsgrid columns 3 gap lg. Cards bg *color-secondary border 1px #333 radius xs
+- Hero: dark bg *color-background opacity 100. ALL text *color-primary. Accent for CTA button only
+- Features: Cards bg *color-secondary border 1px #333 radius xs
 - Pricing: dark bg. ALL text *color-primary. Popular card border *color-accent
 - Footer: bg *color-background, ALL text *color-primary, links *color-accent
 - ALL sections: dark background, ALL text *color-primary (light on dark), accent ONLY for CTAs
@@ -213,11 +213,11 @@ Properties:
 - Spacing: section paddingBlock xxxl paddingInline xl, card paddingBlock xl paddingInline xl
 
 Section style_notes:
-- Hero: generous whitespace paddingBlock xxxl. paragraph *color-text. Split: wrap nowrap widthMode "50". Heading light uppercase letterSpacing wider
-- Features: columnsgrid columns 3 gap xl. Cards radius xs shadow soft border 1px *color-secondary. paragraph *color-text
+- Hero: generous whitespace paddingBlock xxxl. paragraph *color-text. Heading light uppercase letterSpacing wider
+- Features: Cards radius xs shadow soft border 1px *color-secondary. paragraph *color-text
 - Gallery: images with hoverEffect brighten. Minimal text, let visuals speak
-- Footer: bg *color-primary transparency 100, ALL text *color-background, letterSpacing wider
-- CTA: bg *color-primary transparency 100, text *color-background, button border 1px *color-background
+- Footer: bg *color-primary opacity 100, ALL text *color-background, letterSpacing wider
+- CTA: bg *color-primary opacity 100, text *color-background, button border 1px *color-background
 
 ## Style: Organic Natural
 
@@ -240,11 +240,11 @@ Properties:
 - Spacing: section paddingBlock xxl paddingInline lg, card paddingBlock lg paddingInline lg
 
 Section style_notes:
-- Hero: warm light bg. paragraph *color-text. Split: wrap nowrap widthMode "50". Image with cornerStyle lg hoverEffect brighten
-- Features: columnsgrid columns 3 gap lg. Cards radius lg shadow soft, warm card bg. paragraph *color-text
-- Product: columnsgrid columns 3. Image fit cover cornerStyle lg. Warm earth tones. paragraph *color-text
-- Footer: bg *color-primary transparency 100, ALL text *color-background, radius none
-- CTA: bg *color-accent transparency 100, text *color-background, radius lg
+- Hero: warm light bg. paragraph *color-text. Image with cornerStyle lg hoverEffect brighten
+- Features: Cards radius lg shadow soft, warm card bg. paragraph *color-text
+- Product: Image fit cover cornerStyle lg. Warm earth tones. paragraph *color-text
+- Footer: bg *color-primary opacity 100, ALL text *color-background, radius none
+- CTA: bg *color-accent opacity 100, text *color-background, radius lg
 
 ## Style: Corporate Professional
 
@@ -267,11 +267,11 @@ Properties:
 - Spacing: section paddingBlock xxl paddingInline xl, card paddingBlock lg paddingInline lg
 
 Section style_notes:
-- Hero: light bg, structured layout. paragraph *color-text. Split: wrap nowrap widthMode "50". Conservative heading weight semibold
-- Features: columnsgrid columns 3 gap lg. Cards radius sm shadow soft border 1px #e5e7eb. paragraph *color-text
-- Stats: layout-row wrap wrap. counter-up components. bg *color-primary transparency 100 ALL text *color-background
-- Footer: bg *color-primary transparency 100, structured 3-column, ALL text *color-background
-- CTA: bg *color-accent transparency 100, text *color-background, professional tone
+- Hero: light bg. paragraph *color-text. Conservative heading weight semibold
+- Features: Cards radius sm shadow soft border 1px #e5e7eb. paragraph *color-text
+- Stats: bg *color-primary opacity 100 ALL text *color-background
+- Footer: bg *color-primary opacity 100, ALL text *color-background
+- CTA: bg *color-accent opacity 100, text *color-background, professional tone
 
 ## Style: Bold Editorial
 
@@ -295,10 +295,10 @@ Properties:
 
 Section style_notes:
 - Hero: dramatic oversized heading weight black size xxxl letterSpacing tighter. paragraph *color-text. Minimal elements. paddingBlock xxxl
-- Blog: asymmetric grid — columnsgrid columns 3. First article large. Clean card with bottom border only. paragraph *color-text
-- Features: columnsgrid columns 2 gap xl. Bold heading for each, descriptive paragraph *color-text
-- Footer: bg *color-primary transparency 100, ALL text *color-background, minimal links
-- CTA: bg *color-accent transparency 100, large heading, text *color-background
+- Blog: Clean card with bottom border only. paragraph *color-text
+- Features: Bold heading for each, descriptive paragraph *color-text
+- Footer: bg *color-primary opacity 100, ALL text *color-background, minimal links
+- CTA: bg *color-accent opacity 100, large heading, text *color-background
 
 ## Style: Cyberpunk Neon
 
@@ -313,8 +313,8 @@ Themes:
 4. Cyber Teal — primary #CCFBF1, text #A0C8C0, secondary #134E4A, accent #14B8A6, background #042F2E, fonts Space Grotesk/Inter
 
 Properties:
-- Container: background color *color-secondary, transparency 100, border width 1 color *color-accent, radius xs, shadow soft, shadowColor *color-accent
-- Card: background color *color-secondary, transparency 100, border width 1 color *color-accent, radius xs, shadow soft
+- Container: background color *color-secondary, opacity 100, border width 1 color *color-accent, radius xs, shadow soft, shadowColor *color-accent
+- Card: background color *color-secondary, opacity 100, border width 1 color *color-accent, radius xs, shadow soft
 - Button: border width 2 color *color-accent, radius xs, shadow soft, shadowColor *color-accent
 - Heading: weight bold, transform uppercase, letterSpacing wide
 - Body: weight regular
@@ -322,7 +322,7 @@ Properties:
 
 Section style_notes:
 - Hero: very dark bg *color-background. Heading uppercase bold. Neon accent border on elements. ALL text *color-primary
-- Features: columnsgrid columns 3 gap lg. Cards dark bg border 1px *color-accent shadow soft shadowColor *color-accent
+- Features: Cards dark bg border 1px *color-accent shadow soft shadowColor *color-accent
 - Pricing: dark bg. Cards border *color-accent. Popular glow effect stronger shadowColor
 - Footer: bg *color-background, border-top 1px *color-accent, ALL text *color-primary
 - ALL sections: dark background, text *color-primary, neon borders *color-accent, shadow glow with shadowColor *color-accent
@@ -348,11 +348,11 @@ Properties:
 - Spacing: section paddingBlock xxl paddingInline lg, card paddingBlock lg paddingInline lg
 
 Section style_notes:
-- Hero: soft pastel bg. Centered layout. Heading semibold. paragraph *color-text. Gentle paddingBlock xxl
-- Features: columnsgrid columns 3 gap lg. Cards radius lg shadow soft, pastel card bg. paragraph *color-text
-- Product: columnsgrid columns 3. Images cornerStyle lg. Soft shadow on cards. paragraph *color-text
-- Footer: bg *color-primary transparency 100, ALL text *color-background
-- CTA: bg *color-accent transparency 100, text *color-background, button radius pill
+- Hero: soft pastel bg. Heading semibold. paragraph *color-text. Gentle paddingBlock xxl
+- Features: Cards radius lg shadow soft, pastel card bg. paragraph *color-text
+- Product: Images cornerStyle lg. Soft shadow on cards. paragraph *color-text
+- Footer: bg *color-primary opacity 100, ALL text *color-background
+- CTA: bg *color-accent opacity 100, text *color-background, button radius pill
 
 ## Style: Scandinavian Clean
 
@@ -375,11 +375,11 @@ Properties:
 - Spacing: section paddingBlock xxxl paddingInline xl, card paddingBlock xl paddingInline xl
 
 Section style_notes:
-- Hero: white bg, generous whitespace paddingBlock xxxl. paragraph *color-text. Split: wrap nowrap widthMode "50". Understated heading weight medium
-- Features: columnsgrid columns 3 gap xl. Minimal cards, subtle border only. Generous spacing. paragraph *color-text
-- Product: columnsgrid columns 2-3. Large images, minimal text. cornerStyle md. paragraph *color-text
+- Hero: white bg, generous whitespace paddingBlock xxxl. paragraph *color-text. Understated heading weight medium
+- Features: Minimal cards, subtle border only. Generous spacing. paragraph *color-text
+- Product: Large images, minimal text. cornerStyle md. paragraph *color-text
 - Footer: light bg, subtle text, minimal elements. NO dark bg for scandi style
-- CTA: simple centered layout, outline button border 1px *color-primary, paddingBlock xxl
+- CTA: outline button border 1px *color-primary, paddingBlock xxl
 
 ## Style: Art Deco Geometric
 
@@ -403,7 +403,7 @@ Properties:
 
 Section style_notes:
 - Hero: dark bg. Heading uppercase bold letterSpacing widest. Gold accent border. ALL text light color
-- Features: columnsgrid columns 3 gap lg. Cards border 2px *color-secondary shadow medium. Dark card bg
+- Features: Cards border 2px *color-secondary shadow medium. Dark card bg
 - Pricing: dark bg. Cards border 2px gold. Popular highlighted with *color-accent bg
 - Footer: bg *color-background, border-top 2px *color-secondary, ALL text light
 - ALL sections: dark backgrounds, gold/brass accents, uppercase headings, geometric borders
@@ -430,10 +430,10 @@ Properties:
 
 Section style_notes:
 - Hero: vibrant bg or bold image overlay. Heading bold. paragraph *color-text. Button radius pill. paddingBlock xxl
-- Features: columnsgrid columns 3 gap lg. Cards radius lg shadow soft, bright accent colors. paragraph *color-text
+- Features: Cards radius lg shadow soft, bright accent colors. paragraph *color-text
 - Gallery: images fit cover cornerStyle lg. Bright, saturated images
-- Footer: bg *color-primary transparency 100, ALL text *color-background
-- CTA: bg *color-accent transparency 100, text *color-background, energetic heading
+- Footer: bg *color-primary opacity 100, ALL text *color-background
+- CTA: bg *color-accent opacity 100, text *color-background, energetic heading
 
 ## Style: Dark Academia
 
@@ -457,8 +457,8 @@ Properties:
 
 Section style_notes:
 - Hero: warm dark bg (themes 1-3) or warm light bg (theme 4). Serif heading italic eyebrow. paragraph *color-text on light bg. paddingBlock xxl
-- Blog: columnsgrid columns 2-3. Cards radius xs border 1px. Long-form friendly lineHeight "1.7". paragraph *color-text on light bg
-- Features: columnsgrid columns 3 gap lg. Warm tones, serif headings, scholarly feel. paragraph *color-text on light bg
+- Blog: Cards radius xs border 1px. Long-form friendly lineHeight "1.7". paragraph *color-text on light bg
+- Features: Warm tones, serif headings, scholarly feel. paragraph *color-text on light bg
 - Footer: bg darker than page, ALL text light if dark theme, border-top 1px
 - Dark themes (1-3): ALL text *color-primary (light), warm borders. Theme 4: standard light bg
 
@@ -484,9 +484,9 @@ Properties:
 
 Section style_notes:
 - Hero: bold contrasting bg. Heading extrabold uppercase xxxl. paragraph *color-text on light bg. Mix of shapes and bold colors
-- Features: columnsgrid columns 3 gap lg. Cards alternating radius (none/pill). Bold border 3px shadow retro. paragraph *color-text on light bg
-- Pricing: columnsgrid columns 3. Each card different accent bg color. Bold borders. paragraph *color-text on light bg
-- Footer: bg *color-primary transparency 100, ALL text *color-background, playful icon accents
+- Features: Cards alternating radius (none/pill). Bold border 3px shadow retro. paragraph *color-text on light bg
+- Pricing: Each card different accent bg color. Bold borders. paragraph *color-text on light bg
+- Footer: bg *color-primary opacity 100, ALL text *color-background, playful icon accents
 - CTA: vivid accent bg, large heading uppercase, button pill shadow retro
 
 ## Style: Zen Japanese
@@ -511,7 +511,7 @@ Properties:
 
 Section style_notes:
 - Hero: white or very light bg. Extreme whitespace paddingBlock xxxl. paragraph *color-text. Heading light weight wider letterSpacing. Minimal elements
-- Features: columnsgrid columns 3 gap xl. Very minimal cards, thin border. Maximum whitespace. paragraph *color-text
+- Features: Very minimal cards, thin border. Maximum whitespace. paragraph *color-text
 - Gallery: images full width or large. cornerStyle sm. Generous spacing between
 - Footer: light bg, minimal text, understated. Heading light weight
 - ALL sections: maximum whitespace, minimal elements, restraint over decoration, light heading weights
@@ -538,7 +538,7 @@ Properties:
 
 Section style_notes:
 - Hero: dark bg (themes 1-3) or grey bg (theme 4). Heading uppercase bold. paragraph *color-text on light bg. Raw industrial feel
-- Features: columnsgrid columns 3 gap lg. Cards radius none border 1px #444. No shadow. paragraph *color-text on light bg
+- Features: Cards radius none border 1px #444. No shadow. paragraph *color-text on light bg
 - Gallery: images full width, no cornerStyle. Raw edges
 - Footer: bg darker, border-top 1px #444, ALL text light if dark bg
 - Dark themes (1-3): ALL text *color-primary (light), accent for CTAs only. Theme 4: standard colors
@@ -565,9 +565,9 @@ Properties:
 
 Section style_notes:
 - Hero: light gradient bg or iridescent feel. paragraph *color-text. Button gradient bg radius pill. Heading bold
-- Features: columnsgrid columns 3 gap lg. Cards radius xl gradient bg subtle. Soft shadow. paragraph *color-text
-- Pricing: columnsgrid columns 3. Gradient cards. Popular card stronger gradient. paragraph *color-text
-- Footer: bg *color-primary transparency 100, ALL text *color-background
+- Features: Cards radius xl gradient bg subtle. Soft shadow. paragraph *color-text
+- Pricing: Gradient cards. Popular card stronger gradient. paragraph *color-text
+- Footer: bg *color-primary opacity 100, ALL text *color-background
 - CTA: gradient bg *color-accent to *color-secondary, text *color-background, button pill gradient
 
 ## Style: Bohemian Eclectic
@@ -591,8 +591,8 @@ Properties:
 - Spacing: section paddingBlock xxl paddingInline lg, card paddingBlock lg paddingInline lg
 
 Section style_notes:
-- Hero: warm bg. paragraph *color-text. Split: wrap nowrap widthMode "50". Serif italic eyebrow. Rich warm colors
-- Features: columnsgrid columns 3 gap lg. Cards radius lg shadow soft. Warm palette. paragraph *color-text
+- Hero: warm bg. paragraph *color-text. Serif italic eyebrow. Rich warm colors
+- Features: Cards radius lg shadow soft. Warm palette. paragraph *color-text
 - Gallery: images cornerStyle lg. Mix of sizes if possible. Warm filter
-- Footer: bg *color-primary transparency 100, ALL text *color-background, warm accent links
+- Footer: bg *color-primary opacity 100, ALL text *color-background, warm accent links
 - Dark theme (theme 4): ALL text *color-primary (light), warm golden accents

@@ -3,7 +3,7 @@
 # Base components: layout-row, tabs, columnsgrid, layout-column, icon, heading, paragraph, eyebrow, image
 # Section type: features
 # Layout: grid, card_based
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, mobile app, software company, online store, consulting firm, logistics company, tutoring center, dental clinic, gym, digital agency
 
 
@@ -76,11 +76,11 @@
                         background: { active: *color-background, inactive: *color-background }
                         border: { width: 2, style: solid, position: lower }
                       content:
-                        background: { color: *color-background, transparency: 100 }
+                        background: { color: *color-background, opacity: 100 }
                         border: { color: '#e5e7eb', width: 1, style: solid }
                         padding: { block: lg, inline: lg }
                       shadow: none
-                    spacing: { marginBlock: md }
+                    spacing: { marginBlock: md, paddingBlock: sm, paddingInline: sm }
                   tabs:
                     # Tab 1 — Core Features
                     - title: Core Features
@@ -94,7 +94,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon
@@ -114,7 +114,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon
@@ -134,7 +134,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon
@@ -162,7 +162,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon
@@ -182,7 +182,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon
@@ -202,7 +202,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon
@@ -230,7 +230,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon
@@ -250,7 +250,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon
@@ -270,7 +270,7 @@
                                 - name: layout-column
                                   properties:
                                     layout: { horizontalAlign: center }
-                                    appearance: { background: { color: '#f9fafb', transparency: 100 }, radius: md }
+                                    appearance: { background: { color: '#f9fafb', opacity: 100 }, radius: md }
                                     spacing: { paddingBlock: lg, paddingInline: md }
                                   components:
                                     - name: icon

@@ -3,7 +3,7 @@
 # Base components: layout-column, heading, paragraph, tabs, columnsgrid, eyebrow, caption, button
 # Section type: pricing
 # Layout: grid
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS, subscriptions, memberships, services, ecommerce
 
 - name: page
@@ -53,7 +53,7 @@
             background: {color: *color-background}
             border: {color: *color-secondary, width: 0, style: none}
             padding: {block: lg, inline: lg}
-        spacing: {marginBlock: md}
+        spacing: {marginBlock: md, paddingBlock: sm, paddingInline: sm}
       tabs:
       - title: Monthly
         components:
@@ -67,7 +67,7 @@
               properties:
                 layout: {horizontalAlign: center, gap: sm}
                 appearance:
-                  background: {color: *color-background, transparency: 100}
+                  background: {color: *color-background, opacity: 100}
                   radius: md
                   border: {width: 1, style: solid, color: *color-secondary}
                 spacing:
@@ -87,7 +87,7 @@
               properties:
                 layout: {horizontalAlign: center, gap: sm}
                 appearance:
-                  background: {color: *color-accent, transparency: 100}
+                  background: {color: *color-accent, opacity: 100}
                   radius: md
                   shadow: elevated
                 spacing:
@@ -109,7 +109,7 @@
               properties:
                 layout: {horizontalAlign: center, gap: sm}
                 appearance:
-                  background: {color: *color-background, transparency: 100}
+                  background: {color: *color-background, opacity: 100}
                   radius: md
                   border: {width: 1, style: solid, color: *color-secondary}
                 spacing:
@@ -135,7 +135,7 @@
             - name: layout-column
               properties:
                 layout: {horizontalAlign: center, gap: sm}
-                appearance: {background: {color: *color-background, transparency: 100}, radius: md, border: {width: 1, style: solid, color: *color-secondary}}
+                appearance: {background: {color: *color-background, opacity: 100}, radius: md, border: {width: 1, style: solid, color: *color-secondary}}
                 spacing:
                   paddingBlock: lg
                   paddingInline: md
@@ -152,7 +152,7 @@
             - name: layout-column
               properties:
                 layout: {horizontalAlign: center, gap: sm}
-                appearance: {background: {color: *color-accent, transparency: 100}, radius: md, shadow: elevated}
+                appearance: {background: {color: *color-accent, opacity: 100}, radius: md, shadow: elevated}
                 spacing:
                   paddingBlock: lg
                   paddingInline: md
@@ -171,7 +171,7 @@
             - name: layout-column
               properties:
                 layout: {horizontalAlign: center, gap: sm}
-                appearance: {background: {color: *color-background, transparency: 100}, radius: md, border: {width: 1, style: solid, color: *color-secondary}}
+                appearance: {background: {color: *color-background, opacity: 100}, radius: md, border: {width: 1, style: solid, color: *color-secondary}}
                 spacing:
                   paddingBlock: lg
                   paddingInline: md

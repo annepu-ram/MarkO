@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, eyebrow, heading, paragraph, panorama-display, caption, columnsgrid, icon
 # Section type: gallery
 # Layout: stacked
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: real estate agency, hotel, travel agency, architecture firm, event venue, restaurant, resort, museum, shopping mall
 
 - name: site
@@ -23,7 +23,7 @@
     properties:
       appearance:
         background:
-          color: '#0f172a'
+          color: *color-background
     components:
       # Header Section
     - name: layout-row
@@ -33,8 +33,8 @@
           verticalAlign: center
         appearance:
           background:
-            color: '#0f172a'
-            transparency: 0
+            color: *color-background
+            opacity: 0
         spacing:
           paddingBlock: lg
           paddingInline: md
@@ -48,7 +48,7 @@
             gap: sm
           appearance:
             background:
-              transparency: 0
+              opacity: 0
         components:
         - name: eyebrow
           properties:
@@ -57,7 +57,7 @@
               size: xs
               weight: semibold
               align: center
-              color: '#818cf8'
+              color: *color-accent
               transform: uppercase
               letterSpacing: wide
         - name: heading
@@ -68,14 +68,14 @@
               size: xxl
               weight: bold
               align: center
-              color: '#f8fafc'
+              color: *color-primary
         - name: paragraph
           properties:
             text: Scroll through this stunning panoramic view of Dubai's iconic skyline, featuring the towering Burj Khalifa and the glittering cityscape along the waterfront.
             typography:
               size: md
               align: center
-              color: '#94a3b8'
+              color: *color-secondary
 
       # Panorama Section
     - name: panorama-display
@@ -103,8 +103,8 @@
           verticalAlign: center
         appearance:
           background:
-            color: '#0f172a'
-            transparency: 0
+            color: *color-background
+            opacity: 0
         spacing:
           paddingBlock: sm
           paddingInline: md
@@ -145,7 +145,7 @@
           properties:
             name: eye
             size: "32"
-            color: '#818cf8'
+            color: *color-accent
         - name: heading
           properties:
             text: Drag to Explore
@@ -153,19 +153,19 @@
             typography:
               size: md
               weight: semibold
-              color: '#f8fafc'
+              color: *color-primary
         - name: paragraph
           properties:
             text: Click and drag left or right to pan across the panoramic image.
             typography:
               size: sm
-              color: '#94a3b8'
+              color: *color-secondary
       - components:
         - name: icon
           properties:
             name: arrow-left
             size: "32"
-            color: '#818cf8'
+            color: *color-accent
         - name: heading
           properties:
             text: Arrow Navigation
@@ -173,19 +173,19 @@
             typography:
               size: md
               weight: semibold
-              color: '#f8fafc'
+              color: *color-primary
         - name: paragraph
           properties:
             text: Use the left and right arrow buttons overlaid on the image for precise scrolling.
             typography:
               size: sm
-              color: '#94a3b8'
+              color: *color-secondary
       - components:
         - name: icon
           properties:
             name: settings
             size: "32"
-            color: '#818cf8'
+            color: *color-accent
         - name: heading
           properties:
             text: Initial Position
@@ -193,10 +193,10 @@
             typography:
               size: md
               weight: semibold
-              color: '#f8fafc'
+              color: *color-primary
         - name: paragraph
           properties:
             text: This panorama starts centered, showing the middle of the skyline first.
             typography:
               size: sm
-              color: '#94a3b8'
+              color: *color-secondary

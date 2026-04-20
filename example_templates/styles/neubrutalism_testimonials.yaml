@@ -1,0 +1,440 @@
+# Neubrutalism Testimonial Cards
+# Raw bold testimonial cards with thick borders and retro shadows
+# Base components: site, page, layout-column, columnsgrid, heading, paragraph, eyebrow, caption
+# Section type: testimonial
+# Layout: grid
+# Visual style: neubrutalism
+# Perfect for: creative agency, portfolio, indie brand, art gallery, design studio, startup
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A1A"
+        text: &color-text "#3D3D3D"
+        secondary: &color-secondary "#C8C4BB"
+        accent: &color-accent "#FF4D00"
+        background: &color-background "#E5E2DD"
+  components:
+    - name: page
+      slug: home
+      title: "Neubrutalism Testimonial Cards"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Section header
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: sm
+            spacing:
+              paddingBlock: xl
+              paddingInline: md
+          components:
+            - name: eyebrow
+              properties:
+                text: WALL OF LOVE
+                typography:
+                  size: xs
+                  weight: extrabold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+                spacing:
+                  marginBlock: xs
+
+            - name: heading
+              properties:
+                text: "REAL PEOPLE. REAL WORDS."
+                level: 2
+                typography:
+                  size: xxl
+                  weight: extrabold
+                  color: *color-primary
+                  transform: uppercase
+                  letterSpacing: wide
+                  align: center
+                  lineHeight: snug
+                spacing:
+                  marginBlock: sm
+
+            - name: paragraph
+              properties:
+                text: "We don't write fake reviews. These humans actually said this stuff."
+                typography:
+                  size: md
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+                spacing:
+                  marginBlock: md
+
+        # Testimonials grid — 3 columns
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            spacing:
+              marginBlock: lg
+              paddingInline: md
+          columns:
+
+            # Card 1 — white background
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: "#ffffff"
+                        opacity: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: "#000000"
+                      border:
+                        width: 4
+                        style: solid
+                        color: "#000000"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"Switched from three different tools to just this one. My workflow went from chaotic mess to organized chaos — which is a huge upgrade, trust me. Everything just clicks now.\""
+                        typography:
+                          size: sm
+                          color: *color-text
+                          lineHeight: relaxed
+                          weight: medium
+                        spacing:
+                          marginBlock: md
+
+                    - name: heading
+                      properties:
+                        text: JAKE MORRISON
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+
+                    - name: caption
+                      properties:
+                        text: "Founder, PixelPush — Brooklyn NY"
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          weight: bold
+
+            # Card 2 — accent background
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: "#000000"
+                      border:
+                        width: 4
+                        style: solid
+                        color: "#000000"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"Finally a tool that doesn't try to be everything. It does exactly what it promises and it does it ridiculously well. Our entire design team is obsessed and we're never going back.\""
+                        typography:
+                          size: sm
+                          color: "#ffffff"
+                          lineHeight: relaxed
+                          weight: medium
+                        spacing:
+                          marginBlock: md
+
+                    - name: heading
+                      properties:
+                        text: PRIYA SHARMA
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: "#ffffff"
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+
+                    - name: caption
+                      properties:
+                        text: "Design Lead, BoldType Studio"
+                        typography:
+                          size: xs
+                          color: *color-background
+                          weight: bold
+
+            # Card 3 — secondary background
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        opacity: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: "#000000"
+                      border:
+                        width: 4
+                        style: solid
+                        color: "#000000"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"I showed this to my engineering team and they immediately asked why weren't we using this before. We onboarded the entire company in two days flat. No training needed.\""
+                        typography:
+                          size: sm
+                          color: *color-text
+                          lineHeight: relaxed
+                          weight: medium
+                        spacing:
+                          marginBlock: md
+
+                    - name: heading
+                      properties:
+                        text: TOM ERIKSSON
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+
+                    - name: caption
+                      properties:
+                        text: "CTO, RawStack — Stockholm"
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          weight: bold
+
+            # Card 4 — white background
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: "#ffffff"
+                        opacity: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: "#000000"
+                      border:
+                        width: 4
+                        style: solid
+                        color: "#000000"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"The raw aesthetic sold me instantly. In a world of same-looking SaaS products, this one has actual personality. My clients notice the difference every single time.\""
+                        typography:
+                          size: sm
+                          color: *color-text
+                          lineHeight: relaxed
+                          weight: medium
+                        spacing:
+                          marginBlock: md
+
+                    - name: heading
+                      properties:
+                        text: MAYA CHEN
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+
+                    - name: caption
+                      properties:
+                        text: "Creative Director, Offset Agency"
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          weight: bold
+
+            # Card 5 — accent background
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: "#000000"
+                      border:
+                        width: 4
+                        style: solid
+                        color: "#000000"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"Deployed our portfolio site in under four hours. The bold style matched our brand perfectly without any custom CSS hacks. Just picked a template and shipped it.\""
+                        typography:
+                          size: sm
+                          color: "#ffffff"
+                          lineHeight: relaxed
+                          weight: medium
+                        spacing:
+                          marginBlock: md
+
+                    - name: heading
+                      properties:
+                        text: ALEX DUBOIS
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: "#ffffff"
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+
+                    - name: caption
+                      properties:
+                        text: "Freelance Developer, Montreal"
+                        typography:
+                          size: xs
+                          color: *color-background
+                          weight: bold
+
+            # Card 6 — secondary background
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        opacity: 100
+                      radius: none
+                      shadow: retro
+                      shadowColor: "#000000"
+                      border:
+                        width: 4
+                        style: solid
+                        color: "#000000"
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "\"We run a streetwear brand and needed something that matched our energy. Every other builder felt too clean, too polished. This one gets it. Raw, bold, unapologetic.\""
+                        typography:
+                          size: sm
+                          color: *color-text
+                          lineHeight: relaxed
+                          weight: medium
+                        spacing:
+                          marginBlock: md
+
+                    - name: heading
+                      properties:
+                        text: JORDAN REEVES
+                        level: 4
+                        typography:
+                          size: md
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          marginBlock: xs
+
+                    - name: caption
+                      properties:
+                        text: "Co-founder, Concrete Threads"
+                        typography:
+                          size: xs
+                          color: *color-accent
+                          weight: bold
+
+        # Bottom section — closing statement
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: md
+          components:
+            - name: paragraph
+              properties:
+                text: "Join hundreds of creators who chose substance over polish."
+                typography:
+                  size: md
+                  color: *color-primary
+                  align: center
+                  weight: extrabold
+                  transform: uppercase
+                  lineHeight: relaxed

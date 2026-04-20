@@ -32,7 +32,7 @@
 2. **carousel (Hero — Lookbook Slideshow)**
    Full-width slides: high-fashion images with overlay heading + caption (collection name, season) + button ("Explore Collection").
 
-3. **br (elegant divider — dashed or wave)**
+3. **br (wave section breaker, soft neutral color blending into next section)**
 
 4. **eyebrow + heading (New Arrivals)**
    "Just In" eyebrow, "New Arrivals" heading centered.

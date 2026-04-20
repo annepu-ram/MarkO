@@ -3,7 +3,7 @@
 # Base components: page, layout-column, layout-row, heading, eyebrow, video-background, paragraph, caption
 # Section type: dashboard
 # Layout: stacked
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: SaaS, analytics, admin panels, dashboards, business tools
 
 - name: page
@@ -33,8 +33,8 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
-        borderRadius: md
+          opacity: 100
+        radius: md
         shadow: soft
     components:
     - name: layout-row
@@ -73,8 +73,8 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
-            borderRadius: pill
+              opacity: 100
+            radius: pill
 
     - name: video-background
       properties:
@@ -86,7 +86,7 @@
           minHeight: 17.5
           objectFit: cover
           objectPosition: center
-          borderRadius: sm
+          radius: sm
           overlay:
             enabled: true
             color: 'rgba(15, 23, 42, 0.75)'

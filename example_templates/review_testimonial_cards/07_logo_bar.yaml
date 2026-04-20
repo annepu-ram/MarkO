@@ -3,7 +3,7 @@
 # Base components: layout-column, caption, layout-row, image
 # Section type: testimonial
 # Layout: centered
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
@@ -33,42 +33,42 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: space-evenly, verticalAlign: center, gap: xl, wrap: wrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing: {paddingBlock: md, paddingInline: lg}
       components:
       - name: image
         properties:
-          source: {url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Stripe', altText: 'Stripe logo'}
+          source: {url: 'https://placehold.co/140x50?text=Add+Image', altText: 'Stripe logo'}
           appearance: {minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift}
           layout: {widthMode: fit}
           spacing: {marginBlock: none}
       - name: image
         properties:
-          source: {url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Shopify', altText: 'Shopify logo'}
+          source: {url: 'https://placehold.co/140x50?text=Add+Image', altText: 'Shopify logo'}
           appearance: {minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift}
           layout: {widthMode: fit}
           spacing: {marginBlock: none}
       - name: image
         properties:
-          source: {url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Notion', altText: 'Notion logo'}
+          source: {url: 'https://placehold.co/140x50?text=Add+Image', altText: 'Notion logo'}
           appearance: {minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift}
           layout: {widthMode: fit}
           spacing: {marginBlock: none}
       - name: image
         properties:
-          source: {url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Figma', altText: 'Figma logo'}
+          source: {url: 'https://placehold.co/140x50?text=Add+Image', altText: 'Figma logo'}
           appearance: {minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift}
           layout: {widthMode: fit}
           spacing: {marginBlock: none}
       - name: image
         properties:
-          source: {url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Vercel', altText: 'Vercel logo'}
+          source: {url: 'https://placehold.co/140x50?text=Add+Image', altText: 'Vercel logo'}
           appearance: {minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift}
           layout: {widthMode: fit}
           spacing: {marginBlock: none}
       - name: image
         properties:
-          source: {url: 'https://via.placeholder.com/140x50/f1f5f9/64748b?text=Linear', altText: 'Linear logo'}
+          source: {url: 'https://placehold.co/140x50?text=Add+Image', altText: 'Linear logo'}
           appearance: {minHeight: 3, fit: contain, filter: grayscale, hoverEffect: lift}
           layout: {widthMode: fit}
           spacing: {marginBlock: none}

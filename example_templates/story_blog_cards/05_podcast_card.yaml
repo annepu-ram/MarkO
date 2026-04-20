@@ -3,7 +3,7 @@
 # Base components: page, layout-row, image, layout-column, eyebrow, heading, caption, button
 # Section type: blog
 # Layout: split_screen
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: media, publishing, blogs, content marketing, news
 
 - name: page
@@ -37,7 +37,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, widthMode: "50", gap: xs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: eyebrow
         properties:

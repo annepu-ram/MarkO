@@ -1,0 +1,200 @@
+# Webinar Countdown
+# Webinar and conference starting countdown with event details, speaker info, and registration
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, countdown, button, badge, icon, image
+# Section type: countdown
+# Layout: stacked
+# Visual style: default
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E293B"
+        text: &color-text "#475569"
+        secondary: &color-secondary "#94A3B8"
+        accent: &color-accent "#3B82F6"
+        background: &color-background "#F8FAFC"
+  components:
+    - name: page
+      slug: home
+      title: "Webinar Countdown"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # ============================================
+        # WEBINAR COUNTDOWN BANNER
+        # ============================================
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, wrap: nowrap }
+            appearance: { background: { color: '#ffffff' }, shadow: soft }
+            spacing: { paddingBlock: xxl, paddingInline: xl }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '50', horizontalAlign: center }
+              components:
+                - name: badge
+                  properties: { text: "LIVE WEBINAR", variant: danger, pill: true }
+                - name: heading
+                  properties:
+                    text: "Mastering Product-Led Growth"
+                    level: 1
+                    typography: { size: xxl, weight: bold, color: *color-primary }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Learn proven strategies to drive adoption, retention, and expansion through your product experience. Featuring insights from leaders at top SaaS companies.
+                    typography: { size: md, color: *color-text, lineHeight: '1.7' }
+                    spacing: { marginBlock: md }
+                - name: eyebrow
+                  properties:
+                    text: STARTS IN
+                    typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                - name: countdown
+                  properties:
+                    targetDate: '2026-04-15T14:00:00'
+                    format: 'DD:HH:MM:SS'
+                    expiredText: "Webinar is live now!"
+                    typography: { size: xxl, weight: bold, color: *color-primary }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: start }
+                    spacing: { marginBlock: lg }
+                  components:
+                    - name: button
+                      properties:
+                        text: Register Free
+                        appearance: { background: { color: *color-accent }, radius: md }
+                        typography: { color: '#ffffff', weight: semibold }
+                        spacing: { paddingInline: xl }
+                    - name: button
+                      properties:
+                        text: Add to Calendar
+                        appearance: { background: { color: 'transparent' }, border: { width: 1, color: *color-accent } }
+                        typography: { color: *color-accent, weight: medium }
+
+            - name: layout-column
+              properties:
+                layout: { widthMode: '50', horizontalAlign: center }
+              components:
+                - name: image
+                  properties:
+                    source: { url: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87' }
+                    appearance: { minHeight: 18.75, fit: cover, radius: lg }
+
+        # ============================================
+        # SPEAKERS & DETAILS
+        # ============================================
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center }
+            spacing: { paddingBlock: xl }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '75', horizontalAlign: center }
+              components:
+                - name: heading
+                  properties:
+                    text: Featured Speakers
+                    level: 2
+                    typography: { size: xl, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: md }
+
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: lg }
+            responsive: { breakpoints: { md: 1 } }
+            spacing: { paddingBlock: md, paddingInline: lg }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1560250097-0b93528c311a' }
+                        appearance: { minHeight: 11.25, fit: cover, radius: pill }
+                        layout: { widthMode: '33' }
+                    - name: heading
+                      properties:
+                        text: David Chen
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: VP of Product, TechScale
+                        typography: { size: sm, color: *color-accent, align: center }
+                    - name: paragraph
+                      properties:
+                        text: 15+ years driving product-led growth at Fortune 500 companies.
+                        typography: { size: sm, color: *color-text, align: center }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2' }
+                        appearance: { minHeight: 11.25, fit: cover, radius: pill }
+                        layout: { widthMode: '33' }
+                    - name: heading
+                      properties:
+                        text: Sarah Martinez
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Head of Growth, CloudSync
+                        typography: { size: sm, color: *color-accent, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Scaled ARR from $2M to $50M using product-led strategies.
+                        typography: { size: sm, color: *color-text, align: center }
+                        spacing: { marginBlock: sm }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: image
+                      properties:
+                        source: { url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e' }
+                        appearance: { minHeight: 11.25, fit: cover, radius: pill }
+                        layout: { widthMode: '33' }
+                    - name: heading
+                      properties:
+                        text: James Wright
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: CEO & Founder, GrowthHub
+                        typography: { size: sm, color: *color-accent, align: center }
+                    - name: paragraph
+                      properties:
+                        text: Author of "The PLG Playbook" and advisor to 30+ startups.
+                        typography: { size: sm, color: *color-text, align: center }
+                        spacing: { marginBlock: sm }

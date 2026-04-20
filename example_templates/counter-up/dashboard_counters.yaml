@@ -1,0 +1,198 @@
+# Dashboard Counters
+# Business dashboard KPI counters showing revenue, users, conversion rate, and uptime metrics
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, counter-up, icon, columnsgrid, badge
+# Section type: stats
+# Layout: grid
+# Visual style: default
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E293B"
+        text: &color-text "#475569"
+        secondary: &color-secondary "#94A3B8"
+        accent: &color-accent "#3B82F6"
+        background: &color-background "#F8FAFC"
+  components:
+    - name: page
+      slug: home
+      title: "Dashboard Counters"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # ============================================
+        # DASHBOARD HEADER
+        # ============================================
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: space-between, verticalAlign: center }
+            spacing: { paddingBlock: lg, paddingInline: lg }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: fit }
+              components:
+                - name: heading
+                  properties:
+                    text: Business Overview
+                    level: 2
+                    typography: { size: xl, weight: bold, color: *color-primary }
+                - name: paragraph
+                  properties:
+                    text: Real-time performance metrics for Q1 2026
+                    typography: { size: sm, color: *color-secondary }
+            - name: badge
+              properties: { text: "Live Data", variant: success, pill: true }
+
+        # ============================================
+        # KPI COUNTERS
+        # ============================================
+        - name: columnsgrid
+          properties:
+            layout: { columns: 4, gap: md }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+            spacing: { paddingBlock: md, paddingInline: lg }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: space-between, verticalAlign: center }
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: Monthly Revenue
+                            typography: { size: sm, weight: medium, color: *color-secondary }
+                        - name: icon
+                          properties: { name: trending-up, size: "20", color: '#10b981' }
+                    - name: counter-up
+                      properties:
+                        endValue: 284
+                        duration: 2000
+                        prefix: "$"
+                        suffix: "K"
+                        typography: { size: xxl, weight: extrabold, color: *color-primary }
+                    - name: layout-row
+                      properties:
+                        layout: { verticalAlign: center }
+                        spacing: { marginBlock: sm }
+                      components:
+                        - name: badge
+                          properties: { text: "+12.5%", variant: success, pill: true }
+                        - name: paragraph
+                          properties:
+                            text: vs last month
+                            typography: { size: xs, color: *color-secondary }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: space-between, verticalAlign: center }
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: Active Users
+                            typography: { size: sm, weight: medium, color: *color-secondary }
+                        - name: icon
+                          properties: { name: users, size: "20", color: *color-accent }
+                    - name: counter-up
+                      properties:
+                        endValue: 45200
+                        duration: 2200
+                        typography: { size: xxl, weight: extrabold, color: *color-primary }
+                    - name: layout-row
+                      properties:
+                        layout: { verticalAlign: center }
+                        spacing: { marginBlock: sm }
+                      components:
+                        - name: badge
+                          properties: { text: "+8.3%", variant: success, pill: true }
+                        - name: paragraph
+                          properties:
+                            text: vs last month
+                            typography: { size: xs, color: *color-secondary }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: space-between, verticalAlign: center }
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: Conversion Rate
+                            typography: { size: sm, weight: medium, color: *color-secondary }
+                        - name: icon
+                          properties: { name: target, size: "20", color: '#f59e0b' }
+                    - name: counter-up
+                      properties:
+                        endValue: 3.8
+                        duration: 1800
+                        suffix: "%"
+                        typography: { size: xxl, weight: extrabold, color: *color-primary }
+                    - name: layout-row
+                      properties:
+                        layout: { verticalAlign: center }
+                        spacing: { marginBlock: sm }
+                      components:
+                        - name: badge
+                          properties: { text: "-0.4%", variant: warning, pill: true }
+                        - name: paragraph
+                          properties:
+                            text: vs last month
+                            typography: { size: xs, color: *color-secondary }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: space-between, verticalAlign: center }
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: System Uptime
+                            typography: { size: sm, weight: medium, color: *color-secondary }
+                        - name: icon
+                          properties: { name: activity, size: "20", color: '#10b981' }
+                    - name: counter-up
+                      properties:
+                        endValue: 99.97
+                        duration: 2000
+                        suffix: "%"
+                        typography: { size: xxl, weight: extrabold, color: *color-primary }
+                    - name: layout-row
+                      properties:
+                        layout: { verticalAlign: center }
+                        spacing: { marginBlock: sm }
+                      components:
+                        - name: badge
+                          properties: { text: "Excellent", variant: success, pill: true }
+                        - name: paragraph
+                          properties:
+                            text: last 30 days
+                            typography: { size: xs, color: *color-secondary }

@@ -1,6 +1,7 @@
 """ssr_python/rag/indexing/metadata.py — Extract searchable metadata from chunks."""
 import re
 from rag.indexing.chunker import Chunk
+from rag.config import CANONICAL_STYLES
 
 
 # Known component types in SwiftSites (must match actual codebase)
@@ -43,6 +44,15 @@ SECTION_PATTERNS = {
     "schedule": r"schedule|timetable|agenda|appointment|class.?time",
     "social_links": r"social.?link|social.?media|follow.?us",
     "banner": r"banner|announcement|notice|alert|cookie",
+    "divider": r"divider|separator|breaker|section.?break",
+}
+
+# Normalize common header variations to canonical keys
+SECTION_TYPE_ALIASES = {
+    "testimonials": "testimonial",
+    "reviews": "testimonial",
+    "dividers": "divider",
+    "status": "dashboard",
 }
 
 INDUSTRY_PATTERNS = {
@@ -94,6 +104,7 @@ SECTION_TO_OUTLINE_LABELS = {
     "schedule": ["Daily Schedule", "Event Schedule"],
     "social_links": ["Social Links", "Follow Us", "Connect With Us"],
     "banner": ["Announcement Bar", "Notice Banner", "Cookie Banner"],
+    "divider": ["Section Divider", "Visual Break"],
 }
 
 
@@ -134,6 +145,7 @@ def extract_metadata(chunk: Chunk) -> dict:
     if header_section:
         # Header may have comma-separated values like "contact, faq"
         section = header_section.split(",")[0].strip().lower().replace(" ", "_")
+        section = SECTION_TYPE_ALIASES.get(section, section)
     else:
         # Fall back to regex detection
         section = "other"
@@ -175,7 +187,21 @@ def extract_metadata(chunk: Chunk) -> dict:
                 break
 
     # ── Visual style ──
-    visual_style = _extract_visual_style(text_lower)
+    # Prefer authoritative header field (same pattern as section_type, layout)
+    header_style = chunk.metadata.get("template_visual_style", "")
+    if header_style:
+        # Parse comma-separated canonical keys, normalize to snake_case
+        visual_style = []
+        for tag in header_style.split(","):
+            key = tag.strip().lower().replace(" ", "_")
+            if key in CANONICAL_STYLES:
+                visual_style.append(key)
+        if not visual_style:
+            # Header exists but no canonical keys found — fall back to regex
+            visual_style = _extract_visual_style(text_lower)
+    else:
+        # No header — fall back to regex detection
+        visual_style = _extract_visual_style(text_lower)
 
     # ── Outline labels ──
     outline_labels = SECTION_TO_OUTLINE_LABELS.get(section, [])
@@ -196,37 +222,35 @@ def extract_metadata(chunk: Chunk) -> dict:
 
 
 def _extract_visual_style(text: str) -> list[str]:
-    """Extract visual style keywords from text."""
+    """Extract visual style keywords from text (regex fallback).
+
+    All keys are canonical compound names from CANONICAL_STYLES, matching
+    the builder_agent's normalization: style_name.lower().replace(" ", "_").
+    """
     styles = []
     style_patterns = {
-        "dark_mode": r"dark.?mode|dark.?theme|dark.?background|monochrome|noir",
+        "modern_minimalist": r"modern.?minimal|clean.?design|simple.?layout|sleek.?professional|visual style: modern",
         "glassmorphism": r"glass(?:morphism)?|blur.*transparen|frosted|translucent",
-        "gradient": r"gradient|aurora|liquid",
-        "minimal": r"minimal(?:ist)?|clean.?design|simple.?layout",
-        "bold_typography": r"bold.?typ|large.?text|dramatic.?text|hero.?text",
-        "card_based": r"card.?based|card.?layout|card.?grid",
-        "animated": r"animat|motion|transition|parallax",
-        "retro": r"retro|vintage|nostalgic|70s|80s|90s",
+        "retro_vintage": r"retro|vintage|nostalgic|70s|80s|90s",
         "neubrutalism": r"neubrutalis[mt]|neo.?brutal|brutalist|thick.?border",
         "claymorphism": r"claymorphi|clay.?style|playful.?3d|pastel.?rounded|bubbly",
-        "aurora": r"\baurora\b|liquid.?gradient|flowing.?gradient|northern.?lights",
-        "monochrome": r"\bmonochrome\b|dark.?sleek|single.?accent|neon.?on.?dark",
-        "modern": r"visual style: modern|modern.?minimal",
-        "elegant": r"elegant|luxury|sophisticated|premium|upscale|refined|high.?end|jewel",
-        "organic": r"organic|natural|earth|eco|sustain|handcraft|warm.?tone|rustic",
-        "corporate": r"corporate|enterprise|formal|structured|business|reliable|institutional",
-        "editorial": r"editorial|magazine|newspaper|typograph|dramatic.?text|bold.?layout",
-        "cyberpunk": r"cyberpunk|neon|sci.?fi|digital|high.?tech|futuristic.?dark",
-        "pastel": r"pastel|gentle|calm|soothing|airy|delicate|soft.?color",
-        "scandinavian": r"scandinavian|nordic|hygge|cozy|understated|balanced.?design",
-        "art_deco": r"art.?deco|gatsby|geometric|glamorous|1920|ornamental|gold.?accent",
-        "tropical": r"tropical|vibrant|beach|summer|paradise|island|colorful.?bold",
+        "aurora_gradient": r"\baurora\b|liquid.?gradient|flowing.?gradient|northern.?lights",
+        "monochrome_dark": r"\bmonochrome\b|dark.?mode|dark.?theme|dark.?background|dark.?sleek|noir|neon.?on.?dark",
+        "elegant_luxury": r"elegant|luxury|sophisticated|premium|upscale|refined|high.?end|jewel",
+        "organic_natural": r"organic|natural|earth|eco|sustain|handcraft|warm.?tone|rustic",
+        "corporate_professional": r"corporate|enterprise|formal|structured|business|reliable|institutional",
+        "bold_editorial": r"editorial|magazine|newspaper|bold.?typ|dramatic.?text|bold.?layout",
+        "cyberpunk_neon": r"cyberpunk|neon|sci.?fi|digital|high.?tech|futuristic.?dark",
+        "pastel_soft": r"pastel|gentle|calm|soothing|airy|delicate|soft.?color",
+        "scandinavian_clean": r"scandinavian|nordic|hygge|cozy|understated|balanced.?design",
+        "art_deco_geometric": r"art.?deco|gatsby|geometric|glamorous|1920|ornamental|gold.?accent",
+        "tropical_vibrant": r"tropical|vibrant|beach|summer|paradise|island|colorful.?bold",
         "dark_academia": r"dark.?academia|scholarly|literary|classical|bookish|academic",
-        "memphis": r"memphis|80s.?geometric|abstract.?shape|squiggle|confetti.?design",
-        "zen": r"\bzen\b|japanese|wabi.?sabi|tranquil|serene|minimalist.?zen",
-        "industrial": r"industrial|grunge|warehouse|raw.?urban|loft|iron|rust",
-        "y2k": r"y2k|2000s|chrome|iridescent|digital.?nostalgia|retro.?future",
-        "bohemian": r"bohemian|boho|eclectic|artisan|handmade|free.?spirit|gypsy",
+        "memphis_design": r"memphis|80s.?geometric|abstract.?shape|squiggle|confetti.?design",
+        "zen_japanese": r"\bzen\b|japanese|wabi.?sabi|tranquil|serene|minimalist.?zen",
+        "industrial_grunge": r"industrial|grunge|warehouse|raw.?urban|loft|iron|rust",
+        "y2k_retro-futurism": r"y2k|2000s|chrome|iridescent|digital.?nostalgia|retro.?future",
+        "bohemian_eclectic": r"bohemian|boho|eclectic|artisan|handmade|free.?spirit|gypsy",
     }
     for style, pattern in style_patterns.items():
         if re.search(pattern, text):

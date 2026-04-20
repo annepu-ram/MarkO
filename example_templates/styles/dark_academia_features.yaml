@@ -1,0 +1,219 @@
+# Dark Academia Features
+# Scholarly dark feature cards with warm borders and serif headings
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: dark_academia
+# Perfect for: Bookshop, university, literary magazine, antique store, library, museum, law firm
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Cormorant Garamond', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#F5E6D3"
+        text: &color-text "#C8B8A0"
+        secondary: &color-secondary "#2C1810"
+        accent: &color-accent "#8B6914"
+        background: &color-background "#1A1008"
+  components:
+    - name: page
+      slug: home
+      title: "Dark Academia Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — dark scholarly cards
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "Our Disciplines"
+                typography:
+                  size: xs
+                  weight: regular
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+                  fontStyle: italic
+
+            - name: heading
+              properties:
+                text: "Pillars of scholarly excellence"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: light
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+
+            - name: paragraph
+              properties:
+                text: "A tradition of rigorous inquiry, timeless craftsmanship, and the relentless pursuit of truth."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 dark cards with warm border
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: md
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#3D2B1F"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: book-open
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Classical Literature"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: light
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "From Homer to Dostoevsky, explore the canon that shaped Western thought and continues to challenge modern readers."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+
+                # Card 2
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#3D2B1F"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: pen-tool
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Philosophy & Ethics"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: light
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Engage with the great questions of existence through Socratic dialogue, formal logic, and contemporary moral philosophy."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+
+                # Card 3
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#3D2B1F"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: landmark
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Art History"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: light
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Trace the evolution of human expression from Renaissance masters to modern movements that redefined beauty."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed

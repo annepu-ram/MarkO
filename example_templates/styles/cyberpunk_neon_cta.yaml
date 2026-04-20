@@ -1,0 +1,151 @@
+# Cyberpunk Neon CTA Banner
+# Dark call-to-action with neon accent button and terminal aesthetics
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: cyberpunk_neon
+# Perfect for: Gaming, tech startup, hacker tools, crypto, cybersecurity, AI, VR, digital art
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#E2E8F0"
+        text: &color-text "#B0B8C8"
+        secondary: &color-secondary "#1A1A2E"
+        accent: &color-accent "#00FF41"
+        background: &color-background "#0A0A0F"
+  components:
+    - name: page
+      slug: home
+      title: "Cyberpunk Neon CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — dark background with neon accents
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-secondary
+                opacity: 100
+              border:
+                width: 1
+                style: solid
+                color: "#222240"
+              radius: none
+              shadow: none
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Inner content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                  gap: md
+              components:
+
+                # Terminal prompt eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "> READY_TO_DEPLOY"
+                    typography:
+                      size: sm
+                      weight: medium
+                      color: *color-accent
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "Enter the network"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Deploy your first node in under 60 seconds. No credit card,
+                      no gatekeepers, no corporate approval chains. Just raw
+                      computational power at your fingertips.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "83"
+                    spacing:
+                      marginBlock: md
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Deploy Now"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                          radius: xs
+                          shadow: none
+                        typography:
+                          color: *color-accent
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "View Source"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#333344"
+                          radius: xs
+                          shadow: none
+                        typography:
+                          color: *color-text
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl

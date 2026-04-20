@@ -131,7 +131,7 @@ DEFAULT_PAGE_YAML_TEMPLATE = """\
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components: []
 """
 
@@ -173,7 +173,7 @@ def generate_page_yaml_from_homepage(homepage_yaml, slug, title):
                     'appearance': {
                         'background': {
                             'color': theme.get('colors', {}).get('background', '#ffffff'),
-                            'transparency': 100
+                            'opacity': 100
                         }
                     }
                 },

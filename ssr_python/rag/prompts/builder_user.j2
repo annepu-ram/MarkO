@@ -1,0 +1,49 @@
+# [Section to Build]
+## Type: {{ section_type }}
+Description: {{ description }}
+Suggested components: {{ suggested | join(', ') }}
+{% if business_name %}
+
+## [Business Context]
+Business name: {{ business_name }}
+{% if business_description %}About: {{ business_description }}
+{% endif %}
+{% endif %}
+{% if business_content %}
+
+## [Real Content — USE THESE EXACT VALUES for headings, paragraphs, button labels, lists, prices, contact info. Do NOT invent placeholder text, fake reviews, fake statistics, or substitute values.]
+{% for key, value in business_content.items() %}
+- {{ key }}: {{ value }}
+{% endfor %}
+{% endif %}
+
+## [Theme]
+{{ theme_str }}
+{% if style_notes %}
+
+## [Style Direction — follow this visual design notes for creating this section. Choose individual component properties based on these style notes]
+{{ style_notes }}
+{% endif %}
+{% if image_context %}
+
+## [Images — use ALL of these, distributed across columns/tabs/items, not all in one place]
+{{ image_context }}
+{% endif %}
+{% if icons %}
+
+Available icons ({{ icons | length }} total — distribute one per column/tab/item): {{ icons | join(', ') }}
+{% endif %}
+
+[Reference Example Templates - UNDERSTAND AND USE THESE to FORMAT an outline of a Section and take special notice of how parent components and child components are used]
+{% for chunk in ranked_chunks %}
+--- Example Template for Section: ---
+{{ chunk.content }}
+
+{% endfor %}
+
+[Component Specs — valid YAML Format and Properties of each component of the Section]
+```
+{{ comp_specs }}
+```
+
+Combine [Example templates] with [Style Direction], [Images], [Icons] to build a unique sensible section.

@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, tabs, columnsgrid, image, caption
 # Section type: gallery
 # Layout: grid
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: agencies, freelancers, photographers, creatives, portfolios
 
 - name: page
@@ -69,10 +69,10 @@
                 background: { active: *color-background, inactive: *color-secondary }
                 border: { width: 3, style: solid, position: lower }
               content:
-                background: { color: *color-background, transparency: 100 }
+                background: { color: *color-background, opacity: 100 }
                 border: { color: *color-secondary, width: 1, style: solid }
                 padding: { block: lg, inline: lg }
-            spacing: { marginBlock: lg }
+            spacing: { marginBlock: lg, paddingBlock: sm, paddingInline: sm }
           tabs:
 
             # Tab 1 - Branding

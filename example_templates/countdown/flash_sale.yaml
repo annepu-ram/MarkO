@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, heading, paragraph, countdown, button, columnsgrid, badge, image
 # Section type: countdown
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: events, launches, sales, promotions
 
 - name: page
@@ -34,7 +34,7 @@
         properties:
           text: FLASH SALE
           level: 2
-          typography: {size: xxl, weight: extrabold, color: '#ffffff', align: center, letterSpacing: wider}
+          typography: {size: xxl, weight: extrabold, color: *color-background, align: center, letterSpacing: wider}
       - name: paragraph
         properties:
           text: Up to 70% off everything. Hurry, time is running out!
@@ -45,11 +45,11 @@
           targetDate: '2026-03-01T23:59:59'
           format: 'HH:MM:SS'
           expiredText: "Sale has ended!"
-          typography: {size: xxl, weight: bold, color: '#ffffff', align: center}
+          typography: {size: xxl, weight: bold, color: *color-background, align: center}
       - name: button
         properties:
           text: Shop Now
-          appearance: {background: {color: '#ffffff'}}
+          appearance: {background: {color: *color-background}}
           typography: {color: *color-accent, weight: bold}
           spacing: {marginBlock: md}
 

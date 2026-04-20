@@ -3,7 +3,7 @@
 # Base components: site, page, layout-row, layout-column, eyebrow, heading, paragraph, button, image, counter-up
 # Section type: hero
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
 
 - name: site
@@ -18,6 +18,7 @@
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#0052CC"
         background: &color-background "#F8FAFC"
+        border: &color-border '#e5e7eb'
   components:
     - name: page
       slug: home
@@ -26,7 +27,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
 
         # Hero section — generous whitespace, clean alignment
@@ -47,7 +48,7 @@
               background:
                 type: ""
                 color: "#ffffff"
-                transparency: 0
+                opacity: 0
               blur: false
               border:
                 width: 0
@@ -116,7 +117,7 @@
                         appearance:
                           background:
                             color: *color-accent
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 0
                           radius: sm
@@ -136,7 +137,7 @@
                         appearance:
                           background:
                             color: transparent
-                            transparency: 0
+                            opacity: 0
                           border:
                             width: 1
                             style: solid
@@ -170,7 +171,7 @@
                     appearance:
                       background:
                         color: '#ffffff'
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 1
                         style: solid
@@ -201,7 +202,7 @@
             appearance:
               background:
                 color: '#ffffff'
-                transparency: 100
+                opacity: 100
               border:
                 width: 1
                 style: solid

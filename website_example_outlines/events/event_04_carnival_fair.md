@@ -32,8 +32,8 @@
 2. **layout-row (Hero)**
    Full-width background image of colorful carnival parade, overlay: eyebrow ("August 15-18, 2026 | Downtown District") + heading ("Rio Street Carnival") + paragraph ("Four days of music, dance, parades, and non-stop celebration") + button ("Buy Passes") + button ("View Schedule").
 
-3. **br (divider)**
-   Visual separator between hero and content sections.
+3. **br (slant section breaker, vibrant accent color)**
+   Angled slant divider transitioning from hero to countdown section.
 
 4. **countdown (Event Countdown)**
    "The Carnival Begins In..." with days/hours/minutes/seconds countdown to opening day.

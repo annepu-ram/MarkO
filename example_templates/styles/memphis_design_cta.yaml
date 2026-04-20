@@ -1,0 +1,195 @@
+# Memphis Design CTA Banner
+# Vivid accent background call-to-action with bold uppercase text and retro shadow buttons
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: memphis_design
+# Perfect for: Creative agency, design studio, art gallery, music label, youth brand, streetwear, event, pop-up shop
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A1A"
+        text: &color-text "#2D2D2D"
+        secondary: &color-secondary "#FFD700"
+        accent: &color-accent "#FF3366"
+        background: &color-background "#00BFFF"
+  components:
+    - name: page
+      slug: home
+      title: "Memphis Design CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — vivid accent background with bold typography
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              border:
+                width: 3
+                style: solid
+                color: *color-primary
+              radius: none
+              shadow: none
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Decorative top bar
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      widthMode: fit
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        opacity: 100
+                      radius: pill
+                      shadow: retro
+                      shadowColor: '#000000'
+                      border:
+                        width: 3
+                        style: solid
+                        color: *color-primary
+                    spacing:
+                      paddingBlock: xs
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "READY TO GO WILD?"
+                        typography:
+                          color: *color-primary
+                          size: sm
+                          weight: bold
+                          transform: uppercase
+                          letterSpacing: wider
+                          align: center
+
+            # Inner content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                  gap: md
+              components:
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "YOUR BRAND DESERVES BETTER THAN BORING"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: extrabold
+                      color: '#ffffff'
+                      align: center
+                      lineHeight: snug
+                      transform: uppercase
+                      letterSpacing: wide
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Stop blending in. We build brands, websites, and campaigns
+                      that make your competitors nervous and your audience obsessed.
+                      The first consultation is on us.
+                    typography:
+                      size: md
+                      color: '#ffffff'
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "83"
+                    spacing:
+                      marginBlock: sm
+
+                # CTA buttons — pill with retro shadow and black border
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "GET STARTED FREE"
+                        appearance:
+                          background:
+                            color: '#ffffff'
+                            opacity: 100
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                          radius: pill
+                          shadow: retro
+                          shadowColor: '#000000'
+                        typography:
+                          color: *color-primary
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                    - name: button
+                      properties:
+                        text: "SEE CASE STUDIES"
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                          radius: pill
+                          shadow: retro
+                          shadowColor: '#000000'
+                        typography:
+                          color: *color-primary
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+
+                # Trust line
+                - name: paragraph
+                  properties:
+                    text: "Trusted by 200+ brands who decided to stop playing it safe."
+                    typography:
+                      size: sm
+                      color: '#ffffff'
+                      align: center
+                      weight: medium
+                    spacing:
+                      marginBlock: sm

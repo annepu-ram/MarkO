@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, form, textbox, heading, paragraph, button, eyebrow
 # Section type: contact, cta
 # Layout: centered
-# Visual style: modern, gradient
+# Visual style: aurora_gradient
 # Perfect for: consulting firm, law firm, dental clinic, real estate agency, digital agency, photography studio, architecture firm, accounting firm, tutoring center, wellness center
 
 
@@ -43,7 +43,7 @@
                   colorStart: '#1e293b'
                   colorEnd: '#0f172a'
                   direction: to right
-                transparency: 100
+                opacity: 100
             spacing:
               paddingBlock: xl
               paddingInline: xl
@@ -94,7 +94,7 @@
                           accentColor: *color-accent
                           background:
                             color: '#1e293b'
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 1
                             style: solid
@@ -109,9 +109,9 @@
                       properties:
                         text: Subscribe
                         appearance:
-                          background: { color: *color-accent, transparency: 100 }
+                          background: { color: *color-accent, opacity: 100 }
                           radius: md
-                        typography: { color: '#0f172a', weight: bold, size: md }
+                        typography: { color: *color-background, weight: bold, size: md }
                         spacing: { marginBlock: none }
 
                 - name: paragraph

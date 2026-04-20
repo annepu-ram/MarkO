@@ -3,7 +3,7 @@
 # Base components: layout-column, blockquote, br, image, heading, caption
 # Section type: testimonial
 # Layout: centered
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: any business, SaaS, ecommerce, services, agencies
 
 - name: page
@@ -37,7 +37,7 @@
         typography: {size: lg, weight: medium, color: *color-text, align: center, lineHeight: "1.8"}
         appearance:
           border: {accentColor: *color-accent}
-          background: {transparency: 0}
+          background: {opacity: 0}
         spacing: {marginBlock: sm, paddingBlock: md, paddingInline: md}
     - name: br
       properties:

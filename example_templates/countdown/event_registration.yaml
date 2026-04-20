@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, countdown, button, columnsgrid, icon, badge
 # Section type: countdown
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: events, launches, sales, promotions
 
 - name: page

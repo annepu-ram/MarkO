@@ -13,6 +13,12 @@
         {% if spacing.marginInline and tokens and tokens.spacing and spacing.marginInline in tokens.spacing %}
             {% set _ = vars.append('--tabs-margin-inline: var(--spacing-' ~ spacing.marginInline ~ ');') %}
         {% endif %}
+        {% if spacing.paddingBlock and tokens and tokens.spacing and spacing.paddingBlock in tokens.spacing %}
+            {% set _ = vars.append('--tabs-padding-block: var(--spacing-' ~ spacing.paddingBlock ~ ');') %}
+        {% endif %}
+        {% if spacing.paddingInline and tokens and tokens.spacing and spacing.paddingInline in tokens.spacing %}
+            {% set _ = vars.append('--tabs-padding-inline: var(--spacing-' ~ spacing.paddingInline ~ ');') %}
+        {% endif %}
     {% endif %}
 
     {# Layout gap #}

@@ -3,7 +3,7 @@
 # Base components: titlebar, layout-column, heading, paragraph, button
 # Section type: navigation
 # Layout: stacked
-# Visual style: aurora, gradient, minimal
+# Visual style: aurora_gradient
 # Perfect for: consulting firm, law firm, online store, fashion brand, photography studio, design portfolio, creative studio, wellness spa
 
 
@@ -24,7 +24,7 @@
     slug: home
     title: "Minimal Titlebar"
     properties:
-      appearance: {background: {color: *color-background, transparency: 100}}
+      appearance: {background: {color: *color-background, opacity: 100}}
     components:
 
         # ============================================
@@ -47,7 +47,7 @@
         scroll:
           shrinkPercentage: 85
         appearance:
-          background: {color: *color-background, transparency: 50}
+          background: {color: *color-background, opacity: 50}
           border: {width: 0}
           focus:
             background: *color-background

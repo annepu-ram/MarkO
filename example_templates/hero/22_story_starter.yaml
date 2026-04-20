@@ -3,7 +3,7 @@
 # Base components: carousel, image, layout-column, eyebrow, heading, paragraph, button
 # Section type: hero
 # Layout: carousel_slider
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: creative agencies, portfolios, storytelling brands, media
 
 - name: page
@@ -60,21 +60,25 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: sm }
-                    appearance: { background: { transparency: 0 }, padding: { block: xl, inline: xl } }
+                    appearance: { background: { opacity: 0 } }
+                    spacing: { paddingBlock: xl, paddingInline: xl }
                   components:
                     - name: eyebrow
                       properties:
                         text: CHAPTER ONE
                         typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                        appearance: { textShadow: soft }
                     - name: heading
                       properties:
                         text: The Beginning of Something Big
                         level: 1
                         typography: { size: xxxl, weight: extrabold, color: *color-background, align: center }
+                        appearance: { textShadow: soft }
                     - name: paragraph
                       properties:
                         text: Every great journey starts with a single step.
                         typography: { size: lg, color: *color-secondary, align: center }
+                        appearance: { textShadow: soft }
         - components:
             - name: image
               properties:
@@ -91,21 +95,25 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: sm }
-                    appearance: { background: { transparency: 0 }, padding: { block: xl, inline: xl } }
+                    appearance: { background: { opacity: 0 } }
+                    spacing: { paddingBlock: xl, paddingInline: xl }
                   components:
                     - name: eyebrow
                       properties:
                         text: CHAPTER TWO
                         typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                        appearance: { textShadow: soft }
                     - name: heading
                       properties:
                         text: Building Together, Growing Stronger
                         level: 2
                         typography: { size: xxxl, weight: extrabold, color: *color-background, align: center }
+                        appearance: { textShadow: soft }
                     - name: paragraph
                       properties:
                         text: Collaboration is the heartbeat of innovation.
                         typography: { size: lg, color: *color-secondary, align: center }
+                        appearance: { textShadow: soft }
         - components:
             - name: image
               properties:
@@ -122,19 +130,23 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center, gap: sm }
-                    appearance: { background: { transparency: 0 }, padding: { block: xl, inline: xl } }
+                    appearance: { background: { opacity: 0 } }
+                    spacing: { paddingBlock: xl, paddingInline: xl }
                   components:
                     - name: eyebrow
                       properties:
                         text: CHAPTER THREE
                         typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                        appearance: { textShadow: soft }
                     - name: heading
                       properties:
                         text: The Future Is Already Here
                         level: 2
                         typography: { size: xxxl, weight: extrabold, color: *color-background, align: center }
+                        appearance: { textShadow: soft }
                     - name: button
                       properties:
                         text: Start Your Story
-                        appearance: { background: { color: *color-accent }, radius: pill, padding: { block: md, inline: xl } }
+                        appearance: { background: { color: *color-accent }, radius: pill }
+                        spacing: { paddingBlock: md, paddingInline: xl }
                         typography: { color: *color-background, weight: bold }

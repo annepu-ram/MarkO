@@ -13,11 +13,11 @@
         heading: "'Space Grotesk', sans-serif"
         content: "'IBM Plex Sans', sans-serif"
       colors:
-        primary: '#1A1A1A'
-        text: '#313131'
-        secondary: '#C8C4BB'
-        accent: '#FF4D00'
-        background: '#E5E2DD'
+        primary: &color-primary '#1A1A1A'
+        text: &color-text '#313131'
+        secondary: &color-secondary '#C8C4BB'
+        accent: &color-accent '#FF4D00'
+        background: &color-background '#E5E2DD'
   components:
     - name: page
       slug: home
@@ -49,7 +49,7 @@
                     typography:
                       size: xs
                       weight: semibold
-                      color: '#1A1A1A'
+                      color: *color-primary
                       transform: uppercase
                       letterSpacing: wider
                       align: center
@@ -62,7 +62,7 @@
                     typography:
                       size: xxxl
                       weight: extrabold
-                      color: '#1A1A1A'
+                      color: *color-primary
                       transform: uppercase
                       align: center
                     spacing:
@@ -73,7 +73,7 @@
                     typography:
                       size: md
                       weight: medium
-                      color: '#1A1A1A'
+                      color: *color-primary
                       align: center
                     spacing:
                       marginBlock: sm
@@ -121,7 +121,7 @@
                         typography:
                           size: lg
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                           align: center
                         spacing:
@@ -132,7 +132,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                           align: center
                         spacing:
                           marginBlock: sm
@@ -143,7 +143,7 @@
                         typography:
                           size: xxxl
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: none
@@ -153,7 +153,7 @@
                         typography:
                           size: xs
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                           align: center
                         spacing:
                           marginBlock: md
@@ -163,7 +163,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         spacing:
                           marginBlock: xxs
                     - name: paragraph
@@ -172,7 +172,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         spacing:
                           marginBlock: xxs
                     - name: paragraph
@@ -181,7 +181,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         spacing:
                           marginBlock: xxs
                     - name: paragraph
@@ -190,7 +190,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
                         spacing:
                           marginBlock: xxs
                     - name: br
@@ -213,7 +213,7 @@
                           paddingBlock: sm
                           paddingInline: lg
                         typography:
-                          color: '#1A1A1A'
+                          color: *color-primary
                           weight: extrabold
                           size: sm
                           transform: uppercase
@@ -229,7 +229,7 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FF4D00'
+                        color: *color-accent
                       border:
                         width: 4
                         style: solid
@@ -361,7 +361,7 @@
                           paddingBlock: sm
                           paddingInline: lg
                         typography:
-                          color: '#1A1A1A'
+                          color: *color-primary
                           weight: extrabold
                           size: sm
                           transform: uppercase
@@ -377,7 +377,7 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#1A1A1A'
+                        color: *color-primary
                       border:
                         width: 4
                         style: solid
@@ -407,7 +407,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#C8C4BB'
+                          color: *color-secondary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -428,7 +428,7 @@
                         typography:
                           size: xs
                           weight: medium
-                          color: '#C8C4BB'
+                          color: *color-secondary
                           align: center
                         spacing:
                           marginBlock: md
@@ -485,7 +485,7 @@
                         text: CONTACT SALES
                         appearance:
                           background:
-                            color: '#1A1A1A'
+                            color: *color-primary
                           border:
                             width: 4
                             style: solid

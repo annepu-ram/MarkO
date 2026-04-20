@@ -1,0 +1,565 @@
+# Gym Class Timetable - Weekly Fitness Schedule with Accordion
+# A weekly fitness class schedule using accordion per day (Monday-Friday), each expanding to show classes with time, name, instructor, difficulty badge, and class type icon
+# Base components: layout-column, heading, paragraph, eyebrow, accordion, badge, icon, caption
+# Section type: schedule, event, agenda
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: gym, fitness studio, yoga studio, martial arts, dance studio, crossfit box, swimming pool, sports center
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#374151'
+        secondary: &color-secondary '#D1D5DB'
+        accent: &color-accent '#EF4444'
+        background: &color-background '#F9FAFB'
+  components:
+  - name: page
+    slug: home
+    title: "Gym Class Timetable"
+    properties:
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+
+        # ============================================
+        # TIMETABLE HEADER
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: xxl
+          paddingInline: xl
+      components:
+      - name: icon
+        properties:
+          name: dumbbell
+          size: 32
+          color: *color-accent
+      - name: eyebrow
+        properties:
+          text: WEEKLY SCHEDULE
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+          spacing: {marginBlock: xs}
+      - name: heading
+        properties:
+          text: Class Timetable
+          level: 2
+          typography: {size: xxl, weight: semibold, color: *color-primary, align: center, letterSpacing: tight}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: Find the perfect class for your fitness goals. All levels welcome — from beginner-friendly sessions to advanced training.
+          typography: {size: md, color: '#6B7280', align: center, lineHeight: '1.7'}
+          layout: {widthMode: "66"}
+          spacing: {marginBlock: md}
+
+        # ============================================
+        # DIFFICULTY LEGEND
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: sm
+          paddingInline: xl
+      components:
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-evenly, verticalAlign: center}
+          spacing: {marginBlock: sm}
+        components:
+        - name: badge
+          properties:
+            text: "Beginner"
+            appearance: {background: {color: '#10B981'}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+        - name: badge
+          properties:
+            text: "Intermediate"
+            appearance: {background: {color: '#F59E0B'}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+        - name: badge
+          properties:
+            text: "Advanced"
+            appearance: {background: {color: *color-accent}, radius: pill}
+            typography: {color: '#ffffff', size: xs, weight: semibold}
+
+        # ============================================
+        # MONDAY
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: '#ffffff', opacity: 100}
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+      components:
+      - name: accordion
+        properties:
+          behavior: {allowMultiple: true}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            border: {width: 1, style: solid, color: *color-secondary}
+            radius: sm
+          typography:
+            title: {size: md, weight: semibold, color: *color-primary}
+        items:
+        - title: "Monday"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: flame
+                  size: 20
+                  color: *color-accent
+              - name: paragraph
+                properties:
+                  text: "6:00 AM — HIIT Burn"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Advanced"
+                  appearance: {background: {color: *color-accent}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Coach Mike | 45 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: heart
+                  size: 20
+                  color: '#10B981'
+              - name: paragraph
+                properties:
+                  text: "8:00 AM — Morning Yoga Flow"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Beginner"
+                  appearance: {background: {color: '#10B981'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Sara Lin | 60 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: zap
+                  size: 20
+                  color: '#F59E0B'
+              - name: paragraph
+                properties:
+                  text: "12:00 PM — Power Cycling"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Intermediate"
+                  appearance: {background: {color: '#F59E0B'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: DJ Torres | 45 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: dumbbell
+                  size: 20
+                  color: '#F59E0B'
+              - name: paragraph
+                properties:
+                  text: "6:00 PM — Strength Training"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Intermediate"
+                  appearance: {background: {color: '#F59E0B'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Coach Mike | 50 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+
+        # ============================================
+        # TUESDAY
+        # ============================================
+        - title: "Tuesday"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: wind
+                  size: 20
+                  color: '#10B981'
+              - name: paragraph
+                properties:
+                  text: "7:00 AM — Pilates Core"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Beginner"
+                  appearance: {background: {color: '#10B981'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Sara Lin | 50 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: swords
+                  size: 20
+                  color: *color-accent
+              - name: paragraph
+                properties:
+                  text: "10:00 AM — Kickboxing"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Advanced"
+                  appearance: {background: {color: *color-accent}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Ravi Patel | 60 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: zap
+                  size: 20
+                  color: '#F59E0B'
+              - name: paragraph
+                properties:
+                  text: "5:30 PM — Spin & Sculpt"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Intermediate"
+                  appearance: {background: {color: '#F59E0B'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: DJ Torres | 45 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+
+        # ============================================
+        # WEDNESDAY
+        # ============================================
+        - title: "Wednesday"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: heart
+                  size: 20
+                  color: '#10B981'
+              - name: paragraph
+                properties:
+                  text: "6:30 AM — Sunrise Yoga"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Beginner"
+                  appearance: {background: {color: '#10B981'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Sara Lin | 60 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: flame
+                  size: 20
+                  color: *color-accent
+              - name: paragraph
+                properties:
+                  text: "12:00 PM — CrossFit WOD"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Advanced"
+                  appearance: {background: {color: *color-accent}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Coach Mike | 45 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: music
+                  size: 20
+                  color: '#F59E0B'
+              - name: paragraph
+                properties:
+                  text: "7:00 PM — Zumba Party"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Intermediate"
+                  appearance: {background: {color: '#F59E0B'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Mia Johnson | 50 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+
+        # ============================================
+        # THURSDAY
+        # ============================================
+        - title: "Thursday"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: dumbbell
+                  size: 20
+                  color: '#F59E0B'
+              - name: paragraph
+                properties:
+                  text: "7:00 AM — Functional Fitness"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Intermediate"
+                  appearance: {background: {color: '#F59E0B'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Ravi Patel | 50 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: wind
+                  size: 20
+                  color: '#10B981'
+              - name: paragraph
+                properties:
+                  text: "10:00 AM — Stretch & Recover"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Beginner"
+                  appearance: {background: {color: '#10B981'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Sara Lin | 40 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: flame
+                  size: 20
+                  color: *color-accent
+              - name: paragraph
+                properties:
+                  text: "6:00 PM — Tabata Extreme"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Advanced"
+                  appearance: {background: {color: *color-accent}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Coach Mike | 30 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+
+        # ============================================
+        # FRIDAY
+        # ============================================
+        - title: "Friday"
+          components:
+          - name: layout-column
+            properties:
+              layout: {}
+              spacing: {paddingBlock: sm, paddingInline: sm}
+            components:
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: zap
+                  size: 20
+                  color: '#F59E0B'
+              - name: paragraph
+                properties:
+                  text: "7:00 AM — Circuit Training"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Intermediate"
+                  appearance: {background: {color: '#F59E0B'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: DJ Torres | 45 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: heart
+                  size: 20
+                  color: '#10B981'
+              - name: paragraph
+                properties:
+                  text: "9:00 AM — Gentle Flow Yoga"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Beginner"
+                  appearance: {background: {color: '#10B981'}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Sara Lin | 60 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}
+            - name: br
+            - name: layout-row
+              properties:
+                layout: {horizontalAlign: space-between, verticalAlign: center}
+                spacing: {marginBlock: xs}
+              components:
+              - name: icon
+                properties:
+                  name: music
+                  size: 20
+                  color: *color-accent
+              - name: paragraph
+                properties:
+                  text: "5:00 PM — Friday Dance Fitness"
+                  typography: {size: sm, weight: semibold, color: *color-primary}
+                  layout: {widthMode: "50"}
+              - name: badge
+                properties:
+                  text: "Advanced"
+                  appearance: {background: {color: *color-accent}, radius: pill}
+                  typography: {color: '#ffffff', size: xs, weight: semibold}
+            - name: caption
+              properties:
+                text: "Instructor: Mia Johnson | 50 min"
+                typography: {size: xs, color: '#6B7280', weight: medium}

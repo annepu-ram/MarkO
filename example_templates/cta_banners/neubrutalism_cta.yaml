@@ -13,11 +13,11 @@
         heading: "'Space Grotesk', sans-serif"
         content: "'IBM Plex Sans', sans-serif"
       colors:
-        primary: '#1A1A1A'
-        text: '#313131'
-        secondary: '#C8C4BB'
-        accent: '#FF4D00'
-        background: '#E5E2DD'
+        primary: &color-primary '#1A1A1A'
+        text: &color-text '#313131'
+        secondary: &color-secondary '#C8C4BB'
+        accent: &color-accent '#FF4D00'
+        background: &color-background '#E5E2DD'
   components:
     - name: page
       slug: home
@@ -69,7 +69,7 @@
                     typography:
                       size: xxxl
                       weight: extrabold
-                      color: '#1A1A1A'
+                      color: *color-primary
                       align: center
                       transform: uppercase
                     spacing:
@@ -82,7 +82,7 @@
                     typography:
                       size: lg
                       weight: medium
-                      color: '#313131'
+                      color: *color-text
                       align: center
                       lineHeight: '1.6'
                     spacing:
@@ -106,7 +106,7 @@
                         text: START FOR FREE
                         appearance:
                           background:
-                            color: '#FF4D00'
+                            color: *color-accent
                           border:
                             width: 4
                             style: solid
@@ -141,7 +141,7 @@
                           paddingBlock: md
                           paddingInline: xl
                         typography:
-                          color: '#1A1A1A'
+                          color: *color-primary
                           weight: extrabold
                           size: md
                           transform: uppercase
@@ -153,7 +153,7 @@
                     typography:
                       size: xs
                       weight: medium
-                      color: '#C8C4BB'
+                      color: *color-secondary
                       align: center
                     spacing:
                       marginBlock: none

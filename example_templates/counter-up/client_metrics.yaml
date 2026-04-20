@@ -1,0 +1,150 @@
+# Counter-Up: Client Metrics Dashboard
+# Agency/consultancy metrics with animated counters showing key performance indicators
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, columnsgrid, icon, counter-up, caption
+# Section type: stats
+# Layout: grid
+# Visual style: modern_minimalist
+# Perfect for: agencies, consulting, corporate, SaaS
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#0f172a'
+        text: &color-text '#334155'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: OUR IMPACT
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Delivering Results That Matter
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Over the past decade, we have helped businesses across the globe achieve measurable growth and operational excellence.
+                typography: { size: md, color: *color-secondary, align: center }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 4, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: rocket, size: "36", color: *color-accent }
+                - name: counter-up
+                  properties:
+                    endValue: 840
+                    duration: 2500
+                    suffix: "+"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Projects Delivered
+                    typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                - name: caption
+                  properties:
+                    text: Across 12 industries
+                    typography: { size: xs, color: *color-secondary, align: center }
+                    spacing: { marginBlock: xs }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: heart-handshake, size: "36", color: '#10b981' }
+                - name: counter-up
+                  properties:
+                    endValue: 97
+                    duration: 2000
+                    suffix: "%"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Client Retention Rate
+                    typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                - name: caption
+                  properties:
+                    text: 3-year rolling average
+                    typography: { size: xs, color: *color-secondary, align: center }
+                    spacing: { marginBlock: xs }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: globe, size: "36", color: '#f59e0b' }
+                - name: counter-up
+                  properties:
+                    endValue: 38
+                    duration: 2000
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Countries Served
+                    typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                - name: caption
+                  properties:
+                    text: 6 continents worldwide
+                    typography: { size: xs, color: *color-secondary, align: center }
+                    spacing: { marginBlock: xs }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#f8fafc' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: users, size: "36", color: '#ec4899' }
+                - name: counter-up
+                  properties:
+                    endValue: 120
+                    duration: 2000
+                    suffix: "+"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Team Members
+                    typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                - name: caption
+                  properties:
+                    text: Engineers, designers & strategists
+                    typography: { size: xs, color: *color-secondary, align: center }
+                    spacing: { marginBlock: xs }

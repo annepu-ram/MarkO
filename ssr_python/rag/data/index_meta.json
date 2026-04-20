@@ -1,10 +1,10 @@
 {
-  "source_hash": "a9b3aac76423dea917e218a3e2fa5a955135b2b4702bd5a6dd22c99f6cdf9dc7",
-  "chunk_count": 2884,
+  "source_hash": "6ab0feb04a179ce8c5afadfec908662116de16bd746e484fb9aa3bb77157f066",
+  "chunk_count": 3603,
   "tier_counts": {
-    "section": 103,
-    "component": 313,
-    "guide": 494,
+    "section": 592,
+    "component": 518,
+    "guide": 519,
     "style": 23,
     "icon": 1951
   },

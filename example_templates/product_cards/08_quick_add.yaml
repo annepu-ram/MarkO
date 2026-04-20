@@ -3,7 +3,7 @@
 # Base components: page, layout-row, image, layout-column, heading, caption, button
 # Section type: product
 # Layout: split_screen
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, retail, online store, marketplace, SaaS
 
 - name: page
@@ -37,7 +37,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, widthMode: "50", gap: xxs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: heading
         properties:

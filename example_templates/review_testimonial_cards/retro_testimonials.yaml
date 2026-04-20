@@ -1,9 +1,9 @@
 # Retro Vintage Testimonial Cards
 # Customer quotes in retro-poster style with chunky borders
 # Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, caption
-# Section type: testimonials
+# Section type: testimonial
 # Layout: grid
-# Visual style: retro
+# Visual style: retro_vintage
 # Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
 
 - name: site
@@ -13,11 +13,11 @@
         heading: "'Bebas Neue', sans-serif"
         content: "'Merriweather', serif"
       colors:
-        primary: '#0D0D0D'
-        text: '#292929'
-        secondary: '#FFD600'
-        accent: '#FF0000'
-        background: '#FFEB3B'
+        primary: &color-primary '#0D0D0D'
+        text: &color-text '#292929'
+        secondary: &color-secondary '#FFD600'
+        accent: &color-accent '#FF0000'
+        background: &color-background '#FFEB3B'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#FFD600'
-            transparency: 100
+            color: *color-secondary
+            opacity: 100
       components:
 
         # Section Header
@@ -50,7 +50,7 @@
                     typography:
                       size: sm
                       weight: extrabold
-                      color: '#FF0000'
+                      color: *color-accent
                       transform: uppercase
                       letterSpacing: wide
                       align: center
@@ -63,7 +63,7 @@
                     typography:
                       size: xxxl
                       weight: extrabold
-                      color: '#0D0D0D'
+                      color: *color-primary
                       transform: uppercase
                       letterSpacing: wide
                       align: center
@@ -95,14 +95,14 @@
                     appearance:
                       background:
                         color: '#ffffff'
-                        transparency: 100
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -112,7 +112,7 @@
                         text: "\"Hands down the most authentic gear I've ever owned. Wore it to the record fair and three strangers stopped me to ask where I got it. Pure gold.\""
                         typography:
                           size: sm
-                          color: '#292929'
+                          color: *color-text
                           lineHeight: '1.7'
                         spacing:
                           marginBlock: md
@@ -123,7 +123,7 @@
                         typography:
                           size: md
                           weight: extrabold
-                          color: '#0D0D0D'
+                          color: *color-primary
                           transform: uppercase
                           letterSpacing: wide
                         spacing:
@@ -133,7 +133,7 @@
                         text: Vinyl collector, Chicago IL
                         typography:
                           size: xs
-                          color: '#FF0000'
+                          color: *color-accent
                           weight: bold
 
             # Card 2 — red bg, white text
@@ -145,15 +145,15 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FF0000'
-                        transparency: 100
+                        color: *color-accent
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -184,7 +184,7 @@
                         text: Music producer, Nashville TN
                         typography:
                           size: xs
-                          color: '#FFD600'
+                          color: *color-background
                           weight: bold
 
             # Card 3 — yellow bg
@@ -196,15 +196,15 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FFEB3B'
-                        transparency: 100
+                        color: *color-background
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -214,7 +214,7 @@
                         text: "\"Ordered a poster print on Friday, had it on my wall by Tuesday. The colors are so saturated in person — photos don't do it justice. Already ordered three more.\""
                         typography:
                           size: sm
-                          color: '#292929'
+                          color: *color-text
                           lineHeight: '1.7'
                         spacing:
                           marginBlock: md
@@ -225,7 +225,7 @@
                         typography:
                           size: md
                           weight: extrabold
-                          color: '#0D0D0D'
+                          color: *color-primary
                           transform: uppercase
                           letterSpacing: wide
                         spacing:
@@ -235,7 +235,7 @@
                         text: Graphic designer, Brooklyn NY
                         typography:
                           size: xs
-                          color: '#FF0000'
+                          color: *color-accent
                           weight: bold
 
             # Card 4 — white bg
@@ -248,14 +248,14 @@
                     appearance:
                       background:
                         color: '#ffffff'
-                        transparency: 100
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -265,7 +265,7 @@
                         text: "\"Showed up to my band's reunion wearing this and the whole room stopped. My old guitarist said it was the most vintage-accurate thing he'd seen outside of a museum.\""
                         typography:
                           size: sm
-                          color: '#292929'
+                          color: *color-text
                           lineHeight: '1.7'
                         spacing:
                           marginBlock: md
@@ -276,7 +276,7 @@
                         typography:
                           size: md
                           weight: extrabold
-                          color: '#0D0D0D'
+                          color: *color-primary
                           transform: uppercase
                           letterSpacing: wide
                         spacing:
@@ -286,7 +286,7 @@
                         text: Session musician, Austin TX
                         typography:
                           size: xs
-                          color: '#FF0000'
+                          color: *color-accent
                           weight: bold
 
             # Card 5 — red bg, white text
@@ -298,15 +298,15 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FF0000'
-                        transparency: 100
+                        color: *color-accent
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -337,7 +337,7 @@
                         text: Streetwear collector, Los Angeles CA
                         typography:
                           size: xs
-                          color: '#FFD600'
+                          color: *color-background
                           weight: bold
 
             # Card 6 — yellow bg
@@ -349,15 +349,15 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FFEB3B'
-                        transparency: 100
+                        color: *color-background
+                        opacity: 100
                       radius: none
                       shadow: retro
-                      shadowColor: '#0D0D0D'
+                      shadowColor: *color-primary
                       border:
                         width: 3
                         style: solid
-                        color: '#0D0D0D'
+                        color: *color-primary
                     spacing:
                       paddingBlock: lg
                       paddingInline: lg
@@ -367,7 +367,7 @@
                         text: "\"I gifted one to my dad who grew up in the 70s. He literally teared up. Said it reminded him of the concert shirts from his youth. That's the highest praise I can give.\""
                         typography:
                           size: sm
-                          color: '#292929'
+                          color: *color-text
                           lineHeight: '1.7'
                         spacing:
                           marginBlock: md
@@ -378,7 +378,7 @@
                         typography:
                           size: md
                           weight: extrabold
-                          color: '#0D0D0D'
+                          color: *color-primary
                           transform: uppercase
                           letterSpacing: wide
                         spacing:
@@ -388,7 +388,7 @@
                         text: Fashion blogger, New York NY
                         typography:
                           size: xs
-                          color: '#FF0000'
+                          color: *color-accent
                           weight: bold
 
         # Bottom padding row
@@ -405,7 +405,7 @@
                 text: Join thousands of fans who've already made the switch to real retro quality.
                 typography:
                   size: md
-                  color: '#0D0D0D'
+                  color: *color-primary
                   align: center
                   weight: bold
                   lineHeight: '1.6'

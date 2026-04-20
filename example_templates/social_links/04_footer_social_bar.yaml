@@ -1,0 +1,184 @@
+# Social Links - Footer Social Bar
+# A compact footer-style social links bar with centered row of social media link components and copyright paragraph below
+# Base components: layout-column, layout-row, heading, paragraph, link, br
+# Section type: social_links
+# Layout: centered row
+# Visual style: modern_minimalist
+# Perfect for: portfolio, SaaS, startup, tech company, developer, agency, freelancer
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#F9FAFB'
+        text: &color-text '#D1D5DB'
+        secondary: &color-secondary '#6B7280'
+        accent: &color-accent '#3B82F6'
+        background: &color-background '#111827'
+  components:
+  - name: page
+    slug: home
+    title: "Footer Social Bar"
+    properties:
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+
+        # ============================================
+        # FOOTER SOCIAL BAR
+        # ============================================
+    - name: layout-column
+      properties:
+        layout:
+          horizontalAlign: center
+          tag: footer
+        spacing:
+          paddingBlock: xl
+          paddingInline: lg
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+          border: {width: 1, style: solid, color: '#1F2937'}
+      components:
+
+      - name: heading
+        properties:
+          text: "Stay Connected"
+          level: 4
+          typography:
+            color: *color-primary
+            size: md
+            weight: semibold
+            align: center
+          spacing:
+            marginBlock: none
+
+      - name: paragraph
+        properties:
+          text: "Follow us on your favorite platforms"
+          typography:
+            color: *color-secondary
+            size: sm
+            align: center
+            lineHeight: '1.6'
+          spacing:
+            marginBlock: xs
+
+      - name: br
+
+        # Social Links Row
+      - name: layout-row
+        properties:
+          layout:
+            horizontalAlign: space-evenly
+            verticalAlign: center
+          spacing:
+            marginBlock: md
+        components:
+        - name: link
+          properties:
+            text: "Twitter / X"
+            href: "#twitter"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+            layout:
+              widthMode: fit
+            appearance:
+              underline: false
+              showArrow: false
+            spacing:
+              marginInline: xs
+        - name: link
+          properties:
+            text: "LinkedIn"
+            href: "#linkedin"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+            layout:
+              widthMode: fit
+            appearance:
+              underline: false
+              showArrow: false
+            spacing:
+              marginInline: xs
+        - name: link
+          properties:
+            text: "GitHub"
+            href: "#github"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+            layout:
+              widthMode: fit
+            appearance:
+              underline: false
+              showArrow: false
+            spacing:
+              marginInline: xs
+        - name: link
+          properties:
+            text: "Instagram"
+            href: "#instagram"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+            layout:
+              widthMode: fit
+            appearance:
+              underline: false
+              showArrow: false
+            spacing:
+              marginInline: xs
+        - name: link
+          properties:
+            text: "YouTube"
+            href: "#youtube"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+            layout:
+              widthMode: fit
+            appearance:
+              underline: false
+              showArrow: false
+            spacing:
+              marginInline: xs
+        - name: link
+          properties:
+            text: "Discord"
+            href: "#discord"
+            typography:
+              color: *color-accent
+              size: sm
+              weight: medium
+            layout:
+              widthMode: fit
+            appearance:
+              underline: false
+              showArrow: false
+            spacing:
+              marginInline: xs
+
+      - name: br
+
+        # Copyright
+      - name: paragraph
+        properties:
+          text: "\u00A9 2026 Acme Inc. All rights reserved."
+          typography:
+            color: '#4B5563'
+            size: xs
+            align: center
+          spacing:
+            marginBlock: sm

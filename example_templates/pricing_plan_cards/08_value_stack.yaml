@@ -3,7 +3,7 @@
 # Base components: layout-column, heading, caption, br, layout-row, paragraph, button
 # Section type: pricing
 # Layout: stacked
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS, subscriptions, memberships, services, ecommerce
 
 - name: page
@@ -52,7 +52,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: xs
           paddingInline: sm
@@ -73,7 +73,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {color: *color-accent, transparency: 100}, radius: sm}
+        appearance: {background: {color: *color-accent, opacity: 100}, radius: sm}
         spacing:
           paddingBlock: xs
           paddingInline: sm
@@ -94,7 +94,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: xs
           paddingInline: sm
@@ -115,7 +115,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {color: *color-accent, transparency: 100}, radius: sm}
+        appearance: {background: {color: *color-accent, opacity: 100}, radius: sm}
         spacing:
           paddingBlock: xs
           paddingInline: sm
@@ -136,7 +136,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: xs
           paddingInline: sm
@@ -157,7 +157,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {color: *color-accent, transparency: 100}, radius: sm}
+        appearance: {background: {color: *color-accent, opacity: 100}, radius: sm}
         spacing:
           paddingBlock: xs
           paddingInline: sm
@@ -178,7 +178,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: xs
           paddingInline: sm

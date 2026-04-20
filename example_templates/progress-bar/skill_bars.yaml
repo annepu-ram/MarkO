@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, heading, paragraph, progress-bar
 # Section type: stats
 # Layout: stacked
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page

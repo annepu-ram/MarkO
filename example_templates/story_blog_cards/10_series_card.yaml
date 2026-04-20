@@ -3,7 +3,7 @@
 # Base components: page, layout-column, eyebrow, heading, paragraph, tabs, image, link
 # Section type: blog
 # Layout: stacked
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: media, publishing, blogs, content marketing, news
 
 - name: page
@@ -33,7 +33,7 @@
         text: "3-PART SERIES"
         typography: {size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
         appearance:
-          background: {color: *color-background, transparency: 100}
+          background: {color: *color-background, opacity: 100}
           radius: pill
         spacing:
           paddingBlock: xxs
@@ -65,14 +65,14 @@
             background: {color: *color-background}
             border: {color: *color-secondary, width: 1, style: solid}
             padding: {block: md, inline: md}
-        spacing: {marginBlock: md}
+        spacing: {marginBlock: md, paddingBlock: sm, paddingInline: sm}
       tabs:
       - title: "Part 1: Foundations"
         components:
         - name: layout-column
           properties:
             layout: {horizontalAlign: left, gap: sm}
-            appearance: {background: {transparency: 0}}
+            appearance: {background: {opacity: 0}}
           components:
           - name: image
             properties:
@@ -97,7 +97,7 @@
         - name: layout-column
           properties:
             layout: {horizontalAlign: left, gap: sm}
-            appearance: {background: {transparency: 0}}
+            appearance: {background: {opacity: 0}}
           components:
           - name: image
             properties:
@@ -122,7 +122,7 @@
         - name: layout-column
           properties:
             layout: {horizontalAlign: left, gap: sm}
-            appearance: {background: {transparency: 0}}
+            appearance: {background: {opacity: 0}}
           components:
           - name: image
             properties:

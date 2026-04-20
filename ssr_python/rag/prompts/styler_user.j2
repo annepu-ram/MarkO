@@ -1,0 +1,34 @@
+{% if business_name or business_industry or business_variant or business_description %}
+[Business Context]
+{% if business_name %}Business: {{ business_name }}
+{% endif %}{% if business_variant %}Type: {{ business_variant }}
+{% endif %}{% if business_industry %}Industry: {{ business_industry }}
+{% endif %}{% if business_description %}About: {{ business_description }}
+{% endif %}
+
+{% endif %}
+{% if style_hints or color_hints %}
+[User Style Preferences]
+{% if style_hints %}Keywords: {{ style_hints }}
+{% endif %}{% if color_hints %}Colors: {{ color_hints }}
+{% endif %}
+
+{% endif %}
+{% if style_context %}
+[Style Reference]
+{{ style_context }}
+
+{% endif %}
+{% if selected_images %}
+[Available Images — assign ALL {{ selected_images | length }} images to sections]
+{% for img in selected_images %}
+{{ loop.index }}. {{ img.url }} — "{{ img.altText | default('') }}" [{{ img.orientation | default('unknown') }}]{{ ' (Photo by ' ~ img.photographer ~ ')' if img.photographer else '' }}
+{% endfor %}
+
+{% endif %}
+[Outline to Design]
+{% for section in section_summary %}
+{{ section }}
+
+{% endfor %}
+Design the visual treatment for this {{ section_count }}-section page. Output exactly {{ section_count }} section entries in the same order as the outline.

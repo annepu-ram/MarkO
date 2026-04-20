@@ -1,5 +1,5 @@
 # Gradient Glassmorphism Hero
-# True glassmorphism using blur checkbox with auto-transparency
+# True glassmorphism using blur checkbox with auto-opacity
 # Base components: page, layout-column, layout-row, paragraph, heading, button, image
 # Section type: hero
 # Layout: centered
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
 
   # Vivid gradient background — the key to visible glassmorphism
@@ -36,7 +36,7 @@
             colorStart: *color-accent
             colorEnd: *color-background
             direction: to bottom right
-          transparency: 100
+          opacity: 100
     components:
 
     # Inner content container
@@ -50,7 +50,7 @@
           paddingInline: lg
       components:
 
-      # Floating glass badge — blur: true auto-applies transparency
+      # Floating glass badge — blur: true auto-applies opacity
       - name: layout-row
         properties:
           layout:
@@ -59,14 +59,14 @@
             wrap: nowrap
           appearance:
             background:
-              color: '#ffffff'
-              transparency: 15
+              color: *color-primary
+              opacity: 15
             blur: true
             radius: pill
             border:
               width: 1
               style: solid
-              color: '#ffffff'
+              color: *color-primary
         components:
         - name: paragraph
           properties:
@@ -117,14 +117,14 @@
             paddingInline: lg
           appearance:
             background:
-              color: '#ffffff'
-              transparency: 12
+              color: *color-primary
+              opacity: 12
             blur: true
             radius: lg
             border:
               width: 1
               style: solid
-              color: '#ffffff'
+              color: *color-primary
             shadow: soft
         components:
         # Stats row inside glass card
@@ -219,13 +219,13 @@
             text: "Download App"
             appearance:
               background:
-                color: '#ffffff'
-                transparency: 20
+                color: *color-primary
+                opacity: 20
               blur: true
               border:
                 width: 1
                 style: solid
-                color: '#ffffff'
+                color: *color-primary
               radius: pill
               shadow: soft
             typography:
@@ -240,13 +240,13 @@
             text: "Watch Demo"
             appearance:
               background:
-                color: '#ffffff'
-                transparency: 10
+                color: *color-primary
+                opacity: 10
               blur: true
               border:
                 width: 1
                 style: solid
-                color: '#ffffff'
+                color: *color-primary
               radius: pill
             typography:
               color: *color-primary
@@ -272,14 +272,14 @@
             widthMode: "50"
           appearance:
             background:
-              color: '#ffffff'
-              transparency: 10
+              color: *color-primary
+              opacity: 10
             blur: true
             radius: lg
             border:
               width: 1
               style: solid
-              color: '#ffffff'
+              color: *color-primary
         components:
         - name: image
           properties:

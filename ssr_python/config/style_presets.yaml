@@ -30,7 +30,7 @@ glassmorphism:
     container:
       background:
         color: "#ffffff"
-        transparency: 12
+        opacity: 12
       blur: true
       border:
         width: 1
@@ -41,7 +41,7 @@ glassmorphism:
     card:
       background:
         color: "#ffffff"
-        transparency: 15
+        opacity: 15
       blur: true
       border:
         width: 1
@@ -52,7 +52,7 @@ glassmorphism:
     button:
       background:
         color: "#ffffff"
-        transparency: 20
+        opacity: 20
       blur: true
       border:
         width: 1
@@ -97,7 +97,7 @@ modern:
     container:
       background:
         color: "theme_background"
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 0
@@ -106,7 +106,7 @@ modern:
     card:
       background:
         color: "#ffffff"
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 1
@@ -116,7 +116,7 @@ modern:
       shadow: soft
     button:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 0
@@ -158,7 +158,7 @@ retro:
       note: "Bold, saturated solid color backgrounds"
     container:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 3
@@ -169,7 +169,7 @@ retro:
       shadowColor: "#0D0D0D"
     card:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 3
@@ -180,7 +180,7 @@ retro:
       shadowColor: "#0D0D0D"
     button:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 3
@@ -225,7 +225,7 @@ neubrutalism:
       note: "Off-white or bright vivid solid colors"
     container:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 4
@@ -236,7 +236,7 @@ neubrutalism:
       shadowColor: "#000000"
     card:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 4
@@ -247,7 +247,7 @@ neubrutalism:
       shadowColor: "#000000"
     button:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 4
@@ -293,7 +293,7 @@ claymorphism:
       note: "Soft pastel background"
     container:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 0
@@ -301,7 +301,7 @@ claymorphism:
       shadow: elevated
     card:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 0
@@ -309,7 +309,7 @@ claymorphism:
       shadow: elevated
     button:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 0
@@ -353,7 +353,7 @@ aurora:
       note: "Multi-section gradients: accent->secondary, secondary->background"
     container:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 0
@@ -412,7 +412,7 @@ monochrome:
     container:
       background:
         color: "#1F1F1F"
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 1
@@ -424,7 +424,7 @@ monochrome:
     card:
       background:
         color: "#1F1F1F"
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 1
@@ -434,7 +434,7 @@ monochrome:
       shadow: soft
     button:
       background:
-        transparency: 100
+        opacity: 100
       blur: false
       border:
         width: 1

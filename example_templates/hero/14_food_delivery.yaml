@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-row, layout-column, paragraph, heading, textbox, button, image
 # Section type: hero
 # Layout: split_screen
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: Food delivery, restaurants, meal kits, food apps
 
 - name: page
@@ -31,7 +31,7 @@
           colorStart: *color-background
           colorEnd: *color-surface
           direction: 'to bottom'
-        transparency: 100
+        opacity: 100
   components:
   # Colorful Navigation
   - name: titlebar
@@ -59,7 +59,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
         border:
           width: 0
           style: solid
@@ -90,7 +90,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
     # Left Content
     - name: layout-column
@@ -113,7 +113,7 @@
                 colorStart: *color-promo-start
                 colorEnd: *color-promo-end
                 direction: 'to right'
-              transparency: 100
+              opacity: 100
             radius: pill
         components:
         - name: paragraph
@@ -199,7 +199,7 @@
           appearance:
             background:
               color: *color-surface-light
-              transparency: 100
+              opacity: 100
             radius: lg
             border:
               width: 2
@@ -217,7 +217,7 @@
             appearance:
               background:
                 color: transparent
-                transparency: 0
+                opacity: 0
               border:
                 width: 0
                 style: solid
@@ -426,7 +426,7 @@
       appearance:
         background:
           color: *color-surface-light
-          transparency: 100
+          opacity: 100
     components:
     - name: paragraph
       properties:
@@ -454,7 +454,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
           spacing:
@@ -485,7 +485,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
           spacing:
@@ -516,7 +516,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
           spacing:
@@ -547,7 +547,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
           spacing:
@@ -578,7 +578,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
           spacing:
@@ -609,7 +609,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
           spacing:

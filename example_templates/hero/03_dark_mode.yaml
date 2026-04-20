@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-column, layout-row, paragraph, heading, button, image
 # Section type: hero
 # Layout: centered
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: Tech companies, gaming, crypto, creative agencies
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
     # Navigation Bar
   - name: titlebar
@@ -44,7 +44,7 @@
       appearance:
         background:
           color: 'rgba(9,9,11,0.8)'
-          transparency: 100
+          opacity: 100
         border:
           width: 0
           style: solid
@@ -79,12 +79,12 @@
         marginInline: none
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
       appearance:
         background:
           type: solid
           color: *color-primary
-          transparency: 0
+          opacity: 0
         border:
           width: 0
           style: solid
@@ -103,7 +103,7 @@
         appearance:
           background:
             color: rgba(139,92,246,0.1)
-            transparency: 100
+            opacity: 100
           radius: pill
           border:
             width: 1
@@ -217,7 +217,7 @@
           appearance:
             background:
               color: transparent
-              transparency: 0
+              opacity: 0
             border:
               width: 1
               style: solid
@@ -330,7 +330,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
           radius: lg
           border:
             width: 1

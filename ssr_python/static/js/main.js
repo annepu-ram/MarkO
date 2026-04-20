@@ -71,14 +71,20 @@ function syncEditorScroll(editor, lineNumbers) {
     lineNumbers.scrollTop = editor.scrollTop;
 }
 
+// Alpine store for reactive history button state
+document.addEventListener('alpine:init', () => {
+    Alpine.store('history', { canUndo: false, canRedo: false });
+});
+
 /**
- * Enable/disable undo and redo toolbar buttons based on history state
+ * Sync Alpine history store with actual history state.
+ * Alpine's reactive binding on the undo/redo buttons handles the DOM updates.
  */
-function updateHistoryButtons() {
-    const undoBtn = document.getElementById('undoBtn');
-    const redoBtn = document.getElementById('redoBtn');
-    if (undoBtn) undoBtn.disabled = !historyManager.canUndo();
-    if (redoBtn) redoBtn.disabled = !historyManager.canRedo();
+function syncHistoryState() {
+    if (typeof Alpine !== 'undefined' && Alpine.store) {
+        Alpine.store('history').canUndo = historyManager.canUndo();
+        Alpine.store('history').canRedo = historyManager.canRedo();
+    }
 }
 
 /**
@@ -199,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             // Reset history for new page context
                             historyManager.clear();
                             historyManager.push(pageData.yaml_content);
-                            updateHistoryButtons();
+                            syncHistoryState();
 
                             // Re-render preview and tree
                             await renderPreview(pageData.yaml_content);
@@ -253,7 +259,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                     updateLineNumbers(dom.editor, dom.lineNumbers);
                                     historyManager.clear();
                                     historyManager.push(pageData.yaml_content);
-                                    updateHistoryButtons();
+                                    syncHistoryState();
                                     await renderPreview(pageData.yaml_content);
                                     updateComponentTree();
                                     selectionManager.clearSelection();
@@ -334,7 +340,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateYamlEditor(yamlText);
         autosave(yamlText);
         historyManager.push(yamlText);
-        updateHistoryButtons();
+        syncHistoryState();
 
         const updatedStructure = getYamlStructureFromEditor();
         await renderPreview(yamlText, updatedStructure);
@@ -620,7 +626,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Debounce the render to prevent rapid-fire requests
             debouncedRender(yamlContent, currentSelection);
 
-            updateHistoryButtons();
+            syncHistoryState();
         },
         // Handle preview clicks for component selection
         handlePreviewClick: (event) => {
@@ -684,7 +690,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 clearPropertiesPanel();
                 clearTreeSelection();
                 historyManager.clear();
-                updateHistoryButtons();
+                syncHistoryState();
                 renderPreview('').then(() => {
                     updateComponentTree();
                 });
@@ -816,7 +822,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Push to history
             historyManager.push(yamlText);
-            updateHistoryButtons();
+            syncHistoryState();
 
             // Store selection for restoration
             const selectionToRestore = {
@@ -853,7 +859,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Re-render without pushing to history
                 actions.handleEditorInput(previousYaml, { pushHistory: false });
             }
-            updateHistoryButtons();
+            syncHistoryState();
         },
         redo: () => {
             if (!historyManager.canRedo()) {
@@ -865,7 +871,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Re-render without pushing to history
                 actions.handleEditorInput(nextYaml, { pushHistory: false });
             }
-            updateHistoryButtons();
+            syncHistoryState();
         },
     };
 
@@ -933,7 +939,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateYamlEditor(yamlText);
         autosave(yamlText);
         historyManager.push(yamlText);
-        updateHistoryButtons();
+        syncHistoryState();
 
         // Clear selection (component no longer exists)
         selectionManager.clearSelection();

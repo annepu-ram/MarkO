@@ -3,7 +3,7 @@
 # Base components: page, image, layout-column, layout-row, paragraph, heading, button, blockquote
 # Section type: hero
 # Layout: fullscreen
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: Non-profits, documentaries, brand stories, lifestyle brands
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
     # Full-Width Cinematic Hero
   - name: image
@@ -48,7 +48,7 @@
         appearance:
           background:
             color: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%)
-            transparency: 100
+            opacity: 100
       components:
             # Chapter / Story Marker
       - name: layout-row
@@ -67,7 +67,7 @@
             background:
               type: solid
               color: *color-primary
-              transparency: 0
+              opacity: 0
             border:
               width: 0
               style: solid
@@ -97,7 +97,8 @@
               background:
                 type: solid
                 color: *color-text
-                transparency: 0
+                opacity: 0
+              textShadow: soft
               radius: none
         - name: paragraph
           properties:
@@ -120,7 +121,8 @@
               background:
                 type: solid
                 color: *color-text
-                transparency: 0
+                opacity: 0
+              textShadow: soft
               radius: none
       - name: heading
         properties:
@@ -145,7 +147,8 @@
             background:
               type: solid
               color: *color-primary
-              transparency: 0
+              opacity: 0
+            textShadow: soft
             radius: none
       - name: paragraph
         properties:
@@ -172,7 +175,8 @@
             background:
               type: solid
               color: *color-text
-              transparency: 0
+              opacity: 0
+            textShadow: soft
             radius: none
       - name: layout-row
         properties:
@@ -197,6 +201,8 @@
                 weight: medium
                 letterSpacing: wide
                 transform: uppercase
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
           - name: paragraph
@@ -206,6 +212,8 @@
                 color: *color-text
                 size: sm
                 weight: medium
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
         - name: layout-column
@@ -223,6 +231,8 @@
                 weight: medium
                 letterSpacing: wide
                 transform: uppercase
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
           - name: paragraph
@@ -232,6 +242,8 @@
                 color: *color-text
                 size: sm
                 weight: medium
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
         - name: layout-column
@@ -249,6 +261,8 @@
                 weight: medium
                 letterSpacing: wide
                 transform: uppercase
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
           - name: paragraph
@@ -258,6 +272,8 @@
                 color: *color-text
                 size: sm
                 weight: medium
+              appearance:
+                textShadow: soft
               spacing:
                 marginBlock: none
 
@@ -300,7 +316,7 @@
             appearance:
               background:
                 color: transparent
-                transparency: 0
+                opacity: 0
               border:
                 width: 1
                 style: solid
@@ -337,7 +353,7 @@
             appearance:
               background:
                 color: transparent
-                transparency: 0
+                opacity: 0
                 type: solid
               border:
                 accentColor: *color-accent
@@ -347,6 +363,7 @@
               radius: none
               shadow: none
               shadowColor: *color-background
+              textShadow: soft
             spacing:
               marginBlock: none
               marginInline: none

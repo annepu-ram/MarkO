@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, heading, paragraph, columnsgrid, icon, badge
 # Section type: product
 # Layout: grid
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: ecommerce, retail, products, marketing
 
 - name: page

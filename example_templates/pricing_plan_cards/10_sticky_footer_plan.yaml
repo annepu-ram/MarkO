@@ -4,7 +4,7 @@
 # Base components: layout-column, heading, paragraph, layout-row, caption, button
 # Section type: pricing
 # Layout: stacked
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: SaaS, subscriptions, memberships, services, ecommerce
 
 - name: page
@@ -24,7 +24,7 @@
     properties:
       layout: {horizontalAlign: center, gap: md}
       appearance:
-        background: {transparency: 0}
+        background: {opacity: 0}
       spacing:
         paddingBlock: xl
         paddingInline: lg
@@ -43,7 +43,7 @@
     - name: layout-row
       properties:
         layout: {horizontalAlign: center, verticalAlign: center, gap: lg, wrap: wrap}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: md
       components:
@@ -81,7 +81,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: none, widthMode: "50"}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: heading
         properties:

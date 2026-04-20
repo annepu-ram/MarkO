@@ -1,7 +1,7 @@
 # Neubrutalism Testimonial Cards
 # Bold customer quotes with thick borders and flat vivid color accents
 # Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, caption
-# Section type: testimonials
+# Section type: testimonial
 # Layout: grid
 # Visual style: neubrutalism
 # Perfect for: SaaS platform, creative portfolio, design studio, fashion brand, tech startup
@@ -13,11 +13,11 @@
         heading: "'Space Grotesk', sans-serif"
         content: "'IBM Plex Sans', sans-serif"
       colors:
-        primary: '#1A1A1A'
-        text: '#313131'
-        secondary: '#C8C4BB'
-        accent: '#FF4D00'
-        background: '#E5E2DD'
+        primary: &color-primary '#1A1A1A'
+        text: &color-text '#313131'
+        secondary: &color-secondary '#C8C4BB'
+        accent: &color-accent '#FF4D00'
+        background: &color-background '#E5E2DD'
   components:
     - name: page
       slug: home
@@ -25,7 +25,7 @@
       properties:
         appearance:
           background:
-            color: '#E5E2DD'
+            color: *color-background
       components:
 
         # Section Header
@@ -49,7 +49,7 @@
                     typography:
                       size: xs
                       weight: semibold
-                      color: '#FF4D00'
+                      color: *color-accent
                       transform: uppercase
                       letterSpacing: wider
                       align: center
@@ -62,7 +62,7 @@
                     typography:
                       size: xxxl
                       weight: extrabold
-                      color: '#1A1A1A'
+                      color: *color-primary
                       transform: uppercase
                       align: center
                     spacing:
@@ -110,7 +110,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
                         spacing:
                           marginBlock: sm
@@ -121,7 +121,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: none
@@ -131,7 +131,7 @@
                         typography:
                           size: xs
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
 
             # Card 2 — Lime
             - components:
@@ -160,7 +160,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
                         spacing:
                           marginBlock: sm
@@ -171,7 +171,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: none
@@ -181,7 +181,7 @@
                         typography:
                           size: xs
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
 
             # Card 3 — Blue
             - components:
@@ -210,7 +210,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
                         spacing:
                           marginBlock: sm
@@ -221,7 +221,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: none
@@ -231,7 +231,7 @@
                         typography:
                           size: xs
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
 
             # Card 4 — Yellow
             - components:
@@ -260,7 +260,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
                         spacing:
                           marginBlock: sm
@@ -271,7 +271,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: none
@@ -281,7 +281,7 @@
                         typography:
                           size: xs
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
 
             # Card 5 — Lime
             - components:
@@ -310,7 +310,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
                         spacing:
                           marginBlock: sm
@@ -321,7 +321,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: none
@@ -331,7 +331,7 @@
                         typography:
                           size: xs
                           weight: medium
-                          color: '#313131'
+                          color: *color-text
 
             # Card 6 — Blue
             - components:
@@ -360,7 +360,7 @@
                         typography:
                           size: sm
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary
                           lineHeight: '1.6'
                         spacing:
                           marginBlock: sm
@@ -371,7 +371,7 @@
                         typography:
                           size: sm
                           weight: extrabold
-                          color: '#1A1A1A'
+                          color: *color-primary
                           transform: uppercase
                         spacing:
                           marginBlock: none
@@ -381,4 +381,4 @@
                         typography:
                           size: xs
                           weight: medium
-                          color: '#1A1A1A'
+                          color: *color-primary

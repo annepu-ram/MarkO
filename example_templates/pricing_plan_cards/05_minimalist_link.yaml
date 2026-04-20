@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, heading, caption, link
 # Section type: pricing
 # Layout: stacked
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: SaaS, subscriptions, memberships, services, ecommerce
 
 - name: page
@@ -36,7 +36,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: none, widthMode: "50"}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: heading
         properties:
@@ -74,7 +74,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: none, widthMode: "50"}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: heading
         properties:
@@ -111,7 +111,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: none, widthMode: "50"}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: heading
         properties:

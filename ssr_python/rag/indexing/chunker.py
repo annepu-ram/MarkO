@@ -214,7 +214,11 @@ class DocumentChunker:
         if not isinstance(site_node, dict):
             return self._chunk_yaml_by_regex(content, path, file_comments)
 
-        pages = [c for c in site_node.get("components", []) if isinstance(c, dict) and c.get("name") == "page"]
+        # Handle page-root templates: if site_node IS a page, treat it as the only page
+        if site_node.get("name") == "page":
+            pages = [site_node]
+        else:
+            pages = [c for c in site_node.get("components", []) if isinstance(c, dict) and c.get("name") == "page"]
 
         # If no pages found, try treating the doc as a flat component list
         if not pages:

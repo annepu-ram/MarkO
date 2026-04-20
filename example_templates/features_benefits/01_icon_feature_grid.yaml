@@ -3,7 +3,7 @@
 # Base components: layout-row, columnsgrid, layout-column, icon, heading, paragraph, eyebrow
 # Section type: features
 # Layout: grid, card_based
-# Visual style: modern, minimal
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, mobile app, software company, online store, consulting firm, logistics company, tutoring center, dental clinic, gym, digital agency
 
 
@@ -63,7 +63,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: *color-background, transparency: 100 }, radius: sm, shadow: soft }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: icon
@@ -83,7 +83,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: *color-background, transparency: 100 }, radius: sm, shadow: soft }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: icon
@@ -103,7 +103,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: *color-background, transparency: 100 }, radius: sm, shadow: soft }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: icon
@@ -123,7 +123,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: *color-background, transparency: 100 }, radius: sm, shadow: soft }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: icon
@@ -143,7 +143,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: *color-background, transparency: 100 }, radius: sm, shadow: soft }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: icon
@@ -163,7 +163,7 @@
                 - name: layout-column
                   properties:
                     layout: { horizontalAlign: center }
-                    appearance: { background: { color: *color-background, transparency: 100 }, radius: sm, shadow: soft }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
                     spacing: { paddingBlock: lg, paddingInline: md }
                   components:
                     - name: icon

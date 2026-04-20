@@ -32,8 +32,8 @@
 2. **layout-row (Hero Split)**
    Left: heading ("Precision Metal Fabrication") + paragraph (materials, tolerances, industries served) + two buttons ("Our Capabilities", "Get a Quote"). Right: image (CNC machine or fabricated parts).
 
-3. **br (divider)**
-   Visual separator between hero and content sections.
+3. **br (slant section breaker, mirrored, corporate blue-gray)**
+   Angular slant divider transitioning from hero to stats section.
 
 4. **counter-up (At a Glance)**
    "20+ Years in Business", "500+ Active Clients", "10,000+ sq ft Facility", "ISO 9001 Certified".

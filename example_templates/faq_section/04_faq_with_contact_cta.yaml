@@ -3,7 +3,7 @@
 # Base components: layout-column, accordion, heading, paragraph, eyebrow, button, br, icon
 # Section type: faq, cta, contact
 # Layout: stacked, centered
-# Visual style: modern, minimal
+# Visual style: modern_minimalist
 # Perfect for: SaaS platform, online store, consulting firm, dental clinic, law firm, tutoring center, real estate agency, insurance company, software company, subscription service
 
 
@@ -30,7 +30,7 @@
         - name: layout-column
           properties:
             layout: { horizontalAlign: center, gap: md }
-            appearance: { background: { color: *color-background, transparency: 100 } }
+            appearance: { background: { color: *color-background, opacity: 100 } }
             spacing: { paddingBlock: xxl, paddingInline: lg }
           components:
             # Section Header
@@ -136,7 +136,7 @@
                 appearance:
                   style: solid
                   color: *color-secondary
-                  transparency: 20
+                  opacity: 20
                 spacing: { marginBlock: lg, paddingBlock: xl, paddingInline: xl }
                 layout: { widthMode: "66" }
 
@@ -145,7 +145,7 @@
               properties:
                 layout: { horizontalAlign: center, gap: sm }
                 appearance:
-                  background: { color: *color-accent, transparency: 100 }
+                  background: { color: *color-accent, opacity: 100 }
                   radius: lg
                 spacing: { marginBlock: sm }
                 layout: { widthMode: "66" }

@@ -1,0 +1,227 @@
+# Countdown: Webinar Registration
+# Event registration section with countdown timer, speaker info, and sign-up CTA
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, countdown, button, icon, badge, caption
+# Section type: countdown
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: education, webinars, conferences, workshops
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#0f172a'
+        text: &color-text '#334155'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#7c3aed'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: badge
+              properties: { text: "FREE LIVE EVENT", variant: info, pill: true }
+            - name: eyebrow
+              properties:
+                text: UPCOMING WEBINAR
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                spacing: { marginBlock: sm }
+            - name: heading
+              properties:
+                text: "Scaling Your Product: From MVP to 1M Users"
+                level: 1
+                typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Join us for an exclusive 90-minute deep dive into the strategies, tools, and mindset shifts needed to scale your product to a million users and beyond.
+                typography: { size: lg, color: *color-secondary, align: center }
+                spacing: { marginBlock: md }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: md, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '50', horizontalAlign: center }
+            appearance: { background: { color: '#f5f3ff' }, radius: xl }
+            spacing: { paddingBlock: xl, paddingInline: xl }
+          components:
+            - name: heading
+              properties:
+                text: Event Starts In
+                level: 3
+                typography: { size: md, weight: semibold, color: *color-secondary, align: center }
+            - name: countdown
+              properties:
+                targetDate: '2026-05-20T18:00:00'
+                format: 'DD:HH:MM:SS'
+                expiredText: "The webinar has started!"
+                typography: { size: xxl, weight: bold, color: *color-accent, align: center }
+            - name: caption
+              properties:
+                text: "Tuesday, May 20, 2026 — 6:00 PM EST"
+                typography: { size: sm, color: *color-secondary, align: center }
+                spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: heading
+              properties:
+                text: Featured Speakers
+                level: 3
+                typography: { size: xl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: md }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, gap: lg }
+        spacing: { paddingBlock: sm, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '33', horizontalAlign: center }
+            appearance: { background: { color: '#f8fafc' }, radius: lg }
+            spacing: { paddingBlock: lg, paddingInline: md }
+          components:
+            - name: icon
+              properties: { name: user, size: "48", color: *color-accent }
+            - name: heading
+              properties:
+                text: Alex Rivera
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: badge
+              properties: { text: "CTO, ScaleUp Inc.", variant: info, pill: false }
+            - name: paragraph
+              properties:
+                text: Scaled 3 products from zero to 10M+ users. Former VP Engineering at TechCorp.
+                typography: { size: sm, color: *color-text, align: center }
+                spacing: { marginBlock: sm }
+
+        - name: layout-column
+          properties:
+            layout: { widthMode: '33', horizontalAlign: center }
+            appearance: { background: { color: '#f8fafc' }, radius: lg }
+            spacing: { paddingBlock: lg, paddingInline: md }
+          components:
+            - name: icon
+              properties: { name: user, size: "48", color: *color-accent }
+            - name: heading
+              properties:
+                text: Dr. Maya Patel
+                level: 4
+                typography: { size: md, weight: semibold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: badge
+              properties: { text: "Growth Strategist", variant: warning, pill: false }
+            - name: paragraph
+              properties:
+                text: Author of "The Growth Playbook." Advisor to 50+ startups with combined $2B+ valuation.
+                typography: { size: sm, color: *color-text, align: center }
+                spacing: { marginBlock: sm }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '50', horizontalAlign: center }
+          components:
+            - name: heading
+              properties:
+                text: "What You'll Learn"
+                level: 3
+                typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                spacing: { marginBlock: md }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                spacing: { marginBlock: xs }
+              components:
+                - name: icon
+                  properties: { name: check, size: "18", color: '#10b981' }
+                - name: paragraph
+                  properties:
+                    text: Infrastructure patterns that scale with your user base
+                    typography: { size: sm, color: *color-text }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                spacing: { marginBlock: xs }
+              components:
+                - name: icon
+                  properties: { name: check, size: "18", color: '#10b981' }
+                - name: paragraph
+                  properties:
+                    text: Growth loops and viral mechanics that drive organic acquisition
+                    typography: { size: sm, color: *color-text }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                spacing: { marginBlock: xs }
+              components:
+                - name: icon
+                  properties: { name: check, size: "18", color: '#10b981' }
+                - name: paragraph
+                  properties:
+                    text: Team structure and hiring strategies for hyper-growth phases
+                    typography: { size: sm, color: *color-text }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+                spacing: { marginBlock: xs }
+              components:
+                - name: icon
+                  properties: { name: check, size: "18", color: '#10b981' }
+                - name: paragraph
+                  properties:
+                    text: Real-world case studies from unicorn startups
+                    typography: { size: sm, color: *color-text }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center, gap: md }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: button
+          properties:
+            text: Register for Free
+            appearance: { background: { color: *color-accent } }
+            typography: { color: *color-background, weight: bold, size: lg }
+        - name: button
+          properties:
+            text: Add to Calendar
+            appearance: { background: { color: 'transparent' }, border: { width: 1, color: *color-accent } }
+            typography: { color: *color-accent, weight: semibold }
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: sm }
+      components:
+        - name: caption
+          properties:
+            text: "1,247 people have already registered — Limited to 2,000 attendees"
+            typography: { size: sm, color: *color-secondary, align: center }

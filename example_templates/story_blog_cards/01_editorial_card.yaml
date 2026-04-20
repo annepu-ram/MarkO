@@ -3,7 +3,7 @@
 # Base components: page, layout-column, image, eyebrow, heading, paragraph, layout-row, caption, link
 # Section type: blog
 # Layout: stacked
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: media, publishing, blogs, content marketing, news
 
 - name: page
@@ -36,7 +36,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: xs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: md
           paddingInline: md
@@ -61,7 +61,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: caption
           properties:

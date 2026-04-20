@@ -3,7 +3,7 @@
 # Base components: page, video-background, layout-column, eyebrow, heading, paragraph, button
 # Section type: hero
 # Layout: fullscreen
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: Tech companies, creative agencies, event promotions, product showcases
 
 - name: page
@@ -44,22 +44,25 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: center, gap: md}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
       components:
       - name: eyebrow
         properties:
           text: EXPERIENCE THE FUTURE
           typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+          appearance: {textShadow: soft}
       - name: heading
         properties:
           text: Where Innovation Meets Imagination
           level: 1
           typography: {size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight}
+          appearance: {textShadow: soft}
           spacing: {marginBlock: sm}
       - name: paragraph
         properties:
           text: Immerse yourself in a world of limitless possibilities.
           typography: {size: lg, color: *color-secondary, align: center}
+          appearance: {textShadow: soft}
           spacing: {marginBlock: md}
       - name: button
         properties:

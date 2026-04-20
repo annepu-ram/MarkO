@@ -13,11 +13,11 @@
         heading: "'Poppins', sans-serif"
         content: "'Nunito Sans', sans-serif"
       colors:
-        primary: '#4A1942'
-        text: '#4E3149'
-        secondary: '#9D5094'
-        accent: '#FF1493'
-        background: '#FFD6E6'
+        primary: &color-primary '#4A1942'
+        text: &color-text '#4E3149'
+        secondary: &color-secondary '#9D5094'
+        accent: &color-accent '#FF1493'
+        background: &color-background '#FFD6E6'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#FFD6E6'
-            transparency: 100
+            color: *color-background
+            opacity: 100
       components:
 
         # Section header
@@ -50,7 +50,7 @@
                     typography:
                       size: xs
                       weight: semibold
-                      color: '#FF1493'
+                      color: *color-accent
                       transform: none
                       letterSpacing: wider
                       align: center
@@ -61,7 +61,7 @@
                     typography:
                       size: xxl
                       weight: bold
-                      color: '#4A1942'
+                      color: *color-primary
                       align: center
                     spacing:
                       marginBlock: sm
@@ -70,7 +70,7 @@
                     text: Thoughtfully crafted tools that bring joy to every step of your journey — simple, playful, and powerful.
                     typography:
                       size: md
-                      color: '#9D5094'
+                      color: *color-secondary
                       align: center
                     spacing:
                       marginBlock: sm
@@ -98,7 +98,7 @@
                     appearance:
                       background:
                         color: '#FFF0F5'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -111,7 +111,7 @@
                       properties:
                         name: sparkles
                         size: "48"
-                        color: '#FF1493'
+                        color: *color-accent
                     - name: heading
                       properties:
                         text: Smart Automation
@@ -119,7 +119,7 @@
                         typography:
                           size: lg
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -128,7 +128,7 @@
                         text: Let intelligent workflows handle the repetitive tasks so you can focus on what you love most.
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
 
             - components:
@@ -140,7 +140,7 @@
                     appearance:
                       background:
                         color: '#F0F5FF'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -161,7 +161,7 @@
                         typography:
                           size: lg
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -170,7 +170,7 @@
                         text: Work together in real time with shared spaces, live comments, and instant notifications.
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
 
             - components:
@@ -182,7 +182,7 @@
                     appearance:
                       background:
                         color: '#F0FFF4'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -203,7 +203,7 @@
                         typography:
                           size: lg
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -212,7 +212,7 @@
                         text: Gain clear insights with colorful charts and easy-to-read dashboards designed for everyone.
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
 
             - components:
@@ -224,7 +224,7 @@
                     appearance:
                       background:
                         color: '#FFFBF0'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -245,7 +245,7 @@
                         typography:
                           size: lg
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -254,7 +254,7 @@
                         text: Your data stays protected with enterprise-grade security that runs quietly in the background.
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
 
             - components:
@@ -266,7 +266,7 @@
                     appearance:
                       background:
                         color: '#F5F0FF'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -287,7 +287,7 @@
                         typography:
                           size: lg
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -296,7 +296,7 @@
                         text: Pages load in a blink with our cloud infrastructure optimized for speed and reliability.
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
 
             - components:
@@ -308,7 +308,7 @@
                     appearance:
                       background:
                         color: '#FFF0F5'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -321,7 +321,7 @@
                       properties:
                         name: headphones
                         size: "48"
-                        color: '#FF1493'
+                        color: *color-accent
                     - name: heading
                       properties:
                         text: 24/7 Support
@@ -329,7 +329,7 @@
                         typography:
                           size: lg
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -338,7 +338,7 @@
                         text: A friendly team is always ready to help you via chat, email, or video — any time of day.
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
 
         # CTA row
@@ -354,8 +354,8 @@
                 text: Explore All Features
                 appearance:
                   background:
-                    color: '#FF1493'
-                    transparency: 100
+                    color: *color-accent
+                    opacity: 100
                   border:
                     width: 0
                   radius: pill

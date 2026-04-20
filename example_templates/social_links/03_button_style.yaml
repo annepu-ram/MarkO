@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, heading, paragraph, button
 # Section type: social_links
 # Layout: centered row
-# Visual style: modern, colorful, bold
+# Visual style: bold_editorial
 # Perfect for: creative agency, influencer, content creator, musician, artist
 
 - name: site
@@ -26,7 +26,7 @@
         appearance:
           background:
             color: *color-background
-            transparency: 100
+            opacity: 100
       components:
         # Section
         - name: layout-column
@@ -42,7 +42,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
           components:
             - name: eyebrow
               properties:
@@ -96,7 +96,7 @@
                     appearance:
                       background:
                         color: "#ea4c89"
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 0
                         style: solid
@@ -121,7 +121,7 @@
                     appearance:
                       background:
                         color: "#0077b5"
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 0
                         style: solid
@@ -143,7 +143,7 @@
                     appearance:
                       background:
                         color: "#1da1f2"
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 0
                         style: solid
@@ -165,7 +165,7 @@
                     appearance:
                       background:
                         color: "#333333"
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 0
                         style: solid
@@ -187,7 +187,7 @@
                     appearance:
                       background:
                         color: *color-accent
-                        transparency: 100
+                        opacity: 100
                       border:
                         width: 0
                         style: solid

@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, columnsgrid, badge, button
 # Section type: product
 # Layout: grid
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, retail, products, marketing
 
 - name: page

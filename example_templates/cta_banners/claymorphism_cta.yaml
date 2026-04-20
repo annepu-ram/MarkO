@@ -13,11 +13,11 @@
         heading: "'Poppins', sans-serif"
         content: "'Nunito Sans', sans-serif"
       colors:
-        primary: '#4A1942'
-        text: '#4E3149'
-        secondary: '#9D5094'
-        accent: '#FF1493'
-        background: '#FFD6E6'
+        primary: &color-primary '#4A1942'
+        text: &color-text '#4E3149'
+        secondary: &color-secondary '#9D5094'
+        accent: &color-accent '#FF1493'
+        background: &color-background '#FFD6E6'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#FFD6E6'
-            transparency: 100
+            color: *color-background
+            opacity: 100
       components:
 
         # Outer section wrapper
@@ -49,7 +49,7 @@
                 appearance:
                   background:
                     color: '#ffffff'
-                    transparency: 100
+                    opacity: 100
                   radius: xxl
                   shadow: elevated
                   border:
@@ -66,7 +66,7 @@
                     typography:
                       size: xs
                       weight: semibold
-                      color: '#FF1493'
+                      color: *color-accent
                       transform: none
                       letterSpacing: wider
                       align: center
@@ -79,7 +79,7 @@
                     typography:
                       size: xxxl
                       weight: bold
-                      color: '#4A1942'
+                      color: *color-primary
                       align: center
                       lineHeight: snug
                     spacing:
@@ -93,7 +93,7 @@
                       a better, more joyful way to bring their ideas to life. No experience needed.
                     typography:
                       size: lg
-                      color: '#9D5094'
+                      color: *color-secondary
                       align: center
                       lineHeight: relaxed
                     spacing:
@@ -115,8 +115,8 @@
                         text: Try It Free
                         appearance:
                           background:
-                            color: '#FF1493'
-                            transparency: 100
+                            color: *color-accent
+                            opacity: 100
                           border:
                             width: 0
                           radius: pill
@@ -134,13 +134,13 @@
                         appearance:
                           background:
                             color: '#F5F0FF'
-                            transparency: 100
+                            opacity: 100
                           border:
                             width: 0
                           radius: pill
                           shadow: medium
                         typography:
-                          color: '#4A1942'
+                          color: *color-primary
                           weight: bold
                           size: md
                         spacing:

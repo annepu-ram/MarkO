@@ -1,7 +1,7 @@
 # Glassmorphism Testimonial Cards
 # Customer quotes in frosted glass cards on dark gradient background
 # Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, caption
-# Section type: testimonials
+# Section type: testimonial
 # Layout: grid
 # Visual style: glassmorphism
 # Perfect for: SaaS platform, tech startup, creative portfolio, design studio, fintech
@@ -13,11 +13,11 @@
         heading: "'Inter', sans-serif"
         content: "'Inter', sans-serif"
       colors:
-        primary: '#ffffff'
-        text: '#DFDFDF'
-        secondary: '#B0D4E8'
-        accent: '#3182CE'
-        background: '#0f172a'
+        primary: &color-primary '#ffffff'
+        text: &color-text '#DFDFDF'
+        secondary: &color-secondary '#B0D4E8'
+        accent: &color-accent '#3182CE'
+        background: &color-background '#0f172a'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#0f172a'
-            transparency: 100
+            color: *color-background
+            opacity: 100
       components:
 
         # Gradient outer wrapper — mandatory for glassmorphism blur visibility
@@ -41,7 +41,7 @@
                   colorStart: '#3182CE'
                   colorEnd: '#0f172a'
                   direction: to bottom right
-                transparency: 100
+                opacity: 100
             spacing:
               paddingBlock: none
               paddingInline: none
@@ -68,7 +68,7 @@
                         typography:
                           size: xs
                           weight: semibold
-                          color: '#B0D4E8'
+                          color: *color-secondary
                           transform: uppercase
                           letterSpacing: wider
                           align: center
@@ -79,7 +79,7 @@
                         typography:
                           size: xxl
                           weight: bold
-                          color: '#ffffff'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -88,7 +88,7 @@
                         text: Thousands of teams trust us to deliver results. Here is what some of them have to say.
                         typography:
                           size: md
-                          color: '#DFDFDF'
+                          color: *color-text
                           align: center
                           lineHeight: relaxed
                         spacing:
@@ -119,14 +119,14 @@
                           gap: sm
                         appearance:
                           background:
-                            color: '#ffffff'
-                            transparency: 12
+                            color: *color-primary
+                            opacity: 12
                           blur: true
                           radius: lg
                           border:
                             width: 1
                             style: solid
-                            color: '#ffffff'
+                            color: *color-primary
                           shadow: soft
                         spacing:
                           paddingBlock: xl
@@ -139,14 +139,14 @@
                             typography:
                               size: xxxl
                               weight: extrabold
-                              color: '#3182CE'
+                              color: *color-accent
                               lineHeight: '0.8'
                         - name: paragraph
                           properties:
                             text: The automation alone saved our team 12 hours a week. We shipped three major features in the time it used to take us to ship one. Genuinely transformative.
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                               lineHeight: relaxed
                             spacing:
                               marginBlock: md
@@ -157,13 +157,13 @@
                             typography:
                               size: sm
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-primary
                         - name: caption
                           properties:
                             text: Head of Engineering, Lumina SaaS
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
 
                 # Card 2 — James K.
                 - components:
@@ -174,14 +174,14 @@
                           gap: sm
                         appearance:
                           background:
-                            color: '#ffffff'
-                            transparency: 12
+                            color: *color-primary
+                            opacity: 12
                           blur: true
                           radius: lg
                           border:
                             width: 1
                             style: solid
-                            color: '#ffffff'
+                            color: *color-primary
                           shadow: soft
                         spacing:
                           paddingBlock: xl
@@ -194,14 +194,14 @@
                             typography:
                               size: xxxl
                               weight: extrabold
-                              color: '#3182CE'
+                              color: *color-accent
                               lineHeight: '0.8'
                         - name: paragraph
                           properties:
                             text: Security was our biggest concern when evaluating vendors. The SOC 2 certification, SSO, and role-based controls gave our compliance team immediate confidence.
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                               lineHeight: relaxed
                             spacing:
                               marginBlock: md
@@ -212,13 +212,13 @@
                             typography:
                               size: sm
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-primary
                         - name: caption
                           properties:
                             text: CTO, Vertex Financial
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
 
                 # Card 3 — Priya N.
                 - components:
@@ -229,14 +229,14 @@
                           gap: sm
                         appearance:
                           background:
-                            color: '#ffffff'
-                            transparency: 12
+                            color: *color-primary
+                            opacity: 12
                           blur: true
                           radius: lg
                           border:
                             width: 1
                             style: solid
-                            color: '#ffffff'
+                            color: *color-primary
                           shadow: soft
                         spacing:
                           paddingBlock: xl
@@ -249,14 +249,14 @@
                             typography:
                               size: xxxl
                               weight: extrabold
-                              color: '#3182CE'
+                              color: *color-accent
                               lineHeight: '0.8'
                         - name: paragraph
                           properties:
                             text: Onboarding our 40-person team took under a day. The real-time sync means everyone is always looking at the same data. No more Slack messages asking for the latest version.
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                               lineHeight: relaxed
                             spacing:
                               marginBlock: md
@@ -267,13 +267,13 @@
                             typography:
                               size: sm
                               weight: bold
-                              color: '#ffffff'
+                              color: *color-primary
                         - name: caption
                           properties:
                             text: VP Product, NovaDev Studio
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
 
             # Bottom spacer
             - name: layout-row

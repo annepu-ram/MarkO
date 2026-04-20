@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-column, layout-row, heading, paragraph, eyebrow, button
 # Section type: hero
 # Layout: grid
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS platforms, content sites, creative portfolios, product showcases
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
 
   # Compact Navigation
@@ -45,7 +45,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
         border:
           width: 1
           style: solid
@@ -133,7 +133,7 @@
                 colorStart: *color-accent
                 colorEnd: *color-accent
                 direction: to bottom right
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: elevated
             shadowColor: *color-accent
@@ -175,7 +175,7 @@
             appearance:
               background:
                 color: rgba(255,255,255,0.2)
-                transparency: 100
+                opacity: 100
               backdropBlur: 12
               border:
                 width: 1
@@ -216,7 +216,7 @@
                   colorStart: *color-accent
                   colorEnd: *color-accent
                   direction: to right
-                transparency: 100
+                opacity: 100
               radius: lg
               shadow: medium
               shadowColor: *color-accent
@@ -277,7 +277,7 @@
             appearance:
               background:
                 color: *color-primary
-                transparency: 100
+                opacity: 100
               radius: lg
               shadow: medium
               shadowColor: *color-accent
@@ -312,7 +312,7 @@
               properties:
                 text: "✓"
                 typography:
-                  color: *color-accent
+                  color: *color-background
                   size: lg
                   weight: bold
                 spacing:
@@ -365,7 +365,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
             border:
@@ -416,7 +416,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
             border:
@@ -467,7 +467,7 @@
           appearance:
             background:
               color: *color-background
-              transparency: 100
+              opacity: 100
             radius: lg
             shadow: soft
             border:
@@ -522,7 +522,7 @@
               colorStart: *color-accent
               colorEnd: *color-accent
               direction: to right
-            transparency: 100
+            opacity: 100
           radius: lg
           shadow: dramatic
           shadowColor: *color-accent
@@ -532,7 +532,7 @@
           text: "Ready to get started?"
           level: 2
           typography:
-            color: *color-primary
+            color: *color-background
             size: xxl
             weight: bold
             align: center
@@ -542,7 +542,7 @@
         properties:
           text: "Join 10,000+ teams building faster with Nexus."
           typography:
-            color: rgba(15,15,35,0.8)
+            color: *color-background
             size: md
             align: center
           spacing:
@@ -560,7 +560,7 @@
             appearance:
               background:
                 color: *color-primary
-                transparency: 100
+                opacity: 100
               border:
                 width: 0
                 style: solid
@@ -582,7 +582,7 @@
             appearance:
               background:
                 color: rgba(255,255,255,0.2)
-                transparency: 100
+                opacity: 100
               backdropBlur: 8
               border:
                 width: 1

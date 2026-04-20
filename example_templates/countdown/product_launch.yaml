@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, badge, heading, paragraph, countdown, button
 # Section type: countdown
 # Layout: centered
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: events, launches, sales, promotions
 
 - name: page

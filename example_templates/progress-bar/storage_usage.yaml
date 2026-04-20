@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, heading, paragraph, icon, progress-bar
 # Section type: stats
 # Layout: stacked
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page
@@ -66,7 +66,7 @@
                     percent: 25
                     thickness: small
                     color: '#60a5fa'
-                    trackColor: '#1e1b4b'
+                    trackColor: *color-background
                     appearance: { radius: pill }
 
             - name: layout-column
@@ -95,7 +95,7 @@
                     percent: 78
                     thickness: small
                     color: '#a78bfa'
-                    trackColor: '#1e1b4b'
+                    trackColor: *color-background
                     appearance: { radius: pill }
 
             - name: layout-column
@@ -124,7 +124,7 @@
                     percent: 92
                     thickness: small
                     color: '#f472b6'
-                    trackColor: '#1e1b4b'
+                    trackColor: *color-background
                     appearance: { radius: pill }
 
             - name: layout-column
@@ -153,5 +153,5 @@
                     percent: 21
                     thickness: small
                     color: '#34d399'
-                    trackColor: '#1e1b4b'
+                    trackColor: *color-background
                     appearance: { radius: pill }

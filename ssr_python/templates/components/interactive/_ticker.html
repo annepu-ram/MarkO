@@ -15,13 +15,13 @@
 
     {% set width_mode = layout_props.widthMode | default(layout_props.width | default('fit')) %}
     {% set col_bg = appearance.columnBackground | default('#ffffff') %}
-    {% set col_transparency = appearance.columnTransparency | default(0) %}
+    {% set col_opacity = appearance.columnOpacity | default(0) %}
     {% set col_radius_token = appearance.columnRadius | default('none') %}
     {% set col_border = appearance.columnBorder | default({}) %}
 
-    {# Build column background with transparency #}
-    {% if col_transparency is defined and col_bg != 'transparent' %}
-        {% set col_alpha = col_transparency | transparency_to_hex %}
+    {# Build column background with opacity #}
+    {% if col_opacity is defined and col_bg != 'transparent' %}
+        {% set col_alpha = col_opacity | opacity_to_hex %}
         {% set col_bg_final = col_bg ~ col_alpha %}
     {% else %}
         {% set col_bg_final = col_bg %}

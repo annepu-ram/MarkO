@@ -3,7 +3,7 @@
 # Base components: titlebar, layout-column, heading, paragraph, button, layout-row
 # Section type: navigation
 # Layout: stacked
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: consulting firm, law firm, online store, fashion brand, photography studio, design portfolio, creative studio, wellness spa
 
 
@@ -24,7 +24,7 @@
       slug: home
       title: "Corporate Titlebar"
       properties:
-        appearance: { background: { color: *color-background, transparency: 100 } }
+        appearance: { background: { color: *color-background, opacity: 100 } }
       components:
 
         # ============================================
@@ -50,7 +50,7 @@
             scroll:
               shrinkPercentage: 80
             appearance:
-              background: { color: '#ffffff', transparency: 100 }
+              background: { color: '#ffffff', opacity: 100 }
               border: { width: 1, style: solid, color: *color-secondary }
               focus:
                 background: '#ffffff'
@@ -66,7 +66,7 @@
           properties:
             layout: { align: center, horizontalAlign: space-evenly }
             appearance:
-              background: { color: '#ffffff', transparency: 100 }
+              background: { color: '#ffffff', opacity: 100 }
             spacing:
               paddingBlock: xxxl
               paddingInline: xl
@@ -107,7 +107,7 @@
                   properties:
                     text: Learn More
                     appearance:
-                      background: { color: '#ffffff', transparency: 100 }
+                      background: { color: '#ffffff', opacity: 100 }
                       border: { width: 1, style: solid, color: *color-secondary }
                       radius: sm
                     typography: { color: *color-primary, weight: medium, size: md }

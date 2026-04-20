@@ -1,0 +1,149 @@
+# New Year Countdown
+# Festive New Year celebration countdown page with event details and party information
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, countdown, button, icon, columnsgrid
+# Section type: countdown
+# Layout: stacked
+# Visual style: default
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E293B"
+        text: &color-text "#475569"
+        secondary: &color-secondary "#94A3B8"
+        accent: &color-accent "#3B82F6"
+        background: &color-background "#F8FAFC"
+  components:
+    - name: page
+      slug: home
+      title: "New Year Countdown"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # ============================================
+        # COUNTDOWN HERO
+        # ============================================
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: center }
+            appearance:
+              background: { color: *color-primary }
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+          components:
+            - name: eyebrow
+              properties:
+                text: COUNTDOWN TO
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: "New Year 2027"
+                level: 1
+                typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Join us in counting down to a brand new year filled with possibilities.
+                typography: { size: lg, color: *color-secondary, align: center }
+                layout: { widthMode: '66' }
+                spacing: { marginBlock: md }
+            - name: countdown
+              properties:
+                targetDate: '2027-01-01T00:00:00'
+                format: 'DD:HH:MM:SS'
+                expiredText: "Happy New Year!"
+                typography: { size: xxxl, weight: bold, color: '#ffffff', align: center }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { marginBlock: lg }
+              components:
+                - name: button
+                  properties:
+                    text: RSVP Now
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: '#ffffff', weight: semibold }
+                    spacing: { paddingInline: xl }
+                - name: button
+                  properties:
+                    text: View Details
+                    appearance: { background: { color: 'transparent' }, border: { width: 1, color: *color-secondary } }
+                    typography: { color: '#ffffff', weight: medium }
+
+        # ============================================
+        # EVENT DETAILS
+        # ============================================
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: lg }
+            responsive: { breakpoints: { md: 1 } }
+            spacing: { paddingBlock: xl, paddingInline: lg }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: xl, paddingInline: lg }
+                  components:
+                    - name: icon
+                      properties: { name: map-pin, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: The Grand Ballroom
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: "123 Celebration Avenue\nDowntown Convention Center"
+                        typography: { size: sm, color: *color-text, align: center }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: xl, paddingInline: lg }
+                  components:
+                    - name: icon
+                      properties: { name: clock, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: "8:00 PM — 2:00 AM"
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: "Doors open at 7:30 PM\nCountdown at midnight"
+                        typography: { size: sm, color: *color-text, align: center }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                    spacing: { paddingBlock: xl, paddingInline: lg }
+                  components:
+                    - name: icon
+                      properties: { name: music, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Live Entertainment
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: "DJ sets, live band\nPhoto booth & fireworks"
+                        typography: { size: sm, color: *color-text, align: center }

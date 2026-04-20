@@ -3,7 +3,7 @@
 # Base components: page, layout-column, layout-row, eyebrow, heading, paragraph, tabs, button, image
 # Section type: hero
 # Layout: stacked
-# Visual style: dark_mode
+# Visual style: monochrome_dark
 # Perfect for: SaaS platforms, multi-service businesses, product showcases, agencies
 
 - name: page
@@ -54,12 +54,12 @@
             background: {active: *color-background, inactive: *color-background}
             border: {width: 2, style: solid, position: lower}
           content:
-            background: {color: *color-primary, transparency: 100}
+            background: {color: *color-primary, opacity: 100}
             border: {color: *color-secondary, width: 1, style: solid}
             padding: {block: lg, inline: lg}
           shadow: none
           shadowColor: *color-primary
-        spacing: {marginBlock: md, marginInline: none}
+        spacing: {marginBlock: md, marginInline: none, paddingBlock: sm, paddingInline: sm}
       tabs:
       - title: Marketing
         components:
@@ -72,7 +72,7 @@
               gap: lg
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: layout-column
             properties:
@@ -82,7 +82,7 @@
                 gap: sm
               appearance:
                 background:
-                  transparency: 0
+                  opacity: 0
             components:
             - name: heading
               properties:
@@ -136,7 +136,7 @@
               gap: lg
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: layout-column
             properties:
@@ -146,7 +146,7 @@
                 gap: sm
               appearance:
                 background:
-                  transparency: 0
+                  opacity: 0
             components:
             - name: heading
               properties:
@@ -200,7 +200,7 @@
               gap: lg
             appearance:
               background:
-                transparency: 0
+                opacity: 0
           components:
           - name: layout-column
             properties:
@@ -210,7 +210,7 @@
                 gap: sm
               appearance:
                 background:
-                  transparency: 0
+                  opacity: 0
             components:
             - name: heading
               properties:

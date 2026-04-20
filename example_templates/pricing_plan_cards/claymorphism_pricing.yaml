@@ -13,11 +13,11 @@
         heading: "'Poppins', sans-serif"
         content: "'Nunito Sans', sans-serif"
       colors:
-        primary: '#4A1942'
-        text: '#4E3149'
-        secondary: '#9D5094'
-        accent: '#FF1493'
-        background: '#FFD6E6'
+        primary: &color-primary '#4A1942'
+        text: &color-text '#4E3149'
+        secondary: &color-secondary '#9D5094'
+        accent: &color-accent '#FF1493'
+        background: &color-background '#FFD6E6'
   components:
     - name: page
       slug: home
@@ -26,7 +26,7 @@
         appearance:
           background:
             color: '#F5F0FF'
-            transparency: 100
+            opacity: 100
       components:
 
         # Section header
@@ -50,7 +50,7 @@
                     typography:
                       size: xs
                       weight: semibold
-                      color: '#FF1493'
+                      color: *color-accent
                       transform: none
                       letterSpacing: wider
                       align: center
@@ -61,7 +61,7 @@
                     typography:
                       size: xxl
                       weight: bold
-                      color: '#4A1942'
+                      color: *color-primary
                       align: center
                     spacing:
                       marginBlock: sm
@@ -70,7 +70,7 @@
                     text: Start free and scale as you grow. No hidden fees, no surprises — just the right plan for you.
                     typography:
                       size: md
-                      color: '#9D5094'
+                      color: *color-secondary
                       align: center
                     spacing:
                       marginBlock: sm
@@ -100,7 +100,7 @@
                     appearance:
                       background:
                         color: '#ffffff'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -116,7 +116,7 @@
                         typography:
                           size: xl
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: xs
@@ -125,7 +125,7 @@
                         text: Perfect to get started
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -136,7 +136,7 @@
                         typography:
                           size: xxxl
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: none
@@ -145,7 +145,7 @@
                         text: forever free
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
                         spacing:
                           marginBlock: md
@@ -156,14 +156,14 @@
                           gap: xs
                         appearance:
                           background:
-                            transparency: 0
+                            opacity: 0
                       components:
                         - name: paragraph
                           properties:
                             text: "✓ Up to 3 projects"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -171,7 +171,7 @@
                             text: "✓ 500 MB storage"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -179,7 +179,7 @@
                             text: "✓ Community support"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -187,7 +187,7 @@
                             text: "✓ Basic analytics"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                     - name: button
@@ -195,8 +195,8 @@
                         text: Get Started Free
                         appearance:
                           background:
-                            color: '#9D5094'
-                            transparency: 100
+                            color: *color-secondary
+                            opacity: 100
                           border:
                             width: 0
                           radius: pill
@@ -220,8 +220,8 @@
                       gap: sm
                     appearance:
                       background:
-                        color: '#FFD6E6'
-                        transparency: 100
+                        color: *color-background
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -236,7 +236,7 @@
                         typography:
                           size: xs
                           weight: bold
-                          color: '#FF1493'
+                          color: *color-accent
                           align: center
                         spacing:
                           marginBlock: xs
@@ -247,7 +247,7 @@
                         typography:
                           size: xl
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: xs
@@ -256,7 +256,7 @@
                         text: For growing teams
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -267,7 +267,7 @@
                         typography:
                           size: xxxl
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: none
@@ -276,7 +276,7 @@
                         text: per month
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
                         spacing:
                           marginBlock: md
@@ -287,14 +287,14 @@
                           gap: xs
                         appearance:
                           background:
-                            transparency: 0
+                            opacity: 0
                       components:
                         - name: paragraph
                           properties:
                             text: "✓ Unlimited projects"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -302,7 +302,7 @@
                             text: "✓ 20 GB storage"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -310,7 +310,7 @@
                             text: "✓ Priority support"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -318,7 +318,7 @@
                             text: "✓ Advanced analytics"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -326,7 +326,7 @@
                             text: "✓ Team collaboration"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                     - name: button
@@ -334,8 +334,8 @@
                         text: Start Growing Today
                         appearance:
                           background:
-                            color: '#FF1493'
-                            transparency: 100
+                            color: *color-accent
+                            opacity: 100
                           border:
                             width: 0
                           radius: pill
@@ -360,7 +360,7 @@
                     appearance:
                       background:
                         color: '#F0F5FF'
-                        transparency: 100
+                        opacity: 100
                       radius: xxl
                       shadow: elevated
                       border:
@@ -376,7 +376,7 @@
                         typography:
                           size: xl
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: xs
@@ -385,7 +385,7 @@
                         text: For power users
                         typography:
                           size: sm
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
                         spacing:
                           marginBlock: sm
@@ -396,7 +396,7 @@
                         typography:
                           size: xxxl
                           weight: bold
-                          color: '#4A1942'
+                          color: *color-primary
                           align: center
                         spacing:
                           marginBlock: none
@@ -405,7 +405,7 @@
                         text: per month
                         typography:
                           size: xs
-                          color: '#9D5094'
+                          color: *color-secondary
                           align: center
                         spacing:
                           marginBlock: md
@@ -416,14 +416,14 @@
                           gap: xs
                         appearance:
                           background:
-                            transparency: 0
+                            opacity: 0
                       components:
                         - name: paragraph
                           properties:
                             text: "✓ Everything in Growth"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -431,7 +431,7 @@
                             text: "✓ Unlimited storage"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -439,7 +439,7 @@
                             text: "✓ Dedicated account manager"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -447,7 +447,7 @@
                             text: "✓ Custom integrations"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -455,7 +455,7 @@
                             text: "✓ API access"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                         - name: paragraph
@@ -463,7 +463,7 @@
                             text: "✓ White-label exports"
                             typography:
                               size: sm
-                              color: '#4E3149'
+                              color: *color-text
                             spacing:
                               marginBlock: xxs
                     - name: button
@@ -471,8 +471,8 @@
                         text: Upgrade to Pro
                         appearance:
                           background:
-                            color: '#9D5094'
-                            transparency: 100
+                            color: *color-secondary
+                            opacity: 100
                           border:
                             width: 0
                           radius: pill

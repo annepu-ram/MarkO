@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-row, layout-column, eyebrow, heading, paragraph, button, link, image, blockquote
 # Section type: hero
 # Layout: split_screen
-# Visual style: minimal
+# Visual style: zen_japanese
 # Perfect for: Wellness apps, meditation, spas, yoga studios, health
 
 - name: page
@@ -22,7 +22,7 @@
           colorStart: *color-background
           colorEnd: *color-background
           direction: 'to bottom right'
-        transparency: 100
+        opacity: 100
   components:
   # Minimal Navigation
   - name: titlebar
@@ -48,7 +48,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
         border:
           width: 0
           style: solid
@@ -79,7 +79,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
     # Left Content
     - name: layout-column
@@ -168,7 +168,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: pill
               shadow: soft
               shadowColor: *color-accent
@@ -186,7 +186,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: pill
               shadow: soft
               shadowColor: *color-accent
@@ -204,7 +204,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: pill
               shadow: soft
               shadowColor: *color-accent
@@ -248,7 +248,7 @@
             appearance:
               background:
                 color: transparent
-                transparency: 0
+                opacity: 0
               border:
                 width: 1
                 style: solid
@@ -324,7 +324,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
     - name: blockquote
       properties:
@@ -337,7 +337,7 @@
         appearance:
           background:
             color: transparent
-            transparency: 0
+            opacity: 0
           border:
             accentColor: *color-accent
             width: 0

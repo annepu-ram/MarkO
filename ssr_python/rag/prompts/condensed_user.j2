@@ -1,0 +1,26 @@
+{% if comp_specs %}
+[Component Specifications — ONLY these properties are valid]
+{{ comp_specs }}
+Properties not listed here are auto-filled by defaults — do NOT invent new ones.
+
+{% endif %}
+[Valid Tokens]
+{{ valid_tokens }}
+
+{% if context_block %}
+[Reference Examples]
+{{ context_block }}
+
+{% endif %}
+{% if current_yaml %}
+[Current YAML]
+{{ current_yaml }}
+
+{% endif %}
+{% if selected_component %}
+[Selected Component]
+{{ selected_component }}
+
+{% endif %}
+[User Request]
+{{ message }}

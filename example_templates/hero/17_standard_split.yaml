@@ -3,7 +3,7 @@
 # Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, button, image
 # Section type: hero
 # Layout: split_screen
-# Visual style: modern
+# Visual style: modern_minimalist
 # Perfect for: SaaS products, startups, landing pages, general purpose
 
 - name: page
@@ -29,7 +29,7 @@
       properties:
         layout: {horizontalAlign: left, widthMode: "50", gap: md}
         appearance:
-          background: {color: *color-background, transparency: 0}
+          background: {color: *color-background, opacity: 0}
       components:
       - name: eyebrow
         properties:
@@ -51,7 +51,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: center, verticalAlign: center, gap: none, wrap: wrap, tag: section}
-          appearance: {background: {transparency: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-primary}, radius: none, shadow: none, shadowColor: *color-primary}
+          appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-primary}, radius: none, shadow: none, shadowColor: *color-primary}
           spacing:
             marginBlock: none
             marginInline: none
@@ -61,7 +61,7 @@
         - name: button
           properties:
             text: Get Started Free
-            appearance: {background: {color: *color-accent, type: "", transparency: 100}, radius: md, border: {width: 1, style: solid, color: *color-accent}, shadow: none, shadowColor: *color-primary, iconPlacement: none}
+            appearance: {background: {color: *color-accent, type: "", opacity: 100}, radius: md, border: {width: 1, style: solid, color: *color-accent}, shadow: none, shadowColor: *color-primary, iconPlacement: none}
             typography: {color: *color-background, weight: semibold}
             action:
               type: inlineScript
@@ -76,7 +76,7 @@
         - name: button
           properties:
             text: Watch Demo
-            appearance: {background: {color: *color-background, type: "", transparency: 100}, border: {width: 2, style: solid, color: *color-accent}, radius: md, shadow: none, shadowColor: *color-primary, iconPlacement: none}
+            appearance: {background: {color: *color-background, type: "", opacity: 100}, border: {width: 2, style: solid, color: *color-accent}, radius: md, shadow: none, shadowColor: *color-primary, iconPlacement: none}
             typography: {color: *color-accent, weight: semibold}
             action:
               type: inlineScript

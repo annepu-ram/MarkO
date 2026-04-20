@@ -1,144 +1,238 @@
-"""ssr_python/rag/agent/styler_agent.py — Per-section style property generator."""
-import json
+"""ssr_python/rag/agent/styler_agent.py — Visual style designer.
+
+Picks a visual style and theme, writes natural language design direction
+per section, and assigns images to sections. Single LLM call.
+"""
+import copy
 import re
 import logging
 
+from rag.config import config
 from rag.agent.model_backend import ModelBackend
+from rag.agent.prompt_loader import load_system, render_user
+from rag.agent.prompt_logger import log_prompt, log_output
 
 logger = logging.getLogger(__name__)
-
-STYLER_SYSTEM = """You are a web design specialist. Given a website outline and a style reference, assign precise visual property values to each section.
-
-OUTPUT: Return ONLY valid JSON (no markdown, no explanation).
-{
-  "style_name": "Style Name from reference",
-  "sections": [
-    {
-      "type": "hero",
-      "style_props": {
-        "container_shadow": "none | soft | medium | elevated | retro",
-        "container_radius": "none | xs | sm | md | lg | xl | xxl | pill",
-        "container_blur": false,
-        "container_border": "CSS border string or null",
-        "button_radius": "none | xs | sm | md | lg | xl | xxl | pill",
-        "button_shadow": "none | soft | medium | elevated | retro",
-        "background_gradient": false,
-        "background_transparency": 100,
-        "dark_section": false
-      }
-    }
-  ]
-}
-
-PROPERTY RULES:
-- container_shadow: apply to layout-row and layout-column containers
-- container_radius: cornerStyle value for layout-row, layout-column, columnsgrid
-- container_blur: true ONLY for glassmorphism — applies backdrop-filter blur
-- container_border: for neubrutalism use "3px solid #000000", glassmorphism use "1px solid rgba(255,255,255,0.3)", minimal styles use null
-- button_radius: cornerStyle for button components
-- button_shadow: shadow for button components
-- background_gradient: true when section background should use gradient (colorStart/colorEnd)
-- background_transparency: 0-100 (100=fully opaque, 80-90=frosted glass effect for glassmorphism)
-- dark_section: true means dark background — builder must use *color-background for ALL text
-
-STYLE RHYTHM RULES — vary across sections for visual interest:
-- Alternate dark/light sections (e.g., hero dark, features light, CTA dark)
-- FAQ and footer sections: match overall style but keep simple (dark_section: false unless style dictates)
-- At least 1-2 sections should have dark_section: true for contrast
-- CTA sections benefit from gradient backgrounds or dark backgrounds
-
-IMPORTANT: Output one entry per section in the same order as the input outline."""
 
 
 class StylerAgent:
     def __init__(self, model: ModelBackend):
         self.model = model
 
-    def style(self, outline: dict, style_context: str) -> dict:
-        """Assign style_props to each section based on style reference.
+    def style(
+        self,
+        outline: dict,
+        planner_md: str,
+        style_context: str,
+        selected_images: list | None = None,
+        style_hints: str = "",
+        color_hints: str = "",
+        business_context: dict | None = None,
+    ) -> dict:
+        """Pick a style, generate theme, write design direction, and assign images.
 
         Args:
-            outline: Planner's JSON output with page_title, theme, sections[]
+            outline: Parsed planner outline dict with page_title, sections[]
+            planner_md: Raw planner markdown (for context)
             style_context: Raw style chunk text from STYLE_THEMES_REFERENCE.md
+            selected_images: List of image dicts {url, altText, orientation, photographer}
+            style_hints: Comma-separated style keywords extracted from user query
+            color_hints: Comma-separated color words extracted from user query
+            business_context: Optional guided-flow context dict with shape
+                {business_name, industry, variant_label, description,
+                 style_preference, color_preference}. Used to inform
+                style/theme selection for business-specific generation.
 
         Returns:
-            Enriched outline dict with style_props added to each section,
-            plus top-level style_name. Falls back gracefully on parse errors.
+            Enriched outline dict with theme, style_name, and per-section
+            style_notes + dark_section + images.
         """
         sections = outline.get("sections", [])
-        if not sections or not style_context:
-            logger.info("Styler: no sections or style_context, skipping")
+        if not sections:
+            logger.debug("Styler: no sections, skipping")
             return outline
 
-        theme = outline.get("theme", {})
-        primary = theme.get("primary", "#1a1a1a")
-        accent = theme.get("accent", "#3b82f6")
-        background = theme.get("background", "#ffffff")
+        # Build section summary from planner outline
+        section_summary = []
+        for s in sections:
+            comps = ", ".join(s.get("components", []))
+            icons = s.get("icons", [])
+            icon_hint = f"\n- Icons: {len(icons)} (one per item)" if icons else ""
+            section_summary.append(
+                f"## {s['type'].replace('_', ' ').title()}\n"
+                f"- {s.get('description', '')}\n"
+                f"- Components: {comps}{icon_hint}"
+            )
 
-        section_list = ", ".join(s.get("type", "unknown") for s in sections)
+        # Fold guided-flow preferences into the hints so the existing template
+        # and prompt wiring keep working without a schema change.
+        bc = business_context or {}
+        bc_style_pref = (bc.get("style_preference") or "").strip()
+        bc_color_pref = (bc.get("color_preference") or "").strip()
+        effective_style_hints = ", ".join([s for s in (style_hints, bc_style_pref) if s])
+        effective_color_hints = ", ".join([s for s in (color_hints, bc_color_pref) if s])
 
-        user_prompt = (
-            f"[Style Reference]\n{style_context}\n\n"
-            f"[Page Outline]\n"
-            f"Page: {outline.get('page_title', 'Website')}\n"
-            f"Theme: primary={primary}, accent={accent}, background={background}\n"
-            f"Sections ({len(sections)} total): {section_list}\n\n"
-            f"Generate style_props for each section to match the [Style Reference]. "
-            f"Output exactly {len(sections)} section entries in the same order."
+        system = load_system("styler")
+        user_prompt = render_user("styler",
+            style_context=style_context,
+            selected_images=selected_images or [],
+            section_summary=section_summary,
+            section_count=len(sections),
+            style_hints=effective_style_hints,
+            color_hints=effective_color_hints,
+            business_name=(bc.get("business_name") or "").strip(),
+            business_industry=(bc.get("industry") or "").strip(),
+            business_variant=(bc.get("variant_label") or "").strip(),
+            business_description=(bc.get("description") or "").strip(),
         )
 
-        logger.info(f"Styler: styling {len(sections)} sections")
-        logger.debug(f"Styler user prompt ({len(user_prompt)} chars):\n{user_prompt[:400]}...")
+        log_prompt("STYLER", system, user_prompt)
 
-        response = self.model.generate(STYLER_SYSTEM, user_prompt)
-        logger.info(f"Styler raw LLM response ({len(response)} chars):\n{response}")
+        response = self.model.generate(system, user_prompt)
+        log_output("STYLER", response)
 
-        return self._merge_style_props(outline, response)
+        return self._parse_and_merge(outline, response, selected_images)
 
-    def _merge_style_props(self, outline: dict, response: str) -> dict:
-        """Parse styler JSON response and merge style_props into outline sections."""
-        import copy
+    def _parse_and_merge(
+        self, outline: dict, response: str, selected_images: list | None = None,
+    ) -> dict:
+        """Parse styler markdown and merge into outline dict."""
         enriched = copy.deepcopy(outline)
 
         try:
-            styled = self._parse_json(response)
-        except (ValueError, json.JSONDecodeError) as e:
-            logger.warning(f"Styler: failed to parse JSON response: {e}. Using outline as-is.")
+            parsed = self._parse_styler_markdown(response)
+        except Exception as e:
+            logger.warning(f"Styler: failed to parse markdown: {e}. Using defaults.")
+            enriched["theme"] = dict(config.default_theme)
             return enriched
 
-        # Extract style_name
-        style_name = styled.get("style_name", "")
-        if style_name:
-            enriched["style_name"] = style_name
-            logger.info(f"Styler: identified style '{style_name}'")
+        # Set style_name
+        if parsed.get("style_name"):
+            enriched["style_name"] = parsed["style_name"]
+            logger.debug(f"Styler: identified style '{parsed['style_name']}'")
 
-        # Merge style_props into matching sections by index
-        styled_sections = styled.get("sections", [])
+        # Set theme (with fallback to defaults)
+        theme = parsed.get("theme", {})
+        if theme:
+            merged_theme = dict(config.default_theme)
+            merged_theme.update(theme)
+            enriched["theme"] = merged_theme
+        else:
+            enriched["theme"] = dict(config.default_theme)
+
+        # Merge per-section data
+        styled_sections = parsed.get("sections", [])
         outline_sections = enriched.get("sections", [])
 
         for i, outline_section in enumerate(outline_sections):
             if i < len(styled_sections):
-                style_props = styled_sections[i].get("style_props", {})
-                if style_props:
-                    outline_section["style_props"] = style_props
+                ss = styled_sections[i]
+                if ss.get("style_notes"):
+                    outline_section["style_notes"] = ss["style_notes"]
+                if ss.get("dark_section") is not None:
+                    outline_section["dark_section"] = ss["dark_section"]
+
+                # Resolve image indices to rendered image context for builder
+                if ss.get("image_indices") and selected_images:
+                    image_lines = []
+                    count = 0
+                    for idx in ss["image_indices"]:
+                        if 0 <= idx < len(selected_images):
+                            img = selected_images[idx]
+                            count += 1
+                            url = img.get('url', '')
+                            alt = img.get('altText', '')
+                            orientation = img.get('orientation', 'unknown')
+                            image_lines.append(
+                                f"{count}. {url} — \"{alt}\" [{orientation}]"
+                            )
+                    if image_lines:
+                        outline_section["image_context"] = "\n".join(image_lines)
                     logger.debug(
                         f"Styler: section {i} ({outline_section.get('type')}) "
-                        f"style_props={style_props}"
+                        f"assigned {count} images"
                     )
+
+                logger.debug(
+                    f"Styler: section {i} ({outline_section.get('type')}) "
+                    f"dark={ss.get('dark_section')}"
+                )
             else:
-                logger.warning(f"Styler: no style_props for section {i}, using defaults")
+                logger.warning(f"Styler: no style data for section {i}")
 
         return enriched
 
-    def _parse_json(self, response: str) -> dict:
-        """Extract JSON from model response, handling markdown code blocks."""
-        match = re.search(r'```(?:json)?\s*\n(.+?)```', response, re.DOTALL)
-        text = match.group(1) if match else response
+    def _parse_styler_markdown(self, md: str) -> dict:
+        """Parse styler markdown into structured dict.
 
-        try:
-            return json.loads(text)
-        except json.JSONDecodeError:
-            match = re.search(r'\{[\s\S]*\}', text)
-            if match:
-                return json.loads(match.group(0))
-            raise ValueError(f"Could not parse styler JSON: {text[:200]}")
+        Returns:
+            {
+                "style_name": str,
+                "theme": {primary, text, secondary, accent, background, ...},
+                "sections": [{type, dark_section, style_notes, image_indices}, ...]
+            }
+        """
+        result = {"style_name": "", "theme": {}, "sections": []}
+
+        # Extract style name from # Style: heading
+        m = re.search(r'^#\s+Style:\s*(.+)', md, re.MULTILINE)
+        if m:
+            result["style_name"] = m.group(1).strip()
+
+        # Split at ## headings
+        h2_parts = re.split(r'\n(?=## )', md)
+
+        for part in h2_parts:
+            heading_match = re.match(r'^## (.+)', part)
+            if not heading_match:
+                continue
+            heading = heading_match.group(1).strip()
+
+            if heading.lower() == "theme":
+                result["theme"] = self._parse_kv_lines(part)
+            else:
+                section = self._parse_section(heading, part)
+                result["sections"].append(section)
+
+        return result
+
+    def _parse_section(self, heading: str, part: str) -> dict:
+        """Parse a ## section block into structured section dict."""
+        section_type = heading.lower().replace(" ", "_")
+
+        dark_section = None
+        image_indices = []
+        style_lines = []
+
+        for line in part.split("\n")[1:]:  # Skip the ## heading line
+            stripped = line.strip()
+            if not stripped or not stripped.startswith("- "):
+                continue
+            bullet = stripped[2:].strip()
+
+            if bullet.lower().startswith("dark_section:"):
+                val = bullet.split(":", 1)[1].strip().lower()
+                dark_section = val in ("true", "yes", "1")
+            elif bullet.lower().startswith("images:"):
+                # Parse image numbers: "Images: 1, 3" → indices [0, 2]
+                nums_str = bullet.split(":", 1)[1].strip()
+                for num in re.findall(r'\d+', nums_str):
+                    image_indices.append(int(num) - 1)  # Convert 1-based to 0-based
+            else:
+                style_lines.append(bullet)
+
+        return {
+            "type": section_type,
+            "dark_section": dark_section,
+            "style_notes": "\n".join(style_lines),
+            "image_indices": image_indices,
+        }
+
+    def _parse_kv_lines(self, text: str) -> dict:
+        """Parse - key: value lines from a markdown block into a flat dict."""
+        result = {}
+        for line in text.split("\n"):
+            m = re.match(r'^\s*-\s+([\w_]+)\s*:\s*(.+)', line)
+            if m:
+                result[m.group(1)] = m.group(2).strip()
+        return result

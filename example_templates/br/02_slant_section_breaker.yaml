@@ -1,0 +1,178 @@
+# Slant Section Breaker — Angled dividers between page sections
+# Full-width SVG slant transitions with mirror alternation for dynamic visual rhythm
+# Base components: page, layout-column, layout-row, heading, paragraph, eyebrow, button, columnsgrid, counter-up, br
+# Section type: divider
+# Layout: stacked
+# Visual style: modern_minimalist
+# Perfect for: startup, agency, portfolio, product launch, landing page
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#ec4899'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ── HERO SECTION (white background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxxl, paddingInline: lg }
+        appearance: { background: { color: *color-background, opacity: 100 } }
+      components:
+        - name: eyebrow
+          properties:
+            text: LAUNCHING SOON
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+        - name: heading
+          properties:
+            text: Design that speaks volumes
+            level: 1
+            typography: { size: xxxl, weight: bold, color: *color-primary, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Pixel-perfect creative services for brands that refuse to blend in. We turn bold ideas into unforgettable digital experiences.
+            typography: { size: lg, color: *color-secondary, align: center }
+            layout: { widthMode: '66' }
+            spacing: { marginBlock: md }
+        - name: button
+          properties:
+            text: See Our Work
+            appearance: { background: { color: *color-accent }, radius: md }
+            typography: { color: *color-background, weight: semibold }
+            spacing: { paddingBlock: md, paddingInline: xl }
+
+    # ── SLANT DIVIDER: white → pink (left-to-right angle) ──
+    # Default slant: diagonal line from top-left to bottom-right
+    - name: br
+      properties:
+        type: slant
+        color: '#fdf2f8'
+        thickness: 4
+
+    # ── STATS SECTION (light pink background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxl, paddingInline: lg }
+        appearance: { background: { color: '#fdf2f8', opacity: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: Trusted by industry leaders
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+            spacing: { marginBlock: lg }
+
+        - name: columnsgrid
+          properties:
+            layout: { columns: 4, gap: lg }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+          columns:
+            - components:
+                - name: counter-up
+                  properties:
+                    endValue: 250
+                    suffix: "+"
+                    duration: 2000
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: paragraph
+                  properties:
+                    text: Projects Delivered
+                    typography: { size: sm, weight: semibold, color: *color-primary, align: center }
+            - components:
+                - name: counter-up
+                  properties:
+                    endValue: 98
+                    suffix: "%"
+                    duration: 1500
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: paragraph
+                  properties:
+                    text: Client Retention
+                    typography: { size: sm, weight: semibold, color: *color-primary, align: center }
+            - components:
+                - name: counter-up
+                  properties:
+                    endValue: 15
+                    suffix: "+"
+                    duration: 1500
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: paragraph
+                  properties:
+                    text: Design Awards
+                    typography: { size: sm, weight: semibold, color: *color-primary, align: center }
+            - components:
+                - name: counter-up
+                  properties:
+                    endValue: 40
+                    suffix: "+"
+                    duration: 2000
+                    typography: { size: xxxl, weight: extrabold, color: *color-accent, align: center }
+                - name: paragraph
+                  properties:
+                    text: Team Members
+                    typography: { size: sm, weight: semibold, color: *color-primary, align: center }
+
+    # ── SLANT DIVIDER: pink → dark (mirrored — right-to-left angle) ──
+    # mirror: true flips the slant direction for visual alternation
+    - name: br
+      properties:
+        type: slant
+        color: *color-primary
+        thickness: 4
+        mirror: true
+
+    # ── CTA SECTION (dark background) ──
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xxxl, paddingInline: lg }
+        appearance: { background: { color: *color-primary, opacity: 100 } }
+      components:
+        - name: heading
+          properties:
+            text: Let's create something extraordinary
+            level: 2
+            typography: { size: xxl, weight: bold, color: *color-background, align: center }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Ready to stand out? Book a free discovery call and let's talk about your next project.
+            typography: { size: lg, color: '#9ca3af', align: center }
+            layout: { widthMode: '66' }
+            spacing: { marginBlock: lg }
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, gap: md }
+          components:
+            - name: button
+              properties:
+                text: Book a Call
+                appearance: { background: { color: *color-accent }, radius: md }
+                typography: { color: *color-background, weight: bold }
+                spacing: { paddingBlock: md, paddingInline: xl }
+            - name: button
+              properties:
+                text: View Portfolio
+                appearance: { background: { color: *color-primary }, border: { width: 1, color: '#4b5563' }, radius: md }
+                typography: { color: '#d1d5db', weight: semibold }
+                spacing: { paddingBlock: md, paddingInline: xl }
+
+    # ── SLANT DIVIDER: dark → white (back to light) ──
+    # invert: true flips vertically so the dark section "drains" into white
+    - name: br
+      properties:
+        type: slant
+        color: *color-background
+        thickness: 4
+        invert: true

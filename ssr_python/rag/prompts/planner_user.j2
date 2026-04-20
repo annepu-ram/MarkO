@@ -1,0 +1,14 @@
+[Outline]
+{% for chunk in outline_chunks %}
+--- Reference: {{ chunk.source_file }} ---
+{{ chunk.content }}
+
+{% endfor %}
+{% if icon_names %}
+[Available Icons]
+{{ icon_names | join(', ') }}
+Use `- name: icon` with `properties.name: <icon-name>` for any of these.
+
+{% endif %}
+[User Request]
+{{ query }}

@@ -3,7 +3,7 @@
 # Base components: page, layout-column, layout-row, eyebrow, image, heading, paragraph, caption, button
 # Section type: product
 # Layout: stacked
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: ecommerce, retail, online store, marketplace, SaaS
 
 - name: page
@@ -50,7 +50,7 @@
     - name: layout-column
       properties:
         layout: {horizontalAlign: left, gap: xs}
-        appearance: {background: {transparency: 0}}
+        appearance: {background: {opacity: 0}}
         spacing:
           paddingBlock: md
           paddingInline: md
@@ -69,7 +69,7 @@
       - name: layout-row
         properties:
           layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
-          appearance: {background: {transparency: 0}}
+          appearance: {background: {opacity: 0}}
         components:
         - name: heading
           properties:
@@ -82,7 +82,7 @@
             text: "Only 12 left in stock"
             typography: {size: xs, weight: semibold, color: *color-accent, align: right}
             appearance:
-              background: {color: *color-background, transparency: 100}
+              background: {color: *color-background, opacity: 100}
               radius: pill
             spacing:
               paddingBlock: xxs

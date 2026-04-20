@@ -13,11 +13,11 @@
         heading: "'Inter', sans-serif"
         content: "'Inter', sans-serif"
       colors:
-        primary: '#ffffff'
-        text: '#DFDFDF'
-        secondary: '#B0D4E8'
-        accent: '#3182CE'
-        background: '#0f172a'
+        primary: &color-primary '#ffffff'
+        text: &color-text '#DFDFDF'
+        secondary: &color-secondary '#B0D4E8'
+        accent: &color-accent '#3182CE'
+        background: &color-background '#0f172a'
   components:
     - name: page
       slug: home
@@ -25,8 +25,8 @@
       properties:
         appearance:
           background:
-            color: '#0f172a'
-            transparency: 100
+            color: *color-background
+            opacity: 100
       components:
 
         # Gradient outer wrapper — mandatory for glassmorphism blur visibility
@@ -41,7 +41,7 @@
                   colorStart: '#3182CE'
                   colorEnd: '#0f172a'
                   direction: to bottom right
-                transparency: 100
+                opacity: 100
             spacing:
               paddingBlock: xxl
               paddingInline: xl
@@ -55,14 +55,14 @@
                   gap: lg
                 appearance:
                   background:
-                    color: '#ffffff'
-                    transparency: 10
+                    color: *color-primary
+                    opacity: 10
                   blur: true
                   radius: lg
                   border:
                     width: 1
                     style: solid
-                    color: '#ffffff'
+                    color: *color-primary
                 spacing:
                   paddingBlock: xl
                   paddingInline: xxl
@@ -93,13 +93,13 @@
                             typography:
                               size: xl
                               weight: extrabold
-                              color: '#ffffff'
+                              color: *color-primary
                         - name: paragraph
                           properties:
                             text: Build beautiful, fast websites with a simple YAML editor and real-time preview. No code required.
                             typography:
                               size: sm
-                              color: '#DFDFDF'
+                              color: *color-text
                               lineHeight: relaxed
                             spacing:
                               marginBlock: sm
@@ -108,7 +108,7 @@
                             text: "© 2026 SwiftSites Inc."
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
 
                     # Link columns — right (3 columns in a columnsgrid)
                     - name: columnsgrid
@@ -132,7 +132,7 @@
                                 typography:
                                   size: sm
                                   weight: bold
-                                  color: '#ffffff'
+                                  color: *color-primary
                                 spacing:
                                   marginBlock: sm
                             - name: link
@@ -141,7 +141,7 @@
                                 href: '#features'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -152,7 +152,7 @@
                                 href: '#pricing'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -163,7 +163,7 @@
                                 href: '#changelog'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -178,7 +178,7 @@
                                 typography:
                                   size: sm
                                   weight: bold
-                                  color: '#ffffff'
+                                  color: *color-primary
                                 spacing:
                                   marginBlock: sm
                             - name: link
@@ -187,7 +187,7 @@
                                 href: '#about'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -198,7 +198,7 @@
                                 href: '#blog'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -209,7 +209,7 @@
                                 href: '#careers'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -224,7 +224,7 @@
                                 typography:
                                   size: sm
                                   weight: bold
-                                  color: '#ffffff'
+                                  color: *color-primary
                                 spacing:
                                   marginBlock: sm
                             - name: link
@@ -233,7 +233,7 @@
                                 href: '#privacy'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -244,7 +244,7 @@
                                 href: '#terms'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -255,7 +255,7 @@
                                 href: '#security'
                                 typography:
                                   size: sm
-                                  color: '#DFDFDF'
+                                  color: *color-text
                                 appearance:
                                   underline: false
                                 spacing:
@@ -278,7 +278,7 @@
                       border:
                         width: 1
                         style: solid
-                        color: '#ffffff'
+                        color: *color-primary
                     spacing:
                       paddingBlock: md
                   components:
@@ -287,7 +287,7 @@
                         text: "All rights reserved. Built with SwiftSites."
                         typography:
                           size: xs
-                          color: '#B0D4E8'
+                          color: *color-secondary
                           align: center
                     - name: layout-row
                       properties:
@@ -302,7 +302,7 @@
                             href: '#privacy'
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
                             appearance:
                               underline: false
                         - name: link
@@ -311,7 +311,7 @@
                             href: '#terms'
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
                             appearance:
                               underline: false
                         - name: link
@@ -320,6 +320,6 @@
                             href: '#sitemap'
                             typography:
                               size: xs
-                              color: '#B0D4E8'
+                              color: *color-secondary
                             appearance:
                               underline: false

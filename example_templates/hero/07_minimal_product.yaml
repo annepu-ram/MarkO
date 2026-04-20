@@ -3,7 +3,7 @@
 # Base components: page, titlebar, layout-column, layout-row, paragraph, heading, link, image, columnsgrid
 # Section type: hero
 # Layout: centered
-# Visual style: minimal
+# Visual style: modern_minimalist
 # Perfect for: E-commerce, product launches, tech products, consumer goods
 
 - name: page
@@ -18,7 +18,7 @@
     appearance:
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
   components:
     # Clean Navigation
   - name: titlebar
@@ -26,7 +26,7 @@
       branding:
         showLogo: false
         title: "Electronics"
-        logoUrl: https://via.placeholder.com/50x40
+        logoUrl: https://placehold.co/50x40?text=Add+Image
       navigation:
         links:
         - label: Products
@@ -45,7 +45,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
           type: solid
         border:
           width: 0
@@ -79,7 +79,7 @@
             colorStart: *color-background
             colorEnd: *color-background
             direction: to bottom
-          transparency: 100
+          opacity: 100
     components:
         # Product Name Badge
     - name: paragraph
@@ -216,7 +216,7 @@
         paddingInline: lg
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
     components:
     - name: columnsgrid
       properties:
@@ -344,7 +344,7 @@
         paddingInline: lg
       background:
         color: *color-background
-        transparency: 100
+        opacity: 100
     components:
     - name: paragraph
       properties:
@@ -382,7 +382,7 @@
             background:
               type: solid
               color: *color-background
-              transparency: 0
+              opacity: 0
             radius: none
       - name: paragraph
         properties:
@@ -405,7 +405,7 @@
             background:
               type: solid
               color: *color-background
-              transparency: 0
+              opacity: 0
             radius: none
       - name: paragraph
         properties:
@@ -428,7 +428,7 @@
             background:
               type: solid
               color: *color-background
-              transparency: 0
+              opacity: 0
             radius: none
       - name: paragraph
         properties:
@@ -451,7 +451,7 @@
             background:
               type: solid
               color: *color-background
-              transparency: 0
+              opacity: 0
             radius: none
       - name: paragraph
         properties:
@@ -474,5 +474,5 @@
             background:
               type: solid
               color: *color-background
-              transparency: 0
+              opacity: 0
             radius: none

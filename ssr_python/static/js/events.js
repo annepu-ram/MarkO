@@ -1,52 +1,28 @@
 import { debounce } from './utils/timing.js';
 
-// Track current open panel (left sidebar)
-let currentPanel = null;
-
-// Track current open right panel
-let currentRightPanel = null;
+// Alpine store for panel state — replaces closure variables.
+// Alpine :class bindings on panel/button elements react to store changes,
+// so we no longer need manual classList.add/remove('open'/'active').
+document.addEventListener('alpine:init', () => {
+    Alpine.store('panels', { left: null, right: null });
+});
 
 /**
- * Toggle a sidebar slide-out panel
- * @param {string} panelName - Name of the panel (layers, editor, settings)
+ * Toggle a sidebar slide-out panel.
+ * Updates Alpine store; :class bindings handle DOM classes.
  */
 export function togglePanel(panelName) {
-    const panel = document.getElementById(panelName + 'Panel');
-    const btn = document.querySelector(`[data-panel="${panelName}"]`);
-
-    if (!panel || !btn) return;
-
-    // Close current panel if different
-    if (currentPanel && currentPanel !== panelName) {
-        const currentPanelEl = document.getElementById(currentPanel + 'Panel');
-        const currentBtn = document.querySelector(`[data-panel="${currentPanel}"]`);
-        if (currentPanelEl) currentPanelEl.classList.remove('open');
-        if (currentBtn) currentBtn.classList.remove('active');
-    }
-
-    // Toggle clicked panel
-    if (currentPanel === panelName) {
-        panel.classList.remove('open');
-        btn.classList.remove('active');
-        currentPanel = null;
+    const store = Alpine.store('panels');
+    if (!store) return;
+    if (store.left === panelName) {
+        store.left = null;
     } else {
-        panel.classList.add('open');
-        btn.classList.add('active');
-        currentPanel = panelName;
-
+        store.left = panelName;
         // Render panel content when opening
-        if (panelName === 'pages' && window.renderPagesPanel) {
-            window.renderPagesPanel();
-        }
-        if (panelName === 'themes' && window.renderThemesPanel) {
-            window.renderThemesPanel();
-        }
-        if (panelName === 'images' && window.renderImagesPanel) {
-            window.renderImagesPanel();
-        }
-        if (panelName === 'settings' && window.renderSettingsPanel) {
-            window.renderSettingsPanel();
-        }
+        if (panelName === 'pages' && window.renderPagesPanel) window.renderPagesPanel();
+        if (panelName === 'themes' && window.renderThemesPanel) window.renderThemesPanel();
+        if (panelName === 'images' && window.renderImagesPanel) window.renderImagesPanel();
+        if (panelName === 'settings' && window.renderSettingsPanel) window.renderSettingsPanel();
     }
 }
 
@@ -54,77 +30,37 @@ export function togglePanel(panelName) {
  * Close the currently open panel
  */
 export function closePanel() {
-    if (currentPanel) {
-        const panel = document.getElementById(currentPanel + 'Panel');
-        const btn = document.querySelector(`[data-panel="${currentPanel}"]`);
-        if (panel) panel.classList.remove('open');
-        if (btn) btn.classList.remove('active');
-        currentPanel = null;
-    }
+    const store = Alpine.store('panels');
+    if (store) store.left = null;
 }
 
 /**
- * Toggle a right-side slide-in panel
- * @param {string} panelName - Name of the panel (chat, prop)
+ * Toggle a right-side slide-in panel.
+ * Updates Alpine store; :class bindings handle DOM classes.
  */
 export function toggleRightPanel(panelName) {
-    const panel = document.getElementById(panelName + 'Panel');
-    const btn = document.querySelector(`[data-rpanel="${panelName}"]`);
-    const sheet = document.getElementById('bottomSheet');
-
-    if (!panel) return;
-
-    // Close current right panel if different
-    if (currentRightPanel && currentRightPanel !== panelName) {
-        const curPanel = document.getElementById(currentRightPanel + 'Panel');
-        const curBtn = document.querySelector(`[data-rpanel="${currentRightPanel}"]`);
-        if (curPanel) curPanel.classList.remove('open');
-        if (curBtn) curBtn.classList.remove('active');
-    }
-
-    // Toggle clicked panel
-    if (currentRightPanel === panelName) {
-        panel.classList.remove('open');
-        if (btn) btn.classList.remove('active');
-        if (sheet) sheet.classList.remove('open');
-        currentRightPanel = null;
+    const store = Alpine.store('panels');
+    if (!store) return;
+    if (store.right === panelName) {
+        store.right = null;
     } else {
-        panel.classList.add('open');
-        if (btn) btn.classList.add('active');
-        if (sheet) sheet.classList.add('open');
-        currentRightPanel = panelName;
+        store.right = panelName;
     }
-
-    // Update bottom sheet tab active states
-    document.querySelectorAll('.bottom-sheet-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.rpanel === currentRightPanel);
-    });
 }
 
 /**
  * Close the currently open right panel
  */
 export function closeRightPanel() {
-    if (currentRightPanel) {
-        const panel = document.getElementById(currentRightPanel + 'Panel');
-        const btn = document.querySelector(`[data-rpanel="${currentRightPanel}"]`);
-        if (panel) panel.classList.remove('open');
-        if (btn) btn.classList.remove('active');
-        currentRightPanel = null;
-    }
-    // Close bottom sheet and clear tab states
-    const sheet = document.getElementById('bottomSheet');
-    if (sheet) sheet.classList.remove('open');
-    document.querySelectorAll('.bottom-sheet-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
+    const store = Alpine.store('panels');
+    if (store) store.right = null;
 }
 
 /**
  * Get the currently open right panel name
  */
 export function getCurrentRightPanel() {
-    return currentRightPanel;
+    return Alpine.store('panels')?.right ?? null;
 }
 
 /**

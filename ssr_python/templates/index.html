@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/guided-flow.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/images-panel.css') }}">
     <!-- Lucide Icons (for icon picker grid previews) -->
     <script src="{{ url_for('static', filename='js/lucide.min.js') }}"></script>
+    <!-- Alpine loads after main.js (see bottom) so alpine:init listeners register before Alpine.start() -->
 </head>
 <body>
     <div id="svgSpriteRoot" hidden></div>
@@ -57,10 +59,10 @@
 
         <!-- Action buttons -->
         <div class="header-actions">
-            <button id="undoBtn" class="btn btn-ghost btn-icon" title="Undo (Ctrl+Z)" disabled>
+            <button id="undoBtn" class="btn btn-ghost btn-icon" title="Undo (Ctrl+Z)" x-data :disabled="!$store.history.canUndo">
                 <svg class="icon" aria-hidden="true"><use href="#icon-undo"></use></svg>
             </button>
-            <button id="redoBtn" class="btn btn-ghost btn-icon" title="Redo (Ctrl+Y)" disabled>
+            <button id="redoBtn" class="btn btn-ghost btn-icon" title="Redo (Ctrl+Y)" x-data :disabled="!$store.history.canRedo">
                 <svg class="icon" aria-hidden="true"><use href="#icon-redo"></use></svg>
             </button>
             <button id="fullscreenBtn" class="btn btn-ghost btn-icon" title="Fullscreen Preview">
@@ -84,27 +86,27 @@
         <!-- LEFT SIDEBAR - Icon buttons -->
         <aside class="sidebar" id="sidebar">
             <nav class="sidebar-nav">
-                <button class="sidebar-btn" data-panel="pages" title="Site Pages">
+                <button class="sidebar-btn" data-panel="pages" title="Site Pages" x-data :class="{ 'active': $store.panels.left === 'pages' }">
                     <svg aria-hidden="true"><use href="#icon-files"></use></svg>
                     <span class="sidebar-btn-tooltip">Site Pages</span>
                 </button>
-                <button class="sidebar-btn" data-panel="layers" title="Page Components">
+                <button class="sidebar-btn" data-panel="layers" title="Page Components" x-data :class="{ 'active': $store.panels.left === 'layers' }">
                     <svg aria-hidden="true"><use href="#icon-layout-template"></use></svg>
                     <span class="sidebar-btn-tooltip">Page Components</span>
                 </button>
-                <button class="sidebar-btn" data-panel="editor" title="Editor">
+                <button class="sidebar-btn" data-panel="editor" title="Editor" x-data :class="{ 'active': $store.panels.left === 'editor' }">
                     <svg aria-hidden="true"><use href="#icon-code"></use></svg>
                     <span class="sidebar-btn-tooltip">Editor</span>
                 </button>
-                <button class="sidebar-btn" data-panel="themes" title="Themes">
+                <button class="sidebar-btn" data-panel="themes" title="Themes" x-data :class="{ 'active': $store.panels.left === 'themes' }">
                     <svg aria-hidden="true"><use href="#icon-paintbrush"></use></svg>
                     <span class="sidebar-btn-tooltip">Themes</span>
                 </button>
-                <button class="sidebar-btn" data-panel="images" title="Images">
+                <button class="sidebar-btn" data-panel="images" title="Images" x-data :class="{ 'active': $store.panels.left === 'images' }">
                     <svg aria-hidden="true"><use href="#icon-image"></use></svg>
                     <span class="sidebar-btn-tooltip">Images</span>
                 </button>
-                <button class="sidebar-btn" data-panel="settings" title="Site Settings">
+                <button class="sidebar-btn" data-panel="settings" title="Site Settings" x-data :class="{ 'active': $store.panels.left === 'settings' }">
                     <svg aria-hidden="true"><use href="#icon-settings"></use></svg>
                     <span class="sidebar-btn-tooltip">Settings</span>
                 </button>
@@ -114,7 +116,7 @@
         <!-- SLIDE-OUT PANELS -->
 
         <!-- Pages Panel -->
-        <div class="sidebar-panel" id="pagesPanel">
+        <div class="sidebar-panel" id="pagesPanel" x-data :class="{ 'open': $store.panels.left === 'pages' }">
             <div class="panel-header">
                 <span class="panel-title">Site Pages</span>
                 <button class="panel-close" onclick="window.closePanel()">
@@ -130,7 +132,7 @@
         </div>
 
         <!-- Layers Panel -->
-        <div class="sidebar-panel" id="layersPanel">
+        <div class="sidebar-panel" id="layersPanel" x-data :class="{ 'open': $store.panels.left === 'layers' }">
             <div class="panel-header">
                 <span class="panel-title">Page Components</span>
                 <button class="panel-close" onclick="window.closePanel()">
@@ -147,7 +149,7 @@
         </div>
 
         <!-- Editor Panel -->
-        <div class="sidebar-panel editor-panel" id="editorPanel">
+        <div class="sidebar-panel editor-panel" id="editorPanel" x-data :class="{ 'open': $store.panels.left === 'editor' }">
             <div class="panel-header">
                 <span class="panel-title">YAML Editor</span>
                 <button class="panel-close" onclick="window.closePanel()">
@@ -163,7 +165,7 @@
         </div>
 
         <!-- Themes Panel -->
-        <div class="sidebar-panel" id="themesPanel">
+        <div class="sidebar-panel" id="themesPanel" x-data :class="{ 'open': $store.panels.left === 'themes' }">
             <div class="panel-header">
                 <span class="panel-title">Themes</span>
                 <button class="panel-close" onclick="window.closePanel()">
@@ -179,20 +181,135 @@
         </div>
 
         <!-- Images Panel -->
-        <div class="sidebar-panel" id="imagesPanel">
+        <div class="sidebar-panel" id="imagesPanel" x-data :class="{ 'open': $store.panels.left === 'images' }">
             <div class="panel-header">
                 <span class="panel-title">Images</span>
                 <button class="panel-close" onclick="window.closePanel()">
                     <svg aria-hidden="true"><use href="#icon-x"></use></svg>
                 </button>
             </div>
-            <div class="panel-content" id="imagesContent">
-                <!-- Dynamic content rendered by imagesPanel.js -->
+            <div class="panel-content" id="imagesContent" x-data="imagesPanel()">
+                <!-- Search Bar -->
+                <div class="images-search">
+                    <input type="text" class="images-search-input"
+                           placeholder="Search photos..."
+                           x-model="searchQuery"
+                           @keydown.enter="searchImages()"
+                           @input.debounce.300ms="searchImages()">
+                    <svg class="images-search-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+                </div>
+
+                <!-- Color Filters -->
+                <div class="images-colors">
+                    <span class="images-colors-label">Colors</span>
+                    <div class="images-color-pills">
+                        <template x-for="c in colorOptions" :key="c.value">
+                            <button class="images-color-pill"
+                                    :class="{ 'active': activeColor === c.value }"
+                                    :style="`background: ${c.hex}; ${c.value === 'white' ? 'border-color: var(--border)' : ''}`"
+                                    :title="c.label"
+                                    @click="toggleColor(c.value)"></button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Orientation Filters -->
+                <div class="images-orientation">
+                    <span class="images-orientation-label">Orientation</span>
+                    <div class="images-orientation-pills">
+                        <template x-for="o in orientationOptions" :key="o.value">
+                            <button class="images-orientation-pill"
+                                    :class="{ 'active': activeOrientation === o.value }"
+                                    :title="o.label"
+                                    @click="toggleOrientation(o.value)">
+                                <svg aria-hidden="true"><use :href="o.icon"></use></svg>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Results Grid -->
+                <div class="images-results" id="imagesResults">
+                    <!-- Loading skeletons -->
+                    <template x-if="isLoading && searchResults.length === 0">
+                        <template x-for="i in 9">
+                            <div class="images-skeleton"></div>
+                        </template>
+                    </template>
+
+                    <!-- Empty state: no search yet -->
+                    <template x-if="!isLoading && searchResults.length === 0 && !hasSearched">
+                        <div class="images-empty">
+                            <svg class="images-empty-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+                            <div>Search for photos above</div>
+                        </div>
+                    </template>
+
+                    <!-- Empty state: no results -->
+                    <template x-if="!isLoading && searchResults.length === 0 && hasSearched">
+                        <div class="images-empty">
+                            <svg class="images-empty-icon" aria-hidden="true"><use href="#icon-image"></use></svg>
+                            <div>No results found</div>
+                        </div>
+                    </template>
+
+                    <!-- Result cards -->
+                    <template x-for="photo in searchResults" :key="photo.id">
+                        <div class="images-result-card"
+                             :class="{ 'selected': isPhotoSelected(photo.id) }"
+                             @click="toggleImageSelection(photo)">
+                            <img :src="photo.thumbUrl" :alt="photo.altText" loading="lazy">
+                            <div class="images-result-overlay">
+                                <a class="images-result-credit"
+                                   :href="photo.photographerUrl" target="_blank" rel="noopener"
+                                   :title="photo.photographer"
+                                   x-text="photo.photographer"
+                                   @click.stop></a>
+                                <button class="images-select-btn"
+                                        :title="isPhotoSelected(photo.id) ? 'Remove' : 'Select'"
+                                        x-text="isPhotoSelected(photo.id) ? '\u2713' : '+'"
+                                        @click.stop="toggleImageSelection(photo)"></button>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Load More -->
+                    <div class="images-load-more" x-show="hasMore">
+                        <button class="images-load-more-btn" @click="loadMore()" :disabled="isLoading">Load More</button>
+                    </div>
+                </div>
+
+                <!-- Selected / Uploaded Images -->
+                <div class="images-selected-section">
+                    <div class="images-selected-header-row">
+                        <span class="images-selected-header" x-text="'Selected (' + selectedImages.length + ')'"></span>
+                        <button class="images-upload-btn" title="Upload image" @click="$refs.uploadInput.click()">
+                            <svg aria-hidden="true"><use href="#icon-upload"></use></svg>
+                            Upload
+                        </button>
+                        <input type="file" x-ref="uploadInput" accept="image/*" hidden @change="handleUpload($event)">
+                    </div>
+                    <div class="images-selected-grid" id="imagesSelectedGrid">
+                        <template x-if="selectedImages.length === 0">
+                            <span class="images-selected-empty">No images selected</span>
+                        </template>
+                        <template x-for="img in selectedImages" :key="img.id">
+                            <div class="images-selected-item downloaded">
+                                <div class="images-selected-thumb" title="Click to copy URL" @click="copyImageUrl(img.id)">
+                                    <img :src="img.thumbUrl" :alt="img.altText">
+                                    <span class="images-download-badge downloaded" title="Downloaded">&check;</span>
+                                    <button class="images-remove-btn" title="Remove" @click.stop="removeSelectedImage(img.id)">&times;</button>
+                                </div>
+                                <span class="images-selected-label" x-text="img.altText || img.photographer"></span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Settings Panel -->
-        <div class="sidebar-panel" id="settingsPanel">
+        <div class="sidebar-panel" id="settingsPanel" x-data :class="{ 'open': $store.panels.left === 'settings' }">
             <div class="panel-header">
                 <span class="panel-title">Site Settings</span>
                 <button class="panel-close" onclick="window.closePanel()">
@@ -222,11 +339,11 @@
 
             <!-- Command Bar - floating bottom center -->
             <div class="command-bar" id="commandBar">
-                <button class="command-btn" data-rpanel="chat" title="AI Chat">
+                <button class="command-btn" data-rpanel="chat" title="AI Chat" x-data :class="{ 'active': $store.panels.right === 'chat' }">
                     <svg aria-hidden="true"><use href="#icon-sparkles"></use></svg>
                     <span>Chat</span>
                 </button>
-                <button class="command-btn" data-rpanel="prop" title="Properties">
+                <button class="command-btn" data-rpanel="prop" title="Properties" x-data :class="{ 'active': $store.panels.right === 'prop' }">
                     <svg aria-hidden="true"><use href="#icon-sliders"></use></svg>
                     <span>Properties</span>
                 </button>
@@ -234,14 +351,14 @@
         </div>
 
         <!-- BOTTOM SHEET (mobile) / RIGHT PANELS (desktop) -->
-        <div class="bottom-sheet" id="bottomSheet">
+        <div class="bottom-sheet" id="bottomSheet" x-data :class="{ 'open': $store.panels.right !== null }">
             <!-- Tab bar (visible only on mobile) -->
             <div class="bottom-sheet-tabs">
-                <button class="bottom-sheet-tab" data-rpanel="chat">
+                <button class="bottom-sheet-tab" data-rpanel="chat" x-data :class="{ 'active': $store.panels.right === 'chat' }">
                     <svg aria-hidden="true"><use href="#icon-sparkles"></use></svg>
                     Chat
                 </button>
-                <button class="bottom-sheet-tab" data-rpanel="prop">
+                <button class="bottom-sheet-tab" data-rpanel="prop" x-data :class="{ 'active': $store.panels.right === 'prop' }">
                     <svg aria-hidden="true"><use href="#icon-sliders"></use></svg>
                     Properties
                 </button>
@@ -251,7 +368,7 @@
             </div>
 
             <!-- Chat Panel (right side) -->
-            <div class="right-panel" id="chatPanel">
+            <div class="right-panel" id="chatPanel" x-data :class="{ 'open': $store.panels.right === 'chat' }">
                 <div class="panel-header">
                     <span class="panel-title">AI Assistant</span>
                     <button class="panel-close" onclick="window.closeRightPanel()">
@@ -269,21 +386,31 @@
                         </div>
                         <div class="chat-messages" id="chatMessages">
                             <div class="chat-welcome">
-                                <h3>AI Assistant</h3>
-                                <p>Ask me to create a website or modify components.<br>
-                                Select a component in the preview for targeted edits.</p>
+                                <div class="chat-welcome-icon">
+                                    <svg aria-hidden="true"><use href="#icon-sparkles"></use></svg>
+                                </div>
+                                <h3>How can I help?</h3>
+                                <p>Describe what you want to build, or pick a starting point below.</p>
+                                <div class="chat-welcome-chips" id="chatWelcomeChips">
+                                    <button type="button" class="chat-welcome-chip" data-prompt="Create a bakery website">Create a bakery website</button>
+                                    <button type="button" class="chat-welcome-chip" data-prompt="Add a pricing section">Add a pricing section</button>
+                                    <button type="button" class="chat-welcome-chip" data-prompt="Make the hero more bold">Make the hero more bold</button>
+                                </div>
                             </div>
                         </div>
                         <div class="chat-input-area">
-                            <textarea class="chat-input" id="chatInput" placeholder="Describe your website or changes..." rows="1"></textarea>
-                            <button class="chat-send-btn" id="chatSendBtn">Send</button>
+                            <textarea class="chat-input" id="chatInput" placeholder="Describe what you want to build…" rows="1"></textarea>
+                            <button class="chat-send-btn" id="chatSendBtn" title="Send message">
+                                <svg aria-hidden="true"><use href="#icon-send"></use></svg>
+                                <span>Send</span>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Properties Panel (right side) -->
-            <div class="right-panel" id="propPanel">
+            <div class="right-panel" id="propPanel" x-data :class="{ 'open': $store.panels.right === 'prop' }">
                 <div class="panel-header">
                     <span class="panel-title">Properties</span>
                     <button class="panel-close" onclick="window.closeRightPanel()">
@@ -333,6 +460,7 @@
     </script>
     <!-- YAML library loaded via ES module imports in yamlWrapper.js (eemeli/yaml replaces js-yaml) -->
     <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/alpine.min.js') }}" defer></script>
 
     <!-- LLM Chat Widget Initialization -->
     <script type="module">

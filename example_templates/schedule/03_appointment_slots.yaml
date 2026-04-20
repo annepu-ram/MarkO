@@ -3,7 +3,7 @@
 # Base components: layout-column, heading, paragraph, eyebrow, columnsgrid, icon, badge, button
 # Section type: schedule, booking, appointments
 # Layout: stacked, grid
-# Visual style: glassmorphism, frosted
+# Visual style: glassmorphism
 # Perfect for: dental clinic, salon, barbershop, yoga studio, fitness studio, conference, workshop, tutoring center, cooking class, music school
 
 
@@ -82,7 +82,7 @@
             properties:
               layout: {horizontalAlign: space-evenly}
               appearance:
-                background: {color: '#ffffff', transparency: 15}
+                background: {color: '#ffffff', opacity: 15}
                 blur: true
                 border: {width: 1, style: solid, color: '#ffffff'}
                 radius: lg
@@ -120,7 +120,7 @@
             properties:
               layout: {horizontalAlign: space-evenly}
               appearance:
-                background: {color: '#ffffff', transparency: 15}
+                background: {color: '#ffffff', opacity: 15}
                 blur: true
                 border: {width: 1, style: solid, color: '#ffffff'}
                 radius: lg
@@ -163,7 +163,7 @@
             properties:
               layout: {horizontalAlign: space-evenly}
               appearance:
-                background: {color: '#ffffff', transparency: 15}
+                background: {color: '#ffffff', opacity: 15}
                 blur: true
                 border: {width: 1, style: solid, color: '#ffffff'}
                 radius: lg
@@ -201,7 +201,7 @@
             properties:
               layout: {horizontalAlign: space-evenly}
               appearance:
-                background: {color: '#ffffff', transparency: 15}
+                background: {color: '#ffffff', opacity: 15}
                 blur: true
                 border: {width: 1, style: solid, color: '#ffffff'}
                 radius: lg
@@ -239,7 +239,7 @@
             properties:
               layout: {horizontalAlign: space-evenly}
               appearance:
-                background: {color: '#ffffff', transparency: 15}
+                background: {color: '#ffffff', opacity: 15}
                 blur: true
                 border: {width: 1, style: solid, color: '#ffffff'}
                 radius: lg
@@ -282,7 +282,7 @@
             properties:
               layout: {horizontalAlign: space-evenly}
               appearance:
-                background: {color: '#ffffff', transparency: 15}
+                background: {color: '#ffffff', opacity: 15}
                 blur: true
                 border: {width: 1, style: solid, color: '#ffffff'}
                 radius: lg

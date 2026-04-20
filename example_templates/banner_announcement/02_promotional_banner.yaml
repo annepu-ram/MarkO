@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, eyebrow, heading, paragraph, button
 # Section type: banner
 # Layout: centered
-# Visual style: gradient, bold_typography
+# Visual style: aurora_gradient, bold_editorial
 # Perfect for: online store, SaaS platform, fashion brand, tech startup, restaurant, event venue, hotel, university website
 
 - name: site
@@ -28,7 +28,7 @@
         - name: layout-row
           properties:
             layout: { horizontalAlign: center }
-            appearance: { background: { type: gradient, gradient: { colorStart: '#7c3aed', colorEnd: '#ec4899', direction: 'to right' }, transparency: 100 } }
+            appearance: { background: { type: gradient, gradient: { colorStart: '#7c3aed', colorEnd: '#ec4899', direction: 'to right' }, opacity: 100 } }
             spacing: { paddingBlock: xl, paddingInline: lg }
           components:
             - name: layout-column
@@ -44,7 +44,7 @@
                   properties:
                     text: "Spring Sale — Up to 60% Off Everything"
                     level: 1
-                    typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center, lineHeight: "1.1" }
+                    typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, lineHeight: "1.1" }
                     spacing: { marginBlock: md }
                 - name: paragraph
                   properties:
@@ -54,6 +54,6 @@
                 - name: button
                   properties:
                     text: "Browse Deals"
-                    appearance: { background: { color: '#ffffff' }, radius: lg }
-                    typography: { color: '#7c3aed', weight: bold, size: md }
+                    appearance: { background: { color: *color-background }, radius: lg }
+                    typography: { color: *color-accent, weight: bold, size: md }
                     spacing: { marginBlock: md }

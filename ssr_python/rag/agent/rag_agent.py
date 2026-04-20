@@ -3,8 +3,6 @@ import os
 import re
 import logging
 
-import yaml as pyyaml
-
 from rag.config import config
 from rag.retrieval.hybrid import HybridSearch
 from rag.retrieval.reranker import Reranker
@@ -15,6 +13,8 @@ from rag.agent.planner_agent import PlannerAgent
 from rag.agent.builder_agent import BuilderAgent
 from rag.agent.styler_agent import StylerAgent
 from rag.agent.stitcher import stitch_page
+from rag.agent.prompt_logger import log_prompt, log_output
+from rag.agent.yaml_fixer import quick_validate, auto_fix_yaml
 
 # ── RAG Agent Logging ──
 # Configure a file handler for the entire `rag` namespace so all agents
@@ -33,20 +33,6 @@ if not _rag_logger.handlers:
     _rag_logger.addHandler(_fh)
 
 logger = logging.getLogger(__name__)
-
-# ── Valid Component Names ──
-# Authoritative list from _dispatcher.html — anything not in this set is invalid.
-VALID_COMPONENTS = frozenset({
-    "site", "page",
-    "layout-row", "layout-column", "columnsgrid", "form",
-    "heading", "paragraph", "eyebrow", "caption", "blockquote", "link",
-    "image", "video", "gif", "video-background", "br",
-    "button", "titlebar", "hamburger",
-    "tabs", "accordion", "carousel", "ticker", "panorama-display",
-    "icon", "badge", "rating", "progress-bar", "counter-up", "countdown",
-    "textbox", "textarea", "dropdown", "checkbox", "radio", "calendar",
-})
-
 
 # Map intent action to search tier
 INTENT_TO_TIER = {
@@ -75,7 +61,7 @@ class RAGAgent:
         if not self._loaded:
             self.search.load()
             self._loaded = True
-            logger.info("RAG indexes loaded")
+            logger.debug("RAG indexes loaded")
 
     def chat(
         self,
@@ -84,26 +70,39 @@ class RAGAgent:
         selected_component: str | None = None,
         selected_images: list | None = None,
         progress_fn=None,
+        business_context: dict | None = None,
     ) -> str:
         """Full RAG pipeline: analyze -> retrieve -> build prompt -> generate.
 
         Returns raw LLM response text (with ACTION comment + YAML block).
         The caller (llm_service.py) parses this via _parse_response().
+
+        When `business_context` is provided (guided flow), routes to
+        _create_page_guided() which skips the LLM planner and uses the
+        user's structured selections as the outline.
         """
         self.load()
 
-        logger.info("=" * 80)
-        logger.info(f"RAG CHAT REQUEST: {message}")
-        logger.info(f"Selected Images: {len(selected_images or [])} images")
+        # Guided flow short-circuit — business_context is the authoritative
+        # signal (Phase 3). No intent detection needed; we already know the
+        # user wants a page and we have their selections.
+        if business_context:
+            if progress_fn:
+                progress_fn("Planning site structure...")
+            return self._create_page_guided(
+                business_context,
+                selected_images=selected_images,
+                progress_fn=progress_fn,
+            )
 
         # 1. Analyze intent
         if progress_fn:
             progress_fn("Analyzing request...")
         intent = self.analyzer.analyze(message)
         logger.info(
-            f"Intent: {intent.action} | section={intent.section_filter} "
-            f"| industry={intent.industry_filter} | style={intent.style_filter} "
-            f"| sub_queries={intent.sub_queries}"
+            f"=== RAG CHAT: intent={intent.action} "
+            f"| section={intent.section_filter} | style={intent.style_filter} "
+            f"| {message}"
         )
 
         # 2. Route to appropriate pipeline
@@ -133,7 +132,7 @@ class RAGAgent:
         if intent.industry_filter:
             meta_filter["industry"] = intent.industry_filter
         if intent.style_filter:
-            meta_filter["style"] = intent.style_filter
+            meta_filter["visual_style"] = intent.style_filter
 
         # Select search tier based on intent
         tier = INTENT_TO_TIER.get(intent.action, "section")
@@ -155,7 +154,7 @@ class RAGAgent:
 
         # Fallback: if tier search returned too few results, retry with section tier
         if len(all_chunks) < config.min_fallback_results and tier != "section":
-            logger.info(f"Tier '{tier}' returned {len(all_chunks)} results, falling back to 'section'")
+            logger.debug(f"Tier '{tier}' returned {len(all_chunks)} results, falling back to 'section'")
             for sub_q in intent.sub_queries:
                 results = self.search.search(
                     sub_q,
@@ -170,9 +169,6 @@ class RAGAgent:
 
         # Rerank (no-op if config.use_reranker is False)
         ranked = self.reranker.rerank(message, all_chunks, top_k=config.final_top_k)
-        logger.info(f"Retrieved {len(ranked)} chunks for generation")
-        for i, c in enumerate(ranked):
-            logger.debug(f"  Chunk {i}: {c.get('source_file', '?')} | {c.get('id', '?')}")
 
         # Build image context for prompt
         image_context = self._build_image_context(selected_images)
@@ -186,11 +182,11 @@ class RAGAgent:
             current_yaml=current_yaml,
             selected_component=selected_component,
         )
-        logger.debug(f"USER PROMPT ({len(user_prompt)} chars):\n{user_prompt[:500]}...")
+        log_prompt("SINGLE-CALL", system, user_prompt)
 
         # Generate
         response = self.model.generate(system, user_prompt)
-        logger.info(f"RAW LLM RESPONSE ({len(response)} chars):\n{response}")
+        log_output("SINGLE-CALL", response)
 
         # Validation-guided retry
         response = self._validate_and_retry(response, message, system, ranked)
@@ -212,105 +208,174 @@ class RAGAgent:
         lines.append("Match images to sections by orientation. Do NOT use external URLs.")
         return "\n".join(lines)
 
-    def _create_page_pipeline(self, message: str, intent, selected_images=None, progress_fn=None) -> str:
-        """Multi-agent pipeline: planner -> builder x N -> stitcher."""
-        import json as _json
+    def _create_page_guided(
+        self,
+        business_context: dict,
+        selected_images: list | None = None,
+        progress_fn=None,
+    ) -> str:
+        """Guided-flow pipeline — deterministic planner, then styler + builders.
 
-        # Agent 1: Plan the page structure
+        Differences from _create_page_pipeline:
+          * Planner is skipped entirely (no LLM call). The outline is built
+            directly from the user's guided-flow selections.
+          * Style chunks are retrieved using the user's explicit style
+            preference rather than the intent analyzer.
+          * Builders receive real business content so they do not
+            hallucinate names, products, prices, or testimonials.
+        """
+        self.load()
+
+        # 1. Deterministic outline from user selections
+        outline = self.planner.plan_from_context(business_context)
+        if not outline.get("sections"):
+            # Guard: user posted an empty context. Fall back to a useful error.
+            logger.warning("_create_page_guided: no sections in business_context")
+            return (
+                "<!-- ACTION: error -->\n"
+                "No sections were selected for generation. Please re-run the "
+                "guided flow and pick at least one section."
+            )
+
+        # 2. Retrieve style chunks using the user's explicit preference.
+        style_pref = (business_context.get("style_preference") or "").strip().lower()
+        color_pref = (business_context.get("color_preference") or "").strip()
+        industry = (business_context.get("industry") or "").strip()
+        business_name = (business_context.get("business_name") or "").strip()
+
+        style_meta = {"visual_style": style_pref} if style_pref else None
+        style_query = " ".join(filter(None, [
+            style_pref.replace("_", " "),
+            color_pref,
+            industry,
+            business_name,
+        ])) or "website style"
+
+        style_chunks = self.search.search(
+            style_query,
+            top_k=config.style_top_k,
+            tier="style",
+            metadata_filter=style_meta,
+        )
+        if not style_chunks and style_meta:
+            # Preference didn't match the metadata index — retry unfiltered.
+            style_chunks = self.search.search(
+                style_query, top_k=config.style_top_k, tier="style",
+            )
+        style_context = "\n\n".join(c.get("content", "") for c in style_chunks)
+
+        # 3. Styler — visual design + image assignment (1 LLM call)
         if progress_fn:
-            progress_fn("Planning site structure...")
-        logger.info("-" * 40)
-        logger.info("PLANNER AGENT: starting")
-        outline, style_context = self.planner.plan(message, selected_images=selected_images)
-        sections = outline.get("sections", [])
-        logger.info(f"PLANNER AGENT: produced {len(sections)} sections")
-        logger.info(f"PLANNER OUTPUT:\n{_json.dumps(outline, indent=2)}")
-
-        # Validate and deduplicate planner image assignments
-        if selected_images:
-            valid_urls = {img.get("url") for img in selected_images}
-            assigned_urls = set()
-            for section in sections:
-                unique_images = []
-                for img in section.get("images", []):
-                    url = img.get("url", "")
-                    if url in valid_urls and url not in assigned_urls:
-                        assigned_urls.add(url)
-                        unique_images.append(img)
-                section["images"] = unique_images
-
-            unassigned = valid_urls - assigned_urls
-            if unassigned:
-                logger.warning(f"Planner did not assign {len(unassigned)} images: {unassigned}")
-
-                # Build lookup for full image objects
-                img_lookup = {img.get("url"): img for img in selected_images}
-
-                # Identify visual sections that can accept more images
-                VISUAL_TYPES = {"hero", "features", "about", "testimonials", "cta",
-                                "portfolio", "team", "gallery", "services", "showcase"}
-                visual_sections = [s for s in sections if s.get("type", "") in VISUAL_TYPES]
-
-                # Fallback: if no visual sections matched, use all sections except FAQ/footer
-                if not visual_sections:
-                    NON_VISUAL = {"faq", "footer", "contact", "pricing"}
-                    visual_sections = [s for s in sections if s.get("type", "") not in NON_VISUAL]
-
-                # Round-robin distribute unassigned images
-                if visual_sections:
-                    for i, url in enumerate(sorted(unassigned)):
-                        target = visual_sections[i % len(visual_sections)]
-                        if "images" not in target:
-                            target["images"] = []
-                        target["images"].append(img_lookup[url])
-                        logger.info(f"Redistributed image {url} → section '{target.get('type')}'")
-                else:
-                    logger.warning("No visual sections available for image redistribution")
-
-        # Agent 1.5: Apply visual style props to each section
-        if progress_fn:
-            progress_fn("Applying visual style...")
-        logger.info("-" * 40)
-        logger.info("STYLER AGENT: starting")
-        styled_outline = self.styler.style(outline, style_context)
+            progress_fn("Designing visual style...")
+        styled_outline = self.styler.style(
+            outline,
+            planner_md="",  # no planner markdown in guided flow
+            style_context=style_context,
+            selected_images=selected_images,
+            style_hints=style_pref,
+            color_hints=color_pref,
+            business_context=business_context,
+        )
         sections = styled_outline.get("sections", [])
         style_name = styled_outline.get("style_name", "")
-        logger.info(f"STYLER AGENT: style_name='{style_name}', enriched {len(sections)} sections")
-        logger.info(f"STYLER OUTPUT:\n{_json.dumps(styled_outline.get('sections', []), indent=2)}")
+        theme = styled_outline.get("theme") or config.default_theme
 
-        # Agent 2: Build each section
-        if progress_fn:
-            progress_fn("Building components...")
+        # 4. Builders — per-section YAML with REAL business content (N LLM calls)
+        business_description = business_context.get("description") or ""
         section_yamls = []
-        theme = styled_outline.get("theme", outline.get("theme", {}))
         for i, section in enumerate(sections):
-            logger.info("-" * 40)
-            logger.info(f"BUILDER AGENT: section {i + 1}/{len(sections)} — type={section.get('type')}")
-            logger.info(f"BUILDER INPUT: {_json.dumps(section, indent=2)}")
+            if progress_fn:
+                progress_fn(f"Building section {i + 1}/{len(sections)}...")
+            section_image_context = section.get("image_context", "")
 
-            # Build image context from planner-assigned images for THIS section only
-            section_images = section.get("images", [])
-            section_image_context = self._build_image_context(section_images) if section_images else ""
+            yaml_str = self.builder.build_section(
+                section,
+                theme,
+                image_context=section_image_context,
+                style_name=style_name,
+                style_notes=section.get("style_notes", ""),
+                business_name=business_name,
+                business_content=section.get("business_content") or {},
+                business_description=business_description,
+            )
+            section_yamls.append(yaml_str)
+
+        # 5. Stitch (no LLM)
+        if progress_fn:
+            progress_fn("Assembling page...")
+        full_yaml = stitch_page(styled_outline, section_yamls)
+
+        full_yaml, fixes = auto_fix_yaml(full_yaml)
+        if fixes:
+            logger.info(f"Auto-fixed guided page ({len(fixes)} fixes): {fixes}")
+
+        log_output("STITCHER", full_yaml)
+
+        page_title = styled_outline.get("page_title") or outline.get("page_title") or "page"
+        friendly = business_name or page_title
+        return (
+            f"<!-- ACTION: create -->\n"
+            f"Here's your {friendly} website:\n\n"
+            f"```yaml\n{full_yaml}```"
+        )
+
+    def _create_page_pipeline(self, message: str, intent, selected_images=None, progress_fn=None) -> str:
+        """Multi-agent pipeline: planner -> styler -> builder x N -> stitcher."""
+
+        # Agent 1: Plan the page structure (markdown output, no images)
+        if progress_fn:
+            progress_fn("Planning site structure...")
+        planner_md = self.planner.plan(message)
+        outline = self.planner.parse_outline(planner_md)
+
+        # Retrieve style chunks for the styler
+        style_meta = {"visual_style": intent.style_filter} if intent.style_filter else None
+        style_chunks = self.search.search(message, top_k=config.style_top_k, tier="style", metadata_filter=style_meta)
+        style_context = "\n\n".join([c['content'] for c in style_chunks])
+
+        # Agent 2: Styler — visual design direction + image assignment
+        if progress_fn:
+            progress_fn("Designing visual style...")
+        styled_outline = self.styler.style(
+            outline, planner_md, style_context,
+            selected_images=selected_images,
+            style_hints=intent.style_keywords,
+            color_hints=intent.color_keywords,
+        )
+        sections = styled_outline.get("sections", [])
+        style_name = styled_outline.get("style_name", "")
+
+        # Agent 3: Build each section (YAML from specs + style direction)
+        section_yamls = []
+        theme = styled_outline.get("theme") or config.default_theme
+        for i, section in enumerate(sections):
+            if progress_fn:
+                progress_fn(f"Building section {i + 1}/{len(sections)}...")
+            # Use pre-rendered image context from styler
+            section_image_context = section.get("image_context", "")
 
             yaml_str = self.builder.build_section(
                 section, theme,
                 image_context=section_image_context,
                 style_name=style_name,
-                style_context=style_context,
+                style_notes=section.get("style_notes", ""),
             )
-            logger.info(f"BUILDER OUTPUT ({len(yaml_str)} chars):\n{yaml_str}")
             section_yamls.append(yaml_str)
 
         # Stitch into complete page
         if progress_fn:
             progress_fn("Assembling page...")
-        logger.info("-" * 40)
-        logger.info("STITCHER: assembling final page")
         full_yaml = stitch_page(styled_outline, section_yamls)
-        logger.info(f"STITCHER OUTPUT ({len(full_yaml)} chars):\n{full_yaml}")
+
+        # Auto-fix token/name errors the stitcher doesn't catch
+        full_yaml, fixes = auto_fix_yaml(full_yaml)
+        if fixes:
+            logger.info(f"Auto-fixed stitched page ({len(fixes)} fixes): {fixes}")
+
+        log_output("STITCHER", full_yaml)
 
         # Return in expected format (ACTION comment + YAML block)
-        page_title = styled_outline.get("page_title", "page")
+        page_title = styled_outline.get("page_title", outline.get("page_title", "page"))
         return (
             f"<!-- ACTION: create -->\n"
             f"Here's your {page_title}:\n\n"
@@ -321,15 +386,20 @@ class RAGAgent:
         self, response: str, message: str, system: str, chunks: list[dict],
         max_retries: int = 1,
     ) -> str:
-        """If YAML validation fails, retry with error context. Up to max_retries."""
+        """If YAML validation fails, auto-fix first, then retry with LLM if needed."""
         for attempt in range(max_retries):
-            error = self._quick_validate(response)
+            error = quick_validate(response)
             if error is None:
                 return response
 
             logger.warning(f"Validation failed (attempt {attempt + 1}): {error}")
 
-            # Re-prompt with error info
+            # Try auto-fix before expensive LLM retry
+            fixed = self._attempt_auto_fix(response)
+            if fixed is not None:
+                return fixed
+
+            # Fall through to LLM retry
             retry_prompt = (
                 f"Your previous output had a YAML error: {error}\n"
                 f"Fix the error and regenerate. Original request: {message}"
@@ -343,111 +413,22 @@ class RAGAgent:
 
         return response
 
-    def _quick_validate(self, response: str) -> str | None:
-        """Fast validation: check YAML parses, has required structure, and valid component names.
-
-        Returns error message string, or None if valid.
-        """
-        # Extract YAML block from response
+    def _attempt_auto_fix(self, response: str) -> str | None:
+        """Try to auto-fix YAML errors. Returns fixed response or None."""
         match = re.search(r"```(?:yaml)?\s*\n(.+?)```", response, re.DOTALL)
         if not match:
-            # If no code block, check if response itself is YAML
-            if "site:" not in response and "- name:" not in response:
-                return None  # Probably an EXPLAIN response, skip validation
-            yaml_str = response
-        else:
-            yaml_str = match.group(1)
+            return None
 
-        try:
-            doc = pyyaml.safe_load(yaml_str)
-        except pyyaml.YAMLError as e:
-            return f"YAML parse error: {e}"
+        fixed_yaml, fixes = auto_fix_yaml(match.group(1))
+        if not fixes:
+            return None
 
-        if doc is None:
-            return "Empty YAML document"
+        logger.info(f"Auto-fixed {len(fixes)} issues: {fixes}")
+        fixed_response = response[:match.start(1)] + fixed_yaml + response[match.end(1):]
 
-        # Validate component names recursively
-        invalid = self._find_invalid_components(doc)
-        if invalid:
-            names_str = ", ".join(sorted(invalid))
-            return (
-                f"Invalid component names found: {names_str}. "
-                f"Use ONLY valid SwiftSites components: "
-                f"layout-row, layout-column, columnsgrid, heading, paragraph, eyebrow, "
-                f"caption, blockquote, link, image, video, gif, button, titlebar, br, "
-                f"icon, badge, rating, progress-bar, counter-up, countdown, tabs, "
-                f"accordion, carousel, hamburger, ticker, textbox, textarea, dropdown, "
-                f"checkbox, radio, calendar, video-background, panorama-display, form"
-            )
+        # Re-validate after fix
+        if quick_validate(fixed_response) is not None:
+            logger.warning("Auto-fix insufficient, falling through to LLM retry")
+            return None
 
-        # Validate structure (children vs components, inline format, array props)
-        structural = self._find_structural_errors(doc)
-        if structural:
-            return (
-                f"Structural errors: {'; '.join(structural[:3])}. "
-                f"RULES: Use 'components:' not 'children:'. "
-                f"Use '- name: X' format not '- X:'. "
-                f"Put array props (items/tabs/slides/columns) at component level, not inside properties."
-            )
-
-        return None
-
-    def _find_invalid_components(self, doc) -> set[str]:
-        """Recursively walk YAML and find any component names not in VALID_COMPONENTS."""
-        invalid = set()
-
-        if isinstance(doc, list):
-            for item in doc:
-                invalid |= self._find_invalid_components(item)
-        elif isinstance(doc, dict):
-            name = doc.get("name")
-            if name and name not in VALID_COMPONENTS:
-                invalid.add(name)
-            # Check nested components
-            for key in ("components", "items", "tabs", "slides", "columns", "children"):
-                if key in doc:
-                    invalid |= self._find_invalid_components(doc[key])
-
-        return invalid
-
-    # Keys that belong inside `properties:`, not at component level
-    _PROPERTY_KEYS = frozenset({
-        "layout", "appearance", "spacing", "typography", "label", "field",
-        "behavior", "source", "playback", "responsive", "scroll",
-        "branding", "navigation", "submit", "display", "action",
-        "content", "animation", "poster",
-    })
-
-    def _find_structural_errors(self, doc) -> list[str]:
-        """Recursively find structural errors (children, inline format, misplaced array props, orphaned properties)."""
-        errors = []
-
-        if isinstance(doc, list):
-            for item in doc:
-                errors.extend(self._find_structural_errors(item))
-        elif isinstance(doc, dict):
-            if "children" in doc:
-                errors.append("'children:' used instead of 'components:'")
-            # Inline format: dict has a component name key but no "name" key
-            if "name" not in doc:
-                for key in doc:
-                    if key in VALID_COMPONENTS:
-                        errors.append(f"inline format '- {key}:' instead of '- name: {key}'")
-                        break
-            # Array props inside properties
-            if "properties" in doc and isinstance(doc["properties"], dict):
-                for key in ("items", "tabs", "slides", "columns"):
-                    if key in doc["properties"]:
-                        errors.append(f"'{key}' inside properties instead of component level")
-            # Properties outside `properties:` wrapper
-            if "name" in doc:
-                for key in doc:
-                    if key in self._PROPERTY_KEYS:
-                        errors.append(f"'{key}' at component level — must be inside 'properties:'")
-            # Recurse
-            for key in ("components", "items", "tabs", "slides", "columns", "children"):
-                if key in doc and isinstance(doc[key], list):
-                    for item in doc[key]:
-                        errors.extend(self._find_structural_errors(item))
-
-        return errors
+        return fixed_response

@@ -3,7 +3,7 @@
 # Base components: page, layout-column, heading, dropdown, calendar, textbox, button
 # Section type: dashboard
 # Layout: stacked
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS, analytics, admin panels, dashboards, business tools
 
 - name: page
@@ -34,8 +34,8 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
-        borderRadius: md
+          opacity: 100
+        radius: md
         shadow: soft
     components:
     - name: heading
@@ -78,7 +78,7 @@
         appearance:
           background:
             color: *color-accent
-          borderRadius: sm
+          radius: sm
         typography:
           color: *color-background
           weight: semibold

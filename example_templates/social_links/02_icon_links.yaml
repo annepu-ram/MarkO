@@ -3,7 +3,7 @@
 # Base components: layout-row, layout-column, heading, paragraph, icon, link
 # Section type: social_links
 # Layout: centered row
-# Visual style: light, clean, minimal
+# Visual style: modern_minimalist
 # Perfect for: business website, startup, SaaS, consulting firm, personal brand
 
 - name: site
@@ -18,6 +18,7 @@
         secondary: &color-secondary "#6b7280"
         accent: &color-accent "#3b82f6"
         background: &color-background "#ffffff"
+        border: &color-border '#e5e7eb'
   components:
   - name: page
     slug: home
@@ -26,7 +27,7 @@
       appearance:
         background:
           color: *color-background
-          transparency: 100
+          opacity: 100
     components:
         # Section
     - name: layout-column
@@ -41,7 +42,7 @@
         appearance:
           background:
             color: "#f9fafb"
-            transparency: 100
+            opacity: 100
       components:
       - name: eyebrow
         properties:
@@ -98,7 +99,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: md
               border:
                 width: 1
@@ -143,7 +144,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: md
               border:
                 width: 1
@@ -188,7 +189,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: md
               border:
                 width: 1
@@ -233,7 +234,7 @@
             appearance:
               background:
                 color: *color-background
-                transparency: 100
+                opacity: 100
               radius: md
               border:
                 width: 1

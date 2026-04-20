@@ -4,7 +4,7 @@
 # Base components: layout-column, eyebrow, br, heading, caption, paragraph, button
 # Section type: pricing
 # Layout: centered
-# Visual style: card_based
+# Visual style: modern_minimalist
 # Perfect for: SaaS, subscriptions, memberships, services, ecommerce
 
 - name: page
@@ -75,7 +75,7 @@
       properties:
         layout: {horizontalAlign: left, gap: xxs}
         appearance:
-          background: {transparency: 0}
+          background: {opacity: 0}
         spacing:
           paddingBlock: none
           paddingInline: lg

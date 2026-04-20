@@ -32,8 +32,8 @@
 2. **layout-row (Hero)**
    Left: large image (book cover, beautifully styled on a table or held by the author). Right: eyebrow ("Coming March 15, 2026") + heading (book title) + paragraph (one-line hook from the jacket copy) + button ("Reserve Your Seat") + button ("Pre-Order").
 
-3. **br (divider)**
-   Visual separator between hero and content sections.
+3. **br (wave section breaker, color matching next section background)**
+   Decorative wave divider transitioning from hero to content section.
 
 4. **countdown (Launch Day)**
    Countdown timer to the launch event date: days, hours, minutes, seconds. Heading: "Until the Grand Launch".
