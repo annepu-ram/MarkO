@@ -1,0 +1,168 @@
+# Zen Japanese Hero
+# Minimal wabi-sabi hero with generous whitespace, earth tones, and light serif heading
+# Base components: site, page, layout-row, layout-column, eyebrow, heading, paragraph, button, image
+# Section type: hero
+# Layout: split
+# Visual style: zen_japanese
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: beauty, restaurant, health
+# Perfect for: Tea house, ceramics studio, spa, wellness retreat, meditation center, Japanese restaurant
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Noto Serif', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#2D2D2D"
+        text: &color-text "#5A5A58"
+        secondary: &color-secondary "#E8E0D0"
+        accent: &color-accent "#8B4513"
+        background: &color-background "#FAF8F5"
+  components:
+    - name: page
+      slug: home
+      title: "Zen Japanese Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — generous whitespace, minimal
+        - name: layout-row
+          properties:
+            layout:
+              wrap: wrap
+              verticalAlign: center
+              horizontalAlign: center
+              tag: section
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+              border:
+                width: 0
+              radius: none
+              shadow: none
+          components:
+
+            # Left column — minimal text
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  gap: lg
+                spacing:
+                  paddingInline: lg
+              components:
+
+                - name: eyebrow
+                  properties:
+                    text: "Wabi-Sabi"
+                    typography:
+                      color: *color-accent
+                      size: xs
+                      weight: regular
+                      letterSpacing: wider
+                      transform: uppercase
+
+                - name: heading
+                  properties:
+                    text: "Beauty in simplicity"
+                    level: 1
+                    typography:
+                      color: *color-primary
+                      size: xxl
+                      weight: light
+                      lineHeight: relaxed
+                      letterSpacing: normal
+
+                - name: paragraph
+                  properties:
+                    text: |
+                      Find harmony in imperfection. Our practice honors the quiet beauty
+                      of natural materials, the passage of time, and the art of doing
+                      less with greater intention.
+                    typography:
+                      color: *color-text
+                      size: md
+                      weight: regular
+                      lineHeight: relaxed
+
+                # CTA buttons — minimal, bordered
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: lg
+                  components:
+                    - name: button
+                      properties:
+                        text: "Explore"
+                        appearance:
+                          background:
+                            color: *color-primary
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: xs
+                          shadow: none
+                        typography:
+                          color: *color-background
+                          weight: regular
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                    - name: button
+                      properties:
+                        text: "Our Philosophy"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-primary
+                          radius: xs
+                          shadow: none
+                        typography:
+                          color: *color-primary
+                          weight: regular
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+
+            # Right column — image
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  horizontalAlign: center
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: https://images.pexels.com/photos/3822843/pexels-photo-3822843.jpeg?auto=compress&cs=tinysrgb&w=800
+                      altText: Zen garden with raked sand and natural stones
+                    appearance:
+                      minHeight: 25
+                      fit: cover
+                      radius: xs

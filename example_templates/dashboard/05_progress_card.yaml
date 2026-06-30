@@ -1,0 +1,229 @@
+# Dashboard Data Card 05 - "The Progress Card"
+# A card showing project progress with stats and visual separators. Combines heading, paragraph, stats row, and br elements.
+# Base components: page, layout-column, eyebrow, heading, paragraph, br, layout-row, caption, image
+# Section type: dashboard
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: required
+# Interactivity: static
+# Industries: saas
+# Perfect for: SaaS, analytics, admin panels, dashboards, business tools
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#f8fafc'
+    spacing: {paddingBlock: xl, paddingInline: xl}
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        widthMode: "50"
+        gap: xs
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      appearance:
+        background:
+          color: *color-background
+          opacity: 100
+        radius: md
+        shadow: soft
+    components:
+    - name: eyebrow
+      properties:
+        text: "IN PROGRESS"
+        typography:
+          size: xxs
+          weight: bold
+          color: *color-accent
+          transform: uppercase
+          letterSpacing: wider
+        spacing:
+          paddingBlock: xxs
+          paddingInline: xs
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+          radius: pill
+
+    - name: heading
+      properties:
+        text: Platform Redesign
+        level: 3
+        typography:
+          size: lg
+          weight: bold
+          color: *color-primary
+
+    - name: paragraph
+      properties:
+        text: Redesigning the core dashboard experience for enterprise customers. Sprint 4 of 6 complete.
+        typography:
+          size: sm
+          weight: regular
+          color: *color-secondary
+          lineHeight: relaxed
+
+    - name: br
+      properties:
+        size: xs
+
+        # Progress stats row
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          wrap: wrap
+          gap: md
+          verticalAlign: center
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: center
+            widthMode: "33"
+            gap: none
+        components:
+        - name: heading
+          properties:
+            text: "67%"
+            level: 4
+            typography:
+              size: lg
+              weight: extrabold
+              color: *color-accent
+              align: center
+        - name: caption
+          properties:
+            text: Complete
+            typography:
+              size: xxs
+              weight: medium
+              color: *color-secondary
+              align: center
+
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: center
+            widthMode: "33"
+            gap: none
+        components:
+        - name: heading
+          properties:
+            text: "12"
+            level: 4
+            typography:
+              size: lg
+              weight: extrabold
+              color: *color-primary
+              align: center
+        - name: caption
+          properties:
+            text: Tasks Left
+            typography:
+              size: xxs
+              weight: medium
+              color: *color-secondary
+              align: center
+
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: center
+            widthMode: "33"
+            gap: none
+        components:
+        - name: heading
+          properties:
+            text: "Mar 15"
+            level: 4
+            typography:
+              size: lg
+              weight: extrabold
+              color: *color-primary
+              align: center
+        - name: caption
+          properties:
+            text: Deadline
+            typography:
+              size: xxs
+              weight: medium
+              color: *color-secondary
+              align: center
+
+    - name: br
+      properties:
+        size: xs
+
+        # Team avatars row
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: start
+          wrap: nowrap
+          gap: xs
+          verticalAlign: center
+      components:
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=32&h=32&fit=crop'
+            altText: 'Team member 1'
+          layout:
+            widthMode: fit
+          appearance:
+            radius: pill
+            fit: cover
+            width: 32
+            height: 32
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=32&h=32&fit=crop'
+            altText: 'Team member 2'
+          layout:
+            widthMode: fit
+          appearance:
+            radius: pill
+            fit: cover
+            width: 32
+            height: 32
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop'
+            altText: 'Team member 3'
+          layout:
+            widthMode: fit
+          appearance:
+            radius: pill
+            fit: cover
+            width: 32
+            height: 32
+      - name: caption
+        properties:
+          text: "+4 more"
+          layout:
+            widthMode: fit
+          typography:
+            size: xxs
+            weight: medium
+            color: *color-secondary
+

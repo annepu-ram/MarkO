@@ -9,6 +9,7 @@
  * - component.columns[].components (for columnsgrid)
  * - component.columns[].components (for columnsgrid, ticker)
  * - component.items (for accordion - data items with title + components)
+ * - component.header / component.footer (for site-level shared blocks)
  */
 
 // ============================================================================
@@ -78,7 +79,9 @@ const hasChildren = (component) => {
         component.columns?.length ||
         component.tabs?.length ||
         component.slides?.length ||
-        component.items?.length
+        component.items?.length ||
+        component.header?.length ||
+        component.footer?.length
     );
 };
 
@@ -102,8 +105,37 @@ export const buildTreeFromStructure = (structure) => {
     }
     const site = structure[0];
 
-    // Pages
-    return buildTreeNodes(site.components || [], [0, 'components']);
+    const nodes = [];
+
+    if (site.header?.length) {
+        nodes.push({
+            id: 'comp_0_header',
+            name: 'Header',
+            path: [0, 'header'],
+            icon: 'icon-credit-card',
+            children: buildTreeNodes(site.header, [0, 'header']),
+            isContainer: true,
+            isExpanded: true,
+            isVirtual: true
+        });
+    }
+
+    nodes.push(...buildTreeNodes(site.components || [], [0, 'components']));
+
+    if (site.footer?.length) {
+        nodes.push({
+            id: 'comp_0_footer',
+            name: 'Footer',
+            path: [0, 'footer'],
+            icon: 'icon-layout-row',
+            children: buildTreeNodes(site.footer, [0, 'footer']),
+            isContainer: true,
+            isExpanded: true,
+            isVirtual: true
+        });
+    }
+
+    return nodes;
 };
 
 /**
@@ -136,6 +168,20 @@ function buildTreeNodes(components, basePath) {
             node.children.push(...buildTreeNodes(
                 component.components,
                 [...currentPath, 'components']
+            ));
+        }
+
+        if (component.header?.length) {
+            node.children.push(...buildTreeNodes(
+                component.header,
+                [...currentPath, 'header']
+            ));
+        }
+
+        if (component.footer?.length) {
+            node.children.push(...buildTreeNodes(
+                component.footer,
+                [...currentPath, 'footer']
             ));
         }
 

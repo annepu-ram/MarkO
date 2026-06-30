@@ -1,0 +1,65 @@
+# Promotional Banner - Full Width Gradient Sale Announcement
+# A bold, full-width promotional banner with vibrant gradient background, oversized heading, supporting description paragraph, and a prominent call-to-action button designed to capture attention for seasonal sales, product launches, or major promotions
+# Base components: layout-row, layout-column, eyebrow, heading, paragraph, button
+# Section type: banner
+# Layout: centered
+# Visual style: aurora_gradient, bold_editorial
+# Content volume: light
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, restaurant, ecommerce, hospitality, entertainment
+# Perfect for: online store, SaaS platform, fashion brand, tech startup, restaurant, event venue, hotel, university website
+
+- name: site
+  properties:
+    theme:
+      colors:
+        background: &color-background '#ffffff'
+        primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#7c3aed'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+  components:
+    - name: page
+      slug: home
+      title: "Promotion"
+      properties:
+        appearance: { background: { color: *color-background } }
+      components:
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center }
+            appearance: { background: { type: gradient, gradient: { colorStart: *color-accent, colorEnd: '#ec4899', direction: 'to right' }, opacity: 100 } }
+            spacing: { paddingBlock: xl, paddingInline: lg }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '66', horizontalAlign: center }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: "LIMITED TIME OFFER"
+                    typography: { size: sm, weight: bold, color: '#fde68a', align: center, letterSpacing: wider }
+                    spacing: { marginBlock: sm }
+                - name: heading
+                  properties:
+                    text: "Spring Sale — Up to 60% Off Everything"
+                    level: 1
+                    typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, lineHeight: "1.1" }
+                    spacing: { marginBlock: md }
+                - name: paragraph
+                  properties:
+                    text: "Refresh your wardrobe with our biggest sale of the season. Hundreds of styles marked down. Don't miss out — offer ends Sunday."
+                    typography: { size: md, color: '#e9d5ff', align: center }
+                    spacing: { marginBlock: md }
+                - name: button
+                  properties:
+                    text: "Browse Deals"
+                    appearance: { background: { color: *color-background }, radius: lg }
+                    typography: { color: *color-accent, weight: bold, size: md }
+                    spacing: { marginBlock: md }

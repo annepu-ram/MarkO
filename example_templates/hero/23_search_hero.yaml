@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: fullscreen
 # Visual style: monochrome_dark
+# Content volume: standard
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: form, video
+# Industries: saas
 # Perfect for: Knowledge bases, documentation sites, resource directories, search platforms
 
 - name: page

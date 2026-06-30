@@ -33,17 +33,36 @@ Business name: {{ business_name }}
 
 Available icons ({{ icons | length }} total — distribute one per column/tab/item): {{ icons | join(', ') }}
 {% endif %}
+{% if business_content or business_name %}
 
-[Reference Example Templates - UNDERSTAND AND USE THESE to FORMAT an outline of a Section and take special notice of how parent components and child components are used]
+## [Business Content Rules]
+- Use the provided business name EXACTLY — do not invent or modify it.
+- Use [Real Content] values VERBATIM for headings, taglines, paragraphs, button labels, prices, contact info.
+- Multi-line values (one item per line) map to separate cards/rows/items — preserve item count and order.
+- For testimonials/stats: use ONLY provided quotes/numbers; do NOT fabricate.
+- If a value is missing for a slot, omit that slot rather than hallucinating.
+{% endif %}
+{% if icons or image_context or 'columnsgrid' in suggested or 'tabs' in suggested or 'accordion' in suggested or 'carousel' in suggested %}
+
+## [Distribution Rules — applies to repeated items]
+- columnsgrid/tabs/accordion: each column/tab/item gets its own icon and image, not just the first one.
+- columnsgrid: every column must have the SAME component types in the SAME order (e.g. image -> heading -> paragraph in all columns).
+- If more items than icons/images, omit extras — do NOT cluster everything in the first item.
+{% endif %}
+
+{% if ranked_chunks %}
+[Reference Example Templates — UNDERSTAND AND USE these to format the section. Note how parents/children are nested and how `properties:` is structured.]
 {% for chunk in ranked_chunks %}
---- Example Template for Section: ---
+--- Example Template ---
 {{ chunk.content }}
 
 {% endfor %}
-
-[Component Specs — valid YAML Format and Properties of each component of the Section]
+Layout primitives — `- name: layout-row` and `- name: layout-column` are universal containers; nest with `components:` and set `layout.widthMode` (string: "fit", "25", "33", "50", "66", "75", "stretch") on every direct child.
+{% else %}
+[Component Specs — valid YAML Format and Properties for each component]
 ```
 {{ comp_specs }}
 ```
+{% endif %}
 
-Combine [Example templates] with [Style Direction], [Images], [Icons] to build a unique sensible section.
+Combine the example templates with the [Style Direction], [Images], and [Icons] above to build a unique, sensible section.

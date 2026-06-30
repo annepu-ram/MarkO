@@ -1,0 +1,108 @@
+# Pricing Card Variant: The Tiered Comparison
+# layout-column containing heading (Plan Name), caption (Price), br, and a list of paragraph items with checkbox icons
+# Base components: layout-column, heading, caption, br, paragraph, button
+# Section type: pricing
+# Layout: centered
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: purchase
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, ecommerce
+# Perfect for: SaaS, subscriptions, memberships, services, ecommerce
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: sm}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: medium
+        border: {width: 1, style: solid, color: *color-secondary}
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: lg, paddingInline: lg}
+    components:
+    - name: heading
+      properties:
+        text: Professional
+        level: 3
+        typography: {size: xl, weight: bold, color: *color-primary, align: center}
+        spacing: {marginBlock: xs}
+    - name: caption
+      properties:
+        text: Best for growing teams
+        typography: {size: sm, color: *color-secondary, align: center}
+    - name: br
+      properties:
+        size: xs
+    - name: heading
+      properties:
+        text: "$49"
+        level: 2
+        typography: {size: xxxl, weight: extrabold, color: *color-accent, align: center}
+        spacing: {marginBlock: none}
+    - name: caption
+      properties:
+        text: per month, billed annually
+        typography: {size: xs, color: *color-secondary, align: center}
+    - name: br
+      properties:
+        size: md
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: left, gap: xs}
+        appearance: {background: {opacity: 0}}
+      components:
+      - name: paragraph
+        properties:
+          text: "Unlimited projects"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "Up to 25 team members"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "Advanced analytics dashboard"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "Priority email support"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "Custom integrations"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "API access"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+    - name: br
+      properties:
+        size: md
+    - name: button
+      properties:
+        text: Get Started
+        appearance: {background: {color: *color-accent}, radius: md}
+        typography: {color: *color-background, weight: bold}
+        layout: {widthMode: stretch}
+        spacing:
+          paddingBlock: md

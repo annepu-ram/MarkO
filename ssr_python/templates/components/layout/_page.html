@@ -21,7 +21,7 @@
         {% if components | length > 0 %}
             {% for child in components %}
                 {% set child_path = path + ['components', loop.index0] %}
-                {{ render_component(child, tokens, child_path) }}
+                {{ render_component(child, tokens, child_path, 'column') }}
             {% endfor %}
         {% else %}
             <div class="page-placeholder">

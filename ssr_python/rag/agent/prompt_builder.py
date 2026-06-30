@@ -38,13 +38,19 @@ class PromptBuilder:
 
         context_block = "\n\n".join(ctx_parts)
 
-        comp_names = list(intent.component_filter) if intent.component_filter else []
-        for chunk in chunks:
-            meta = chunk.get("metadata", {})
-            comp_names.extend(meta.get("component_types", []))
-        if not comp_names:
+        # Only inject [Component Specs] when:
+        #   (a) the user explicitly asked for specific components (component_filter), OR
+        #   (b) we have NO reference examples to learn from.
+        # Previously we unioned `intent.component_filter` with every chunk's
+        # `component_types` — that exploded the spec block to 8-12 components
+        # per call and duplicated the example templates.
+        if intent.component_filter:
+            comp_names = list(intent.component_filter)
+        elif not context_block:
             comp_names = ["heading", "paragraph", "button", "image"]
-        comp_specs = build_component_specs(comp_names)
+        else:
+            comp_names = []
+        comp_specs = build_component_specs(comp_names) if comp_names else ""
 
         system = load_system("condensed")
         user_prompt = render_user("condensed",

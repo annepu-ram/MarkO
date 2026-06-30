@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: split_screen
 # Visual style: monochrome_dark
+# Content volume: rich
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: required
+# Interactivity: static
+# Industries: portfolio
 # Perfect for: Creative agencies, artists, photographers, avant-garde brands
 
 - name: page
@@ -82,7 +88,7 @@
           widthMode: "33"
         spacing:
           paddingBlock: xxxl
-          paddingInline: xl
+          paddingInline: md
       components:
       # Year / Index
       - name: layout-row
@@ -261,7 +267,7 @@
           spacing:
             marginBlock: lg
             paddingBlock: md
-            paddingInline: xl
+            paddingInline: md
           layout:
 
     # Right Image Area - Asymmetric
@@ -272,7 +278,7 @@
           widthMode: "66"
         spacing:
           paddingBlock: lg
-          paddingInline: lg
+          paddingInline: md
       components:
       # Main Image - Offset
       - name: image
@@ -453,3 +459,4 @@
           letterSpacing: wider
         spacing:
           marginBlock: none
+

@@ -1,0 +1,375 @@
+# Claymorphism Feature Cards
+# Soft 3D clay-inspired feature cards with extreme rounding and pastel palette
+# Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, icon, button
+# Section type: features
+# Layout: grid
+# Visual style: claymorphism
+# Content volume: rich
+# Tone: playful
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio, health, education
+# Perfect for: education, health, SaaS platform, creative portfolio, children's app
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Poppins', sans-serif"
+        content: "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary '#4A1942'
+        text: &color-text '#4E3149'
+        secondary: &color-secondary '#9D5094'
+        accent: &color-accent '#FF1493'
+        background: &color-background '#FFD6E6'
+  components:
+    - name: page
+      slug: home
+      title: "Claymorphism Feature Cards"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Section header
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '75'
+                  horizontalAlign: center
+              components:
+                - name: eyebrow
+                  properties:
+                    text: Features
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: none
+                      letterSpacing: wider
+                      align: center
+                - name: heading
+                  properties:
+                    text: Everything you need to grow
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: Thoughtfully crafted tools that bring joy to every step of your journey — simple, playful, and powerful.
+                    typography:
+                      size: md
+                      color: *color-secondary
+                      align: center
+                    spacing:
+                      marginBlock: sm
+
+        # Feature grid — 6 clay cards
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            spacing:
+              marginBlock: lg
+              paddingInline: lg
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFF0F5'
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: sparkles
+                        size: "48"
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: Smart Automation
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Let intelligent workflows handle the repetitive tasks so you can focus on what you love most.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#F0F5FF'
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: users
+                        size: "48"
+                        color: '#7C3AED'
+                    - name: heading
+                      properties:
+                        text: Team Collaboration
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Work together in real time with shared spaces, live comments, and instant notifications.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#F0FFF4'
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: bar-chart-2
+                        size: "48"
+                        color: '#059669'
+                    - name: heading
+                      properties:
+                        text: Growth Analytics
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Gain clear insights with colorful charts and easy-to-read dashboards designed for everyone.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFFBF0'
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: shield-check
+                        size: "48"
+                        color: '#F59E0B'
+                    - name: heading
+                      properties:
+                        text: Safe & Secure
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Your data stays protected with enterprise-grade security that runs quietly in the background.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#F5F0FF'
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: zap
+                        size: "48"
+                        color: '#8B5CF6'
+                    - name: heading
+                      properties:
+                        text: Lightning Fast
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: Pages load in a blink with our cloud infrastructure optimized for speed and reliability.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFF0F5'
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: lg
+                  components:
+                    - name: icon
+                      properties:
+                        name: headphones
+                        size: "48"
+                        color: *color-accent
+                    - name: heading
+                      properties:
+                        text: 24/7 Support
+                        level: 3
+                        typography:
+                          size: lg
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: paragraph
+                      properties:
+                        text: A friendly team is always ready to help you via chat, email, or video — any time of day.
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+
+        # CTA row
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+          components:
+            - name: button
+              properties:
+                text: Explore All Features
+                appearance:
+                  background:
+                    color: *color-accent
+                    opacity: 100
+                  border:
+                    width: 0
+                  radius: pill
+                  shadow: medium
+                typography:
+                  color: '#ffffff'
+                  weight: bold
+                  size: md
+                spacing:
+                  paddingBlock: md
+                  paddingInline: xxl

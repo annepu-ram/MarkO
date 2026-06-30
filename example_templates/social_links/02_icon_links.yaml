@@ -4,6 +4,12 @@
 # Section type: social_links
 # Layout: centered row
 # Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, legal
 # Perfect for: business website, startup, SaaS, consulting firm, personal brand
 
 - name: site
@@ -94,7 +100,6 @@
           properties:
             layout:
               horizontalAlign: space-evenly
-              widthMode: fit
               verticalAlign: center
             appearance:
               background:
@@ -104,14 +109,14 @@
               border:
                 width: 1
                 style: solid
-                color: "#e5e7eb"
+                color: *color-border
             spacing:
               paddingBlock: sm
               paddingInline: md
           components:
           - name: icon
             properties:
-              icon: code
+              name: code
               size: 18
               color: *color-primary
               layout:
@@ -139,7 +144,6 @@
           properties:
             layout:
               horizontalAlign: space-evenly
-              widthMode: fit
               verticalAlign: center
             appearance:
               background:
@@ -149,14 +153,14 @@
               border:
                 width: 1
                 style: solid
-                color: "#e5e7eb"
+                color: *color-border
             spacing:
               paddingBlock: sm
               paddingInline: md
           components:
           - name: icon
             properties:
-              icon: users
+              name: users
               size: 18
               color: "#0077b5"
               layout:
@@ -184,7 +188,6 @@
           properties:
             layout:
               horizontalAlign: space-evenly
-              widthMode: fit
               verticalAlign: center
             appearance:
               background:
@@ -194,14 +197,14 @@
               border:
                 width: 1
                 style: solid
-                color: "#e5e7eb"
+                color: *color-border
             spacing:
               paddingBlock: sm
               paddingInline: md
           components:
           - name: icon
             properties:
-              icon: share-2
+              name: share-2
               size: 18
               color: "#1da1f2"
               layout:
@@ -229,7 +232,6 @@
           properties:
             layout:
               horizontalAlign: space-evenly
-              widthMode: fit
               verticalAlign: center
             appearance:
               background:
@@ -239,14 +241,14 @@
               border:
                 width: 1
                 style: solid
-                color: "#e5e7eb"
+                color: *color-border
             spacing:
               paddingBlock: sm
               paddingInline: md
           components:
           - name: icon
             properties:
-              icon: mail
+              name: mail
               size: 18
               color: *color-accent
               layout:

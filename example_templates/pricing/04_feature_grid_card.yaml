@@ -1,0 +1,134 @@
+# Pricing Card Variant: Feature Grid Card
+# columnsgrid (3 cols) where each cell is a layout-column showing a feature image and paragraph description
+# Base components: layout-column, heading, caption, br, columnsgrid, image, paragraph
+# Section type: pricing
+# Layout: grid
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: purchase
+# Image requirement: required
+# Interactivity: static
+# Industries: saas, ecommerce
+# Perfect for: SaaS, subscriptions, memberships, services, ecommerce
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#1e293b'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: md}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: medium
+        border: {width: 1, style: solid, color: *color-secondary}
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: xl, paddingInline: xl}
+    components:
+        # Card header
+    - name: heading
+      properties:
+        text: Business Plan Features
+        level: 2
+        typography: {size: xxl, weight: bold, color: *color-primary, align: center}
+        spacing: {marginBlock: xs}
+    - name: caption
+      properties:
+        text: Everything you need to scale your operations
+        typography: {size: sm, color: *color-secondary, align: center}
+    - name: br
+      properties:
+        size: sm
+        # Feature grid
+    - name: columnsgrid
+      properties:
+        layout: {columns: 3, gap: md, verticalAlign: top}
+        responsive: {breakpoints: {md: 2, sm: 1}}
+      columns:
+      - components:
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: center, gap: xs}
+            appearance:
+              background: {color: *color-background}
+              radius: md
+              border: {width: 1, style: solid, color: *color-secondary}
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+          components:
+          - name: image
+            properties:
+              source: {url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=200&fit=crop'}
+              appearance: {aspectRatio: '1/1', radius: sm, objectPosition: center}
+              layout: {widthMode: stretch}
+          - name: paragraph
+            properties:
+              text: "Real-Time Analytics"
+              typography: {size: sm, weight: semibold, color: *color-accent, align: center}
+              spacing: {marginBlock: xxs}
+          - name: paragraph
+            properties:
+              text: "Track performance metrics with live dashboards and custom reports."
+              typography: {size: xs, color: *color-secondary, align: center}
+      - components:
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: center, gap: xs}
+            appearance:
+              background: {color: *color-background}
+              radius: md
+              border: {width: 1, style: solid, color: *color-secondary}
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+          components:
+          - name: image
+            properties:
+              source: {url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=200&h=200&fit=crop'}
+              appearance: {aspectRatio: '1/1', radius: sm, objectPosition: center}
+              layout: {widthMode: stretch}
+          - name: paragraph
+            properties:
+              text: "Team Collaboration"
+              typography: {size: sm, weight: semibold, color: *color-accent, align: center}
+              spacing: {marginBlock: xxs}
+          - name: paragraph
+            properties:
+              text: "Work together seamlessly with shared workspaces and commenting."
+              typography: {size: xs, color: *color-secondary, align: center}
+      - components:
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: center, gap: xs}
+            appearance:
+              background: {color: *color-background}
+              radius: md
+              border: {width: 1, style: solid, color: *color-secondary}
+            spacing:
+              paddingBlock: md
+              paddingInline: md
+          components:
+          - name: image
+            properties:
+              source: {url: 'https://images.unsplash.com/photo-1563986768609-322da13575f2?w=200&h=200&fit=crop'}
+              appearance: {aspectRatio: '1/1', radius: sm, objectPosition: center}
+              layout: {widthMode: stretch}
+          - name: paragraph
+            properties:
+              text: "Secure Cloud Storage"
+              typography: {size: sm, weight: semibold, color: *color-accent, align: center}
+              spacing: {marginBlock: xxs}
+          - name: paragraph
+            properties:
+              text: "Enterprise-grade encryption with unlimited file storage and versioning."
+              typography: {size: xs, color: *color-secondary, align: center}

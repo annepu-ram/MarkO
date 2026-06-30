@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: centered
 # Visual style: monochrome_dark
+# Content volume: rich
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas, portfolio, entertainment
 # Perfect for: Tech companies, gaming, crypto, creative agencies
 
 - name: page

@@ -1,0 +1,298 @@
+# 06 - The Tech Stack Card
+# Layout-column with heading and a layout-row of small image icons representing software/technology logos used in projects.
+# Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, layout-row, image, caption, br
+# Section type: gallery
+# Layout: grid
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: many
+# Interactivity: static
+# Industries: portfolio
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'IBM Plex Sans', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
+        secondary: &color-secondary '#475569'
+        accent: &color-accent '#06b6d4'
+        background: &color-background '#f1f5f9'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # SECTION HEADER
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance: { background: { color: *color-primary } }
+      components:
+        - name: eyebrow
+          properties:
+            text: ENGINEERING TOOLKIT
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: Our Tech Stack
+            level: 1
+            typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: The technologies and tools we use to build world-class digital products.
+            typography: { size: lg, color: *color-secondary, align: center }
+            layout: { widthMode: "75" }
+
+    # ============================================
+    # TECH STACK CARDS GRID
+    # ============================================
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      columns:
+
+        # Card 1 - Frontend
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: lg }
+                appearance:
+                  background: { color: *color-background, opacity: 100 }
+                  radius: lg
+                  shadow: soft
+                  border: { width: 1, style: solid, color: *color-secondary }
+              components:
+                - name: heading
+                  properties:
+                    text: Frontend
+                    level: 3
+                    typography: { size: lg, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Modern frameworks and libraries for building responsive, performant user interfaces.
+                    typography: { size: sm, color: *color-secondary, align: center }
+                    spacing: { marginBlock: md }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center, gap: md, wrap: wrap }
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=80&h=80&fit=crop'
+                          altText: 'React logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=80&h=80&fit=crop'
+                          altText: 'TypeScript logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1621839673705-6617adf9e890?w=80&h=80&fit=crop'
+                          altText: 'Next.js logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1592609931095-54a2168ae893?w=80&h=80&fit=crop'
+                          altText: 'Tailwind CSS logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                - name: br
+                  properties: { size: sm }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center, gap: xs, wrap: wrap }
+                  components:
+                    - name: caption
+                      properties:
+                        text: React
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: TypeScript
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: Next.js
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: Tailwind
+                        typography: { size: xxs, color: *color-secondary, align: center }
+
+        # Card 2 - Backend
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: lg }
+                appearance:
+                  background: { color: *color-background, opacity: 100 }
+                  radius: lg
+                  shadow: soft
+                  border: { width: 1, style: solid, color: *color-secondary }
+              components:
+                - name: heading
+                  properties:
+                    text: Backend
+                    level: 3
+                    typography: { size: lg, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: Scalable server architectures and APIs built for reliability and high performance under load.
+                    typography: { size: sm, color: *color-secondary, align: center }
+                    spacing: { marginBlock: md }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center, gap: md, wrap: wrap }
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=80&h=80&fit=crop'
+                          altText: 'Node.js logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=80&h=80&fit=crop'
+                          altText: 'Python logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=80&h=80&fit=crop'
+                          altText: 'PostgreSQL logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=80&h=80&fit=crop'
+                          altText: 'Redis logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                - name: br
+                  properties: { size: sm }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center, gap: xs, wrap: wrap }
+                  components:
+                    - name: caption
+                      properties:
+                        text: Node.js
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: Python
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: PostgreSQL
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: Redis
+                        typography: { size: xxs, color: *color-secondary, align: center }
+
+        # Card 3 - DevOps & Cloud
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                spacing: { paddingBlock: lg, paddingInline: lg }
+                appearance:
+                  background: { color: *color-background, opacity: 100 }
+                  radius: lg
+                  shadow: soft
+                  border: { width: 1, style: solid, color: *color-secondary }
+              components:
+                - name: heading
+                  properties:
+                    text: DevOps & Cloud
+                    level: 3
+                    typography: { size: lg, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: CI/CD pipelines, containerization, and cloud-native infrastructure for seamless deployments.
+                    typography: { size: sm, color: *color-secondary, align: center }
+                    spacing: { marginBlock: md }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center, gap: md, wrap: wrap }
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=80&h=80&fit=crop'
+                          altText: 'AWS logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1605745341112-85968b19335b?w=80&h=80&fit=crop'
+                          altText: 'Docker logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=80&h=80&fit=crop'
+                          altText: 'Kubernetes logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                    - name: image
+                      properties:
+                        source:
+                          url: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=80&h=80&fit=crop'
+                          altText: 'GitHub Actions logo'
+                        appearance: { fit: cover, cornerStyle: md, aspectRatio: '1/1' }
+                        layout: { widthMode: "16" }
+                - name: br
+                  properties: { size: sm }
+                - name: layout-row
+                  properties:
+                    layout: { horizontalAlign: center, verticalAlign: center, gap: xs, wrap: wrap }
+                  components:
+                    - name: caption
+                      properties:
+                        text: AWS
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: Docker
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: Kubernetes
+                        typography: { size: xxs, color: *color-secondary, align: center }
+                    - name: caption
+                      properties:
+                        text: GitHub
+                        typography: { size: xxs, color: *color-secondary, align: center }

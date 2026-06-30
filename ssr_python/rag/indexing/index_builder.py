@@ -12,6 +12,7 @@ from rag.indexing.chunker import DocumentChunker, Chunk
 from rag.indexing.metadata import extract_metadata
 from rag.indexing.icon_chunker import chunk_icons
 from rag.embeddings.embed_service import EmbedService
+from rag.retrieval.tokenizer import tokenize
 
 import tiktoken
 
@@ -26,6 +27,10 @@ class IndexBuilder:
 
     def build(self) -> dict:
         """Full pipeline: discover files -> chunk -> enrich -> embed -> persist (tiered)."""
+        # 0. Canonical-sync guard — log a warning if metadata.py drifts from
+        # planner_agent's section keys. Doesn't abort the build.
+        self._check_canonical_sync()
+
         # 1. Discover all source files
         files = self._discover_files()
         print(f"Found {len(files)} source files")
@@ -78,8 +83,9 @@ class IndexBuilder:
             print(f"  Tier '{tier_name}': embedding {len(texts)} chunks...")
             embeddings = self.embed_service.embed_batch(texts)
 
-            # Build BM25
-            tokenized = [c.content_with_context.lower().split() for c in chunks]
+            # Build BM25 — tokenizer MUST match query-time tokenization
+            # (rag.retrieval.tokenizer.tokenize) or scores will be junk.
+            tokenized = [tokenize(c.content_with_context) for c in chunks]
             bm25 = BM25Okapi(tokenized)
 
             # Persist tier-specific files
@@ -129,6 +135,31 @@ class IndexBuilder:
         meta = json.loads(meta_path.read_text())
         current_hash = self._hash_sources(self._discover_files())
         return current_hash != meta.get("source_hash")
+
+    def _check_canonical_sync(self) -> None:
+        """Warn if metadata.FOLDER_TO_SECTION_TYPE produces values that the
+        planner doesn't recognise. Cheap defensive check to catch future drift
+        between metadata canonical lists and planner_agent._SECTION_COMPONENTS.
+        """
+        try:
+            from rag.indexing.metadata import FOLDER_TO_SECTION_TYPE, SECTION_PATTERNS
+            from rag.agent.planner_agent import _SECTION_COMPONENTS
+        except Exception as e:
+            logger.warning(f"canonical-sync guard skipped: {e}")
+            return
+
+        canonical = set(_SECTION_COMPONENTS.keys()) | {"other"}
+        bad_folder = {f: s for f, s in FOLDER_TO_SECTION_TYPE.items() if s not in canonical}
+        bad_pattern = [k for k in SECTION_PATTERNS if k not in canonical]
+        if bad_folder:
+            logger.warning(
+                f"FOLDER_TO_SECTION_TYPE has non-canonical values: {bad_folder}. "
+                f"Planner won't recognise these section types."
+            )
+        if bad_pattern:
+            logger.warning(
+                f"SECTION_PATTERNS has non-canonical keys: {bad_pattern}."
+            )
 
     def _discover_files(self) -> list[Path]:
         ignored_dirs = {"tests"}

@@ -1,0 +1,329 @@
+# Y2K Retro-Futurism Hero
+# Nostalgic early-2000s aesthetic with soft lavender tones, pill shapes, and dreamy futuristic vibes
+# Base components: site, page, layout-column, layout-row, eyebrow, heading, paragraph, button, badge, icon
+# Section type: hero
+# Layout: stacked
+# Visual style: y2k_retro_futurism
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio, entertainment
+# Perfect for: tech startup, digital agency, gaming platform, music streaming, social media app, NFT marketplace, fashion brand, creative studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Sora', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A2E"
+        text: &color-text "#3A3A50"
+        secondary: &color-secondary "#C0C0C0"
+        accent: &color-accent "#7B68EE"
+        background: &color-background "#E8E8FF"
+  components:
+    - name: page
+      slug: home
+      title: "Y2K Retro-Futurism Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — soft futuristic layout
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Floating pill badge
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      verticalAlign: center
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 20
+                      radius: pill
+                      shadow: none
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xs
+                      paddingInline: lg
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "The Future Is Now"
+                        typography:
+                          color: *color-accent
+                          size: sm
+                          weight: semibold
+                          align: center
+
+            # Main heading
+            - name: heading
+              properties:
+                text: "Welcome to the Digital Frontier"
+                level: 1
+                layout:
+                  widthMode: "75"
+                typography:
+                  color: *color-primary
+                  size: xxxl
+                  weight: bold
+                  align: center
+                  lineHeight: snug
+
+            # Subheadline
+            - name: paragraph
+              properties:
+                text: |
+                  Step into a world where chrome meets neon, where pixels dream in lavender,
+                  and every interaction feels like the future we imagined in the year 2000.
+                  Your next-gen experience starts here.
+                layout:
+                  widthMode: "50"
+                typography:
+                  color: *color-text
+                  size: lg
+                  align: center
+                  lineHeight: relaxed
+                  weight: regular
+
+            # Feature pills row
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: sm
+                spacing:
+                  paddingBlock: sm
+              components:
+                - name: badge
+                  properties:
+                    text: "AI-Powered"
+                    variant: primary
+                    pill: true
+                    layout: { widthMode: fit }
+                - name: badge
+                  properties:
+                    text: "Cloud Native"
+                    variant: primary
+                    pill: true
+                    layout: { widthMode: fit }
+                - name: badge
+                  properties:
+                    text: "Web3 Ready"
+                    variant: primary
+                    pill: true
+                    layout: { widthMode: fit }
+
+            # CTA buttons — pill shaped, soft shadow
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  paddingBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "Launch Your Portal"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 0
+                      radius: pill
+                      shadow: soft
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-background
+                      weight: bold
+                      size: md
+
+                - name: button
+                  properties:
+                    text: "Explore Features"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-accent
+                      radius: pill
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-accent
+                      weight: semibold
+                      size: md
+
+            # Stats cards row — soft glassmorphic feel
+            - name: columnsgrid
+              properties:
+                layout: { columns: 3, gap: md }
+                responsive: { breakpoints: { md: 2, sm: 1 } }
+                spacing: { paddingBlock: lg }
+              columns:
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: xs
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 60
+                          radius: xl
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#d0d0ff"
+                        spacing:
+                          paddingBlock: lg
+                          paddingInline: md
+                      components:
+                        - name: icon
+                          properties:
+                            name: rocket
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "10M+"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: xl
+                              weight: bold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Active Users Worldwide"
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: xs
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 60
+                          radius: xl
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#d0d0ff"
+                        spacing:
+                          paddingBlock: lg
+                          paddingInline: md
+                      components:
+                        - name: icon
+                          properties:
+                            name: globe
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "150+"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: xl
+                              weight: bold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Countries Connected"
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center
+
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: xs
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 60
+                          radius: xl
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#d0d0ff"
+                        spacing:
+                          paddingBlock: lg
+                          paddingInline: md
+                      components:
+                        - name: icon
+                          properties:
+                            name: sparkles
+                            size: lg
+                            color: *color-accent
+                        - name: heading
+                          properties:
+                            text: "99.99%"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: xl
+                              weight: bold
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Platform Uptime"
+                            typography:
+                              color: *color-text
+                              size: sm
+                              align: center

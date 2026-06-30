@@ -4,6 +4,12 @@
 # Section type: product
 # Layout: grid
 # Visual style: monochrome_dark
+# Content volume: standard
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: ecommerce
 # Perfect for: ecommerce, retail, products, marketing
 
 - name: page

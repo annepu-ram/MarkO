@@ -1,0 +1,322 @@
+# Glassmorphism Testimonial Cards
+# Frosted glass testimonial cards on a cool gradient background
+# Base components: site, page, layout-column, columnsgrid, heading, paragraph, eyebrow, caption
+# Section type: testimonials
+# Layout: grid
+# Visual style: glassmorphism
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: trust
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio, hospitality
+# Perfect for: SaaS platform, fintech, tech startup, software, portfolio, luxury brand
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A365D"
+        text: &color-text "#334E68"
+        secondary: &color-secondary "#B0D4E8"
+        accent: &color-accent "#3182CE"
+        background: &color-background "#D6EBF5"
+  components:
+    - name: page
+      slug: home
+      title: "Glassmorphism Testimonial Cards"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Gradient background — mandatory for glassmorphism blur visibility
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: "#7C3AED"
+                  colorEnd: *color-accent
+                  direction: to bottom right
+                opacity: 100
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+          components:
+
+            # Content wrapper
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                  gap: lg
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: lg
+              components:
+
+                # Section header — frosted glass pill
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          widthMode: fit
+                          horizontalAlign: center
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 15
+                          blur: true
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#ffffff"
+                          radius: pill
+                        spacing:
+                          paddingBlock: xs
+                          paddingInline: lg
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: "TESTIMONIALS"
+                            typography:
+                              size: xs
+                              weight: semibold
+                              color: "#ffffff"
+                              letterSpacing: wider
+                              align: center
+
+                - name: heading
+                  properties:
+                    text: "Loved by teams worldwide"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: "#ffffff"
+                      align: center
+                      lineHeight: snug
+
+                - name: paragraph
+                  properties:
+                    text: "See what our customers say about transforming their workflow with our platform."
+                    typography:
+                      size: lg
+                      color: rgba(255,255,255,0.85)
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "66"
+
+                # Testimonial cards — 3-column grid
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 3
+                      gap: lg
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                    spacing:
+                      paddingBlock: lg
+                  columns:
+
+                    # Testimonial 1
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: left
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 15
+                              blur: true
+                              border:
+                                width: 1
+                                style: solid
+                                color: "#ffffff"
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(0,0,0,0.1)"
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: lg
+                          components:
+                            - name: eyebrow
+                              properties:
+                                text: "DESIGN LEAD"
+                                typography:
+                                  size: xs
+                                  weight: semibold
+                                  color: *color-accent
+                                  letterSpacing: wider
+                                  transform: uppercase
+                            - name: br
+                              properties:
+                                size: xs
+                            - name: paragraph
+                              properties:
+                                text: "\"This platform completely transformed how our team collaborates. The real-time features feel like magic — everything flows seamlessly between design and development.\""
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.9)
+                                  lineHeight: relaxed
+                            - name: br
+                              properties:
+                                size: sm
+                            - name: heading
+                              properties:
+                                text: "Sarah Chen"
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: "#ffffff"
+                                spacing:
+                                  marginBlock: none
+                            - name: caption
+                              properties:
+                                text: "VP of Engineering, Lumina AI"
+                                typography:
+                                  size: xs
+                                  color: rgba(255,255,255,0.6)
+
+                    # Testimonial 2
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: left
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 15
+                              blur: true
+                              border:
+                                width: 1
+                                style: solid
+                                color: "#ffffff"
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(0,0,0,0.1)"
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: lg
+                          components:
+                            - name: eyebrow
+                              properties:
+                                text: "ENGINEERING"
+                                typography:
+                                  size: xs
+                                  weight: semibold
+                                  color: *color-accent
+                                  letterSpacing: wider
+                                  transform: uppercase
+                            - name: br
+                              properties:
+                                size: xs
+                            - name: paragraph
+                              properties:
+                                text: "\"We cut our deployment time by 70% after switching. The analytics dashboard alone is worth the investment — we finally have clarity on what matters most to our users.\""
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.9)
+                                  lineHeight: relaxed
+                            - name: br
+                              properties:
+                                size: sm
+                            - name: heading
+                              properties:
+                                text: "Marcus Rivera"
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: "#ffffff"
+                                spacing:
+                                  marginBlock: none
+                            - name: caption
+                              properties:
+                                text: "CTO, NovaPay"
+                                typography:
+                                  size: xs
+                                  color: rgba(255,255,255,0.6)
+
+                    # Testimonial 3
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: left
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 15
+                              blur: true
+                              border:
+                                width: 1
+                                style: solid
+                                color: "#ffffff"
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(0,0,0,0.1)"
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: lg
+                          components:
+                            - name: eyebrow
+                              properties:
+                                text: "PRODUCT"
+                                typography:
+                                  size: xs
+                                  weight: semibold
+                                  color: *color-accent
+                                  letterSpacing: wider
+                                  transform: uppercase
+                            - name: br
+                              properties:
+                                size: xs
+                            - name: paragraph
+                              properties:
+                                text: "\"The onboarding was effortless and the support team is incredible. Within a week our entire design system was migrated and running smoother than ever before.\""
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.9)
+                                  lineHeight: relaxed
+                            - name: br
+                              properties:
+                                size: sm
+                            - name: heading
+                              properties:
+                                text: "Emily Nakamura"
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: "#ffffff"
+                                spacing:
+                                  marginBlock: none
+                            - name: caption
+                              properties:
+                                text: "Head of Product, Clearview Studios"
+                                typography:
+                                  size: xs
+                                  color: rgba(255,255,255,0.6)

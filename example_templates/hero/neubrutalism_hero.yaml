@@ -1,0 +1,268 @@
+# Neubrutalism Hero
+# Bold, high-contrast hero with vivid colors, thick black borders, and hard-edged shadows
+# Base components: site, page, layout-row, layout-column, heading, paragraph, columnsgrid, button
+# Section type: hero
+# Layout: stacked
+# Visual style: neubrutalism
+# Content volume: rich
+# Tone: playful
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio, hospitality, entertainment
+# Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A1A"
+        text: &color-text "#313131"
+        secondary: &color-secondary "#C8C4BB"
+        accent: &color-accent "#FF4D00"
+        background: &color-background "#E5E2DD"
+  components:
+    - name: page
+      slug: home
+      title: "Neubrutalism Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — brutally bold
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+            spacing:
+              paddingBlock: xl
+              paddingInline: md
+          components:
+
+            # Big bold heading
+            - name: heading
+              properties:
+                text: "WE DON'T DO SUBTLE."
+                level: 1
+                layout:
+                  widthMode: "83"
+                typography:
+                  color: *color-primary
+                  size: xxxl
+                  weight: extrabold
+                  align: center
+                  transform: uppercase
+
+            # Subheading in a brutalist box
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "66"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: |
+                          Design that punches you in the face. Thick borders, vivid colors,
+                          zero pretense. Your brand, amplified to maximum volume.
+                        typography:
+                          color: '#ffffff'
+                          size: md
+                          weight: medium
+                          align: center
+                          lineHeight: relaxed
+
+            # Feature cards grid — each with 4px black borders
+            - name: columnsgrid
+              properties:
+                layout: { columns: 3, gap: md }
+                responsive: { breakpoints: { md: 2, sm: 1 } }
+                spacing: { paddingBlock: lg, paddingInline: md }
+              columns:
+                - components:
+                    - name: layout-column
+                      properties:
+                        appearance:
+                          background:
+                            color: '#A3E635'
+                            opacity: 100
+                          border:
+                            width: 4
+                            style: solid
+                            color: '#000000'
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#000000'
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: md
+                      components:
+                        - name: heading
+                          properties:
+                            text: "BOLD"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: xl
+                              weight: extrabold
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "No-compromise design that commands attention from the first pixel"
+                            typography:
+                              color: *color-text
+                              size: sm
+                              weight: medium
+
+                - components:
+                    - name: layout-column
+                      properties:
+                        appearance:
+                          background:
+                            color: '#60A5FA'
+                            opacity: 100
+                          border:
+                            width: 4
+                            style: solid
+                            color: '#000000'
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#000000'
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: md
+                      components:
+                        - name: heading
+                          properties:
+                            text: "RAW"
+                            level: 3
+                            typography:
+                              color: *color-primary
+                              size: xl
+                              weight: extrabold
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Stripped-back aesthetics that celebrate function over decoration"
+                            typography:
+                              color: *color-text
+                              size: sm
+                              weight: medium
+
+                - components:
+                    - name: layout-column
+                      properties:
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          border:
+                            width: 4
+                            style: solid
+                            color: '#000000'
+                          radius: none
+                          shadow: retro
+                          shadowColor: '#000000'
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: md
+                      components:
+                        - name: heading
+                          properties:
+                            text: "LOUD"
+                            level: 3
+                            typography:
+                              color: '#ffffff'
+                              size: xl
+                              weight: extrabold
+                              transform: uppercase
+                        - name: paragraph
+                          properties:
+                            text: "Typography and color that refuse to whisper — this is maximum impact"
+                            typography:
+                              color: '#ffffff'
+                              size: sm
+                              weight: medium
+
+            # CTA buttons — neubrutalism style
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  marginBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "START BUILDING"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: '#ffffff'
+                      weight: extrabold
+                      size: md
+                      transform: uppercase
+                - name: button
+                  properties:
+                    text: "VIEW WORK"
+                    appearance:
+                      background:
+                        color: *color-background
+                        opacity: 100
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-primary
+                      weight: extrabold
+                      size: md
+                      transform: uppercase

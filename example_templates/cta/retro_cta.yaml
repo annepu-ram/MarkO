@@ -1,0 +1,169 @@
+# Retro Vintage CTA Banner
+# Bold retro call-to-action with poster typography and hard-edged borders
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button
+# Section type: cta
+# Layout: centered
+# Visual style: retro_vintage
+# Content volume: standard
+# Tone: casual
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, restaurant, portfolio, entertainment
+# Perfect for: creative portfolio, music platform, fashion brand, design studio, restaurant
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Bebas Neue', sans-serif"
+        content: "'Merriweather', serif"
+      colors:
+        primary: &color-primary '#0D0D0D'
+        text: &color-text '#292929'
+        secondary: &color-secondary '#FFD600'
+        accent: &color-accent '#FF0000'
+        background: &color-background '#FFEB3B'
+  components:
+    - name: page
+      slug: home
+      title: "Retro Vintage CTA Banner"
+      properties:
+        appearance:
+          background:
+            color: *color-primary
+            opacity: 100
+      components:
+
+        # Outer section — black bg, centered content box
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+              verticalAlign: center
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '66'
+                  horizontalAlign: center
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    opacity: 100
+                  border:
+                    width: 3
+                    style: solid
+                    color: *color-secondary
+                  radius: none
+                  shadow: retro
+                  shadowColor: *color-secondary
+                spacing:
+                  paddingBlock: xxl
+                  paddingInline: xxl
+              components:
+
+                # Eyebrow label
+                - name: eyebrow
+                  properties:
+                    text: DON'T MISS OUT
+                    typography:
+                      size: sm
+                      weight: extrabold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: xs
+
+                # Main headline
+                - name: heading
+                  properties:
+                    text: YOUR MOMENT IS NOW
+                    level: 2
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: *color-primary
+                      transform: uppercase
+                      letterSpacing: wide
+                      align: center
+                    spacing:
+                      marginBlock: sm
+
+                # Supporting subtext
+                - name: paragraph
+                  properties:
+                    text: The crowd is already moving. The records are spinning. Don't stand on the sidelines when the greatest show of the decade is happening right now — join us and make history.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: '1.7'
+                    spacing:
+                      marginBlock: lg
+
+                # Button row
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: md
+                      wrap: wrap
+                    spacing:
+                      marginBlock: none
+                  components:
+
+                    # Primary CTA button — red bg, black border, white uppercase text
+                    - name: button
+                      properties:
+                        text: JOIN THE MOVEMENT
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                        typography:
+                          color: '#ffffff'
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+
+                    # Secondary CTA button — black bg, black border, white uppercase text
+                    - name: button
+                      properties:
+                        text: LEARN MORE
+                        appearance:
+                          background:
+                            color: *color-primary
+                            opacity: 100
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                        typography:
+                          color: '#ffffff'
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                          letterSpacing: wide
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl

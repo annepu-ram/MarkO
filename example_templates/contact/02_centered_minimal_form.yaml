@@ -1,0 +1,156 @@
+# Centered Minimal Contact Form Section
+# A clean centered contact form with heading and description text above a vertically stacked form with textbox, textarea fields and a prominent call-to-action submit button
+# Base components: layout-row, layout-column, form, textbox, textarea, heading, paragraph, eyebrow, button
+# Section type: contact
+# Layout: centered, stacked
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: form
+# Industries: professional_services, portfolio, health, education, realestate
+# Perfect for: consulting firm, law firm, dental clinic, real estate agency, digital agency, photography studio, architecture firm, accounting firm, tutoring center, wellness center
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Poppins', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#8b5cf6'
+        background: &color-background '#ffffff'
+  components:
+  - name: page
+    slug: home
+    title: "02 Centered Minimal Form"
+    properties:
+      appearance: {background: {color: *color-background}}
+    components:
+
+        # ============================================
+        # CENTERED MINIMAL CONTACT SECTION
+        # ============================================
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+          wrap: wrap
+          verticalAlign: center
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+      components:
+
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: center
+          appearance:
+            background:
+              color: *color-background
+              opacity: 0
+          spacing:
+            paddingBlock: xl
+            paddingInline: xl
+        components:
+        - name: eyebrow
+          properties:
+            text: CONTACT
+            typography: {size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+            spacing: {marginBlock: xs}
+
+        - name: heading
+          properties:
+            text: "Let's Talk"
+            level: 2
+            typography: {size: xxxl, weight: bold, color: *color-primary, align: center, letterSpacing: tight}
+            spacing: {marginBlock: sm}
+
+        - name: paragraph
+          properties:
+            text: We'd love to hear about your project. Drop us a message and let's create something amazing together.
+            typography: {size: md, color: *color-secondary, align: center, lineHeight: '1.7'}
+            spacing: {marginBlock: md}
+
+        - name: form
+          properties:
+            layout: {style: vertical}
+            submit: {show: false}
+          components:
+          - name: textbox
+            properties:
+              label:
+                text: Your Name
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: name
+                placeholder: "Jane Smith"
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: textbox
+            properties:
+              label:
+                text: Email
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: email
+                placeholder: "jane@example.com"
+                validation: email
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: textbox
+            properties:
+              label:
+                text: Phone
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: phone
+                placeholder: "+1 (555) 000-0000"
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: textarea
+            properties:
+              label:
+                text: Your Message
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: message
+                placeholder: "Tell us about your project..."
+                rows: 5
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: button
+            properties:
+              text: Send Message
+              appearance:
+                background: {color: *color-accent, opacity: 100}
+                radius: md
+              typography: {color: *color-background, weight: semibold, size: md}
+              spacing: {marginBlock: sm, paddingBlock: md, paddingInline: xl}
+              layout: {widthMode: stretch}

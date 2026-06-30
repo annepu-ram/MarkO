@@ -1,0 +1,196 @@
+# Dashboard Data Card 03 - "The Activity Feed"
+# A vertical list of recent activity items, each with an avatar and description. Mimics a real-time event log or notification stream.
+# Base components: page, layout-column, heading, layout-row, image, paragraph
+# Section type: dashboard
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: required
+# Interactivity: static
+# Industries: saas
+# Perfect for: SaaS, analytics, admin panels, dashboards, business tools
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#f8fafc'
+    spacing: {paddingBlock: xl, paddingInline: xl}
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        widthMode: "50"
+        gap: none
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      appearance:
+        background:
+          color: *color-background
+          opacity: 100
+        radius: md
+        shadow: soft
+    components:
+    - name: heading
+      properties:
+        text: Recent Activity
+        level: 3
+        typography:
+          size: md
+          weight: bold
+          color: *color-primary
+        spacing:
+          marginBlock: xs
+
+        # Activity Item 1
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: start
+          wrap: wrap
+          gap: sm
+          verticalAlign: center
+        spacing:
+          paddingBlock: sm
+          paddingInline: none
+        appearance:
+          border:
+            width: 0
+            style: none
+      components:
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop'
+            altText: 'Alex Morgan avatar'
+          layout:
+            widthMode: fit
+          appearance:
+            radius: pill
+            fit: cover
+            width: 40
+            height: 40
+      - name: paragraph
+        properties:
+          text: "<strong>Alex Morgan</strong> deployed v2.4.1 to production <em>2 min ago</em>"
+          layout:
+            widthMode: stretch
+          typography:
+            size: sm
+            weight: regular
+            color: *color-text
+
+        # Activity Item 2
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: start
+          wrap: wrap
+          gap: sm
+          verticalAlign: center
+        spacing:
+          paddingBlock: sm
+          paddingInline: none
+      components:
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop'
+            altText: 'Sarah Chen avatar'
+          layout:
+            widthMode: fit
+          appearance:
+            radius: pill
+            fit: cover
+            width: 40
+            height: 40
+      - name: paragraph
+        properties:
+          text: "<strong>Sarah Chen</strong> commented on issue #342 <em>15 min ago</em>"
+          layout:
+            widthMode: stretch
+          typography:
+            size: sm
+            weight: regular
+            color: *color-text
+
+        # Activity Item 3
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: start
+          wrap: wrap
+          gap: sm
+          verticalAlign: center
+        spacing:
+          paddingBlock: sm
+          paddingInline: none
+      components:
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop'
+            altText: 'Marcus Lee avatar'
+          layout:
+            widthMode: fit
+          appearance:
+            radius: pill
+            fit: cover
+            width: 40
+            height: 40
+      - name: paragraph
+        properties:
+          text: "<strong>Marcus Lee</strong> merged pull request #128 <em>1 hour ago</em>"
+          layout:
+            widthMode: stretch
+          typography:
+            size: sm
+            weight: regular
+            color: *color-text
+
+        # Activity Item 4
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: start
+          wrap: wrap
+          gap: sm
+          verticalAlign: center
+        spacing:
+          paddingBlock: sm
+          paddingInline: none
+      components:
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop'
+            altText: 'Priya Sharma avatar'
+          layout:
+            widthMode: fit
+          appearance:
+            radius: pill
+            fit: cover
+            width: 40
+            height: 40
+      - name: paragraph
+        properties:
+          text: "<strong>Priya Sharma</strong> created new workspace <em>3 hours ago</em>"
+          layout:
+            widthMode: stretch
+          typography:
+            size: sm
+            weight: regular
+            color: *color-text

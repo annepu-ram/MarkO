@@ -1,0 +1,193 @@
+# Retro Vintage CTA Banner
+# Bold red call-to-action with chunky typography, thick borders, and hard shadows
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: retro_vintage
+# Content volume: standard
+# Tone: casual
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, ecommerce, portfolio, entertainment
+# Perfect for: Creative portfolio, fashion brand, music platform, vinyl shop, design studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Bebas Neue', sans-serif"
+        content: &font-content "'Merriweather', serif"
+      colors:
+        primary: &color-primary "#0D0D0D"
+        text: &color-text "#2D2D00"
+        secondary: &color-secondary "#FFD600"
+        accent: &color-accent "#FF0000"
+        background: &color-background "#FFEB3B"
+  components:
+    - name: page
+      slug: home
+      title: "Retro Vintage CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — bold accent background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Outer container — accent red with thick border
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "83"
+                  horizontalAlign: center
+                  gap: md
+                appearance:
+                  background:
+                    color: *color-accent
+                    opacity: 100
+                  radius: none
+                  shadow: retro
+                  shadowColor: *color-primary
+                  border:
+                    width: 3
+                    style: solid
+                    color: *color-primary
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: xxl
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Limited Time Offer"
+                    typography:
+                      size: xs
+                      weight: bold
+                      color: *color-background
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "DON'T JUST STAND THERE. CREATE SOMETHING."
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: extrabold
+                      color: *color-background
+                      align: center
+                      lineHeight: snug
+                      transform: uppercase
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      The world needs more bold ideas and fewer boring templates. Grab your tools,
+                      crank up the volume, and start making something that actually matters.
+                    typography:
+                      size: md
+                      color: "#ffffff"
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "75"
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "GET STARTED NOW"
+                        appearance:
+                          background:
+                            color: *color-primary
+                            opacity: 100
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                          radius: none
+                          shadow: retro
+                          shadowColor: *color-primary
+                        typography:
+                          color: *color-secondary
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "SEE EXAMPLES"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 3
+                            style: solid
+                            color: *color-primary
+                          radius: none
+                          shadow: none
+                        typography:
+                          color: *color-primary
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Badge row
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: badge
+                      properties:
+                        text: "FREE TRIAL"
+                        variant: warning
+                        pill: false
+                        layout: { widthMode: fit }
+                    - name: badge
+                      properties:
+                        text: "NO CREDIT CARD"
+                        variant: warning
+                        pill: false
+                        layout: { widthMode: fit }
+                    - name: badge
+                      properties:
+                        text: "CANCEL ANYTIME"
+                        variant: warning
+                        pill: false
+                        layout: { widthMode: fit }

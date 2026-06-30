@@ -72,6 +72,16 @@ export class ComponentPathMapBuilder {
                 this.traverseStructure(component.components, childPath);
             }
 
+            if (component.header && Array.isArray(component.header)) {
+                const headerPath = [...path, 'header'];
+                this.traverseStructure(component.header, headerPath);
+            }
+
+            if (component.footer && Array.isArray(component.footer)) {
+                const footerPath = [...path, 'footer'];
+                this.traverseStructure(component.footer, footerPath);
+            }
+
             // Traverse columns (for columnsgrid)
             if (component.columns && Array.isArray(component.columns)) {
                 component.columns.forEach((column, colIndex) => {
@@ -147,6 +157,18 @@ export class ComponentPathMapBuilder {
                 const childPath = [...path, 'components'];
                 const childParentElement = element || parentElement;
                 this.traverseYamlStructure(component.components, childPath, childParentElement);
+            }
+
+            if (component.header && Array.isArray(component.header)) {
+                const headerPath = [...path, 'header'];
+                const headerParentElement = element || parentElement;
+                this.traverseYamlStructure(component.header, headerPath, headerParentElement);
+            }
+
+            if (component.footer && Array.isArray(component.footer)) {
+                const footerPath = [...path, 'footer'];
+                const footerParentElement = element || parentElement;
+                this.traverseYamlStructure(component.footer, footerPath, footerParentElement);
             }
 
             // Traverse columns (for columnsgrid)

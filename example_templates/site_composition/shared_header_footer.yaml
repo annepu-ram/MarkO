@@ -1,0 +1,128 @@
+# Site Composition Example
+# Demonstrates site-level shared header/footer rendered around a page.
+# Base components: site, page, titlebar, layout-row, layout-column, heading, paragraph, button
+# Section type: full_page
+# Layout: composed_site
+# Visual style: modern_minimalist
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Inter', sans-serif"
+        content: "'Inter', sans-serif"
+      colors:
+        primary: "#111827"
+        text: "#374151"
+        secondary: "#6b7280"
+        accent: "#2563eb"
+        background: "#ffffff"
+  header:
+    - name: titlebar
+      properties:
+        branding:
+          showLogo: false
+          title: Swift Sites
+        navigation:
+          links:
+            - label: Home
+              href: /home
+            - label: Pricing
+              href: /pricing
+            - label: Contact
+              href: /contact
+        appearance:
+          background:
+            color: "#ffffff"
+            opacity: 100
+          border:
+            width: 1
+            style: solid
+            color: "#e5e7eb"
+  components:
+    - name: page
+      slug: home
+      title: Shared Header Footer
+      properties:
+        appearance:
+          background:
+            color: "#ffffff"
+            opacity: 100
+      components:
+        - name: layout-row
+          properties:
+            layout:
+              tag: section
+              horizontalAlign: center
+              verticalAlign: center
+              wrap: wrap
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  gap: md
+              components:
+                - name: heading
+                  properties:
+                    text: Shared site structure, page-specific content
+                    level: 1
+                    typography:
+                      size: xxxl
+                      weight: bold
+                      align: center
+                      color: "#111827"
+                - name: paragraph
+                  properties:
+                    text: Header and footer YAML can live once at the site level while each page stores only its body content.
+                    typography:
+                      size: lg
+                      align: center
+                      color: "#374151"
+                - name: button
+                  properties:
+                    text: Build Campaign
+                    action:
+                      type: link
+                      href: /contact
+                    appearance:
+                      background:
+                        color: "#2563eb"
+                        opacity: 100
+                      border:
+                        width: 0
+                        style: solid
+                        color: "#2563eb"
+                    typography:
+                      color: "#ffffff"
+  footer:
+    - name: layout-row
+      properties:
+        layout:
+          tag: section
+          horizontalAlign: center
+          verticalAlign: center
+          wrap: wrap
+        spacing:
+          paddingBlock: lg
+          paddingInline: xl
+        appearance:
+          background:
+            color: "#f9fafb"
+            opacity: 100
+          border:
+            width: 1
+            style: solid
+            color: "#e5e7eb"
+      components:
+        - name: paragraph
+          properties:
+            text: "(c) 2026 Swift Sites. Shared footer rendered from site-level YAML."
+            typography:
+              size: sm
+              align: center
+              color: "#6b7280"

@@ -1,0 +1,112 @@
+# Review Card Variant: The Detailed Review
+# layout-column with a heading, paragraph, br, and a link to the verified purchase
+# Base components: layout-column, layout-row, heading, eyebrow, paragraph, br, image, caption, link
+# Section type: testimonials
+# Layout: centered
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: trust
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas, ecommerce
+# Perfect for: any business, SaaS, ecommerce, services, agencies
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#059669'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: left, gap: sm}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: soft
+        border: {width: 1, style: solid, color: *color-secondary}
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: lg, paddingInline: lg}
+    components:
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
+        appearance: {background: {opacity: 0}}
+      components:
+      - name: heading
+        properties:
+          text: "Exceeded All My Expectations"
+          level: 3
+          typography: {size: lg, weight: bold, color: *color-primary, align: left}
+          spacing: {marginBlock: none}
+      - name: eyebrow
+        properties:
+          text: VERIFIED PURCHASE
+          typography: {size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+          spacing: {marginBlock: none, paddingBlock: xxs, paddingInline: xs}
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            radius: pill
+    - name: paragraph
+      properties:
+        text: |
+          I've been using this product daily for the past 6 months and it has
+          fundamentally changed how I approach my work. The initial setup was
+          incredibly straightforward — I was up and running in under 15 minutes.
+
+          The feature set is comprehensive without being overwhelming. Every tool
+          feels purposeful and well-designed. The AI-powered suggestions have
+          saved me countless hours, and the collaboration features make working
+          with my distributed team feel seamless.
+
+          If I had to pick one area for improvement, it would be the mobile
+          experience — while functional, it doesn't quite match the desktop
+          polish. That said, updates are frequent and I've noticed improvements
+          with each release.
+        typography: {size: sm, color: *color-secondary, align: left, lineHeight: "1.8"}
+    - name: br
+      properties:
+        size: sm
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: space-between, verticalAlign: center, wrap: nowrap}
+        appearance: {background: {opacity: 0}}
+      components:
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: left, verticalAlign: center, gap: sm, wrap: nowrap}
+          appearance: {background: {opacity: 0}}
+        components:
+        - name: image
+          properties:
+            source: {url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80', altText: 'Reviewer avatar'}
+            appearance: {minHeight: 2.5, maxHeight: 2.5, fit: cover, cornerStyle: pill}
+            layout: {widthMode: fit}
+            spacing: {marginBlock: none}
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: left, gap: none}
+            appearance: {background: {opacity: 0}}
+          components:
+          - name: paragraph
+            properties:
+              text: Thomas Bradley
+              typography: {size: sm, weight: bold, color: *color-text}
+              spacing: {marginBlock: none}
+          - name: caption
+            properties:
+              text: "Purchased Feb 2026"
+              typography: {size: xs, color: *color-secondary}
+      - name: link
+        properties:
+          text: "Helpful (47)"
+          href: '#'
+          typography: {size: sm, weight: medium, color: *color-secondary}
+          appearance: {underline: false}
+          spacing: {marginBlock: none}

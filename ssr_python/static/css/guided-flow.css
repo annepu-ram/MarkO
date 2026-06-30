@@ -11,7 +11,7 @@
     padding: 12px;
     background: #ffffff;
     border: 1px solid #e5e7eb;
-    border-left: 3px solid #ea580c;
+    border-left: 3px solid #0058a3;
     border-radius: 10px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
@@ -52,7 +52,7 @@
     position: absolute;
     inset: 0;
     width: var(--guided-progress, 0%);
-    background: linear-gradient(90deg, #ea580c 0%, #f59e0b 100%);
+    background: linear-gradient(90deg, #0058a3 0%, #0070cc 100%);
     border-radius: 2px;
     transition: width 240ms ease;
 }
@@ -70,7 +70,7 @@
     flex-shrink: 0;
     width: 16px;
     height: 16px;
-    color: #ea580c;
+    color: #0058a3;
 }
 
 .guided-step-label {
@@ -162,7 +162,7 @@
 .guided-input:focus,
 .guided-textarea:focus {
     outline: none;
-    border-color: #ea580c;
+    border-color: #0058a3;
     box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
 }
 .guided-textarea { resize: vertical; min-height: 60px; font-family: inherit; }
@@ -188,8 +188,8 @@
     cursor: pointer;
     transition: all 0.15s;
 }
-.guided-tab:hover { color: #ea580c; }
-.guided-tab.active { color: #ea580c; border-bottom-color: #ea580c; }
+.guided-tab:hover { color: #0058a3; }
+.guided-tab.active { color: #0058a3; border-bottom-color: #0058a3; }
 
 .guided-tabpanel.hidden { display: none; }
 
@@ -243,7 +243,7 @@
 .guided-card.selected,
 .guided-variant-card.selected,
 .guided-style-card.selected {
-    border: 2px solid #ea580c;
+    border: 2px solid #0058a3;
     background: #fff7ed;
     padding: 9px 11px;  /* compensate for 1px extra border */
 }
@@ -259,7 +259,7 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #ea580c url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/10px 10px no-repeat;
+    background: #0058a3 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>") center/10px 10px no-repeat;
 }
 
 .guided-variant-card { padding: 12px 14px; }
@@ -293,7 +293,7 @@
 
 .guided-card-hint {
     font-size: 10px;
-    color: #ea580c;
+    color: #0058a3;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.3px;
@@ -337,7 +337,7 @@
 }
 .guided-check-card.selected {
     background: #fff7ed;
-    border-color: #ea580c;
+    border-color: #0058a3;
 }
 
 /* Custom 18px checkbox replacing native one */
@@ -361,8 +361,8 @@
     transition: all 0.15s;
 }
 .guided-check-card.selected .guided-check-box {
-    background: #ea580c;
-    border-color: #ea580c;
+    background: #0058a3;
+    border-color: #0058a3;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6 9 17l-5-5'/></svg>");
     background-size: 12px 12px;
     background-position: center;
@@ -411,8 +411,8 @@
 }
 .guided-hint-add:hover {
     background: #fde68a;
-    border-color: #ea580c;
-    color: #ea580c;
+    border-color: #0058a3;
+    color: #0058a3;
     transform: translateY(-1px);
 }
 
@@ -498,9 +498,9 @@
 .guided-btn-skip svg { width: 12px; height: 12px; }
 
 .guided-btn-primary {
-    background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+    background: linear-gradient(135deg, #0058a3 0%, #0070cc 100%);
     color: #ffffff;
-    border-color: #ea580c;
+    border-color: #0058a3;
     margin-left: auto;
 }
 .guided-btn-primary:hover:not(:disabled) {
@@ -532,7 +532,7 @@
     padding: 6px 10px;
     text-decoration: underline;
 }
-.guided-btn-skip:hover { color: #ea580c; }
+.guided-btn-skip:hover { color: #0058a3; }
 
 /* Header-level skip link (small, muted, bottom-right when in footer) */
 .guided-skip-link {
@@ -546,7 +546,41 @@
     padding: 2px 4px;
     flex-shrink: 0;
 }
-.guided-skip-link:hover { color: #ea580c; }
+.guided-skip-link:hover { color: #0058a3; }
+
+/* ── Enhance button (AI auto-fill) ───────────────────────────── */
+.guided-btn-enhance {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    color: #fff;
+    border: 1px solid #7c3aed;
+    margin-left: auto;
+}
+.guided-btn-enhance svg { width: 12px; height: 12px; }
+.guided-btn-enhance:hover:not(:disabled) {
+    filter: brightness(1.1);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.35);
+}
+.guided-btn-enhance:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Visual indicator for AI-enhanced fields */
+.guided-enhanced {
+    border-color: #8b5cf6 !important;
+    background: #faf5ff !important;
+    transition: border-color 0.3s, background 0.3s;
+}
 
 /* ── Responsive tweaks for narrow panels ─────────────────────── */
 @media (max-width: 420px) {

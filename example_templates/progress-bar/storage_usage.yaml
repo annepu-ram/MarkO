@@ -4,6 +4,12 @@
 # Section type: stats
 # Layout: stacked
 # Visual style: monochrome_dark
+# Content volume: standard
+# Tone: formal
+# Conversion intent: trust
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas
 # Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page

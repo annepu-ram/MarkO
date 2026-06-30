@@ -154,6 +154,7 @@ def validate_component_properties(component, tokens, component_path=''):
 
 DEFAULT_THEME_COLORS = {
     '$color-primary': '#111827',
+    '$color-text': '#374151',
     '$color-secondary': '#6b7280',
     '$color-accent': '#6366f1',
     '$color-background': '#ffffff',
@@ -168,6 +169,8 @@ def _extract_theme_colors(structure):
             theme_colors = theme.get('colors', {})
             if theme_colors.get('primary'):
                 colors['$color-primary'] = theme_colors['primary']
+            if theme_colors.get('text'):
+                colors['$color-text'] = theme_colors['text']
             if theme_colors.get('secondary'):
                 colors['$color-secondary'] = theme_colors['secondary']
             if theme_colors.get('accent'):
@@ -224,6 +227,18 @@ def merge_component_with_defaults(component, defaults, tokens=None, component_pa
         merged_component['components'] = [
             merge_component_with_defaults(child, defaults, tokens, f"{component_path}.components[{i}]")
             for i, child in enumerate(merged_component.get('components') or [])
+        ]
+
+    if 'header' in merged_component:
+        merged_component['header'] = [
+            merge_component_with_defaults(child, defaults, tokens, f"{component_path}.header[{i}]")
+            for i, child in enumerate(merged_component.get('header') or [])
+        ]
+
+    if 'footer' in merged_component:
+        merged_component['footer'] = [
+            merge_component_with_defaults(child, defaults, tokens, f"{component_path}.footer[{i}]")
+            for i, child in enumerate(merged_component.get('footer') or [])
         ]
     
     # Handle nested structures in specific component types
@@ -369,4 +384,3 @@ def render_yaml_structure(structure, tokens=None, defaults=None):
             error_msg = f"Iteration Error: {str(e)}\n\nThis usually means you're trying to iterate over a method/function instead of calling it.\n\nStructure type: {type(structure)}\nTokens type: {type(tokens)}\n\nFull traceback:\n{traceback.format_exc()}"
             raise Exception(error_msg) from e
         raise
-

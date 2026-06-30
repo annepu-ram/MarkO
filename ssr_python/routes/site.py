@@ -8,7 +8,10 @@ import secrets
 from datetime import datetime
 from flask import Blueprint, current_app, g, jsonify, request, abort
 from extensions import db, TOKENS, COMPONENT_DEFAULTS
-from models import Organization, Site, SitePage, PublishedPage, SiteVersion, SiteVersionPage
+from models import (
+    Organization, Site, SitePage, SiteSharedBlock, PageSharedBlockOverride,
+    PublishedPage, SectionItem, SiteVersion, SiteVersionPage, SiteVersionSharedBlock,
+)
 from guards import (
     get_site_or_404, get_page_or_404, get_version_or_404,
     validate_site_slug, generate_default_page_yaml, generate_page_yaml_from_homepage,
@@ -16,10 +19,62 @@ from guards import (
     validate_site_settings,
 )
 from renderer import render_yaml_structure
+from site_composer import compose_page_yaml, dump_composed_yaml, CompositionError
 import uuid
 import yaml
 
 site_bp = Blueprint('site', __name__)
+
+ALLOWED_SHARED_BLOCK_KEYS = {'announcement_bar', 'header', 'footer'}
+ALLOWED_OVERRIDE_MODES = {'inherit', 'hidden', 'custom'}
+
+
+def _serialize_shared_block(block):
+    return {
+        'id': block.id,
+        'site_id': block.site_id,
+        'key': block.key,
+        'label': block.label,
+        'yaml_content': block.yaml_content,
+        'enabled': block.enabled,
+        'sort_order': block.sort_order,
+        'updated_at': block.updated_at.isoformat() if block.updated_at else None,
+    }
+
+
+def _serialize_override(override):
+    return {
+        'id': override.id,
+        'page_id': override.page_id,
+        'block_key': override.block_key,
+        'mode': override.mode,
+        'custom_yaml_content': override.custom_yaml_content,
+        'updated_at': override.updated_at.isoformat() if override.updated_at else None,
+    }
+
+
+def _validate_component_list_yaml(yaml_content, field_name='yaml_content'):
+    try:
+        parsed = yaml.safe_load(yaml_content or '[]')
+    except yaml.YAMLError as exc:
+        return False, f'{field_name} is not valid YAML: {exc}'
+    if parsed is None:
+        parsed = []
+    if not isinstance(parsed, list):
+        return False, f'{field_name} must be a YAML list of components.'
+    return True, None
+
+
+def _parse_component_list_yaml(yaml_content, field_name='yaml_content'):
+    try:
+        parsed = yaml.safe_load(yaml_content or '[]')
+    except yaml.YAMLError as exc:
+        raise ValueError(f'{field_name} is not valid YAML: {exc}') from exc
+    if parsed is None:
+        return []
+    if not isinstance(parsed, list):
+        raise ValueError(f'{field_name} must be a YAML list of components.')
+    return parsed
 
 
 # =============================================================================
@@ -67,6 +122,7 @@ def list_sites():
 
         result.append({
             'id': s.id,
+            'brand_id': s.brand_id,
             'name': s.name,
             'slug': s.slug,
             'status': s.status,
@@ -134,6 +190,7 @@ def create_site():
 
     return jsonify({
         'id': site.id,
+        'brand_id': site.brand_id,
         'name': site.name,
         'slug': site.slug,
         'pages': [{
@@ -352,6 +409,48 @@ def save_page(site_id, page_id):
     })
 
 
+@site_bp.route('/api/sites/<site_id>/pages/<page_id>/sections', methods=['POST'])
+@require_role('editor')
+def append_section_to_page(site_id, page_id):
+    """Append a YAML-backed SectionItem to a page body."""
+    site, page = get_page_or_404(site_id, page_id)
+    data = request.get_json(silent=True) or {}
+    section_id = (data.get('section_id') or '').strip()
+    if not section_id:
+        return jsonify({'error': 'section_id is required.'}), 400
+
+    section = SectionItem.query.filter_by(id=section_id, org_id=g.current_org_id).first()
+    if not section:
+        abort(404)
+    if section.brand_id and getattr(site, 'brand_id', None) and section.brand_id != site.brand_id:
+        return jsonify({'error': 'Section brand does not match this site.'}), 400
+    if not section.yaml_content:
+        return jsonify({'error': 'Section does not have yaml_content. Regenerate section YAML first.'}), 400
+
+    try:
+        existing = _parse_component_list_yaml(page.body_yaml_content or '[]', 'body_yaml_content')
+        section_components = _parse_component_list_yaml(section.yaml_content, 'section yaml_content')
+    except ValueError as exc:
+        return jsonify({'error': str(exc)}), 400
+
+    page.body_yaml_content = yaml.dump(
+        existing + section_components,
+        default_flow_style=False,
+        allow_unicode=True,
+        sort_keys=False,
+    )
+    page.updated_at = datetime.utcnow()
+    db.session.commit()
+
+    return jsonify({
+        'ok': True,
+        'page_id': page.id,
+        'section_id': section.id,
+        'body_yaml_content': page.body_yaml_content,
+        'updated_at': page.updated_at.isoformat(),
+    })
+
+
 @site_bp.route('/api/sites/<site_id>/pages/<page_id>', methods=['PATCH'])
 def update_page(site_id, page_id):
     """Update page metadata (title, slug, sort_order).
@@ -410,6 +509,183 @@ def delete_page(site_id, page_id):
 
 
 # =============================================================================
+# Site Shared Blocks & Page Overrides
+# =============================================================================
+
+@site_bp.route('/api/sites/<site_id>/shared-blocks', methods=['GET'])
+def list_shared_blocks(site_id):
+    """List shared component blocks for a site."""
+    site = get_site_or_404(site_id)
+    blocks = SiteSharedBlock.query.filter_by(site_id=site.id) \
+        .order_by(SiteSharedBlock.sort_order, SiteSharedBlock.key).all()
+    return jsonify([_serialize_shared_block(block) for block in blocks])
+
+
+@site_bp.route('/api/sites/<site_id>/shared-blocks', methods=['POST'])
+@require_role('editor')
+def create_shared_block(site_id):
+    """Create a shared site block such as header/footer."""
+    site = get_site_or_404(site_id)
+    data = request.get_json(silent=True)
+    if not data:
+        return jsonify({'error': 'JSON body required.'}), 400
+
+    key = (data.get('key') or '').strip()
+    if key not in ALLOWED_SHARED_BLOCK_KEYS:
+        return jsonify({'error': f'Invalid shared block key "{key}".'}), 400
+
+    existing = SiteSharedBlock.query.filter_by(site_id=site.id, key=key).first()
+    if existing:
+        return jsonify({'error': f'Shared block "{key}" already exists.'}), 409
+
+    yaml_content = data.get('yaml_content', '[]')
+    valid, error = _validate_component_list_yaml(yaml_content)
+    if not valid:
+        return jsonify({'error': error}), 400
+
+    block = SiteSharedBlock(
+        site_id=site.id,
+        key=key,
+        label=(data.get('label') or key.replace('_', ' ').title()).strip(),
+        yaml_content=yaml_content,
+        enabled=bool(data.get('enabled', True)),
+        sort_order=int(data.get('sort_order') or 0),
+    )
+    db.session.add(block)
+    site.updated_at = datetime.utcnow()
+    db.session.commit()
+    return jsonify(_serialize_shared_block(block)), 201
+
+
+@site_bp.route('/api/sites/<site_id>/shared-blocks/<key>', methods=['PUT'])
+@require_role('editor')
+def upsert_shared_block(site_id, key):
+    """Create or replace a site's shared block."""
+    site = get_site_or_404(site_id)
+    key = (key or '').strip()
+    if key not in ALLOWED_SHARED_BLOCK_KEYS:
+        return jsonify({'error': f'Invalid shared block key "{key}".'}), 400
+
+    data = request.get_json(silent=True)
+    if not data:
+        return jsonify({'error': 'JSON body required.'}), 400
+
+    yaml_content = data.get('yaml_content', '[]')
+    valid, error = _validate_component_list_yaml(yaml_content)
+    if not valid:
+        return jsonify({'error': error}), 400
+
+    block = SiteSharedBlock.query.filter_by(site_id=site.id, key=key).first()
+    created = block is None
+    if block is None:
+        block = SiteSharedBlock(site_id=site.id, key=key)
+        db.session.add(block)
+
+    block.label = (data.get('label') or key.replace('_', ' ').title()).strip()
+    block.yaml_content = yaml_content
+    block.enabled = bool(data.get('enabled', True))
+    block.sort_order = int(data.get('sort_order') or 0)
+    block.updated_at = datetime.utcnow()
+    site.updated_at = datetime.utcnow()
+    db.session.commit()
+    return jsonify(_serialize_shared_block(block)), 201 if created else 200
+
+
+@site_bp.route('/api/sites/<site_id>/shared-blocks/<key>', methods=['DELETE'])
+@require_role('editor')
+def delete_shared_block(site_id, key):
+    """Delete a shared block."""
+    site = get_site_or_404(site_id)
+    block = SiteSharedBlock.query.filter_by(site_id=site.id, key=key).first()
+    if not block:
+        return jsonify({'error': 'Shared block not found.'}), 404
+    db.session.delete(block)
+    site.updated_at = datetime.utcnow()
+    db.session.commit()
+    return jsonify({'ok': True})
+
+
+@site_bp.route('/api/sites/<site_id>/pages/<page_id>/shared-block-overrides', methods=['GET'])
+def list_shared_block_overrides(site_id, page_id):
+    """List shared block overrides for a page."""
+    site, page = get_page_or_404(site_id, page_id)
+    overrides = PageSharedBlockOverride.query.filter_by(page_id=page.id).all()
+    return jsonify([_serialize_override(override) for override in overrides])
+
+
+@site_bp.route('/api/sites/<site_id>/pages/<page_id>/shared-block-overrides/<key>', methods=['PUT'])
+@require_role('editor')
+def upsert_shared_block_override(site_id, page_id, key):
+    """Create or replace a page-level shared block override."""
+    site, page = get_page_or_404(site_id, page_id)
+    key = (key or '').strip()
+    if key not in ALLOWED_SHARED_BLOCK_KEYS:
+        return jsonify({'error': f'Invalid shared block key "{key}".'}), 400
+
+    data = request.get_json(silent=True)
+    if not data:
+        return jsonify({'error': 'JSON body required.'}), 400
+
+    mode = (data.get('mode') or 'inherit').strip()
+    if mode not in ALLOWED_OVERRIDE_MODES:
+        return jsonify({'error': f'Invalid override mode "{mode}".'}), 400
+
+    custom_yaml_content = data.get('custom_yaml_content')
+    if mode == 'custom':
+        valid, error = _validate_component_list_yaml(custom_yaml_content or '[]', 'custom_yaml_content')
+        if not valid:
+            return jsonify({'error': error}), 400
+
+    override = PageSharedBlockOverride.query.filter_by(page_id=page.id, block_key=key).first()
+    created = override is None
+    if override is None:
+        override = PageSharedBlockOverride(page_id=page.id, block_key=key)
+        db.session.add(override)
+
+    override.mode = mode
+    override.custom_yaml_content = custom_yaml_content if mode == 'custom' else None
+    override.updated_at = datetime.utcnow()
+    page.updated_at = datetime.utcnow()
+    site.updated_at = datetime.utcnow()
+    db.session.commit()
+    return jsonify(_serialize_override(override)), 201 if created else 200
+
+
+@site_bp.route('/api/sites/<site_id>/pages/<page_id>/composed-yaml', methods=['GET'])
+def get_composed_page_yaml(site_id, page_id):
+    """Return composed renderer-compatible YAML for debugging."""
+    site, page = get_page_or_404(site_id, page_id)
+    try:
+        return current_app.response_class(
+            dump_composed_yaml(site, page),
+            mimetype='application/x-yaml',
+        )
+    except CompositionError as exc:
+        return jsonify({'error': str(exc)}), 400
+
+
+@site_bp.route('/api/sites/<site_id>/pages/<page_id>/render', methods=['POST'])
+def render_composed_page(site_id, page_id):
+    """Render a page through the site composer.
+
+    Optional JSON body: { body_yaml_content: str } for unsaved preview drafts.
+    """
+    site, page = get_page_or_404(site_id, page_id)
+    data = request.get_json(silent=True) or {}
+    original_body = page.body_yaml_content
+    if 'body_yaml_content' in data:
+        page.body_yaml_content = data.get('body_yaml_content') or ''
+    try:
+        structure = compose_page_yaml(site, page)
+        html = render_yaml_structure(structure, tokens=TOKENS, defaults=COMPONENT_DEFAULTS)
+        return html, 200, {'Content-Type': 'text/html'}
+    except CompositionError as exc:
+        return jsonify({'error': str(exc)}), 400
+    finally:
+        page.body_yaml_content = original_body
+
+
+# =============================================================================
 # Publish / Unpublish
 # =============================================================================
 
@@ -447,7 +723,7 @@ def publish_site(site_id):
 
     for sp in source_pages:
         try:
-            structure = yaml.safe_load(sp.yaml_content)
+            structure = compose_page_yaml(site, sp)
             html = render_yaml_structure(structure, tokens=TOKENS, defaults=COMPONENT_DEFAULTS)
         except Exception as e:
             current_app.logger.error(f'Publish error rendering page {sp.slug}: {e}')
@@ -476,12 +752,26 @@ def publish_site(site_id):
     db.session.add(version)
     db.session.flush()
 
+    shared_blocks = SiteSharedBlock.query.filter_by(site_id=site.id) \
+        .order_by(SiteSharedBlock.sort_order, SiteSharedBlock.key).all()
+    for block in shared_blocks:
+        version_block = SiteVersionSharedBlock(
+            version_id=version.id,
+            key=block.key,
+            label=block.label,
+            yaml_content=block.yaml_content,
+            enabled=block.enabled,
+            sort_order=block.sort_order,
+        )
+        db.session.add(version_block)
+
     for sp in source_pages:
         vp = SiteVersionPage(
             version_id=version.id,
             slug=sp.slug,
             title=sp.title,
             yaml_content=sp.yaml_content,
+            body_yaml_content=sp.body_yaml_content,
             sort_order=sp.sort_order,
             is_homepage=sp.is_homepage,
         )
@@ -554,6 +844,18 @@ def rollback_version(site_id, version_id):
 
     # Delete current source pages
     SitePage.query.filter_by(site_id=site.id).delete()
+    SiteSharedBlock.query.filter_by(site_id=site.id).delete()
+
+    for vb in version.shared_blocks:
+        restored_block = SiteSharedBlock(
+            site_id=site.id,
+            key=vb.key,
+            label=vb.label,
+            yaml_content=vb.yaml_content,
+            enabled=vb.enabled,
+            sort_order=vb.sort_order,
+        )
+        db.session.add(restored_block)
 
     # Copy version pages into source_pages
     restored_pages = []
@@ -563,6 +865,7 @@ def rollback_version(site_id, version_id):
             slug=vp.slug,
             title=vp.title,
             yaml_content=vp.yaml_content,
+            body_yaml_content=vp.body_yaml_content,
             sort_order=vp.sort_order,
             is_homepage=vp.is_homepage,
         )

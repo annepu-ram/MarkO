@@ -1,0 +1,494 @@
+# Claymorphism Pricing Plans
+# Playful 3D clay pricing cards with pastel backgrounds and pill buttons
+# Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, button
+# Section type: pricing
+# Layout: grid
+# Visual style: claymorphism
+# Content volume: rich
+# Tone: playful
+# Conversion intent: purchase
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio, health, education
+# Perfect for: education, health, SaaS platform, creative portfolio, children's app
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Poppins', sans-serif"
+        content: "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary '#4A1942'
+        text: &color-text '#4E3149'
+        secondary: &color-secondary '#9D5094'
+        accent: &color-accent '#FF1493'
+        background: &color-background '#FFD6E6'
+  components:
+    - name: page
+      slug: home
+      title: "Claymorphism Pricing Plans"
+      properties:
+        appearance:
+          background:
+            color: '#F5F0FF'
+            opacity: 100
+      components:
+
+        # Section header
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '75'
+                  horizontalAlign: center
+              components:
+                - name: eyebrow
+                  properties:
+                    text: Pricing
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: none
+                      letterSpacing: wider
+                      align: center
+                - name: heading
+                  properties:
+                    text: Choose your plan
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-primary
+                      align: center
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: Start free and scale as you grow. No hidden fees, no surprises — just the right plan for you.
+                    typography:
+                      size: md
+                      color: *color-secondary
+                      align: center
+                    spacing:
+                      marginBlock: sm
+
+        # Pricing card grid
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            spacing:
+              marginBlock: lg
+              paddingInline: lg
+          columns:
+
+            # Free plan
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: xl
+                  components:
+                    - name: heading
+                      properties:
+                        text: Free
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: Perfect to get started
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: heading
+                      properties:
+                        text: "$0"
+                        level: 2
+                        typography:
+                          size: xxxl
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: forever free
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+                        spacing:
+                          marginBlock: md
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: xs
+                        appearance:
+                          background:
+                            opacity: 0
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: "✓ Up to 3 projects"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ 500 MB storage"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ Community support"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ Basic analytics"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                    - name: button
+                      properties:
+                        text: Get Started Free
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: medium
+                        typography:
+                          color: '#ffffff'
+                          weight: bold
+                          size: sm
+                        layout:
+                          widthMode: stretch
+                        spacing:
+                          paddingBlock: md
+                          marginBlock: md
+
+            # Popular plan
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: *color-background
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: xl
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: Most Popular
+                        typography:
+                          size: xs
+                          weight: bold
+                          color: *color-accent
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: heading
+                      properties:
+                        text: Growth
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: For growing teams
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: heading
+                      properties:
+                        text: "$29"
+                        level: 2
+                        typography:
+                          size: xxxl
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: per month
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+                        spacing:
+                          marginBlock: md
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: xs
+                        appearance:
+                          background:
+                            opacity: 0
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: "✓ Unlimited projects"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ 20 GB storage"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ Priority support"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ Advanced analytics"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ Team collaboration"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                    - name: button
+                      properties:
+                        text: Start Growing Today
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: medium
+                        typography:
+                          color: '#ffffff'
+                          weight: bold
+                          size: sm
+                        layout:
+                          widthMode: stretch
+                        spacing:
+                          paddingBlock: md
+                          marginBlock: md
+
+            # Pro plan
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#F0F5FF'
+                        opacity: 100
+                      radius: xxl
+                      shadow: elevated
+                      border:
+                        width: 0
+                    spacing:
+                      paddingBlock: xl
+                      paddingInline: xl
+                  components:
+                    - name: heading
+                      properties:
+                        text: Pro
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: For power users
+                        typography:
+                          size: sm
+                          color: *color-secondary
+                          align: center
+                        spacing:
+                          marginBlock: sm
+                    - name: heading
+                      properties:
+                        text: "$79"
+                        level: 2
+                        typography:
+                          size: xxxl
+                          weight: bold
+                          color: *color-primary
+                          align: center
+                        spacing:
+                          marginBlock: none
+                    - name: paragraph
+                      properties:
+                        text: per month
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+                        spacing:
+                          marginBlock: md
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: xs
+                        appearance:
+                          background:
+                            opacity: 0
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: "✓ Everything in Growth"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ Unlimited storage"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ Dedicated account manager"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ Custom integrations"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ API access"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                        - name: paragraph
+                          properties:
+                            text: "✓ White-label exports"
+                            typography:
+                              size: sm
+                              color: *color-text
+                            spacing:
+                              marginBlock: xxs
+                    - name: button
+                      properties:
+                        text: Upgrade to Pro
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: medium
+                        typography:
+                          color: '#ffffff'
+                          weight: bold
+                          size: sm
+                        layout:
+                          widthMode: stretch
+                        spacing:
+                          paddingBlock: md
+                          marginBlock: md

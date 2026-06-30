@@ -626,6 +626,88 @@ def fix_token_values(node, fixes: list[str]) -> None:
                 fix_token_values(child, fixes)
 
 
+def fix_layout_overflow(node, fixes: list[str]) -> None:
+    """Detect split rows where gap + widthMode sum would cause overflow, and fix them.
+
+    Pattern: layout-row with children whose numeric widthMode values sum to >= 100
+    AND gap is xl/xxl/xxxl. Fix: downgrade gap to lg.
+    """
+    if isinstance(node, list):
+        for item in node:
+            fix_layout_overflow(item, fixes)
+    elif isinstance(node, dict):
+        comp_name = node.get("name")
+        if comp_name == "layout-row":
+            props = node.get("properties", {})
+            layout = props.get("layout", {})
+            if isinstance(layout, dict):
+                gap = layout.get("gap", "md")
+                children = node.get("components", [])
+                width_sum = 0
+                has_width = False
+                for child in children:
+                    if isinstance(child, dict):
+                        child_props = child.get("properties", {})
+                        child_layout = child_props.get("layout", {}) if isinstance(child_props, dict) else {}
+                        wm = child_layout.get("widthMode", "") if isinstance(child_layout, dict) else ""
+                        try:
+                            width_sum += int(wm)
+                            has_width = True
+                        except (ValueError, TypeError):
+                            pass
+
+                if has_width and width_sum >= 100 and gap in ("xl", "xxl", "xxxl"):
+                    layout["gap"] = "lg"
+                    fixes.append(
+                        f"layout-row: gap '{gap}' -> 'lg' "
+                        f"(children sum {width_sum}% would overflow)"
+                    )
+
+        for key in ("components", "items", "tabs", "slides", "columns"):
+            child = node.get(key)
+            if isinstance(child, list):
+                fix_layout_overflow(child, fixes)
+
+
+_GRID_COMPONENTS = frozenset({"columnsgrid", "tabs", "accordion", "carousel"})
+
+
+def fix_narrow_grid_parent(node, fixes: list[str]) -> None:
+    """Fix layout-columns with widthMode '75' that contain grid components.
+
+    The LLM often wraps an entire section (header + columnsgrid) in a single
+    widthMode:'75' column, cramping the grid. Correct pattern: only header text
+    should be narrow, grid should be full-width.
+    """
+    if isinstance(node, list):
+        for item in node:
+            fix_narrow_grid_parent(item, fixes)
+    elif isinstance(node, dict):
+        comp_name = node.get("name")
+        if comp_name == "layout-column":
+            props = node.get("properties", {})
+            layout = props.get("layout", {})
+            if isinstance(layout, dict):
+                wm = str(layout.get("widthMode", ""))
+                if wm == "75":
+                    children = node.get("components", [])
+                    has_grid = any(
+                        isinstance(c, dict) and c.get("name") in _GRID_COMPONENTS
+                        for c in children
+                    )
+                    if has_grid:
+                        del layout["widthMode"]
+                        fixes.append(
+                            f"layout-column: removed widthMode '75' "
+                            f"(contains grid component that needs full width)"
+                        )
+
+        for key in ("components", "items", "tabs", "slides", "columns"):
+            child = node.get(key)
+            if isinstance(child, list):
+                fix_narrow_grid_parent(child, fixes)
+
+
 def fix_nesting(node, fixes: list[str]) -> None:
     """In-place fix of nesting violations."""
     if isinstance(node, list):
@@ -706,7 +788,13 @@ def auto_fix_yaml(yaml_str: str) -> tuple[str, list[str]]:
     # 3. Token value repair (aliases + snapping + fuzzy match)
     fix_token_values(doc, fixes)
 
-    # 4. Nesting fixes (leaf children, wrong child keys, components in properties)
+    # 4. Layout overflow fix (split rows with large gap)
+    fix_layout_overflow(doc, fixes)
+
+    # 5. Narrow grid parent fix (columnsgrid inside widthMode:'75' column)
+    fix_narrow_grid_parent(doc, fixes)
+
+    # 6. Nesting fixes (leaf children, wrong child keys, components in properties)
     fix_nesting(doc, fixes)
 
     if not fixes:

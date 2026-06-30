@@ -4,15 +4,21 @@
 # Section type: hero
 # Layout: fullscreen
 # Visual style: monochrome_dark
+# Content volume: rich
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: portfolio, health, hospitality
 # Perfect for: Travel, hospitality, luxury brands, creative agencies
 
 - name: page
   properties:
     theme:
       colors:
-        primary: &color-primary "#ffffff"
+        primary: &color-primary *color-accent
         text: &color-text "#DFDFDF"
-        secondary: &color-secondary "#0a0a0a"
+        secondary: &color-secondary *color-background
         accent: &color-accent "#ffffff"
         background: &color-background "#0a0a0a"
     appearance:

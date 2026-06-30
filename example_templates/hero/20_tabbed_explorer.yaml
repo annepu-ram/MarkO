@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: stacked
 # Visual style: monochrome_dark
+# Content volume: rich
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: required
+# Interactivity: tabs
+# Industries: saas, ecommerce
 # Perfect for: SaaS platforms, multi-service businesses, product showcases, agencies
 
 - name: page
@@ -68,7 +74,7 @@
             layout:
               horizontalAlign: space-evenly
               verticalAlign: center
-              wrap: nowrap
+              wrap: wrap
               gap: lg
             appearance:
               background:
@@ -132,7 +138,7 @@
             layout:
               horizontalAlign: space-evenly
               verticalAlign: center
-              wrap: nowrap
+              wrap: wrap
               gap: lg
             appearance:
               background:
@@ -196,7 +202,7 @@
             layout:
               horizontalAlign: space-evenly
               verticalAlign: center
-              wrap: nowrap
+              wrap: wrap
               gap: lg
             appearance:
               background:

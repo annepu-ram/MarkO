@@ -1,0 +1,68 @@
+id: problem_aware_lead_gen
+name: Problem-Aware Lead Generation
+description: Converts problem-aware visitors into booked calls or qualified leads.
+
+applies_when:
+  conversion_goal: consultation_booking
+  awareness_stage: problem_aware
+  traffic_source: linkedin
+  industry: saas
+  audience_sophistication: informed
+  brand_style: technical
+  sales_cycle: consultative
+
+matching:
+  buying_motivation:
+    - productivity
+    - rational_evaluation
+  decision_driver:
+    - trust
+    - speed
+    - roi
+  trust_requirement: high
+  emotional_intensity: medium
+  persuasion_style:
+    - logic_led
+    - authority_led
+    - education_led
+  cta_style: consultative
+  proof_depth: strong
+  objection_depth: high
+
+required_content_types:
+  - pain_point
+  - promise
+  - proof
+  - cta
+
+optional_content_types:
+  - objection
+  - testimonial
+  - faq
+
+section_sequence:
+  - id: hero
+    purpose: problem_aware_hero
+    content_refs:
+      eyebrow: campaign.product
+      headline: content.promises[0]
+      subheadline: content.pain_points[0]
+      primary_cta: content.calls_to_action.primary
+  - id: problem_cost
+    purpose: problem_cost
+    content_refs:
+      pain_points: content.pain_points
+  - id: proof
+    purpose: proof_points
+    content_refs:
+      items: content.proof
+  - id: objections
+    purpose: objection_handling
+    optional: true
+    content_refs:
+      items: content.objections
+  - id: final_cta
+    purpose: final_cta
+    content_refs:
+      headline: content.promises[0]
+      primary_cta: content.calls_to_action.primary

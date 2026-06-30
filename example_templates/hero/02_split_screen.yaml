@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: split_screen
 # Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: form
+# Industries: saas, ecommerce, portfolio
 # Perfect for: SaaS products, apps, portfolios, startups
 
 - name: page

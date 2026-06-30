@@ -1,0 +1,77 @@
+# Story Card Variant: The Newsletter In-Feed
+# layout-column with a heading, paragraph, and a form with a textbox for email signup
+# Base components: page, layout-column, heading, paragraph, form, textbox, button, caption
+# Section type: blog
+# Layout: centered
+# Visual style: aurora_gradient
+# Content volume: light
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: form
+# Perfect for: media, publishing, blogs, content marketing, news
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#e0e7ff'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: md}
+      appearance:
+        background:
+          type: gradient
+          color: *color-accent
+          gradient:
+            colorStart: *color-accent
+            colorEnd: *color-accent
+            direction: 'to bottom right'
+        radius: lg
+        shadow: elevated
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: xl, paddingInline: xl}
+    components:
+    - name: heading
+      properties:
+        text: "Stay in the Loop"
+        level: 3
+        typography: {size: xl, weight: bold, color: *color-background, align: center}
+    - name: paragraph
+      properties:
+        text: |
+          Get weekly curated stories, exclusive insights, and early
+          access to new features. No spam, ever.
+        typography: {size: sm, color: *color-secondary, align: center, lineHeight: "1.7"}
+        layout: {widthMode: "75"}
+    - name: form
+      properties:
+        layout: {direction: row, horizontalAlign: center}
+        submit: {show: false}
+      components:
+      - name: textbox
+        properties:
+          label: {show: false}
+          field: {placeholder: 'Enter your email', required: true}
+          appearance:
+            border: {width: 0}
+            background: {color: *color-background, opacity: 100}
+            radius: pill
+          layout: {widthMode: "50"}
+          spacing: {marginBlock: none}
+      - name: button
+        properties:
+          text: Subscribe
+          appearance: {background: {color: *color-primary}, radius: pill}
+          typography: {color: *color-background, weight: bold}
+          spacing: {marginBlock: none, paddingBlock: sm, paddingInline: lg}
+    - name: caption
+      properties:
+        text: "Join 15,000+ readers. Unsubscribe anytime."
+        typography: {size: xs, color: *color-secondary, align: center}

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Sites — UI Design Reference</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf8;
+            --surface: #ffffff;
+            --surface-alt: #f5f4f0;
+            --border: #e8e6e1;
+            --border-hover: #c4c0b8;
+            --text: #1a1a1a;
+            --text-2: #5c5c5c;
+            --text-3: #8a8a8a;
+            --accent: #0058a3;
+            --accent-hover: #004080;
+            --accent-soft: rgba(0, 88, 163, 0.06);
+            --success: #1e7a45;
+            --success-soft: rgba(30, 122, 69, 0.08);
+            --danger: #cc3333;
+            --radius: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+            --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
+            --font: 'Inter', -apple-system, system-ui, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font); background: #e8e6e1; color: var(--text); -webkit-font-smoothing: antialiased; padding: 40px; }
+        h1.page-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+        p.page-desc { font-size: 15px; color: var(--text-2); margin-bottom: 48px; max-width: 600px; }
+
+        .screen-section { margin-bottom: 80px; }
+        .screen-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 12px; }
+        .screen-title { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+
+        /* Device frame */
+        .device { background: var(--surface); border-radius: var(--radius-xl); box-shadow: 0 8px 40px rgba(0,0,0,0.1); overflow: hidden; max-width: 1100px; }
+        .device--mobile { max-width: 390px; }
+
+        /* Header */
+        .hdr { display: flex; align-items: center; justify-content: space-between; padding: 0 32px; min-height: 72px; border-bottom: 1px solid var(--border); gap: 24px; }
+        .hdr-logo { font-size: 16px; font-weight: 800; }
+        .hdr-nav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-width: 70px; min-height: 52px; padding: 7px 10px; border-radius: var(--radius); color: var(--text-2); font-size: 11px; font-weight: 600; line-height: 1; }
+        .nav-item.active { background: var(--text); color: #fff; }
+        .nav-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .nav-label { display: block; }
+
+        /* Content */
+        .content { padding: 40px 32px; background: var(--bg); }
+
+        /* Hero */
+        .hero { padding: 40px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); margin-bottom: 32px; }
+        .hero h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .hero p { font-size: 15px; color: var(--text-2); margin-bottom: 24px; }
+        .hero-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--accent); color: #fff; border-radius: var(--radius); font-size: 14px; font-weight: 600; }
+
+        /* Quick cards */
+        .quick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 32px; }
+        .quick-card { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 20px 12px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); text-align: center; }
+        .quick-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--surface-alt); display: flex; align-items: center; justify-content: center; color: var(--text-2); font-size: 18px; }
+        .quick-label { font-size: 12px; font-weight: 600; }
+
+        /* Section */
+        .sec { margin-bottom: 28px; }
+        .sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .sec-title { font-size: 15px; font-weight: 700; }
+        .sec-action { font-size: 12px; color: var(--accent); font-weight: 500; }
+
+        /* Campaign cards */
+        .cmp-card { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); margin-bottom: 6px; }
+        .cmp-name { font-size: 14px; font-weight: 600; }
+        .cmp-meta { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+        .cmp-actions { display: flex; align-items: center; gap: 8px; }
+        .badge { padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
+        .badge--draft { background: var(--surface-alt); color: var(--text-3); }
+        .badge--active { background: var(--success-soft); color: var(--success); }
+        .btn-sm { padding: 5px 12px; border-radius: var(--radius); font-size: 12px; font-weight: 600; background: var(--accent); color: #fff; }
+
+        /* Brand card */
+        .brand-card { padding: 24px; border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--surface); margin-bottom: 16px; }
+        .brand-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .field-label { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .field-input { width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; color: var(--text); background: var(--surface); }
+        .color-row { display: flex; gap: 16px; margin-top: 8px; }
+        .color-swatch { width: 40px; height: 40px; border-radius: var(--radius); border: 2px solid var(--border); }
+        .color-label { font-size: 10px; color: var(--text-3); text-align: center; margin-top: 4px; }
+
+        /* Product card */
+        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .product-card { border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); overflow: hidden; }
+        .product-img { width: 100%; aspect-ratio: 4/3; background: var(--surface-alt); display: flex; align-items: center; justify-content: center; color: var(--text-3); font-size: 12px; }
+        .product-info { padding: 14px; }
+        .product-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .product-price { font-size: 13px; color: var(--text-2); }
+        .product-brand-tag { display: inline-flex; padding: 2px 8px; border-radius: 100px; background: var(--accent-soft); font-size: 10px; font-weight: 600; color: var(--accent); margin-top: 6px; }
+
+        /* Campaign Studio */
+        .cs-steps { display: flex; align-items: center; justify-content: center; gap: 0; padding: 16px 24px; border-bottom: 1px solid var(--border); background: var(--surface); }
+        .cs-step { display: flex; align-items: center; gap: 6px; padding: 10px 14px; font-size: 12px; font-weight: 500; color: var(--text-3); border-bottom: 2px solid transparent; }
+        .cs-step.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .cs-step.done { color: var(--success); }
+        .cs-step-num { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; background: var(--surface-alt); }
+        .cs-step.active .cs-step-num { background: var(--accent); color: #fff; }
+        .cs-step.done .cs-step-num { background: var(--success-soft); color: var(--success); }
+        .cs-connector { width: 20px; height: 1px; background: var(--border); }
+        .cs-body { padding: 40px 32px; background: var(--bg); max-width: 640px; margin: 0 auto; }
+        .cs-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.02em; }
+        .cs-subtitle { font-size: 14px; color: var(--text-2); margin-bottom: 28px; }
+        .cs-field { margin-bottom: 20px; }
+
+        /* Footer */
+        .cs-footer { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; border-top: 1px solid var(--border); background: var(--surface); }
+        .cs-footer-saved { font-size: 11px; color: var(--success); display: flex; align-items: center; gap: 5px; }
+        .cs-footer-saved::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+        .cs-footer-btns { display: flex; gap: 8px; }
+        .btn-ghost { padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--text-2); background: transparent; border-radius: var(--radius); }
+        .btn-primary { padding: 8px 16px; font-size: 13px; font-weight: 600; color: #fff; background: var(--accent); border-radius: var(--radius); }
+
+        /* Media grid */
+        .media-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .media-card { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); background: var(--surface); }
+        .media-card-img { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, var(--surface-alt) 0%, var(--border) 100%); }
+        .media-card-info { padding: 8px 10px; font-size: 11px; color: var(--text-3); }
+
+        /* Filters */
+        .pills { display: flex; gap: 4px; margin-bottom: 16px; }
+        .pill { padding: 5px 12px; border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 500; color: var(--text-2); }
+        .pill.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+        /* Content items */
+        .content-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); margin-bottom: 6px; }
+        .content-item.pinned { border-left: 3px solid var(--accent); }
+        .content-text { font-size: 13px; color: var(--text); flex: 1; }
+        .content-cat { display: inline-flex; padding: 2px 8px; border-radius: 100px; background: var(--surface-alt); font-size: 10px; font-weight: 600; color: var(--text-2); text-transform: uppercase; margin-top: 4px; }
+
+        /* Sites */
+        .sites-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .site-card { padding: 18px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); }
+        .site-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+        .site-slug { font-size: 12px; color: var(--text-3); margin-bottom: 10px; }
+        .site-meta { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+        .site-actions { display: flex; gap: 6px; }
+        .btn-outline { padding: 5px 10px; font-size: 11px; font-weight: 600; border: 1px solid var(--border); border-radius: var(--radius); color: var(--text-2); }
+    </style>
+</head>
+<body>
+    <svg aria-hidden="true" style="display:none;">
+        <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></symbol>
+        <symbol id="icon-brand" viewBox="0 0 24 24"><path d="M5 22V4"></path><path d="M5 4h13l-2 4 2 4H5"></path></symbol>
+        <symbol id="icon-content" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5"></path><path d="M9 13h6"></path><path d="M9 17h6"></path></symbol>
+        <symbol id="icon-media" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="8" cy="10" r="2"></circle><path d="m21 16-5-5-6 6-3-3-4 4"></path></symbol>
+        <symbol id="icon-campaign" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 13z"></path><path d="M7 14v5a2 2 0 0 0 2 2h1"></path><path d="M21 8a4 4 0 0 1 0 8"></path></symbol>
+        <symbol id="icon-products" viewBox="0 0 24 24"><path d="m21 8-9-5-9 5 9 5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></symbol>
+        <symbol id="icon-websites" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 10h18"></path><path d="M9 20V10"></path></symbol>
+    </svg>
+    <h1 class="page-title">Swift Sites — Design Reference</h1>
+    <p class="page-desc">IKEA-inspired Scandinavian minimal. Warm neutrals, generous whitespace, functional clarity. Campaign-first, multi-brand CMS with products.</p>
+
+    <!-- ===================================================================== -->
+    <!-- SCREEN 1: HOME (Dashboard) -->
+    <!-- ===================================================================== -->
+    <div class="screen-section">
+        <div class="screen-label">Screen 1</div>
+        <div class="screen-title">Home — Dashboard</div>
+        <div class="device">
+            <div class="hdr">
+                <div class="hdr-logo">Swift Sites</div>
+                <div class="hdr-nav" aria-label="Primary">
+                    <span class="nav-item active"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="hero">
+                    <h2>What do you want to promote?</h2>
+                    <p>Start a campaign and we'll help you craft messages and build a landing page that converts.</p>
+                    <div class="hero-btn">Start a campaign &rarr;</div>
+                </div>
+                <div class="quick-grid">
+                    <div class="quick-card"><div class="quick-icon">&#128101;</div><div class="quick-label">Capture leads</div></div>
+                    <div class="quick-card"><div class="quick-icon">&#128722;</div><div class="quick-label">Sell products</div></div>
+                    <div class="quick-card"><div class="quick-icon">&#9993;</div><div class="quick-label">Collect signups</div></div>
+                    <div class="quick-card"><div class="quick-icon">&#128222;</div><div class="quick-label">Book calls</div></div>
+                    <div class="quick-card"><div class="quick-icon">&#128196;</div><div class="quick-label">Share info</div></div>
+                </div>
+                <div class="sec">
+                    <div class="sec-header"><div class="sec-title">Continue your work</div></div>
+                    <div class="cmp-card">
+                        <div><div class="cmp-name">Summer Fitness Launch</div><div class="cmp-meta">Leads &middot; 2h ago</div></div>
+                        <div class="cmp-actions"><span class="badge badge--draft">Draft</span><span class="btn-sm">Continue editing</span></div>
+                    </div>
+                    <div class="cmp-card">
+                        <div><div class="cmp-name">Q3 SaaS Campaign</div><div class="cmp-meta">Sales &middot; 1d ago</div></div>
+                        <div class="cmp-actions"><span class="badge badge--draft">Draft</span><span class="btn-sm">Set goal</span></div>
+                    </div>
+                </div>
+                <div class="sec">
+                    <div class="sec-header"><div class="sec-title">Live campaigns</div></div>
+                    <div class="cmp-card">
+                        <div><div class="cmp-name">Black Friday Sale</div><div class="cmp-meta">3d ago</div></div>
+                        <div class="cmp-actions"><span class="badge badge--active">Active</span><span class="btn-sm" style="background: var(--surface-alt); color: var(--text);">View</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SCREEN 2: CAMPAIGN STUDIO -->
+    <!-- ===================================================================== -->
+    <div class="screen-section">
+        <div class="screen-label">Screen 2</div>
+        <div class="screen-title">Campaign Studio — Step 1: Promotion</div>
+        <div class="device">
+            <div class="hdr">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <span style="font-size:13px; color:var(--text-2);">&larr; Dashboard</span>
+                    <span style="font-size:14px; font-weight:600;">Summer Fitness Launch</span>
+                </div>
+                <span class="badge badge--draft">Draft</span>
+            </div>
+            <div class="cs-steps">
+                <div class="cs-step active"><span class="cs-step-num">1</span>Promotion</div>
+                <div class="cs-connector"></div>
+                <div class="cs-step"><span class="cs-step-num">2</span>Audience</div>
+                <div class="cs-connector"></div>
+                <div class="cs-step"><span class="cs-step-num">3</span>Goal</div>
+                <div class="cs-connector"></div>
+                <div class="cs-step"><span class="cs-step-num">4</span>Offer</div>
+                <div class="cs-connector"></div>
+                <div class="cs-step"><span class="cs-step-num">5</span>Messages</div>
+                <div class="cs-connector"></div>
+                <div class="cs-step"><span class="cs-step-num">6</span>Landing Page</div>
+            </div>
+            <div class="cs-body">
+                <div class="cs-title">What are you promoting?</div>
+                <div class="cs-subtitle">Tell us about the product, service, or offer. We'll use this to shape your campaign.</div>
+                <div class="cs-field">
+                    <div class="field-label">Brand</div>
+                    <div class="field-input" style="color: var(--accent); font-weight: 500;">FitZone Pro</div>
+                </div>
+                <div class="cs-field">
+                    <div class="field-label">Campaign name</div>
+                    <div class="field-input">Summer Fitness Launch</div>
+                </div>
+                <div class="cs-field">
+                    <div class="field-label">Product or service</div>
+                    <div class="field-input">Online personal training program</div>
+                </div>
+                <div class="cs-field">
+                    <div class="field-label">Short description</div>
+                    <div class="field-input" style="min-height:60px;">8-week personalized workout plan with weekly video check-ins and nutrition guidance</div>
+                </div>
+            </div>
+            <div class="cs-footer">
+                <div class="cs-footer-saved">Saved</div>
+                <div class="cs-footer-btns">
+                    <span class="btn-primary">Continue</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SCREEN 3: PRODUCTS TAB -->
+    <!-- ===================================================================== -->
+    <div class="screen-section">
+        <div class="screen-label">Screen 3</div>
+        <div class="screen-title">Products — Catalog Manager</div>
+        <div class="device">
+            <div class="hdr">
+                <div class="hdr-logo">Swift Sites</div>
+                <div class="hdr-nav" aria-label="Primary">
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                    <span class="nav-item active"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="sec-header" style="margin-bottom:16px;">
+                    <div class="sec-title" style="font-size:16px;">Products</div>
+                    <div style="display:flex; gap:8px;">
+                        <div class="field-input" style="width:200px; padding:6px 12px; font-size:12px;">Search products...</div>
+                        <span class="btn-sm">+ Add product</span>
+                    </div>
+                </div>
+                <div class="pills">
+                    <span class="pill active">All</span>
+                    <span class="pill">Physical</span>
+                    <span class="pill">Digital</span>
+                    <span class="pill">Service</span>
+                    <span class="pill">Subscription</span>
+                </div>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-img">Image</div>
+                        <div class="product-info">
+                            <div class="product-name">8-Week Training Plan</div>
+                            <div class="product-price">$149.00</div>
+                            <div class="product-brand-tag">FitZone Pro</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">Image</div>
+                        <div class="product-info">
+                            <div class="product-name">Nutrition Guide Bundle</div>
+                            <div class="product-price">$49.00</div>
+                            <div class="product-brand-tag">FitZone Pro</div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">Image</div>
+                        <div class="product-info">
+                            <div class="product-name">Brand Strategy Package</div>
+                            <div class="product-price">$2,500.00</div>
+                            <div class="product-brand-tag">Zenith Design</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SCREEN 4: BRANDS TAB -->
+    <!-- ===================================================================== -->
+    <div class="screen-section">
+        <div class="screen-label">Screen 4</div>
+        <div class="screen-title">Brands — Identity Manager</div>
+        <div class="device">
+            <div class="hdr">
+                <div class="hdr-logo">Swift Sites</div>
+                <div class="hdr-nav" aria-label="Primary">
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                    <span class="nav-item active"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="sec-header" style="margin-bottom:20px;">
+                    <div class="sec-title" style="font-size:16px;">Brands</div>
+                    <span class="btn-sm">+ New brand</span>
+                </div>
+                <div class="brand-card">
+                    <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
+                        <div style="width:48px;height:48px;border-radius:10px;background:var(--surface-alt);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--accent);">F</div>
+                        <div>
+                            <div style="font-size:16px;font-weight:700;">FitZone Pro</div>
+                            <div style="font-size:13px;color:var(--text-2);">Fitness that fits your life</div>
+                        </div>
+                        <span class="badge badge--active" style="margin-left:auto;">Default</span>
+                    </div>
+                    <div class="brand-row">
+                        <div><div class="field-label">Industry</div><div class="field-input">Fitness</div></div>
+                        <div><div class="field-label">Tone</div><div class="field-input">Bold</div></div>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <div class="field-label">Brand colors</div>
+                        <div class="color-row">
+                            <div><div class="color-swatch" style="background:#1a1a2e;"></div><div class="color-label">Primary</div></div>
+                            <div><div class="color-swatch" style="background:#6b7280;"></div><div class="color-label">Secondary</div></div>
+                            <div><div class="color-swatch" style="background:#e94560;"></div><div class="color-label">Accent</div></div>
+                            <div><div class="color-swatch" style="background:#fafafa;"></div><div class="color-label">Background</div></div>
+                        </div>
+                    </div>
+                    <div class="brand-row">
+                        <div><div class="field-label">Heading font</div><div class="field-input">Poppins</div></div>
+                        <div><div class="field-label">Body font</div><div class="field-input">Inter</div></div>
+                    </div>
+                    <div style="display:flex;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+                        <span class="btn-sm">Create campaign</span>
+                        <span class="btn-outline">Add product</span>
+                        <span class="btn-outline">Edit brand</span>
+                    </div>
+                </div>
+                <div class="brand-card" style="opacity:0.7;">
+                    <div style="display:flex; align-items:center; gap:16px;">
+                        <div style="width:48px;height:48px;border-radius:10px;background:var(--surface-alt);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--text-3);">Z</div>
+                        <div>
+                            <div style="font-size:16px;font-weight:700;">Zenith Design</div>
+                            <div style="font-size:13px;color:var(--text-2);">Design that moves people</div>
+                        </div>
+                        <span class="btn-outline" style="margin-left:auto;">Set as default</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SCREEN 5: MEDIA TAB -->
+    <!-- ===================================================================== -->
+    <div class="screen-section">
+        <div class="screen-label">Screen 5</div>
+        <div class="screen-title">Media — Asset Library</div>
+        <div class="device">
+            <div class="hdr">
+                <div class="hdr-logo">Swift Sites</div>
+                <div class="hdr-nav" aria-label="Primary">
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                    <span class="nav-item active"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="sec-header" style="margin-bottom:16px;">
+                    <div class="sec-title" style="font-size:16px;">Media Library</div>
+                    <div style="display:flex;gap:8px;">
+                        <span class="btn-outline">Search stock</span>
+                        <span class="btn-sm">Upload</span>
+                    </div>
+                </div>
+                <div class="pills">
+                    <span class="pill active">All</span>
+                    <span class="pill">FitZone Pro</span>
+                    <span class="pill">Zenith Design</span>
+                    <span class="pill">Landscape</span>
+                    <span class="pill">Portrait</span>
+                </div>
+                <div class="media-grid">
+                    <div class="media-card"><div class="media-card-img"></div><div class="media-card-info">hero-gym.webp</div></div>
+                    <div class="media-card"><div class="media-card-img"></div><div class="media-card-info">trainer-portrait.webp</div></div>
+                    <div class="media-card"><div class="media-card-img"></div><div class="media-card-info">nutrition-spread.webp</div></div>
+                    <div class="media-card"><div class="media-card-img"></div><div class="media-card-info">design-mockup.webp</div></div>
+                    <div class="media-card"><div class="media-card-img"></div><div class="media-card-info">team-photo.webp</div></div>
+                    <div class="media-card"><div class="media-card-img"></div><div class="media-card-info">product-shot.webp</div></div>
+                    <div class="media-card"><div class="media-card-img"></div><div class="media-card-info">testimonial-bg.webp</div></div>
+                    <div class="media-card"><div class="media-card-img"></div><div class="media-card-info">logo-dark.svg</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SCREEN 6: WEBSITES TAB -->
+    <!-- ===================================================================== -->
+    <div class="screen-section">
+        <div class="screen-label">Screen 6</div>
+        <div class="screen-title">Websites — Site Management</div>
+        <div class="device">
+            <div class="hdr">
+                <div class="hdr-logo">Swift Sites</div>
+                <div class="hdr-nav" aria-label="Primary">
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                    <span class="nav-item active"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="sec-header" style="margin-bottom:16px;">
+                    <div class="sec-title" style="font-size:16px;">Websites & Pages</div>
+                    <span class="btn-outline">+ New site</span>
+                </div>
+                <div class="sites-grid">
+                    <div class="site-card">
+                        <div class="site-name">Summer Fitness Launch</div>
+                        <div class="site-slug">/summer-fitness-launch</div>
+                        <div class="site-meta"><span class="badge badge--active">Published</span><span style="font-size:11px;color:var(--text-3);">1 page &middot; v2</span></div>
+                        <div class="site-actions"><span class="btn-sm">Edit</span><span class="btn-outline">Unpublish</span><span class="btn-outline">Settings</span></div>
+                    </div>
+                    <div class="site-card">
+                        <div class="site-name">Zenith Portfolio</div>
+                        <div class="site-slug">/zenith-portfolio</div>
+                        <div class="site-meta"><span class="badge badge--draft">Draft</span><span style="font-size:11px;color:var(--text-3);">3 pages</span></div>
+                        <div class="site-actions"><span class="btn-sm">Edit</span><span class="btn-outline">Publish</span><span class="btn-outline">Settings</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SCREEN 7: CONTENT LIBRARY -->
+    <!-- ===================================================================== -->
+    <div class="screen-section">
+        <div class="screen-label">Screen 7</div>
+        <div class="screen-title">Content Library — Reusable Copy</div>
+        <div class="device">
+            <div class="hdr">
+                <div class="hdr-logo">Swift Sites</div>
+                <div class="hdr-nav" aria-label="Primary">
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                    <span class="nav-item active"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                    <span class="nav-item"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+                </div>
+            </div>
+            <div class="content">
+                <div class="sec-header" style="margin-bottom:12px;">
+                    <div class="sec-title" style="font-size:16px;">Content Library</div>
+                    <span class="btn-sm">+ Add</span>
+                </div>
+                <div class="pills">
+                    <span class="pill active">All</span>
+                    <span class="pill">Headlines</span>
+                    <span class="pill">Testimonials</span>
+                    <span class="pill">Benefits</span>
+                    <span class="pill">CTAs</span>
+                </div>
+                <div class="content-item pinned">
+                    <div>
+                        <div class="content-text">Transform your body in 8 weeks with personalized coaching</div>
+                        <div class="content-cat">Headline</div>
+                    </div>
+                </div>
+                <div class="content-item">
+                    <div>
+                        <div class="content-text">"Lost 15 lbs in 6 weeks. The accountability was a game changer." — Sarah M.</div>
+                        <div class="content-cat">Testimonial</div>
+                    </div>
+                </div>
+                <div class="content-item">
+                    <div>
+                        <div class="content-text">No equipment needed. Train anywhere, anytime.</div>
+                        <div class="content-cat">Benefit</div>
+                    </div>
+                </div>
+                <div class="content-item">
+                    <div>
+                        <div class="content-text">Start your free trial today</div>
+                        <div class="content-cat">CTA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SCREEN 8: MOBILE RESPONSIVE -->
+    <!-- ===================================================================== -->
+    <div class="screen-section">
+        <div class="screen-label">Screen 8</div>
+        <div class="screen-title">Mobile — Responsive Dashboard</div>
+        <div class="device device--mobile">
+            <div class="hdr" style="padding:0 16px;">
+                <div class="hdr-logo" style="font-size:15px;">Swift Sites</div>
+                <div style="padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius);font-size:12px;font-weight:600;">Menu</div>
+            </div>
+            <div class="content" style="padding:24px 16px;">
+                <div class="hero" style="padding:24px;">
+                    <h2 style="font-size:22px;">What do you want to promote?</h2>
+                    <p style="font-size:14px;">Start a campaign to build a landing page.</p>
+                    <div class="hero-btn" style="font-size:13px; padding:10px 18px;">Start a campaign &rarr;</div>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px;">
+                    <div class="quick-card" style="padding:16px 10px;"><div class="quick-icon" style="width:32px;height:32px;font-size:16px;">&#128101;</div><div class="quick-label" style="font-size:11px;">Leads</div></div>
+                    <div class="quick-card" style="padding:16px 10px;"><div class="quick-icon" style="width:32px;height:32px;font-size:16px;">&#128722;</div><div class="quick-label" style="font-size:11px;">Sell</div></div>
+                    <div class="quick-card" style="padding:16px 10px;"><div class="quick-icon" style="width:32px;height:32px;font-size:16px;">&#9993;</div><div class="quick-label" style="font-size:11px;">Signups</div></div>
+                    <div class="quick-card" style="padding:16px 10px;"><div class="quick-icon" style="width:32px;height:32px;font-size:16px;">&#128222;</div><div class="quick-label" style="font-size:11px;">Calls</div></div>
+                </div>
+                <div class="sec">
+                    <div class="sec-header"><div class="sec-title" style="font-size:14px;">Continue your work</div></div>
+                    <div class="cmp-card" style="padding:12px 14px;">
+                        <div><div class="cmp-name" style="font-size:13px;">Summer Fitness</div><div class="cmp-meta">2h ago</div></div>
+                        <span class="btn-sm" style="font-size:11px;">Continue</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

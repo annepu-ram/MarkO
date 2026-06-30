@@ -1,0 +1,42 @@
+# Section Metadata
+{{ section_metadata }}
+
+# Brand Section Style Prompt
+{{ brand_style_prompt }}
+
+# Site Shell Theme
+{{ site_shell_theme }}
+
+# Selected Content
+Use these exact values. Preserve facts. Do not invent.
+{{ content_context }}
+
+# Derived Content Atoms
+{{ derived_atoms }}
+
+# Constraints
+- Output a body-only YAML component list.
+- No `site` wrapper.
+- No `page` wrapper.
+- No header/footer.
+- Single section only.
+- Use the brand section style prompt to choose layout, spacing, tone, and visual treatment.
+
+{% if retrieved_examples %}
+# Retrieved Examples
+Use these as YAML structure references, not as copy sources.
+{% for chunk in retrieved_examples %}
+--- Example {{ loop.index }}: {{ chunk.source_file or chunk.id or "unknown" }} ---
+{{ chunk.content }}
+{% endfor %}
+{% endif %}
+
+{% if component_examples %}
+# Retrieved Component Examples
+{% for chunk in component_examples %}
+--- Component Example {{ loop.index }}: {{ chunk.source_file or chunk.id or "unknown" }} ---
+{{ chunk.content }}
+{% endfor %}
+{% endif %}
+
+Generate the section YAML now.

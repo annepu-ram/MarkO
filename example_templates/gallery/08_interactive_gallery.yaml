@@ -1,0 +1,674 @@
+# 08 - The Interactive Gallery
+# Tabs where each tab shows a different columnsgrid of images. 3 tabs (Branding, Web, Mobile) with image grids.
+# Base components: page, layout-column, eyebrow, heading, paragraph, tabs, columnsgrid, image, caption
+# Section type: gallery
+# Layout: grid
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: many
+# Interactivity: tabs
+# Industries: portfolio
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Manrope', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#18181b'
+        text: &color-text '#303032'
+        secondary: &color-secondary '#52525b'
+        accent: &color-accent '#ec4899'
+        background: &color-background '#fafafa'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # SECTION HEADER
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance: { background: { color: *color-background } }
+      components:
+        - name: eyebrow
+          properties:
+            text: EXPLORE BY DISCIPLINE
+            typography:
+              {
+                size: xs,
+                weight: semibold,
+                color: *color-accent,
+                transform: uppercase,
+                letterSpacing: wider
+              }
+        - name: heading
+          properties:
+            text: Interactive Gallery
+            level: 1
+            typography:
+              {
+                size: xxxl,
+                weight: extrabold,
+                color: *color-primary,
+                align: center,
+                letterSpacing: tight
+              }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Browse our work across branding, web, and mobile design disciplines.
+            typography: { size: lg, color: *color-secondary, align: center }
+            layout: { widthMode: "75" }
+
+    # ============================================
+    # TABBED GALLERY
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      components:
+        - name: tabs
+          properties:
+            layout: { orientation: horizontal, widthMode: stretch }
+            typography:
+              label:
+                size: md
+                weight: semibold
+                active: { color: *color-accent }
+                inactive: { color: *color-secondary }
+            appearance:
+              tab:
+                background: { active: *color-background, inactive: *color-background }
+                border: { width: 3, style: solid, position: lower }
+              content:
+                background: { color: *color-background, opacity: 100 }
+                border: { color: *color-secondary, width: 1, style: solid }
+                padding: { block: lg, inline: lg }
+              shadow: none
+              shadowColor: *color-primary
+            spacing: { marginBlock: lg, paddingBlock: sm, paddingInline: sm, marginInline: none }
+          tabs:
+            - title: Branding
+              components:
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 3
+                      gap: md
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                  columns:
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80
+                              altText: Brand identity mockup with business cards and letterhead
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Luminary Studios
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Brand Identity / Logo System
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80
+                              altText: Packaging design with botanical elements
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Terra Organics
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Packaging / Brand Guidelines
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&q=80
+                              altText: Minimalist typographic poster series
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Apex Athletics
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Visual Identity / Merchandise
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80
+                              altText: Abstract geometric brand elements
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Prism Agency
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Rebrand / Motion Identity
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=80
+                              altText: Restaurant interior brand environment
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Saffron Kitchen
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Restaurant Branding / Signage
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80
+                              altText: Corporate stationery brand collateral
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Vertex Capital
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Corporate Identity / Stationery
+                            typography:
+                              size: xs
+                              color: "#52525b"
+            - title: Web Design
+              components:
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 3
+                      gap: md
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                  columns:
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80
+                              altText: Analytics dashboard web application
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: DataPulse Dashboard
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: SaaS / Data Visualization
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80
+                              altText: E-commerce website on laptop screen
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Artisan Collective
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: E-Commerce / Marketplace
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&q=80
+                              altText: Tech company landing page on screen
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: HealthBridge Platform
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Healthcare SaaS / Portal
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80
+                              altText: Financial platform web interface
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: NovaPay Banking
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Fintech / Digital Banking
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80
+                              altText: Real estate listing website design
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Zenith Properties
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Real Estate / Listings
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80
+                              altText: Education platform web design
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: EduPath Academy
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: EdTech / Learning Platform
+                            typography:
+                              size: xs
+                              color: "#52525b"
+            - title: Mobile
+              components:
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 3
+                      gap: md
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                  columns:
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80
+                              altText: Mobile app interface on smartphone
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Meridian Fitness
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Health & Fitness / iOS + Android
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1556656793-08538906a9f8?w=600&q=80
+                              altText: Food delivery app on mobile device
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: FreshBite Delivery
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Food Delivery / iOS
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80
+                              altText: Banking mobile app screens
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: NovaPay Mobile
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Fintech / Cross-Platform
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1585399000684-d2f72660f092?w=600&q=80
+                              altText: Travel app interface with destination cards
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Wanderlust Travel
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Travel / Booking App
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&q=80
+                              altText: Social media app design mockup
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Pulse Social
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Social / Community App
+                            typography:
+                              size: xs
+                              color: "#52525b"
+                    - components:
+                        - name: image
+                          properties:
+                            source:
+                              url: https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80
+                              altText: Meditation app with calming interface
+                            appearance:
+                              fit: cover
+                              cornerStyle: md
+                              hoverEffect: lift
+                              shadow: soft
+                              aspectRatio: 4/3
+                            layout:
+                              widthMode: stretch
+                        - name: heading
+                          properties:
+                            text: Stillpoint Meditation
+                            level: 4
+                            typography:
+                              size: md
+                              weight: semibold
+                              color: "#18181b"
+                            spacing:
+                              marginBlock: xs
+                        - name: caption
+                          properties:
+                            text: Wellness / Mindfulness App
+                            typography:
+                              size: xs
+                              color: "#52525b"

@@ -1,0 +1,267 @@
+# Modern Minimalist Hero
+# Clean, functional design with neutral tones, high whitespace, and subtle elevation
+# Base components: site, page, layout-row, layout-column, eyebrow, heading, paragraph, button, image, counter-up
+# Section type: hero
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas, portfolio, hospitality, entertainment
+# Perfect for: SaaS platform, creative portfolio, fashion brand, design studio, tech startup, luxury brand, photography studio, music platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E3A5F"
+        text: &color-text "#34445B"
+        secondary: &color-secondary "#6b7280"
+        accent: &color-accent "#0052CC"
+        background: &color-background "#F8FAFC"
+        border: &color-border '#e5e7eb'
+  components:
+    - name: page
+      slug: home
+      title: "Modern Minimalist Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — generous whitespace, clean alignment
+        - name: layout-row
+          properties:
+            layout:
+              wrap: wrap
+              verticalAlign: center
+              horizontalAlign: center
+              tag: section
+              gap: md
+            spacing:
+              marginBlock: none
+              marginInline: none
+              paddingBlock: xxxl
+              paddingInline: xl
+            appearance:
+              background:
+                type: ""
+                color: "#ffffff"
+                opacity: 0
+              blur: false
+              border:
+                width: 0
+                style: solid
+                color: "#000000"
+              radius: none
+              shadow: none
+              shadowColor: "#000000"
+          components:
+
+            # Left column — text content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  gap: md
+                appearance:
+                spacing:
+                  paddingInline: lg
+              components:
+                - name: eyebrow
+                  properties:
+                    text: "Platform"
+                    typography:
+                      color: *color-accent
+                      size: xs
+                      weight: semibold
+                      letterSpacing: wider
+                      transform: uppercase
+
+                - name: heading
+                  properties:
+                    text: "The simplest way to manage your workflow"
+                    level: 1
+                    typography:
+                      color: *color-primary
+                      size: xxl
+                      weight: semibold
+                      letterSpacing: tight
+                      lineHeight: snug
+
+                - name: paragraph
+                  properties:
+                    text: |
+                      Streamline your team's processes with an intuitive platform
+                      designed for clarity and efficiency. No clutter, just results.
+                    typography:
+                      color: *color-secondary
+                      size: md
+                      weight: regular
+                      lineHeight: relaxed
+
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Start Free Trial"
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: sm
+                          shadow: none
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                        typography:
+                          color: '#ffffff'
+                          weight: semibold
+                          size: md
+                    - name: button
+                      properties:
+                        text: "Learn More"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: '#d1d5db'
+                          radius: sm
+                          shadow: none
+                        typography:
+                          color: *color-primary
+                          weight: medium
+                          size: md
+
+                # Trust indicators
+                - name: paragraph
+                  properties:
+                    text: "Trusted by 2,000+ companies worldwide"
+                    typography:
+                      color: *color-secondary
+                      size: xs
+                      weight: regular
+                    spacing:
+                      marginBlock: sm
+            # Right column — clean card with image
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    appearance:
+                      background:
+                        color: '#ffffff'
+                        opacity: 100
+                      border:
+                        width: 1
+                        style: solid
+                        color: *color-border
+                      radius: sm
+                      shadow: soft
+                    spacing:
+                      paddingBlock: sm
+                      paddingInline: sm
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800
+                          altText: Team collaboration on modern workspace
+                        appearance:
+                          minHeight: 25
+                          fit: cover
+                          radius: sm
+
+        # Stats bar — subtle card below hero
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              verticalAlign: center
+              wrap: wrap
+            appearance:
+              background:
+                color: '#ffffff'
+                opacity: 100
+              border:
+                width: 1
+                style: solid
+                color: *color-border
+              radius: sm
+              shadow: soft
+            spacing:
+              paddingBlock: lg
+              paddingInline: md
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "25"
+                  horizontalAlign: center
+              components:
+                - name: counter-up
+                  properties:
+                    value: 98
+                    suffix: "%"
+                    typography: { size: xl, weight: bold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: "Customer satisfaction"
+                    typography: { size: xs, color: *color-secondary, align: center }
+
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "25"
+                  horizontalAlign: center
+              components:
+                - name: counter-up
+                  properties:
+                    value: 150
+                    suffix: "+"
+                    typography: { size: xl, weight: bold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: "Integrations"
+                    typography: { size: xs, color: *color-secondary, align: center }
+
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "25"
+                  horizontalAlign: center
+              components:
+                - name: counter-up
+                  properties:
+                    value: 24
+                    suffix: "/7"
+                    typography: { size: xl, weight: bold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: "Support"
+                    typography: { size: xs, color: *color-secondary, align: center }
+

@@ -4,6 +4,12 @@
 # Section type: ticker
 # Layout: stacked
 # Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas
 # Perfect for: any business, SaaS, agencies, corporate
 - name: page
   properties:

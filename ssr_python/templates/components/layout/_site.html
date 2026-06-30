@@ -18,8 +18,10 @@
     {% endif %}
     {% set theme_fonts = site_theme.fonts | default({}) %}
     {% set has_theme_fonts = theme_fonts.heading is defined or theme_fonts.content is defined %}
+    {% set has_header = component.header | default([]) | length > 0 %}
+    {% set has_footer = component.footer | default([]) | length > 0 %}
 
-    {% if has_theme_fonts %}
+    {% if has_theme_fonts or has_header or has_footer %}
         {% set font_vars = '' %}
         {% if theme_fonts.heading %}
             {% set font_vars = font_vars ~ '--font-heading: ' ~ theme_fonts.heading ~ '; ' %}
@@ -30,12 +32,22 @@
         <div class="site-wrapper" {% if font_vars %}style="{{ font_vars }}"{% endif %}>
     {% endif %}
 
+    {# Render site-level header components shared across pages #}
+    {% for child in component.header | default([]) %}
+        {{ render_component(child, tokens, path + ['header', loop.index0]) }}
+    {% endfor %}
+
     {# Render pages #}
     {% for child in component.components | default([]) %}
         {{ render_component(child, tokens, path + ['components', loop.index0]) }}
     {% endfor %}
 
-    {% if has_theme_fonts %}
+    {# Render site-level footer components shared across pages #}
+    {% for child in component.footer | default([]) %}
+        {{ render_component(child, tokens, path + ['footer', loop.index0]) }}
+    {% endfor %}
+
+    {% if has_theme_fonts or has_header or has_footer %}
         </div>
     {% endif %}
 {% endmacro %}

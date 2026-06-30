@@ -1,0 +1,300 @@
+# Aurora Gradient Footer
+# Vibrant gradient footer with flowing color background and white content
+# Base components: site, page, layout-column, layout-row, heading, paragraph, link
+# Section type: footer
+# Layout: split_screen
+# Visual style: aurora_gradient
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio
+# Perfect for: SaaS platform, tech startup, creative portfolio, design studio, fintech
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Sora', sans-serif"
+        content: "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1A2035'
+        text: &color-text '#313541'
+        secondary: &color-secondary '#C8D8F0'
+        accent: &color-accent '#EC4899'
+        background: &color-background '#E6F0FA'
+  components:
+    - name: page
+      slug: home
+      title: "Aurora Gradient Footer"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Full gradient footer background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-accent
+                  colorEnd: '#8B5CF6'
+                  direction: to bottom right
+                opacity: 100
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+          components:
+
+            # Footer main content row
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-between
+                  verticalAlign: start
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  paddingBlock: xxl
+                  paddingInline: md
+              components:
+
+                # Brand column
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: '25'
+                      horizontalAlign: left
+                      gap: sm
+                  components:
+                    - name: heading
+                      properties:
+                        text: Aurora
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: bold
+                          color: '#ffffff'
+                    - name: paragraph
+                      properties:
+                        text: Building tools that flow as beautifully as the northern lights. Innovation that moves at the speed of light.
+                        typography:
+                          size: sm
+                          color: rgba(255,255,255,0.8)
+                          lineHeight: "1.7"
+                        spacing:
+                          marginBlock: sm
+
+                # Links grid — 3 columns
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 3
+                      gap: md
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                  columns:
+
+                    # Products column
+                    - components:
+                        - name: heading
+                          properties:
+                            text: Products
+                            level: 4
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: '#ffffff'
+                            spacing:
+                              marginBlock: sm
+                        - name: link
+                          properties:
+                            text: Platform
+                            href: '#platform'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: Analytics
+                            href: '#analytics'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: Integrations
+                            href: '#integrations'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: API
+                            href: '#api'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+
+                    # Company column
+                    - components:
+                        - name: heading
+                          properties:
+                            text: Company
+                            level: 4
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: '#ffffff'
+                            spacing:
+                              marginBlock: sm
+                        - name: link
+                          properties:
+                            text: About
+                            href: '#about'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: Blog
+                            href: '#blog'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: Careers
+                            href: '#careers'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: Press
+                            href: '#press'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+
+                    # Resources column
+                    - components:
+                        - name: heading
+                          properties:
+                            text: Resources
+                            level: 4
+                            typography:
+                              size: sm
+                              weight: bold
+                              color: '#ffffff'
+                            spacing:
+                              marginBlock: sm
+                        - name: link
+                          properties:
+                            text: Documentation
+                            href: '#docs'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: Help Center
+                            href: '#help'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: Status
+                            href: '#status'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+                        - name: link
+                          properties:
+                            text: Community
+                            href: '#community'
+                            typography:
+                              size: sm
+                              color: rgba(255,255,255,0.8)
+                            appearance:
+                              underline: false
+                            spacing:
+                              marginBlock: xs
+
+            # Footer bottom divider row
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                appearance:
+                  border:
+                    width: 1
+                    style: solid
+                    color: rgba(255,255,255,0.2)
+                spacing:
+                  paddingBlock: md
+                  paddingInline: xl
+              components:
+                - name: paragraph
+                  properties:
+                    text: "© 2026 Aurora Inc. All rights reserved."
+                    typography:
+                      size: xs
+                      color: '#ffffff'
+                      align: center
+

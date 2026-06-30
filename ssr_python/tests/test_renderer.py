@@ -147,6 +147,38 @@ class TestSiteRendering:
             assert 'comp_0_components_2_components_1' in html
             assert 'site-wrapper' not in html
 
+    def test_site_header_footer_render_around_page(self, app):
+        """Site-level header/footer components render before and after page content."""
+        with app.app_context():
+            import yaml
+            structure = yaml.safe_load("""
+- name: site
+  header:
+    - name: heading
+      properties:
+        text: Shared Header
+  components:
+    - name: page
+      components:
+        - name: paragraph
+          properties:
+            text: Page Body
+  footer:
+    - name: paragraph
+      properties:
+        text: Shared Footer
+""")
+            html = render_yaml_structure(structure, tokens=TOKENS, defaults=COMPONENT_DEFAULTS)
+            assert 'Shared Header' in html
+            assert 'Page Body' in html
+            assert 'Shared Footer' in html
+            assert html.index('Shared Header') < html.index('Page Body')
+            assert html.index('Page Body') < html.index('Shared Footer')
+            assert 'comp_0_header_0' in html
+            assert 'comp_0_components_0_components_0' in html
+            assert 'comp_0_footer_0' in html
+            assert 'site-wrapper' in html
+
 
 class TestSiteTheme:
     """Tests for site-level theme (site.properties.theme) with font CSS vars."""

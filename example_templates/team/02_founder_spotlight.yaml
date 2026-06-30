@@ -1,0 +1,169 @@
+# Founder Spotlight Section — About the Founder
+# A split-screen about section with a large founder portrait image on one side and biographical text with company story heading, paragraph, and achievement counter-ups on the other
+# Base components: layout-row, layout-column, image, heading, paragraph, eyebrow, counter-up, button
+# Section type: team
+# Layout: split_screen
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: trust
+# Image requirement: decorative
+# Interactivity: static
+# Industries: professional_services, saas, restaurant, portfolio, health
+# Perfect for: digital agency, tech startup, consulting firm, law firm, restaurant, bakery, creative studio, architecture firm, dental clinic, accounting firm
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Plus Jakarta Sans', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#7c3aed'
+        background: &color-background '#ffffff'
+  components:
+  - name: page
+    slug: home
+    title: "02 Founder Spotlight"
+    properties:
+      appearance: {background: {color: *color-background}}
+    components:
+
+        # ============================================
+        # SPLIT-SCREEN FOUNDER SECTION
+        # ============================================
+    - name: layout-row
+      properties:
+        layout:
+          wrap: wrap
+          verticalAlign: stretch
+        appearance:
+        spacing:
+          paddingBlock: none
+          paddingInline: none
+      components:
+
+            # Left Side - Founder Image
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=800&q=80'
+            altText: 'Portrait of company founder in office'
+          appearance:
+            minHeight: 37.5
+            fit: cover
+            cornerStyle: none
+          layout:
+            widthMode: "50"
+
+            # Right Side - Bio Content
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: start
+          appearance:
+            background: {color: *color-background, opacity: 100}
+          spacing:
+            paddingBlock: xxxl
+            paddingInline: md
+        components:
+        - name: eyebrow
+          properties:
+            text: OUR STORY
+            typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+
+        - name: heading
+          properties:
+            text: Founded on Passion
+            level: 1
+            typography: {size: xxl, weight: extrabold, color: *color-primary, letterSpacing: tight}
+            spacing: {marginBlock: sm}
+
+        - name: paragraph
+          properties:
+            text: |
+              What started as a simple idea in a small studio has grown into something
+              we never imagined. In 2016, our founder Elena Vasquez left a comfortable
+              corporate role to pursue a vision — building a company that puts people
+              first and craftsmanship above all else.
+            typography: {size: md, color: *color-secondary, lineHeight: "1.8"}
+            spacing: {marginBlock: md}
+
+        - name: paragraph
+          properties:
+            text: |
+              Today, we are a team of 40+ talented individuals serving clients across
+              the globe. Our philosophy remains unchanged: every project deserves the
+              same dedication and attention to detail that sparked this journey.
+            typography: {size: md, color: *color-secondary, lineHeight: "1.8"}
+            spacing: {marginBlock: sm}
+
+                # Achievement Counter-Ups
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              wrap: wrap
+              verticalAlign: center
+            spacing: {marginBlock: lg}
+          components:
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: center, widthMode: "33"}
+            components:
+            - name: counter-up
+              properties:
+                endValue: 10
+                duration: 2000
+                suffix: "+"
+                typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+            - name: caption
+              properties:
+                text: Years Experience
+                typography: {size: xs, color: *color-secondary, align: center, weight: medium}
+
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: center, widthMode: "33"}
+            components:
+            - name: counter-up
+              properties:
+                endValue: 250
+                duration: 2500
+                suffix: "+"
+                typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+            - name: caption
+              properties:
+                text: Happy Clients
+                typography: {size: xs, color: *color-secondary, align: center, weight: medium}
+
+          - name: layout-column
+            properties:
+              layout: {horizontalAlign: center, widthMode: "33"}
+            components:
+            - name: counter-up
+              properties:
+                endValue: 500
+                duration: 2500
+                suffix: "+"
+                typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+            - name: caption
+              properties:
+                text: Projects Delivered
+                typography: {size: xs, color: *color-secondary, align: center, weight: medium}
+
+        - name: button
+          properties:
+            text: Read Full Story
+            action: {type: link, value: '#story'}
+            appearance:
+              background: {color: *color-accent}
+              shadow: soft
+            typography: {color: *color-background, weight: semibold, size: md}
+            spacing: {marginBlock: md, paddingBlock: sm, paddingInline: xl}
+

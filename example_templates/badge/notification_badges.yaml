@@ -4,6 +4,11 @@
 # Section type: status
 # Layout: grid
 # Visual style: default
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
 
 - name: site
   properties:

@@ -1,0 +1,74 @@
+# Countdown Announcement Banner - Urgency Timer with Event Details
+# A dark-themed split announcement banner with event details on the left (heading and description) and a live countdown timer with call-to-action button on the right, creating urgency for product launches, flash sales, or event registrations
+# Base components: layout-row, layout-column, heading, paragraph, countdown, button, badge
+# Section type: banner
+# Layout: split_screen
+# Visual style: monochrome_dark
+# Content volume: light
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, restaurant, ecommerce, hospitality, entertainment
+# Perfect for: online store, SaaS platform, fashion brand, tech startup, restaurant, event venue, hotel, university website
+
+- name: site
+  properties:
+    theme:
+      colors:
+        background: &color-background '#0f172a'
+        primary: &color-primary '#f8fafc'
+        text: &color-text '#DBDCDD'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#f59e0b'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+  components:
+    - name: page
+      slug: home
+      title: "Launch Countdown"
+      properties:
+        appearance: { background: { color: *color-background } }
+      components:
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center, verticalAlign: center, wrap: nowrap }
+            appearance: { background: { color: '#1e293b' } }
+            spacing: { paddingBlock: xl, paddingInline: lg }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '50', horizontalAlign: left }
+              components:
+                - name: badge
+                  properties: { text: "COMING SOON", variant: warning, pill: true }
+                - name: heading
+                  properties:
+                    text: "Something Big Is Launching"
+                    level: 2
+                    typography: { size: xxl, weight: extrabold, color: *color-primary, lineHeight: "1.2" }
+                    spacing: { marginBlock: md }
+                - name: paragraph
+                  properties:
+                    text: "We've been working on something incredible. Be the first to experience our next-generation platform when the countdown hits zero."
+                    typography: { size: md, color: *color-secondary }
+                    spacing: { marginBlock: sm }
+
+            - name: layout-column
+              properties:
+                layout: { widthMode: '50', horizontalAlign: center }
+              components:
+                - name: countdown
+                  properties:
+                    targetDate: '2026-09-15T00:00:00'
+                    format: 'DD:HH:MM:SS'
+                    expiredText: "We're live!"
+                    typography: { size: xxl, weight: bold, color: *color-accent, align: center }
+                    spacing: { marginBlock: md }
+                - name: button
+                  properties:
+                    text: "Get Early Access"
+                    appearance: { background: { color: *color-accent }, radius: md }
+                    typography: { color: '#1e293b', weight: bold, size: md }
+                    spacing: { marginBlock: md }

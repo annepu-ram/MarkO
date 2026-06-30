@@ -1,0 +1,267 @@
+# Claymorphism Footer
+# Soft clay footer with rounded container and pastel tones
+# Base components: site, page, layout-column, layout-row, heading, paragraph, link
+# Section type: footer
+# Layout: split_screen
+# Visual style: claymorphism
+# Content volume: rich
+# Tone: playful
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio, health, education
+# Perfect for: education, health, SaaS platform, creative portfolio, children's app
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Poppins', sans-serif"
+        content: "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary '#4A1942'
+        text: &color-text '#4E3149'
+        secondary: &color-secondary '#9D5094'
+        accent: &color-accent '#FF1493'
+        background: &color-background '#FFD6E6'
+  components:
+    - name: page
+      slug: home
+      title: "Claymorphism Footer"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Outer clay container
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: md
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: stretch
+                  horizontalAlign: center
+                appearance:
+                  background:
+                    color: '#ffffff'
+                    opacity: 100
+                  radius: xxl
+                  shadow: elevated
+                  border:
+                    width: 0
+                spacing:
+                  paddingBlock: xxl
+                  paddingInline: md
+              components:
+
+                # Main footer row — brand left, links right
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: space-between
+                      verticalAlign: start
+                      wrap: wrap
+                      gap: md
+                  components:
+
+                    # Brand column
+                    - name: layout-column
+                      properties:
+                        layout:
+                          widthMode: '25'
+                          horizontalAlign: left
+                          gap: sm
+                      components:
+                        - name: heading
+                          properties:
+                            text: Blossom
+                            level: 3
+                            typography:
+                              size: xl
+                              weight: bold
+                              color: *color-accent
+                        - name: paragraph
+                          properties:
+                            text: Making the digital world softer, friendlier, and more joyful — one pixel at a time.
+                            typography:
+                              size: sm
+                              color: *color-secondary
+                              lineHeight: "1.7"
+                            spacing:
+                              marginBlock: sm
+
+                    # Links grid — 3 columns
+                    - name: columnsgrid
+                      properties:
+                        layout:
+                          columns: 3
+                          gap: md
+                        responsive:
+                          breakpoints:
+                            md: 2
+                            sm: 1
+                      columns:
+
+                        # Product column
+                        - components:
+                            - name: heading
+                              properties:
+                                text: Product
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: *color-primary
+                                spacing:
+                                  marginBlock: sm
+                            - name: link
+                              properties:
+                                text: Features
+                                href: '#features'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Pricing
+                                href: '#pricing'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Changelog
+                                href: '#changelog'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+
+                        # Company column
+                        - components:
+                            - name: heading
+                              properties:
+                                text: Company
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: *color-primary
+                                spacing:
+                                  marginBlock: sm
+                            - name: link
+                              properties:
+                                text: About Us
+                                href: '#about'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Blog
+                                href: '#blog'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Careers
+                                href: '#careers'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+
+                        # Support column
+                        - components:
+                            - name: heading
+                              properties:
+                                text: Support
+                                level: 4
+                                typography:
+                                  size: sm
+                                  weight: bold
+                                  color: *color-primary
+                                spacing:
+                                  marginBlock: sm
+                            - name: link
+                              properties:
+                                text: Help Center
+                                href: '#help'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Community
+                                href: '#community'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+                            - name: link
+                              properties:
+                                text: Contact Us
+                                href: '#contact'
+                                typography:
+                                  size: sm
+                                  color: *color-secondary
+                                appearance:
+                                  underline: false
+                                spacing:
+                                  marginBlock: xs
+
+                # Copyright row
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                    spacing:
+                      marginBlock: xl
+                      paddingBlock: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "© 2026 Blossom Inc. All rights reserved. Made with love and pastels."
+                        typography:
+                          size: xs
+                          color: *color-secondary
+                          align: center
+

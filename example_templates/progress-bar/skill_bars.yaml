@@ -4,6 +4,12 @@
 # Section type: stats
 # Layout: stacked
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: trust
+# Image requirement: none
+# Interactivity: static
+# Industries: saas
 # Perfect for: SaaS, dashboards, corporate, reports
 
 - name: page

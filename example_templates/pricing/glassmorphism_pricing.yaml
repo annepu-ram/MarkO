@@ -1,0 +1,537 @@
+# Glassmorphism Pricing Plans
+# Frosted glass pricing tiers on a cool gradient background
+# Base components: site, page, layout-column, columnsgrid, heading, paragraph, eyebrow, button
+# Section type: pricing
+# Layout: grid
+# Visual style: glassmorphism
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: purchase
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio, hospitality
+# Perfect for: SaaS platform, fintech, tech startup, software, portfolio, luxury brand
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A365D"
+        text: &color-text "#334E68"
+        secondary: &color-secondary "#B0D4E8"
+        accent: &color-accent "#3182CE"
+        background: &color-background "#D6EBF5"
+  components:
+    - name: page
+      slug: home
+      title: "Glassmorphism Pricing Plans"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Gradient background — mandatory for glassmorphism blur visibility
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-accent
+                  colorEnd: "#7C3AED"
+                  direction: to bottom right
+                opacity: 100
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+          components:
+
+            # Content wrapper
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                  gap: lg
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: lg
+              components:
+
+                # Section header — frosted glass pill
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          widthMode: fit
+                          horizontalAlign: center
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 15
+                          blur: true
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#ffffff"
+                          radius: pill
+                        spacing:
+                          paddingBlock: xs
+                          paddingInline: lg
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: "PRICING PLANS"
+                            typography:
+                              size: xs
+                              weight: semibold
+                              color: "#ffffff"
+                              letterSpacing: wider
+                              align: center
+
+                - name: heading
+                  properties:
+                    text: "Simple, transparent pricing"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: "#ffffff"
+                      align: center
+                      lineHeight: snug
+
+                - name: paragraph
+                  properties:
+                    text: "No hidden fees, no surprises. Choose the plan that fits your needs and scale as you grow."
+                    typography:
+                      size: lg
+                      color: rgba(255,255,255,0.85)
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "66"
+
+                # Pricing cards — 3-column grid
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 3
+                      gap: lg
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                    spacing:
+                      paddingBlock: lg
+                  columns:
+
+                    # Card 1 — Starter
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 15
+                              blur: true
+                              border:
+                                width: 1
+                                style: solid
+                                color: "#ffffff"
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(0,0,0,0.1)"
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: lg
+                          components:
+                            - name: eyebrow
+                              properties:
+                                text: "Starter"
+                                typography:
+                                  size: xs
+                                  weight: semibold
+                                  color: rgba(255,255,255,0.7)
+                                  letterSpacing: wider
+                                  transform: uppercase
+                                  align: center
+                            - name: heading
+                              properties:
+                                text: "$12"
+                                level: 2
+                                typography:
+                                  size: xxxl
+                                  weight: bold
+                                  color: "#ffffff"
+                                  align: center
+                                spacing:
+                                  marginBlock: none
+                            - name: caption
+                              properties:
+                                text: "per month"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.6)
+                                  align: center
+                            - name: br
+                              properties:
+                                size: sm
+                            - name: paragraph
+                              properties:
+                                text: "Up to 3 projects"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "5 GB cloud storage"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Basic analytics dashboard"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Community support"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Standard integrations"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: br
+                              properties:
+                                size: md
+                            - name: button
+                              properties:
+                                text: "Get Started"
+                                appearance:
+                                  background:
+                                    color: "#ffffff"
+                                    opacity: 20
+                                  blur: true
+                                  radius: pill
+                                  border:
+                                    width: 1
+                                    style: solid
+                                    color: "#ffffff"
+                                typography:
+                                  color: "#ffffff"
+                                  weight: semibold
+                                layout:
+                                  widthMode: stretch
+
+                    # Card 2 — Professional (popular / highlighted)
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 25
+                              blur: true
+                              border:
+                                width: 2
+                                style: solid
+                                color: *color-accent
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(49,130,206,0.25)"
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: lg
+                          components:
+                            - name: layout-row
+                              properties:
+                                layout:
+                                  horizontalAlign: center
+                              components:
+                                - name: layout-column
+                                  properties:
+                                    layout:
+                                      widthMode: fit
+                                      horizontalAlign: center
+                                    appearance:
+                                      background:
+                                        color: *color-accent
+                                      radius: pill
+                                    spacing:
+                                      paddingBlock: xxs
+                                      paddingInline: sm
+                                  components:
+                                    - name: paragraph
+                                      properties:
+                                        text: "Most Popular"
+                                        typography:
+                                          size: xs
+                                          weight: bold
+                                          color: "#ffffff"
+                                          align: center
+                            - name: eyebrow
+                              properties:
+                                text: "Professional"
+                                typography:
+                                  size: xs
+                                  weight: semibold
+                                  color: rgba(255,255,255,0.7)
+                                  letterSpacing: wider
+                                  transform: uppercase
+                                  align: center
+                            - name: heading
+                              properties:
+                                text: "$39"
+                                level: 2
+                                typography:
+                                  size: xxxl
+                                  weight: bold
+                                  color: "#ffffff"
+                                  align: center
+                                spacing:
+                                  marginBlock: none
+                            - name: caption
+                              properties:
+                                text: "per month"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.6)
+                                  align: center
+                            - name: br
+                              properties:
+                                size: sm
+                            - name: paragraph
+                              properties:
+                                text: "Unlimited projects"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "50 GB cloud storage"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Advanced analytics & reports"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Priority email & chat support"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Custom integrations"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Team collaboration tools"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: br
+                              properties:
+                                size: md
+                            - name: button
+                              properties:
+                                text: "Start Free Trial"
+                                appearance:
+                                  background:
+                                    color: *color-accent
+                                  radius: pill
+                                typography:
+                                  color: "#ffffff"
+                                  weight: bold
+                                layout:
+                                  widthMode: stretch
+
+                    # Card 3 — Enterprise
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 15
+                              blur: true
+                              border:
+                                width: 1
+                                style: solid
+                                color: "#ffffff"
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(0,0,0,0.1)"
+                            spacing:
+                              paddingBlock: lg
+                              paddingInline: lg
+                          components:
+                            - name: eyebrow
+                              properties:
+                                text: "Enterprise"
+                                typography:
+                                  size: xs
+                                  weight: semibold
+                                  color: rgba(255,255,255,0.7)
+                                  letterSpacing: wider
+                                  transform: uppercase
+                                  align: center
+                            - name: heading
+                              properties:
+                                text: "$99"
+                                level: 2
+                                typography:
+                                  size: xxxl
+                                  weight: bold
+                                  color: "#ffffff"
+                                  align: center
+                                spacing:
+                                  marginBlock: none
+                            - name: caption
+                              properties:
+                                text: "per month"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.6)
+                                  align: center
+                            - name: br
+                              properties:
+                                size: sm
+                            - name: paragraph
+                              properties:
+                                text: "Unlimited everything"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "500 GB dedicated storage"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Custom analytics suite"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "Dedicated account manager"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "SSO & advanced security"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: paragraph
+                              properties:
+                                text: "SLA guarantee & uptime"
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                spacing:
+                                  marginBlock: xxs
+                            - name: br
+                              properties:
+                                size: md
+                            - name: button
+                              properties:
+                                text: "Contact Sales"
+                                appearance:
+                                  background:
+                                    color: "#ffffff"
+                                    opacity: 20
+                                  blur: true
+                                  radius: pill
+                                  border:
+                                    width: 1
+                                    style: solid
+                                    color: "#ffffff"
+                                typography:
+                                  color: "#ffffff"
+                                  weight: semibold
+                                layout:
+                                  widthMode: stretch

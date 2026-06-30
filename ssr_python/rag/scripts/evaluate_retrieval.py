@@ -36,8 +36,8 @@ RELEVANCE_QUERIES = [
     },
     {
         "query": "testimonial carousel with star ratings",
-        "expected_section": "testimonial",
-        "expected_keywords": ["testimonial", "rating"],
+        "expected_section": "testimonials",
+        "expected_keywords": ["testimonials", "rating"],
         "tier": "section",
     },
     {
@@ -48,7 +48,7 @@ RELEVANCE_QUERIES = [
     },
     {
         "query": "restaurant menu with food images",
-        "expected_section": "product",
+        "expected_section": "products",
         "expected_keywords": ["restaurant", "image"],
         "tier": "section",
     },
@@ -84,7 +84,7 @@ RELEVANCE_QUERIES = [
     },
     {
         "query": "product cards with images and prices",
-        "expected_section": "product",
+        "expected_section": "products",
         "expected_keywords": ["product", "image"],
         "tier": "section",
     },
@@ -102,7 +102,7 @@ RELEVANCE_QUERIES = [
     },
     {
         "query": "badge component for new arrivals",
-        "expected_section": "product",
+        "expected_section": "products",
         "expected_keywords": ["badge"],
         "tier": "component",
     },
@@ -120,7 +120,7 @@ RELEVANCE_QUERIES = [
     },
     {
         "query": "tabs component for product details",
-        "expected_section": "product",
+        "expected_section": "products",
         "expected_keywords": ["tabs"],
         "tier": "component",
     },
@@ -132,7 +132,7 @@ RELEVANCE_QUERIES = [
     },
     {
         "query": "blockquote testimonial with author citation",
-        "expected_section": "testimonial",
+        "expected_section": "testimonials",
         "expected_keywords": ["blockquote"],
         "tier": "section",
     },
@@ -148,73 +148,73 @@ RELEVANCE_QUERIES = [
 BUSINESS_QUERIES = [
     {
         "query": "create a landing page for a dental clinic",
-        "expected_categories": ["hero", "features_benefits", "contact_section", "team_about"],
+        "expected_categories": ["hero", "features", "contact", "team"],
         "expected_keywords": ["dental", "clinic"],
         "tier": "section",
     },
     {
         "query": "website for a coffee shop",
-        "expected_categories": ["hero", "product_cards", "rating"],
+        "expected_categories": ["hero", "products", "rating"],
         "expected_keywords": ["coffee", "restaurant", "bakery", "cafe"],
         "tier": "section",
     },
     {
         "query": "online store product page",
-        "expected_categories": ["product_cards", "hero", "pricing_plan_cards"],
+        "expected_categories": ["products", "hero", "pricing"],
         "expected_keywords": ["product", "store", "shop", "ecommerce"],
         "tier": "section",
     },
     {
         "query": "law firm website with attorney profiles",
-        "expected_categories": ["hero", "team_about", "contact_section"],
+        "expected_categories": ["hero", "team", "contact"],
         "expected_keywords": ["law", "legal", "consulting"],
         "tier": "section",
     },
     {
         "query": "gym membership pricing page",
-        "expected_categories": ["pricing_plan_cards", "hero", "features_benefits"],
+        "expected_categories": ["pricing", "hero", "features"],
         "expected_keywords": ["gym", "fitness", "pricing"],
         "tier": "section",
     },
     {
         "query": "real estate property listing",
-        "expected_categories": ["hero", "product_cards", "portfolio_showcase_cards"],
+        "expected_categories": ["hero", "products", "gallery"],
         "expected_keywords": ["real estate", "property"],
         "tier": "section",
     },
     {
         "query": "tutoring center with class schedule",
-        "expected_categories": ["hero", "schedule", "features_benefits"],
+        "expected_categories": ["hero", "schedule", "features"],
         "expected_keywords": ["tutoring", "education", "class", "school"],
         "tier": "section",
     },
     {
         "query": "hotel booking page with room photos",
-        "expected_categories": ["hero", "product_cards", "panorama-display"],
+        "expected_categories": ["hero", "products", "gallery"],
         "expected_keywords": ["hotel", "hospitality", "room"],
         "tier": "section",
     },
     {
         "query": "car dealership showroom",
-        "expected_categories": ["hero", "product_cards", "portfolio_showcase_cards"],
+        "expected_categories": ["hero", "products", "gallery"],
         "expected_keywords": ["car", "auto", "vehicle", "dealer"],
         "tier": "section",
     },
     {
         "query": "SaaS dashboard analytics page",
-        "expected_categories": ["dashboard_data_cards", "hero", "features_benefits"],
+        "expected_categories": ["dashboard", "hero", "features"],
         "expected_keywords": ["dashboard", "analytics", "saas"],
         "tier": "section",
     },
     {
         "query": "photography portfolio showcase",
-        "expected_categories": ["portfolio_showcase_cards", "hero"],
+        "expected_categories": ["gallery", "hero"],
         "expected_keywords": ["portfolio", "photography", "gallery"],
         "tier": "section",
     },
     {
         "query": "restaurant with menu and reservations",
-        "expected_categories": ["hero", "product_cards", "rating", "contact_section"],
+        "expected_categories": ["hero", "products", "rating", "contact"],
         "expected_keywords": ["restaurant", "menu", "food"],
         "tier": "section",
     },
@@ -323,7 +323,7 @@ SECTION_TYPE_QUERIES = [
     {
         "query": "customer testimonials wall",
         "tier": "section",
-        "expected_section_type": "testimonial",
+        "expected_section_type": "testimonials",
         "match_top_n": 3,
     },
     {
@@ -353,7 +353,7 @@ SECTION_TYPE_QUERIES = [
     {
         "query": "product showcase cards",
         "tier": "section",
-        "expected_section_type": "product",
+        "expected_section_type": "products",
         "match_top_n": 3,
     },
     {
@@ -437,12 +437,12 @@ def run_business_suite(search, analyzer, verbose=False):
             parts = src.replace("\\", "/").split("/")
             for p in parts:
                 if p in (
-                    "hero", "pricing_plan_cards", "product_cards", "review_testimonial_cards",
-                    "portfolio_showcase_cards", "story_blog_cards", "navigation_footer",
-                    "dashboard_data_cards", "features_benefits", "faq_section",
-                    "contact_section", "banner_announcement", "cta_banners", "ticker",
-                    "badge", "countdown", "counter-up", "icon", "progress-bar", "rating",
-                    "panorama-display", "team_about", "schedule", "titlebar", "styles",
+                    "hero", "pricing", "products", "testimonials",
+                    "gallery", "blog", "navigation", "footer",
+                    "dashboard", "features", "faq",
+                    "contact", "banner", "cta", "ticker",
+                    "badge", "countdown", "icon", "progress-bar", "rating",
+                    "team", "stats", "schedule", "br", "social_links",
                 ):
                     result_cats.add(p)
 

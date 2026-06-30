@@ -1,0 +1,233 @@
+# Contact Form with FAQ Accordion Section
+# A split-screen contact section combining a form on the left with a frequently asked questions accordion on the right, reducing support queries by answering common questions
+# Base components: layout-row, layout-column, form, textbox, textarea, dropdown, accordion, heading, paragraph, eyebrow, icon
+# Section type: contact, faq
+# Layout: split_screen
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: form, accordion
+# Industries: professional_services, portfolio, health, education, realestate
+# Perfect for: consulting firm, law firm, dental clinic, real estate agency, digital agency, photography studio, architecture firm, accounting firm, tutoring center, wellness center
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1e293b'
+        text: &color-text '#343A45'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
+  components:
+  - name: page
+    slug: home
+    title: "04 Contact With FAQ"
+    properties:
+      appearance: {background: {color: *color-background}}
+    components:
+
+        # ============================================
+        # CONTACT + FAQ SPLIT SECTION
+        # ============================================
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          wrap: wrap
+          gap: lg
+          verticalAlign: start
+        appearance:
+          background:
+            color: '#f8fafc'
+            opacity: 100
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+      components:
+
+            # ── Left Column: Contact Form ──
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: start
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            radius: lg
+            shadow: soft
+          spacing:
+            paddingBlock: lg
+            paddingInline: lg
+        components:
+        - name: icon
+          properties: {name: mail, size: "36", color: *color-accent}
+
+        - name: heading
+          properties:
+            text: Send Us a Message
+            level: 2
+            typography: {size: xl, weight: bold, color: *color-primary}
+            spacing: {marginBlock: sm}
+
+        - name: paragraph
+          properties:
+            text: Fill out the form and our team will respond as soon as possible.
+            typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+            spacing: {marginBlock: sm}
+
+        - name: form
+          properties:
+            layout: {style: vertical}
+            submit: {show: false}
+          components:
+          - name: textbox
+            properties:
+              label:
+                text: Name
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: name
+                placeholder: "Your full name"
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: textbox
+            properties:
+              label:
+                text: Email
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: email
+                placeholder: "you@example.com"
+                validation: email
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: dropdown
+            properties:
+              label:
+                text: Topic
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: topic
+                placeholder: Select a topic
+                options: "General Inquiry\nTechnical Support\nBilling\nFeature Request\nOther"
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: textarea
+            properties:
+              label:
+                text: Message
+                show: true
+                typography: {weight: medium, color: *color-primary}
+              field:
+                name: message
+                placeholder: "Describe your question or issue..."
+                rows: 5
+                required: true
+              appearance:
+                size: sm
+                accentColor: *color-accent
+
+          - name: button
+            properties:
+              text: Submit
+              appearance:
+                background: {color: *color-accent, opacity: 100}
+                radius: md
+              typography: {color: *color-background, weight: semibold, size: md}
+              spacing: {marginBlock: sm, paddingBlock: sm, paddingInline: xl}
+
+            # ── Right Column: FAQ Accordion ──
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: start
+          appearance:
+            background: {color: *color-background, opacity: 100}
+            radius: lg
+            shadow: soft
+          spacing:
+            paddingBlock: lg
+            paddingInline: lg
+        components:
+        - name: icon
+          properties: {name: help-circle, size: "36", color: *color-accent}
+
+        - name: heading
+          properties:
+            text: Common Questions
+            level: 2
+            typography: {size: xl, weight: bold, color: *color-primary}
+            spacing: {marginBlock: sm}
+
+        - name: paragraph
+          properties:
+            text: Find quick answers to the most frequently asked questions below.
+            typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+            spacing: {marginBlock: sm}
+
+        - name: accordion
+          properties:
+            behavior:
+              allowMultipleOpen: true
+            typography:
+              title: {size: md, weight: semibold, color: *color-primary}
+              content: {size: sm, weight: regular, color: *color-secondary}
+            appearance:
+              border: {position: bottom}
+            layout: {widthMode: stretch}
+            spacing: {marginBlock: sm}
+          items:
+          - title: "What are your support hours?"
+            components:
+            - name: paragraph
+              properties:
+                text: "Our support team is available Monday through Friday, 9am to 6pm EST. For urgent issues outside business hours, please email urgent@company.com."
+                typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+
+          - title: "How quickly will I get a response?"
+            components:
+            - name: paragraph
+              properties:
+                text: "We typically respond to all inquiries within 24 hours on business days. Priority support customers receive responses within 4 hours."
+                typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+
+          - title: "Can I schedule a demo or consultation?"
+            components:
+            - name: paragraph
+              properties:
+                text: "Absolutely! Select 'General Inquiry' in the contact form and mention you'd like a demo. Our sales team will reach out to schedule a convenient time."
+                typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+
+          - title: "Do you offer phone support?"
+            components:
+            - name: paragraph
+              properties:
+                text: "Phone support is available for Business and Enterprise plan customers. You can reach us at +1 (555) 123-4567 during business hours."
+                typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+
+          - title: "How do I report a bug or request a feature?"
+            components:
+            - name: paragraph
+              properties:
+                text: "Use the contact form with the 'Technical Support' or 'Feature Request' topic. Include as much detail as possible, including screenshots if applicable, so we can address your feedback quickly."
+                typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}

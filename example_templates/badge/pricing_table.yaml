@@ -4,6 +4,12 @@
 # Section type: product
 # Layout: grid
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: ecommerce
 # Perfect for: ecommerce, retail, products, marketing
 
 - name: page
@@ -32,7 +38,15 @@
             - name: eyebrow
               properties:
                 text: PRICING
-                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                typography:
+                  {
+                    size: xs,
+                    weight: semibold,
+                    color: *color-accent,
+                    transform: uppercase,
+                    letterSpacing: wider,
+                    align: center
+                  }
             - name: heading
               properties:
                 text: Choose Your Plan
@@ -69,13 +83,21 @@
                     spacing: { marginBlock: sm }
                 - name: paragraph
                   properties:
-                    text: "5 projects\n10GB storage\nEmail support"
+                    text: "5 projects
+
+                      10GB storage
+
+                      Email support"
                     typography: { size: sm, color: *color-secondary, align: center }
                     spacing: { marginBlock: md }
                 - name: button
                   properties:
                     text: Get Started
-                    appearance: { background: { color: *color-background }, border: { width: 1, color: *color-accent } }
+                    appearance:
+                      {
+                        background: { color: *color-background },
+                        border: { width: 1, color: *color-accent }
+                      }
                     typography: { color: *color-accent, weight: semibold }
 
         - components:
@@ -90,23 +112,128 @@
                 - name: heading
                   properties:
                     text: Professional
-                    level: 3
-                    typography: { size: lg, weight: semibold, color: '#ffffff', align: center }
-                    spacing: { marginBlock: sm }
+                    level: ""
+                    typography:
+                      {
+                        size: lg,
+                        weight: semibold,
+                        color: *color-accent,
+                        align: center,
+                        lineHeight: "1.2",
+                        transform: none,
+                        letterSpacing: normal,
+                        fontStyle: normal,
+                        textDecoration: none
+                      }
+                    spacing:
+                      {
+                        marginBlock: sm,
+                        paddingBlock: none,
+                        paddingInline: none,
+                        marginInline: none
+                      }
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      background:
+                        type: ""
+                        color: $color-background
+                        opacity: 0
+                      textShadow: none
                 - name: paragraph
                   properties:
                     text: "$29"
-                    typography: { size: xxxl, weight: extrabold, color: '#ffffff', align: center }
+                    typography:
+                      {
+                        size: xxxl,
+                        weight: extrabold,
+                        color: *color-accent,
+                        align: center,
+                        lineHeight: "1.6",
+                        transform: none,
+                        letterSpacing: normal,
+                        fontStyle: normal,
+                        textDecoration: none
+                      }
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      background:
+                        type: ""
+                        color: $color-background
+                        opacity: 0
+                      textShadow: none
+                    spacing:
+                      paddingBlock: sm
+                      paddingInline: none
+                      marginBlock: none
+                      marginInline: none
                 - name: paragraph
                   properties:
                     text: per month
-                    typography: { size: sm, color: '#e2e8f0', align: center }
-                    spacing: { marginBlock: sm }
+                    typography:
+                      {
+                        size: sm,
+                        color: *color-secondary,
+                        align: center,
+                        weight: regular,
+                        lineHeight: "1.6",
+                        transform: none,
+                        letterSpacing: normal,
+                        fontStyle: normal,
+                        textDecoration: none
+                      }
+                    spacing:
+                      {
+                        marginBlock: sm,
+                        paddingBlock: sm,
+                        paddingInline: none,
+                        marginInline: none
+                      }
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      background:
+                        type: ""
+                        color: $color-background
+                        opacity: 0
+                      textShadow: none
                 - name: paragraph
                   properties:
-                    text: "Unlimited projects\n100GB storage\nPriority support\nCustom domain"
-                    typography: { size: sm, color: '#e2e8f0', align: center }
-                    spacing: { marginBlock: md }
+                    text: "Unlimited projects
+
+                      100GB storage
+
+                      Priority support
+
+                      Custom domain"
+                    typography:
+                      {
+                        size: sm,
+                        color: *color-secondary,
+                        align: center,
+                        weight: regular,
+                        lineHeight: "1.6",
+                        transform: none,
+                        letterSpacing: normal,
+                        fontStyle: normal,
+                        textDecoration: none
+                      }
+                    spacing:
+                      {
+                        marginBlock: md,
+                        paddingBlock: sm,
+                        paddingInline: none,
+                        marginInline: none
+                      }
+                    layout:
+                      widthMode: fit
+                    appearance:
+                      background:
+                        type: ""
+                        color: $color-background
+                        opacity: 0
+                      textShadow: none
                 - name: button
                   properties:
                     text: Start Free Trial
@@ -136,11 +263,21 @@
                     spacing: { marginBlock: sm }
                 - name: paragraph
                   properties:
-                    text: "Everything in Pro\nUnlimited storage\n24/7 phone support\nSSO & SAML"
+                    text: "Everything in Pro
+
+                      Unlimited storage
+
+                      24/7 phone support
+
+                      SSO & SAML"
                     typography: { size: sm, color: *color-secondary, align: center }
                     spacing: { marginBlock: md }
                 - name: button
                   properties:
                     text: Contact Sales
-                    appearance: { background: { color: *color-background }, border: { width: 1, color: *color-accent } }
+                    appearance:
+                      {
+                        background: { color: *color-background },
+                        border: { width: 1, color: *color-accent }
+                      }
                     typography: { color: *color-accent, weight: semibold }

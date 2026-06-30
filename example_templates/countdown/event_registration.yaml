@@ -4,6 +4,12 @@
 # Section type: countdown
 # Layout: stacked
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: entertainment
 # Perfect for: events, launches, sales, promotions
 
 - name: page
@@ -24,7 +30,7 @@
     properties:
       layout: {horizontalAlign: center}
       spacing: {paddingBlock: xl}
-      appearance: {background: {type: gradient, gradient: {colorStart: '#7c3aed', colorEnd: '#4f46e5', direction: 'to bottom right'}}}
+      appearance: {background: {type: gradient, gradient: {colorStart: *color-accent, colorEnd: '#4f46e5', direction: 'to bottom right'}}}
     components:
     - name: layout-column
       properties:

@@ -5,6 +5,7 @@ Uses ruamel.yaml to preserve YAML anchors (&color-primary) and aliases
 """
 import io
 import logging
+import re
 
 from ruamel.yaml import YAML
 
@@ -42,6 +43,60 @@ def _resolve_aliases(section_yaml: str, theme: dict) -> str:
     for alias, value in replacements.items():
         section_yaml = section_yaml.replace(alias, value)
     return section_yaml
+
+
+def _sanitize_yaml(text: str) -> str:
+    """Fix common LLM YAML output errors before parsing.
+
+    Handles:
+    1. Nested single quotes: font: ''Font Name', serif' → font: "'Font Name', serif"
+    2. Unquoted values with colons: text: Foo: bar → text: "Foo: bar"
+    3. Broken block scalars: text: |+Some text → text: "Some text"
+    4. Unquoted values with parentheses: color: rgba(...) → color: "rgba(...)"
+    """
+    lines = text.split('\n')
+    fixed = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        stripped = line.lstrip()
+        if not stripped or stripped.startswith('#'):
+            fixed.append(line)
+            i += 1
+            continue
+
+        m = re.match(r'^(\s*\S+:\s+)(.*)', line)
+        if not m:
+            fixed.append(line)
+            i += 1
+            continue
+
+        prefix, value = m.group(1), m.group(2)
+
+        # Fix 3: Broken block scalar — |+text or |>text or |-text (no space/newline after indicator)
+        block_match = re.match(r'^([|>][+\-]?)(\S.*)$', value)
+        if block_match:
+            value = '"' + block_match.group(2).replace('"', '\\"') + '"'
+
+        # Fix 4: Unquoted values containing parentheses — rgba(...), calc(...), etc.
+        elif not value.startswith(("'", '"', '[', '{', '|', '>', '*')) \
+                and '(' in value and ')' in value:
+            value = '"' + value.replace('"', '\\"') + '"'
+
+        # Fix 1: Nested single quotes — ''Something', rest'
+        elif re.match(r"^''[^']+',\s*[^']+?'$", value):
+            inner = value[1:-1]
+            value = '"' + inner.replace('"', '\\"') + '"'
+
+        # Fix 2: Unquoted value containing a colon (not already quoted, not a URL, not an alias)
+        elif not value.startswith(("'", '"', '[', '{', '|', '>', '*')) \
+                and ':' in value \
+                and not re.match(r'^https?://', value):
+            value = '"' + value.replace('"', '\\"') + '"'
+
+        fixed.append(prefix + value)
+        i += 1
+    return '\n'.join(fixed)
 
 
 def _restore_aliases(dumped: str, theme: dict) -> str:
@@ -156,6 +211,7 @@ def stitch_page(outline: dict, section_yamls: list[str]) -> str:
 
         # Resolve alias references to actual values before parsing
         resolved = _resolve_aliases(section_yaml, theme)
+        resolved = _sanitize_yaml(resolved)
 
         try:
             parsed = pyyaml.safe_load(resolved)

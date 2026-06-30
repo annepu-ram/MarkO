@@ -1,0 +1,131 @@
+# Countdown Urgency Call-to-Action Banner Section
+# A time-sensitive CTA banner with live countdown timer creating urgency, bold heading, limited-time offer description, and prominent action button for flash sales or launches
+# Base components: layout-row, layout-column, countdown, heading, paragraph, button, badge, eyebrow
+# Section type: cta, countdown
+# Layout: centered
+# Visual style: bold_editorial, monochrome_dark
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, ecommerce, portfolio, education, legal
+# Perfect for: SaaS platform, mobile app, online store, software company, fitness app, online course platform, subscription service, B2B platform, consulting firm, digital agency
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#f8fafc"
+        text: &color-text "#DBDCDD"
+        secondary: &color-secondary "#94a3b8"
+        accent: &color-accent "#f43f5e"
+        background: &color-background "#0f172a"
+  components:
+  - name: page
+    slug: home
+    title: "Countdown Urgency CTA"
+    properties:
+      appearance:
+        background:
+          color: *color-background
+          opacity: 100
+    components:
+        # Urgency CTA Banner
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: lg
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "66"
+            horizontalAlign: center
+        components:
+                # Flash Sale Badge
+        - name: badge
+          properties:
+            text: "FLASH SALE"
+            variant: danger
+            pill: true
+
+                # Main Heading
+        - name: heading
+          properties:
+            text: "Don't Miss Out — 50% Off Everything"
+            level: 1
+            typography:
+              color: *color-primary
+              size: xxxl
+              weight: bold
+              align: center
+              letterSpacing: tight
+              lineHeight: "1.1"
+            spacing:
+              marginBlock: md
+            layout:
+              widthMode: stretch
+
+                # Countdown Timer
+        - name: countdown
+          properties:
+            targetDate: "2026-12-31T23:59:59"
+            format: "DD:HH:MM:SS"
+            expiredText: "This offer has expired!"
+            typography:
+              size: xxl
+              weight: bold
+              color: *color-primary
+              align: center
+            spacing:
+              marginBlock: md
+                # Offer Details
+        - name: paragraph
+          properties:
+            text: |
+              Use code FLASH50 at checkout. Applies to all products sitewide.
+              Free shipping on orders over $50. Limited stock available — act now before it's gone.
+            typography:
+              color: *color-secondary
+              size: md
+              align: center
+              lineHeight: "1.7"
+            spacing:
+              marginBlock: md
+              paddingBlock: md
+              paddingInline: xxl
+            layout:
+              widthMode: "75"
+
+                # CTA Button
+        - name: button
+          properties:
+            text: Shop Now
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              border:
+                width: 0
+                style: solid
+                color: transparent
+              radius: pill
+              shadow: elevated
+              shadowColor: *color-accent
+            typography:
+              color: *color-primary
+              weight: bold
+              size: lg
+            spacing:
+              marginBlock: md

@@ -133,6 +133,14 @@ class RAGAgent:
             meta_filter["industry"] = intent.industry_filter
         if intent.style_filter:
             meta_filter["visual_style"] = intent.style_filter
+        if intent.content_volume_filter:
+            meta_filter["content_volume"] = intent.content_volume_filter
+        if intent.tone_filter:
+            meta_filter["tone"] = intent.tone_filter
+        if intent.intent_filter:
+            meta_filter["conversion_intent"] = intent.intent_filter
+        if intent.interactivity_filter:
+            meta_filter["interactivity"] = intent.interactivity_filter
 
         # Select search tier based on intent
         tier = INTENT_TO_TIER.get(intent.action, "section")
@@ -167,8 +175,10 @@ class RAGAgent:
                         seen_ids.add(chunk["id"])
                         all_chunks.append(chunk)
 
-        # Rerank (no-op if config.use_reranker is False)
-        ranked = self.reranker.rerank(message, all_chunks, top_k=config.final_top_k)
+        # Rerank for relevance — use per-tier final_top_k.
+        ranked = self.reranker.rerank(
+            message, all_chunks, top_k=config.final_top_k_for(tier),
+        )
 
         # Build image context for prompt
         image_context = self._build_image_context(selected_images)
@@ -184,8 +194,12 @@ class RAGAgent:
         )
         log_prompt("SINGLE-CALL", system, user_prompt)
 
-        # Generate
-        response = self.model.generate(system, user_prompt)
+        # Generate (use builder model for YAML-producing calls)
+        response = self.model.generate(
+            system, user_prompt,
+            model_override=config.builder_model_name,
+            temperature_override=config.builder_temperature if config.builder_model_name else None,
+        )
         log_output("SINGLE-CALL", response)
 
         # Validation-guided retry
@@ -203,9 +217,18 @@ class RAGAgent:
             alt = img.get('altText', '')
             orientation = img.get('orientation', 'unknown')
             photographer = img.get('photographer', '')
+            tags = img.get('tags') or []
+            source = img.get('source', '')
+            width = img.get('width')
+            height = img.get('height')
             credit = f" (Photo by {photographer})" if photographer else ""
+            tag_text = f" tags: {', '.join(tags)}" if tags else ""
+            source_text = f" source: {source}" if source else ""
+            size_text = f" size: {width}x{height}" if width and height else ""
+            if tag_text or source_text or size_text:
+                lines.append(f"   metadata for image {i}:{tag_text}{source_text}{size_text}")
             lines.append(f"{i}. {url} — \"{alt}\" [{orientation}]{credit}")
-        lines.append("Match images to sections by orientation. Do NOT use external URLs.")
+        lines.append("Match images to sections by tags, alt text, orientation, and campaign relevance. Do NOT use external URLs.")
         return "\n".join(lines)
 
     def _create_page_guided(
@@ -283,10 +306,20 @@ class RAGAgent:
         # 4. Builders — per-section YAML with REAL business content (N LLM calls)
         business_description = business_context.get("description") or ""
         section_yamls = []
+        used_chunk_ids: set[str] = set()
         for i, section in enumerate(sections):
             if progress_fn:
                 progress_fn(f"Building section {i + 1}/{len(sections)}...")
             section_image_context = section.get("image_context", "")
+
+            # Phase C2: bias retrieval + copy toward the campaign objective. Use
+            # the section's own intent (recipe-driven) first, then the page-level
+            # context value the campaign compiler sets from the derived goal.
+            section_conversion_intent = (
+                section.get("conversion_intent")
+                or business_context.get("conversion_intent")
+                or None
+            )
 
             yaml_str = self.builder.build_section(
                 section,
@@ -297,7 +330,11 @@ class RAGAgent:
                 business_name=business_name,
                 business_content=section.get("business_content") or {},
                 business_description=business_description,
+                industry=industry,
+                conversion_intent=section_conversion_intent,
+                exclude_chunk_ids=used_chunk_ids,
             )
+            used_chunk_ids.update(self.builder._last_used_ids)
             section_yamls.append(yaml_str)
 
         # 5. Stitch (no LLM)
@@ -325,7 +362,7 @@ class RAGAgent:
         # Agent 1: Plan the page structure (markdown output, no images)
         if progress_fn:
             progress_fn("Planning site structure...")
-        planner_md = self.planner.plan(message)
+        planner_md = self.planner.plan(message, intent=intent)
         outline = self.planner.parse_outline(planner_md)
 
         # Retrieve style chunks for the styler
@@ -347,6 +384,7 @@ class RAGAgent:
 
         # Agent 3: Build each section (YAML from specs + style direction)
         section_yamls = []
+        used_chunk_ids: set[str] = set()
         theme = styled_outline.get("theme") or config.default_theme
         for i, section in enumerate(sections):
             if progress_fn:
@@ -359,7 +397,14 @@ class RAGAgent:
                 image_context=section_image_context,
                 style_name=style_name,
                 style_notes=section.get("style_notes", ""),
+                industry=intent.industry_filter or "",
+                content_volume=intent.content_volume_filter,
+                tone=intent.tone_filter,
+                conversion_intent=intent.intent_filter,
+                interactivity=intent.interactivity_filter,
+                exclude_chunk_ids=used_chunk_ids,
             )
+            used_chunk_ids.update(self.builder._last_used_ids)
             section_yamls.append(yaml_str)
 
         # Stitch into complete page
@@ -409,7 +454,11 @@ class RAGAgent:
                 chunks=chunks,
                 message=retry_prompt,
             )
-            response = self.model.generate(system, user_prompt)
+            response = self.model.generate(
+                system, user_prompt,
+                model_override=config.builder_model_name,
+                temperature_override=config.builder_temperature if config.builder_model_name else None,
+            )
 
         return response
 

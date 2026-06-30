@@ -1,0 +1,199 @@
+# Neubrutalism CTA Banner
+# Bold accent-colored call-to-action with thick borders and hard shadows
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: neubrutalism
+# Content volume: standard
+# Tone: playful
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio
+# Perfect for: Creative agency, design studio, streetwear brand, indie game studio, art platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A1A"
+        text: &color-text "#3D3D3D"
+        secondary: &color-secondary "#C8C4BB"
+        accent: &color-accent "#FF4D00"
+        background: &color-background "#E5E2DD"
+  components:
+    - name: page
+      slug: home
+      title: "Neubrutalism CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — bold accent background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Outer container with thick border
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "83"
+                  horizontalAlign: center
+                  gap: md
+                appearance:
+                  background:
+                    color: *color-accent
+                    opacity: 100
+                  radius: none
+                  shadow: retro
+                  shadowColor: "#000000"
+                  border:
+                    width: 4
+                    style: solid
+                    color: "#000000"
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: xxl
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Stop Waiting"
+                    typography:
+                      size: xs
+                      weight: bold
+                      color: *color-background
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "BUILD SOMETHING THAT MATTERS."
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: extrabold
+                      color: *color-background
+                      align: center
+                      lineHeight: snug
+                      transform: uppercase
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      The world has enough boring software. Start building something bold,
+                      something raw, something that makes people stop scrolling. Free for teams up to 5.
+                    typography:
+                      size: md
+                      color: *color-background
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "75"
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "START BUILDING FREE"
+                        appearance:
+                          background:
+                            color: *color-primary
+                            opacity: 100
+                          border:
+                            width: 4
+                            style: solid
+                            color: "#000000"
+                          radius: none
+                          shadow: retro
+                          shadowColor: "#000000"
+                        typography:
+                          color: *color-background
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "WATCH DEMO"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 4
+                            style: solid
+                            color: "#000000"
+                          radius: none
+                          shadow: none
+                        typography:
+                          color: *color-primary
+                          weight: extrabold
+                          size: md
+                          transform: uppercase
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Trust badges
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "No credit card needed"
+                        typography:
+                          size: xs
+                          color: *color-background
+                          weight: semibold
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Cancel anytime"
+                        typography:
+                          size: xs
+                          color: *color-background
+                          weight: semibold
+                          align: center
+                    - name: paragraph
+                      properties:
+                        text: "Free forever plan"
+                        typography:
+                          size: xs
+                          color: *color-background
+                          weight: semibold
+                          align: center

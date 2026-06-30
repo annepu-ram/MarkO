@@ -1,0 +1,156 @@
+# Review Card Variant: Interactive Feedback
+# layout-column with a blockquote and an accordion labeled "Read full case study"
+# Base components: layout-column, eyebrow, blockquote, layout-row, heading, caption, accordion, paragraph, link
+# Section type: testimonials
+# Layout: centered
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: trust
+# Image requirement: none
+# Interactivity: accordion
+# Industries: saas, ecommerce
+# Perfect for: any business, SaaS, ecommerce, services, agencies
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#065f46'
+        text: &color-text '#255B4C'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#059669'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: md}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: medium
+        border: {width: 1, style: solid, color: *color-accent}
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: lg, paddingInline: lg}
+    components:
+    - name: eyebrow
+      properties:
+        text: CASE STUDY
+        typography: {size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+    - name: blockquote
+      properties:
+        quote: |
+          We reduced our customer onboarding time from 2 weeks to just 3 days.
+          The impact on our retention rate was immediate and measurable.
+        cite: Head of Product, CloudSync
+        typography: {size: lg, weight: medium, color: *color-text, align: left, lineHeight: "1.7"}
+        appearance:
+          border: {accentColor: *color-accent}
+          background: {color: *color-background, opacity: 100}
+          radius: md
+        spacing: {marginBlock: sm, paddingBlock: md, paddingInline: md}
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: space-evenly, verticalAlign: center, gap: lg, wrap: nowrap, tag: section}
+        appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
+        spacing:
+          marginBlock: none
+          marginInline: none
+          paddingBlock: sm
+          paddingInline: sm
+      components:
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center, gap: xxs, tag: section, verticalAlign: space-between, wrap: nowrap, widthMode: "16"}
+          appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: sm
+            paddingInline: sm
+        components:
+        - name: heading
+          properties:
+            text: "85%"
+            level: 4
+            typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+            spacing: {marginBlock: none}
+        - name: caption
+          properties:
+            text: Faster Onboarding
+            typography: {size: xs, color: *color-secondary, align: center}
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center, gap: xxs, tag: section, verticalAlign: space-between, wrap: nowrap, widthMode: "16"}
+          appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: sm
+            paddingInline: sm
+        components:
+        - name: heading
+          properties:
+            text: "45%"
+            level: 4
+            typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+            spacing: {marginBlock: none}
+        - name: caption
+          properties:
+            text: Higher Retention
+            typography: {size: xs, color: *color-secondary, align: center}
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center, gap: xxs, tag: section, verticalAlign: space-between, wrap: nowrap, widthMode: "16"}
+          appearance: {background: {opacity: 0, type: "", color: *color-background}, border: {width: 0, style: solid, color: *color-secondary}, radius: none, shadow: none, shadowColor: *color-secondary}
+          spacing:
+            marginBlock: none
+            marginInline: none
+            paddingBlock: sm
+            paddingInline: sm
+        components:
+        - name: heading
+          properties:
+            text: "$2.1M"
+            level: 4
+            typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+            spacing: {marginBlock: none}
+        - name: caption
+          properties:
+            text: Revenue Increase
+            typography: {size: xs, color: *color-secondary, align: center}
+    - name: accordion
+      properties:
+        behavior: {allowMultipleOpen: false}
+        typography:
+          title: {size: md, weight: semibold, color: *color-accent}
+          content: {size: sm, weight: regular, color: *color-secondary}
+        appearance:
+          titleBackground: {color: *color-background}
+          border: {width: 1, style: solid, color: *color-accent, position: all}
+          radius: md
+        spacing: {marginBlock: sm}
+      items:
+      - title: Read the Full Case Study
+        components:
+        - name: paragraph
+          properties:
+            text: |
+              CloudSync, a B2B SaaS company with 500+ enterprise clients, was struggling with
+              customer churn. Their onboarding process required multiple handoffs between teams
+              and manual configuration steps that often took 2+ weeks to complete.
+
+              After implementing our platform, they automated 80% of the onboarding workflow,
+              reduced configuration from days to hours, and saw their NPS score jump from 32 to 71
+              within the first quarter.
+
+              Key wins included: automated environment provisioning, self-service configuration
+              wizards, and real-time progress tracking for both the customer and internal teams.
+            typography: {size: sm, color: *color-secondary, lineHeight: "1.8"}
+        - name: link
+          properties:
+            text: Download Full PDF Report
+            href: '#'
+            typography: {size: sm, weight: semibold, color: *color-accent}
+            appearance: {showArrow: true, underline: false}

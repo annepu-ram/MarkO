@@ -1,0 +1,166 @@
+# Tropical Vibrant CTA Banner
+# Energetic call-to-action with vivid accent background and pill-shaped buttons
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: tropical_vibrant
+# Content volume: standard
+# Tone: playful
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: restaurant, ecommerce, portfolio, hospitality
+# Perfect for: Travel agency, resort, beach club, surf shop, tropical restaurant, island retreat, outdoor adventure, vacation rental
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Poppins', sans-serif"
+        content: &font-content "'Nunito Sans', sans-serif"
+      colors:
+        primary: &color-primary "#1C1917"
+        text: &color-text "#3D3830"
+        secondary: &color-secondary "#FDBA74"
+        accent: &color-accent "#F97316"
+        background: &color-background "#FFF7ED"
+  components:
+    - name: page
+      slug: home
+      title: "Tropical Vibrant CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — vivid accent background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              radius: lg
+              shadow: none
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+              marginBlock: lg
+              marginInline: lg
+          components:
+
+            # Inner content — constrained width
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                  gap: md
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Limited Availability"
+                    typography:
+                      size: xs
+                      weight: bold
+                      color: *color-background
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "The best rooms sell out fast"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: *color-background
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Our most popular beachfront suites and overwater bungalows
+                      are already filling up for peak season. Reserve your dates
+                      now and lock in early-bird pricing before availability runs out.
+                    typography:
+                      size: md
+                      color: *color-background
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "83"
+                    spacing:
+                      marginBlock: sm
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Reserve Your Dates"
+                        appearance:
+                          background:
+                            color: *color-background
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: soft
+                        typography:
+                          color: *color-accent
+                          weight: bold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "View All Properties"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 2
+                            style: solid
+                            color: *color-background
+                          radius: pill
+                          shadow: none
+                        typography:
+                          color: *color-background
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Trust line
+                - name: paragraph
+                  properties:
+                    text: "Free cancellation up to 48 hours before check-in. No booking fees."
+                    typography:
+                      size: sm
+                      color: *color-background
+                      align: center
+                      weight: medium
+                    spacing:
+                      marginBlock: sm

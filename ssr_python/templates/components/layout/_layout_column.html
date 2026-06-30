@@ -5,18 +5,8 @@
     {% set tag = layout_props.tag | default('section') %}
     {% set width_mode = layout_props.widthMode | default('stretch') | string %}
 
-    {# Get marginInline value for CSS variable (used in margin-aware width calculation) #}
-    {% set margin_inline_token = spacing_props.marginInline | default('none') %}
-    {% set margin_inline_value = '0px' %}
-    {% if tokens and tokens.spacing and margin_inline_token in tokens.spacing %}
-        {% set margin_inline_value = tokens.spacing[margin_inline_token] %}
-    {% endif %}
-
     {# Outer wrapper styles: box model properties (pass parent_direction so width mode uses correct context) #}
     {% set outer_styles = build_styles(component, tokens, part='outer', layout_direction=parent_direction) %}
-
-    {# Add CSS variable for margin-aware width calculation #}
-    {% set outer_styles = outer_styles ~ ' --margin-inline: ' ~ margin_inline_value ~ ';' %}
 
     {# Inner wrapper styles: flex layout properties #}
     {% set inner_styles = build_flex_styles(component, tokens, 'column') %}

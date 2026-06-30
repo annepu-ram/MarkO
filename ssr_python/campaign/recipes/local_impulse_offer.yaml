@@ -1,0 +1,59 @@
+id: local_impulse_offer
+name: Local Impulse Offer
+description: Converts impulse-ready local visitors into bookings or purchases with an offer.
+
+applies_when:
+  conversion_goal: appointment_booking
+  awareness_stage: solution_aware
+  traffic_source: instagram
+  industry: local_services
+  audience_sophistication: aware
+  brand_style: warm
+  sales_cycle: impulse
+
+matching:
+  buying_motivation:
+    - aspiration
+    - convenience
+  decision_driver:
+    - aesthetics
+    - social_proof
+    - convenience
+  trust_requirement: medium
+  emotional_intensity: high
+  persuasion_style:
+    - aspiration_led
+    - emotion_led
+  cta_style: direct
+  proof_depth: moderate
+  objection_depth: low
+
+required_content_types:
+  - promise
+  - offer
+  - cta
+
+optional_content_types:
+  - proof
+  - testimonial
+
+section_sequence:
+  - id: hero
+    purpose: aspirational_hero
+    content_refs:
+      headline: content.promises[0]
+      primary_cta: content.calls_to_action.primary
+  - id: offer
+    purpose: offer_highlight
+    content_refs:
+      offer: content.offers[0]
+  - id: proof
+    purpose: proof_points
+    optional: true
+    content_refs:
+      items: content.proof
+  - id: final_cta
+    purpose: final_cta
+    content_refs:
+      headline: content.promises[0]
+      primary_cta: content.calls_to_action.primary

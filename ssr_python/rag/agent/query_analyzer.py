@@ -6,13 +6,20 @@ from dataclasses import dataclass, field
 @dataclass
 class QueryIntent:
     action: str            # create_page | create_section | modify | add | explain
-    section_filter: str | None     # hero | pricing | footer | ...
+    section_filter: str | None     # First section keyword matched (back-compat)
     industry_filter: str | None    # saas | restaurant | ...
     style_filter: str | None = None  # glassmorphism | modern | retro | ...
     style_keywords: str = ""       # comma-separated style words from query (e.g. "modern, clean, sleek")
     color_keywords: str = ""       # comma-separated color words from query (e.g. "navy, gold")
     component_filter: list[str] = field(default_factory=list)
+    content_volume_filter: str | None = None  # light | standard | rich (None = no preference)
+    tone_filter: str | None = None        # formal | neutral | casual | playful
+    intent_filter: str | None = None      # awareness | lead | purchase | trust | engagement
+    interactivity_filter: str | None = None  # form | tabs | accordion | carousel | video | static
     sub_queries: list[str] = field(default_factory=list)
+    # All section keywords matched in the query (multi-section requests).
+    # Used by sub-query expansion and downstream icon/outline retrieval.
+    section_filters: list[str] = field(default_factory=list)
 
 
 # ── Comprehensive color pattern ──
@@ -78,24 +85,37 @@ class QueryAnalyzer:
         ("explain",        r"(what|how|explain|tell me|describe|show me|list|which)\b"),
     ]
 
+    # Aligned with planner_agent._SECTION_COMPONENTS (28 canonical types) and
+    # indexing/metadata.py SECTION_PATTERNS. Keys MUST match that vocabulary.
     SECTION_KEYWORDS = {
         "hero": r"\bhero\b|banner|splash|above.?fold",
         "pricing": r"\bpricing\b|plans?\b|tiers?\b",
         "testimonial": r"\btestimonial\b|reviews?\b|social.?proof",
         "footer": r"\bfooter\b",
         "features": r"\bfeatures?\b|benefits?\b",
+        "services": r"\bservices?\b|\boffering\b|what.?we.?do|solutions?",
+        "about": r"\babout\b|\bour.?story\b|mission|who.?we.?are",
         "cta": r"\bcta\b|call.?to.?action|sign.?up",
+        "form_cta": r"enquiry.?form|booking.?form|catering.?form|form.?cta",
         "faq": r"\bfaq\b|questions?\b",
         "contact": r"\bcontact\b",
-        "navigation": r"\bheader\b|\bnav\b|navigation|titlebar|menu",
-        "product": r"\bproduct\b|catalog",
+        "navigation": r"\bheader\b|\bnav\b|navigation|titlebar",
+        "menu": r"\bmenu\b|dishes|tasting",
+        "products": r"\bproducts?\b|catalog",
         "team": r"\bteam\b|staff|members?\b",
-        "gallery": r"\bgallery\b|showcase|portfolio",
+        "gallery": r"\bgallery\b|showcase|portfolio|panorama",
         "blog": r"\bblog\b|article|post",
         "stats": r"\bstats?\b|numbers?\b|counter|metric",
+        "achievements": r"\bachievements?\b|awards?|milestones?",
         "schedule": r"\bschedule\b|timetable|agenda|appointment",
-        "social_links": r"\bsocial.?link\b|\bsocial.?media\b",
+        "order_form": r"order.?form|order.?online|place.?order",
+        "reservation": r"\breservation\b|reserve.?table|book.?table",
+        "how_it_works": r"how.?it.?works|\bprocess\b|\bsteps?\b",
+        "delivery_areas": r"delivery.?area|service.?area|coverage",
+        "trusted_by": r"trusted.?by|as.?seen.?in|client.?logos|logo.?strip",
+        "social_links": r"\bsocial.?link\b|\bsocial.?media\b|follow.?us",
         "banner": r"\bbanner\b|\bannouncement\b",
+        "newsletter": r"newsletter|subscribe",
         "countdown": r"\bcountdown\b|timer",
         "ticker": r"\bticker\b|scrolling|marquee",
         "dashboard": r"\bdashboard\b|data.?card",
@@ -123,7 +143,7 @@ class QueryAnalyzer:
         "restaurant":          r"restaurant|\bdine.?in\b|diner|fine.?dining|casual.?dining|food.?court|\bmenu\b|pizza|steakhouse|sushi|eatery|bistro|brasserie",
         "homeservices":        r"plumbing|plumber|electric(?:ian|al)|hvac|roofing|roofer|handyman|pest.?control|landscap|cleaning.?service|carpet|pressure.?wash|garage.?door|locksmith|home.?repair|gutter",
         "construction":        r"construction|contractor|renovation|remodel",
-        "beauty":              r"salon|barber|spa\b|nail|hair\b|stylist|beauty|cosmetic|lash|brow|tattoo|piercing",
+        "beauty":              r"salon|barber|\bspa\b|\bnail\b|\bhair\b|stylist|beauty|cosmetic|\blash\b|\bbrow\b|tattoo|piercing",
         "automotive_services": r"mechanic|auto.?repair|tire\b|oil.?change|body.?shop|towing|car.?wash|detailing",
         "food_services":       r"catering|food.?truck|meal.?prep|juice|smoothie|ice.?cream|brewery|winery|distillery",
         "retail_local":        r"hardware|florist|flower|gift.?(?:shop|store)|pet.?(?:store|shop)|thrift|antique|optical",
@@ -195,7 +215,8 @@ class QueryAnalyzer:
                 break
 
         # Extract filters
-        section = self._match_first(q, self.SECTION_KEYWORDS)
+        section_matches = self._match_all(q, self.SECTION_KEYWORDS)
+        section = section_matches[0] if section_matches else None
         industry = self._match_first(q, self.INDUSTRY_KEYWORDS)
         style = self._match_first(q, self.STYLE_KEYWORDS)
         style_keywords = self._extract_style_keywords(q)
@@ -209,9 +230,14 @@ class QueryAnalyzer:
             name for name, pat in self.COMPONENT_KEYWORDS.items()
             if re.search(pat, q)
         ]
+        content_volume = self._match_content_volume(q)
+        tone = self._match_tone(q)
+        intent_axis = self._match_intent_axis(q)
+        interactivity = self._match_interactivity(q)
 
-        # Decompose complex create_page queries
-        sub_queries = self._decompose(q, action)
+        # Decompose complex create_page queries (and inject any extra sections
+        # that the multi-match found but the regex decomposition missed).
+        sub_queries = self._decompose(q, action, extra_sections=section_matches[1:])
 
         return QueryIntent(
             action=action,
@@ -221,8 +247,66 @@ class QueryAnalyzer:
             style_keywords=style_keywords,
             color_keywords=color_keywords,
             component_filter=components,
+            content_volume_filter=content_volume,
+            tone_filter=tone,
+            intent_filter=intent_axis,
+            interactivity_filter=interactivity,
             sub_queries=sub_queries,
+            section_filters=section_matches,
         )
+
+    @staticmethod
+    def _match_tone(text: str) -> str | None:
+        if re.search(r"\b(formal|professional|corporate|polished|serious)\b", text):
+            return "formal"
+        if re.search(r"\b(casual|friendly|approachable|laid.?back|chill)\b", text):
+            return "casual"
+        if re.search(r"\b(playful|fun|whimsical|quirky|energetic|cheeky)\b", text):
+            return "playful"
+        return None
+
+    @staticmethod
+    def _match_intent_axis(text: str) -> str | None:
+        if re.search(r"\b(lead.?gen|capture.?lead|sign.?up|subscribe|book.?(now|a.?demo)|contact.?us|enquir(y|e))\b", text):
+            return "lead"
+        if re.search(r"\b(purchase|buy|checkout|order|add.?to.?cart|sales?)\b", text):
+            return "purchase"
+        if re.search(r"\b(trust|credibility|social.?proof|reviews?|testimonial|reassur)\b", text):
+            return "trust"
+        if re.search(r"\b(engage|engagement|interact(ive)?|browse|discover|explore)\b", text):
+            return "engagement"
+        if re.search(r"\b(awareness|landing|introduce|launch|announce)\b", text):
+            return "awareness"
+        return None
+
+    @staticmethod
+    def _match_interactivity(text: str) -> str | None:
+        if re.search(r"\b(form|input|enquiry|contact.?form|signup|sign.?up.?form)\b", text):
+            return "form"
+        if re.search(r"\b(carousel|slider|slideshow|swipe)\b", text):
+            return "carousel"
+        if re.search(r"\b(tabs|tabbed)\b", text):
+            return "tabs"
+        if re.search(r"\b(accordion|collapsible|expandable|faq)\b", text):
+            return "accordion"
+        if re.search(r"\b(video|background.?video|hero.?video)\b", text):
+            return "video"
+        return None
+
+    @staticmethod
+    def _match_content_volume(text: str) -> str | None:
+        """Detect content-volume hints in the query.
+
+        Soft signal — None means "no preference" so the retrieval filter is
+        applied as a soft prefer rather than a hard filter.
+        """
+        rich_pat = r"\b(detailed|comprehensive|in.?depth|content.?rich|info.?dense|long.?form|extensive|multi.?section)\b"
+        light_pat = r"\b(minimal|simple|sparse|terse|barebones|short|brief|stripped.?down|skeletal)\b"
+        if re.search(rich_pat, text):
+            return "rich"
+        if re.search(light_pat, text):
+            return "light"
+        return None
 
     @staticmethod
     def _extract_color_keywords(text: str) -> str:
@@ -250,19 +334,48 @@ class QueryAnalyzer:
                 return name
         return None
 
-    def _decompose(self, query: str, action: str) -> list[str]:
-        """Split complex queries into sub-queries for parallel retrieval."""
+    def _match_all(self, text: str, patterns: dict) -> list[str]:
+        """Return all keyword names whose pattern matches the text (order preserved)."""
+        return [name for name, pat in patterns.items() if re.search(pat, text)]
+
+    # Catches "with X, Y, and Z" / "containing X and Y" / "including X, Y, Z" /
+    # "page that has X, Y, and Z" — the patterns most users actually type.
+    _SECTION_LIST_PATTERNS = (
+        r"\bwith\s+(.+)",
+        r"\bcontaining\s+(.+)",
+        r"\bincluding\s+(.+)",
+        r"\bthat\s+(?:has|have|includes?|contains?)\s+(.+)",
+        r"\b(?:that\s+)?features?\s+(.+)",
+    )
+
+    def _decompose(self, query: str, action: str, extra_sections: list[str] | None = None) -> list[str]:
+        """Split complex queries into sub-queries for parallel retrieval.
+
+        For ``create_page`` we look for a list of sections in the user message.
+        Patterns covered: "with X, Y, and Z", "containing X and Y",
+        "including X, Y, Z", "page that has X, Y, and Z".
+        ``extra_sections`` are section_type names already detected by the
+        multi-match SECTION_KEYWORDS pass — used as a safety net so we never
+        miss a known section type even if the regex decomposition fails.
+        """
         if action != "create_page":
             return [query]
 
-        # Look for enumerated sections: "with hero, pricing, and testimonials"
-        match = re.search(r"with\s+(.+)", query)
-        if not match:
-            return [query]
+        sections: list[str] = []
+        for pat in self._SECTION_LIST_PATTERNS:
+            m = re.search(pat, query)
+            if not m:
+                continue
+            parts_text = m.group(1)
+            parts = re.split(r",\s*(?:and\s+)?|\s+and\s+", parts_text)
+            sections = [p.strip() for p in parts if p.strip()]
+            if len(sections) > 1:
+                break
 
-        parts_text = match.group(1)
-        parts = re.split(r",\s*(?:and\s+)?|\s+and\s+", parts_text)
-        sections = [p.strip() for p in parts if p.strip()]
+        # Fall back to multi-matched section keywords if the natural-language
+        # split didn't produce ≥2 entries.
+        if len(sections) < 2 and extra_sections:
+            sections = list(dict.fromkeys(extra_sections))  # de-dup, preserve order
 
         if len(sections) > 1:
             return [f"{s} section template" for s in sections]

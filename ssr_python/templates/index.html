@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ai-request-token" content="{{ ai_request_token }}">
     <title>Swift Sites - AI Page Builder</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
@@ -192,40 +198,15 @@
                 <!-- Search Bar -->
                 <div class="images-search">
                     <input type="text" class="images-search-input"
-                           placeholder="Search photos..."
+                           placeholder="Search library by tags or metadata..."
                            x-model="searchQuery"
-                           @keydown.enter="searchImages()"
-                           @input.debounce.300ms="searchImages()">
-                    <svg class="images-search-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
-                </div>
-
-                <!-- Color Filters -->
-                <div class="images-colors">
-                    <span class="images-colors-label">Colors</span>
-                    <div class="images-color-pills">
-                        <template x-for="c in colorOptions" :key="c.value">
-                            <button class="images-color-pill"
-                                    :class="{ 'active': activeColor === c.value }"
-                                    :style="`background: ${c.hex}; ${c.value === 'white' ? 'border-color: var(--border)' : ''}`"
-                                    :title="c.label"
-                                    @click="toggleColor(c.value)"></button>
-                        </template>
-                    </div>
-                </div>
-
-                <!-- Orientation Filters -->
-                <div class="images-orientation">
-                    <span class="images-orientation-label">Orientation</span>
-                    <div class="images-orientation-pills">
-                        <template x-for="o in orientationOptions" :key="o.value">
-                            <button class="images-orientation-pill"
-                                    :class="{ 'active': activeOrientation === o.value }"
-                                    :title="o.label"
-                                    @click="toggleOrientation(o.value)">
-                                <svg aria-hidden="true"><use :href="o.icon"></use></svg>
-                            </button>
-                        </template>
-                    </div>
+                           @keydown.enter="searchLibraryImages()">
+                    <button class="images-search-button" type="button" title="Search media library" @click="searchLibraryImages()" :disabled="isLoading">
+                        <svg aria-hidden="true"><use href="#icon-search"></use></svg>
+                    </button>
+                    <button class="images-search-button" type="button" title="Search stock images" @click="searchStockImages()" :disabled="isLoading">
+                        <svg aria-hidden="true"><use href="#icon-image"></use></svg>
+                    </button>
                 </div>
 
                 <!-- Results Grid -->
@@ -241,7 +222,7 @@
                     <template x-if="!isLoading && searchResults.length === 0 && !hasSearched">
                         <div class="images-empty">
                             <svg class="images-empty-icon" aria-hidden="true"><use href="#icon-search"></use></svg>
-                            <div>Search for photos above</div>
+                            <div>Search your media library by tags, alt text, source, or photographer</div>
                         </div>
                     </template>
 

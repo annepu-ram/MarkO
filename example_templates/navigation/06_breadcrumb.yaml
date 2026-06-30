@@ -1,0 +1,301 @@
+# The Breadcrumb
+# Layout-row of link components separated by slash caption characters showing hierarchical page navigation trails.
+# Base components: page, titlebar, layout-row, link, caption, image, layout-column, eyebrow, heading, paragraph, button
+# Section type: navigation
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: ecommerce
+# Perfect for: e-commerce product pages, documentation sites, and multi-level content hierarchies
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#4f46e5'
+        background: &color-background '#ffffff'
+    spacing: {paddingBlock: none, paddingInline: none}
+    appearance: {background: {color: *color-background}}
+  components:
+
+    # ============================================
+    # TITLEBAR
+    # ============================================
+  - name: titlebar
+    properties:
+      branding:
+        showLogo: true
+        logoUrl: 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=60&h=60&fit=crop'
+        title: 'TechShop'
+      navigation:
+        links:
+        - label: Products
+          href: '#products'
+        - label: Categories
+          href: '#categories'
+        - label: Deals
+          href: '#deals'
+        - label: Support
+          href: '#support'
+      layout: {alignment: left, height: 60}
+      appearance:
+        background: {color: *color-background, opacity: 100}
+        border: {width: 1, style: solid, color: *color-secondary}
+      typography:
+        title: {size: 22, weight: bold, color: *color-primary}
+        menu: {size: 14, weight: medium, color: *color-secondary}
+
+    # ============================================
+    # BREADCRUMB NAVIGATION
+    # ============================================
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, wrap: wrap, verticalAlign: center}
+      spacing: {paddingBlock: sm, paddingInline: lg}
+      appearance:
+        background: {color: *color-background, opacity: 100}
+        border: {width: 1, style: solid, color: *color-secondary}
+    components:
+    - name: link
+      properties:
+        text: Home
+        href: '#home'
+        typography: {size: sm, weight: medium, color: *color-accent}
+        appearance: {underline: false}
+        spacing: {marginInline: xxs}
+    - name: caption
+      properties:
+        text: /
+        typography: {size: sm, weight: regular, color: *color-secondary, align: center}
+        spacing: {marginInline: xxs}
+    - name: link
+      properties:
+        text: Products
+        href: '#products'
+        typography: {size: sm, weight: medium, color: *color-accent}
+        appearance: {underline: false}
+        spacing: {marginInline: xxs}
+    - name: caption
+      properties:
+        text: /
+        typography: {size: sm, weight: regular, color: *color-secondary, align: center}
+        spacing: {marginInline: xxs}
+    - name: link
+      properties:
+        text: Electronics
+        href: '#electronics'
+        typography: {size: sm, weight: medium, color: *color-accent}
+        appearance: {underline: false}
+        spacing: {marginInline: xxs}
+    - name: caption
+      properties:
+        text: /
+        typography: {size: sm, weight: regular, color: *color-secondary, align: center}
+        spacing: {marginInline: xxs}
+    - name: caption
+      properties:
+        text: Wireless Headphones
+        typography: {size: sm, weight: semibold, color: *color-primary, align: center}
+        spacing: {marginInline: xxs}
+
+    # ============================================
+    # PAGE CONTENT
+    # ============================================
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, wrap: nowrap, verticalAlign: start}
+      spacing: {paddingBlock: xl, paddingInline: lg}
+    components:
+
+        # Product Image
+    - name: image
+      properties:
+        source:
+          url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80'
+          altText: 'Wireless headphones product shot'
+        appearance: {minHeight: 25, fit: cover, cornerStyle: lg}
+        layout: {widthMode: "50"}
+
+        # Product Details
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly, widthMode: "50"}
+        spacing: {paddingInline: lg}
+      components:
+      - name: eyebrow
+        properties:
+          text: ELECTRONICS
+          typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Premium Wireless Headphones
+          level: 1
+          typography: {size: xxl, weight: extrabold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: Experience crystal-clear audio with active noise cancellation, 40-hour battery life, and premium comfort. The breadcrumb above shows the full navigation trail from Home to this product page.
+          typography: {size: md, color: *color-secondary, lineHeight: '1.7'}
+          spacing: {marginBlock: sm}
+      - name: heading
+        properties:
+          text: $349.99
+          level: 2
+          typography: {size: xl, weight: bold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-evenly, verticalAlign: center}
+          spacing: {marginBlock: md}
+        components:
+        - name: button
+          properties:
+            text: Add to Cart
+            appearance:
+              background: {color: *color-accent}
+              radius: md
+            typography: {color: *color-background, weight: semibold, size: md}
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
+        - name: button
+          properties:
+            text: Save for Later
+            appearance:
+              background: {color: *color-background, opacity: 100}
+              border: {width: 2, style: solid, color: *color-secondary}
+              radius: md
+            typography: {color: *color-secondary, weight: medium, size: md}
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
+
+    # ============================================
+    # ANOTHER BREADCRUMB EXAMPLE (Deeper nesting)
+    # ============================================
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: space-evenly}
+      spacing: {paddingBlock: lg, paddingInline: lg}
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+    - name: heading
+      properties:
+        text: More Breadcrumb Examples
+        level: 3
+        typography: {size: lg, weight: semibold, color: *color-primary}
+        spacing: {marginBlock: sm}
+
+        # Example 2 - Blog path
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: space-evenly, verticalAlign: center}
+        spacing: {paddingBlock: sm, paddingInline: md}
+        appearance:
+          background: {color: *color-background, opacity: 100}
+          radius: md
+          border: {width: 1, style: solid, color: *color-secondary}
+      components:
+      - name: link
+        properties:
+          text: Home
+          href: '#'
+          typography: {size: sm, weight: medium, color: *color-accent}
+          appearance: {underline: false}
+          spacing: {marginInline: xxs}
+      - name: caption
+        properties:
+          text: /
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginInline: xxs}
+      - name: link
+        properties:
+          text: Blog
+          href: '#blog'
+          typography: {size: sm, weight: medium, color: *color-accent}
+          appearance: {underline: false}
+          spacing: {marginInline: xxs}
+      - name: caption
+        properties:
+          text: /
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginInline: xxs}
+      - name: link
+        properties:
+          text: Technology
+          href: '#tech'
+          typography: {size: sm, weight: medium, color: *color-accent}
+          appearance: {underline: false}
+          spacing: {marginInline: xxs}
+      - name: caption
+        properties:
+          text: /
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginInline: xxs}
+      - name: caption
+        properties:
+          text: "How AI is Transforming Web Development"
+          typography: {size: sm, weight: semibold, color: *color-primary}
+          spacing: {marginInline: xxs}
+
+        # Example 3 - Settings path
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: space-evenly, verticalAlign: center}
+        spacing: {paddingBlock: sm, paddingInline: md, marginBlock: sm}
+        appearance:
+          background: {color: *color-background, opacity: 100}
+          radius: md
+          border: {width: 1, style: solid, color: *color-secondary}
+      components:
+      - name: link
+        properties:
+          text: Dashboard
+          href: '#dashboard'
+          typography: {size: sm, weight: medium, color: *color-accent}
+          appearance: {underline: false}
+          spacing: {marginInline: xxs}
+      - name: caption
+        properties:
+          text: /
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginInline: xxs}
+      - name: link
+        properties:
+          text: Settings
+          href: '#settings'
+          typography: {size: sm, weight: medium, color: *color-accent}
+          appearance: {underline: false}
+          spacing: {marginInline: xxs}
+      - name: caption
+        properties:
+          text: /
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginInline: xxs}
+      - name: link
+        properties:
+          text: Account
+          href: '#account'
+          typography: {size: sm, weight: medium, color: *color-accent}
+          appearance: {underline: false}
+          spacing: {marginInline: xxs}
+      - name: caption
+        properties:
+          text: /
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginInline: xxs}
+      - name: caption
+        properties:
+          text: Security & Privacy
+          typography: {size: sm, weight: semibold, color: *color-primary}
+          spacing: {marginInline: xxs}

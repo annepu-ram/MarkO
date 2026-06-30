@@ -4,6 +4,12 @@
 # Section type: product
 # Layout: stacked
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: required
+# Interactivity: static
+# Industries: restaurant, ecommerce
 # Perfect for: ecommerce, restaurants, reviews, services
 
 - name: page

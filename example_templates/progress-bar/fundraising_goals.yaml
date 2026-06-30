@@ -4,6 +4,12 @@
 # Section type: stats
 # Layout: stacked
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: trust
+# Image requirement: none
+# Interactivity: static
+# Industries: community, education
 # Perfect for: nonprofit, charity, education, crowdfunding
 
 - name: page
@@ -57,7 +63,7 @@
           components:
             - name: layout-column
               properties:
-                appearance: { border: { color: '#e5e7eb', width: 1 }, radius: lg }
+                appearance: { border: { color: *color-border, width: 1 }, radius: lg }
                 spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
               components:
                 - name: heading
@@ -93,7 +99,7 @@
 
             - name: layout-column
               properties:
-                appearance: { border: { color: '#e5e7eb', width: 1 }, radius: lg }
+                appearance: { border: { color: *color-border, width: 1 }, radius: lg }
                 spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
               components:
                 - name: heading
@@ -129,7 +135,7 @@
 
             - name: layout-column
               properties:
-                appearance: { border: { color: '#e5e7eb', width: 1 }, radius: lg }
+                appearance: { border: { color: *color-border, width: 1 }, radius: lg }
                 spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
               components:
                 - name: heading
@@ -165,7 +171,7 @@
 
             - name: layout-column
               properties:
-                appearance: { border: { color: '#e5e7eb', width: 1 }, radius: lg }
+                appearance: { border: { color: *color-border, width: 1 }, radius: lg }
                 spacing: { paddingBlock: lg, paddingInline: lg, marginBlock: md }
               components:
                 - name: heading

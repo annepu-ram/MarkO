@@ -1,27 +1,10 @@
 /**
- * Images Panel - Alpine.js component for browsing, searching, and selecting stock photos.
+ * Images Panel - Alpine.js component for browsing, searching, and selecting photos.
  * Connects to Pexels / Pixabay APIs via server proxy.
- * Images stored in DB (SiteImage) — DB is single source of truth.
+ * Images stored in DB (MediaAsset) — DB is single source of truth.
  */
 
 const RESULTS_PER_PAGE = 30;
-
-const COLOR_OPTIONS = [
-    { value: 'red', label: 'Red', hex: '#EF4444' },
-    { value: 'orange', label: 'Orange', hex: '#F97316' },
-    { value: 'yellow', label: 'Yellow', hex: '#EAB308' },
-    { value: 'green', label: 'Green', hex: '#22C55E' },
-    { value: 'blue', label: 'Blue', hex: '#3B82F6' },
-    { value: 'purple', label: 'Purple', hex: '#A855F7' },
-    { value: 'black', label: 'Black', hex: '#1A1A1A' },
-    { value: 'white', label: 'White', hex: '#FFFFFF' },
-];
-
-const ORIENTATION_OPTIONS = [
-    { value: 'horizontal', label: 'Horizontal', icon: '#icon-rectangle-horizontal' },
-    { value: 'vertical', label: 'Vertical', icon: '#icon-rectangle-vertical' },
-    { value: 'square', label: 'Square', icon: '#icon-square' },
-];
 
 function escapeHtml(text) {
     if (!text) return '';
@@ -51,19 +34,14 @@ function showToast(message) {
 function imagesPanel() {
     return {
         searchQuery: '',
-        activeColor: null,
-        activeOrientation: null,
         searchResults: [],
         selectedImages: [],
         currentPage: 1,
         totalPages: 1,
+        resultMode: 'library',
         isLoading: false,
         hasSearched: false,
         initialized: false,
-
-        // Constants exposed to template
-        colorOptions: COLOR_OPTIONS,
-        orientationOptions: ORIENTATION_OPTIONS,
 
         init() {
             // Load images from DB on first init
@@ -74,13 +52,8 @@ function imagesPanel() {
         },
 
         async loadSelectedImages() {
-            const siteId = window.SITE_ID;
-            if (!siteId) {
-                this.selectedImages = [];
-                return;
-            }
             try {
-                const resp = await fetch(`/api/sites/${siteId}/media`);
+                const resp = await fetch('/api/media');
                 if (!resp.ok) return;
                 const data = await resp.json();
                 this.selectedImages = (data.images || []).map(img => ({
@@ -93,18 +66,64 @@ function imagesPanel() {
                     source: img.source || 'stock',
                     width: img.width,
                     height: img.height,
+                    tags: Array.isArray(img.tags) ? img.tags : [],
                 }));
             } catch (e) {
                 console.warn('[ImagesPanel] Failed to load images from API:', e);
             }
         },
 
-        async searchImages(append = false) {
+        async searchLibraryImages() {
             if (this.isLoading) return;
-            if (!this.searchQuery.trim() && !this.activeColor) return;
+            this.isLoading = true;
+            this.hasSearched = true;
+            this.resultMode = 'library';
+            this.currentPage = 1;
+            this.totalPages = 1;
+            this.searchResults = [];
+
+            try {
+                const params = new URLSearchParams();
+                const query = this.searchQuery.trim();
+                if (query) params.set('q', query);
+
+                const response = await fetch(`/api/media${params.toString() ? `?${params}` : ''}`);
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `Library search failed (${response.status})`);
+                }
+
+                const data = await response.json();
+                this.searchResults = (data.images || []).map(img => ({
+                    id: img.id,
+                    url: img.url,
+                    fullUrl: img.url,
+                    thumbUrl: img.url,
+                    smallUrl: img.url,
+                    photographer: img.photographer || '',
+                    photographerUrl: '',
+                    altText: img.alt_text || img.original_name || '',
+                    source: img.source || 'library',
+                    width: img.width,
+                    height: img.height,
+                    tags: Array.isArray(img.tags) ? img.tags : [],
+                    isLibraryAsset: true,
+                }));
+            } catch (error) {
+                console.error('[ImagesPanel] Library search failed:', error);
+                this.searchResults = [];
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        async searchStockImages(append = false) {
+            if (this.isLoading) return;
+            if (!this.searchQuery.trim()) return;
 
             this.isLoading = true;
             this.hasSearched = true;
+            this.resultMode = 'stock';
             if (!append) {
                 this.currentPage = 1;
                 this.searchResults = [];
@@ -112,15 +131,10 @@ function imagesPanel() {
 
             try {
                 const params = new URLSearchParams({
-                    q: this.searchQuery.trim() || 'wallpaper',
+                    q: this.searchQuery.trim(),
                     page: this.currentPage,
                     per_page: RESULTS_PER_PAGE,
                 });
-                if (this.activeColor) params.set('color', this.activeColor);
-                if (this.activeOrientation) {
-                    const map = { horizontal: 'landscape', vertical: 'portrait', square: 'square' };
-                    params.set('orientation', map[this.activeOrientation]);
-                }
 
                 const response = await fetch(`/api/images/search?${params}`);
                 if (!response.ok) {
@@ -141,6 +155,7 @@ function imagesPanel() {
                     source: photo.source || 'unknown',
                     width: photo.width,
                     height: photo.height,
+                    tags: Array.isArray(photo.tags) ? photo.tags : [],
                 }));
 
                 if (append) {
@@ -157,14 +172,8 @@ function imagesPanel() {
             }
         },
 
-        toggleColor(color) {
-            this.activeColor = this.activeColor === color ? null : color;
-            if (this.searchQuery.trim() || this.activeColor) this.searchImages();
-        },
-
-        toggleOrientation(orientation) {
-            this.activeOrientation = this.activeOrientation === orientation ? null : orientation;
-            if (this.searchQuery.trim() || this.activeColor) this.searchImages();
+        searchImages(append = false) {
+            return this.searchStockImages(append);
         },
 
         isPhotoSelected(photoId) {
@@ -173,6 +182,16 @@ function imagesPanel() {
 
         async toggleImageSelection(photo) {
             const existing = this.selectedImages.find(s => s.id === photo.id);
+            if (photo.isLibraryAsset) {
+                if (!existing) {
+                    this.selectedImages = [
+                        photo,
+                        ...this.selectedImages,
+                    ];
+                }
+                showToast('Image available in library');
+                return;
+            }
             if (existing) {
                 await this.removeSelectedImage(existing.id);
                 return;
@@ -187,7 +206,7 @@ function imagesPanel() {
                         alt_text: photo.altText || '',
                         photographer: photo.photographer || '',
                         source: photo.source || 'stock',
-                        site_id: window.SITE_ID || undefined,
+                        tags: photo.tags || [],
                     }),
                 });
                 if (!resp.ok) return;
@@ -199,13 +218,10 @@ function imagesPanel() {
         },
 
         async removeSelectedImage(imageId) {
-            const siteId = window.SITE_ID;
-            if (siteId) {
-                try {
-                    await fetch(`/api/sites/${siteId}/media/${imageId}`, { method: 'DELETE' });
-                } catch (e) {
-                    console.warn('[ImagesPanel] Failed to delete image:', e);
-                }
+            try {
+                await fetch(`/api/media/${imageId}`, { method: 'DELETE' });
+            } catch (e) {
+                console.warn('[ImagesPanel] Failed to delete image:', e);
             }
             await this.loadSelectedImages();
         },
@@ -231,11 +247,11 @@ function imagesPanel() {
 
         loadMore() {
             this.currentPage++;
-            this.searchImages(true);
+            if (this.resultMode === 'stock') this.searchStockImages(true);
         },
 
         get hasMore() {
-            return this.searchResults.length > 0 && this.currentPage < this.totalPages;
+            return this.resultMode === 'stock' && this.searchResults.length > 0 && this.currentPage < this.totalPages;
         },
 
         handleUpload(event) {
@@ -246,15 +262,10 @@ function imagesPanel() {
         },
 
         async _uploadFile(file) {
-            const siteId = window.SITE_ID;
-            if (!siteId) {
-                showToast('Save your site first before uploading images');
-                return;
-            }
             const formData = new FormData();
             formData.append('file', file);
             try {
-                const resp = await fetch(`/api/images/upload?site_id=${siteId}`, {
+                const resp = await fetch('/api/images/upload', {
                     method: 'POST',
                     body: formData,
                 });

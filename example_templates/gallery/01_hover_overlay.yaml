@@ -1,0 +1,199 @@
+# 01 - The Hover Overlay
+# Image component with a nested layout-column overlay showing heading text. Dark tint overlay reveals project details on the image.
+# Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, image, link
+# Section type: gallery
+# Layout: grid
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: required
+# Interactivity: static
+# Industries: portfolio
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'DM Sans', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
+        secondary: &color-secondary '#334155'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#f8fafc'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # SECTION HEADER
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance: { background: { color: *color-background } }
+      components:
+        - name: eyebrow
+          properties:
+            text: FEATURED WORK
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: Portfolio Showcase
+            level: 1
+            typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center, letterSpacing: tight }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Hover over each project to reveal the details behind the work.
+            typography: { size: lg, color: *color-secondary, align: center }
+            layout: { widthMode: "75" }
+
+    # ============================================
+    # PORTFOLIO GRID - HOVER OVERLAY CARDS
+    # ============================================
+    - name: columnsgrid
+      properties:
+        layout: { columns: 3, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      columns:
+
+        # Card 1 - Brand Identity Project
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80'
+                  altText: 'Brand identity design project with logo concepts and color palettes'
+                appearance:
+                  minHeight: 25
+                  fit: cover
+                  cornerStyle: lg
+                  hoverEffect: zoom
+                  overlay:
+                    enabled: true
+                    color: 'rgba(15, 23, 42, 0.7)'
+                    opacity: 70
+                  shadow: soft
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: BRAND IDENTITY
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                    - name: heading
+                      properties:
+                        text: Luminary Studios
+                        level: 3
+                        typography: { size: xl, weight: bold, color: *color-background }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: Complete brand overhaul including logo design, color system, and visual identity guidelines for a creative agency.
+                        typography: { size: sm, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+                    - name: link
+                      properties:
+                        text: View Case Study
+                        href: '#luminary'
+                        appearance: { color: *color-accent, underline: false, showArrow: true }
+
+        # Card 2 - Web App Design
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80'
+                  altText: 'Web application dashboard design with data visualizations'
+                appearance:
+                  minHeight: 25
+                  fit: cover
+                  cornerStyle: lg
+                  hoverEffect: zoom
+                  overlay:
+                    enabled: true
+                    color: 'rgba(15, 23, 42, 0.7)'
+                    opacity: 70
+                  shadow: soft
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: WEB APPLICATION
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                    - name: heading
+                      properties:
+                        text: DataPulse Analytics
+                        level: 3
+                        typography: { size: xl, weight: bold, color: *color-background }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: Real-time analytics dashboard with intuitive data visualization, custom reporting, and collaborative features.
+                        typography: { size: sm, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+                    - name: link
+                      properties:
+                        text: View Case Study
+                        href: '#datapulse'
+                        appearance: { color: *color-accent, underline: false, showArrow: true }
+
+        # Card 3 - Photography Project
+        - components:
+            - name: image
+              properties:
+                source:
+                  url: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80'
+                  altText: 'Creative photography portfolio with dramatic lighting'
+                appearance:
+                  minHeight: 25
+                  fit: cover
+                  cornerStyle: lg
+                  hoverEffect: zoom
+                  overlay:
+                    enabled: true
+                    color: 'rgba(15, 23, 42, 0.7)'
+                    opacity: 70
+                  shadow: soft
+                layout: { widthMode: stretch }
+              components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: PHOTOGRAPHY
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                    - name: heading
+                      properties:
+                        text: Urban Horizons
+                        level: 3
+                        typography: { size: xl, weight: bold, color: *color-background }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: Cinematic urban photography series exploring light, shadow, and architecture across major world cities.
+                        typography: { size: sm, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+                    - name: link
+                      properties:
+                        text: View Case Study
+                        href: '#urban'
+                        appearance: { color: *color-accent, underline: false, showArrow: true }

@@ -1,0 +1,373 @@
+# 10 - The Animated Process
+# Layout-row using gif icons to explain a 3-step workflow. Each step has a gif, heading, and description.
+# Base components: page, layout-column, eyebrow, heading, paragraph, layout-row, gif, br, caption, button
+# Section type: features
+# Layout: grid
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: required
+# Interactivity: static
+# Industries: saas
+# Perfect for: SaaS, tech, services
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'DM Sans', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f0f0f'
+        text: &color-text '#2B2B2B'
+        secondary: &color-secondary '#525252'
+        accent: &color-accent '#f59e0b'
+        background: &color-background '#fefce8'
+    spacing: {paddingBlock: none, paddingInline: none}
+    appearance: {background: {color: *color-background}}
+  components:
+
+    # ============================================
+    # SECTION HEADER
+    # ============================================
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: xl, paddingInline: lg}
+      appearance: {background: {color: *color-background}}
+    components:
+    - name: eyebrow
+      properties:
+        text: HOW WE WORK
+        typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+    - name: heading
+      properties:
+        text: Our Creative Process
+        level: 1
+        typography: {size: xxxl, weight: extrabold, color: *color-primary, align: center, letterSpacing: tight}
+        spacing: {marginBlock: sm}
+    - name: paragraph
+      properties:
+        text: From first conversation to final delivery, every project follows our proven three-phase methodology.
+        typography: {size: lg, color: *color-secondary, align: center}
+        layout: {widthMode: "75"}
+
+    # ============================================
+    # 3-STEP ANIMATED PROCESS
+    # ============================================
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, verticalAlign: top, wrap: wrap, gap: lg}
+      spacing: {paddingBlock: xl, paddingInline: lg}
+      appearance: {background: {color: *color-background}}
+    components:
+
+        # Step 1 - Discover
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center, widthMode: "33"}
+        spacing: {paddingBlock: lg, paddingInline: md}
+      components:
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center}
+          spacing: {paddingBlock: md}
+          appearance:
+            background: {color: *color-background}
+            radius: pill
+        components:
+        - name: gif
+          properties:
+            source:
+              url: 'https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif'
+              altText: 'Animated magnifying glass representing the discovery phase'
+            appearance:
+              fit: contain
+              aspectRatio: '1/1'
+              cornerStyle: pill
+            layout: {widthMode: "50"}
+      - name: br
+        properties: {size: sm}
+      - name: eyebrow
+        properties:
+          text: STEP 01
+          typography: {size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+      - name: heading
+        properties:
+          text: Discover
+          level: 3
+          typography: {size: xl, weight: bold, color: *color-primary, align: center}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: We immerse ourselves in your world. Through stakeholder interviews, competitive audits, and user research, we uncover the insights that drive strategy.
+          typography: {size: sm, color: *color-secondary, align: center}
+          spacing: {marginBlock: sm}
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: left}
+          spacing: {paddingBlock: sm, paddingInline: md}
+          appearance:
+            background: {color: *color-background}
+            radius: md
+        components:
+        - name: caption
+          properties:
+            text: "Stakeholder Workshops"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "Competitive Analysis"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "User Research & Personas"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "Strategy & Brief"
+            typography: {size: xs, weight: medium, color: *color-primary}
+
+        # Step 2 - Design
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center, widthMode: "33"}
+        spacing: {paddingBlock: lg, paddingInline: md}
+      components:
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center}
+          spacing: {paddingBlock: md}
+          appearance:
+            background: {color: *color-background}
+            radius: pill
+        components:
+        - name: gif
+          properties:
+            source:
+              url: 'https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif'
+              altText: 'Animated paintbrush representing the design phase'
+            appearance:
+              fit: contain
+              aspectRatio: '1/1'
+              cornerStyle: pill
+            layout: {widthMode: "50"}
+      - name: br
+        properties: {size: sm}
+      - name: eyebrow
+        properties:
+          text: STEP 02
+          typography: {size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+      - name: heading
+        properties:
+          text: Design
+          level: 3
+          typography: {size: xl, weight: bold, color: *color-primary, align: center}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: Ideas take shape through rapid prototyping and iterative design. We explore multiple directions before refining the one that resonates most.
+          typography: {size: sm, color: *color-secondary, align: center}
+          spacing: {marginBlock: sm}
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: left}
+          spacing: {paddingBlock: sm, paddingInline: md}
+          appearance:
+            background: {color: *color-background}
+            radius: md
+        components:
+        - name: caption
+          properties:
+            text: "Wireframes & Concepts"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "Visual Design Exploration"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "Interactive Prototypes"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "Design System Creation"
+            typography: {size: xs, weight: medium, color: *color-primary}
+
+        # Step 3 - Deliver
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center, widthMode: "33"}
+        spacing: {paddingBlock: lg, paddingInline: md}
+      components:
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: center}
+          spacing: {paddingBlock: md}
+          appearance:
+            background: {color: *color-background}
+            radius: pill
+        components:
+        - name: gif
+          properties:
+            source:
+              url: 'https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif'
+              altText: 'Animated rocket launch representing the delivery phase'
+            appearance:
+              fit: contain
+              aspectRatio: '1/1'
+              cornerStyle: pill
+            layout: {widthMode: "50"}
+      - name: br
+        properties: {size: sm}
+      - name: eyebrow
+        properties:
+          text: STEP 03
+          typography: {size: xs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center}
+      - name: heading
+        properties:
+          text: Deliver
+          level: 3
+          typography: {size: xl, weight: bold, color: *color-primary, align: center}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: Pixel-perfect execution meets engineering excellence. We build, test, and launch with meticulous attention to every detail.
+          typography: {size: sm, color: *color-secondary, align: center}
+          spacing: {marginBlock: sm}
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: left}
+          spacing: {paddingBlock: sm, paddingInline: md}
+          appearance:
+            background: {color: *color-background}
+            radius: md
+        components:
+        - name: caption
+          properties:
+            text: "Development & Build"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "QA & User Testing"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "Launch & Deployment"
+            typography: {size: xs, weight: medium, color: *color-primary}
+        - name: caption
+          properties:
+            text: "Handoff & Support"
+            typography: {size: xs, weight: medium, color: *color-primary}
+
+    # ============================================
+    # TIMELINE SUMMARY
+    # ============================================
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: wrap, gap: md}
+      spacing: {paddingBlock: xl, paddingInline: lg}
+      appearance:
+        background: {color: *color-primary}
+    components:
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center, widthMode: "25"}
+      components:
+      - name: heading
+        properties:
+          text: "2-3"
+          level: 3
+          typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+      - name: paragraph
+        properties:
+          text: Weeks for Discovery
+          typography: {size: sm, color: *color-secondary, align: center}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center, widthMode: "25"}
+      components:
+      - name: heading
+        properties:
+          text: "4-6"
+          level: 3
+          typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+      - name: paragraph
+        properties:
+          text: Weeks for Design
+          typography: {size: sm, color: *color-secondary, align: center}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center, widthMode: "25"}
+      components:
+      - name: heading
+        properties:
+          text: "6-10"
+          level: 3
+          typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+      - name: paragraph
+        properties:
+          text: Weeks for Delivery
+          typography: {size: sm, color: *color-secondary, align: center}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center, widthMode: "25"}
+      components:
+      - name: heading
+        properties:
+          text: "100%"
+          level: 3
+          typography: {size: xxl, weight: extrabold, color: *color-accent, align: center}
+      - name: paragraph
+        properties:
+          text: Client Satisfaction
+          typography: {size: sm, color: *color-secondary, align: center}
+
+    # ============================================
+    # START A PROJECT CTA
+    # ============================================
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center}
+      spacing: {paddingBlock: xl, paddingInline: lg}
+      appearance:
+        background: {color: *color-background}
+    components:
+    - name: heading
+      properties:
+        text: Ready to Start Your Project?
+        level: 2
+        typography: {size: xxl, weight: bold, color: *color-primary, align: center}
+        spacing: {marginBlock: sm}
+    - name: paragraph
+      properties:
+        text: Tell us about your vision and we will show you how our process brings it to life.
+        typography: {size: md, color: *color-secondary, align: center}
+        layout: {widthMode: "50"}
+        spacing: {marginBlock: md}
+    - name: layout-row
+      properties:
+        layout: {horizontalAlign: center, verticalAlign: center, gap: md}
+      components:
+      - name: button
+        properties:
+          text: Start a Project
+          action: {type: link, value: '#contact'}
+          appearance:
+            background: {color: *color-accent}
+          typography: {color: *color-primary, weight: bold, size: md}
+          spacing:
+            paddingBlock: md
+            paddingInline: xl
+      - name: button
+        properties:
+          text: View More Work
+          action: {type: link, value: '#portfolio'}
+          appearance:
+            background: {color: *color-background}
+            border: {width: 2, style: solid, color: *color-primary}
+          typography: {color: *color-primary, weight: semibold, size: md}
+          spacing:
+            paddingBlock: md
+            paddingInline: xl

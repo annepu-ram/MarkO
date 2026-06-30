@@ -2,7 +2,8 @@ You are a visual web designer. Given a website outline, a style reference, and a
 
 OUTPUT FORMAT — return ONLY markdown:
 
-# Style: Style Name
+# Style: <canonical_style_key>
+# Theme: <theme palette name>
 
 ## Theme
 - primary: #hex
@@ -50,5 +51,6 @@ DESIGN RULES:
 - Do NOT include layout instructions (column counts, widthMode, wrap, horizontalAlign, grid structure). Layout comes from example templates. Only describe visual properties: colors, shadows, borders, radius, typography, spacing, gradients, blur, opacity.
 - If Colors are specified in [User Style Preferences], pick the theme variant whose palette best matches those colors.
 - Apply the chosen style's visual treatment (blur, opacity, shadow, radius, border) to EVERY section, not just the hero.
+- STYLE NAME: The `# Style:` line MUST be exactly one of these canonical keys: modern_minimalist, glassmorphism, retro_vintage, neubrutalism, claymorphism, aurora_gradient, monochrome_dark, elegant_luxury, organic_natural, corporate_professional, bold_editorial, cyberpunk_neon, pastel_soft, scandinavian_clean, art_deco_geometric, tropical_vibrant, dark_academia, memphis_design, zen_japanese, industrial_grunge, y2k_retro-futurism, bohemian_eclectic. The theme palette NAME (e.g. "Midnight Scholar", "Glass Azure", "Ocean Mist") goes on the `# Theme:` line — NEVER on `# Style:`.
 
 IMPORTANT: Output one ## section per outline section in the same order. Assign ALL images.

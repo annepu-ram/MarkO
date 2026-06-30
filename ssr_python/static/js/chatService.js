@@ -13,6 +13,16 @@ export class ChatService {
         this._cancelled = false;
     }
 
+    _appHeaders(extra = {}) {
+        const token = document.querySelector('meta[name="ai-request-token"]')?.content || '';
+        return {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'SwiftSitesApp',
+            'X-AI-Request-Token': token,
+            ...extra,
+        };
+    }
+
     /**
      * Send a message to the LLM and get a response.
      *
@@ -31,9 +41,7 @@ export class ChatService {
         try {
             const response = await fetch(this.endpoint, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: this._appHeaders(),
                 body: JSON.stringify({
                     message,
                     currentYaml: currentYaml || '',
@@ -110,7 +118,7 @@ export class ChatService {
         try {
             const response = await fetch('/api/chat/guided', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: this._appHeaders(),
                 body: JSON.stringify({
                     businessContext,
                     currentYaml: currentYaml || '',
@@ -181,6 +189,35 @@ export class ChatService {
     }
 
     /**
+     * Enhance a guided-flow section's content fields using LLM.
+     *
+     * @param {string} businessName
+     * @param {string} industry
+     * @param {string} description
+     * @param {string} sectionType
+     * @param {Object} currentContent - { field_key: value, ... }
+     * @returns {Promise<Object>} { enhanced_fields: { field_key: value, ... } }
+     */
+    async enhanceSection(businessName, industry, description, sectionType, currentContent) {
+        const resp = await fetch('/api/chat/enhance', {
+            method: 'POST',
+            headers: this._appHeaders(),
+            body: JSON.stringify({
+                business_name: businessName,
+                industry: industry,
+                description: description,
+                section_type: sectionType,
+                current_content: currentContent,
+            }),
+        });
+        if (!resp.ok) {
+            const errData = await resp.json().catch(() => ({}));
+            throw new Error(errData.message || `Enhance failed: ${resp.status}`);
+        }
+        return resp.json();
+    }
+
+    /**
      * Cancel the active chat request.
      * Aborts the fetch and tells the backend to stop processing.
      */
@@ -191,7 +228,10 @@ export class ChatService {
             this._controller = null;
         }
         // Tell backend to stop processing (fire-and-forget)
-        fetch('/api/chat/cancel', { method: 'POST' }).catch(() => {});
+        fetch('/api/chat/cancel', {
+            method: 'POST',
+            headers: this._appHeaders(),
+        }).catch(() => {});
     }
 }
 

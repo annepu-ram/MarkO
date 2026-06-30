@@ -4,6 +4,11 @@
 # Section type: hero
 # Layout: fullscreen
 # Visual style: monochrome_dark
+# Content volume: rich
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
 # Perfect for: Non-profits, documentaries, brand stories, lifestyle brands
 
 - name: page
@@ -12,7 +17,7 @@
       colors:
         primary: &color-primary "#ffffff"
         text: &color-text "#DFDFDF"
-        secondary: &color-secondary "#1a1a1a"
+        secondary: &color-secondary *color-background
         accent: &color-accent "#d4af37"
         background: &color-background "#1a1a1a"
     appearance:

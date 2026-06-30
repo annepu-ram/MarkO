@@ -26,7 +26,7 @@ class TestSystemPrompts:
     def test_builder_system_content(self):
         text = load_system("builder")
         assert "YAML builder" in text
-        assert "Component Specs" in text
+        assert "Reference Example Templates" in text
 
     def test_styler_system_content(self):
         text = load_system("styler")
@@ -36,7 +36,9 @@ class TestSystemPrompts:
     def test_condensed_system_content(self):
         text = load_system("condensed")
         assert "SwiftSites" in text
-        assert "VALID COMPONENTS" in text
+        assert "ACTION" in text
+        # Per the slim-down, the system prompt should be ≤ ~600 tokens (≈ 2400 chars)
+        assert len(text) < 2600, f"condensed_system.j2 grew back to {len(text)} chars"
 
 
 class TestPlannerUserTemplate:
@@ -77,7 +79,7 @@ class TestBuilderUserTemplate:
             ranked_chunks=[
                 {"source_file": "hero_example.yaml", "content": "- name: layout-row"},
             ],
-            theme_str="Colors: primary='#1a1a1a' (*color-primary)",
+            theme_str="Palette: primary=#1a1a1a",
             style_notes="Use bold typography with generous whitespace",
             image_context="1. https://example.com/hero.jpg — \"Hero image\" [landscape]",
             icons=["star", "rocket"],
@@ -85,32 +87,84 @@ class TestBuilderUserTemplate:
         assert "[Section to Build]" in result
         assert "Type: hero" in result
         assert "layout-row, heading, button" in result
-        assert "[Component Specs" in result
+        # When ranked_chunks are present we ship example templates and
+        # SUPPRESS the per-component spec block (de-duplication).
         assert "[Reference Example Templates" in result
-        assert "--- Example Section: hero_example.yaml ---" in result
+        assert "[Component Specs" not in result
+        assert "--- Example Template ---" in result
         assert "[Theme]" in result
         assert "[Style Direction" in result
         assert "[Images" in result
         assert "Available icons (2 total" in result
         assert "star, rocket" in result
 
-    def test_renders_without_optional_blocks(self):
+    def test_renders_specs_when_no_examples(self):
         result = render_user("builder",
             section_type="faq",
             description="FAQ section",
             suggested=["accordion"],
             comp_specs="accordion:\n  items: []",
             ranked_chunks=[],
-            theme_str="Colors: ...",
+            theme_str="Palette: primary=#000",
             style_notes="",
             image_context="",
             icons=[],
         )
+        # No example templates → fall back to component specs
+        assert "[Component Specs" in result
+        assert "[Reference Example Templates" not in result
         # Style Direction heading should not appear (empty style_notes)
         assert "## [Style Direction" not in result
         # Images heading should not appear (empty image_context)
         assert "## [Images" not in result
         assert "Available icons" not in result
+
+    def test_distribution_block_only_when_relevant(self):
+        # No icons / no images / no repeating containers → no distribution block
+        plain = render_user("builder",
+            section_type="hero",
+            description="Hero",
+            suggested=["heading", "paragraph", "button"],
+            comp_specs="",
+            ranked_chunks=[{"source_file": "h.yaml", "content": "- name: heading"}],
+            theme_str="...",
+            style_notes="",
+            image_context="",
+            icons=[],
+        )
+        assert "Distribution Rules" not in plain
+
+        with_grid = render_user("builder",
+            section_type="features",
+            description="Features",
+            suggested=["columnsgrid", "icon", "heading", "paragraph"],
+            comp_specs="",
+            ranked_chunks=[{"source_file": "f.yaml", "content": "- name: columnsgrid"}],
+            theme_str="...",
+            style_notes="",
+            image_context="",
+            icons=["star", "zap", "heart"],
+        )
+        assert "Distribution Rules" in with_grid
+
+    def test_business_content_block_only_when_provided(self):
+        without = render_user("builder",
+            section_type="hero", description="Hero",
+            suggested=["heading"], comp_specs="",
+            ranked_chunks=[{"source_file": "x.yaml", "content": "- name: heading"}],
+            theme_str="...", style_notes="", image_context="", icons=[],
+        )
+        assert "Business Content Rules" not in without
+
+        with_biz = render_user("builder",
+            section_type="hero", description="Hero",
+            suggested=["heading"], comp_specs="",
+            ranked_chunks=[{"source_file": "x.yaml", "content": "- name: heading"}],
+            theme_str="...", style_notes="", image_context="", icons=[],
+            business_name="Acme",
+            business_content={"tagline": "Best in town"},
+        )
+        assert "Business Content Rules" in with_biz
 
 
 class TestStylerUserTemplate:
@@ -154,9 +208,9 @@ class TestCondensedUserTemplate:
             selected_component="heading",
             message="Change the heading color to red",
         )
-        assert "[Component Specifications" in result
+        assert "[Component Specs" in result
         assert "[Valid Tokens]" in result
-        assert "[Reference Examples]" in result
+        assert "[Reference Examples" in result
         assert "[Current YAML]" in result
         assert "[Selected Component]" in result
         assert "[User Request]" in result
@@ -170,8 +224,8 @@ class TestCondensedUserTemplate:
             selected_component=None,
             message="Create a hero section",
         )
-        assert "[Component Specifications" not in result
-        assert "[Reference Examples]" not in result
+        assert "[Component Specs" not in result
+        assert "[Reference Examples" not in result
         assert "[Current YAML]" not in result
         assert "[Selected Component]" not in result
         assert "[User Request]" in result

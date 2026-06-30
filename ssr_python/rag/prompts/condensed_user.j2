@@ -1,5 +1,10 @@
+{% if context_block %}
+[Reference Examples — copy this exact structure and properties. The examples below are the source of truth for valid YAML format.]
+{{ context_block }}
+
+{% endif %}
 {% if comp_specs %}
-[Component Specifications — ONLY these properties are valid]
+[Component Specs — valid YAML Format and Properties]
 {{ comp_specs }}
 Properties not listed here are auto-filled by defaults — do NOT invent new ones.
 
@@ -7,11 +12,6 @@ Properties not listed here are auto-filled by defaults — do NOT invent new one
 [Valid Tokens]
 {{ valid_tokens }}
 
-{% if context_block %}
-[Reference Examples]
-{{ context_block }}
-
-{% endif %}
 {% if current_yaml %}
 [Current YAML]
 {{ current_yaml }}

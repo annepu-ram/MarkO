@@ -85,7 +85,8 @@ columnsgrid:
     columnRadius: none
     columnBorder:
       width: 0
-      color: '#e5e7eb'
+      style: none
+      color: $color-primary
   spacing:
     marginBlock: none
     marginInline: none
@@ -116,9 +117,9 @@ titlebar:
     border:
       width: 1
       style: solid
-      color: '#dddddd'
+      color: $color-secondary
     focus:
-      background: '#f0f0f0'
+      background: $color-background
       color: $color-primary
   typography:
     title:
@@ -128,7 +129,7 @@ titlebar:
     menu:
       size: 16
       weight: medium
-      color: '#333333'
+      color: $color-text
 heading:
   text: |
     Elevate your message
@@ -275,6 +276,10 @@ image:
     url: https://placehold.co/150x150?text=Add+Image
     altText: Placeholder image
   appearance:
+    border:
+      width: 0
+      style: none
+      color: $color-primary
     minHeight: 12.5
     maxHeight: 0
     fit: cover
@@ -322,6 +327,10 @@ gif:
     url: https://media.giphy.com/media/VseXoJs6vVmwU/giphy.gif
     altText: Animated GIF
   appearance:
+    border:
+      width: 0
+      style: none
+      color: $color-primary
     minHeight: 12.5
     maxHeight: 0
     fit: cover
@@ -349,7 +358,7 @@ textbox:
     show: true
     typography:
       weight: medium
-      color: '#374151'
+      color: $color-text
   field:
     name: ''
     placeholder: Enter text...
@@ -359,14 +368,14 @@ textbox:
     required: false
   appearance:
     size: sm
-    accentColor: '#3b82f6'
+    accentColor: $color-accent
 textarea:
   label:
     text: Label
     show: true
     typography:
       weight: medium
-      color: '#374151'
+      color: $color-text
   field:
     name: ''
     placeholder: Enter text...
@@ -375,12 +384,12 @@ textarea:
     required: false
   appearance:
     size: sm
-    accentColor: '#3b82f6'
+    accentColor: $color-accent
 button:
   text: Click Me
   action:
-    type: inlineScript
-    value: alert("Clicked!")
+    type: link
+    href: ''
   appearance:
     background:
       color: $color-background
@@ -388,11 +397,10 @@ button:
     border:
       width: 1
       style: solid
-      color: '#1d4ed8'
+      color: $color-accent
     radius: sm
     shadow: none
     shadowColor: ''
-    iconPlacement: none
   typography:
     size: md
     weight: semibold
@@ -414,7 +422,7 @@ dropdown:
     show: true
     typography:
       weight: medium
-      color: '#374151'
+      color: $color-text
   field:
     name: ''
     placeholder: Choose an option
@@ -423,14 +431,14 @@ dropdown:
     required: false
   appearance:
     size: sm
-    accentColor: '#3b82f6'
+    accentColor: $color-accent
 calendar:
   label:
     text: Date
     show: true
     typography:
       weight: medium
-      color: '#374151'
+      color: $color-text
   field:
     name: ''
     value: ''
@@ -440,14 +448,14 @@ calendar:
     required: false
   appearance:
     size: sm
-    accentColor: '#3b82f6'
+    accentColor: $color-accent
 checkbox:
   label:
     text: Select options
     show: true
     typography:
       weight: medium
-      color: '#374151'
+      color: $color-text
   field:
     name: ''
     options: "Option 1\nOption 2\nOption 3"
@@ -455,14 +463,14 @@ checkbox:
     required: false
   appearance:
     size: sm
-    color: '#2563eb'
+    color: $color-accent
 radio:
   label:
     text: Choose one
     show: true
     typography:
       weight: medium
-      color: '#374151'
+      color: $color-text
   field:
     name: radio1
     options: "Option 1\nOption 2\nOption 3"
@@ -470,7 +478,7 @@ radio:
     required: false
   appearance:
     size: sm
-    color: '#2563eb'
+    color: $color-accent
 accordion:
   items:
   - title: Click to expand
@@ -497,7 +505,7 @@ accordion:
     border:
       width: 1
       style: solid
-      color: '#d1d5db'
+      color: $color-secondary
       position: bottom
     contentBackground:
       color: $color-background
@@ -536,7 +544,7 @@ tabs:
         color: $color-background
         opacity: 100
       border:
-        color: '#d1d5db'
+        color: $color-secondary
         width: 1
         style: solid
       padding:
@@ -567,7 +575,7 @@ br:
   type: solid
   orientation: horizontal
   thickness: 2
-  color: '#e5e7eb'
+  color: $color-secondary
   invert: false
   mirror: false
 icon:
@@ -593,8 +601,8 @@ rating:
 progress-bar:
   percent: 50
   thickness: medium
-  color: '#3b82f6'
-  trackColor: '#e5e7eb'
+  color: $color-accent
+  trackColor: $color-secondary
   colorGradient: false
   appearance:
     radius: pill
@@ -620,6 +628,7 @@ countdown:
 link:
   text: Click Me
   href: '#'
+  textAlign: left
   appearance:
     underline: true
     showArrow: false
@@ -627,7 +636,7 @@ link:
     size: md
     weight: regular
     align: left
-    color: rgba(0,0,238,1)
+    color: $color-accent
     lineHeight: 1.5
     transform: none
     letterSpacing: normal
@@ -652,7 +661,7 @@ form:
       opacity: 0
     border:
       width: 0
-      color: '#e5e7eb'
+      color: $color-secondary
     radius: none
     shadow: none
     shadowColor: ''
@@ -806,7 +815,7 @@ panorama-display:
     border:
       width: 0
       style: solid
-      color: '#e5e7eb'
+      color: $color-secondary
     radius: none
     shadow: none
     shadowColor: ''

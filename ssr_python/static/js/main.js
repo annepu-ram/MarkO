@@ -14,6 +14,7 @@ import { renderImagesPanel } from './imagesPanel.js';
 import { renderSettingsPanel } from './settingsPanel.js';
 import { getPageFromStructure, renderPagesPanel, addPage } from './pageManager.js';
 import { autosave, saveNow, loadSite, loadPage, listPages, createPage, deletePage, setCurrentSite, setCurrentPage, getSiteSettings } from './siteManager.js';
+import { showConfirmModal, showMessageModal, showTextPrompt } from './promptModal.js';
 
 // Create singleton selection manager instance
 export const selectionManager = new SelectionManager();
@@ -221,7 +222,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 },
                 onAddPage: async () => {
-                    const title = prompt('Page title:');
+                    const title = await showTextPrompt({
+                        title: 'New page',
+                        message: 'Enter a title for the new page.',
+                        placeholder: 'About us',
+                        confirmText: 'Create page',
+                    });
                     if (!title) return;
                     const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
                     if (!slug) return;
@@ -231,11 +237,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         // Refresh pages panel with new list
                         await window.renderPagesPanel();
                     } catch (err) {
-                        alert('Failed to create page: ' + err.message);
+                        await showMessageModal({ title: 'Failed to create page', message: err.message });
                     }
                 },
                 onDeletePage: async (index, page) => {
-                    if (!confirm(`Delete "${page.title}"? This cannot be undone.`)) return;
+                    const confirmed = await showConfirmModal({
+                        title: 'Delete page',
+                        message: `Delete "${page.title}"? This cannot be undone.`,
+                        confirmText: 'Delete',
+                        danger: true,
+                    });
+                    if (!confirmed) return;
                     try {
                         await deletePage(page.id, window.SITE_ID);
 
@@ -269,7 +281,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             }
                         }
                     } catch (err) {
-                        alert('Failed to delete page: ' + err.message);
+                        await showMessageModal({ title: 'Failed to delete page', message: err.message });
                     }
                 }
             }, {
@@ -751,8 +763,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.body.style.overflow = '';
             }
         },
-        toggleHelpPanel: () => alert('Help functionality not implemented in this version.'),
-        insertComponent: () => alert('Component insertion not implemented in this version.'),
+        toggleHelpPanel: () => showMessageModal({ title: 'Help unavailable', message: 'Help functionality is not implemented in this version.' }),
+        insertComponent: () => showMessageModal({ title: 'Insert component unavailable', message: 'Component insertion is not implemented in this version.' }),
         applySelectedComponentProperties: async () => {
             // Get active component info
             const activeInfo = getActiveComponentInfo();

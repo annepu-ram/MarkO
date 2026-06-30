@@ -14,9 +14,32 @@ class Chunk:
     context_header: str        # Parent context for embedding enrichment
     content_with_context: str  # context_header + content (used for embedding)
     source_file: str
-    doc_type: str              # template | template_section | template_full_page | outline | guide | config
+    doc_type: str              # template | template_section | template_full_page | outline | guide | style | icon | other
     metadata: dict             # Component types, industry, section, etc.
     token_count: int
+
+
+def _walk_component_types(node) -> list[str]:
+    """Recursively collect every `name:` value from a parsed YAML component tree.
+
+    Used to populate `component_types` exactly from the AST (no regex re-scan)
+    and `component_count` so retrieval can prefer atomic/small chunks when
+    appropriate.
+    """
+    found: list[str] = []
+    if isinstance(node, dict):
+        n = node.get("name")
+        if isinstance(n, str):
+            found.append(n)
+        for key in ("components", "items", "tabs", "slides", "columns"):
+            child = node.get(key)
+            if isinstance(child, list):
+                for c in child:
+                    found.extend(_walk_component_types(c))
+    elif isinstance(node, list):
+        for c in node:
+            found.extend(_walk_component_types(c))
+    return found
 
 
 @dataclass
@@ -39,6 +62,12 @@ class FileComments:
     base_components: str = ""  # "Base components:" component list
     section_type: str = ""     # "Section type:" section classification
     layout: str = ""           # "Layout:" layout pattern
+    content_volume: str = ""   # "Content volume:" — light/standard/rich
+    tone: str = ""             # "Tone:" — formal/neutral/casual/playful
+    conversion_intent: str = ""  # "Conversion intent:" — awareness/lead/purchase/trust/engagement
+    image_requirement: str = ""  # "Image requirement:" — none/decorative/required/many
+    interactivity: str = ""    # "Interactivity:" — CSV: static/form/carousel/tabs/accordion/video
+    industries: str = ""       # "Industries:" — canonical CSV (saas, restaurant, ...)
     raw_lines: list = field(default_factory=list)
 
     def as_context(self) -> str:
@@ -58,6 +87,18 @@ class FileComments:
             parts.append(f"Use cases: {self.use_cases}")
         if self.visual_style:
             parts.append(f"Visual style: {self.visual_style}")
+        if self.content_volume:
+            parts.append(f"Content volume: {self.content_volume}")
+        if self.tone:
+            parts.append(f"Tone: {self.tone}")
+        if self.conversion_intent:
+            parts.append(f"Intent: {self.conversion_intent}")
+        if self.interactivity:
+            parts.append(f"Interactivity: {self.interactivity}")
+        if self.image_requirement:
+            parts.append(f"Image requirement: {self.image_requirement}")
+        if self.industries:
+            parts.append(f"Industries: {self.industries}")
         return " | ".join(parts) if parts else ""
 
     def as_metadata(self) -> dict:
@@ -77,6 +118,18 @@ class FileComments:
             d["header_section_type"] = self.section_type
         if self.layout:
             d["header_layout"] = self.layout
+        if self.content_volume:
+            d["template_content_volume"] = self.content_volume
+        if self.tone:
+            d["template_tone"] = self.tone
+        if self.conversion_intent:
+            d["template_conversion_intent"] = self.conversion_intent
+        if self.image_requirement:
+            d["template_image_requirement"] = self.image_requirement
+        if self.interactivity:
+            d["template_interactivity"] = self.interactivity
+        if self.industries:
+            d["template_industries"] = self.industries
         return d
 
 
@@ -137,6 +190,12 @@ class DocumentChunker:
         base_components = ""
         section_type = ""
         layout = ""
+        content_volume = ""
+        tone = ""
+        conversion_intent = ""
+        image_requirement = ""
+        interactivity = ""
+        industries = ""
 
         for line in lines[1:]:
             lower = line.lower()
@@ -155,6 +214,20 @@ class DocumentChunker:
                 section_type = line[len("Section type:"):].strip()
             elif lower.startswith("layout:"):
                 layout = line[len("Layout:"):].strip()
+            elif lower.startswith("content volume:"):
+                content_volume = line[len("Content volume:"):].strip().lower()
+            elif lower.startswith("tone:"):
+                tone = line[len("Tone:"):].strip().lower()
+            elif lower.startswith("conversion intent:"):
+                conversion_intent = line[len("Conversion intent:"):].strip().lower()
+            elif lower.startswith("intent:"):
+                conversion_intent = line[len("Intent:"):].strip().lower()
+            elif lower.startswith("image requirement:"):
+                image_requirement = line[len("Image requirement:"):].strip().lower()
+            elif lower.startswith("interactivity:"):
+                interactivity = line[len("Interactivity:"):].strip().lower()
+            elif lower.startswith("industries:"):
+                industries = line[len("Industries:"):].strip().lower()
             elif not description and not lower.startswith("properties:") and not lower.startswith("key:"):
                 # First non-tagged line = description
                 description = line
@@ -167,6 +240,12 @@ class DocumentChunker:
             base_components=base_components,
             section_type=section_type,
             layout=layout,
+            content_volume=content_volume,
+            tone=tone,
+            conversion_intent=conversion_intent,
+            image_requirement=image_requirement,
+            interactivity=interactivity,
+            industries=industries,
             raw_lines=lines,
         )
 
@@ -174,7 +253,7 @@ class DocumentChunker:
 
     @staticmethod
     def _extract_category(path: Path) -> str:
-        """Return parent folder name as category (e.g., 'hero', 'pricing_plan_cards').
+        """Return parent folder name as category (e.g., 'hero', 'pricing').
 
         Falls back to 'uncategorized' if parent is a root directory.
         """
@@ -243,8 +322,9 @@ class DocumentChunker:
             if section_chunk:
                 chunks.append(section_chunk)
 
-            # Full-page chunk (includes site wrapper) for create_page intent
-            if len(components) <= 8:
+            # Full-page chunk (includes site wrapper) — opt-in via config because
+            # it duplicates the section chunk for almost every template.
+            if config.emit_full_page and len(components) <= 8:
                 full_yaml = yaml.dump(doc, default_flow_style=False, allow_unicode=True, sort_keys=False)
                 comment_ctx = file_comments.as_context()
                 full_header = f"# FULL PAGE: {path.name} | {site_ctx}"
@@ -253,6 +333,9 @@ class DocumentChunker:
 
                 meta = file_comments.as_metadata()
                 meta["category"] = category
+                meta["component_types"] = _walk_component_types(components)
+                meta["component_count"] = len(components)
+                meta["chars"] = len(full_yaml)
 
                 chunks.append(Chunk(
                     id=f"{path.stem}::full_page",
@@ -274,8 +357,14 @@ class DocumentChunker:
         """Create a section-level chunk containing all components for the template.
 
         Used by create_section intent — provides complete section examples.
+        Skips component-only folders (badge/rating/icon/etc.) so they don't
+        pollute section-tier retrieval. Imported lazily to avoid circular import.
         """
         if not components:
+            return None
+
+        from rag.indexing.metadata import COMPONENT_ONLY_FOLDERS
+        if category in COMPONENT_ONLY_FOLDERS:
             return None
 
         # Build rich context header for embedding
@@ -313,6 +402,9 @@ class DocumentChunker:
 
         meta = file_comments.as_metadata()
         meta["category"] = category
+        meta["component_types"] = _walk_component_types(components)
+        meta["component_count"] = len(components)
+        meta["chars"] = len(comp_yaml)
 
         return Chunk(
             id=f"{path.stem}::section",
@@ -352,6 +444,11 @@ class DocumentChunker:
 
             chunk_id = f"{path.stem}::p{page_name}::c{i}"
 
+            meta = dict(comment_meta)  # Copy so each chunk gets its own dict
+            meta["component_types"] = _walk_component_types(comp)
+            meta["component_count"] = 1
+            meta["chars"] = len(comp_yaml)
+
             chunks.append(Chunk(
                 id=chunk_id,
                 content=comp_yaml,
@@ -359,7 +456,7 @@ class DocumentChunker:
                 content_with_context=f"{header}\n{comp_yaml}",
                 source_file=str(path),
                 doc_type="template",
-                metadata=dict(comment_meta),  # Copy so each chunk gets its own dict
+                metadata=meta,
                 token_count=0,
             ))
         return chunks
@@ -414,6 +511,10 @@ class DocumentChunker:
             chunk_id = f"{path.stem}::s{i}_{current_heading[:30]}"
             header = f"# Source: {path.name} | Section: {current_heading}"
 
+            metadata: dict = {"section_heading": current_heading}
+            if doc_type == "style":
+                metadata.update(self._parse_style_block(current_heading, section))
+
             chunks.append(Chunk(
                 id=chunk_id,
                 content=section,
@@ -421,11 +522,79 @@ class DocumentChunker:
                 content_with_context=f"{header}\n{section}",
                 source_file=str(path),
                 doc_type=doc_type,
-                metadata={"section_heading": current_heading},
+                metadata=metadata,
                 token_count=0,
             ))
 
         return chunks
+
+    @staticmethod
+    def _parse_style_block(heading: str, body: str) -> dict:
+        """Extract structured metadata from a STYLE_THEMES_REFERENCE.md ## block.
+
+        Recognized lines (case insensitive):
+            Mood: clean, professional, ...
+            Industries: SaaS, consulting, ...
+            Sections: hero, features, ...
+            Themes:
+              1. Slate Professional — primary #1E3A5F, ... fonts Inter/Inter
+        Returns keys: visual_style (canonical key), mood, industries, sections,
+        palette_names, fonts.
+        """
+        from rag.config import CANONICAL_STYLES
+
+        meta: dict = {}
+
+        # Canonical style key derived from heading: "Style: Modern Minimalist" -> "modern_minimalist"
+        style_label = heading.split(":", 1)[-1].strip() if ":" in heading else heading
+        canon_key = style_label.lower().replace(" ", "_").replace("&", "and")
+        # STYLE_THEMES uses "Y2K Retro-futurism" → "y2k_retro-futurism"
+        if canon_key in CANONICAL_STYLES:
+            meta["visual_style"] = [canon_key]
+
+        def _split_csv(line: str) -> list[str]:
+            return [t.strip().lower() for t in line.split(",") if t.strip()]
+
+        for raw in body.splitlines():
+            line = raw.strip()
+            low = line.lower()
+            if low.startswith("mood:"):
+                meta["mood"] = _split_csv(line.split(":", 1)[1])
+            elif low.startswith("industries:"):
+                meta["industries"] = _split_csv(line.split(":", 1)[1])
+            elif low.startswith("sections:"):
+                meta["sections"] = _split_csv(line.split(":", 1)[1])
+
+        # Themes section: numbered list "1. Name — primary #hex ... fonts Heading/Content"
+        palette_names: list[str] = []
+        fonts_set: set[tuple[str, str]] = set()
+        in_themes = False
+        for raw in body.splitlines():
+            line = raw.strip()
+            if line.lower().startswith("themes:"):
+                in_themes = True
+                continue
+            if in_themes:
+                if not line:
+                    continue
+                if not re.match(r"^\d+\.", line):
+                    # Hit next bare-keyword line (e.g. "Properties:") → stop
+                    if line.endswith(":"):
+                        break
+                    continue
+                m = re.match(r"^\d+\.\s*([^—\-]+?)\s*[—\-]", line)
+                if m:
+                    palette_names.append(m.group(1).strip())
+                fm = re.search(r"fonts\s+([^/]+)/(.+?)\s*$", line, flags=re.IGNORECASE)
+                if fm:
+                    fonts_set.add((fm.group(1).strip(), fm.group(2).strip()))
+
+        if palette_names:
+            meta["palette_names"] = palette_names
+        if fonts_set:
+            meta["fonts"] = sorted(f"{h}/{c}" for h, c in fonts_set)
+
+        return meta
 
     def _chunk_yaml_by_regex(self, content: str, path: Path, file_comments: FileComments = None) -> list[Chunk]:
         """Fallback: split YAML at '- name:' lines if parsing fails."""

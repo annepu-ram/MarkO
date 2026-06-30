@@ -42,11 +42,17 @@
             {% if props.responsive.breakpoints.sm %}{% set _ = styles.append('--cols-sm: ' ~ props.responsive.breakpoints.sm ~ ';') %}{% endif %}
         {% endif %}
     {% endif %}
-    {# Spacing #}
+    {# Spacing (capture marginInline value for margin-aware width calc below) #}
+    {% set margin_inline_val = '' %}
     {% if props.spacing %}
         {% set spacing = props.spacing %}
         {% if spacing.marginBlock and tokens and tokens.spacing and spacing.marginBlock in tokens.spacing %}{% set _ = styles.append('margin-block: ' ~ tokens.spacing[spacing.marginBlock] ~ ';') %}{% endif %}
-        {% if spacing.marginInline and tokens and tokens.spacing and spacing.marginInline in tokens.spacing %}{% set _ = styles.append('margin-inline: ' ~ tokens.spacing[spacing.marginInline] ~ ';') %}{% endif %}
+        {% if spacing.marginInline and tokens and tokens.spacing and spacing.marginInline in tokens.spacing and spacing.marginInline != 'none' %}
+            {% set margin_inline_val = tokens.spacing[spacing.marginInline] %}
+            {% set _ = styles.append('margin-inline: ' ~ margin_inline_val ~ ';') %}
+        {% elif spacing.marginInline and tokens and tokens.spacing and spacing.marginInline in tokens.spacing %}
+            {% set _ = styles.append('margin-inline: ' ~ tokens.spacing[spacing.marginInline] ~ ';') %}
+        {% endif %}
         {% if spacing.paddingBlock and tokens and tokens.spacing and spacing.paddingBlock in tokens.spacing %}{% set _ = styles.append('padding-block: ' ~ tokens.spacing[spacing.paddingBlock] ~ ';') %}{% endif %}
         {% if spacing.paddingInline and tokens and tokens.spacing and spacing.paddingInline in tokens.spacing %}{% set _ = styles.append('padding-inline: ' ~ tokens.spacing[spacing.paddingInline] ~ ';') %}{% endif %}
     {% endif %}
@@ -70,13 +76,15 @@
             {% else %}
                 {% set fallback_color = bg.color | default('#ffffff') %}
             {% endif %}
-            {# Apply opacity: blur auto-applies 50% if background is opaque #}
-            {% if appearance.blur is sameas true and (not bg.opacity or bg.opacity == 0) %}
-                {% set alpha_hex = 50 | opacity_to_hex %}
-                {% set fallback_color = fallback_color ~ alpha_hex %}
-            {% elif bg.opacity is defined %}
-                {% set alpha_hex = bg.opacity | opacity_to_hex %}
-                {% set fallback_color = fallback_color ~ alpha_hex %}
+            {# Apply opacity hex only to actual hex colors, not CSS keywords like transparent #}
+            {% if fallback_color.startswith('#') %}
+                {% if appearance.blur is sameas true and (not bg.opacity or bg.opacity == 0) %}
+                    {% set alpha_hex = 50 | opacity_to_hex %}
+                    {% set fallback_color = fallback_color ~ alpha_hex %}
+                {% elif bg.opacity is defined %}
+                    {% set alpha_hex = bg.opacity | opacity_to_hex %}
+                    {% set fallback_color = fallback_color ~ alpha_hex %}
+                {% endif %}
             {% endif %}
             {# Always output background-color for fallback/compatibility #}
             {% if bg_type == 'gradient' or bg.color %}
@@ -169,7 +177,11 @@
             {% elif width_mode == '83' %}
                 {% set _ = styles.append('width: 83.33%;') %}
             {% elif width_mode == 'stretch' %}
-                {% set _ = styles.append('width: 100%;') %}
+                {% if margin_inline_val %}
+                    {% set _ = styles.append('width: calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                {% else %}
+                    {% set _ = styles.append('width: 100%;') %}
+                {% endif %}
             {% endif %}
         {% else %}
             {# Row context: use flex-basis percentages for wrapping support #}
@@ -198,8 +210,13 @@
                 {% set _ = styles.append('flex: 1 0 81%;') %}
                 {% set _ = styles.append('max-width: 83.33%;') %}
             {% elif width_mode == 'stretch' %}
-                {% set _ = styles.append('flex: 0 0 100%;') %}
-                {% set _ = styles.append('min-width: 100%;') %}
+                {% if margin_inline_val %}
+                    {% set _ = styles.append('flex: 0 0 calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                    {% set _ = styles.append('min-width: calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                {% else %}
+                    {% set _ = styles.append('flex: 0 0 100%;') %}
+                    {% set _ = styles.append('min-width: 100%;') %}
+                {% endif %}
             {% endif %}
         {% endif %}
     {% endif %}
@@ -227,7 +244,11 @@
             {% elif width_mode == '83' %}
                 {% set _ = styles.append('width: 83.33%;') %}
             {% elif width_mode == 'stretch' %}
-                {% set _ = styles.append('width: 100%;') %}
+                {% if margin_inline_val %}
+                    {% set _ = styles.append('width: calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                {% else %}
+                    {% set _ = styles.append('width: 100%;') %}
+                {% endif %}
             {% endif %}
         {% else %}
             {# Row context: use flex-basis percentages for wrapping support #}
@@ -256,8 +277,13 @@
                 {% set _ = styles.append('flex: 1 0 81%;') %}
                 {% set _ = styles.append('max-width: 83.33%;') %}
             {% elif width_mode == 'stretch' %}
-                {% set _ = styles.append('flex: 0 0 100%;') %}
-                {% set _ = styles.append('min-width: 100%;') %}
+                {% if margin_inline_val %}
+                    {% set _ = styles.append('flex: 0 0 calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                    {% set _ = styles.append('min-width: calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                {% else %}
+                    {% set _ = styles.append('flex: 0 0 100%;') %}
+                    {% set _ = styles.append('min-width: 100%;') %}
+                {% endif %}
             {% endif %}
         {% endif %}
     {% endif %}
@@ -283,7 +309,11 @@
             {% elif width_mode == '83' %}
                 {% set _ = styles.append('width: 83.33%;') %}
             {% elif width_mode == 'stretch' %}
-                {% set _ = styles.append('width: 100%;') %}
+                {% if margin_inline_val %}
+                    {% set _ = styles.append('width: calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                {% else %}
+                    {% set _ = styles.append('width: 100%;') %}
+                {% endif %}
             {% endif %}
         {% else %}
             {# Row context: use flex-basis percentages for wrapping support #}
@@ -312,10 +342,19 @@
                 {% set _ = styles.append('flex: 1 0 81%;') %}
                 {% set _ = styles.append('max-width: 83.33%;') %}
             {% elif width_mode == 'stretch' %}
-                {% set _ = styles.append('flex: 0 0 100%;') %}
-                {% set _ = styles.append('min-width: 100%;') %}
+                {% if margin_inline_val %}
+                    {% set _ = styles.append('flex: 0 0 calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                    {% set _ = styles.append('min-width: calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
+                {% else %}
+                    {% set _ = styles.append('flex: 0 0 100%;') %}
+                    {% set _ = styles.append('min-width: 100%;') %}
+                {% endif %}
             {% endif %}
         {% endif %}
+    {% endif %}
+    {# Margin-aware width for layout-row (always stretch, no widthMode) #}
+    {% if component.name == 'layout-row' and margin_inline_val %}
+        {% set _ = styles.append('width: calc(100% - ' ~ margin_inline_val ~ ' * 2);') %}
     {% endif %}
     {# Always add position relative for selection to work #}
     {% set _ = styles.append('position: relative;') %}

@@ -1,0 +1,183 @@
+# Organic Natural CTA Banner
+# Warm earthy call-to-action with natural tones and rounded buttons
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: organic_natural
+# Content volume: standard
+# Tone: casual
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: restaurant, ecommerce, health
+# Perfect for: Wellness brand, organic food, sustainable fashion, eco-friendly products, farm-to-table
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Lora', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#2D3B2D"
+        text: &color-text "#4A5D4A"
+        secondary: &color-secondary "#D4E5D1"
+        accent: &color-accent "#5B8C5A"
+        background: &color-background "#F5F0EB"
+  components:
+    - name: page
+      slug: home
+      title: "Organic Natural CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — warm natural background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-secondary
+                opacity: 100
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Inner rounded container
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "75"
+                  horizontalAlign: center
+                  gap: md
+                appearance:
+                  background:
+                    color: "#ffffff"
+                    opacity: 100
+                  radius: lg
+                  shadow: soft
+                  border:
+                    width: 1
+                    style: solid
+                    color: *color-secondary
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: xxl
+              components:
+
+                # Leaf icon
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                  components:
+                    - name: icon
+                      properties:
+                        name: sprout
+                        appearance:
+                          color: *color-accent
+                          size: xxl
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Join the Movement"
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "Nourish yourself, nurture the planet"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: semibold
+                      color: *color-primary
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Every order plants a tree and supports a local farm. Start your subscription
+                      today and taste the difference that honest food makes. First box ships free.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "75"
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Start Your Subscription"
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: soft
+                        typography:
+                          color: "#ffffff"
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "Explore Products"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                          radius: pill
+                          shadow: none
+                        typography:
+                          color: *color-accent
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Trust note
+                - name: paragraph
+                  properties:
+                    text: "Free shipping on orders over $50 | 30-day freshness guarantee"
+                    typography:
+                      size: xs
+                      color: *color-text
+                      align: center
+                      weight: regular

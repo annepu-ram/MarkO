@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: split_screen
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas, ecommerce
 # Perfect for: SaaS products, startups, landing pages, general purpose
 
 - name: page
@@ -20,7 +26,7 @@
   components:
   - name: layout-row
     properties:
-      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: lg}
+      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: wrap, gap: lg}
       spacing: {paddingBlock: xxl, paddingInline: xl}
       appearance:
         background: {color: *color-background}

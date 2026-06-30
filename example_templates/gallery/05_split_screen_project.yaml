@@ -1,0 +1,195 @@
+# 05 - The Split-Screen Project
+# Layout-row with 50% image and 50% blockquote (client quote about the project). Side-by-side split layout showcasing project visuals paired with testimonials.
+# Base components: page, layout-column, eyebrow, heading, paragraph, layout-row, image, blockquote, link
+# Section type: gallery
+# Layout: split_screen
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: required
+# Interactivity: static
+# Industries: portfolio
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Playfair Display', serif"
+        content: &font-content "'Source Sans 3', sans-serif"
+      colors:
+        primary: &color-primary '#1b1b1b'
+        text: &color-text '#323232'
+        secondary: &color-secondary '#4a5568'
+        accent: &color-accent '#d97706'
+        background: &color-background '#fffbf0'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # SECTION HEADER
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance: { background: { color: *color-background } }
+      components:
+        - name: eyebrow
+          properties:
+            text: CLIENT STORIES
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: What Our Clients Say
+            level: 1
+            typography: { size: xxxl, weight: bold, color: *color-primary, align: center, letterSpacing: tight }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Real words from the teams we have partnered with on transformative projects.
+            typography: { size: lg, color: *color-secondary, align: center }
+            layout: { widthMode: "75" }
+
+    # ============================================
+    # SPLIT 1 - Image Left, Quote Right
+    # ============================================
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: stretch, verticalAlign: stretch, wrap: nowrap, gap: none }
+        spacing: { paddingBlock: none }
+      components:
+        - name: image
+          properties:
+            source:
+              url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80'
+              altText: 'Modern office workspace with collaborative team environment'
+            appearance:
+              fit: cover
+              minHeight: 30
+              hoverEffect: zoom
+            layout: { widthMode: "50" }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "50" }
+            spacing: { paddingBlock: xxl, paddingInline: xl }
+            appearance: { background: { color: *color-primary } }
+          components:
+            - name: eyebrow
+              properties:
+                text: FINTECH REBRAND
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+            - name: blockquote
+              properties:
+                quote: The team completely reimagined our brand identity. The new visual system has been instrumental in our Series B fundraise - investors immediately noticed the elevated professionalism.
+                cite: Sarah Chen, CEO at NovaPay
+                typography: { size: xl, weight: medium, color: *color-background }
+                appearance:
+                  border: { accentColor: *color-accent }
+                  background: { color: *color-text }
+                spacing: { marginBlock: lg }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+              components:
+                - name: link
+                  properties:
+                    text: View Full Case Study
+                    href: '#novapay'
+                    appearance: { color: *color-accent, underline: false, showArrow: true }
+
+    # ============================================
+    # SPLIT 2 - Quote Left, Image Right
+    # ============================================
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: stretch, verticalAlign: stretch, wrap: nowrap, gap: none }
+        spacing: { paddingBlock: none }
+      components:
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "50" }
+            spacing: { paddingBlock: xxl, paddingInline: xl }
+            appearance: { background: { color: *color-background } }
+          components:
+            - name: eyebrow
+              properties:
+                text: E-COMMERCE PLATFORM
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+            - name: blockquote
+              properties:
+                quote: Our conversion rate jumped 340% after the redesign. The user experience research they conducted revealed insights we had been blind to for years.
+                cite: Marcus Webb, Head of Digital at Artisan Collective
+                typography: { size: xl, weight: medium, color: *color-text }
+                appearance:
+                  border: { accentColor: *color-accent }
+                  background: { color: *color-background }
+                spacing: { marginBlock: lg }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+              components:
+                - name: link
+                  properties:
+                    text: View Full Case Study
+                    href: '#artisan'
+                    appearance: { color: *color-accent, underline: false, showArrow: true }
+        - name: image
+          properties:
+            source:
+              url: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80'
+              altText: 'E-commerce shopping experience on laptop and mobile devices'
+            appearance:
+              fit: cover
+              minHeight: 30
+              hoverEffect: zoom
+            layout: { widthMode: "50" }
+
+    # ============================================
+    # SPLIT 3 - Image Left, Quote Right
+    # ============================================
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: stretch, verticalAlign: stretch, wrap: nowrap, gap: none }
+        spacing: { paddingBlock: none }
+      components:
+        - name: image
+          properties:
+            source:
+              url: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=900&q=80'
+              altText: 'Futuristic technology interface with data visualization'
+            appearance:
+              fit: cover
+              minHeight: 30
+              hoverEffect: zoom
+            layout: { widthMode: "50" }
+        - name: layout-column
+          properties:
+            layout: { horizontalAlign: left, widthMode: "50" }
+            spacing: { paddingBlock: xxl, paddingInline: xl }
+            appearance: { background: { color: *color-background } }
+          components:
+            - name: eyebrow
+              properties:
+                text: SAAS DASHBOARD
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+            - name: blockquote
+              properties:
+                quote: They turned our complex data into an intuitive dashboard that our entire team actually enjoys using. Support tickets dropped 60% within the first month.
+                cite: Dr. Lena Okafor, CTO at HealthBridge
+                typography: { size: xl, weight: medium, color: *color-text }
+                appearance:
+                  border: { accentColor: *color-accent }
+                  background: { color: *color-background }
+                spacing: { marginBlock: lg }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: left, verticalAlign: center, gap: sm }
+              components:
+                - name: link
+                  properties:
+                    text: View Full Case Study
+                    href: '#healthbridge'
+                    appearance: { color: *color-accent, underline: false, showArrow: true }

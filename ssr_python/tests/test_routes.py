@@ -3,6 +3,16 @@ import pytest
 import json
 
 
+def ai_headers(client, token='test-ai-token'):
+    with client.session_transaction() as sess:
+        sess['ai_request_token'] = token
+    return {
+        'X-Requested-With': 'SwiftSitesApp',
+        'X-AI-Request-Token': token,
+        'Origin': 'http://localhost',
+    }
+
+
 class TestViewRoutes:
     def test_index_returns_200(self, client):
         """GET / returns 200."""
@@ -80,7 +90,8 @@ class TestChatRoute:
         monkeypatch.delenv('OLLAMA_API_KEY', raising=False)
         response = client.post('/api/chat',
                                data=json.dumps({'message': 'test'}),
-                               content_type='application/json')
+                               content_type='application/json',
+                               headers=ai_headers(client))
         assert response.status_code == 503
         data = response.get_json()
         assert data['errorType'] == 'configuration'
@@ -90,8 +101,17 @@ class TestChatRoute:
         monkeypatch.setenv('OLLAMA_API_KEY', 'test-key')
         response = client.post('/api/chat',
                                data=json.dumps({}),
-                               content_type='application/json')
+                               content_type='application/json',
+                               headers=ai_headers(client))
         assert response.status_code == 400
+
+    def test_chat_rejects_manual_post(self, client, monkeypatch):
+        """POST /api/chat requires an app-issued AI request token."""
+        monkeypatch.setenv('OLLAMA_API_KEY', 'test-key')
+        response = client.post('/api/chat',
+                               data=json.dumps({'message': 'test'}),
+                               content_type='application/json')
+        assert response.status_code == 403
 
 
 class TestImageSearchRoute:
@@ -109,3 +129,72 @@ class TestImageSearchRoute:
         assert response.status_code == 200
         data = response.get_json()
         assert data['results'] == []
+
+    def test_visual_type_expands_stock_query(self):
+        """Visual type adds controlled search terms without trusting free-form params."""
+        from routes.images import _compose_search_query
+
+        assert _compose_search_query('skincare', 'flat_lay') == 'skincare flat lay top view product photography'
+        assert _compose_search_query('', 'product_photo') == 'product photography ecommerce clean background'
+        assert _compose_search_query('logo', 'vector') == 'logo vector graphic clean scalable design'
+        assert _compose_search_query('team', 'unknown') == 'team'
+
+    def test_pexels_rejects_vector_visual_type(self, client, monkeypatch):
+        """Pexels cannot serve vector or illustration image_type filters."""
+        monkeypatch.setenv('PEXELS_API_KEY', 'pexels-key')
+        monkeypatch.setenv('PIXABAY_API_KEY', 'pixabay-key')
+
+        response = client.get('/api/images/search?q=logo&provider=pexels&visual_type=vector')
+
+        assert response.status_code == 400
+        assert 'Pexels does not support' in response.get_json()['error']
+
+    def test_pixabay_maps_provider_specific_filters(self, monkeypatch):
+        """Pixabay uses image_type plus horizontal/vertical orientation values."""
+        from routes import images
+
+        captured = {}
+
+        class FakeResponse:
+            def raise_for_status(self):
+                return None
+
+            def json(self):
+                return {
+                    'totalHits': 1,
+                    'hits': [{
+                        'id': 123,
+                        'previewURL': 'https://example.com/thumb.jpg',
+                        'webformatURL': 'https://example.com/regular.jpg',
+                        'largeImageURL': 'https://example.com/full.jpg',
+                        'tags': 'logo, vector, blue',
+                        'user': 'Designer',
+                        'user_id': 42,
+                        'imageWidth': 1200,
+                        'imageHeight': 800,
+                    }],
+                }
+
+        def fake_get(url, params, timeout):
+            captured['url'] = url
+            captured['params'] = params
+            captured['timeout'] = timeout
+            return FakeResponse()
+
+        monkeypatch.setenv('PIXABAY_API_KEY', 'pixabay-key')
+        monkeypatch.setattr(images.http_requests, 'get', fake_get)
+
+        result = images._search_pixabay('logo vector', 'purple', 1, 24, 'landscape', 'vector')
+
+        assert captured['url'] == 'https://pixabay.com/api/'
+        assert captured['params']['image_type'] == 'vector'
+        assert captured['params']['orientation'] == 'horizontal'
+        assert captured['params']['colors'] == 'lilac'
+        assert result['results'][0]['source'] == 'pixabay'
+
+    def test_provider_only_search_returns_empty(self, client, monkeypatch):
+        """Provider selection alone is not a search intent."""
+        monkeypatch.setenv('PEXELS_API_KEY', 'pexels-key')
+        response = client.get('/api/images/search?provider=pexels')
+        assert response.status_code == 200
+        assert response.get_json()['results'] == []

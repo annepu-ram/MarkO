@@ -20,40 +20,10 @@
 import { chatService } from './chatService.js';
 import { getCurrentSiteId } from './siteManager.js';
 
-// Client-side industry detection (mirrors query_analyzer.INDUSTRY_KEYWORDS).
-// Ordered by specificity — first match wins.
-const INDUSTRY_PATTERNS = [
-    ['saas',                  /\bsaas\b|software|\bapp\b|platform|startup|\btech\b/i],
-    ['restaurant',            /restaurant|menu|bakery|cafe|coffee|pizza|diner/i],
-    ['homeservices',          /plumbing|plumber|electric(?:ian|al)|hvac|roofing|handyman|landscap|cleaning.?service/i],
-    ['construction',          /construction|contractor|renovation|remodel/i],
-    ['beauty',                /salon|barber|spa\b|nail|\bhair\b|stylist|beauty|cosmetic/i],
-    ['automotive_services',   /mechanic|auto.?repair|tire|oil.?change|body.?shop|car.?wash|detailing/i],
-    ['food_services',         /catering|food.?truck|meal.?prep|juice|smoothie|donut|ice.?cream|brewery/i],
-    ['retail_local',          /hardware|furniture|florist|flower|gift.?shop|pet.?store|book.?store|jewel/i],
-    ['professional_services', /account(?:ant|ing)|tax\b|insurance|financ|mortgage|dental|chiropract|veterinar/i],
-    ['trades',                /weld(?:ing|er)|carpent|masonry|concrete|fencing|siding|drywall|flooring/i],
-    ['community',             /church|mosque|temple|nonprofit|charity|volunteer|daycare|preschool/i],
-    ['fitness_recreation',    /yoga|pilates|martial.?art|boxing|crossfit|swim|dance.?studio|\bsport\b/i],
-    ['portfolio',             /portfolio|agency|freelanc|creative/i],
-    ['health',                /health|medical|clinic|wellness|fitness|gym/i],
-    ['education',             /education|school|course|tutor|learning|training|coaching/i],
-    ['realestate',            /real.?estate|property|housing/i],
-    ['logistics',             /logistics|shipping|delivery|transport/i],
-    ['hospitality',           /hospitality|hotel|travel|tourism|resort/i],
-    ['automotive',            /\bauto\b|\bcar\b|vehicle|dealer|motor/i],
-    ['entertainment',         /entertainment|gaming|music|event|conference/i],
-    ['legal',                 /legal|\blaw\b|attorney|consulting/i],
-    ['ecommerce',             /shop|store|\bproduct\b|ecommerce|retail|boutique/i],
-];
-
-function detectIndustry(text) {
-    if (!text) return null;
-    for (const [key, re] of INDUSTRY_PATTERNS) {
-        if (re.test(text)) return key;
-    }
-    return null;
-}
+// Industry detection patterns are loaded from the backend at runtime via
+// /api/chat/industry-config → detection_patterns (sourced from
+// QueryAnalyzer.INDUSTRY_KEYWORDS). The GuidedFlow class compiles them once
+// in start() and exposes _detectIndustry(text) for use during the wizard.
 
 const SECTION_LABELS = {
     navigation: 'Navigation', hero: 'Hero', stats: 'Stats', about: 'About',
@@ -104,6 +74,7 @@ export class GuidedFlow {
         this._active = false;
         this._state = 'IDLE';
         this._config = null;              // full industry-config response
+        this._industryRegexes = null;     // compiled from config.detection_patterns
         this._stepEl = null;              // current step container
         this._initialMessage = '';
 
@@ -153,8 +124,18 @@ export class GuidedFlow {
             return;
         }
 
+        // Compile industry detection patterns from backend (single source of truth)
+        if (this._config.detection_patterns) {
+            this._industryRegexes = [];
+            for (const [key, pat] of Object.entries(this._config.detection_patterns)) {
+                try {
+                    this._industryRegexes.push([key, new RegExp(pat, 'i')]);
+                } catch (_) { /* skip malformed patterns */ }
+            }
+        }
+
         // Seed industry from initial message (user can change)
-        this.businessContext.industry = detectIndustry(this._initialMessage) || '';
+        this.businessContext.industry = this._detectIndustry(this._initialMessage) || '';
 
         this._goto('BUSINESS_INFO');
     }
@@ -285,7 +266,7 @@ export class GuidedFlow {
 
             // Re-run industry detection using description if not already set
             if (!this.businessContext.industry) {
-                this.businessContext.industry = detectIndustry(`${this._initialMessage} ${desc}`) || '';
+                this.businessContext.industry = this._detectIndustry(`${this._initialMessage} ${desc}`) || '';
             }
 
             this._replaceStepWithSummary('Business', name + (desc ? ` — ${desc}` : ''));
@@ -656,6 +637,10 @@ export class GuidedFlow {
             <div class="guided-actions">
                 <button type="button" class="guided-btn-secondary" data-act="back">Back</button>
                 <button type="button" class="guided-btn-skip" data-act="skip">Skip</button>
+                <button type="button" class="guided-btn-enhance" data-act="enhance">
+                    <svg aria-hidden="true"><use href="#icon-sparkles"></use></svg>
+                    <span>Enhance</span>
+                </button>
                 <button type="button" class="guided-btn-primary" data-act="next">${idx + 1 === sections.length ? 'Finish content' : 'Next section'}</button>
             </div>
         `;
@@ -707,6 +692,40 @@ export class GuidedFlow {
             this._replaceStepWithSummary(labelFor(section.type), summary);
             this._sectionCursor++;
             this._goto('SECTION_CONTENT');
+        });
+
+        body.querySelector('[data-act="enhance"]').addEventListener('click', async () => {
+            const enhanceBtn = body.querySelector('[data-act="enhance"]');
+            const btnLabel = enhanceBtn.querySelector('span');
+            enhanceBtn.disabled = true;
+            btnLabel.textContent = 'Enhancing…';
+
+            try {
+                const currentContent = collect();
+                const data = await chatService.enhanceSection(
+                    this.businessContext.business_name,
+                    this.businessContext.industry,
+                    this.businessContext.description,
+                    section.type,
+                    currentContent,
+                );
+
+                if (data.enhanced_fields) {
+                    body.querySelectorAll('[data-key]').forEach(inp => {
+                        const key = inp.dataset.key;
+                        const enhanced = data.enhanced_fields[key];
+                        if (enhanced) {
+                            inp.value = enhanced;
+                            inp.classList.add('guided-enhanced');
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('[GuidedFlow] enhance failed:', err);
+            } finally {
+                enhanceBtn.disabled = false;
+                btnLabel.textContent = 'Enhance';
+            }
         });
     }
 
@@ -871,6 +890,14 @@ export class GuidedFlow {
     }
 
     // ───────────────── Utils ─────────────────
+    _detectIndustry(text) {
+        if (!text || !this._industryRegexes) return null;
+        for (const [key, re] of this._industryRegexes) {
+            if (re.test(text)) return key;
+        }
+        return null;
+    }
+
     _escape(text) {
         return String(text == null ? '' : text)
             .replace(/&/g, '&amp;')
@@ -882,4 +909,7 @@ export class GuidedFlow {
 }
 
 // Regex used by chat.js to decide when to activate the guided flow.
-export const CREATE_PAGE_RE = /\b(create|build|make|generate|design)\b.*\b(page|website|site|landing)\b/i;
+// Three arms: (1) active verb + target, (2) passive/desire + target, (3) target + preposition.
+// Kept as a static export (sync check in chat.js before any async config load).
+// Aligned with backend query_analyzer.py create_page intent patterns.
+export const CREATE_PAGE_RE = /(?:\b(?:create|build|make|generate|design|start|launch|set\s?up|spin\s?up|put\s?together|whip\s?up)\b.*?\b(?:web\s?page|webpage|page|website|web\s?site|site|landing\s?page|landing|homepage|home\s?page|online\s?presence)\b|\b(?:need|want|looking\s?for|require|would\s?like|help\s?me)\b.*?\b(?:web\s?page|webpage|page|website|web\s?site|site|landing\s?page|landing|homepage|home\s?page)\b|\b(?:web\s?page|webpage|website|web\s?site|landing\s?page|homepage|home\s?page)\b.*?\b(?:for|about)\b)/i;

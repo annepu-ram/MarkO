@@ -24,6 +24,12 @@ def editor(site_id):
     return render_template('index.html', site_id=site_id, user_role=g.current_role)
 
 
+@views_bp.route('/campaign-studio/<campaign_id>')
+def campaign_studio(campaign_id):
+    """Serve the Campaign Studio workspace."""
+    return render_template('campaign_studio.html', campaign_id=campaign_id, user_role=g.current_role)
+
+
 @views_bp.route('/preview-frame')
 def preview_frame():
     """Serve the preview iframe content"""

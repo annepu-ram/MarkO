@@ -1,0 +1,186 @@
+# Pastel Soft Hero
+# Gentle lavender hero with rounded containers, soft shadows, and pill buttons
+# Base components: site, page, layout-row, layout-column, eyebrow, heading, paragraph, button, image
+# Section type: hero
+# Layout: split_screen
+# Visual style: pastel_soft
+# Content volume: standard
+# Tone: casual
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: beauty, fitness_recreation, health
+# Perfect for: Wellness, kids apps, beauty, skincare, meditation, yoga studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Quicksand', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#4A4A6A"
+        text: &color-text "#5A5A78"
+        secondary: &color-secondary "#E8E0F0"
+        accent: &color-accent "#B794F4"
+        background: &color-background "#FAF5FF"
+  components:
+    - name: page
+      slug: home
+      title: "Pastel Soft Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — soft lavender tones with rounded elements
+        - name: layout-row
+          properties:
+            layout:
+              wrap: wrap
+              verticalAlign: center
+              horizontalAlign: center
+              tag: section
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-background
+                  colorEnd: *color-secondary
+                  direction: to bottom right
+                opacity: 100
+              border:
+                width: 0
+              radius: none
+              shadow: none
+          components:
+
+            # Left column — text content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  gap: md
+                spacing:
+                  paddingInline: lg
+              components:
+
+                # Soft eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Welcome to Calm"
+                    typography:
+                      color: *color-accent
+                      size: xs
+                      weight: semibold
+                      letterSpacing: wider
+                      transform: uppercase
+
+                - name: heading
+                  properties:
+                    text: "Your daily moment of peace starts here"
+                    level: 1
+                    typography:
+                      color: *color-primary
+                      size: xxl
+                      weight: semibold
+                      lineHeight: snug
+
+                - name: paragraph
+                  properties:
+                    text: |
+                      Discover a gentler way to care for your mind and body.
+                      Guided meditations, soothing routines, and personalized
+                      wellness plans — all in one beautifully simple app.
+                    typography:
+                      color: *color-text
+                      size: md
+                      weight: regular
+                      lineHeight: relaxed
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Start Free Trial"
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: soft
+                        typography:
+                          color: "#ffffff"
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+                    - name: button
+                      properties:
+                        text: "Learn More"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                          radius: pill
+                          shadow: none
+                        typography:
+                          color: *color-accent
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xl
+
+            # Right column — image with rounded soft container
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    appearance:
+                      background:
+                        color: "#ffffff"
+                        opacity: 100
+                      border:
+                        width: 0
+                      radius: xl
+                      shadow: soft
+                    spacing:
+                      paddingBlock: sm
+                      paddingInline: sm
+                  components:
+                    - name: image
+                      properties:
+                        source:
+                          url: https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg?auto=compress&cs=tinysrgb&w=800
+                          altText: Peaceful woman meditating in soft natural light
+                        appearance:
+                          minHeight: 25
+                          fit: cover
+                          radius: xl

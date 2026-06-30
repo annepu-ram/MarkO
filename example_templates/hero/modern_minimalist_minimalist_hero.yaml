@@ -1,0 +1,271 @@
+# Modern Minimalist Hero
+# Clean, professional hero with generous whitespace, subtle accents, and functional typography
+# Base components: site, page, layout-column, layout-row, eyebrow, heading, paragraph, button
+# Section type: hero
+# Layout: centered
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas, ecommerce, portfolio
+# Perfect for: SaaS, tech startup, design studio, agency, productivity tool, developer platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Outfit', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1F2937"
+        text: &color-text "#4B5563"
+        secondary: &color-secondary "#D1D5DB"
+        accent: &color-accent "#4F46E5"
+        background: &color-background "#FFFFFF"
+  components:
+    - name: page
+      slug: home
+      title: "Modern Minimalist Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — generous whitespace, centered alignment
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Eyebrow label
+            - name: eyebrow
+              properties:
+                text: "Now in Public Beta"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            # Main heading — large, semibold, tight spacing
+            - name: heading
+              properties:
+                text: "Ship better products with less complexity"
+                level: 1
+                layout:
+                  widthMode: "75"
+                typography:
+                  color: *color-primary
+                  size: xxxl
+                  weight: semibold
+                  align: center
+                  letterSpacing: tight
+                  lineHeight: snug
+
+            # Supporting paragraph
+            - name: paragraph
+              properties:
+                text: |
+                  A developer-first platform that strips away the noise. Write code,
+                  deploy instantly, and iterate with confidence — no configuration
+                  headaches, no bloated toolchains.
+                layout:
+                  widthMode: "50"
+                typography:
+                  color: *color-text
+                  size: lg
+                  align: center
+                  lineHeight: relaxed
+                  weight: regular
+
+            # CTA button row
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  marginBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "Get Started Free"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 0
+                      radius: sm
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: md
+                - name: button
+                  properties:
+                    text: "View Documentation"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 1
+                        style: solid
+                        color: *color-secondary
+                      radius: sm
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-primary
+                      weight: medium
+                      size: md
+
+            # Trust line
+            - name: paragraph
+              properties:
+                text: "Trusted by engineering teams at 1,200+ companies worldwide"
+                typography:
+                  color: *color-secondary
+                  size: xs
+                  weight: regular
+                  align: center
+                spacing:
+                  marginBlock: sm
+
+        # Preview image card — clean bordered container
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: none
+              paddingInline: xl
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "83"
+                  horizontalAlign: center
+                appearance:
+                  background:
+                    color: *color-background
+                    opacity: 100
+                  border:
+                    width: 1
+                    style: solid
+                    color: "#e5e7eb"
+                  radius: sm
+                  shadow: soft
+                spacing:
+                  paddingBlock: sm
+                  paddingInline: sm
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800
+                      altText: Developer working on code in a clean modern workspace
+                    appearance:
+                      minHeight: 25
+                      fit: cover
+                      radius: sm
+
+        # Stats row
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-evenly
+              verticalAlign: center
+              wrap: wrap
+            spacing:
+              paddingBlock: xl
+              paddingInline: md
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "25"
+                  horizontalAlign: center
+              components:
+                - name: heading
+                  properties:
+                    text: "99.9%"
+                    level: 3
+                    typography:
+                      size: xl
+                      weight: semibold
+                      color: *color-primary
+                      align: center
+                - name: paragraph
+                  properties:
+                    text: "Uptime guarantee"
+                    typography:
+                      size: xs
+                      color: *color-text
+                      align: center
+
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "25"
+                  horizontalAlign: center
+              components:
+                - name: heading
+                  properties:
+                    text: "50ms"
+                    level: 3
+                    typography:
+                      size: xl
+                      weight: semibold
+                      color: *color-primary
+                      align: center
+                - name: paragraph
+                  properties:
+                    text: "Average deploy time"
+                    typography:
+                      size: xs
+                      color: *color-text
+                      align: center
+
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "25"
+                  horizontalAlign: center
+              components:
+                - name: heading
+                  properties:
+                    text: "200+"
+                    level: 3
+                    typography:
+                      size: xl
+                      weight: semibold
+                      color: *color-primary
+                      align: center
+                - name: paragraph
+                  properties:
+                    text: "Built-in integrations"
+                    typography:
+                      size: xs
+                      color: *color-text
+                      align: center
+

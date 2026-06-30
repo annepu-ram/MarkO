@@ -1,0 +1,166 @@
+# Aurora Gradient CTA
+# Bold gradient call-to-action section with ethereal northern lights energy
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: aurora_gradient
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio
+# Perfect for: SaaS platform, creative portfolio, design studio, tech startup, fintech, AI platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Sora', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A2035"
+        text: &color-text "#384860"
+        secondary: &color-secondary "#C8D8F0"
+        accent: &color-accent "#EC4899"
+        background: &color-background "#E6F0FA"
+  components:
+    - name: page
+      slug: home
+      title: "Aurora Gradient CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — bold gradient background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-accent
+                  colorEnd: "#8B5CF6"
+                  direction: to bottom right
+                opacity: 100
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+          components:
+
+            # Inner content container
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                  gap: md
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "GET STARTED TODAY"
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: rgba(255,255,255,0.8)
+                      letterSpacing: wider
+                      transform: uppercase
+                      align: center
+
+                # Main heading — dark text on light gradient backdrop
+                - name: heading
+                  properties:
+                    text: "Let your creativity illuminate the world"
+                    level: 2
+                    typography:
+                      size: xxxl
+                      weight: bold
+                      color: "#ffffff"
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Join thousands of designers and creators who have already transformed
+                      their workflow. Start building with aurora-inspired tools that make
+                      every project glow.
+                    typography:
+                      size: lg
+                      color: rgba(255,255,255,0.9)
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "83"
+                    spacing:
+                      marginBlock: md
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Start Free Trial"
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: none
+                        typography:
+                          color: *color-accent
+                          weight: bold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "See How It Works"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 2
+                            style: solid
+                            color: "#ffffff"
+                          radius: pill
+                          shadow: none
+                        typography:
+                          color: "#ffffff"
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Trust line
+                - name: paragraph
+                  properties:
+                    text: "No credit card required. Free for teams up to 5 members."
+                    typography:
+                      size: sm
+                      color: rgba(255,255,255,0.7)
+                      align: center
+                      weight: regular
+                    spacing:
+                      marginBlock: md

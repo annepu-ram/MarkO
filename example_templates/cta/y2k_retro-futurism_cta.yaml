@@ -1,0 +1,264 @@
+# Y2K Retro-Futurism CTA
+# Bold accent-background call-to-action with pill buttons, light text, and futuristic energy
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, button, icon
+# Section type: cta
+# Layout: stacked
+# Visual style: y2k_retro_futurism
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio, entertainment
+# Perfect for: tech startup, digital agency, gaming platform, music streaming, social media app, NFT marketplace, fashion brand, creative studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Sora', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A1A2E"
+        text: &color-text "#3A3A50"
+        secondary: &color-secondary "#C0C0C0"
+        accent: &color-accent "#7B68EE"
+        background: &color-background "#E8E8FF"
+  components:
+    - name: page
+      slug: home
+      title: "Y2K Retro-Futurism CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — accent background, light text
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              radius: xl
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+              marginBlock: lg
+              marginInline: lg
+          components:
+
+            # Floating icon
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      verticalAlign: center
+                    appearance:
+                      background:
+                        color: "#ffffff"
+                        opacity: 30
+                      radius: pill
+                    spacing:
+                      paddingBlock: sm
+                      paddingInline: sm
+                  components:
+                    - name: icon
+                      properties:
+                        name: sparkles
+                        size: xl
+                        color: *color-background
+
+            # Eyebrow
+            - name: eyebrow
+              properties:
+                text: "READY TO BEGIN?"
+                typography:
+                  color: *color-background
+                  size: sm
+                  weight: semibold
+                  align: center
+                  letterSpacing: wide
+                  transform: uppercase
+
+            # Main CTA heading — light on accent
+            - name: heading
+              properties:
+                text: "Join the Next Generation of Digital Creators"
+                level: 2
+                layout:
+                  widthMode: "66"
+                typography:
+                  color: *color-background
+                  size: xxl
+                  weight: bold
+                  align: center
+                  lineHeight: snug
+
+            # Supporting copy
+            - name: paragraph
+              properties:
+                text: |
+                  Over 10 million creators have already made the switch. Start building
+                  beautiful, interactive experiences in minutes — no coding required.
+                  Your free trial includes every feature, no credit card needed.
+                layout:
+                  widthMode: "50"
+                typography:
+                  color: *color-background
+                  size: md
+                  align: center
+                  lineHeight: relaxed
+
+            # Benefit chips
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: sm
+                spacing:
+                  paddingBlock: sm
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      verticalAlign: center
+                    appearance:
+                      background:
+                        color: "#ffffff"
+                        opacity: 20
+                      radius: pill
+                    spacing:
+                      paddingBlock: xs
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "14-day free trial"
+                        typography:
+                          color: *color-background
+                          size: sm
+                          weight: medium
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      verticalAlign: center
+                    appearance:
+                      background:
+                        color: "#ffffff"
+                        opacity: 20
+                      radius: pill
+                    spacing:
+                      paddingBlock: xs
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "No credit card"
+                        typography:
+                          color: *color-background
+                          size: sm
+                          weight: medium
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      verticalAlign: center
+                    appearance:
+                      background:
+                        color: "#ffffff"
+                        opacity: 20
+                      radius: pill
+                    spacing:
+                      paddingBlock: xs
+                      paddingInline: md
+                  components:
+                    - name: paragraph
+                      properties:
+                        text: "Cancel anytime"
+                        typography:
+                          color: *color-background
+                          size: sm
+                          weight: medium
+
+            # CTA buttons — pill, white on accent
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  paddingBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "Start Free Trial"
+                    appearance:
+                      background:
+                        color: "#ffffff"
+                        opacity: 100
+                      border:
+                        width: 0
+                      radius: pill
+                      shadow: soft
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-accent
+                      weight: bold
+                      size: md
+
+                - name: button
+                  properties:
+                    text: "Watch Demo"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-background
+                      radius: pill
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-background
+                      weight: semibold
+                      size: md
+
+            # Social proof
+            - name: paragraph
+              properties:
+                text: "Trusted by teams at Google, Spotify, Figma, and 5,000+ companies worldwide"
+                typography:
+                  color: *color-background
+                  size: xs
+                  align: center
+                  weight: regular
+                  lineHeight: relaxed

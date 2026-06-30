@@ -15,9 +15,17 @@ from flask import Blueprint, current_app, jsonify, request, send_from_directory,
 from PIL import Image
 import requests as http_requests
 from extensions import db, storage
-from models import SiteImage, compute_orientation
+from models import MediaAsset, Organization, compute_orientation
 
 uploads_bp = Blueprint('uploads', __name__)
+
+
+@uploads_bp.before_request
+def set_default_org():
+    """Temporary: hardcode default org until auth is implemented."""
+    default_org = Organization.query.filter_by(slug='default').first()
+    g.current_org_id = default_org.id if default_org else None
+    g.current_role = 'owner'
 
 # Allowed MIME types for upload
 ALLOWED_MIME_TYPES = {
@@ -27,6 +35,31 @@ ALLOWED_MIME_TYPES = {
 
 # Filename pattern for stored files: UUID hex + extension
 SAFE_FILENAME_RE = re.compile(r'^[0-9a-f]{32}\.(webp|svg)$')
+TAG_STOP_WORDS = {
+    'and', 'the', 'for', 'with', 'from', 'image', 'photo', 'picture',
+    'webp', 'jpeg', 'jpg', 'png', 'gif', 'svg',
+}
+
+
+def _normalize_tags(value):
+    if not value:
+        return []
+    if isinstance(value, str):
+        value = [part.strip() for part in value.replace('\n', ',').split(',')]
+    if not isinstance(value, list):
+        return []
+    cleaned = []
+    for item in value:
+        tag = re.sub(r'\s+', ' ', str(item).strip().lower())
+        if tag and tag not in TAG_STOP_WORDS:
+            cleaned.append(tag[:60])
+    return list(dict.fromkeys(cleaned[:30]))
+
+
+def _tags_from_text(value):
+    text = os.path.splitext(str(value or ''))[0].replace('-', ' ').replace('_', ' ')
+    candidates = re.findall(r'[a-zA-Z][a-zA-Z0-9]{2,}', text.lower())
+    return _normalize_tags(candidates)
 
 
 def convert_to_webp(image_bytes, quality=85):
@@ -57,7 +90,8 @@ def upload_image():
     """Upload an image, convert to WebP (except SVGs), and store.
 
     Request: multipart/form-data with 'file' field
-    Optional query param: site_id (to associate with a site)
+    Media is stored at organization scope so it can be reused across brands,
+    products, campaigns, and generated websites.
     Response: { id, filename, url, width, height, mime_type, file_size }
     """
     if 'file' not in request.files:
@@ -78,20 +112,16 @@ def upload_image():
     if not file_bytes:
         return jsonify({'error': 'Empty file.'}), 400
 
-    upload_folder = current_app.config.get('UPLOAD_FOLDER', '')
     file_id = uuid.uuid4().hex  # 32-char hex for filename
-
-    # Optional site association
-    site_id = request.form.get('site_id') or request.args.get('site_id')
 
     # Determine org_id for tenant-isolated storage path
     org_id = getattr(g, 'current_org_id', 'default')
-    storage_site_id = site_id or '_shared'
+    storage_scope = '_media'
 
     if content_type == 'image/svg+xml':
         # SVGs are stored as-is (vector format, no conversion)
         filename = f'{file_id}.svg'
-        storage_path = storage.generate_path(org_id, storage_site_id, filename)
+        storage_path = storage.generate_path(org_id, storage_scope, filename)
         url = storage.save(file_bytes, storage_path, content_type='image/svg+xml')
         width, height = None, None
         mime_type = 'image/svg+xml'
@@ -106,7 +136,7 @@ def upload_image():
             return jsonify({'error': 'Failed to process image. Please try a different file.'}), 400
 
         filename = f'{file_id}.webp'
-        storage_path = storage.generate_path(org_id, storage_site_id, filename)
+        storage_path = storage.generate_path(org_id, storage_scope, filename)
         url = storage.save(webp_bytes, storage_path)
         mime_type = 'image/webp'
         file_size = len(webp_bytes)
@@ -116,10 +146,11 @@ def upload_image():
     alt_text = os.path.splitext(original_name)[0].replace('-', ' ').replace('_', ' ')
 
     # Store metadata in DB
-    image = SiteImage(
-        site_id=site_id,
+    image = MediaAsset(
+        org_id=g.current_org_id,
         filename=filename,
         storage_path=storage_path,
+        url=url,
         original_name=original_name,
         mime_type=mime_type,
         file_size=file_size,
@@ -129,6 +160,7 @@ def upload_image():
         source='upload',
         alt_text=alt_text,
     )
+    image.set_tags(_tags_from_text(original_name))
     db.session.add(image)
     db.session.commit()
 
@@ -142,6 +174,7 @@ def upload_image():
         'mime_type': mime_type,
         'file_size': file_size,
         'original_name': original_name,
+        'tags': image.get_tags(),
     }), 201
 
 
@@ -155,7 +188,7 @@ ALLOWED_DOWNLOAD_DOMAINS = {
 MAX_DOWNLOAD_SIZE = 15 * 1024 * 1024  # 15MB
 
 
-def _download_and_store(url, site_id=None, alt_text='', photographer='', source='stock'):
+def _download_and_store(url, alt_text='', photographer='', source='stock', tags=None):
     """Download an external image, convert to WebP, store via storage backend.
 
     Returns dict with image metadata on success.
@@ -168,9 +201,9 @@ def _download_and_store(url, site_id=None, alt_text='', photographer='', source=
         raise ValueError(f'Domain "{parsed.hostname}" is not in the allowed list.')
 
     # Deduplication — skip if already downloaded
-    existing = SiteImage.query.filter_by(source_url=url).first()
+    existing = MediaAsset.query.filter_by(org_id=g.current_org_id, source_url=url).first()
     if existing:
-        img_url = f'/uploads/{existing.storage_path}' if existing.storage_path else f'/uploads/{existing.filename}'
+        img_url = existing.url or (f'/uploads/{existing.storage_path}' if existing.storage_path else f'/uploads/{existing.filename}')
         return {
             'id': existing.id,
             'filename': existing.filename,
@@ -179,6 +212,7 @@ def _download_and_store(url, site_id=None, alt_text='', photographer='', source=
             'height': existing.height,
             'orientation': existing.orientation,
             'file_size': existing.file_size,
+            'tags': existing.get_tags(),
             'already_existed': True,
         }
 
@@ -210,16 +244,16 @@ def _download_and_store(url, site_id=None, alt_text='', photographer='', source=
     file_id = uuid.uuid4().hex
     filename = f'{file_id}.webp'
     org_id = getattr(g, 'current_org_id', 'default')
-    storage_site_id = site_id or '_shared'
-    storage_path = storage.generate_path(org_id, storage_site_id, filename)
+    storage_path = storage.generate_path(org_id, '_media', filename)
     stored_url = storage.save(webp_bytes, storage_path)
 
     orientation = compute_orientation(width, height)
 
-    image = SiteImage(
-        site_id=site_id,
+    image = MediaAsset(
+        org_id=g.current_org_id,
         filename=filename,
         storage_path=storage_path,
+        url=stored_url,
         original_name=alt_text.strip()[:100] if alt_text else os.path.basename(parsed.path) or 'downloaded',
         mime_type='image/webp',
         file_size=len(webp_bytes),
@@ -231,6 +265,7 @@ def _download_and_store(url, site_id=None, alt_text='', photographer='', source=
         photographer=photographer,
         alt_text=alt_text,
     )
+    image.set_tags(_normalize_tags(tags) or _tags_from_text(alt_text))
     db.session.add(image)
     db.session.commit()
 
@@ -242,6 +277,7 @@ def _download_and_store(url, site_id=None, alt_text='', photographer='', source=
         'height': height,
         'orientation': orientation,
         'file_size': len(webp_bytes),
+        'tags': image.get_tags(),
         'already_existed': False,
     }
 
@@ -257,10 +293,10 @@ def download_image():
     try:
         result = _download_and_store(
             url=url,
-            site_id=data.get('site_id'),
             alt_text=data.get('alt_text', ''),
             photographer=data.get('photographer', ''),
             source=data.get('source', 'stock'),
+            tags=data.get('tags'),
         )
         return jsonify(result), 200 if result.get('already_existed') else 201
     except ValueError as e:
@@ -280,7 +316,6 @@ def download_batch():
     """Download multiple external images. Returns per-image results."""
     data = request.get_json() or {}
     images = data.get('images', [])
-    site_id = data.get('site_id')
 
     if not images:
         return jsonify({'error': 'No images provided.'}), 400
@@ -300,10 +335,10 @@ def download_batch():
         try:
             result = _download_and_store(
                 url=url,
-                site_id=site_id,
                 alt_text=img.get('alt_text', ''),
                 photographer=img.get('photographer', ''),
                 source=img.get('source', 'stock'),
+                tags=img.get('tags'),
             )
             results.append({
                 'original_url': url,
@@ -328,7 +363,7 @@ def download_batch():
 def serve_upload(storage_path):
     """Serve a stored image file (local backend only). S3/GCS use direct URLs.
 
-    Supports both legacy flat paths (uuid.webp) and tenant-scoped paths (org/site/uuid.webp).
+    Supports legacy flat paths and tenant-scoped paths such as org/_media/uuid.webp.
     """
     parts = storage_path.split('/')
 
@@ -341,12 +376,12 @@ def serve_upload(storage_path):
         return send_from_directory(upload_folder, filename)
 
     elif len(parts) == 3:
-        # Tenant-scoped path: org_id/site_id/uuid.webp
-        org_id, site_id, filename = parts
+        # Tenant-scoped path: org_id/scope/uuid.webp
+        org_id, scope, filename = parts
         if not SAFE_FILENAME_RE.match(filename):
             abort(404)
         upload_folder = current_app.config.get('UPLOAD_FOLDER', '')
-        full_dir = os.path.join(upload_folder, org_id, site_id)
+        full_dir = os.path.join(upload_folder, org_id, scope)
         return send_from_directory(full_dir, filename)
 
     else:

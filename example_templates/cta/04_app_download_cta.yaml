@@ -1,0 +1,236 @@
+# App Download Call-to-Action Section with Store Badges
+# A mobile app download CTA section with app description heading, feature highlights, and app store download buttons arranged alongside a phone mockup image
+# Base components: layout-row, layout-column, image, heading, paragraph, button, icon, eyebrow, badge
+# Section type: cta
+# Layout: split_screen
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas, ecommerce, portfolio, education, legal
+# Perfect for: SaaS platform, mobile app, online store, software company, fitness app, online course platform, subscription service, B2B platform, consulting firm, digital agency
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#111827"
+        text: &color-text "#2C3039"
+        secondary: &color-secondary "#6b7280"
+        accent: &color-accent "#2563eb"
+        background: &color-background "#ffffff"
+  components:
+    - name: page
+      slug: home
+      title: "App Download CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+        # App Download CTA Section
+        - name: layout-row
+          properties:
+            layout:
+              align: center
+              horizontalAlign: none
+              wrap: nowrap
+            appearance:
+              background:
+                color: "#f0f9ff"
+                opacity: 100
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+            # Left Side - Content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "50"
+                  align: start
+                  horizontalAlign: space-evenly
+                appearance:
+                spacing:
+                  paddingBlock: lg
+                  paddingInline: xl
+              components:
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: MOBILE APP
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wider
+                    spacing:
+                      marginBlock: none
+                # Main Heading
+                - name: heading
+                  properties:
+                    text: "Take Us Anywhere"
+                    level: 1
+                    typography:
+                      color: *color-primary
+                      size: xxl
+                      weight: bold
+                      lineHeight: "1.15"
+                    spacing:
+                      marginBlock: sm
+                    layout:
+                      widthMode: stretch
+
+                # App Description
+                - name: paragraph
+                  properties:
+                    text: |
+                      Stay connected and productive on the go. Our mobile app brings
+                      the full power of the platform to your pocket with a beautifully
+                      crafted native experience.
+                    typography:
+                      color: *color-secondary
+                      size: md
+                      lineHeight: "1.7"
+                    spacing:
+                      marginBlock: md
+                # Feature 1
+                - name: layout-row
+                  properties:
+                    layout:
+                      align: center
+                      horizontalAlign: start
+                      wrap: nowrap
+                    spacing:
+                      marginBlock: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: zap
+                        size: "24"
+                        color: *color-accent
+                    - name: caption
+                      properties:
+                        text: "Lightning-fast sync across all devices"
+                        typography:
+                          color: *color-secondary
+                          size: sm
+                        spacing:
+                          marginBlock: none
+                # Feature 2
+                - name: layout-row
+                  properties:
+                    layout:
+                      align: center
+                      horizontalAlign: start
+                      wrap: nowrap
+                    spacing:
+                      marginBlock: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: shield
+                        size: "24"
+                        color: *color-accent
+                    - name: caption
+                      properties:
+                        text: "End-to-end encryption for your data"
+                        typography:
+                          color: *color-secondary
+                          size: sm
+                        spacing:
+                          marginBlock: none
+                # Feature 3
+                - name: layout-row
+                  properties:
+                    layout:
+                      align: center
+                      horizontalAlign: start
+                      wrap: nowrap
+                    spacing:
+                      marginBlock: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: bell
+                        size: "24"
+                        color: *color-accent
+                    - name: caption
+                      properties:
+                        text: "Smart notifications that keep you informed"
+                        typography:
+                          color: *color-secondary
+                          size: sm
+                        spacing:
+                          marginBlock: none
+                # App Store Buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      align: center
+                      horizontalAlign: start
+                      wrap: wrap
+                    spacing:
+                      marginBlock: lg
+                  components:
+                    - name: button
+                      properties:
+                        text: App Store
+                        appearance:
+                          background:
+                            color: *color-primary
+                            opacity: 100
+                          border:
+                            width: 0
+                            style: solid
+                            color: transparent
+                          radius: md
+                        spacing:
+                          marginBlock: none
+                          paddingBlock: sm
+                          paddingInline: lg
+                        typography:
+                          color: *color-background
+                          weight: semibold
+                          size: md
+                    - name: button
+                      properties:
+                        text: Google Play
+                        appearance:
+                          background:
+                            color: *color-primary
+                            opacity: 100
+                          border:
+                            width: 0
+                            style: solid
+                            color: transparent
+                          radius: md
+                        typography:
+                          color: *color-background
+                          weight: semibold
+                          size: md
+                        spacing:
+                          marginBlock: none
+            # Right Side - Phone Mockup
+            - name: image
+              properties:
+                source:
+                  url: https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=1200
+                  altText: Mobile app on smartphone
+                appearance:
+                  minHeight: 37.5
+                  fit: cover
+                  cornerStyle: none
+                  hoverEffect: zoom
+                layout:
+                  widthMode: "50"
+                spacing:
+                  marginBlock: none
+                  marginInline: none

@@ -1,0 +1,254 @@
+# The Mobile Bottom-Bar
+# Layout-row with four centered buttons styled as a mobile tab bar, with featured content cards and activity list above.
+# Base components: page, layout-row, heading, layout-column, image, eyebrow, paragraph, columnsgrid, button
+# Section type: navigation
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas
+# Perfect for: mobile app interfaces, progressive web apps, and responsive mobile-first navigation patterns
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1c1c1e'
+        text: &color-text '#323234'
+        secondary: &color-secondary '#8e8e93'
+        accent: &color-accent '#007aff'
+        background: &color-background '#f2f2f7'
+    spacing: {paddingBlock: none, paddingInline: none}
+    appearance: {background: {color: *color-background}}
+  components:
+
+    # ============================================
+    # MOBILE HEADER
+    # ============================================
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-between, wrap: nowrap, verticalAlign: center}
+      spacing: {paddingBlock: sm, paddingInline: md}
+      appearance:
+        background: {color: *color-background, opacity: 100}
+        border: {width: 1, style: solid, color: *color-secondary}
+    components:
+    - name: heading
+      properties:
+        text: Explore
+        level: 1
+        typography: {size: xxl, weight: bold, color: *color-primary}
+
+    # ============================================
+    # MOBILE CONTENT AREA
+    # ============================================
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: space-evenly}
+      spacing: {paddingBlock: lg, paddingInline: md}
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+
+        # Featured Card
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        appearance:
+          background: {color: *color-background, opacity: 100}
+          radius: lg
+          shadow: soft
+        spacing: {marginBlock: sm}
+      components:
+      - name: image
+        properties:
+          source:
+            url: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=500&q=80'
+            altText: 'Scenic landscape view'
+          appearance: {minHeight: 12.5, fit: cover, cornerStyle: lg}
+          layout: {widthMode: stretch}
+      - name: layout-column
+        properties:
+          layout: {horizontalAlign: space-evenly}
+          spacing: {paddingBlock: md, paddingInline: md}
+        components:
+        - name: eyebrow
+          properties:
+            text: FEATURED
+            typography: {size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+        - name: heading
+          properties:
+            text: Discover New Destinations
+            level: 2
+            typography: {size: lg, weight: semibold, color: *color-primary}
+            spacing: {marginBlock: xs}
+        - name: paragraph
+          properties:
+            text: Explore trending travel destinations and local experiences curated just for you.
+            typography: {size: sm, color: *color-secondary, lineHeight: '1.6'}
+
+        # Quick Actions Grid
+    - name: columnsgrid
+      properties:
+        layout: {columns: 2, gap: sm, verticalAlign: stretch}
+        spacing: {marginBlock: sm}
+      columns:
+      - components:
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: space-evenly}
+            spacing: {paddingBlock: lg, paddingInline: md}
+            appearance:
+              background: {color: *color-background, opacity: 100}
+              radius: lg
+              shadow: soft
+          components:
+          - name: heading
+            properties:
+              text: Nearby
+              level: 3
+              typography: {size: md, weight: semibold, color: *color-primary, align: center}
+          - name: paragraph
+            properties:
+              text: 12 places
+              typography: {size: sm, color: *color-secondary, align: center}
+      - components:
+        - name: layout-column
+          properties:
+            layout: {horizontalAlign: space-evenly}
+            spacing: {paddingBlock: lg, paddingInline: md}
+            appearance:
+              background: {color: *color-background, opacity: 100}
+              radius: lg
+              shadow: soft
+          components:
+          - name: heading
+            properties:
+              text: Saved
+              level: 3
+              typography: {size: md, weight: semibold, color: *color-primary, align: center}
+          - name: paragraph
+            properties:
+              text: 8 items
+              typography: {size: sm, color: *color-secondary, align: center}
+
+        # List Items
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly}
+        spacing: {paddingBlock: md, paddingInline: md, marginBlock: sm}
+        appearance:
+          background: {color: *color-background, opacity: 100}
+          radius: lg
+          shadow: soft
+      components:
+      - name: heading
+        properties:
+          text: Recent Activity
+          level: 3
+          typography: {size: md, weight: semibold, color: *color-primary}
+          spacing: {marginBlock: sm}
+      - name: paragraph
+        properties:
+          text: "Visited Golden Gate Park - 2 hours ago"
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: "Saved Fisherman's Wharf - Yesterday"
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: "Reviewed Blue Bottle Coffee - 3 days ago"
+          typography: {size: sm, color: *color-secondary}
+          spacing: {marginBlock: xs}
+
+    # ============================================
+    # MOBILE BOTTOM NAVIGATION BAR
+    # ============================================
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, wrap: nowrap, verticalAlign: center}
+      spacing: {paddingBlock: sm, paddingInline: sm}
+      appearance:
+        background: {color: *color-background, opacity: 100}
+        border: {width: 1, style: solid, color: *color-secondary}
+    components:
+
+        # Home Tab
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly, widthMode: "25"}
+        spacing: {paddingBlock: xs}
+      components:
+      - name: button
+        properties:
+          text: Home
+          appearance:
+            background: {color: *color-background, opacity: 0}
+            border: {width: 0, style: solid, color: *color-background}
+          typography: {size: xs, weight: medium, color: *color-secondary, align: center}
+          layout: {widthMode: stretch}
+          spacing:
+            paddingBlock: xs
+            paddingInline: xs
+
+        # Search Tab
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly, widthMode: "25"}
+        spacing: {paddingBlock: xs}
+      components:
+      - name: button
+        properties:
+          text: Search
+          appearance:
+            background: {color: *color-background, opacity: 0}
+            border: {width: 0, style: solid, color: *color-background}
+          typography: {size: xs, weight: medium, color: *color-secondary, align: center}
+          layout: {widthMode: stretch}
+          spacing:
+            paddingBlock: xs
+            paddingInline: xs
+
+        # Explore Tab (Active)
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly, widthMode: "25"}
+        spacing: {paddingBlock: xs}
+      components:
+      - name: button
+        properties:
+          text: Explore
+          appearance:
+            background: {color: *color-background, opacity: 0}
+            border: {width: 0, style: solid, color: *color-background}
+          typography: {size: xs, weight: semibold, color: *color-accent, align: center}
+          layout: {widthMode: stretch}
+          spacing:
+            paddingBlock: xs
+            paddingInline: xs
+
+        # Profile Tab
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: space-evenly, widthMode: "25"}
+        spacing: {paddingBlock: xs}
+      components:
+      - name: button
+        properties:
+          text: Profile
+          appearance:
+            background: {color: *color-background, opacity: 0}
+            border: {width: 0, style: solid, color: *color-background}
+          typography: {size: xs, weight: medium, color: *color-secondary, align: center}
+          layout: {widthMode: stretch}
+          spacing:
+            paddingBlock: xs
+            paddingInline: xs

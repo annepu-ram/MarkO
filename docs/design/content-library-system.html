@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Sites — Content Library & Campaign System Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf8; --surface: #ffffff; --surface-alt: #f5f4f0;
+            --border: #e8e6e1; --border-hover: #c4c0b8;
+            --text: #1a1a1a; --text-2: #5c5c5c; --text-3: #8a8a8a;
+            --accent: #0058a3; --accent-soft: rgba(0,88,163,0.06);
+            --success: #1e7a45; --success-soft: rgba(30,122,69,0.08);
+            --warning: #cc7700; --warning-soft: rgba(204,119,0,0.08);
+            --purple: #6d28d9; --purple-soft: rgba(109,40,217,0.06);
+            --pink: #be185d; --pink-soft: rgba(190,24,93,0.06);
+            --radius: 8px; --radius-lg: 12px; --radius-xl: 16px;
+            --font: 'Inter', -apple-system, system-ui, sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: var(--font); background: #e8e6e1; color: var(--text); -webkit-font-smoothing: antialiased; padding: 40px; }
+
+        h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+        .subtitle { font-size: 15px; color: var(--text-2); margin-bottom: 48px; max-width: 700px; line-height: 1.6; }
+
+        .section { margin-bottom: 80px; }
+        .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px; }
+        .section-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .section-desc { font-size: 14px; color: var(--text-2); margin-bottom: 24px; max-width: 600px; line-height: 1.5; }
+
+        /* Device */
+        .device { background: var(--surface); border-radius: var(--radius-xl); box-shadow: 0 8px 40px rgba(0,0,0,0.1); overflow: hidden; max-width: 1100px; }
+        .hdr { display: flex; align-items: center; justify-content: space-between; padding: 0 28px; min-height: 72px; border-bottom: 1px solid var(--border); gap: 24px; }
+        .hdr-logo { font-size: 15px; font-weight: 800; }
+        .hdr-nav { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-width: 70px; min-height: 52px; padding: 7px 10px; border-radius: var(--radius); color: var(--text-2); font-size: 11px; font-weight: 600; line-height: 1; }
+        .nav-item.active { background: var(--text); color: #fff; }
+        .nav-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .nav-label { display: block; }
+        .content { padding: 32px 28px; background: var(--bg); }
+
+        /* Generic */
+        .sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+        .sec-title-sm { font-size: 15px; font-weight: 700; }
+        .pills { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
+        .pill { padding: 4px 11px; border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 500; color: var(--text-2); }
+        .pill.active { background: var(--text); color: #fff; border-color: var(--text); }
+        .pill.cat-promo { border-color: var(--warning); color: var(--warning); }
+        .pill.cat-proof { border-color: var(--success); color: var(--success); }
+        .pill.cat-form { border-color: var(--purple); color: var(--purple); }
+        .pill.cat-brand { border-color: var(--pink); color: var(--pink); }
+        .btn-sm { padding: 5px 12px; border-radius: var(--radius); font-size: 12px; font-weight: 600; background: var(--accent); color: #fff; }
+        .btn-outline { padding: 5px 12px; border-radius: var(--radius); font-size: 12px; font-weight: 600; border: 1px solid var(--border); color: var(--text-2); }
+        .badge { padding: 3px 9px; border-radius: 100px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+
+        /* Content Items */
+        .cl-item { display: flex; gap: 14px; padding: 16px 18px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); margin-bottom: 8px; transition: all 0.15s; }
+        .cl-item:hover { border-color: var(--border-hover); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .cl-item.pinned { border-left: 3px solid var(--accent); }
+        .cl-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+        .cl-icon--copy { background: var(--accent-soft); color: var(--accent); }
+        .cl-icon--promo { background: var(--warning-soft); color: var(--warning); }
+        .cl-icon--proof { background: var(--success-soft); color: var(--success); }
+        .cl-icon--form { background: var(--purple-soft); color: var(--purple); }
+        .cl-icon--brand { background: var(--pink-soft); color: var(--pink); }
+        .cl-body { flex: 1; min-width: 0; }
+        .cl-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+        .cl-text { font-size: 13px; color: var(--text-2); line-height: 1.4; margin-bottom: 6px; }
+        .cl-meta { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+        .cl-tag { padding: 2px 7px; border-radius: 100px; font-size: 10px; font-weight: 600; background: var(--surface-alt); color: var(--text-3); }
+        .cl-tag--type { text-transform: uppercase; letter-spacing: 0.03em; }
+        .cl-structured { display: flex; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-3); }
+        .cl-structured span { display: flex; align-items: center; gap: 4px; }
+        .cl-actions { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+        .cl-action-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--text-3); cursor: pointer; }
+
+        /* Campaign type cards */
+        .ctype-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+        .ctype-card { padding: 18px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); cursor: pointer; transition: all 0.15s; }
+        .ctype-card:hover { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+        .ctype-card.selected { border-color: var(--accent); background: var(--accent-soft); }
+        .ctype-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .ctype-desc { font-size: 12px; color: var(--text-2); line-height: 1.4; }
+        .ctype-sections { margin-top: 8px; font-size: 11px; color: var(--text-3); }
+
+        /* Flow diagram */
+        .flow { display: flex; align-items: stretch; gap: 0; margin: 24px 0; }
+        .flow-box { flex: 1; padding: 16px; border: 1px solid var(--border); background: var(--surface); text-align: center; }
+        .flow-box:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+        .flow-box:last-child { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+        .flow-box-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 6px; }
+        .flow-box-content { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+        .flow-arrow { display: flex; align-items: center; justify-content: center; width: 32px; background: var(--surface-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); color: var(--text-3); font-size: 16px; }
+
+        /* AI suggestion panel */
+        .ai-panel { padding: 16px 18px; border: 1px solid var(--accent); border-radius: var(--radius-lg); background: var(--accent-soft); margin-bottom: 16px; }
+        .ai-panel-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .ai-panel-icon { width: 24px; height: 24px; border-radius: 6px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+        .ai-panel-title { font-size: 13px; font-weight: 600; color: var(--accent); }
+        .ai-suggestion { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); margin-bottom: 6px; font-size: 12px; }
+        .ai-suggestion-text { color: var(--text); }
+        .ai-suggestion-actions { display: flex; gap: 4px; }
+        .ai-use-btn { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; background: var(--accent); color: #fff; }
+        .ai-skip-btn { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 600; color: var(--text-3); }
+
+        /* Pinned content in sections */
+        .section-slot { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px dashed var(--border); border-radius: var(--radius); margin-bottom: 8px; background: var(--surface); }
+        .section-slot.filled { border-style: solid; border-color: var(--success); background: var(--success-soft); }
+        .section-slot-label { font-size: 11px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; width: 80px; }
+        .section-slot-content { font-size: 12px; color: var(--text); flex: 1; }
+        .section-slot-pin { font-size: 10px; color: var(--success); font-weight: 600; }
+
+        /* Marketing engine cards */
+        .engine-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+        .engine-card { padding: 16px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); min-height: 132px; }
+        .engine-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 10px; }
+        .engine-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+        .engine-desc { font-size: 12px; color: var(--text-2); line-height: 1.45; }
+        .content-score { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); margin-bottom: 6px; font-size: 12px; }
+        .score-bar { width: 80px; height: 6px; border-radius: 99px; background: var(--surface-alt); overflow: hidden; }
+        .score-fill { height: 100%; border-radius: 99px; background: var(--success); }
+        .ai-create-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 16px; }
+        .ai-box { border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); padding: 16px; }
+        .ai-box-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+        .variant-row { padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; background: var(--bg); font-size: 12px; color: var(--text-2); }
+        .winner-row { display: grid; grid-template-columns: 1fr 70px 70px 70px; gap: 8px; align-items: center; padding: 9px 10px; border-bottom: 1px solid var(--border); font-size: 12px; }
+        .winner-row:last-child { border-bottom: none; }
+        .winner-head { color: var(--text-3); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+
+        @media (max-width: 900px) {
+            .engine-grid, .ai-create-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<svg aria-hidden="true" style="display:none;">
+    <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M9 20v-6h6v6"></path></symbol>
+    <symbol id="icon-brand" viewBox="0 0 24 24"><path d="M5 22V4"></path><path d="M5 4h13l-2 4 2 4H5"></path></symbol>
+    <symbol id="icon-content" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5"></path><path d="M9 13h6"></path><path d="M9 17h6"></path></symbol>
+    <symbol id="icon-media" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="8" cy="10" r="2"></circle><path d="m21 16-5-5-6 6-3-3-4 4"></path></symbol>
+    <symbol id="icon-campaign" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 13z"></path><path d="M7 14v5a2 2 0 0 0 2 2h1"></path><path d="M21 8a4 4 0 0 1 0 8"></path></symbol>
+    <symbol id="icon-products" viewBox="0 0 24 24"><path d="m21 8-9-5-9 5 9 5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></symbol>
+    <symbol id="icon-websites" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 10h18"></path><path d="M9 20V10"></path></symbol>
+</svg>
+
+<h1>Content Library & Campaign System</h1>
+<p class="subtitle">The Content Library is the Marketing CMS brain. It stores brand, product, offer, proof, media, and AI-generated content as reusable assets. Campaigns use this memory to create landing pages first, then future ads, email, social, and ecommerce outputs.</p>
+
+<!-- ===================================================================== -->
+<!-- MARKETING ENGINE NORTH STAR -->
+<!-- ===================================================================== -->
+<div class="section">
+    <div class="section-label">North Star</div>
+    <div class="section-title">A Marketing Engine Powered by Content Memory</div>
+    <div class="section-desc">Content is not disposable page text. It is the reusable memory that lets AI create better campaigns every time.</div>
+
+    <div class="device">
+        <div class="content">
+            <div class="engine-grid">
+                <div class="engine-card">
+                    <div class="engine-num">1</div>
+                    <div class="engine-title">Marketing CMS</div>
+                    <div class="engine-desc">Stores approved brands, products, offers, proof, copy, forms, and media.</div>
+                </div>
+                <div class="engine-card">
+                    <div class="engine-num">2</div>
+                    <div class="engine-title">AI Content Engine</div>
+                    <div class="engine-desc">Generates, rewrites, scores, and repurposes content from real context.</div>
+                </div>
+                <div class="engine-card">
+                    <div class="engine-num">3</div>
+                    <div class="engine-title">Campaign Studio</div>
+                    <div class="engine-desc">Combines goal, audience, offer, content, and page structure into a launchable campaign.</div>
+                </div>
+                <div class="engine-card">
+                    <div class="engine-num">4</div>
+                    <div class="engine-title">Launch Outputs</div>
+                    <div class="engine-desc">Creates landing pages now, then future email, ads, social, and ecommerce pages.</div>
+                </div>
+                <div class="engine-card">
+                    <div class="engine-num">5</div>
+                    <div class="engine-title">Learning Loop</div>
+                    <div class="engine-desc">Tracks winners, archives weak content, and improves future AI suggestions.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================== -->
+<!-- SYSTEM FLOW DIAGRAM -->
+<!-- ===================================================================== -->
+<div class="section">
+    <div class="section-label">System</div>
+    <div class="section-title">How Content Flows Into Campaigns</div>
+    <div class="section-desc">AI-first: content is suggested automatically based on brand, product, audience, and campaign type. Users confirm what stays.</div>
+
+    <div class="flow">
+        <div class="flow-box">
+            <div class="flow-box-title">Content Library</div>
+            <div class="flow-box-content">Headlines, Promos, Testimonials, Forms, Brand Story, FAQs, Product Features...</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-box">
+            <div class="flow-box-title">AI Selection</div>
+            <div class="flow-box-content">Matches by: brand, product, campaign type, audience, tone, recency, pinned status</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-box">
+            <div class="flow-box-title">Campaign Pool</div>
+            <div class="flow-box-content">Auto-selected content + user can add/remove/pin to specific sections</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-box">
+            <div class="flow-box-title">Page Generation</div>
+            <div class="flow-box-content">Pinned content &rarr; exact placement. Pool content &rarr; AI picks best fit per section</div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================== -->
+<!-- CAMPAIGN TYPES -->
+<!-- ===================================================================== -->
+<div class="section">
+    <div class="section-label">Campaign Types</div>
+    <div class="section-title">Typed But Overridable — Each Type Has a Default Section Structure</div>
+    <div class="section-desc">When a marketer picks a campaign type, they get a recommended page structure pre-filled. They can add, remove, or reorder any section.</div>
+
+    <div class="device">
+        <div class="hdr">
+            <div class="hdr-logo">Swift Sites</div>
+            <span style="font-size:12px; color:var(--text-2);">Campaign Studio &mdash; Choose a type</span>
+        </div>
+        <div class="content">
+            <div style="font-size:18px; font-weight:700; margin-bottom:6px;">What kind of campaign is this?</div>
+            <div style="font-size:13px; color:var(--text-2); margin-bottom:20px;">Each type comes with a recommended page structure. You can customize it after.</div>
+            <div class="ctype-grid">
+                <div class="ctype-card selected">
+                    <div class="ctype-name">Product Launch</div>
+                    <div class="ctype-desc">Introduce a new product or service to your audience</div>
+                    <div class="ctype-sections">Hero &rarr; Features &rarr; Demo &rarr; Pricing &rarr; Testimonials &rarr; CTA</div>
+                </div>
+                <div class="ctype-card">
+                    <div class="ctype-name">Seasonal Promotion</div>
+                    <div class="ctype-desc">Time-limited offer with urgency and social proof</div>
+                    <div class="ctype-sections">Hero &rarr; Offer &rarr; Countdown &rarr; Products &rarr; Proof &rarr; CTA</div>
+                </div>
+                <div class="ctype-card">
+                    <div class="ctype-name">Lead Generation</div>
+                    <div class="ctype-desc">Capture emails, phone numbers, or demo requests</div>
+                    <div class="ctype-sections">Hero &rarr; Benefits &rarr; Form &rarr; Proof &rarr; FAQ &rarr; CTA</div>
+                </div>
+                <div class="ctype-card">
+                    <div class="ctype-name">Upsell / Cross-sell</div>
+                    <div class="ctype-desc">Promote additional products to existing customers</div>
+                    <div class="ctype-sections">Hero &rarr; Comparison &rarr; Bundle &rarr; Testimonials &rarr; CTA</div>
+                </div>
+                <div class="ctype-card">
+                    <div class="ctype-name">Brand Awareness</div>
+                    <div class="ctype-desc">Tell your story and build trust with new audiences</div>
+                    <div class="ctype-sections">Hero &rarr; Story &rarr; Values &rarr; Team &rarr; Milestones &rarr; CTA</div>
+                </div>
+                <div class="ctype-card">
+                    <div class="ctype-name">Event / Webinar</div>
+                    <div class="ctype-desc">Promote an event with countdown, speakers, and registration</div>
+                    <div class="ctype-sections">Hero &rarr; Speakers &rarr; Agenda &rarr; Countdown &rarr; Registration</div>
+                </div>
+                <div class="ctype-card">
+                    <div class="ctype-name">Re-engagement</div>
+                    <div class="ctype-desc">Win back inactive users or past customers</div>
+                    <div class="ctype-sections">Hero &rarr; What's New &rarr; Offer &rarr; Proof &rarr; CTA</div>
+                </div>
+                <div class="ctype-card">
+                    <div class="ctype-name">Custom</div>
+                    <div class="ctype-desc">Build your own page structure from scratch</div>
+                    <div class="ctype-sections">Start empty, add any sections you need</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================== -->
+<!-- CONTENT LIBRARY — RICH VIEW -->
+<!-- ===================================================================== -->
+<div class="section">
+    <div class="section-label">Content Library</div>
+    <div class="section-title">Universal CMS — Category-Specific Schemas</div>
+    <div class="section-desc">Every category has its own structured fields. A promotion has expiry + code. A testimonial has avatar + rating. A form has field definitions. All browsable, filterable, and AI-selectable.</div>
+
+    <div class="device">
+        <div class="hdr">
+            <div class="hdr-logo">Swift Sites</div>
+            <div class="hdr-nav" aria-label="Primary">
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                <span class="nav-item active"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+            </div>
+        </div>
+        <div class="content">
+            <div class="sec-header">
+                <div class="sec-title-sm">Content Library</div>
+                <div style="display:flex; gap:8px;">
+                    <div style="padding:5px 12px; border:1px solid var(--border); border-radius:var(--radius); font-size:12px; color:var(--text-3); width:180px;">Search content...</div>
+                    <span class="btn-sm">+ Add content</span>
+                </div>
+            </div>
+
+            <!-- Category tabs with color coding -->
+            <div class="pills">
+                <span class="pill active">All</span>
+                <span class="pill">Copy</span>
+                <span class="pill cat-promo">Promotions</span>
+                <span class="pill cat-proof">Social Proof</span>
+                <span class="pill cat-form">Forms</span>
+                <span class="pill cat-brand">Brand Story</span>
+                <span class="pill">Product</span>
+                <span class="pill">FAQ</span>
+            </div>
+
+            <!-- Copy item -->
+            <div class="cl-item pinned">
+                <div class="cl-icon cl-icon--copy">Aa</div>
+                <div class="cl-body">
+                    <div class="cl-title">Primary Hero Headline</div>
+                    <div class="cl-text">Transform your body in 8 weeks with personalized coaching</div>
+                    <div class="cl-meta">
+                        <span class="cl-tag cl-tag--type">Headline</span>
+                        <span class="cl-tag">FitZone Pro</span>
+                        <span class="cl-tag">Pinned</span>
+                    </div>
+                </div>
+                <div class="cl-actions">
+                    <div class="cl-action-btn" title="Use in campaign">&#8599;</div>
+                    <div class="cl-action-btn" title="Edit">&#9998;</div>
+                </div>
+            </div>
+
+            <!-- Promotion item (structured) -->
+            <div class="cl-item">
+                <div class="cl-icon cl-icon--promo">%</div>
+                <div class="cl-body">
+                    <div class="cl-title">Summer Body Challenge — 40% Off</div>
+                    <div class="cl-text">Limited-time discount on 8-week program for new members</div>
+                    <div class="cl-structured">
+                        <span>&#128197; Expires Jul 31</span>
+                        <span>&#127991; Code: SUMMER40</span>
+                        <span>&#128178; 40% off</span>
+                        <span>&#9888; New customers only</span>
+                    </div>
+                    <div class="cl-meta">
+                        <span class="cl-tag cl-tag--type" style="background:var(--warning-soft);color:var(--warning);">Promotion</span>
+                        <span class="cl-tag">FitZone Pro</span>
+                        <span class="cl-tag">Active</span>
+                    </div>
+                </div>
+                <div class="cl-actions">
+                    <div class="cl-action-btn">&#8599;</div>
+                    <div class="cl-action-btn">&#9998;</div>
+                </div>
+            </div>
+
+            <!-- Testimonial item (structured) -->
+            <div class="cl-item">
+                <div class="cl-icon cl-icon--proof">&#9733;</div>
+                <div class="cl-body">
+                    <div class="cl-title">Sarah M. — Weight Loss Success</div>
+                    <div class="cl-text">"Lost 15 lbs in 6 weeks. The accountability was a game changer."</div>
+                    <div class="cl-structured">
+                        <span>&#11088; 5/5 rating</span>
+                        <span>&#128100; Sarah M., Portland OR</span>
+                        <span>&#128197; Feb 2026</span>
+                    </div>
+                    <div class="cl-meta">
+                        <span class="cl-tag cl-tag--type" style="background:var(--success-soft);color:var(--success);">Testimonial</span>
+                        <span class="cl-tag">FitZone Pro</span>
+                        <span class="cl-tag">8-Week Plan</span>
+                    </div>
+                </div>
+                <div class="cl-actions">
+                    <div class="cl-action-btn">&#8599;</div>
+                    <div class="cl-action-btn">&#9998;</div>
+                </div>
+            </div>
+
+            <!-- Form item (structured) -->
+            <div class="cl-item">
+                <div class="cl-icon cl-icon--form">&#9744;</div>
+                <div class="cl-body">
+                    <div class="cl-title">Free Consultation Booking Form</div>
+                    <div class="cl-text">Captures name, email, phone, preferred time, fitness goals</div>
+                    <div class="cl-structured">
+                        <span>&#128221; 5 fields</span>
+                        <span>&#128274; Email required</span>
+                        <span>&#128197; Calendar picker</span>
+                        <span>&#9989; Auto-reply enabled</span>
+                    </div>
+                    <div class="cl-meta">
+                        <span class="cl-tag cl-tag--type" style="background:var(--purple-soft);color:var(--purple);">Form</span>
+                        <span class="cl-tag">Lead Gen</span>
+                    </div>
+                </div>
+                <div class="cl-actions">
+                    <div class="cl-action-btn">&#8599;</div>
+                    <div class="cl-action-btn">&#9998;</div>
+                </div>
+            </div>
+
+            <!-- Brand awareness item -->
+            <div class="cl-item">
+                <div class="cl-icon cl-icon--brand">&#9829;</div>
+                <div class="cl-body">
+                    <div class="cl-title">Founder Story</div>
+                    <div class="cl-text">After struggling with gym intimidation for years, I created FitZone Pro to make personalized fitness accessible to everyone — no gym required.</div>
+                    <div class="cl-meta">
+                        <span class="cl-tag cl-tag--type" style="background:var(--pink-soft);color:var(--pink);">Brand Story</span>
+                        <span class="cl-tag">FitZone Pro</span>
+                        <span class="cl-tag">About</span>
+                    </div>
+                </div>
+                <div class="cl-actions">
+                    <div class="cl-action-btn">&#8599;</div>
+                    <div class="cl-action-btn">&#9998;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================== -->
+<!-- AI CONTENT STUDIO -->
+<!-- ===================================================================== -->
+<div class="section">
+    <div class="section-label">AI Content Studio</div>
+    <div class="section-title">AI Generates Drafts, Variants, And Improvements From CMS Context</div>
+    <div class="section-desc">AI should not wait until page generation. It should help marketers create content assets, improve weak copy, and produce channel-ready variants from approved brand and product context.</div>
+
+    <div class="device">
+        <div class="hdr">
+            <div class="hdr-logo">Swift Sites</div>
+            <div class="hdr-nav" aria-label="Primary">
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                <span class="nav-item active"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+            </div>
+        </div>
+        <div class="content">
+            <div class="ai-create-grid">
+                <div class="ai-box">
+                    <div class="ai-box-title">Create content from context</div>
+                    <div class="variant-row"><strong>Brief:</strong> Generate 8 hero headlines for FitZone Pro's Summer Body Challenge.</div>
+                    <div class="variant-row"><strong>Context:</strong> Brand tone: bold. Product: 8-week coaching plan. Offer: 40% off for new customers.</div>
+                    <div style="display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;">
+                        <span class="btn-sm">Generate variants</span>
+                        <span class="btn-outline">Rewrite existing</span>
+                        <span class="btn-outline">Make channel set</span>
+                    </div>
+                </div>
+                <div class="ai-box">
+                    <div class="ai-box-title">Quality checks</div>
+                    <div class="content-score"><span>Brand voice match</span><div class="score-bar"><div class="score-fill" style="width:86%;"></div></div></div>
+                    <div class="content-score"><span>Offer clarity</span><div class="score-bar"><div class="score-fill" style="width:78%;"></div></div></div>
+                    <div class="content-score"><span>Proof strength</span><div class="score-bar"><div class="score-fill" style="width:64%;"></div></div></div>
+                    <div class="content-score"><span>Unsupported claim risk</span><div class="score-bar"><div class="score-fill" style="width:18%; background:var(--warning);"></div></div></div>
+                </div>
+            </div>
+
+            <div style="margin-top:16px;">
+                <div class="sec-title-sm" style="margin-bottom:10px;">Generated variants awaiting approval</div>
+                <div class="variant-row">Launch your strongest summer yet with personalized coaching that keeps you accountable.</div>
+                <div class="variant-row">Get a coach-built fitness plan and save 40% before the Summer Body Challenge closes.</div>
+                <div class="variant-row">Turn summer motivation into measurable progress with FitZone Pro's 8-week challenge.</div>
+                <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                    <span class="btn-sm">Approve selected</span>
+                    <span class="btn-outline">Generate more</span>
+                    <span class="btn-outline">Save as drafts</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================== -->
+<!-- AI CONTENT SELECTION - CAMPAIGN VIEW -->
+<!-- ===================================================================== -->
+<div class="section">
+    <div class="section-label">AI + Campaign</div>
+    <div class="section-title">AI Auto-Selects Content — User Confirms & Pins</div>
+    <div class="section-desc">When a campaign generates its landing page, AI picks the best content from the library for each section. Users see suggestions and can accept, swap, or pin specific content to sections.</div>
+
+    <div class="device">
+        <div class="hdr">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="font-size:12px; color:var(--text-2);">&larr; Back</span>
+                <span style="font-size:14px; font-weight:600;">Summer Fitness Launch</span>
+            </div>
+            <span class="badge" style="background:var(--accent-soft);color:var(--accent);">Step 6: Landing Page</span>
+        </div>
+        <div class="content">
+            <div style="font-size:18px; font-weight:700; margin-bottom:6px;">Content for your landing page</div>
+            <div style="font-size:13px; color:var(--text-2); margin-bottom:20px;">AI selected these from your content library. Pin items to lock them to sections, or swap for alternatives.</div>
+
+            <!-- AI suggestions panel -->
+            <div class="ai-panel">
+                <div class="ai-panel-header">
+                    <div class="ai-panel-icon">AI</div>
+                    <div class="ai-panel-title">Suggested from your library (4 matches)</div>
+                </div>
+                <div class="ai-suggestion">
+                    <div class="ai-suggestion-text"><strong>Hero:</strong> "Transform your body in 8 weeks..."</div>
+                    <div class="ai-suggestion-actions"><span class="ai-use-btn">Pin to Hero</span><span class="ai-skip-btn">Skip</span></div>
+                </div>
+                <div class="ai-suggestion">
+                    <div class="ai-suggestion-text"><strong>Offer:</strong> Summer Body Challenge — 40% Off (expires Jul 31)</div>
+                    <div class="ai-suggestion-actions"><span class="ai-use-btn">Pin to Offer</span><span class="ai-skip-btn">Skip</span></div>
+                </div>
+                <div class="ai-suggestion">
+                    <div class="ai-suggestion-text"><strong>Proof:</strong> Sarah M. testimonial (5/5, weight loss)</div>
+                    <div class="ai-suggestion-actions"><span class="ai-use-btn">Pin to Testimonials</span><span class="ai-skip-btn">Skip</span></div>
+                </div>
+                <div class="ai-suggestion">
+                    <div class="ai-suggestion-text"><strong>Form:</strong> Free Consultation Booking Form (5 fields)</div>
+                    <div class="ai-suggestion-actions"><span class="ai-use-btn">Pin to CTA</span><span class="ai-skip-btn">Skip</span></div>
+                </div>
+            </div>
+
+            <!-- Section slots showing pinned vs AI-picked -->
+            <div style="font-size:13px; font-weight:700; margin-bottom:10px; color:var(--text-2);">PAGE SECTIONS</div>
+
+            <div class="section-slot filled">
+                <div class="section-slot-label">Hero</div>
+                <div class="section-slot-content">Transform your body in 8 weeks with personalized coaching</div>
+                <div class="section-slot-pin">&#128204; Pinned</div>
+            </div>
+            <div class="section-slot filled">
+                <div class="section-slot-label">Offer</div>
+                <div class="section-slot-content">40% Off — Code SUMMER40 (expires Jul 31)</div>
+                <div class="section-slot-pin">&#128204; Pinned</div>
+            </div>
+            <div class="section-slot">
+                <div class="section-slot-label">Benefits</div>
+                <div class="section-slot-content" style="color:var(--text-3); font-style:italic;">AI will generate from campaign brief + library benefits</div>
+                <div style="font-size:10px;color:var(--accent);">Pool</div>
+            </div>
+            <div class="section-slot filled">
+                <div class="section-slot-label">Proof</div>
+                <div class="section-slot-content">"Lost 15 lbs in 6 weeks..." — Sarah M.</div>
+                <div class="section-slot-pin">&#128204; Pinned</div>
+            </div>
+            <div class="section-slot">
+                <div class="section-slot-label">FAQ</div>
+                <div class="section-slot-content" style="color:var(--text-3); font-style:italic;">AI will pull from library FAQs matching brand</div>
+                <div style="font-size:10px;color:var(--accent);">Pool</div>
+            </div>
+            <div class="section-slot filled">
+                <div class="section-slot-label">CTA Form</div>
+                <div class="section-slot-content">Free Consultation Booking Form (name, email, phone, time, goals)</div>
+                <div class="section-slot-pin">&#128204; Pinned</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================== -->
+<!-- PERFORMANCE LEARNING LOOP -->
+<!-- ===================================================================== -->
+<div class="section">
+    <div class="section-label">Results Loop</div>
+    <div class="section-title">Performance Turns Content Into A Smarter Library</div>
+    <div class="section-desc">The CMS should remember which assets were used, which variants converted, and which content needs improvement. This closes the loop from content to campaign to results.</div>
+
+    <div class="device">
+        <div class="hdr">
+            <div class="hdr-logo">Swift Sites</div>
+            <div class="hdr-nav" aria-label="Primary">
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-home"></use></svg><span class="nav-label">Home</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-brand"></use></svg><span class="nav-label">Brand</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-content"></use></svg><span class="nav-label">Content</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-media"></use></svg><span class="nav-label">Media</span></span>
+                <span class="nav-item active"><svg class="nav-icon"><use href="#icon-campaign"></use></svg><span class="nav-label">Campaign</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-products"></use></svg><span class="nav-label">Products</span></span>
+                <span class="nav-item"><svg class="nav-icon"><use href="#icon-websites"></use></svg><span class="nav-label">Websites</span></span>
+            </div>
+        </div>
+        <div class="content">
+            <div class="winner-row winner-head">
+                <div>Content asset</div>
+                <div>Used</div>
+                <div>Conv.</div>
+                <div>Status</div>
+            </div>
+            <div class="winner-row">
+                <div><strong>Transform your body in 8 weeks...</strong><br><span style="color:var(--text-3);">Hero headline, FitZone Pro</span></div>
+                <div>4 pages</div>
+                <div>8.4%</div>
+                <div><span class="badge" style="background:var(--success-soft);color:var(--success);">Winner</span></div>
+            </div>
+            <div class="winner-row">
+                <div><strong>Summer Body Challenge - 40% Off</strong><br><span style="color:var(--text-3);">Offer, expires Jul 31</span></div>
+                <div>2 pages</div>
+                <div>6.1%</div>
+                <div><span class="badge" style="background:var(--accent-soft);color:var(--accent);">Active</span></div>
+            </div>
+            <div class="winner-row">
+                <div><strong>Generic fitness accountability headline</strong><br><span style="color:var(--text-3);">AI draft, not brand-specific</span></div>
+                <div>1 page</div>
+                <div>1.9%</div>
+                <div><span class="badge" style="background:var(--warning-soft);color:var(--warning);">Improve</span></div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:16px; flex-wrap:wrap;">
+                <span class="btn-sm">Promote winner</span>
+                <span class="btn-outline">Generate stronger variant</span>
+                <span class="btn-outline">View usage</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================================================================== -->
+<!-- CONTENT CATEGORIES REFERENCE -->
+<!-- ===================================================================== -->
+<div class="section">
+    <div class="section-label">Reference</div>
+    <div class="section-title">Content Categories & Structured Fields</div>
+
+    <div class="device">
+        <div class="content" style="padding:28px;">
+            <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                <thead>
+                    <tr style="border-bottom:2px solid var(--border); text-align:left;">
+                        <th style="padding:10px 12px; font-weight:700;">Category</th>
+                        <th style="padding:10px 12px; font-weight:700;">Subtypes</th>
+                        <th style="padding:10px 12px; font-weight:700;">Structured Fields</th>
+                        <th style="padding:10px 12px; font-weight:700;">Used In</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px 12px; font-weight:600; color:var(--accent);">Copy</td>
+                        <td style="padding:10px 12px; color:var(--text-2);">headline, subheadline, tagline, benefit, CTA, description</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">tone, character_count, target_section</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">Hero, Benefits, CTA, anywhere</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px 12px; font-weight:600; color:var(--warning);">Promotions</td>
+                        <td style="padding:10px 12px; color:var(--text-2);">discount, bundle, free_trial, limited_time, seasonal</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">code, discount_type, discount_value, expires_at, conditions, min_purchase</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">Offer, Hero, Countdown, CTA</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px 12px; font-weight:600; color:var(--success);">Social Proof</td>
+                        <td style="padding:10px 12px; color:var(--text-2);">testimonial, case_study, press_mention, partner_logo, stat</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">author_name, author_role, company, rating, metric_before, metric_after, media_id</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">Testimonials, Trust Strip, Proof</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px 12px; font-weight:600; color:var(--purple);">Forms & Lead Magnets</td>
+                        <td style="padding:10px 12px; color:var(--text-2);">contact, booking, quiz, calculator, signup, download</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">fields[], submit_label, success_message, redirect_url, downloadable_asset_id</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">CTA, Lead Gen, Footer</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px 12px; font-weight:600; color:var(--pink);">Brand Awareness</td>
+                        <td style="padding:10px 12px; color:var(--text-2);">mission, founder_story, team_bio, milestone, award, certification</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">person_name, role, date, issuer, media_id</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">About, Story, Team, Trust</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                        <td style="padding:10px 12px; font-weight:600;">Product Content</td>
+                        <td style="padding:10px 12px; color:var(--text-2);">feature, comparison, spec, unboxing, how_it_works</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">product_id, feature_list[], comparison_items[], steps[]</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">Features, How It Works, Comparison</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:10px 12px; font-weight:600;">FAQ & Objections</td>
+                        <td style="padding:10px 12px; color:var(--text-2);">faq_pair, objection_handler, policy</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">question, answer, concern, response, category</td>
+                        <td style="padding:10px 12px; color:var(--text-3);">FAQ, Pricing, Footer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

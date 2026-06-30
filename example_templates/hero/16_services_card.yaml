@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: fullscreen
 # Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: construction, professional_services, realestate
 # Perfect for: Construction, architecture, real estate, engineering, agencies
 
 - name: page
@@ -163,7 +169,7 @@
         verticalAlign: stretch
       spacing:
         paddingBlock: none
-        paddingInline: lg
+        paddingInline: md
         marginBlock: none
       appearance:
         background:
@@ -394,3 +400,4 @@
             weight: semibold
           spacing:
             marginBlock: sm
+

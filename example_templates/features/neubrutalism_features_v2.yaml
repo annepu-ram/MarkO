@@ -1,0 +1,376 @@
+# Neubrutalism Feature Cards
+# Bold, high-contrast features grid with thick black borders and flat vivid colors
+# Base components: site, page, layout-column, columnsgrid, layout-row, heading, paragraph, eyebrow, button
+# Section type: features
+# Layout: grid
+# Visual style: neubrutalism
+# Content volume: rich
+# Tone: playful
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio
+# Perfect for: SaaS platform, creative portfolio, design studio, fashion brand, tech startup
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Space Grotesk', sans-serif"
+        content: "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: &color-primary '#1A1A1A'
+        text: &color-text '#313131'
+        secondary: &color-secondary '#C8C4BB'
+        accent: &color-accent '#FF4D00'
+        background: &color-background '#E5E2DD'
+  components:
+    - name: page
+      slug: home
+      title: "Neubrutalism Feature Cards"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+      components:
+
+        # Section Header
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '75'
+                  horizontalAlign: center
+              components:
+                - name: eyebrow
+                  properties:
+                    text: WHAT WE DO
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+                    spacing:
+                      marginBlock: none
+                - name: heading
+                  properties:
+                    text: BUILT DIFFERENT.
+                    level: 2
+                    typography:
+                      size: xxxl
+                      weight: extrabold
+                      color: *color-primary
+                      transform: uppercase
+                      align: center
+                    spacing:
+                      marginBlock: sm
+                - name: paragraph
+                  properties:
+                    text: No fluff, no filler. Just the features that actually move the needle for your business.
+                    typography:
+                      size: md
+                      weight: medium
+                      color: *color-text
+                      align: center
+                    spacing:
+                      marginBlock: sm
+
+        # Feature Grid — 3 columns, 6 vivid cards
+        - name: columnsgrid
+          properties:
+            layout:
+              columns: 3
+              gap: lg
+            responsive:
+              breakpoints:
+                md: 2
+                sm: 1
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          columns:
+            # Card 1 — Lime
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#A3E635'
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: ZERO FRICTION
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: Ship features without fighting your tools. Our workflow was designed for speed — from idea to production in hours, not weeks.
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-primary
+                          lineHeight: '1.6'
+
+            # Card 2 — Blue
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#60A5FA'
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: REAL-TIME DATA
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: Live dashboards that update as your business moves. Stop refreshing stale reports — watch your metrics breathe in real time.
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-primary
+                          lineHeight: '1.6'
+
+            # Card 3 — Orange
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: *color-accent
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: IRON SECURITY
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: '#ffffff'
+                          transform: uppercase
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: SOC 2 Type II certified. End-to-end encryption on every byte. We take security seriously so you don't have to lose sleep over it.
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: '#ffffff'
+                          lineHeight: '1.6'
+
+            # Card 4 — Yellow
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#FFE566'
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: TEAM SCALE
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: Built for teams of 2 or 2,000. Roles, permissions, audit logs, and SSO included at every plan. Grow without re-architecting.
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-primary
+                          lineHeight: '1.6'
+
+            # Card 5 — Lime
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#A3E635'
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: OPEN API
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: Connect anything. REST and GraphQL APIs with full webhook support. Integrate your existing stack in minutes, not months.
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-primary
+                          lineHeight: '1.6'
+
+            # Card 6 — Blue
+            - components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      gap: sm
+                    appearance:
+                      background:
+                        color: '#60A5FA'
+                      border:
+                        width: 4
+                        style: solid
+                        color: '#000000'
+                      radius: none
+                      shadow: retro
+                      shadowColor: '#000000'
+                    spacing:
+                      paddingBlock: lg
+                      paddingInline: lg
+                  components:
+                    - name: heading
+                      properties:
+                        text: 24/7 SUPPORT
+                        level: 3
+                        typography:
+                          size: xl
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                        spacing:
+                          marginBlock: xs
+                    - name: paragraph
+                      properties:
+                        text: Humans, not bots. Our support team responds in under 2 hours around the clock. Real answers to real problems, fast.
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-primary
+                          lineHeight: '1.6'
+
+        # CTA Row
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: center
+            spacing:
+              paddingBlock: xl
+              paddingInline: lg
+          components:
+            - name: button
+              properties:
+                text: SEE ALL FEATURES
+                appearance:
+                  background:
+                    color: *color-accent
+                  border:
+                    width: 4
+                    style: solid
+                    color: '#000000'
+                  radius: none
+                  shadow: retro
+                  shadowColor: '#000000'
+                spacing:
+                  paddingBlock: md
+                  paddingInline: xl
+                typography:
+                  color: '#ffffff'
+                  weight: extrabold
+                  size: md
+                  transform: uppercase

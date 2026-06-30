@@ -1,0 +1,220 @@
+# Art Deco Geometric Hero
+# Glamorous 1920s-inspired hero with gold accents, ornamental borders, and theatrical typography
+# Base components: site, page, layout-column, layout-row, eyebrow, heading, paragraph, button, image
+# Section type: hero
+# Layout: centered
+# Visual style: art_deco_geometric
+# Content volume: standard
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: restaurant, hospitality, entertainment
+# Perfect for: Luxury hotel, fine dining, jewelry brand, cocktail bar, fashion house, theater, gala event
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Playfair Display', serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#0D0D0D"
+        text: &color-text "#C8C8B8"
+        secondary: &color-secondary "#D4AF37"
+        accent: &color-accent "#B8860B"
+        background: &color-background "#1A1A2E"
+  components:
+    - name: page
+      slug: home
+      title: "Art Deco Geometric Hero"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Hero section — dark background, gold accents
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-background
+                opacity: 100
+              border:
+                width: 0
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Decorative gold divider line
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "16"
+                    appearance:
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-secondary
+                      radius: none
+                    spacing:
+                      paddingBlock: none
+
+            # Eyebrow — gold uppercase
+            - name: eyebrow
+              properties:
+                text: "Established MCMXXIV"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-secondary
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            # Main heading — bold, uppercase, gold
+            - name: heading
+              properties:
+                text: "WHERE ELEGANCE MEETS THE EXTRAORDINARY"
+                level: 1
+                layout:
+                  widthMode: "75"
+                typography:
+                  color: *color-secondary
+                  size: xxxl
+                  weight: bold
+                  align: center
+                  letterSpacing: wider
+                  lineHeight: snug
+                  transform: uppercase
+
+            # Subheading — light text for readability on dark
+            - name: paragraph
+              properties:
+                text: |
+                  Step into a world of refined grandeur. Every detail has been
+                  meticulously curated to transport you to an era of timeless
+                  sophistication and unparalleled luxury.
+                layout:
+                  widthMode: "50"
+                typography:
+                  color: *color-text
+                  size: lg
+                  align: center
+                  lineHeight: relaxed
+                  weight: regular
+
+            # CTA buttons — gold bordered, theatrical
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  marginBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "RESERVE YOUR TABLE"
+                    appearance:
+                      background:
+                        color: *color-secondary
+                        opacity: 100
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-secondary
+                      radius: none
+                      shadow: medium
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-primary
+                      weight: bold
+                      size: md
+                      transform: uppercase
+                      letterSpacing: wider
+                - name: button
+                  properties:
+                    text: "EXPLORE THE EXPERIENCE"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-secondary
+                      radius: none
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-secondary
+                      weight: bold
+                      size: md
+                      transform: uppercase
+                      letterSpacing: wider
+
+            # Featured image — with gold border
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                appearance:
+                  border:
+                    width: 2
+                    style: solid
+                    color: *color-secondary
+                  radius: none
+                  shadow: medium
+                  shadowColor: "#000000"
+                spacing:
+                  paddingBlock: xs
+                  paddingInline: xs
+                  marginBlock: md
+              components:
+                - name: image
+                  properties:
+                    source:
+                      url: https://images.pexels.com/photos/1579739/pexels-photo-1579739.jpeg?auto=compress&cs=tinysrgb&w=800
+                      altText: Opulent art deco interior with geometric patterns and golden lighting
+                    appearance:
+                      minHeight: 25
+                      fit: cover
+                      radius: none
+
+            # Bottom decorative gold divider
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: "16"
+                    appearance:
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-secondary
+                      radius: none
+                    spacing:
+                      paddingBlock: none

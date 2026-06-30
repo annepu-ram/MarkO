@@ -1,0 +1,98 @@
+# Dashboard Data Card 02 - "Trend Indicator"
+# A layout-row pairing a large metric value with a colored trend badge. Shows directional change at a glance.
+# Base components: page, layout-column, caption, layout-row, heading, eyebrow, paragraph
+# Section type: dashboard
+# Layout: centered
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: saas
+# Perfect for: SaaS, analytics, admin panels, dashboards, business tools
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#0f172a'
+        text: &color-text '#2B2F3B'
+        secondary: &color-secondary '#64748b'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#f8fafc'
+    spacing: {paddingBlock: xl, paddingInline: xl}
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout:
+        horizontalAlign: center
+        widthMode: "50"
+      spacing:
+        paddingBlock: lg
+        paddingInline: lg
+      appearance:
+        background:
+          color: *color-background
+          opacity: 100
+        radius: md
+        shadow: soft
+    components:
+    - name: caption
+      properties:
+        text: Active Users
+        typography:
+          size: xs
+          weight: semibold
+          color: *color-secondary
+          transform: uppercase
+          letterSpacing: wider
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: start
+          wrap: nowrap
+          gap: md
+          verticalAlign: center
+        spacing:
+          marginBlock: sm
+      components:
+      - name: heading
+        properties:
+          text: "8,429"
+          level: 2
+          layout:
+            widthMode: fit
+          typography:
+            size: xxl
+            weight: extrabold
+            color: *color-primary
+      - name: eyebrow
+        properties:
+          text: "+12.5%"
+          layout:
+            widthMode: fit
+          typography:
+            size: sm
+            weight: bold
+            color: *color-accent
+          spacing:
+            paddingBlock: xxs
+            paddingInline: xs
+          appearance:
+            background:
+              color: *color-background
+              opacity: 100
+            radius: pill
+    - name: paragraph
+      properties:
+        text: Compared to 7,494 last week
+        typography:
+          size: xs
+          weight: regular
+          color: *color-secondary

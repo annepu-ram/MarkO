@@ -1,0 +1,91 @@
+# Minimal Inline Call-to-Action Strip Section
+# A compact single-row CTA strip with heading text on the left and action button on the right, perfect as a subtle conversion element between content sections
+# Base components: layout-row, heading, button, paragraph
+# Section type: cta
+# Layout: split_screen
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, ecommerce, portfolio, education, legal
+# Perfect for: SaaS platform, mobile app, online store, software company, fitness app, online course platform, subscription service, B2B platform, consulting firm, digital agency
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#111827"
+        text: &color-text "#2C3039"
+        secondary: &color-secondary "#6b7280"
+        accent: &color-accent "#4f46e5"
+        background: &color-background "#ffffff"
+  components:
+  - name: page
+    slug: home
+    title: "Minimal Inline CTA"
+    properties:
+      appearance:
+        background:
+          color: *color-background
+          opacity: 100
+    components:
+        # Compact CTA Strip
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          wrap: wrap
+          verticalAlign: center
+        appearance:
+          background:
+            color: *color-accent
+            opacity: 100
+          radius: lg
+        spacing:
+          paddingBlock: lg
+          paddingInline: md
+      components:
+            # Left - Heading Text
+      - name: heading
+        properties:
+          text: "Ready to get started?"
+          level: 2
+          typography:
+            color: *color-background
+            size: xl
+            weight: bold
+          spacing:
+            marginBlock: none
+            paddingBlock: sm
+            paddingInline: md
+          layout:
+            widthMode: "66"
+
+            # Right - CTA Button
+      - name: button
+        properties:
+          text: Start Free Trial
+          appearance:
+            background:
+              color: *color-background
+              opacity: 100
+            border:
+              width: 0
+              style: solid
+              color: transparent
+            radius: pill
+            shadow: soft
+          typography:
+            color: *color-accent
+            weight: bold
+            size: md
+          spacing:
+            marginBlock: none
+          layout:
+            widthMode: "33"
+

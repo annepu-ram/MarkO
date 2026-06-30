@@ -31,8 +31,9 @@
             {% set link_classes = ['link'] %}
             {% if properties.appearance and properties.appearance.showArrow %}{% set _ = link_classes.append('link-arrow') %}{% endif %}
             {% set underline_style = '' %}
-            {% if properties.underline is defined %}
-                {% if properties.underline %}
+            {% set underline_val = properties.appearance.underline if (properties.appearance and properties.appearance.underline is defined) else (properties.underline if properties.underline is defined else none) %}
+            {% if underline_val is not none %}
+                {% if underline_val %}
                     {% set underline_style = 'text-decoration: underline;' %}
                 {% else %}
                     {% set underline_style = 'text-decoration: none;' %}

@@ -127,6 +127,7 @@
     min-width: 0; /* Allow shrinking below content size */
 }
 
+
 /* CSS width rules removed - now handled by inline styles for consistency with text components
 .layout-column[data-width-mode="fit"] { flex: 0 0 auto; }
 .layout-column[data-width-mode="16"] { ... }
@@ -2165,4 +2166,17 @@ a.link-arrow:hover::after {
 
 @media (max-width: 768px) {
     .pd-arrow { width: 2rem; height: 2rem; font-size: 1.2rem; }
+}
+
+/* Responsive: percentage columns stack on mobile */
+@media (max-width: 768px) {
+    .layout-column[data-width-mode="16"],
+    .layout-column[data-width-mode="25"],
+    .layout-column[data-width-mode="33"],
+    .layout-column[data-width-mode="50"] {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
 }

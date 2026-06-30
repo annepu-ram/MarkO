@@ -1,0 +1,363 @@
+# Neubrutalism Footer
+# Bold footer with thick top border and high-contrast link columns
+# Base components: site, page, layout-column, layout-row, heading, paragraph, link
+# Section type: footer
+# Layout: split_screen
+# Visual style: neubrutalism
+# Content volume: rich
+# Tone: playful
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio
+# Perfect for: SaaS platform, creative portfolio, design studio, fashion brand, tech startup
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: "'Space Grotesk', sans-serif"
+        content: "'IBM Plex Sans', sans-serif"
+      colors:
+        primary: &color-primary '#1A1A1A'
+        text: &color-text '#313131'
+        secondary: &color-secondary '#C8C4BB'
+        accent: &color-accent '#FF4D00'
+        background: &color-background '#E5E2DD'
+  components:
+    - name: page
+      slug: home
+      title: "Neubrutalism Footer"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+      components:
+
+        # Footer Top — thick top border row containing brand + link columns
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-between
+              verticalAlign: start
+              wrap: wrap
+            appearance:
+              border:
+                width: 4
+                style: solid
+                color: '#000000'
+            spacing:
+              paddingBlock: xxl
+              paddingInline: md
+          components:
+
+            # Brand Column — left side
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: '33'
+                  horizontalAlign: left
+                  gap: sm
+              components:
+                - name: heading
+                  properties:
+                    text: BRUTL.
+                    level: 3
+                    typography:
+                      size: xxl
+                      weight: extrabold
+                      color: *color-primary
+                      transform: uppercase
+                    spacing:
+                      marginBlock: none
+                - name: paragraph
+                  properties:
+                    text: We build software that refuses to blend in. Designed for the bold. Built for the relentless.
+                    typography:
+                      size: sm
+                      weight: medium
+                      color: *color-text
+                      lineHeight: '1.6'
+                    spacing:
+                      marginBlock: sm
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: left
+                      verticalAlign: center
+                      gap: sm
+                    spacing:
+                      marginBlock: sm
+                  components:
+                    - name: link
+                      properties:
+                        text: Twitter
+                        href: 'https://twitter.com'
+                        typography:
+                          size: sm
+                          weight: extrabold
+                          color: *color-primary
+                        appearance:
+                          underline: false
+                    - name: link
+                      properties:
+                        text: GitHub
+                        href: 'https://github.com'
+                        typography:
+                          size: sm
+                          weight: extrabold
+                          color: *color-primary
+                        appearance:
+                          underline: false
+                    - name: link
+                      properties:
+                        text: LinkedIn
+                        href: 'https://linkedin.com'
+                        typography:
+                          size: sm
+                          weight: extrabold
+                          color: *color-primary
+                        appearance:
+                          underline: false
+
+            # Link Columns — right side, 3 columns
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: space-between
+                  verticalAlign: start
+                  wrap: nowrap
+                  gap: md
+              components:
+
+                # Product Column
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: left
+                      gap: xs
+                  components:
+                    - name: heading
+                      properties:
+                        text: PRODUCT
+                        level: 4
+                        typography:
+                          size: sm
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                        spacing:
+                          marginBlock: sm
+                    - name: link
+                      properties:
+                        text: Features
+                        href: '#features'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Pricing
+                        href: '#pricing'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Changelog
+                        href: '#changelog'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+
+                # Company Column
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: left
+                      gap: xs
+                  components:
+                    - name: heading
+                      properties:
+                        text: COMPANY
+                        level: 4
+                        typography:
+                          size: sm
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                        spacing:
+                          marginBlock: sm
+                    - name: link
+                      properties:
+                        text: About
+                        href: '#about'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Careers
+                        href: '#careers'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Blog
+                        href: '#blog'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+
+                # Connect Column
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: left
+                      gap: xs
+                  components:
+                    - name: heading
+                      properties:
+                        text: CONNECT
+                        level: 4
+                        typography:
+                          size: sm
+                          weight: extrabold
+                          color: *color-primary
+                          transform: uppercase
+                        spacing:
+                          marginBlock: sm
+                    - name: link
+                      properties:
+                        text: Contact Us
+                        href: '#contact'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Community
+                        href: '#community'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+                    - name: link
+                      properties:
+                        text: Support
+                        href: '#support'
+                        typography:
+                          size: sm
+                          weight: medium
+                          color: *color-text
+                        appearance:
+                          underline: false
+                        spacing:
+                          marginBlock: xs
+
+        # Footer Bottom Bar — copyright + legal links
+        - name: layout-row
+          properties:
+            layout:
+              horizontalAlign: space-between
+              verticalAlign: center
+              wrap: wrap
+            appearance:
+              background:
+                color: *color-primary
+              border:
+                width: 4
+                style: solid
+                color: '#000000'
+            spacing:
+              paddingBlock: md
+              paddingInline: xl
+          components:
+            - name: paragraph
+              properties:
+                text: "© 2026 BRUTL Inc. All rights reserved."
+                typography:
+                  size: xs
+                  weight: medium
+                  color: *color-secondary
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: right
+                  verticalAlign: center
+                  gap: md
+              components:
+                - name: link
+                  properties:
+                    text: Privacy
+                    href: '#privacy'
+                    typography:
+                      size: xs
+                      weight: medium
+                      color: *color-secondary
+                    appearance:
+                      underline: false
+                - name: link
+                  properties:
+                    text: Terms
+                    href: '#terms'
+                    typography:
+                      size: xs
+                      weight: medium
+                      color: *color-secondary
+                    appearance:
+                      underline: false
+                - name: link
+                  properties:
+                    text: Cookies
+                    href: '#cookies'
+                    typography:
+                      size: xs
+                      weight: medium
+                      color: *color-secondary
+                    appearance:
+                      underline: false
+

@@ -4,6 +4,12 @@
 # Section type: social_links
 # Layout: centered row
 # Visual style: bold_editorial
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: portfolio
 # Perfect for: creative agency, influencer, content creator, musician, artist
 
 - name: site
@@ -104,17 +110,13 @@
                       radius: pill
                       shadow: soft
                     spacing:
+                      marginBlock: xs
                       paddingBlock: sm
                       paddingInline: lg
                     typography:
                       color: *color-primary
                       weight: semibold
                       size: sm
-                    spacing:
-                      marginBlock: xs
-
-                      paddingBlock: sm
-                      paddingInline: lg
                 - name: button
                   properties:
                     text: "LinkedIn"

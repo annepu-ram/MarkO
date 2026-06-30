@@ -1,0 +1,69 @@
+# Story Card Variant: The Listicle
+# layout-row with a large number (using heading) on the left and layout-column content on the right
+# Base components: page, layout-row, heading, layout-column, eyebrow, paragraph, link
+# Section type: blog
+# Layout: split_screen
+# Visual style: modern_minimalist
+# Content volume: light
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Perfect for: media, publishing, blogs, content marketing, news
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: left, verticalAlign: top, wrap: nowrap, gap: md}
+      appearance:
+        background: {color: *color-background}
+        border: {width: 0, style: solid, color: *color-secondary}
+      spacing: {marginBlock: md, marginInline: lg, paddingBlock: md, paddingInline: md}
+    components:
+    - name: heading
+      properties:
+        text: "01"
+        level: 2
+        typography: {size: xxxl, weight: extrabold, color: *color-background, align: center}
+        spacing: {marginBlock: none}
+        layout: {widthMode: fit}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: left, widthMode: "75", gap: xs}
+        appearance: {background: {opacity: 0}}
+      components:
+      - name: eyebrow
+        properties:
+          text: PRODUCTIVITY
+          typography: {size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Start Your Day with a Brain Dump
+          level: 3
+          typography: {size: lg, weight: bold, color: *color-primary, align: left}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: |
+            Write down everything on your mind before you start work.
+            This clears mental clutter and helps you prioritize what
+            actually matters today.
+          typography: {size: sm, color: *color-secondary, align: left, lineHeight: "1.7"}
+      - name: link
+        properties:
+          text: Continue Reading
+          href: '#'
+          typography: {size: sm, weight: semibold, color: *color-accent}
+          appearance: {showArrow: true, underline: false}
+          spacing: {marginBlock: xs}

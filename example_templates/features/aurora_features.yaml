@@ -1,0 +1,236 @@
+# Aurora Gradient Features
+# Ethereal flowing feature cards with subtle gradient backgrounds and soft rounding
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: aurora_gradient
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio
+# Perfect for: SaaS platform, creative portfolio, design studio, tech startup, fintech, AI platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Sora', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A2035"
+        text: &color-text "#384860"
+        secondary: &color-secondary "#C8D8F0"
+        accent: &color-accent "#EC4899"
+        background: &color-background "#E6F0FA"
+  components:
+    - name: page
+      slug: home
+      title: "Aurora Gradient Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — ethereal flowing cards
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "WHAT WE OFFER"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-accent
+                  letterSpacing: wider
+                  transform: uppercase
+                  align: center
+
+            - name: heading
+              properties:
+                text: "Everything flows together"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: bold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+
+            - name: paragraph
+              properties:
+                text: "A seamless suite of tools that blend into your creative workflow like colors merging across the northern sky."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 ethereal gradient cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: lg
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1 — pink to orange gradient
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            type: gradient
+                            gradient:
+                              colorStart: *color-accent
+                              colorEnd: "#F97316"
+                              direction: to bottom right
+                            opacity: 15
+                          radius: lg
+                          shadow: none
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: palette
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Adaptive Design"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Layouts that shift and morph to fit any screen, any context. Your designs breathe and adapt like living organisms."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 2 — purple to cyan gradient
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            type: gradient
+                            gradient:
+                              colorStart: "#8B5CF6"
+                              colorEnd: "#06B6D4"
+                              direction: to bottom right
+                            opacity: 15
+                          radius: lg
+                          shadow: none
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: sparkles
+                            appearance:
+                              color: "#8B5CF6"
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Color Intelligence"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "AI-powered palette generation that understands mood, context, and brand identity. Harmonious colors every single time."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 3 — cyan to emerald gradient
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            type: gradient
+                            gradient:
+                              colorStart: "#06B6D4"
+                              colorEnd: "#10B981"
+                              direction: to bottom right
+                            opacity: 15
+                          radius: lg
+                          shadow: none
+                          border:
+                            width: 0
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: git-merge
+                            appearance:
+                              color: "#06B6D4"
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Seamless Sync"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Real-time collaboration that feels effortless. Changes flow across your team like aurora waves rippling through the sky."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed

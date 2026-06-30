@@ -1,0 +1,106 @@
+# Story Card Variant: The Interactive Story
+# layout-column with a gif header and an accordion that reveals "Key Takeaways"
+# Base components: page, layout-column, gif, eyebrow, heading, paragraph, accordion, link, caption
+# Section type: blog
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: decorative
+# Interactivity: accordion
+# Perfect for: media, publishing, blogs, content marketing, news
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#7c3aed'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: sm}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: medium
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: none, paddingInline: none}
+    components:
+    - name: gif
+      properties:
+        source: {url: 'https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif', altText: 'Data visualization animation'}
+        appearance: {minHeight: 15, fit: cover, cornerStyle: none}
+        layout: {widthMode: stretch}
+        spacing: {marginBlock: none}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: left, gap: sm}
+        appearance: {background: {opacity: 0}}
+        spacing:
+          paddingBlock: md
+          paddingInline: md
+      components:
+      - name: eyebrow
+        properties:
+          text: DATA SCIENCE
+          typography: {size: xxs, weight: bold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+      - name: heading
+        properties:
+          text: Understanding Neural Networks in Plain English
+          level: 3
+          typography: {size: xl, weight: bold, color: *color-primary, align: left}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: |
+            A visual guide to how neural networks learn, adapt, and make
+            predictions — no PhD required. We break down the most complex
+            concepts into bite-sized, understandable pieces.
+          typography: {size: sm, color: *color-secondary, align: left, lineHeight: "1.7"}
+      - name: accordion
+        properties:
+          behavior: {allowMultipleOpen: true}
+          typography:
+            title: {size: sm, weight: semibold, color: *color-accent}
+            content: {size: sm, weight: regular, color: *color-secondary}
+          appearance:
+            titleBackground: {color: *color-background}
+            border: {width: 1, style: solid, color: *color-accent, position: bottom}
+            radius: md
+          spacing: {marginBlock: sm}
+        items:
+        - title: Key Takeaways
+          components:
+          - name: paragraph
+            properties:
+              text: |
+                1. Neural networks mimic biological brain connections
+                2. Training is just repeated error correction at massive scale
+                3. Deep learning = many hidden layers = more abstraction
+                4. Transfer learning lets you reuse trained models
+                5. The real magic is in the data, not the architecture
+              typography: {size: sm, color: *color-secondary, lineHeight: "1.8"}
+        - title: Related Resources
+          components:
+          - name: link
+            properties:
+              text: Interactive Playground - TensorFlow
+              href: '#'
+              typography: {size: sm, color: *color-accent}
+              appearance: {showArrow: true, underline: false}
+          - name: link
+            properties:
+              text: Beginner's Guide to Machine Learning
+              href: '#'
+              typography: {size: sm, color: *color-accent}
+              appearance: {showArrow: true, underline: false}
+      - name: caption
+        properties:
+          text: "By Dr. Sarah Kim - 12 min read - Feb 2026"
+          typography: {size: xs, color: *color-secondary, align: left}

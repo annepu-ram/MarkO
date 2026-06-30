@@ -6,6 +6,7 @@
  */
 import { getSiteSettings, updateSiteSettings, getCurrentSiteId } from './siteManager.js';
 import { chatService } from './chatService.js';
+import { showMessageModal } from './promptModal.js';
 
 function _escapeAttr(str) {
     return (str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -126,7 +127,10 @@ async function _generateSeoWithAi(btn) {
     const editor = document.getElementById('codeEditor');
     const yamlContent = editor ? editor.value.trim() : '';
     if (!yamlContent) {
-        alert('Add some content to the editor first so AI can analyze your page.');
+        await showMessageModal({
+            title: 'Content required',
+            message: 'Add some content to the editor first so AI can analyze your page.',
+        });
         return;
     }
 

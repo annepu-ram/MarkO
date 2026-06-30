@@ -1,0 +1,166 @@
+# Modern Minimalist CTA Banner
+# Accent-colored call-to-action with white text and clean button styling
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, ecommerce, portfolio
+# Perfect for: SaaS, tech startup, design studio, agency, productivity tool, developer platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Outfit', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1F2937"
+        text: &color-text "#4B5563"
+        secondary: &color-secondary "#D1D5DB"
+        accent: &color-accent "#4F46E5"
+        background: &color-background "#FFFFFF"
+  components:
+    - name: page
+      slug: home
+      title: "Modern Minimalist CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — accent indigo background, all text white
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              border:
+                width: 0
+              radius: none
+              shadow: none
+            spacing:
+              paddingBlock: xxl
+              paddingInline: lg
+          components:
+
+            # Inner content column
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                  gap: md
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Limited Time Offer"
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: "#C7D2FE"
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading — white on accent
+                - name: heading
+                  properties:
+                    text: "Start building for free today"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: semibold
+                      color: *color-background
+                      align: center
+                      lineHeight: snug
+                      letterSpacing: tight
+
+                # Supporting paragraph — light on accent
+                - name: paragraph
+                  properties:
+                    text: |
+                      No credit card required. Get full access to every feature for 14 days.
+                      When you're ready, plans start at just $12 per month per seat.
+                    typography:
+                      size: md
+                      color: "#E0E7FF"
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "83"
+                    spacing:
+                      marginBlock: md
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Start Free Trial"
+                        appearance:
+                          background:
+                            color: *color-background
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: sm
+                          shadow: none
+                        typography:
+                          color: *color-accent
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "Schedule a Demo"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-background
+                          radius: sm
+                          shadow: none
+                        typography:
+                          color: *color-background
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Trust note
+                - name: paragraph
+                  properties:
+                    text: "Join 1,200+ teams already shipping faster"
+                    typography:
+                      size: xs
+                      color: "#C7D2FE"
+                      align: center
+                      weight: regular
+                    spacing:
+                      marginBlock: sm

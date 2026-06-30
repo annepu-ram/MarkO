@@ -1,0 +1,208 @@
+# City Skyline Panorama Gallery with Interactive Navigation
+# Dark-themed immersive panoramic viewer showcasing Dubai's skyline with drag-to-explore and arrow navigation, featuring an eyebrow/heading/description header, dramatic shadow styling, and a three-column instruction grid with icons explaining interaction modes
+# Base components: layout-row, layout-column, eyebrow, heading, paragraph, panorama-display, caption, columnsgrid, icon
+# Section type: gallery
+# Layout: stacked
+# Visual style: monochrome_dark
+# Content volume: standard
+# Tone: formal
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: professional_services, restaurant, portfolio, realestate, hospitality
+# Perfect for: real estate agency, hotel, travel agency, architecture firm, event venue, restaurant, resort, museum, shopping mall
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#f8fafc'
+        text: &color-text '#DBDCDD'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#818cf8'
+        background: &color-background '#0f172a'
+  components:
+  - name: page
+    properties:
+      appearance:
+        background:
+          color: *color-background
+    components:
+      # Header Section
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+          verticalAlign: center
+        appearance:
+          background:
+            color: *color-background
+            opacity: 0
+        spacing:
+          paddingBlock: lg
+          paddingInline: md
+      components:
+      - name: layout-column
+        properties:
+          layout:
+            horizontalAlign: center
+            verticalAlign: center
+            widthMode: "66"
+            gap: sm
+          appearance:
+            background:
+              opacity: 0
+        components:
+        - name: eyebrow
+          properties:
+            text: Urban Exploration
+            typography:
+              size: xs
+              weight: semibold
+              align: center
+              color: *color-accent
+              transform: uppercase
+              letterSpacing: wide
+        - name: heading
+          properties:
+            text: Dubai City Skyline
+            level: 1
+            typography:
+              size: xxl
+              weight: bold
+              align: center
+              color: *color-primary
+        - name: paragraph
+          properties:
+            text: Scroll through this stunning panoramic view of Dubai's iconic skyline, featuring the towering Burj Khalifa and the glittering cityscape along the waterfront.
+            typography:
+              size: md
+              align: center
+              color: *color-secondary
+
+      # Panorama Section
+    - name: panorama-display
+      properties:
+        source:
+          url: https://images.pexels.com/photos/10549886/pexels-photo-10549886.jpeg?auto=compress&cs=tinysrgb&w=3000&h=600&fit=crop
+          altText: Panoramic view of Dubai city skyline with Burj Khalifa
+        behavior:
+          initialPosition: center
+          autoScroll: false
+          stepDistance: 400
+          pauseOnHover: true
+        spacing:
+          marginBlock: lg
+        appearance:
+          radius: md
+          shadow: dramatic
+          shadowColor: '#1e293b'
+
+      # Caption
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: center
+          verticalAlign: center
+        appearance:
+          background:
+            color: *color-background
+            opacity: 0
+        spacing:
+          paddingBlock: sm
+          paddingInline: md
+      components:
+      - name: caption
+        properties:
+          text: |
+            Use the arrows or drag to explore the full panorama
+            Photo from Pexels - Free to use
+          typography:
+            size: sm
+            align: center
+            color: '#64748b'
+          layout:
+            widthMode: fit
+
+      # Info Cards
+    - name: columnsgrid
+      properties:
+        layout:
+          columns: 3
+          gap: md
+          verticalAlign: center
+        responsive:
+          breakpoints:
+            md: 3
+            sm: 1
+        appearance:
+          columnBackground: '#1e293b'
+          columnRadius: md
+        spacing:
+          marginBlock: lg
+          paddingBlock: md
+          paddingInline: lg
+      columns:
+      - components:
+        - name: icon
+          properties:
+            name: eye
+            size: "32"
+            color: *color-accent
+        - name: heading
+          properties:
+            text: Drag to Explore
+            level: 4
+            typography:
+              size: md
+              weight: semibold
+              color: *color-primary
+        - name: paragraph
+          properties:
+            text: Click and drag left or right to pan across the panoramic image.
+            typography:
+              size: sm
+              color: *color-secondary
+      - components:
+        - name: icon
+          properties:
+            name: arrow-left
+            size: "32"
+            color: *color-accent
+        - name: heading
+          properties:
+            text: Arrow Navigation
+            level: 4
+            typography:
+              size: md
+              weight: semibold
+              color: *color-primary
+        - name: paragraph
+          properties:
+            text: Use the left and right arrow buttons overlaid on the image for precise scrolling.
+            typography:
+              size: sm
+              color: *color-secondary
+      - components:
+        - name: icon
+          properties:
+            name: settings
+            size: "32"
+            color: *color-accent
+        - name: heading
+          properties:
+            text: Initial Position
+            level: 4
+            typography:
+              size: md
+              weight: semibold
+              color: *color-primary
+        - name: paragraph
+          properties:
+            text: This panorama starts centered, showing the middle of the skyline first.
+            typography:
+              size: sm
+              color: *color-secondary

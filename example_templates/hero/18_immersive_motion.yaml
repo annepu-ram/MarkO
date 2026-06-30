@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: fullscreen
 # Visual style: monochrome_dark
+# Content volume: light
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: video
+# Industries: saas, ecommerce, portfolio, entertainment
 # Perfect for: Tech companies, creative agencies, event promotions, product showcases
 
 - name: page

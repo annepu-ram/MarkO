@@ -1,0 +1,277 @@
+# Glassmorphism Features
+# Frosted glass feature cards floating over a vibrant gradient background
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: glassmorphism
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, portfolio
+# Perfect for: SaaS platform, fintech, design studio, tech startup, crypto, AI platform
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1A365D"
+        text: &color-text "#334E68"
+        secondary: &color-secondary "#B0D4E8"
+        accent: &color-accent "#3182CE"
+        background: &color-background "#D6EBF5"
+  components:
+    - name: page
+      slug: home
+      title: "Glassmorphism Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Gradient background — mandatory for glassmorphism blur visibility
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-accent
+                  colorEnd: "#7C3AED"
+                  direction: to bottom right
+                opacity: 100
+            spacing:
+              paddingBlock: none
+              paddingInline: none
+          components:
+
+            # Content wrapper
+            - name: layout-column
+              properties:
+                layout:
+                  horizontalAlign: center
+                  gap: lg
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: lg
+              components:
+
+                # Section header — frosted glass pill
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                  components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          widthMode: fit
+                          horizontalAlign: center
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 15
+                          blur: true
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#ffffff"
+                          radius: pill
+                        spacing:
+                          paddingBlock: xs
+                          paddingInline: lg
+                      components:
+                        - name: paragraph
+                          properties:
+                            text: "CORE FEATURES"
+                            typography:
+                              size: xs
+                              weight: semibold
+                              color: "#ffffff"
+                              letterSpacing: wider
+                              align: center
+
+                - name: heading
+                  properties:
+                    text: "Built for clarity and speed"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: bold
+                      color: "#ffffff"
+                      align: center
+                      lineHeight: snug
+
+                - name: paragraph
+                  properties:
+                    text: "Transparent tools that let you see exactly what matters. Every feature designed to reduce noise and amplify results."
+                    typography:
+                      size: lg
+                      color: rgba(255,255,255,0.85)
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "66"
+
+                # Feature grid — 3 frosted glass cards
+                - name: columnsgrid
+                  properties:
+                    layout:
+                      columns: 3
+                      gap: lg
+                    responsive:
+                      breakpoints:
+                        md: 2
+                        sm: 1
+                    spacing:
+                      paddingBlock: lg
+                  columns:
+
+                    # Card 1 — frosted glass
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 15
+                              blur: true
+                              border:
+                                width: 1
+                                style: solid
+                                color: "#ffffff"
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(0,0,0,0.1)"
+                            spacing:
+                              paddingBlock: xl
+                              paddingInline: lg
+                          components:
+                            - name: icon
+                              properties:
+                                name: zap
+                                appearance:
+                                  color: "#ffffff"
+                                  size: lg
+                            - name: heading
+                              properties:
+                                text: "Lightning Fast"
+                                level: 3
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: "#ffffff"
+                                  align: center
+                            - name: paragraph
+                              properties:
+                                text: "Sub-millisecond response times powered by edge computing. Your data arrives before you even finish thinking about it."
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                  lineHeight: relaxed
+
+                    # Card 2 — frosted glass
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 15
+                              blur: true
+                              border:
+                                width: 1
+                                style: solid
+                                color: "#ffffff"
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(0,0,0,0.1)"
+                            spacing:
+                              paddingBlock: xl
+                              paddingInline: lg
+                          components:
+                            - name: icon
+                              properties:
+                                name: layers
+                                appearance:
+                                  color: "#ffffff"
+                                  size: lg
+                            - name: heading
+                              properties:
+                                text: "Layered Security"
+                                level: 3
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: "#ffffff"
+                                  align: center
+                            - name: paragraph
+                              properties:
+                                text: "Multiple transparent layers of protection that work in harmony. See every request, audit every action, trust every outcome."
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                  lineHeight: relaxed
+
+                    # Card 3 — frosted glass
+                    - components:
+                        - name: layout-column
+                          properties:
+                            layout:
+                              horizontalAlign: center
+                              gap: sm
+                            appearance:
+                              background:
+                                color: "#ffffff"
+                                opacity: 15
+                              blur: true
+                              border:
+                                width: 1
+                                style: solid
+                                color: "#ffffff"
+                              radius: lg
+                              shadow: soft
+                              shadowColor: "rgba(0,0,0,0.1)"
+                            spacing:
+                              paddingBlock: xl
+                              paddingInline: lg
+                          components:
+                            - name: icon
+                              properties:
+                                name: activity
+                                appearance:
+                                  color: "#ffffff"
+                                  size: lg
+                            - name: heading
+                              properties:
+                                text: "Live Analytics"
+                                level: 3
+                                typography:
+                                  size: lg
+                                  weight: bold
+                                  color: "#ffffff"
+                                  align: center
+                            - name: paragraph
+                              properties:
+                                text: "Crystal-clear dashboards that update in real time. Watch your metrics flow like light through glass — beautiful and informative."
+                                typography:
+                                  size: sm
+                                  color: rgba(255,255,255,0.85)
+                                  align: center
+                                  lineHeight: relaxed

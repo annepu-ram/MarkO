@@ -1,0 +1,134 @@
+# Pricing Card Variant: The Most Popular Ribbon
+# layout-column with an eyebrow ribbon at top, heading (Plan Name), price, feature list, and CTA button
+# Highlighted border and accent color make it stand out as the recommended plan
+# Base components: layout-column, eyebrow, br, heading, caption, paragraph, button
+# Section type: pricing
+# Layout: centered
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: purchase
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, ecommerce
+# Perfect for: SaaS, subscriptions, memberships, services, ecommerce
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#1e1b4b'
+        text: &color-text '#34324F'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#7c3aed'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: none}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: elevated
+        border: {width: 2, style: solid, color: *color-accent}
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: none, paddingInline: none}
+    components:
+        # Ribbon banner at top
+    - name: eyebrow
+      properties:
+        text: MOST POPULAR
+        typography:
+          size: xs
+          weight: bold
+          color: *color-background
+          align: center
+          transform: uppercase
+          letterSpacing: wider
+        appearance:
+          background: {color: *color-accent}
+        layout: {widthMode: stretch}
+        spacing:
+          paddingBlock: xs
+          paddingInline: none
+    - name: br
+      properties:
+        size: md
+        # Plan name
+    - name: heading
+      properties:
+        text: Growth
+        level: 3
+        typography: {size: xl, weight: bold, color: *color-primary, align: center}
+        spacing: {marginBlock: xxs}
+        # Price
+    - name: heading
+      properties:
+        text: "$79"
+        level: 2
+        typography: {size: xxxl, weight: extrabold, color: *color-accent, align: center}
+        spacing: {marginBlock: none}
+    - name: caption
+      properties:
+        text: per user / month
+        typography: {size: xs, color: *color-secondary, align: center}
+    - name: br
+      properties:
+        size: sm
+        # Feature list
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: left, gap: xxs}
+        appearance:
+          background: {opacity: 0}
+        spacing:
+          paddingBlock: none
+          paddingInline: lg
+      components:
+      - name: paragraph
+        properties:
+          text: "Unlimited projects & workflows"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "50 team members included"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "Advanced reporting & analytics"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "Priority support (24/7)"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "Custom integrations via API"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+      - name: paragraph
+        properties:
+          text: "SSO & advanced security"
+          typography: {size: sm, color: *color-text}
+          spacing: {marginBlock: xxs}
+    - name: br
+      properties:
+        size: md
+        # CTA button
+    - name: button
+      properties:
+        text: Start Free Trial
+        appearance:
+          background: {color: *color-accent}
+          radius: md
+        typography: {color: *color-background, weight: bold, size: md}
+        layout: {widthMode: stretch}
+        spacing: {marginInline: lg, marginBlock: sm, paddingBlock: md, paddingInline: lg}
+    - name: br
+      properties:
+        size: sm

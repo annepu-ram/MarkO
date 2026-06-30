@@ -3,59 +3,1029 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swift Sites - Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <meta name="ai-request-token" content="{{ ai_request_token }}">
+    <title>Swift Sites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-v2.css') }}">
 </head>
-<body class="dashboard-body">
-    <div id="svgSpriteRoot" hidden></div>
+<body class="dash-body">
+    <div class="dash-layout">
 
-    <div class="dashboard-layout">
-        <!-- HEADER -->
-        <header class="app-header">
-            <div class="header-brand">
-                <h2>
-                    <svg class="icon-logo" aria-hidden="true"><use href="#icon-swift-sites"></use></svg>
-                    Swift Sites
-                </h2>
+        <!-- Header -->
+        <header class="dash-header">
+            <div class="dash-header-left">
+                <h1 class="dash-logo">Swift Sites</h1>
             </div>
-            <div class="header-actions">
-                <span class="dashboard-user-info">Default Admin</span>
+            <button class="dash-menu-toggle" id="dashMenuToggle" aria-expanded="false" aria-controls="dashNav">Menu</button>
+            <div class="dash-header-right">
+                <nav class="dash-nav" id="dashNav">
+                    <button class="dash-nav-btn active" data-view="home">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <span>Home</span>
+                    </button>
+                    <button class="dash-nav-btn" data-view="brands">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+                        <span>Brand</span>
+                    </button>
+                    <button class="dash-nav-btn" data-view="content">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <span>Content</span>
+                    </button>
+                    <button class="dash-nav-btn" data-view="media">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        <span>Media</span>
+                    </button>
+                    <button class="dash-nav-btn" data-view="campaigns">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                        <span>Campaign</span>
+                    </button>
+                    <button class="dash-nav-btn" data-view="products">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" x2="12" y1="22.08" y2="12"/></svg>
+                        <span>Products</span>
+                    </button>
+                    <button class="dash-nav-btn" data-view="sites">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                        <span>Websites</span>
+                    </button>
+                </nav>
             </div>
         </header>
 
-        <!-- SIDEBAR + CONTENT -->
-        <div class="dashboard-container">
-            <aside class="dashboard-sidebar" id="dashboardSidebar">
-                <button class="sidebar-toggle-btn" id="sidebarToggle" title="Collapse sidebar">
-                    <svg aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
-                </button>
-                <nav class="dashboard-sidebar-nav">
-                    <button class="dashboard-nav-btn active" data-view="sites" title="Sites">
-                        <svg aria-hidden="true"><use href="#icon-globe"></use></svg>
-                        <span>Sites</span>
-                    </button>
-                    <button class="dashboard-nav-btn" data-view="media" title="Media Library">
-                        <svg aria-hidden="true"><use href="#icon-image"></use></svg>
-                        <span>Media</span>
-                    </button>
-                    <button class="dashboard-nav-btn" data-view="submissions" title="Submissions">
-                        <svg aria-hidden="true"><use href="#icon-clipboard-list"></use></svg>
-                        <span>Submissions</span>
-                    </button>
-                </nav>
-            </aside>
+        <!-- Main Content -->
+        <main class="dash-main" id="dashMain">
 
-            <main class="dashboard-main" id="dashboardMain">
-                <div class="dashboard-loading">Loading...</div>
-            </main>
+            <!-- ============================================================ -->
+            <!-- HOME VIEW — campaign-first, outcome-driven                   -->
+            <!-- ============================================================ -->
+            <section class="dash-view active" data-view="home">
+
+                <!-- Hero -->
+                <div class="dash-hero">
+                    <div class="dash-hero-content">
+                        <h2 class="dash-hero-title" id="dashHeroTitle">What do you want to promote?</h2>
+                        <p class="dash-hero-subtitle" id="dashHeroSubtitle">Start a campaign and we'll help you craft messages and build a landing page that converts.</p>
+                        <div class="dash-hero-actions">
+                            <button class="dash-btn dash-btn--primary dash-btn--lg" id="startCampaignBtn">
+                                <span id="dashHeroCtaText">Start a campaign</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Start -->
+                <div class="dash-section" id="dashQuickStartSection">
+                    <div class="dash-quick-grid">
+                        <button class="dash-quick-card" data-goal="leads">
+                            <div class="dash-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                            <span class="dash-quick-label">Capture leads</span>
+                        </button>
+                        <button class="dash-quick-card" data-goal="sales">
+                            <div class="dash-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+                            <span class="dash-quick-label">Sell products</span>
+                        </button>
+                        <button class="dash-quick-card" data-goal="signups">
+                            <div class="dash-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg></div>
+                            <span class="dash-quick-label">Collect signups</span>
+                        </button>
+                        <button class="dash-quick-card" data-goal="calls">
+                            <div class="dash-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+                            <span class="dash-quick-label">Book calls</span>
+                        </button>
+                        <button class="dash-quick-card" data-goal="inform">
+                            <div class="dash-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg></div>
+                            <span class="dash-quick-label">Share info</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Continue Your Work -->
+                <div class="dash-section" id="dashDraftsSection" style="display:none;">
+                    <div class="dash-section-header">
+                        <h3 class="dash-section-title">Continue your work</h3>
+                    </div>
+                    <div class="dash-drafts-list" id="dashDraftsList"></div>
+                </div>
+
+                <!-- Live Campaigns -->
+                <div class="dash-section" id="dashLiveSection" style="display:none;">
+                    <div class="dash-section-header">
+                        <h3 class="dash-section-title">Live campaigns</h3>
+                    </div>
+                    <div class="dash-live-list" id="dashLiveList"></div>
+                </div>
+
+                <!-- Recent Sites (compact) -->
+                <div class="dash-section" id="dashRecentSitesSection" style="display:none;">
+                    <div class="dash-section-header">
+                        <h3 class="dash-section-title">Recent websites</h3>
+                        <button class="dash-btn dash-btn--ghost dash-btn--sm" data-switch-view="sites">View all</button>
+                    </div>
+                    <div class="dash-sites-compact" id="dashRecentSites"></div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- CAMPAIGNS VIEW — full campaign management                    -->
+            <!-- ============================================================ -->
+            <section class="dash-view" data-view="campaigns">
+                <div class="dash-section">
+                    <div class="dash-section-header">
+                        <h3 class="dash-section-title">All Campaigns</h3>
+                        <div class="dash-section-actions">
+                            <div class="dash-filter-pills" id="campaignFilterPills">
+                                <button class="dash-pill active" data-filter="all">All</button>
+                                <button class="dash-pill" data-filter="draft">Drafts</button>
+                                <button class="dash-pill" data-filter="active">Active</button>
+                                <button class="dash-pill" data-filter="completed">Completed</button>
+                            </div>
+                            <button class="dash-btn dash-btn--primary dash-btn--sm" id="newCampaignBtn">+ New campaign</button>
+                        </div>
+                    </div>
+                    <div class="dash-campaigns-list" id="dashCampaignsFull"></div>
+                </div>
+            </section>
+
+            <section class="dash-view" data-view="products">
+                <div class="dash-section">
+                    <div class="dash-section-header">
+                        <div>
+                            <h3 class="dash-section-title">Products</h3>
+                            <span class="dash-section-hint">Products can be tagged to one or more brands and reused in campaigns.</span>
+                        </div>
+                        <button class="dash-btn dash-btn--primary dash-btn--sm" id="addProductBtn">+ Add product</button>
+                    </div>
+                    <div class="dash-filter-row">
+                        <input class="dash-input" type="search" id="productSearch" placeholder="Search products">
+                        <select class="dash-input" id="productBrandFilter">
+                            <option value="">All brands</option>
+                        </select>
+                    </div>
+                    <div class="dash-products-grid" id="dashProductsGrid">
+                        <p class="dash-empty-text">Loading...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- SITES VIEW — full site management                            -->
+            <!-- ============================================================ -->
+            <section class="dash-view" data-view="sites">
+                <div class="dash-section">
+                    <div class="dash-section-header">
+                        <h3 class="dash-section-title">Websites & Pages</h3>
+                        <button class="dash-btn dash-btn--primary dash-btn--sm" id="createSiteBtn">+ New site</button>
+                    </div>
+                    <div class="dash-sites-grid" id="dashSitesGrid">
+                        <p class="dash-empty-text">Loading...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- BRAND & CONTENT VIEW                                         -->
+            <!-- ============================================================ -->
+            <section class="dash-view" data-view="brands">
+
+                <!-- Brand Kit -->
+                <div class="dash-section">
+                    <div id="dashBrandListView">
+                        <div class="dash-section-header">
+                            <div>
+                                <h3 class="dash-section-title">Brands</h3>
+                                <span class="dash-section-hint">Campaigns use the selected brand for voice, visuals, and defaults.</span>
+                            </div>
+                            <button class="dash-btn dash-btn--primary dash-btn--sm" id="addBrandBtn">+ Add brand</button>
+                        </div>
+                        <div class="dash-brand-list" id="dashBrandList"></div>
+                    </div>
+
+                    <div class="dash-content-editor-page" id="dashBrandEditorView" style="display:none;">
+                        <div class="dash-section-header">
+                            <div>
+                                <h3 class="dash-section-title" id="brandEditorTitle">Edit brand</h3>
+                                <span class="dash-section-hint" id="brandEditorHint">Define the brand voice, visuals, and reusable AI prompt context.</span>
+                            </div>
+                            <button class="dash-btn dash-btn--outline dash-btn--sm" id="cancelBrandEditor">Back to brands</button>
+                        </div>
+
+                    <div class="dash-brand-card" id="dashBrandCard">
+                        <div class="dash-brand-section-heading">
+                            <span class="dash-label">Required Brand Setup</span>
+                            <span class="dash-section-hint">Identity, theme colors, and fonts used by the Brand Site Shell.</span>
+                        </div>
+                        <div class="dash-brand-grid">
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandName">Brand name</label>
+                                <input class="dash-input" type="text" id="brandName" placeholder="Your brand name" data-brand="name">
+                            </div>
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandTagline">Tagline</label>
+                                <input class="dash-input" type="text" id="brandTagline" placeholder="Your brand's one-liner" data-brand="tagline">
+                            </div>
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandLogoUrl">Logo URL</label>
+                                <input class="dash-input" type="text" id="brandLogoUrl" placeholder="/uploads/logo.webp or https://..." data-brand="logo_url">
+                            </div>
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandWebsiteUrl">Website URL</label>
+                                <input class="dash-input" type="url" id="brandWebsiteUrl" placeholder="https://example.com">
+                            </div>
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandIndustry">Industry</label>
+                                <input class="dash-input" type="text" id="brandIndustry" placeholder="e.g., SaaS, Restaurant, Education" data-brand="industry">
+                            </div>
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandTone">Tone of voice</label>
+                                <select class="dash-input" id="brandTone" data-brand="tone">
+                                    <option value="">Select a tone</option>
+                                </select>
+                            </div>
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandTheme">Default theme</label>
+                                <select class="dash-input" id="brandTheme" data-brand="default_style">
+                                    <option value="">Select a theme</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dash-field">
+                            <label class="dash-label" for="brandDescription">Brand description</label>
+                            <textarea class="dash-input" id="brandDescription" rows="3" placeholder="What this brand offers and why it matters"></textarea>
+                        </div>
+                        <div class="dash-brand-colors">
+                            <span class="dash-label">Brand colors</span>
+                            <span class="dash-section-hint" id="brandPaletteContext">Select a theme and tone to narrow palette suggestions. Click a palette to apply colors.</span>
+                            <div class="dash-color-palettes" id="brandColorPalettes"></div>
+                            <div class="dash-color-row">
+                                <div class="dash-color-field">
+                                    <input type="color" id="brandColorPrimary" class="dash-color-input" value="#1a1a1a" data-brand-color="primary">
+                                    <span class="dash-color-label">Primary</span>
+                                </div>
+                                <div class="dash-color-field">
+                                    <input type="color" id="brandColorSecondary" class="dash-color-input" value="#6b7280" data-brand-color="secondary">
+                                    <span class="dash-color-label">Secondary</span>
+                                </div>
+                                <div class="dash-color-field">
+                                    <input type="color" id="brandColorText" class="dash-color-input" value="#374151" data-brand-color="text">
+                                    <span class="dash-color-label">Font</span>
+                                </div>
+                                <div class="dash-color-field">
+                                    <input type="color" id="brandColorAccent" class="dash-color-input" value="#3b82f6" data-brand-color="accent">
+                                    <span class="dash-color-label">Accent</span>
+                                </div>
+                                <div class="dash-color-field">
+                                    <input type="color" id="brandColorBg" class="dash-color-input" value="#ffffff" data-brand-color="background">
+                                    <span class="dash-color-label">Background</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dash-brand-fonts">
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandFontHeading">Heading font</label>
+                                <select class="dash-input" id="brandFontHeading" data-brand="fonts.heading">
+                                    <option value="">Select heading font</option>
+                                </select>
+                            </div>
+                            <div class="dash-field">
+                                <label class="dash-label" for="brandFontBody">Body font</label>
+                                <select class="dash-input" id="brandFontBody" data-brand="fonts.body">
+                                    <option value="">Select body font</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <details class="dash-brand-strategy dash-brand-socials" id="brandSocialSection">
+                            <summary class="dash-brand-strategy-summary">
+                                <span>Social Links</span>
+                                <span class="dash-brand-strategy-hint">Optional links used by the generated footer.</span>
+                            </summary>
+                            <div class="dash-brand-strategy-body">
+                                <div class="dash-brand-grid">
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandSocialInstagram">Instagram</label>
+                                        <input class="dash-input" type="url" id="brandSocialInstagram" placeholder="https://instagram.com/...">
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandSocialFacebook">Facebook</label>
+                                        <input class="dash-input" type="url" id="brandSocialFacebook" placeholder="https://facebook.com/...">
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandSocialLinkedin">LinkedIn</label>
+                                        <input class="dash-input" type="url" id="brandSocialLinkedin" placeholder="https://linkedin.com/company/...">
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandSocialX">X</label>
+                                        <input class="dash-input" type="url" id="brandSocialX" placeholder="https://x.com/...">
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandSocialYoutube">YouTube</label>
+                                        <input class="dash-input" type="url" id="brandSocialYoutube" placeholder="https://youtube.com/...">
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandSocialTiktok">TikTok</label>
+                                        <input class="dash-input" type="url" id="brandSocialTiktok" placeholder="https://tiktok.com/@...">
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- Brand Strategy (collapsible) -->
+                        <details class="dash-brand-strategy" id="brandStrategySection">
+                            <summary class="dash-brand-strategy-summary">
+                                <span>AI Strategy &amp; Voice Guardrails</span>
+                                <span class="dash-brand-strategy-hint">Audience, promise, voice, and guardrails used by AI when generating.</span>
+                            </summary>
+                            <div class="dash-brand-strategy-body">
+                                <div class="dash-brand-ai-callout" id="brandStrategySuggestionCallout">
+                                    <div>
+                                        <span class="dash-label">Improve AI-generated content</span>
+                                        <span class="dash-section-hint">Add strategy and voice guardrails so generated content uses the right audience, claims, CTA style, and compliance limits.</span>
+                                    </div>
+                                    <button class="dash-btn dash-btn--outline dash-btn--sm" id="suggestBrandStrategyBtn" type="button">Suggest strategy and guardrails</button>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="brandVoiceGuidelines">Voice guidelines</label>
+                                    <textarea class="dash-input" id="brandVoiceGuidelines" rows="3" placeholder="Preferred wording, voice rules, and language constraints"></textarea>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="brandTargetAudience">Target audience</label>
+                                    <textarea class="dash-input" id="brandTargetAudience" rows="2" placeholder="Who are you speaking to? Roles, needs, context."></textarea>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="brandPromise">Brand promise</label>
+                                    <textarea class="dash-input" id="brandPromise" rows="2" placeholder="The core value you reliably deliver."></textarea>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="brandDifferentiators">Differentiators</label>
+                                    <textarea class="dash-input" id="brandDifferentiators" rows="2" placeholder="One per line — what sets you apart"></textarea>
+                                    <span class="dash-hint">One per line</span>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="brandPositioning">Positioning statement</label>
+                                    <textarea class="dash-input" id="brandPositioning" rows="2" placeholder="For [audience], [brand] is the [category] that [benefit] because [reason]."></textarea>
+                                </div>
+                                <div class="dash-brand-strategy-grid">
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandVoiceExamples">Voice examples</label>
+                                        <textarea class="dash-input" id="brandVoiceExamples" rows="3" placeholder="Lines that sound like your brand (one per line)"></textarea>
+                                        <span class="dash-hint">Positive references, one per line</span>
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandVoiceAntiExamples">Voice anti-examples</label>
+                                        <textarea class="dash-input" id="brandVoiceAntiExamples" rows="3" placeholder="Lines that do NOT sound like your brand (one per line)"></textarea>
+                                        <span class="dash-hint">Negative references, one per line</span>
+                                    </div>
+                                </div>
+                                <div class="dash-brand-strategy-grid">
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandForbiddenWords">Forbidden words</label>
+                                        <textarea class="dash-input" id="brandForbiddenWords" rows="2" placeholder="Words to avoid (one per line)"></textarea>
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandForbiddenClaims">Forbidden claims</label>
+                                        <textarea class="dash-input" id="brandForbiddenClaims" rows="2" placeholder="Claims AI must never make (one per line)"></textarea>
+                                    </div>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="brandRequiredClaims">Required claims</label>
+                                    <textarea class="dash-input" id="brandRequiredClaims" rows="2" placeholder="Claims AI should include when relevant (one per line)"></textarea>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="brandComplianceNotes">Compliance notes</label>
+                                    <textarea class="dash-input" id="brandComplianceNotes" rows="2" placeholder="Hard constraints — legal, regulatory, or policy rules"></textarea>
+                                </div>
+                                <div class="dash-brand-strategy-grid">
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandImageStyle">Image style</label>
+                                        <input class="dash-input" type="text" id="brandImageStyle" placeholder="e.g., bright lifestyle photography, no stock clichés">
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandCtaStyle">CTA style</label>
+                                        <input class="dash-input" type="text" id="brandCtaStyle" placeholder="e.g., action-first, no pushy urgency">
+                                    </div>
+                                </div>
+                                <div class="dash-brand-strategy-grid">
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandPrimaryMarket">Primary market</label>
+                                        <input class="dash-input" type="text" id="brandPrimaryMarket" placeholder="e.g., United States, EMEA">
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="brandLocale">Locale</label>
+                                        <input class="dash-input" type="text" id="brandLocale" placeholder="e.g., en-US">
+                                    </div>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="brandCompetitors">Competitors</label>
+                                    <textarea class="dash-input" id="brandCompetitors" rows="2" placeholder="One per line"></textarea>
+                                    <span class="dash-hint">One per line</span>
+                                </div>
+                            </div>
+                        </details>
+
+                        <div class="dash-brand-site-actions">
+                            <div>
+                                <span class="dash-label">Brand site</span>
+                                <span class="dash-section-hint" id="brandSiteHint">Create the site shell for this brand.</span>
+                            </div>
+                            <div class="dash-brand-site-buttons">
+                                <button class="dash-btn dash-btn--outline dash-btn--sm" id="brandSiteActionBtn" type="button">Create site</button>
+                                <button class="dash-btn dash-btn--ghost dash-btn--sm" id="brandSiteRegenerateBtn" type="button">Regenerate shell</button>
+                            </div>
+                        </div>
+
+                        <div class="dash-brand-footer">
+                            <span class="dash-brand-saved" id="brandSaveStatus"></span>
+                            <button class="dash-btn dash-btn--ghost dash-btn--sm dash-btn--danger" id="deleteBrandBtn" type="button">Delete brand</button>
+                            <button class="dash-btn dash-btn--primary dash-btn--sm" id="saveBrandBtn">Save brand</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- CONTENT VIEW — Content Library (own tab)                     -->
+            <!-- ============================================================ -->
+            <section class="dash-view" data-view="content">
+                <div class="dash-section">
+                    <div class="dash-content-tabs" role="tablist">
+                        <button class="dash-content-tab dash-content-tab--active" data-content-tab="content" role="tab">Content</button>
+                        <button class="dash-content-tab" data-content-tab="sections" role="tab">Sections</button>
+                    </div>
+
+                    <div data-content-tab-panel="content">
+                    <div id="dashContentListView">
+                        <div class="dash-section-header">
+                            <h3 class="dash-section-title">Content Library</h3>
+                            <div class="dash-section-actions">
+                                <button class="dash-btn dash-btn--primary dash-btn--sm" id="addContentBtn">+Add Content</button>
+                            </div>
+                        </div>
+                        <div class="dash-content-tools">
+                            <input class="dash-input" type="search" id="contentSearch" placeholder="Search content, title, source...">
+                            <select class="dash-input dash-content-section-filter" id="contentSectionFilter" aria-label="Content type filter">
+                                <option value="all">All content types</option>
+                            </select>
+                            <select class="dash-input" id="contentFolderFilter">
+                                <option value="">All folders</option>
+                                <option value="unfiled">Unfiled</option>
+                            </select>
+                            <select class="dash-input" id="contentBrandFilter">
+                                <option value="">All brands</option>
+                                <option value="shared">Shared only</option>
+                            </select>
+                            <select class="dash-input" id="contentProductFilter">
+                                <option value="">All products</option>
+                                <option value="none">No product</option>
+                            </select>
+                            <select class="dash-input" id="contentStatusFilter">
+                                <option value="">Any status</option>
+                                <option value="draft">Draft</option>
+                                <option value="approved">Approved</option>
+                                <option value="active">Active</option>
+                                <option value="archived">Archived</option>
+                                <option value="expired">Expired</option>
+                            </select>
+                            <select class="dash-input" id="contentSourceFilter">
+                                <option value="">Any source</option>
+                                <option value="manual">Manual</option>
+                                <option value="ai">AI draft</option>
+                                <option value="campaign">Campaign</option>
+                                <option value="import">Import</option>
+                                <option value="performance_winner">Winner</option>
+                            </select>
+                        </div>
+                        <div class="dash-content-folder-bar">
+                            <span class="dash-section-hint">Folders</span>
+                            <span class="dash-folder-selected-actions" id="contentFolderSelectedActions" style="display:none;">
+                                <button class="dash-btn dash-btn--ghost dash-btn--sm" id="renameContentFolder" type="button">Rename selected</button>
+                                <button class="dash-btn dash-btn--ghost dash-btn--sm" id="deleteContentFolder" type="button">Delete selected</button>
+                            </span>
+                            <button class="dash-btn dash-btn--primary dash-btn--sm" id="addContentFolder" type="button">+ New Folder</button>
+                        </div>
+                        <div class="dash-content-list" id="dashContentList">
+                            <p class="dash-empty-text">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="dash-content-editor-page" id="dashContentEditorView" style="display:none;">
+                        <div class="dash-section-header">
+                            <div>
+                                <h3 class="dash-section-title" id="contentEditorTitle">Add content</h3>
+                                <span class="dash-section-hint" id="contentEditorHint">Create reusable copy that campaigns, pages, and AI generation can pull from later.</span>
+                            </div>
+                            <button class="dash-btn dash-btn--outline dash-btn--sm" id="cancelAddContent">Back to library</button>
+                        </div>
+
+                        <div class="dash-content-editor-panel">
+                            <div class="dash-content-editor-grid">
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentChannel">Channel</label>
+                                    <select class="dash-input" id="contentChannel">
+                                        <option value="general">General</option>
+                                        <option value="landing_page">Landing page</option>
+                                        <option value="email">Email</option>
+                                        <option value="ad">Ad</option>
+                                        <option value="social">Social</option>
+                                        <option value="ecommerce">Ecommerce</option>
+                                    </select>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentCategory">Content type</label>
+                                    <select class="dash-input" id="contentCategory">
+                                        <option value="headline">Headline</option>
+                                    </select>
+                                    <span class="dash-hint" id="contentTypeHint"></span>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentStatus">Status</label>
+                                    <select class="dash-input" id="contentStatus">
+                                        <option value="approved">Approved</option>
+                                        <option value="draft">Draft</option>
+                                        <option value="active">Active</option>
+                                        <option value="archived">Archived</option>
+                                    </select>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentBrandId">Brand</label>
+                                    <select class="dash-input" id="contentBrandId">
+                                        <option value="">Shared across brands</option>
+                                    </select>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentProductId">Product</label>
+                                    <select class="dash-input" id="contentProductId">
+                                        <option value="">No product scope</option>
+                                    </select>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentFolderId">Folder</label>
+                                    <select class="dash-input" id="contentFolderId">
+                                        <option value="">Unfiled</option>
+                                    </select>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentSource">Source</label>
+                                    <select class="dash-input" id="contentSource">
+                                        <option value="manual">Manual</option>
+                                        <option value="ai">AI draft</option>
+                                        <option value="campaign">Campaign</option>
+                                        <option value="import">Import</option>
+                                        <option value="performance_winner">Winner</option>
+                                    </select>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentTitle">Title <span style="color: var(--d-text-tertiary); font-weight: 400;">(optional)</span></label>
+                                    <input class="dash-input" type="text" id="contentTitle" placeholder="Short label for reference">
+                                </div>
+                                <div class="dash-field dash-content-editor-wide" id="contentSlotFields" style="display:none;">
+                                </div>
+                                <div class="dash-field dash-content-editor-wide">
+                                    <button class="dash-btn dash-btn--ghost dash-btn--sm" id="enhanceContentFormat" type="button">Enhance slots</button>
+                                </div>
+                                <div class="dash-field dash-content-editor-wide">
+                                    <label class="dash-label" for="contentTags">Tags</label>
+                                    <input class="dash-input" type="text" id="contentTags" placeholder="launch, pricing, proof">
+                                </div>
+                                <div class="dash-field" id="contentProofSourceField">
+                                    <label class="dash-label" for="contentProofSource">Source or permission note</label>
+                                    <input class="dash-input" type="text" id="contentProofSource" placeholder="Customer quote source, promo rule, source link...">
+                                </div>
+                                <div class="dash-field" id="contentProofPermissionField">
+                                    <label class="dash-label" for="contentProofPermission">Permission</label>
+                                    <select class="dash-input" id="contentProofPermission">
+                                        <option value="">Not applicable</option>
+                                        <option value="unknown">Unknown</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="needs_review">Needs review</option>
+                                        <option value="restricted">Restricted</option>
+                                    </select>
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentExpiresAt">Expiry</label>
+                                    <input class="dash-input" type="date" id="contentExpiresAt">
+                                </div>
+                                <div class="dash-field">
+                                    <label class="dash-label" for="contentQualityScore">Quality score</label>
+                                    <input class="dash-input" type="number" id="contentQualityScore" min="0" max="100" placeholder="0-100">
+                                </div>
+                            </div>
+                            <p class="dash-modal-error" id="contentEditorError" style="display:none;"></p>
+                            <div class="dash-content-editor-actions">
+                                <button class="dash-btn dash-btn--ghost" id="cancelAddContentSecondary">Cancel</button>
+                                <button class="dash-btn dash-btn--primary" id="confirmAddContent">Add to library</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div><!-- /content panel -->
+
+                    <div data-content-tab-panel="sections" style="display:none;">
+                        <div id="dashSectionListView">
+                            <div class="dash-section-header">
+                                <div>
+                                    <h3 class="dash-section-title">Sections</h3>
+                                    <span class="dash-section-hint">Reusable page blocks built from your content. They render live with the brand theme — edit a content item or the brand and every section updates.</span>
+                                </div>
+                                <div class="dash-section-actions">
+                                    <button class="dash-btn dash-btn--primary dash-btn--sm" id="addSectionBtn">+ Add section</button>
+                                </div>
+                            </div>
+                            <div class="dash-content-tools">
+                                <input class="dash-input" type="search" id="sectionSearch" placeholder="Search sections...">
+                                <select class="dash-input" id="sectionBrandFilter">
+                                    <option value="">All brands</option>
+                                    <option value="shared">Shared only</option>
+                                </select>
+                                <select class="dash-input" id="sectionStatusFilter">
+                                    <option value="">Any status</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="active">Active</option>
+                                    <option value="archived">Archived</option>
+                                </select>
+                            </div>
+                            <div class="dash-content-list" id="dashSectionList">
+                                <p class="dash-empty-text">Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="dash-content-editor-page" id="dashSectionEditorView" style="display:none;">
+                            <div class="dash-section-header">
+                                <div>
+                                    <h3 class="dash-section-title" id="sectionEditorTitle">Add section</h3>
+                                    <span class="dash-section-hint">Pick and order content items. The section renders them stacked, styled by the brand theme.</span>
+                                </div>
+                                <button class="dash-btn dash-btn--outline dash-btn--sm" id="cancelSection">Back to sections</button>
+                            </div>
+
+                            <div class="dash-content-editor-panel">
+                                <div class="dash-content-editor-grid">
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="sectionName">Section name</label>
+                                        <input class="dash-input" type="text" id="sectionName" placeholder="e.g., Homepage hero block">
+                                    </div>
+                                     <div class="dash-field">
+                                         <label class="dash-label" for="sectionStatus">Status</label>
+                                         <select class="dash-input" id="sectionStatus">
+                                             <option value="draft">Draft</option>
+                                             <option value="active">Active</option>
+                                             <option value="archived">Archived</option>
+                                         </select>
+                                     </div>
+                                     <div class="dash-field">
+                                         <label class="dash-label" for="sectionType">Section type</label>
+                                         <select class="dash-input" id="sectionType">
+                                             <option value="custom">Custom</option>
+                                         </select>
+                                     </div>
+                                     <div class="dash-field">
+                                         <label class="dash-label" for="sectionBrandId">Brand</label>
+                                         <select class="dash-input" id="sectionBrandId">
+                                             <option value="">Shared / org default</option>
+                                         </select>
+                                    </div>
+                                    <div class="dash-field">
+                                        <label class="dash-label" for="sectionTags">Tags</label>
+                                        <input class="dash-input" type="text" id="sectionTags" placeholder="homepage, launch">
+                                    </div>
+                                    <div class="dash-field dash-content-editor-wide">
+                                        <label class="dash-label" for="sectionDescription">Description <span style="color: var(--d-text-tertiary); font-weight: 400;">(optional)</span></label>
+                                        <input class="dash-input" type="text" id="sectionDescription" placeholder="What this block is for">
+                                    </div>
+                                    <div class="dash-field dash-content-editor-wide">
+                                        <label class="dash-label">Content in this section <span style="color: var(--d-text-tertiary); font-weight: 400;">(in order)</span></label>
+                                        <div class="dash-section-builder">
+                                            <div class="dash-section-chosen" id="sectionChosenList">
+                                                <p class="dash-empty-text">No content added yet. Pick items from the right.</p>
+                                            </div>
+                                            <div class="dash-section-picker">
+                                                <input class="dash-input dash-input--sm" type="search" id="sectionPickerSearch" placeholder="Search content to add...">
+                                                <div class="dash-section-picker-list" id="sectionPickerList">
+                                                    <p class="dash-empty-text">Loading content...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="dash-modal-error" id="sectionEditorError" style="display:none;"></p>
+                                <div class="dash-content-editor-actions">
+                                    <button class="dash-btn dash-btn--ghost" id="cancelSectionSecondary">Cancel</button>
+                                    <button class="dash-btn dash-btn--primary" id="confirmSaveSection">Save section</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /sections panel -->
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- MEDIA VIEW                                                   -->
+            <!-- ============================================================ -->
+            <section class="dash-view" data-view="media">
+                <div class="dash-section">
+                    <div id="dashMediaLibraryView">
+                        <div class="dash-section-header">
+                            <h3 class="dash-section-title">Media Library</h3>
+                            <span class="dash-section-hint">Reusable assets across brands, products, campaigns, and websites.</span>
+                        </div>
+                        <div class="dash-media-summary" id="dashMediaSummary"></div>
+                        <div class="dash-media-actions">
+                            <button class="dash-btn dash-btn--primary dash-btn--sm" id="dashMediaUploadBtn">+ Upload</button>
+                            <button class="dash-btn dash-btn--primary dash-btn--sm" id="dashMediaStockOpenBtn">+ Add from stock</button>
+                            <input type="file" id="dashMediaUploadInput" accept="image/*" hidden>
+                        </div>
+                        <div class="dash-media-toolbar">
+                            <div class="dash-media-search">
+                                <input class="dash-input" type="text" id="dashMediaSearchInput" placeholder="Search your library">
+                                <button class="dash-btn dash-btn--secondary dash-btn--sm" id="dashMediaSearchBtn">Search</button>
+                            </div>
+                            <select class="dash-input dash-media-filter" id="dashMediaUsageFilter">
+                                <option value="">All usage</option>
+                                <option value="used">Used</option>
+                                <option value="unused">Unused</option>
+                            </select>
+                            <select class="dash-input dash-media-filter" id="dashMediaSourceFilter">
+                                <option value="">All sources</option>
+                                <option value="upload">Uploads</option>
+                                <option value="pexels">Pexels</option>
+                                <option value="pixabay">Pixabay</option>
+                            </select>
+                        </div>
+                        <div class="dash-media-grid" id="dashMediaGrid">
+                            <p class="dash-empty-text">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="dash-media-stock-page" id="dashMediaStockView" style="display:none;">
+                        <div class="dash-section-header">
+                            <div>
+                                <h3 class="dash-section-title">Add from stock</h3>
+                                <span class="dash-section-hint">Search Pexels and Pixabay, then import selected visuals into your library.</span>
+                            </div>
+                            <button class="dash-btn dash-btn--outline dash-btn--sm" id="dashMediaStockBackBtn">Back to library</button>
+                        </div>
+
+                        <div class="dash-media-stock-form">
+                            <div class="dash-media-stock-row dash-media-stock-row--primary">
+                                <div class="dash-field dash-media-stock-query">
+                                    <label class="dash-label" for="dashMediaStockQuery">Search</label>
+                                    <input class="dash-input" type="text" id="dashMediaStockQuery" placeholder="e.g., skincare, team meeting, running shoes">
+                                </div>
+                                <div class="dash-field dash-media-stock-source">
+                                    <span class="dash-label">Source</span>
+                                    <div class="dash-stock-option-group dash-stock-provider-options" data-stock-filter="provider">
+                                        <button class="dash-stock-option active" type="button" data-value="" title="Search whichever configured provider gives the best result"><span class="dash-stock-any">Any</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="pexels" title="Search Pexels photos"><span>Pexels</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="pixabay" title="Search Pixabay photos, illustrations, and vectors"><span>Pixabay</span></button>
+                                    </div>
+                                </div>
+                                <div class="dash-field dash-media-stock-submit">
+                                    <label class="dash-label">&nbsp;</label>
+                                    <button class="dash-btn dash-btn--primary dash-btn--sm" id="dashMediaStockSearchBtn">Find images</button>
+                                </div>
+                            </div>
+
+                            <div class="dash-media-stock-row dash-media-stock-row--filters">
+                                <div class="dash-field dash-media-stock-color">
+                                    <span class="dash-label">Color</span>
+                                    <div class="dash-stock-option-group dash-stock-color-options" data-stock-filter="color">
+                                        <button class="dash-stock-option active" type="button" data-value="" title="Any color"><span class="dash-stock-any">Any</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="red" title="Red"><span class="dash-stock-swatch" style="background:#dc2626;"></span></button>
+                                        <button class="dash-stock-option" type="button" data-value="orange" title="Orange"><span class="dash-stock-swatch" style="background:#f97316;"></span></button>
+                                        <button class="dash-stock-option" type="button" data-value="yellow" title="Yellow"><span class="dash-stock-swatch" style="background:#facc15;"></span></button>
+                                        <button class="dash-stock-option" type="button" data-value="green" title="Green"><span class="dash-stock-swatch" style="background:#16a34a;"></span></button>
+                                        <button class="dash-stock-option" type="button" data-value="blue" title="Blue"><span class="dash-stock-swatch" style="background:#2563eb;"></span></button>
+                                        <button class="dash-stock-option" type="button" data-value="purple" title="Purple"><span class="dash-stock-swatch" style="background:#9333ea;"></span></button>
+                                        <button class="dash-stock-option" type="button" data-value="black" title="Black"><span class="dash-stock-swatch" style="background:#111827;"></span></button>
+                                        <button class="dash-stock-option" type="button" data-value="white" title="White"><span class="dash-stock-swatch dash-stock-swatch--white"></span></button>
+                                    </div>
+                                </div>
+                                <div class="dash-field dash-media-stock-orientation">
+                                    <span class="dash-label">Orientation</span>
+                                    <div class="dash-stock-option-group dash-stock-orientation-options" data-stock-filter="orientation">
+                                        <button class="dash-stock-option active" type="button" data-value="" title="Any orientation"><span class="dash-stock-any">Any</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="landscape" title="Landscape">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="12" x="2" y="6" rx="2"/></svg>
+                                            <span>Landscape</span>
+                                        </button>
+                                        <button class="dash-stock-option" type="button" data-value="portrait" title="Portrait">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="12" height="20" x="6" y="2" rx="2"/></svg>
+                                            <span>Portrait</span>
+                                        </button>
+                                        <button class="dash-stock-option" type="button" data-value="square" title="Square">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/></svg>
+                                            <span>Square</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dash-media-stock-row dash-media-stock-row--visual">
+                                <div class="dash-field dash-media-stock-visual">
+                                    <span class="dash-label">Visual type</span>
+                                    <div class="dash-stock-option-group dash-stock-visual-options" data-stock-filter="visualType">
+                                        <button class="dash-stock-option active" type="button" data-value=""><span class="dash-stock-any">Any</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="lifestyle_photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Lifestyle</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="product_photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.27 6.96 8.73 5.05 8.73-5.05"/><path d="M12 22.08V12"/></svg><span>Product</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="vector" data-pixabay-only="true" title="Vector search uses Pixabay because Pexels does not provide vector assets"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><path d="M9 4v4"/><path d="M15 4v4"/><path d="M9 16v4"/><path d="M15 16v4"/><path d="M4 9h4"/><path d="M16 9h4"/><path d="M4 15h4"/><path d="M16 15h4"/></svg><span>Vector</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="illustration" data-pixabay-only="true" title="Illustration search uses Pixabay because Pexels is photo-only"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.6 4.4 5 5"/><path d="M4 20c2.5 0 4.5-.8 5.8-2.2l9.4-9.4a2.1 2.1 0 0 0-3-3L6.8 14.8C5.5 16.1 4 17.5 4 20z"/><path d="M13 6 18 11"/></svg><span>Illustration</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="studio_shot"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg><span>Studio</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="flat_lay"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span>Flat lay</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="render_3d"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 3 7l9 5 9-5-9-5z"/><path d="M3 7v10l9 5 9-5V7"/><path d="M12 12v10"/></svg><span>3D render</span></button>
+                                        <button class="dash-stock-option" type="button" data-value="editorial" title="Editorial means magazine or story-style imagery for articles, thought leadership, announcements, and news-like campaign pages."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg><span>Editorial</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dash-media-stock-grid" id="dashMediaStockGrid">
+                            <p class="dash-empty-text">Search by keyword, color, orientation, or visual type to find stock images.</p>
+                        </div>
+                        <div class="dash-media-stock-load-more" id="dashMediaStockLoadMoreRow" style="display:none;">
+                            <button class="dash-btn dash-btn--secondary dash-btn--sm" id="dashMediaStockLoadMoreBtn">Load more</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Create Site Modal -->
+    <div class="dash-modal-overlay" id="createSiteModal" style="display:none;">
+        <div class="dash-modal">
+            <h3 class="dash-modal-title">New website</h3>
+            <div class="dash-modal-body">
+                <div class="dash-field">
+                    <label class="dash-label" for="newSiteName">Site name</label>
+                    <input class="dash-input" type="text" id="newSiteName" placeholder="My Website">
+                </div>
+                <div class="dash-field">
+                    <label class="dash-label" for="newSiteSlug">URL slug</label>
+                    <input class="dash-input" type="text" id="newSiteSlug" placeholder="my-website">
+                    <span class="dash-hint">Lowercase letters, numbers, and hyphens only</span>
+                </div>
+                <p class="dash-modal-error" id="createSiteError" style="display:none;"></p>
+            </div>
+            <div class="dash-modal-footer">
+                <button class="dash-btn dash-btn--ghost" id="cancelCreateSite">Cancel</button>
+                <button class="dash-btn dash-btn--primary" id="confirmCreateSite">Create site</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Name Your Campaign Modal -->
+    <div class="dash-modal-overlay" id="newCampaignModal" style="display:none;">
+        <div class="dash-modal">
+            <h3 class="dash-modal-title">Name your campaign</h3>
+            <p class="dash-modal-subtitle">Give it a clear name so you can find it later in reports and analytics.</p>
+            <div class="dash-modal-body">
+                <div class="dash-field">
+                    <label class="dash-label" for="newCampaignName">Campaign name</label>
+                    <input class="dash-input" type="text" id="newCampaignName" placeholder="e.g., Jun-2026 Summer Sale">
+                    <div class="dash-name-suggestion" id="newCampaignSuggestion" style="display:none;">
+                        <span class="dash-name-suggestion-label">Suggested:</span>
+                        <button type="button" class="dash-name-suggestion-chip" id="newCampaignSuggestionChip"></button>
+                    </div>
+                    <span class="dash-hint">Tip: a date prefix plus a short label keeps campaigns easy to sort &mdash; you can refine it later in the studio.</span>
+                </div>
+                <p class="dash-modal-error" id="newCampaignError" style="display:none;"></p>
+            </div>
+            <div class="dash-modal-footer">
+                <button class="dash-btn dash-btn--ghost" id="cancelNewCampaign">Cancel</button>
+                <button class="dash-btn dash-btn--primary" id="confirmNewCampaign" disabled>Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Site Settings Modal -->
+    <div class="dash-modal-overlay" id="siteSettingsModal" style="display:none;">
+        <div class="dash-modal dash-modal--wide">
+            <h3 class="dash-modal-title">Site settings</h3>
+            <div class="dash-modal-body" id="siteSettingsBody"></div>
+            <div class="dash-modal-footer">
+                <button class="dash-btn dash-btn--ghost" id="cancelSettings">Close</button>
+                <button class="dash-btn dash-btn--primary" id="saveSettings">Save settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Metadata Modal -->
+    <div class="dash-modal-overlay" id="mediaMetadataModal" style="display:none;">
+        <div class="dash-modal dash-modal--wide dash-modal--media">
+            <h3 class="dash-modal-title">Media metadata</h3>
+            <div class="dash-modal-body">
+                <div class="dash-media-meta-layout">
+                    <div class="dash-media-meta-preview">
+                        <img id="mediaMetaPreview" src="" alt="">
+                    </div>
+                    <div class="dash-media-meta-fields">
+                        <div class="dash-field">
+                            <label class="dash-label" for="mediaMetaAltText">Alt text</label>
+                            <textarea class="dash-input" id="mediaMetaAltText" rows="3" placeholder="Describe what is in the image"></textarea>
+                            <span class="dash-hint">Used by AI for matching and by published pages for accessibility.</span>
+                        </div>
+                        <div class="dash-field">
+                            <label class="dash-label" for="mediaMetaTags">Tags</label>
+                            <input class="dash-input" type="text" id="mediaMetaTags" placeholder="product, lifestyle, hero, offer">
+                            <span class="dash-hint">Comma-separated. AI uses these to pick campaign-relevant visuals.</span>
+                        </div>
+                        <div class="dash-modal-grid">
+                            <div class="dash-field">
+                                <label class="dash-label" for="mediaMetaPhotographer">Photographer</label>
+                                <input class="dash-input" type="text" id="mediaMetaPhotographer" placeholder="Optional credit">
+                            </div>
+                            <div class="dash-field">
+                                <label class="dash-label" for="mediaMetaLicense">License</label>
+                                <input class="dash-input" type="text" id="mediaMetaLicense" placeholder="License or usage note">
+                            </div>
+                        </div>
+                        <div class="dash-media-meta-readonly" id="mediaMetaReadOnly"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dash-modal-footer">
+                <button class="dash-btn dash-btn--ghost" id="cancelMediaMetadata">Cancel</button>
+                <button class="dash-btn dash-btn--primary" id="saveMediaMetadata">Save metadata</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dash-modal-overlay" id="addProductModal" style="display:none;">
+        <div class="dash-modal dash-modal--wide">
+            <h3 class="dash-modal-title">Add product</h3>
+            <div class="dash-modal-body">
+                <div class="dash-field">
+                    <label class="dash-label" for="productName">Product name</label>
+                    <input class="dash-input" type="text" id="productName" placeholder="Web design package">
+                </div>
+                <div class="dash-field">
+                    <label class="dash-label" for="productType">Type</label>
+                    <select class="dash-input" id="productType">
+                        <option value="service">Service</option>
+                        <option value="physical">Physical product</option>
+                        <option value="digital">Digital product</option>
+                        <option value="subscription">Subscription</option>
+                    </select>
+                </div>
+                <div class="dash-field">
+                    <label class="dash-label" for="productShortDescription">Short description</label>
+                    <textarea class="dash-input" id="productShortDescription" rows="3" placeholder="What should marketers and customers know?"></textarea>
+                </div>
+                <div class="dash-field">
+                    <label class="dash-label" for="productPrice">Price</label>
+                    <input class="dash-input" type="number" id="productPrice" min="0" step="0.01" placeholder="Optional">
+                </div>
+                <div class="dash-field">
+                    <label class="dash-label">Brands</label>
+                    <div class="dash-checkbox-list" id="productBrandList"></div>
+                </div>
+            </div>
+            <div class="dash-modal-footer">
+                <button class="dash-btn dash-btn--ghost" id="cancelAddProduct">Cancel</button>
+                <button class="dash-btn dash-btn--primary" id="confirmAddProduct">Add product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section View / Preview Modal -->
+    <div class="dash-modal-overlay" id="sectionViewModal" style="display:none;">
+        <div class="dash-modal dash-modal--wide">
+            <h3 class="dash-modal-title">Section preview</h3>
+            <p class="dash-modal-subtitle">Rendered live from the section's content items and the brand theme. Edit content or the brand to see changes here.</p>
+            <div class="dash-modal-body">
+                <div class="dash-content-preview-frame">
+                    <iframe id="sectionViewIframe" sandbox="allow-same-origin" title="Section preview"></iframe>
+                </div>
+            </div>
+            <div class="dash-modal-footer">
+                <button class="dash-btn dash-btn--ghost" id="closeSectionView">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Brand Site Preview Modal -->
+    <div class="dash-modal-overlay" id="brandSiteViewModal" style="display:none;">
+        <div class="dash-modal dash-modal--wide">
+            <h3 class="dash-modal-title" id="brandSiteViewTitle">Brand site preview</h3>
+            <p class="dash-modal-subtitle">Rendered from the brand site shell with shared navigation and footer.</p>
+            <div class="dash-modal-body">
+                <div class="dash-content-preview-frame">
+                    <iframe id="brandSiteViewIframe" sandbox="allow-same-origin" title="Brand site preview"></iframe>
+                </div>
+            </div>
+            <div class="dash-modal-footer">
+                <button class="dash-btn dash-btn--ghost" id="closeBrandSiteView">Close</button>
+            </div>
         </div>
     </div>
 
     <script>
-        window.SPRITE_PATH = "{{ url_for('static', filename='icon-sprite.svg') }}";
         window.USER_ROLE = {{ user_role | tojson | default('"owner"') }};
     </script>
-    <script type="module" src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/dashboard-v2.js') }}"></script>
 </body>
 </html>

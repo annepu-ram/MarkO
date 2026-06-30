@@ -1,0 +1,186 @@
+# Icon Feature Grid Section — Why Choose Us
+# A responsive icon-based feature grid using columnsgrid with material icons, headings, and descriptions arranged in a 3-column card layout showcasing key benefits and features
+# Base components: layout-row, columnsgrid, layout-column, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid, card_based
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: professional_services, fitness_recreation, saas, ecommerce, portfolio
+# Perfect for: SaaS platform, mobile app, software company, online store, consulting firm, logistics company, tutoring center, dental clinic, gym, digital agency
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#6366f1'
+        background: &color-background '#ffffff'
+  components:
+    - name: page
+      slug: home
+      title: "01 Icon Feature Grid"
+      properties:
+        appearance: { background: { color: *color-background } }
+      components:
+        # Section Header
+        - name: layout-row
+          properties:
+            layout: { horizontalAlign: center }
+            spacing: { paddingBlock: xl, paddingInline: lg }
+          components:
+            - name: layout-column
+              properties:
+                layout: { widthMode: '75', horizontalAlign: center }
+              components:
+                - name: eyebrow
+                  properties:
+                    text: WHY CHOOSE US
+                    typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+                - name: heading
+                  properties:
+                    text: Features That Set Us Apart
+                    level: 2
+                    typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                    spacing: { marginBlock: sm }
+                - name: paragraph
+                  properties:
+                    text: We deliver cutting-edge solutions designed to accelerate your growth and simplify your workflow.
+                    typography: { size: md, color: *color-secondary, align: center }
+                    spacing: { marginBlock: sm }
+
+        # Feature Grid - 3 columns, 6 items
+        - name: columnsgrid
+          properties:
+            layout: { columns: 3, gap: lg }
+            responsive: { breakpoints: { md: 2, sm: 1 } }
+            spacing: { marginBlock: lg, paddingInline: lg }
+          columns:
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: gauge, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Blazing Fast
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Experience lightning-fast load times with our optimized infrastructure built for performance at scale.
+                        typography: { size: sm, color: *color-secondary, align: center }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: shield-check, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Enterprise Security
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Bank-grade encryption and compliance certifications keep your data protected around the clock.
+                        typography: { size: sm, color: *color-secondary, align: center }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: cloud-upload, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Cloud Native
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Deploy seamlessly to the cloud with auto-scaling and zero-downtime updates built right in.
+                        typography: { size: sm, color: *color-secondary, align: center }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: headphones, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: 24/7 Support
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Our dedicated support team is always available to help you resolve issues and optimize your setup.
+                        typography: { size: sm, color: *color-secondary, align: center }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: bar-chart-2, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Deep Analytics
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Gain actionable insights with real-time dashboards, custom reports, and predictive analytics.
+                        typography: { size: sm, color: *color-secondary, align: center }
+
+            - components:
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: center }
+                    appearance: { background: { color: *color-background, opacity: 100 }, radius: sm, shadow: soft }
+                    spacing: { paddingBlock: lg, paddingInline: md }
+                  components:
+                    - name: icon
+                      properties: { name: monitor-smartphone, size: "48", color: *color-accent }
+                    - name: heading
+                      properties:
+                        text: Cross-Platform
+                        level: 3
+                        typography: { size: lg, weight: semibold, color: *color-primary, align: center }
+                        spacing: { marginBlock: sm }
+                    - name: paragraph
+                      properties:
+                        text: Works flawlessly on desktop, tablet, and mobile with a fully responsive adaptive interface.
+                        typography: { size: sm, color: *color-secondary, align: center }

@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: split_screen
 # Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: required
+# Interactivity: form
+# Industries: restaurant, logistics
 # Perfect for: Food delivery, restaurants, meal kits, food apps
 
 - name: page
@@ -86,7 +92,7 @@
         verticalAlign: center
       spacing:
         paddingBlock: xxxl
-        paddingInline: xl
+        paddingInline: md
       appearance:
         background:
           color: *color-background
@@ -105,7 +111,7 @@
           layout:
             horizontalAlign: space-evenly
             verticalAlign: center
-            wrap: nowrap
+            wrap: wrap
           appearance:
             background:
               type: gradient
@@ -248,7 +254,7 @@
 
       # Quick Stats
               paddingBlock: sm
-              paddingInline: lg
+              paddingInline: md
       - name: layout-row
         properties:
           layout:
@@ -632,3 +638,4 @@
               weight: medium
             spacing:
               marginBlock: none
+

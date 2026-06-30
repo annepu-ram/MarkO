@@ -4,6 +4,12 @@
 # Section type: countdown
 # Layout: stacked
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: fitness_recreation, education
 # Perfect for: education, gym, courses, memberships
 
 - name: page

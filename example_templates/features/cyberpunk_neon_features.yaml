@@ -1,0 +1,223 @@
+# Cyberpunk Neon Features
+# Dark feature cards with neon green borders and futuristic grid layout
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: cyberpunk_neon
+# Content volume: standard
+# Tone: playful
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: saas, entertainment
+# Perfect for: Gaming, tech startup, hacker tools, crypto, cybersecurity, AI, VR, digital art
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#E2E8F0"
+        text: &color-text "#B0B8C8"
+        secondary: &color-secondary "#1A1A2E"
+        accent: &color-accent "#00FF41"
+        background: &color-background "#0A0A0F"
+  components:
+    - name: page
+      slug: home
+      title: "Cyberpunk Neon Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — dark cards with neon borders
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "> SYS.MODULES"
+                typography:
+                  size: xs
+                  weight: medium
+                  color: *color-accent
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: "Core infrastructure modules"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: bold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+
+            - name: paragraph
+              properties:
+                text: "Each module is battle-tested, independently deployable, and designed for zero-downtime operation at planetary scale."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 dark neon cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: md
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: none
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: cpu
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Neural Compute"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Distributed GPU clusters with auto-scaling inference pipelines. Process millions of requests with sub-millisecond latency."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+
+                # Card 2
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: none
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: lock
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Zero-Trust Shield"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Multi-layer encryption with quantum-resistant algorithms. Every packet verified, every connection authenticated, every byte secured."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed
+
+                # Card 3
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: left
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: none
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: network
+                            appearance:
+                              color: *color-accent
+                              size: lg
+                        - name: heading
+                          properties:
+                            text: "Mesh Network"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: bold
+                              color: *color-primary
+                        - name: paragraph
+                          properties:
+                            text: "Decentralized peer-to-peer routing with automatic failover. Your infrastructure stays online even when individual nodes go dark."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              lineHeight: relaxed

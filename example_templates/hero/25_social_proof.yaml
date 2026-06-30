@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: centered
 # Visual style: monochrome_dark
+# Content volume: standard
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: many
+# Interactivity: static
+# Industries: saas, ecommerce
 # Perfect for: Enterprise SaaS, B2B platforms, established brands, trust-driven products
 
 - name: page
@@ -67,7 +73,7 @@
         typography: {size: sm, color: *color-background, align: center}
     - name: layout-row
       properties:
-        layout: {horizontalAlign: space-evenly, verticalAlign: center, gap: xl, wrap: wrap}
+        layout: {horizontalAlign: space-evenly, verticalAlign: center, gap: lg, wrap: wrap}
         appearance: {background: {opacity: 0}}
         spacing: {paddingInline: xl}
       components:

@@ -7,12 +7,31 @@ import copy
 import re
 import logging
 
-from rag.config import config
+from rag.config import config, CANONICAL_STYLES
 from rag.agent.model_backend import ModelBackend
 from rag.agent.prompt_loader import load_system, render_user
 from rag.agent.prompt_logger import log_prompt, log_output
 
 logger = logging.getLogger(__name__)
+
+
+def _dedupe_csv(*sources: str) -> str:
+    """Merge comma-separated strings, dropping duplicate tokens (case-insensitive)."""
+    seen: set[str] = set()
+    out: list[str] = []
+    for src in sources:
+        if not src:
+            continue
+        for tok in src.split(","):
+            tok = tok.strip()
+            if not tok:
+                continue
+            key = tok.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(tok)
+    return ", ".join(out)
 
 
 class StylerAgent:
@@ -65,12 +84,15 @@ class StylerAgent:
             )
 
         # Fold guided-flow preferences into the hints so the existing template
-        # and prompt wiring keep working without a schema change.
+        # and prompt wiring keep working without a schema change. Dedupe tokens
+        # because the guided flow passes style_preference as both style_hints
+        # and inside business_context, which otherwise produces duplicate lists
+        # like "dark_academia, dark_academia".
         bc = business_context or {}
         bc_style_pref = (bc.get("style_preference") or "").strip()
         bc_color_pref = (bc.get("color_preference") or "").strip()
-        effective_style_hints = ", ".join([s for s in (style_hints, bc_style_pref) if s])
-        effective_color_hints = ", ".join([s for s in (color_hints, bc_color_pref) if s])
+        effective_style_hints = _dedupe_csv(style_hints, bc_style_pref)
+        effective_color_hints = _dedupe_csv(color_hints, bc_color_pref)
 
         system = load_system("styler")
         user_prompt = render_user("styler",
@@ -106,10 +128,25 @@ class StylerAgent:
             enriched["theme"] = dict(config.default_theme)
             return enriched
 
-        # Set style_name
-        if parsed.get("style_name"):
-            enriched["style_name"] = parsed["style_name"]
-            logger.debug(f"Styler: identified style '{parsed['style_name']}'")
+        # Set style_name — validate against canonical list, fall back if not.
+        raw_name = (parsed.get("style_name") or "").strip()
+        normalized = raw_name.lower().replace(" ", "_")
+        if normalized in CANONICAL_STYLES:
+            enriched["style_name"] = normalized
+        elif raw_name:
+            # LLM ignored the canonical-key rule (e.g. wrote "Midnight Scholar").
+            # Keep the raw value only if the caller can't supply a fallback.
+            logger.warning(
+                f"Styler: '{raw_name}' is not a canonical style key; "
+                f"builder style-filtered retrieval will miss."
+            )
+            enriched["style_name"] = normalized
+        if parsed.get("theme_label"):
+            enriched["theme_label"] = parsed["theme_label"]
+        logger.debug(
+            f"Styler: style='{enriched.get('style_name','')}' "
+            f"theme='{enriched.get('theme_label','')}'"
+        )
 
         # Set theme (with fallback to defaults)
         theme = parsed.get("theme", {})
@@ -143,6 +180,19 @@ class StylerAgent:
                             url = img.get('url', '')
                             alt = img.get('altText', '')
                             orientation = img.get('orientation', 'unknown')
+                            tags = img.get('tags') or []
+                            source = img.get('source', '')
+                            width = img.get('width')
+                            height = img.get('height')
+                            metadata = []
+                            if tags:
+                                metadata.append(f"tags: {', '.join(tags)}")
+                            if source:
+                                metadata.append(f"source: {source}")
+                            if width and height:
+                                metadata.append(f"size: {width}x{height}")
+                            if metadata:
+                                image_lines.append(f"   metadata for image {count}: {'; '.join(metadata)}")
                             image_lines.append(
                                 f"{count}. {url} — \"{alt}\" [{orientation}]"
                             )
@@ -172,12 +222,19 @@ class StylerAgent:
                 "sections": [{type, dark_section, style_notes, image_indices}, ...]
             }
         """
-        result = {"style_name": "", "theme": {}, "sections": []}
+        result = {"style_name": "", "theme_label": "", "theme": {}, "sections": []}
 
-        # Extract style name from # Style: heading
+        # Extract style name from # Style: heading (canonical key)
         m = re.search(r'^#\s+Style:\s*(.+)', md, re.MULTILINE)
         if m:
             result["style_name"] = m.group(1).strip()
+
+        # Extract palette label from # Theme: heading (human-readable name).
+        # Must anchor on a single `#` (level-1) so the `## Theme` block below
+        # doesn't match.
+        t = re.search(r'^#\s+Theme:\s*(.+)', md, re.MULTILINE)
+        if t:
+            result["theme_label"] = t.group(1).strip()
 
         # Split at ## headings
         h2_parts = re.split(r'\n(?=## )', md)

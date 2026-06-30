@@ -4,6 +4,7 @@ import pickle
 
 from rag.config import config, TIER_NAMES
 from rag.retrieval.filters import passes_metadata_filter
+from rag.retrieval.tokenizer import tokenize
 
 
 class KeywordSearch:
@@ -43,7 +44,9 @@ class KeywordSearch:
         if not tier_data:
             return []
 
-        tokens = query.lower().split()
+        tokens = tokenize(query)
+        if not tokens:
+            return []
         scores = tier_data["bm25"].get_scores(tokens)
 
         # Apply metadata filter

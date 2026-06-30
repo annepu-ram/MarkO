@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: split_screen
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: form
+# Industries: saas
 # Perfect for: B2B SaaS, lead generation, free trial signups, business services
 
 - name: page
@@ -20,7 +26,7 @@
   components:
   - name: layout-row
     properties:
-      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: xl}
+      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: wrap, gap: lg}
       spacing: {paddingBlock: xxl, paddingInline: xl}
       appearance:
         background: {color: *color-background}

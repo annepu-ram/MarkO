@@ -1,0 +1,105 @@
+# Product Card Variant: The Featurette
+# layout-column with a gif thumbnail, heading, and an accordion for technical specs
+# Base components: page, layout-column, gif, heading, paragraph, accordion, caption, button
+# Section type: product
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: accordion
+# Industries: saas, ecommerce
+# Perfect for: ecommerce, retail, online store, marketplace, SaaS
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-column
+    properties:
+      layout: {horizontalAlign: center, gap: sm}
+      appearance:
+        background: {color: *color-background}
+        radius: lg
+        shadow: medium
+      spacing: {marginBlock: lg, marginInline: lg, paddingBlock: none, paddingInline: none}
+    components:
+    - name: gif
+      properties:
+        source: {url: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif', altText: 'Product feature animation'}
+        appearance: {minHeight: 15, fit: cover, cornerStyle: none}
+        layout: {widthMode: stretch}
+        spacing: {marginBlock: none}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: left, gap: xs}
+        appearance: {background: {opacity: 0}}
+        spacing:
+          paddingBlock: md
+          paddingInline: md
+      components:
+      - name: heading
+        properties:
+          text: Smart Fitness Tracker Pro
+          level: 3
+          typography: {size: xl, weight: bold, color: *color-primary, align: left}
+          spacing: {marginBlock: xs}
+      - name: paragraph
+        properties:
+          text: Advanced health monitoring with 7-day battery life and water resistance up to 50m.
+          typography: {size: sm, color: *color-secondary, align: left, lineHeight: "1.6"}
+      - name: accordion
+        properties:
+          behavior: {allowMultipleOpen: false}
+          typography:
+            title: {size: sm, weight: semibold, color: *color-primary}
+            content: {size: sm, weight: regular, color: *color-secondary}
+          appearance:
+            titleBackground: {color: *color-background}
+            border: {width: 1, style: solid, color: *color-secondary, position: bottom}
+            radius: sm
+          spacing: {marginBlock: sm}
+        items:
+        - title: Display & Design
+          components:
+          - name: paragraph
+            properties:
+              text: |
+                1.4" AMOLED display, 454x454 resolution
+                Titanium alloy case, Sapphire crystal glass
+                Weight: 52g (without strap)
+        - title: Battery & Charging
+          components:
+          - name: paragraph
+            properties:
+              text: |
+                7-day typical usage battery life
+                Magnetic wireless charging
+                Full charge in 65 minutes
+        - title: Sensors & Tracking
+          components:
+          - name: paragraph
+            properties:
+              text: |
+                Heart rate, SpO2, Stress monitoring
+                GPS + GLONASS + Galileo
+                100+ workout modes
+      - name: caption
+        properties:
+          text: "$349.99"
+          typography: {size: xl, weight: bold, color: *color-primary, align: left}
+      - name: button
+        properties:
+          text: Buy Now
+          appearance: {background: {color: *color-accent}, radius: md}
+          typography: {color: *color-background, weight: semibold}
+          layout: {widthMode: stretch}

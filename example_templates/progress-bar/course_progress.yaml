@@ -4,6 +4,12 @@
 # Section type: dashboard
 # Layout: stacked
 # Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: education
 # Perfect for: education, e-learning, courses, LMS
 
 - name: page

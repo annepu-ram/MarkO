@@ -7,6 +7,7 @@
  */
 
 import { loadSvgSprite } from './sprite.js';
+import { showConfirmModal, showMessageModal } from './promptModal.js';
 
 // ---------------------------------------------------------------------------
 // State
@@ -230,22 +231,33 @@ function handleEdit(siteId) {
 async function handleDelete(siteId) {
     const site = sitesData.find(s => s.id === siteId);
     if (!site) return;
-    if (!confirm(`Delete "${site.name}"? This cannot be undone.`)) return;
+    const confirmed = await showConfirmModal({
+        title: 'Delete site',
+        message: `Delete "${site.name}"? This cannot be undone.`,
+        confirmText: 'Delete',
+        danger: true,
+    });
+    if (!confirmed) return;
     try {
         await apiFetch(`/api/sites/${siteId}`, { method: 'DELETE' });
         await loadSites();
     } catch (err) {
-        alert('Delete failed: ' + err.message);
+        await showMessageModal({ title: 'Delete failed', message: err.message });
     }
 }
 
 async function handleUnpublish(siteId) {
-    if (!confirm('Unpublish this site? It will no longer be accessible to visitors.')) return;
+    const confirmed = await showConfirmModal({
+        title: 'Unpublish site',
+        message: 'Unpublish this site? It will no longer be accessible to visitors.',
+        confirmText: 'Unpublish',
+    });
+    if (!confirmed) return;
     try {
         await apiFetch(`/api/sites/${siteId}/unpublish`, { method: 'POST' });
         await loadSites();
     } catch (err) {
-        alert('Unpublish failed: ' + err.message);
+        await showMessageModal({ title: 'Unpublish failed', message: err.message });
     }
 }
 
@@ -345,12 +357,17 @@ async function toggleVersions(btn) {
         container.querySelectorAll('.version-rollback').forEach(rb => {
             rb.addEventListener('click', async () => {
                 const vNum = rb.dataset.versionNum;
-                if (!confirm(`Rollback draft to v${vNum}? Current draft pages will be overwritten.`)) return;
+                const confirmed = await showConfirmModal({
+                    title: 'Rollback draft',
+                    message: `Rollback draft to v${vNum}? Current draft pages will be overwritten.`,
+                    confirmText: 'Rollback',
+                });
+                if (!confirmed) return;
                 try {
                     await apiFetch(`/api/sites/${rb.dataset.siteId}/versions/${rb.dataset.versionId}/rollback`, { method: 'POST' });
                     await loadSites();
                 } catch (err) {
-                    alert('Rollback failed: ' + err.message);
+                    await showMessageModal({ title: 'Rollback failed', message: err.message });
                 }
             });
         });
@@ -702,12 +719,18 @@ function bindSubmissionEvents() {
                 } else if (action === 'unspam') {
                     await apiFetch(`/api/submissions/${id}`, { method: 'PATCH', body: JSON.stringify({ is_spam: false }) });
                 } else if (action === 'delete') {
-                    if (!confirm('Delete this submission?')) return;
+                    const confirmed = await showConfirmModal({
+                        title: 'Delete submission',
+                        message: 'Delete this submission?',
+                        confirmText: 'Delete',
+                        danger: true,
+                    });
+                    if (!confirmed) return;
                     await apiFetch(`/api/submissions/${id}`, { method: 'DELETE' });
                 }
                 await loadSubmissions(submissionPage);
             } catch (err) {
-                alert('Action failed: ' + err.message);
+                await showMessageModal({ title: 'Action failed', message: err.message });
             }
         });
     });
@@ -835,7 +858,7 @@ async function fetchMediaImages() {
         if (mediaFilter.orientation) params.set('orientation', mediaFilter.orientation);
         if (mediaFilter.q) params.set('q', mediaFilter.q);
         if (mediaFilter.page_id) params.set('page_id', mediaFilter.page_id);
-        const data = await apiFetch(`/api/sites/${mediaSiteId}/media?${params}`);
+        const data = await apiFetch(`/api/media?${params}`);
         mediaImages = data.images || [];
     } catch (err) {
         console.error('[Media] Failed to load:', err);
@@ -997,17 +1020,23 @@ function bindMediaEvents() {
     const bulkDeleteBtn = document.getElementById('mediaBulkDelete');
     if (bulkDeleteBtn) {
         bulkDeleteBtn.addEventListener('click', async () => {
-            if (!confirm(`Delete ${mediaSelectedIds.size} image(s)?`)) return;
+            const confirmed = await showConfirmModal({
+                title: 'Delete images',
+                message: `Delete ${mediaSelectedIds.size} image(s)?`,
+                confirmText: 'Delete',
+                danger: true,
+            });
+            if (!confirmed) return;
             try {
-                await apiFetch(`/api/sites/${mediaSiteId}/media/bulk`, {
+                await apiFetch('/api/media/bulk', {
                     method: 'POST',
-                    body: JSON.stringify({ action: 'delete', image_ids: [...mediaSelectedIds] }),
+                    body: JSON.stringify({ action: 'delete', asset_ids: [...mediaSelectedIds] }),
                 });
                 mediaSelectedIds.clear();
                 await fetchMediaImages();
                 renderMediaView();
             } catch (err) {
-                alert('Failed to delete: ' + err.message);
+                await showMessageModal({ title: 'Failed to delete', message: err.message });
             }
         });
     }
@@ -1258,6 +1287,7 @@ async function searchAddImages(append = false) {
             source: photo.source || 'stock',
             width: photo.width,
             height: photo.height,
+            tags: Array.isArray(photo.tags) ? photo.tags : [],
         }));
 
         addImgResults = append ? [...addImgResults, ...newResults] : newResults;
@@ -1339,6 +1369,7 @@ function toggleAddImageSelection(photoId) {
             photographer: photo.photographer,
             altText: photo.altText,
             source: photo.source,
+            tags: photo.tags || [],
             downloaded: false,
         };
         addImgSelected.push(entry);
@@ -1358,7 +1389,7 @@ async function _downloadAddImage(entry) {
                 alt_text: entry.altText || '',
                 photographer: entry.photographer || '',
                 source: entry.source || 'stock',
-                site_id: mediaSiteId,
+                tags: entry.tags || [],
             }),
         });
         const sel = addImgSelected.find(s => s.id === entry.id);
@@ -1375,7 +1406,6 @@ async function _downloadAddImage(entry) {
 async function handleAddImageUpload(file) {
     const formData = new FormData();
     formData.append('file', file);
-    if (mediaSiteId) formData.append('site_id', mediaSiteId);
 
     try {
         const resp = await fetch('/api/images/upload', {
@@ -1395,6 +1425,6 @@ async function handleAddImageUpload(file) {
         updateAddImgFooter();
     } catch (err) {
         console.error('[AddImages] Upload failed:', err);
-        alert('Upload failed: ' + err.message);
+        await showMessageModal({ title: 'Upload failed', message: err.message });
     }
 }

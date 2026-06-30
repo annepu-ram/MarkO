@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Validator</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #111;
+            color: #fff;
+        }
+        #preview-iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+            background: #fff;
+        }
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: #1f1f1f;
+            border-top: 1px solid #333;
+            flex-shrink: 0;
+        }
+        .toolbar button {
+            padding: 6px 16px;
+            border: 1px solid #555;
+            background: #2a2a2a;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .toolbar button:hover { background: #3a3a3a; }
+        .toolbar button:disabled { opacity: 0.3; cursor: not-allowed; }
+        .toolbar button.pass { border-color: #22c55e; color: #22c55e; }
+        .toolbar button.fail { border-color: #ef4444; color: #ef4444; }
+        .info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+        .template-name {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .counter {
+            font-size: 12px;
+            color: #888;
+        }
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #555;
+            flex-shrink: 0;
+        }
+        .status-indicator.ok { background: #22c55e; }
+        .status-indicator.error { background: #ef4444; }
+        .status-indicator.loading { background: #eab308; animation: pulse 1s infinite; }
+        @keyframes pulse { 50% { opacity: 0.4; } }
+        .jump-input {
+            width: 60px;
+            padding: 4px 8px;
+            border: 1px solid #555;
+            background: #2a2a2a;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="preview-iframe" sandbox="allow-scripts allow-same-origin"></iframe>
+    <div class="toolbar">
+        <button id="prevBtn" title="Previous (Left Arrow)">&#9664; Prev</button>
+        <div class="info">
+            <div class="template-name" id="templateName">Loading...</div>
+            <div class="counter" id="counter"></div>
+        </div>
+        <div class="status-indicator" id="status"></div>
+        <input type="number" class="jump-input" id="jumpInput" min="1" title="Jump to template #">
+        <button id="nextBtn" title="Next (Right Arrow)">Next &#9654;</button>
+    </div>
+
+    <script>
+    (function() {
+        let templates = [];
+        let currentIndex = 0;
+        let previewShell = '';
+
+        const iframe = document.getElementById('preview-iframe');
+        const templateName = document.getElementById('templateName');
+        const counter = document.getElementById('counter');
+        const status = document.getElementById('status');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const jumpInput = document.getElementById('jumpInput');
+
+        async function buildPreviewShell() {
+            const [tokensCss, componentsCss] = await Promise.all([
+                fetch('/static/css/tokens.css').then(r => r.text()),
+                fetch('/static/css/components.css').then(r => r.text()),
+            ]);
+            const runtimeJs = await fetch('/static/js/swift-sites-runtime.js').then(r => r.text());
+            const iconSprite = await fetch('/static/icon-sprite.svg').then(r => r.text());
+
+            previewShell = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { box-sizing: border-box; }
+html { font-size: clamp(12px, 1vw + 8px, 18px); }
+body { margin:0; padding:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size:1rem; line-height:1.5; color:#1f2937; background:#fff; }
+.page { min-height:100vh; position:relative; }
+.page > .titlebar { position:sticky; top:0; z-index:100; }
+</style>
+<style>${tokensCss}</style>
+<style>${componentsCss}</style>
+<script src="/static/js/lucide.min.js"><\/script>
+</head>
+<body>
+<div id="svgSpriteRoot" hidden>${iconSprite}</div>
+<div id="preview-content">{{CONTENT}}</div>
+<script>${runtimeJs.replace(/<\/script>/gi, '<\\/script>')}<\/script>
+<script>if(window.SwiftSites)SwiftSites.init();<\/script>
+</body>
+</html>`;
+        }
+
+        async function loadTemplate(index) {
+            if (index < 0 || index >= templates.length) return;
+            currentIndex = index;
+
+            templateName.textContent = templates[index];
+            counter.textContent = `${index + 1} / ${templates.length}`;
+            jumpInput.value = index + 1;
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === templates.length - 1;
+            status.className = 'status-indicator loading';
+
+            try {
+                const yaml = await fetch(`/api/validator/templates/${index}`).then(r => r.text());
+                const resp = await fetch('/render', { method: 'POST', headers: {'Content-Type': 'text/plain'}, body: yaml });
+
+                if (!resp.ok) {
+                    const err = await resp.text();
+                    status.className = 'status-indicator error';
+                    iframe.srcdoc = previewShell.replace('{{CONTENT}}',
+                        `<div style="padding:2rem;color:#991b1b;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;margin:2rem;">
+                            <h3>Render Error (${resp.status})</h3>
+                            <pre style="white-space:pre-wrap;margin-top:1rem;">${err.replace(/</g,'&lt;')}</pre>
+                        </div>`);
+                    return;
+                }
+
+                const html = await resp.text();
+                status.className = 'status-indicator ok';
+                iframe.srcdoc = previewShell.replace('{{CONTENT}}', html);
+            } catch (e) {
+                status.className = 'status-indicator error';
+                iframe.srcdoc = previewShell.replace('{{CONTENT}}',
+                    `<div style="padding:2rem;color:#991b1b;"><h3>Error</h3><p>${e.message}</p></div>`);
+            }
+        }
+
+        prevBtn.addEventListener('click', () => loadTemplate(currentIndex - 1));
+        nextBtn.addEventListener('click', () => loadTemplate(currentIndex + 1));
+
+        jumpInput.addEventListener('change', () => {
+            const n = parseInt(jumpInput.value, 10);
+            if (n >= 1 && n <= templates.length) loadTemplate(n - 1);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target === jumpInput) return;
+            if (e.key === 'ArrowLeft') { e.preventDefault(); loadTemplate(currentIndex - 1); }
+            if (e.key === 'ArrowRight') { e.preventDefault(); loadTemplate(currentIndex + 1); }
+        });
+
+        async function init() {
+            templates = await fetch('/api/validator/templates').then(r => r.json());
+            counter.textContent = `0 / ${templates.length}`;
+            jumpInput.max = templates.length;
+            await buildPreviewShell();
+            loadTemplate(0);
+        }
+
+        init();
+    })();
+    </script>
+</body>
+</html>

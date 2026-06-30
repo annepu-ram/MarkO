@@ -1,0 +1,162 @@
+# Pastel Soft CTA Banner
+# Gentle gradient call-to-action with pill buttons and rounded container
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: pastel_soft
+# Content volume: standard
+# Tone: casual
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: beauty, fitness_recreation, health
+# Perfect for: Wellness, kids apps, beauty, skincare, meditation, yoga studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Quicksand', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#4A4A6A"
+        text: &color-text "#5A5A78"
+        secondary: &color-secondary "#E8E0F0"
+        accent: &color-accent "#B794F4"
+        background: &color-background "#FAF5FF"
+  components:
+    - name: page
+      slug: home
+      title: "Pastel Soft CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — soft gradient background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                type: gradient
+                gradient:
+                  colorStart: *color-secondary
+                  colorEnd: *color-background
+                  direction: to bottom
+                opacity: 100
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Inner rounded container
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "75"
+                  horizontalAlign: center
+                  gap: md
+                appearance:
+                  background:
+                    color: "#ffffff"
+                    opacity: 100
+                  radius: xl
+                  shadow: soft
+                  border:
+                    width: 0
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: xxl
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Start Your Journey"
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "Ready to find your calm?"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: semibold
+                      color: *color-primary
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Join thousands who have transformed their daily routine into moments
+                      of peace and self-care. Your first 14 days are completely free.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "75"
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Get Started Free"
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: pill
+                          shadow: soft
+                        typography:
+                          color: "#ffffff"
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "Learn More"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: *color-accent
+                          radius: pill
+                          shadow: none
+                        typography:
+                          color: *color-accent
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl

@@ -1,0 +1,282 @@
+# Ecommerce with Promo Bar - Two-Part Store Header
+# A two-part header with slim promo announcement bar followed by a titlebar with store branding, navigation, and cart CTA button. Light theme.
+# Base components: titlebar, layout-row, layout-column, heading, paragraph, eyebrow, button, icon
+# Section type: navigation
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: beauty, ecommerce
+# Perfect for: ecommerce, fashion, retail, lifestyle brand, home decor, beauty store, boutique
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1F2937'
+        text: &color-text '#374151'
+        secondary: &color-secondary '#E5E7EB'
+        accent: &color-accent '#059669'
+        background: &color-background '#FFFFFF'
+  components:
+  - name: page
+    slug: home
+    title: "Ecommerce Promo Bar"
+    properties:
+      appearance: {background: {color: *color-background, opacity: 100}}
+    components:
+
+        # ============================================
+        # PROMO ANNOUNCEMENT BAR
+        # ============================================
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-evenly
+          verticalAlign: center
+        appearance:
+          background: {color: *color-accent, opacity: 100}
+        spacing:
+          paddingBlock: xs
+          paddingInline: md
+      components:
+      - name: icon
+        properties:
+          name: truck
+          size: 16
+          color: *color-background
+      - name: paragraph
+        properties:
+          text: "Free shipping on orders over $50 — Shop now and save!"
+          typography:
+            size: xs
+            weight: semibold
+            color: *color-background
+            align: center
+          layout: {widthMode: fit}
+          spacing: {marginBlock: none}
+
+        # ============================================
+        # STORE TITLEBAR
+        # ============================================
+    - name: titlebar
+      properties:
+        branding:
+          showLogo: true
+          logoUrl: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=60&h=60&fit=crop'
+          title: 'Bloom & Co.'
+        navigation:
+          links:
+          - label: Shop
+            href: '#shop'
+          - label: Collections
+            href: '#collections'
+          - label: Sale
+            href: '#sale'
+          - label: About
+            href: '#about'
+        layout: {alignment: left, height: 64}
+        scroll:
+          shrinkPercentage: 80
+        appearance:
+          background: {color: *color-background, opacity: 100}
+          border: {width: 1, style: solid, color: *color-secondary}
+          focus:
+            background: *color-background
+            color: *color-accent
+        typography:
+          title: {size: 22, weight: bold, color: *color-primary}
+          menu: {size: 15, weight: medium, color: *color-text}
+        action:
+          text: 'Cart (0)'
+          href: '#cart'
+          background: *color-primary
+          color: *color-background
+
+        # ============================================
+        # HERO SECTION
+        # ============================================
+    - name: layout-row
+      properties:
+        layout:
+          horizontalAlign: space-between
+          verticalAlign: center
+          wrap: nowrap
+        appearance:
+          background: {color: '#F9FAFB', opacity: 100}
+        spacing:
+          paddingBlock: xxxl
+          paddingInline: xl
+      components:
+
+        # Left — Text Content
+      - name: layout-column
+        properties:
+          layout:
+            widthMode: "50"
+            horizontalAlign: space-evenly
+          spacing:
+            paddingInline: lg
+        components:
+        - name: eyebrow
+          properties:
+            text: "SPRING COLLECTION 2026"
+            typography: {size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider}
+        - name: heading
+          properties:
+            text: "Refresh Your Wardrobe This Season"
+            level: 1
+            typography:
+              size: xxxl
+              weight: bold
+              color: *color-primary
+              letterSpacing: tight
+            spacing: {marginBlock: md}
+        - name: paragraph
+          properties:
+            text: "Discover thoughtfully designed pieces made from sustainable materials. From everyday essentials to statement looks — find your new favorites."
+            typography:
+              size: md
+              color: '#6B7280'
+              lineHeight: '1.7'
+            spacing: {marginBlock: md}
+        - name: layout-row
+          properties:
+            layout: {horizontalAlign: space-evenly, verticalAlign: center}
+            spacing: {marginBlock: md}
+          components:
+          - name: button
+            properties:
+              text: "Shop New Arrivals"
+              appearance:
+                background: {color: *color-accent}
+                radius: sm
+              typography: {color: *color-background, weight: semibold, size: md}
+              spacing:
+                paddingBlock: md
+                paddingInline: xl
+          - name: button
+            properties:
+              text: "View Lookbook"
+              appearance:
+                background: {color: 'transparent'}
+                border: {width: 1, style: solid, color: *color-secondary}
+                radius: sm
+              typography: {color: *color-primary, weight: medium, size: md}
+              spacing:
+                paddingBlock: md
+                paddingInline: xl
+
+        # Right — Hero Image
+      - name: image
+        properties:
+          source: {url: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=500&fit=crop'}
+          layout: {widthMode: "50"}
+          appearance: {radius: sm}
+
+        # ============================================
+        # CATEGORY QUICK LINKS
+        # ============================================
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: center}
+        appearance:
+          background: {color: *color-background, opacity: 100}
+        spacing:
+          paddingBlock: xl
+          paddingInline: xl
+      components:
+      - name: heading
+        properties:
+          text: "Shop by Category"
+          level: 3
+          typography: {size: lg, weight: semibold, color: *color-primary, align: center}
+          spacing: {marginBlock: sm}
+      - name: layout-row
+        properties:
+          layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: wrap}
+          spacing: {marginBlock: md}
+        components:
+        - name: layout-column
+          properties:
+            layout: {widthMode: "25", horizontalAlign: center}
+            appearance:
+              background: {color: '#F9FAFB', opacity: 100}
+              radius: sm
+              border: {width: 1, style: solid, color: *color-secondary}
+            spacing: {paddingBlock: lg, paddingInline: md}
+          components:
+          - name: icon
+            properties:
+              name: shirt
+              size: 28
+              color: *color-accent
+          - name: paragraph
+            properties:
+              text: "Tops"
+              typography: {size: sm, weight: semibold, color: *color-primary, align: center}
+              spacing: {marginBlock: xs}
+        - name: layout-column
+          properties:
+            layout: {widthMode: "25", horizontalAlign: center}
+            appearance:
+              background: {color: '#F9FAFB', opacity: 100}
+              radius: sm
+              border: {width: 1, style: solid, color: *color-secondary}
+            spacing: {paddingBlock: lg, paddingInline: md}
+          components:
+          - name: icon
+            properties:
+              name: scissors
+              size: 28
+              color: *color-accent
+          - name: paragraph
+            properties:
+              text: "Dresses"
+              typography: {size: sm, weight: semibold, color: *color-primary, align: center}
+              spacing: {marginBlock: xs}
+        - name: layout-column
+          properties:
+            layout: {widthMode: "25", horizontalAlign: center}
+            appearance:
+              background: {color: '#F9FAFB', opacity: 100}
+              radius: sm
+              border: {width: 1, style: solid, color: *color-secondary}
+            spacing: {paddingBlock: lg, paddingInline: md}
+          components:
+          - name: icon
+            properties:
+              name: footprints
+              size: 28
+              color: *color-accent
+          - name: paragraph
+            properties:
+              text: "Shoes"
+              typography: {size: sm, weight: semibold, color: *color-primary, align: center}
+              spacing: {marginBlock: xs}
+        - name: layout-column
+          properties:
+            layout: {widthMode: "25", horizontalAlign: center}
+            appearance:
+              background: {color: '#F9FAFB', opacity: 100}
+              radius: sm
+              border: {width: 1, style: solid, color: *color-secondary}
+            spacing: {paddingBlock: lg, paddingInline: md}
+          components:
+          - name: icon
+            properties:
+              name: gem
+              size: 28
+              color: *color-accent
+          - name: paragraph
+            properties:
+              text: "Accessories"
+              typography: {size: sm, weight: semibold, color: *color-primary, align: center}
+              spacing: {marginBlock: xs}

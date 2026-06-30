@@ -1,8 +1,8 @@
 {
-  "source_hash": "6ab0feb04a179ce8c5afadfec908662116de16bd746e484fb9aa3bb77157f066",
-  "chunk_count": 3603,
+  "source_hash": "9eb14539eb2a6ba05816d362b3dea46cba5a0d478b6d744377cf667b88ca793f",
+  "chunk_count": 3283,
   "tier_counts": {
-    "section": 592,
+    "section": 272,
     "component": 518,
     "guide": 519,
     "style": 23,

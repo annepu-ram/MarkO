@@ -4,6 +4,11 @@
 # Section type: countdown
 # Layout: stacked
 # Visual style: default
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
 
 - name: site
   properties:

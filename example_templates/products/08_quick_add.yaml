@@ -1,0 +1,66 @@
+# Product Card Variant: The Quick-Add
+# layout-row (horizontal card) with a small image on the left and heading + button on the right
+# Base components: page, layout-row, image, layout-column, heading, caption, button
+# Section type: product
+# Layout: split_screen
+# Visual style: modern_minimalist
+# Content volume: light
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: saas, ecommerce
+# Perfect for: ecommerce, retail, online store, marketplace, SaaS
+
+- name: page
+  properties:
+    theme:
+      colors:
+        primary: &color-primary '#111827'
+        text: &color-text '#2C3039'
+        secondary: &color-secondary '#6b7280'
+        accent: &color-accent '#2563eb'
+        background: &color-background '#ffffff'
+    appearance:
+      background: {color: *color-background}
+  components:
+  - name: layout-row
+    properties:
+      layout: {horizontalAlign: space-evenly, verticalAlign: center, wrap: nowrap, gap: md}
+      appearance:
+        background: {color: *color-background}
+        radius: md
+        shadow: soft
+        border: {width: 1, style: solid, color: *color-secondary}
+      spacing: {marginBlock: md, marginInline: lg, paddingBlock: sm, paddingInline: sm}
+    components:
+    - name: image
+      properties:
+        source: {url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300', altText: 'Sunglasses'}
+        appearance: {minHeight: 6, fit: cover, cornerStyle: md}
+        layout: {widthMode: "25"}
+        spacing: {marginBlock: none}
+    - name: layout-column
+      properties:
+        layout: {horizontalAlign: left, widthMode: "50", gap: xxs}
+        appearance: {background: {opacity: 0}}
+      components:
+      - name: heading
+        properties:
+          text: Aviator Classics
+          level: 4
+          typography: {size: md, weight: bold, color: *color-primary, align: left}
+          spacing: {marginBlock: none}
+      - name: caption
+        properties:
+          text: "$149.00"
+          typography: {size: sm, weight: semibold, color: *color-secondary, align: left}
+    - name: button
+      properties:
+        text: "+ Add"
+        appearance: {background: {color: *color-accent}, radius: md}
+        typography: {color: *color-background, weight: semibold}
+        layout: {widthMode: "25"}
+        spacing:
+          paddingBlock: xs
+          paddingInline: md

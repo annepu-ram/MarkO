@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: split_screen
 # Visual style: zen_japanese
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: decorative
+# Interactivity: static
+# Industries: fitness_recreation, health
 # Perfect for: Wellness apps, meditation, spas, yoga studios, health
 
 - name: page

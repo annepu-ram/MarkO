@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: carousel_slider
 # Visual style: monochrome_dark
+# Content volume: rich
+# Tone: formal
+# Conversion intent: awareness
+# Image requirement: required
+# Interactivity: carousel
+# Industries: entertainment
 # Perfect for: Entertainment, events, music, nightlife, sports
 
 - name: page

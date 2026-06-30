@@ -1,0 +1,256 @@
+# Industrial Grunge CTA
+# Gritty call-to-action with bold uppercase typography, accent borders, and raw industrial energy
+# Base components: site, page, layout-column, layout-row, heading, paragraph, eyebrow, button, br
+# Section type: cta
+# Layout: stacked
+# Visual style: industrial_grunge
+# Content volume: rich
+# Tone: casual
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: construction, food_services, fitness_recreation, portfolio
+# Perfect for: manufacturing company, construction firm, automotive brand, brewery, fitness gym, metal workshop, urban fashion, industrial design studio
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#E5E5E5"
+        text: &color-text "#B0B0B0"
+        secondary: &color-secondary "#2D2D2D"
+        accent: &color-accent "#D97706"
+        background: &color-background "#1A1A1A"
+  components:
+    - name: page
+      slug: home
+      title: "Industrial Grunge CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — gritty industrial urgency
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            appearance:
+              background:
+                color: *color-secondary
+                opacity: 100
+              border:
+                width: 1
+                style: solid
+                color: "#444444"
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Accent top border stripe
+            - name: br
+              properties:
+                appearance:
+                  divider: true
+                  dividerColor: *color-accent
+
+            # Eyebrow
+            - name: eyebrow
+              properties:
+                text: "LIMITED CAPACITY — ACT NOW"
+                typography:
+                  color: *color-accent
+                  size: sm
+                  weight: bold
+                  align: center
+                  letterSpacing: wide
+                  transform: uppercase
+
+            # Main CTA heading
+            - name: heading
+              properties:
+                text: "STOP SETTLING FOR WEAK INFRASTRUCTURE"
+                level: 2
+                layout:
+                  widthMode: "75"
+                typography:
+                  color: *color-primary
+                  size: xxl
+                  weight: bold
+                  align: center
+                  letterSpacing: wide
+                  transform: uppercase
+                  lineHeight: snug
+
+            # Supporting copy
+            - name: paragraph
+              properties:
+                text: |
+                  Your competitors are already upgrading to industrial-grade systems.
+                  Every day you wait is another day of unnecessary risk, wasted resources,
+                  and missed production targets. The clock is ticking.
+                layout:
+                  widthMode: "66"
+                typography:
+                  color: *color-text
+                  size: md
+                  align: center
+                  lineHeight: relaxed
+
+            # Benefit highlights row
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: xl
+                spacing:
+                  paddingBlock: md
+              components:
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: check-circle
+                        size: md
+                        color: *color-accent
+                    - name: paragraph
+                      properties:
+                        text: "Free site assessment"
+                        typography:
+                          color: *color-primary
+                          size: sm
+                          align: center
+                          transform: uppercase
+                          letterSpacing: wide
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: check-circle
+                        size: md
+                        color: *color-accent
+                    - name: paragraph
+                      properties:
+                        text: "48-hour deployment"
+                        typography:
+                          color: *color-primary
+                          size: sm
+                          align: center
+                          transform: uppercase
+                          letterSpacing: wide
+
+                - name: layout-column
+                  properties:
+                    layout:
+                      widthMode: fit
+                      horizontalAlign: center
+                      gap: xs
+                  components:
+                    - name: icon
+                      properties:
+                        name: check-circle
+                        size: md
+                        color: *color-accent
+                    - name: paragraph
+                      properties:
+                        text: "Lifetime warranty"
+                        typography:
+                          color: *color-primary
+                          size: sm
+                          align: center
+                          transform: uppercase
+                          letterSpacing: wide
+
+            # Divider
+            - name: br
+              properties:
+                appearance:
+                  divider: true
+                  dividerColor: "#444444"
+
+            # CTA buttons
+            - name: layout-row
+              properties:
+                layout:
+                  horizontalAlign: center
+                  verticalAlign: center
+                  wrap: wrap
+                  gap: md
+                spacing:
+                  paddingBlock: md
+              components:
+                - name: button
+                  properties:
+                    text: "REQUEST A CONSULTATION"
+                    appearance:
+                      background:
+                        color: *color-accent
+                        opacity: 100
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-accent
+                      radius: none
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-background
+                      weight: bold
+                      size: md
+                      transform: uppercase
+                      letterSpacing: wide
+
+                - name: button
+                  properties:
+                    text: "DOWNLOAD SPECS"
+                    appearance:
+                      background:
+                        color: transparent
+                        opacity: 0
+                      border:
+                        width: 2
+                        style: solid
+                        color: *color-accent
+                      radius: none
+                      shadow: none
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography:
+                      color: *color-accent
+                      weight: bold
+                      size: md
+                      transform: uppercase
+                      letterSpacing: wide
+
+            # Fine print
+            - name: paragraph
+              properties:
+                text: "No obligations. No sales pitch. Just straight answers from engineers who build things that last."
+                typography:
+                  color: *color-text
+                  size: xs
+                  align: center
+                  lineHeight: relaxed

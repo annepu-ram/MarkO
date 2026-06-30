@@ -1,0 +1,292 @@
+# 02 - The Video Teaser
+# Layout-column where the header is a video (no controls, muted loop) and the footer is a link to the full case study.
+# Base components: page, layout-column, eyebrow, heading, paragraph, columnsgrid, video, layout-row, link, caption
+# Section type: gallery
+# Layout: grid
+# Visual style: monochrome_dark
+# Content volume: rich
+# Tone: formal
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: video
+# Industries: portfolio
+# Perfect for: agencies, freelancers, photographers, creatives, portfolios
+
+- name: page
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1a1a2e'
+        text: &color-text '#31313D'
+        secondary: &color-secondary '#16213e'
+        accent: &color-accent '#e94560'
+        background: &color-background '#f0f0f3'
+    spacing: { paddingBlock: none, paddingInline: none }
+    appearance: { background: { color: *color-background } }
+  components:
+
+    # ============================================
+    # SECTION HEADER
+    # ============================================
+    - name: layout-column
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+        appearance: { background: { color: *color-primary } }
+      components:
+        - name: eyebrow
+          properties:
+            text: VIDEO PORTFOLIO
+            typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+        - name: heading
+          properties:
+            text: Motion & Film Work
+            level: 1
+            typography: { size: xxxl, weight: extrabold, color: *color-background, align: center, letterSpacing: tight }
+            spacing: { marginBlock: sm }
+        - name: paragraph
+          properties:
+            text: Explore our reel of commercial spots, brand films, and documentary projects.
+            typography: { size: lg, color: *color-secondary, align: center }
+            layout: { widthMode: "75" }
+
+    # ============================================
+    # VIDEO TEASER CARDS
+    # ============================================
+    - name: columnsgrid
+      properties:
+        layout: { columns: 2, gap: xl }
+        responsive: { breakpoints: { md: 1, sm: 1 } }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      columns:
+
+        # Card 1 - Commercial Spot
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: stretch }
+                appearance:
+                  background: { color: *color-background, opacity: 100 }
+                  radius: lg
+                  shadow: elevated
+                spacing: { paddingBlock: none }
+              components:
+                - name: video
+                  properties:
+                    source: { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }
+                    appearance:
+                      aspectRatio: '16/9'
+                      height: 320
+                    playback:
+                      controls: false
+                      autoplay: false
+                      muted: true
+                      loop: true
+                    spacing: { marginBlock: none }
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: COMMERCIAL - 60 SEC
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                    - name: heading
+                      properties:
+                        text: "Nike: Forward Motion"
+                        level: 3
+                        typography: { size: xl, weight: bold, color: *color-primary }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: A high-energy commercial spot featuring dynamic athletes and cutting-edge visual effects. Shot on location in Barcelona with a crew of 45.
+                        typography: { size: sm, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                      components:
+                        - name: link
+                          properties:
+                            text: Watch Full Film
+                            href: '#nike-forward'
+                            appearance: { color: *color-accent, underline: false, showArrow: true }
+                        - name: caption
+                          properties:
+                            text: "Director: James Cole"
+                            typography: { size: xs, color: *color-secondary }
+
+        # Card 2 - Brand Film
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: stretch }
+                appearance:
+                  background: { color: *color-background, opacity: 100 }
+                  radius: lg
+                  shadow: elevated
+                spacing: { paddingBlock: none }
+              components:
+                - name: video
+                  properties:
+                    source: { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }
+                    appearance:
+                      aspectRatio: '16/9'
+                      height: 320
+                    playback:
+                      controls: false
+                      autoplay: false
+                      muted: true
+                      loop: true
+                    spacing: { marginBlock: none }
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: BRAND FILM - 3 MIN
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                    - name: heading
+                      properties:
+                        text: "Patagonia: Silent Peaks"
+                        level: 3
+                        typography: { size: xl, weight: bold, color: *color-primary }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: An intimate documentary-style brand film capturing the raw beauty of Patagonian wilderness and the climbers who call it home.
+                        typography: { size: sm, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                      components:
+                        - name: link
+                          properties:
+                            text: Watch Full Film
+                            href: '#patagonia-peaks'
+                            appearance: { color: *color-accent, underline: false, showArrow: true }
+                        - name: caption
+                          properties:
+                            text: "Director: Mara Voss"
+                            typography: { size: xs, color: *color-secondary }
+
+        # Card 3 - Documentary
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: stretch }
+                appearance:
+                  background: { color: *color-background, opacity: 100 }
+                  radius: lg
+                  shadow: elevated
+                spacing: { paddingBlock: none }
+              components:
+                - name: video
+                  properties:
+                    source: { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }
+                    appearance:
+                      aspectRatio: '16/9'
+                      height: 320
+                    playback:
+                      controls: false
+                      autoplay: false
+                      muted: true
+                      loop: true
+                    spacing: { marginBlock: none }
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: DOCUMENTARY - 12 MIN
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                    - name: heading
+                      properties:
+                        text: "The Makers: Tokyo Craftsmen"
+                        level: 3
+                        typography: { size: xl, weight: bold, color: *color-primary }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: A short documentary exploring the disappearing art of traditional Japanese craftsmanship through the lens of three master artisans.
+                        typography: { size: sm, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                      components:
+                        - name: link
+                          properties:
+                            text: Watch Full Film
+                            href: '#tokyo-makers'
+                            appearance: { color: *color-accent, underline: false, showArrow: true }
+                        - name: caption
+                          properties:
+                            text: "Director: Kenji Tanaka"
+                            typography: { size: xs, color: *color-secondary }
+
+        # Card 4 - Music Video
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: stretch }
+                appearance:
+                  background: { color: *color-background, opacity: 100 }
+                  radius: lg
+                  shadow: elevated
+                spacing: { paddingBlock: none }
+              components:
+                - name: video
+                  properties:
+                    source: { url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' }
+                    appearance:
+                      aspectRatio: '16/9'
+                      height: 320
+                    playback:
+                      controls: false
+                      autoplay: false
+                      muted: true
+                      loop: true
+                    spacing: { marginBlock: none }
+                - name: layout-column
+                  properties:
+                    layout: { horizontalAlign: left }
+                    spacing: { paddingBlock: lg, paddingInline: lg }
+                  components:
+                    - name: eyebrow
+                      properties:
+                        text: MUSIC VIDEO - 4 MIN
+                        typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                    - name: heading
+                      properties:
+                        text: "Aurora: Neon Drift"
+                        level: 3
+                        typography: { size: xl, weight: bold, color: *color-primary }
+                        spacing: { marginBlock: xs }
+                    - name: paragraph
+                      properties:
+                        text: A visually stunning music video blending practical effects with CG environments, set in a neon-lit cyberpunk cityscape.
+                        typography: { size: sm, color: *color-secondary }
+                        spacing: { marginBlock: sm }
+                    - name: layout-row
+                      properties:
+                        layout: { horizontalAlign: left, verticalAlign: center, gap: md }
+                      components:
+                        - name: link
+                          properties:
+                            text: Watch Full Film
+                            href: '#aurora-neon'
+                            appearance: { color: *color-accent, underline: false, showArrow: true }
+                        - name: caption
+                          properties:
+                            text: "Director: Sasha Rivera"
+                            typography: { size: xs, color: *color-secondary }

@@ -4,6 +4,12 @@
 # Section type: schedule, timetable, classes
 # Layout: stacked, grid
 # Visual style: claymorphism
+# Content volume: rich
+# Tone: playful
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: tabs
+# Industries: beauty, professional_services, fitness_recreation, health, education
 # Perfect for: dental clinic, salon, barbershop, yoga studio, fitness studio, conference, workshop, tutoring center, cooking class, music school
 
 
@@ -70,11 +76,20 @@
           components:
             - name: tabs
               properties:
-                appearance:
-                  background: { color: '#ffffff', opacity: 100 }
-                  radius: xxl
+                layout: { orientation: horizontal, widthMode: stretch }
                 typography:
-                  label: { size: sm, weight: semibold, color: *color-primary }
+                  label:
+                    size: sm
+                    weight: semibold
+                    active: { color: *color-accent }
+                    inactive: { color: *color-secondary }
+                appearance:
+                  tab:
+                    background: { active: *color-background, inactive: *color-background }
+                    border: { width: 2, style: solid, position: lower }
+                  content:
+                    background: { color: *color-background, opacity: 100 }
+                  radius: xxl
                 spacing: { paddingBlock: sm, paddingInline: sm }
               tabs:
                 # ── Monday ──

@@ -1,0 +1,177 @@
+# Counter-Up: Environmental Impact Stats
+# Sustainability and impact metrics with animated counters and nature-inspired design
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, columnsgrid, icon, counter-up, caption
+# Section type: stats
+# Layout: grid
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: trust
+# Image requirement: none
+# Interactivity: static
+# Industries: community
+# Perfect for: sustainability, nonprofit, corporate social responsibility, green energy
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#f0fdf4'
+        primary: &color-primary '#14532d'
+        text: &color-text '#365314'
+        secondary: &color-secondary '#4d7c0f'
+        accent: &color-accent '#16a34a'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: OUR ENVIRONMENTAL COMMITMENT
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Making a Measurable Difference
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: paragraph
+              properties:
+                text: Every action counts. Here is the cumulative impact our community has achieved together since 2020.
+                typography: { size: md, color: *color-secondary, align: center }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 4, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: cloud-off, size: "40", color: *color-accent }
+                - name: counter-up
+                  properties:
+                    endValue: 12500
+                    duration: 2500
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Tons of CO2 Reduced
+                    typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                - name: caption
+                  properties:
+                    text: Equivalent to 28,000 flights offset
+                    typography: { size: xs, color: *color-secondary, align: center }
+                    spacing: { marginBlock: xs }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: tree-pine, size: "40", color: '#15803d' }
+                - name: counter-up
+                  properties:
+                    endValue: 250000
+                    duration: 3000
+                    suffix: "+"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Trees Planted
+                    typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                - name: caption
+                  properties:
+                    text: Across 45 reforestation sites
+                    typography: { size: xs, color: *color-secondary, align: center }
+                    spacing: { marginBlock: xs }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: zap, size: "40", color: '#eab308' }
+                - name: counter-up
+                  properties:
+                    endValue: 8
+                    duration: 2000
+                    suffix: "M kWh"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Clean Energy Generated
+                    typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                - name: caption
+                  properties:
+                    text: From solar and wind installations
+                    typography: { size: xs, color: *color-secondary, align: center }
+                    spacing: { marginBlock: xs }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#ffffff' }, radius: lg, shadow: soft }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: recycle, size: "40", color: '#0891b2' }
+                - name: counter-up
+                  properties:
+                    endValue: 3200
+                    duration: 2500
+                    suffix: " tons"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Waste Diverted from Landfill
+                    typography: { size: sm, weight: semibold, color: *color-text, align: center }
+                - name: caption
+                  properties:
+                    text: Through recycling and composting programs
+                    typography: { size: xs, color: *color-secondary, align: center }
+                    spacing: { marginBlock: xs }
+
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: lg, paddingInline: lg }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '66', horizontalAlign: center }
+            appearance: { background: { color: '#dcfce7' }, radius: xl }
+            spacing: { paddingBlock: lg, paddingInline: xl }
+          components:
+            - name: paragraph
+              properties:
+                text: "\"We believe business success and environmental stewardship go hand in hand. Our 2030 goal is net-zero operations across all facilities.\""
+                typography: { size: md, weight: medium, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+            - name: caption
+              properties:
+                text: "— Annual Sustainability Report, 2025"
+                typography: { size: sm, color: *color-secondary, align: center }

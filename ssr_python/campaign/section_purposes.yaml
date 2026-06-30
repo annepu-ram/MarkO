@@ -1,0 +1,113 @@
+# Section-purpose library (brief §6.1)
+# Maps a semantic section purpose to required content types, preferred
+# persuasion roles, and the renderer components a builder may emit.
+
+- purpose: problem_aware_hero
+  required_content_types:
+    - promise
+    - pain_point
+    - cta
+  preferred_persuasion_roles:
+    - pain_agitation
+    - mechanism_explanation
+  allowed_components:
+    - layout-row
+    - layout-column
+    - eyebrow
+    - heading
+    - paragraph
+    - button
+  analytics_role: hero
+
+- purpose: aspirational_hero
+  required_content_types:
+    - promise
+    - cta
+  preferred_persuasion_roles:
+    - aspiration
+    - identity_alignment
+  allowed_components:
+    - layout-row
+    - layout-column
+    - eyebrow
+    - heading
+    - paragraph
+    - button
+    - image
+  analytics_role: hero
+
+- purpose: problem_cost
+  required_content_types:
+    - pain_point
+  preferred_persuasion_roles:
+    - pain_agitation
+    - emotional_connection
+  allowed_components:
+    - layout-row
+    - layout-column
+    - heading
+    - paragraph
+    - icon
+  analytics_role: problem_section
+
+- purpose: proof_points
+  required_content_types:
+    - proof
+  preferred_persuasion_roles:
+    - authority
+    - trust_building
+    - social_validation
+  allowed_components:
+    - layout-row
+    - layout-column
+    - columnsgrid
+    - badge
+    - heading
+    - paragraph
+    - icon
+  analytics_role: trust_section
+
+- purpose: objection_handling
+  required_content_types:
+    - objection
+  preferred_persuasion_roles:
+    - objection_resolution
+    - reassurance
+  allowed_components:
+    - layout-row
+    - layout-column
+    - accordion
+    - heading
+    - paragraph
+  analytics_role: objection_section
+
+- purpose: offer_highlight
+  required_content_types:
+    - offer
+  preferred_persuasion_roles:
+    - urgency
+    - exclusivity
+  allowed_components:
+    - layout-row
+    - layout-column
+    - heading
+    - paragraph
+    - badge
+    - button
+    - countdown
+  analytics_role: offer_section
+
+- purpose: final_cta
+  required_content_types:
+    - promise
+    - cta
+  preferred_persuasion_roles:
+    - urgency
+    - reassurance
+  allowed_components:
+    - layout-row
+    - layout-column
+    - heading
+    - paragraph
+    - button
+  analytics_role: cta_section

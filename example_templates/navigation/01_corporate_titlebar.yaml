@@ -1,0 +1,117 @@
+# Corporate Titlebar - Professional Business Header
+# A clean corporate titlebar with logo, company name, navigation links, and CTA button, followed by a hero section
+# Base components: titlebar, layout-column, heading, paragraph, button, layout-row
+# Section type: navigation
+# Layout: stacked
+# Visual style: modern_minimalist
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: none
+# Interactivity: static
+# Industries: beauty, ecommerce, portfolio, health, legal
+# Perfect for: consulting firm, law firm, online store, fashion brand, photography studio, design portfolio, creative studio, wellness spa
+
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary '#1E3A5F'
+        text: &color-text '#34445B'
+        secondary: &color-secondary '#C5D4E3'
+        accent: &color-accent '#0052CC'
+        background: &color-background '#E8EDF2'
+  components:
+    - name: page
+      slug: home
+      title: "Corporate Titlebar"
+      properties:
+        appearance: { background: { color: *color-background, opacity: 100 } }
+      components:
+
+        # ============================================
+        # CORPORATE TITLEBAR
+        # ============================================
+        - name: titlebar
+          properties:
+            branding:
+              showLogo: true
+              logoUrl: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=60&h=60&fit=crop'
+              title: 'Meridian Corp'
+            navigation:
+              links:
+                - label: Home
+                  href: '#home'
+                - label: Services
+                  href: '#services'
+                - label: About
+                  href: '#about'
+                - label: Contact
+                  href: '#contact'
+            layout: { alignment: left, height: 64 }
+            scroll:
+              shrinkPercentage: 80
+            appearance:
+              background: { color: '#ffffff', opacity: 100 }
+              border: { width: 1, style: solid, color: *color-secondary }
+              focus:
+                background: '#ffffff'
+                color: *color-accent
+            typography:
+              title: { size: 22, weight: bold, color: *color-primary }
+              menu: { size: 15, weight: medium, color: *color-primary }
+
+        # ============================================
+        # HERO SECTION
+        # ============================================
+        - name: layout-column
+          properties:
+            layout: { align: center, horizontalAlign: space-evenly }
+            appearance:
+              background: { color: '#ffffff', opacity: 100 }
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: xl
+          components:
+            - name: eyebrow
+              properties:
+                text: TRUSTED BY INDUSTRY LEADERS
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+            - name: heading
+              properties:
+                text: Strategic Solutions for Growing Businesses
+                level: 1
+                typography: { size: xxxl, weight: semibold, color: *color-primary, align: center, letterSpacing: tight }
+                spacing: { marginBlock: md }
+            - name: paragraph
+              properties:
+                text: We help organizations streamline operations, reduce costs, and achieve measurable results with proven consulting methodologies.
+                typography: { size: lg, color: '#64748b', align: center, lineHeight: '1.7' }
+                layout: { widthMode: 75 }
+                spacing: { marginBlock: md }
+            - name: layout-row
+              properties:
+                layout: { horizontalAlign: space-evenly, align: center }
+              components:
+                - name: button
+                  properties:
+                    text: Get Started
+                    appearance:
+                      background: { color: *color-accent }
+                      radius: sm
+                    spacing:
+                      paddingBlock: md
+                      paddingInline: xl
+                    typography: { color: '#ffffff', weight: semibold, size: md }
+                - name: button
+                  properties:
+                    text: Learn More
+                    appearance:
+                      background: { color: '#ffffff', opacity: 100 }
+                      border: { width: 1, style: solid, color: *color-secondary }
+                      radius: sm
+                    typography: { color: *color-primary, weight: medium, size: md }

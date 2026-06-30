@@ -1,0 +1,183 @@
+# Monochrome Dark CTA Banner
+# Stark dark call-to-action with crimson accent button and minimal layout
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: monochrome_dark
+# Content volume: standard
+# Tone: formal
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: saas
+# Perfect for: SaaS platform, developer tools, fintech, cybersecurity, data analytics, tech startup
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#F5F5F5"
+        text: &color-text "#C8C8C8"
+        secondary: &color-secondary "#1F1F1F"
+        accent: &color-accent "#DC143C"
+        background: &color-background "#0F0F0F"
+  components:
+    - name: page
+      slug: home
+      title: "Monochrome Dark CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — dark with accent divider
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: none
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Top accent line
+            - name: br
+              properties:
+                type: solid
+                thickness: 2
+                color: *color-accent
+                size: sm
+
+            # Inner container
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "75"
+                  horizontalAlign: center
+                  gap: md
+                appearance:
+                  background:
+                    color: *color-secondary
+                    opacity: 100
+                  radius: xs
+                  shadow: soft
+                  border:
+                    width: 1
+                    style: solid
+                    color: "#333333"
+                spacing:
+                  paddingBlock: xxxl
+                  paddingInline: xxl
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Limited Early Access"
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: *color-accent
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "Ship faster. Scale further."
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: semibold
+                      color: *color-primary
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Join the next generation of engineering teams already running production
+                      workloads on our platform. No credit card required to start.
+                    typography:
+                      size: md
+                      color: *color-text
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "75"
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Request Early Access"
+                        appearance:
+                          background:
+                            color: *color-accent
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: xs
+                          shadow: none
+                        typography:
+                          color: *color-primary
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "Read the Docs"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#444444"
+                          radius: xs
+                          shadow: none
+                        typography:
+                          color: *color-text
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+
+                # Trust line
+                - name: paragraph
+                  properties:
+                    text: "Trusted by 2,000+ engineering teams worldwide"
+                    typography:
+                      size: xs
+                      color: "#666666"
+                      align: center
+                      weight: regular
+
+            # Bottom accent line
+            - name: br
+              properties:
+                type: solid
+                thickness: 2
+                color: *color-accent
+                size: sm

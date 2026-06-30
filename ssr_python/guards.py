@@ -9,7 +9,7 @@ import yaml
 from functools import wraps
 from flask import g, abort
 from extensions import db
-from models import Site, SitePage, FormSubmission, SiteVersion
+from models import Site, SitePage, SiteSharedBlock, FormSubmission, SiteVersion, Campaign
 
 
 # =============================================================================
@@ -52,6 +52,14 @@ def get_version_or_404(site_id, version_id):
     return site, version
 
 
+def get_campaign_or_404(campaign_id):
+    """Fetch a campaign and verify org ownership."""
+    campaign = Campaign.query.filter_by(id=campaign_id, org_id=g.current_org_id).first()
+    if not campaign:
+        abort(404)
+    return campaign
+
+
 def site_has_unpublished_changes(site):
     """Check if any SitePage was edited after the last publish.
 
@@ -61,7 +69,13 @@ def site_has_unpublished_changes(site):
         return False
     latest_page_edit = db.session.query(db.func.max(SitePage.updated_at)) \
         .filter_by(site_id=site.id).scalar()
-    return latest_page_edit is not None and latest_page_edit > site.published_at
+    latest_shared_edit = db.session.query(db.func.max(SiteSharedBlock.updated_at)) \
+        .filter_by(site_id=site.id).scalar()
+    latest_edit = max(
+        [dt for dt in (latest_page_edit, latest_shared_edit) if dt is not None],
+        default=None,
+    )
+    return latest_edit is not None and latest_edit > site.published_at
 
 
 # =============================================================================

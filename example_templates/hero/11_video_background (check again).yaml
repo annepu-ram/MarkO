@@ -4,6 +4,12 @@
 # Section type: hero
 # Layout: carousel_slider
 # Visual style: bold_editorial, monochrome_dark
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: required
+# Interactivity: carousel
+# Industries: professional_services, fitness_recreation, saas, restaurant, ecommerce
 # Perfect for: SaaS platform, online store, digital agency, law firm, consulting firm, dental clinic, real estate agency, restaurant, gym, photography studio
 
 
@@ -170,16 +176,13 @@
                       shadow: medium
                       shadowColor: *color-accent
                     spacing:
+                      marginBlock: none
                       paddingBlock: md
                       paddingInline: xl
                     typography:
                       color: *color-background
                       weight: bold
                       size: md
-                    spacing:
-                      marginBlock: none
-                      paddingBlock: md
-                      paddingInline: xl
                 - name: button
                   properties:
                     text: "View Lineup"

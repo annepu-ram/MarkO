@@ -82,11 +82,11 @@ for comp_name, comp_schema in SCHEMAS.items():
 KNOWN_COMPONENTS = set(DEFAULTS.keys())
 
 # Component-level array keys (not inside properties)
-COMPONENT_LEVEL_ARRAYS = {'components', 'columns', 'tabs', 'slides', 'items'}
+COMPONENT_LEVEL_ARRAYS = {'components', 'columns', 'tabs', 'slides', 'items', 'header', 'footer'}
 
 # Top-level keys allowed on a component node
 COMPONENT_NODE_KEYS = {'name', 'properties', 'components', 'columns', 'tabs',
-                       'slides', 'items', 'links'}
+                       'slides', 'items', 'links', 'header', 'footer'}
 
 # Special property paths that are always valid (not in defaults but valid by design)
 # site.theme is handled specially by the renderer, not via component defaults
@@ -348,7 +348,7 @@ def validate_component(node, errors, yaml_path, depth=0):
         validate_property_values(comp_name, props, errors, yaml_path)
 
     # Recurse into children
-    for key in ('components', 'columns', 'tabs', 'slides', 'items'):
+    for key in ('components', 'columns', 'tabs', 'slides', 'items', 'header', 'footer'):
         children = node.get(key)
         if not children or not isinstance(children, list):
             continue
@@ -370,7 +370,7 @@ def validate_component(node, errors, yaml_path, depth=0):
                     if isinstance(child_comps, list):
                         for c in child_comps:
                             validate_component(c, errors, yaml_path, depth + 1)
-                elif key == 'components':
+                elif key in ('components', 'header', 'footer'):
                     validate_component(child, errors, yaml_path, depth + 1)
 
 

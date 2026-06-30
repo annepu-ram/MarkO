@@ -1,0 +1,377 @@
+# Monochrome Dark Features
+# Sleek dark feature cards with subtle borders and crisp typography on black background
+# Base components: site, page, layout-column, columnsgrid, icon, heading, paragraph, eyebrow
+# Section type: features
+# Layout: grid
+# Visual style: monochrome_dark
+# Content volume: rich
+# Tone: formal
+# Conversion intent: engagement
+# Image requirement: none
+# Interactivity: static
+# Industries: saas
+# Perfect for: SaaS platform, developer tools, fintech, cybersecurity, data analytics, tech startup
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Space Grotesk', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#F5F5F5"
+        text: &color-text "#C8C8C8"
+        secondary: &color-secondary "#1F1F1F"
+        accent: &color-accent "#DC143C"
+        background: &color-background "#0F0F0F"
+  components:
+    - name: page
+      slug: home
+      title: "Monochrome Dark Features"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # Features section — dark cards with subtle borders
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+              gap: lg
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Section header
+            - name: eyebrow
+              properties:
+                text: "Platform Capabilities"
+                typography:
+                  size: xs
+                  weight: semibold
+                  color: *color-accent
+                  transform: uppercase
+                  letterSpacing: wider
+                  align: center
+
+            - name: heading
+              properties:
+                text: "Built for speed, designed for scale"
+                level: 2
+                typography:
+                  size: xxl
+                  weight: semibold
+                  color: *color-primary
+                  align: center
+                  lineHeight: snug
+
+            - name: paragraph
+              properties:
+                text: "Every feature engineered to handle millions of operations without breaking a sweat."
+                typography:
+                  size: lg
+                  color: *color-text
+                  align: center
+                  lineHeight: relaxed
+                layout:
+                  widthMode: "66"
+
+            # Feature grid — 3 dark cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: md
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+                spacing:
+                  paddingBlock: lg
+              columns:
+
+                # Card 1 — Real-time Processing
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#333333"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: zap
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "Real-time Processing"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Sub-millisecond event processing with automatic scaling. Handle peak loads without provisioning headaches."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 2 — Edge Network
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#333333"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: globe
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "Global Edge Network"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Deploy to 200+ edge locations worldwide. Your data stays close to your users for blazing fast responses."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 3 — End-to-End Encryption
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#333333"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: shield
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "Zero-trust Security"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "End-to-end encryption with SOC 2 compliance built in. Rotate keys automatically without any downtime."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+            # Secondary row — 3 more feature cards
+            - name: columnsgrid
+              properties:
+                layout:
+                  columns: 3
+                  gap: md
+                responsive:
+                  breakpoints:
+                    md: 2
+                    sm: 1
+              columns:
+
+                # Card 4 — Observability
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#333333"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: activity
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "Deep Observability"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Distributed tracing, structured logs, and real-time metrics in a single unified dashboard."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 5 — API First
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#333333"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: code
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "API-first Design"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Every feature accessible through a clean REST and GraphQL API. SDKs for every major language."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed
+
+                # Card 6 — Team Workflows
+                - components:
+                    - name: layout-column
+                      properties:
+                        layout:
+                          horizontalAlign: center
+                          gap: sm
+                        appearance:
+                          background:
+                            color: *color-secondary
+                            opacity: 100
+                          radius: xs
+                          shadow: soft
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#333333"
+                        spacing:
+                          paddingBlock: xl
+                          paddingInline: lg
+                      components:
+                        - name: icon
+                          properties:
+                            name: users
+                            appearance:
+                              color: *color-accent
+                              size: xl
+                        - name: heading
+                          properties:
+                            text: "Team Workflows"
+                            level: 3
+                            typography:
+                              size: lg
+                              weight: semibold
+                              color: *color-primary
+                              align: center
+                        - name: paragraph
+                          properties:
+                            text: "Role-based access, audit trails, and approval gates that keep your team moving without bottlenecks."
+                            typography:
+                              size: sm
+                              color: *color-text
+                              align: center
+                              lineHeight: relaxed

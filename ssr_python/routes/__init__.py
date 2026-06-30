@@ -9,6 +9,10 @@ from routes.uploads import uploads_bp
 from routes.submissions import submissions_bp
 from routes.rag import rag_bp
 from routes.media import media_bp
+from routes.validator import validator_bp
+from routes.campaign import campaign_bp
+from routes.brand import brand_bp
+from routes.product import product_bp
 
 
 def register_blueprints(app):
@@ -23,3 +27,7 @@ def register_blueprints(app):
     app.register_blueprint(submissions_bp)
     app.register_blueprint(rag_bp)
     app.register_blueprint(media_bp)
+    app.register_blueprint(validator_bp)
+    app.register_blueprint(campaign_bp)
+    app.register_blueprint(brand_bp)
+    app.register_blueprint(product_bp)

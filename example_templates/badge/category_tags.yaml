@@ -4,6 +4,11 @@
 # Section type: blog
 # Layout: grid
 # Visual style: default
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: engagement
+# Image requirement: required
+# Interactivity: static
 
 - name: site
   properties:

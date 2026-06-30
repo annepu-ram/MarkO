@@ -2,6 +2,7 @@ import os
 
 
 class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key-change-before-production')
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     PROJECT_ROOT = os.path.dirname(BASE_DIR)
     CONFIG_DIR = os.path.join(BASE_DIR, 'config')

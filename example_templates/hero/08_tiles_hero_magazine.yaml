@@ -4,13 +4,18 @@
 # Section type: hero
 # Layout: grid
 # Visual style: modern_minimalist
+# Content volume: rich
+# Tone: neutral
+# Conversion intent: awareness
+# Image requirement: required
+# Interactivity: static
 # Perfect for: Fashion brands, lifestyle blogs, editorial content, luxury
 
 - name: page
   properties:
     theme:
       colors:
-        primary: &color-primary "#1a1a1a"
+        primary: &color-primary *color-accent
         text: &color-text "#313131"
         secondary: &color-secondary "#666666"
         accent: &color-accent "#1a1a1a"
@@ -27,7 +32,7 @@
         horizontalAlign: center
         tag: section
         verticalAlign: center
-        wrap: nowrap
+        wrap: wrap
       spacing:
         paddingBlock: xs
         paddingInline: lg
@@ -121,7 +126,7 @@
     properties:
       layout:
         horizontalAlign: space-between
-        wrap: nowrap
+        wrap: wrap
         tag: section
         verticalAlign: stretch
       spacing:
@@ -234,7 +239,7 @@
           horizontalAlign: center
           tag: section
           verticalAlign: center
-          wrap: nowrap
+          wrap: wrap
           gap: none
         spacing:
           paddingBlock: none
@@ -453,3 +458,4 @@
           weight: medium
         spacing:
           marginBlock: none
+

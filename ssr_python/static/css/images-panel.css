@@ -5,13 +5,16 @@
 
 /* Search Bar */
 .images-search {
-    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
     margin-bottom: 3.5%;
 }
 
 .images-search-input {
-    width: 100%;
-    padding: 2.5% 10% 2.5% 3.5%;
+    flex: 1;
+    min-width: 0;
+    padding: 2.5% 3.5%;
     background: var(--bg-dark);
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -31,18 +34,35 @@
     color: var(--text-dim);
 }
 
-.images-search-icon {
-    position: absolute;
-    right: 3%;
-    top: 50%;
-    transform: translateY(-50%);
+.images-search-button {
+    width: 34px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-dark);
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.images-search-button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.images-search-button:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+.images-search-button svg {
     width: 16px;
     height: 16px;
-    color: var(--text-dim);
     stroke: currentColor;
     stroke-width: 2;
     fill: none;
-    pointer-events: none;
 }
 
 /* Color Filter Pills */

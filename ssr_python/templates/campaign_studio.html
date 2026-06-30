@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ai-request-token" content="{{ ai_request_token }}">
+    <title>Campaign Studio — Swift Sites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/campaign-studio.css') }}">
+</head>
+<body class="cs-body">
+    <div class="cs-layout">
+
+        <!-- Header -->
+        <header class="cs-header">
+            <div class="cs-header-left">
+                <button class="cs-back-btn" id="csBackBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    Dashboard
+                </button>
+                <span class="cs-campaign-name" id="csCampaignName">Loading...</span>
+                <button type="button" class="cs-header-suggest" id="csSuggestNameHeader" title="Build a structured name from this campaign's attributes">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l1.9 5.1L20 10l-5.1 1.9L13 17l-1.9-5.1L6 10l5.1-1.9z"/></svg>
+                    <span class="cs-header-suggest-label">Suggest name</span>
+                </button>
+            </div>
+            <div class="cs-header-right">
+                <span class="cs-status-pill cs-status-pill--draft" id="csStatusPill">
+                    <span class="cs-status-dot"></span>
+                    <span id="csStatusText">Draft</span>
+                </span>
+            </div>
+        </header>
+
+        <!-- Step Navigation -->
+        <nav class="cs-steps-nav" id="csStepsNav">
+            <div class="cs-step-item">
+                <button class="cs-step-btn active" data-step="0">
+                    <span class="cs-step-num">1</span>
+                    Promotion
+                </button>
+            </div>
+            <div class="cs-step-connector"></div>
+            <div class="cs-step-item">
+                <button class="cs-step-btn" data-step="1">
+                    <span class="cs-step-num">2</span>
+                    Audience
+                </button>
+            </div>
+            <div class="cs-step-connector"></div>
+            <div class="cs-step-item">
+                <button class="cs-step-btn" data-step="2">
+                    <span class="cs-step-num">3</span>
+                    Goal
+                </button>
+            </div>
+            <div class="cs-step-connector"></div>
+            <div class="cs-step-item">
+                <button class="cs-step-btn" data-step="3">
+                    <span class="cs-step-num">4</span>
+                    Offer
+                </button>
+            </div>
+            <div class="cs-step-connector"></div>
+            <div class="cs-step-item">
+                <button class="cs-step-btn" data-step="4">
+                    <span class="cs-step-num">5</span>
+                    Messages
+                </button>
+            </div>
+            <div class="cs-step-connector"></div>
+            <div class="cs-step-item">
+                <button class="cs-step-btn" data-step="5">
+                    <span class="cs-step-num">6</span>
+                    Landing Page
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="cs-main">
+            <div class="cs-content">
+
+                <!-- Step 1: What Are You Promoting? -->
+                <section class="cs-step-panel active" data-panel="0">
+                    <div class="cs-step-header">
+                        <h1 class="cs-step-title">What are you promoting?</h1>
+                        <p class="cs-step-subtitle">Tell us about the product, service, or offer you want to promote. We'll use this to shape your campaign.</p>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csName">Campaign name</label>
+                        <input class="cs-input" type="text" id="csName" placeholder="e.g., Jun-2026 Acme Leads" data-field="name">
+                        <span class="cs-hint">Use "Suggest name" in the header to build a structured name (Date · Brand · Goal · Audience · Product · Region) once you've filled in the details.</span>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csProduct">Product or service</label>
+                        <input class="cs-input" type="text" id="csProduct" placeholder="e.g., Online yoga classes, Web design packages" data-field="brief.product_or_service">
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csBrand">Brand</label>
+                        <select class="cs-select" id="csBrand" data-field="brand_id">
+                            <option value="">No brand selected</option>
+                        </select>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label">Products or services this campaign targets</label>
+                        <div class="cs-checkbox-list" id="csProductChoices">
+                            <p class="cs-empty-inline">No products yet.</p>
+                        </div>
+                        <span class="cs-hint">Leave empty for a generic campaign (not tied to a specific product or service).</span>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csDescription">Short description</label>
+                        <textarea class="cs-textarea" id="csDescription" placeholder="Describe what you're offering in a sentence or two. What makes it valuable?" data-field="brief.description" rows="3"></textarea>
+                        <span class="cs-hint">The more specific you are, the better the AI can help you write compelling copy.</span>
+                    </div>
+                </section>
+
+                <!-- Step 2: Who Is It For? -->
+                <section class="cs-step-panel" data-panel="1">
+                    <div class="cs-step-header">
+                        <h1 class="cs-step-title">Who is it for?</h1>
+                        <p class="cs-step-subtitle">Knowing your audience helps us craft the right message, tone, and structure for your landing page.</p>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csAudience">Target audience</label>
+                        <textarea class="cs-textarea" id="csAudience" placeholder="e.g., Small business owners who need a professional website but don't have time to learn design tools" data-field="brief.target_audience" rows="2"></textarea>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csProblem">Problem or desire</label>
+                        <textarea class="cs-textarea" id="csProblem" placeholder="What problem does your audience face, or what do they want to achieve?" data-field="brief.problem_or_desire" rows="2"></textarea>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csAwareness">Awareness level</label>
+                        <select class="cs-select" id="csAwareness" data-field="brief.awareness_level">
+                            <option value="">Select awareness level</option>
+                            <option value="unaware">Unaware — Don't know they have a problem</option>
+                            <option value="problem_aware">Problem aware — Know the problem, not the solution</option>
+                            <option value="solution_aware">Solution aware — Know solutions exist, not yours specifically</option>
+                            <option value="product_aware">Product aware — Know your product, haven't decided yet</option>
+                            <option value="most_aware">Most aware — Ready to buy, need a push</option>
+                        </select>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csBuyingStage">Buying stage</label>
+                        <select class="cs-select" id="csBuyingStage" data-field="brief.buying_stage">
+                            <option value="">Select buying stage</option>
+                            <option value="research">Research — Exploring options</option>
+                            <option value="consideration">Consideration — Comparing alternatives</option>
+                            <option value="decision">Decision — Ready to choose</option>
+                            <option value="retention">Retention — Already a customer</option>
+                        </select>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csLocation">Location or segment <span style="color: var(--cs-text-tertiary); font-weight: 400;">(optional)</span></label>
+                        <input class="cs-input" type="text" id="csLocation" placeholder="e.g., US-based, enterprise, freelancers" data-field="brief.location_or_segment">
+                    </div>
+                </section>
+
+                <!-- Step 3: What Should They Do? -->
+                <section class="cs-step-panel" data-panel="2">
+                    <div class="cs-step-header">
+                        <h1 class="cs-step-title">What should they do?</h1>
+                        <p class="cs-step-subtitle">Choose the primary action you want visitors to take. This shapes your page structure and calls-to-action.</p>
+                    </div>
+
+                    <div class="cs-cards-grid" id="csGoalGrid">
+                        <div class="cs-card" data-goal="leads">
+                            <p class="cs-card-title">Get leads</p>
+                            <p class="cs-card-desc">Collect contact info via a form</p>
+                        </div>
+                        <div class="cs-card" data-goal="calls">
+                            <p class="cs-card-title">Book calls</p>
+                            <p class="cs-card-desc">Schedule meetings or consultations</p>
+                        </div>
+                        <div class="cs-card" data-goal="sales">
+                            <p class="cs-card-title">Sell products</p>
+                            <p class="cs-card-desc">Drive purchases or subscriptions</p>
+                        </div>
+                        <div class="cs-card" data-goal="signups">
+                            <p class="cs-card-title">Collect signups</p>
+                            <p class="cs-card-desc">Newsletter, waitlist, or free trial</p>
+                        </div>
+                        <div class="cs-card" data-goal="traffic">
+                            <p class="cs-card-title">Drive traffic</p>
+                            <p class="cs-card-desc">Send visitors to another page or app</p>
+                        </div>
+                        <div class="cs-card" data-goal="inform">
+                            <p class="cs-card-title">Share information</p>
+                            <p class="cs-card-desc">Educate or announce something</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 4: Offer & Proof -->
+                <section class="cs-step-panel" data-panel="3">
+                    <div class="cs-step-header">
+                        <h1 class="cs-step-title">Offer and proof</h1>
+                        <p class="cs-step-subtitle">Strong landing pages need substance. Define your offer, calls-to-action, and evidence that it works.</p>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csOffer">Your offer</label>
+                        <textarea class="cs-textarea" id="csOffer" placeholder="What exactly are you offering? e.g., Free 14-day trial, 50% off first month, Free consultation" data-field="offer.offer" rows="2"></textarea>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csPrimaryCta">Primary call-to-action</label>
+                        <input class="cs-input" type="text" id="csPrimaryCta" placeholder="e.g., Start Free Trial, Book a Call, Get Started" data-field="offer.primary_cta">
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label" for="csSecondaryCta">Secondary call-to-action <span style="color: var(--cs-text-tertiary); font-weight: 400;">(optional)</span></label>
+                        <input class="cs-input" type="text" id="csSecondaryCta" placeholder="e.g., Learn More, See Pricing, Watch Demo" data-field="offer.secondary_cta">
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label">Benefits</label>
+                        <span class="cs-hint" style="margin-top: 0; margin-bottom: 8px; display: block;">What value does the customer get?</span>
+                        <div class="cs-tags-container" id="csBenefitsTags"></div>
+                        <div class="cs-tag-input-row">
+                            <input class="cs-input" type="text" id="csBenefitsInput" placeholder="Type a benefit and press Enter">
+                            <button class="cs-btn cs-btn--secondary cs-btn--sm" id="csBenefitsAdd">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label">Proof points</label>
+                        <span class="cs-hint" style="margin-top: 0; margin-bottom: 8px; display: block;">Numbers, testimonials, or credentials that build trust</span>
+                        <div class="cs-tags-container" id="csProofTags"></div>
+                        <div class="cs-tag-input-row">
+                            <input class="cs-input" type="text" id="csProofInput" placeholder="e.g., 10,000+ happy customers">
+                            <button class="cs-btn cs-btn--secondary cs-btn--sm" id="csProofAdd">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="cs-field">
+                        <label class="cs-label">FAQs <span style="color: var(--cs-text-tertiary); font-weight: 400;">(optional)</span></label>
+                        <div class="cs-faq-list" id="csFaqList"></div>
+                        <button class="cs-btn cs-btn--secondary cs-btn--sm" id="csFaqAdd">+ Add FAQ</button>
+                    </div>
+                </section>
+
+                <!-- Step 5: Messages -->
+                <section class="cs-step-panel" data-panel="4">
+                    <div class="cs-step-header">
+                        <h1 class="cs-step-title">Messages</h1>
+                        <p class="cs-step-subtitle">These are the headlines, benefits, and copy that power your landing page. Keep the ones you like, regenerate the rest.</p>
+                    </div>
+
+                    <div id="csGenerateMessages" style="margin-bottom: 24px; display: flex; gap: 8px; flex-wrap: wrap;">
+                        <button class="cs-btn cs-btn--primary" id="csGenerateBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                            Generate messages from campaign
+                        </button>
+                        <button class="cs-btn cs-btn--secondary" id="csSaveToLibraryBtn" style="display:none;">
+                            Save kept to content library
+                        </button>
+                    </div>
+
+                    <div id="csMessagesContainer"></div>
+                </section>
+
+                <!-- Step 6: Landing Page -->
+                <section class="cs-step-panel" data-panel="5">
+                    <div class="cs-step-header">
+                        <h1 class="cs-step-title">Landing page</h1>
+                        <p class="cs-step-subtitle">Preview your generated landing page. Click sections to regenerate or rewrite them.</p>
+                    </div>
+
+                    <!-- Generate / Regenerate button -->
+                    <div id="csPageActions" style="margin-bottom: 24px;">
+                        <button class="cs-btn cs-btn--primary" id="csGeneratePageBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                            <span id="csGeneratePageLabel">Generate landing page</span>
+                        </button>
+                    </div>
+
+                    <!-- Generation progress -->
+                    <div class="cs-generating" id="csPageGenerating" style="display:none;">
+                        <div class="cs-generating-spinner"></div>
+                        <span class="cs-generating-text" id="csPageProgress">Generating your landing page...</span>
+                    </div>
+
+                    <!-- Section controls (shown after generation) -->
+                    <div id="csSectionControls" style="display:none;">
+                        <div class="cs-page-toolbar">
+                            <span class="cs-page-toolbar-label">Sections</span>
+                            <div class="cs-page-toolbar-actions">
+                                <button class="cs-btn cs-btn--ghost cs-btn--sm" id="csEditInEditor" title="Open in full editor">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                    Edit in full editor
+                                </button>
+                            </div>
+                        </div>
+                        <div class="cs-sections-list" id="csSectionsList"></div>
+                    </div>
+
+                    <!-- Preview iframe -->
+                    <div class="cs-preview-frame" id="csPreviewFrame" style="display:none;">
+                        <div class="cs-preview-device">
+                            <iframe id="csPreviewIframe" sandbox="allow-same-origin allow-scripts" title="Landing page preview"></iframe>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+
+        <!-- Footer Action Bar -->
+        <footer class="cs-footer">
+            <div class="cs-footer-left">
+                <span class="cs-autosave-indicator" id="csAutosave">
+                    <span class="cs-autosave-dot"></span>
+                    Saved
+                </span>
+            </div>
+            <div class="cs-footer-right">
+                <button class="cs-btn cs-btn--ghost" id="csPrevBtn" style="display: none;">Back</button>
+                <button class="cs-btn cs-btn--primary" id="csNextBtn">Continue</button>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        window.CAMPAIGN_ID = {{ campaign_id | tojson }};
+    </script>
+    <script type="module" src="{{ url_for('static', filename='js/campaignStudio.js') }}"></script>
+</body>
+</html>

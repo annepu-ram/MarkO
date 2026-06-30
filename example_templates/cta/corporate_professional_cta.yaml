@@ -1,0 +1,154 @@
+# Corporate Professional CTA Banner
+# Clean call-to-action with blue accent background and white text
+# Base components: site, page, layout-column, layout-row, heading, paragraph, button, eyebrow
+# Section type: cta
+# Layout: centered
+# Visual style: corporate_professional
+# Content volume: standard
+# Tone: formal
+# Conversion intent: lead
+# Image requirement: none
+# Interactivity: static
+# Industries: professional_services, saas, legal
+# Perfect for: SaaS, consulting, finance, enterprise, B2B, legal, insurance, accounting
+
+- name: site
+  properties:
+    theme:
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+      colors:
+        primary: &color-primary "#1E3A5F"
+        text: &color-text "#4B5563"
+        secondary: &color-secondary "#E2E8F0"
+        accent: &color-accent "#2563EB"
+        background: &color-background "#F8FAFC"
+  components:
+    - name: page
+      slug: home
+      title: "Corporate Professional CTA"
+      properties:
+        appearance:
+          background:
+            color: *color-background
+            opacity: 100
+      components:
+
+        # CTA section — accent blue background
+        - name: layout-column
+          properties:
+            layout:
+              horizontalAlign: center
+            appearance:
+              background:
+                color: *color-accent
+                opacity: 100
+              border:
+                width: 0
+              radius: none
+              shadow: none
+            spacing:
+              paddingBlock: xxxl
+              paddingInline: lg
+          components:
+
+            # Inner content
+            - name: layout-column
+              properties:
+                layout:
+                  widthMode: "66"
+                  horizontalAlign: center
+                  gap: md
+              components:
+
+                # Eyebrow
+                - name: eyebrow
+                  properties:
+                    text: "Ready to Scale?"
+                    typography:
+                      size: xs
+                      weight: semibold
+                      color: "#BFDBFE"
+                      transform: uppercase
+                      letterSpacing: wider
+                      align: center
+
+                # Main heading
+                - name: heading
+                  properties:
+                    text: "Start transforming your business today"
+                    level: 2
+                    typography:
+                      size: xxl
+                      weight: semibold
+                      color: "#ffffff"
+                      align: center
+                      lineHeight: snug
+
+                # Supporting paragraph
+                - name: paragraph
+                  properties:
+                    text: |
+                      Join over 500 companies that trust our platform to power their
+                      operations. Get started with a free 14-day trial — no credit
+                      card required.
+                    typography:
+                      size: md
+                      color: "#DBEAFE"
+                      align: center
+                      lineHeight: relaxed
+                    layout:
+                      widthMode: "83"
+                    spacing:
+                      marginBlock: md
+
+                # CTA buttons
+                - name: layout-row
+                  properties:
+                    layout:
+                      horizontalAlign: center
+                      verticalAlign: center
+                      wrap: wrap
+                      gap: md
+                    spacing:
+                      marginBlock: md
+                  components:
+                    - name: button
+                      properties:
+                        text: "Start Free Trial"
+                        appearance:
+                          background:
+                            color: "#ffffff"
+                            opacity: 100
+                          border:
+                            width: 0
+                          radius: sm
+                          shadow: none
+                        typography:
+                          color: *color-accent
+                          weight: semibold
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl
+                    - name: button
+                      properties:
+                        text: "Talk to Sales"
+                        appearance:
+                          background:
+                            color: transparent
+                            opacity: 0
+                          border:
+                            width: 1
+                            style: solid
+                            color: "#ffffff"
+                          radius: sm
+                          shadow: none
+                        typography:
+                          color: "#ffffff"
+                          weight: medium
+                          size: md
+                        spacing:
+                          paddingBlock: md
+                          paddingInline: xxl

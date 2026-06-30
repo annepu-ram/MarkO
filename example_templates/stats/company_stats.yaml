@@ -1,0 +1,133 @@
+# Counter-Up: Company Statistics
+# Animated counters showing key business metrics
+# Base components: page, layout-row, layout-column, eyebrow, heading, paragraph, columnsgrid, icon, counter-up
+# Section type: stats
+# Layout: grid
+# Visual style: monochrome_dark
+# Content volume: standard
+# Tone: formal
+# Conversion intent: trust
+# Image requirement: none
+# Interactivity: static
+# Industries: saas
+# Perfect for: SaaS, dashboards, corporate, reports
+
+- name: page
+  properties:
+    theme:
+      colors:
+        background: &color-background '#0f172a'
+        primary: &color-primary '#f8fafc'
+        text: &color-text '#DBDCDD'
+        secondary: &color-secondary '#94a3b8'
+        accent: &color-accent '#3b82f6'
+      fonts:
+        heading: &font-heading "'Inter', sans-serif"
+        content: &font-content "'Inter', sans-serif"
+    appearance: { background: { color: *color-background } }
+  components:
+    - name: layout-row
+      properties:
+        layout: { horizontalAlign: center }
+        spacing: { paddingBlock: xl }
+      components:
+        - name: layout-column
+          properties:
+            layout: { widthMode: '75', horizontalAlign: center }
+          components:
+            - name: eyebrow
+              properties:
+                text: BY THE NUMBERS
+                typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider, align: center }
+            - name: heading
+              properties:
+                text: Trusted by Industry Leaders
+                level: 2
+                typography: { size: xxl, weight: bold, color: *color-primary, align: center }
+                spacing: { marginBlock: sm }
+
+    - name: columnsgrid
+      properties:
+        layout: { columns: 4, gap: lg }
+        responsive: { breakpoints: { md: 2, sm: 1 } }
+        spacing: { paddingBlock: xl, paddingInline: lg }
+      columns:
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#1e293b' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: group, size: "36", color: *color-accent }
+                - name: counter-up
+                  properties:
+                    endValue: 50000
+                    duration: 2500
+                    suffix: "+"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Active Users
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#1e293b' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: public, size: "36", color: '#10b981' }
+                - name: counter-up
+                  properties:
+                    endValue: 120
+                    duration: 2000
+                    suffix: "+"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Countries Served
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#1e293b' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: verified, size: "36", color: '#f59e0b' }
+                - name: counter-up
+                  properties:
+                    endValue: 99
+                    duration: 2000
+                    suffix: "%"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Uptime SLA
+                    typography: { size: sm, color: *color-secondary, align: center }
+
+        - components:
+            - name: layout-column
+              properties:
+                layout: { horizontalAlign: center }
+                appearance: { background: { color: '#1e293b' }, radius: lg }
+                spacing: { paddingBlock: xl, paddingInline: md }
+              components:
+                - name: icon
+                  properties: { name: support_agent, size: "36", color: '#ec4899' }
+                - name: counter-up
+                  properties:
+                    endValue: 24
+                    duration: 1500
+                    suffix: "/7"
+                    typography: { size: xxxl, weight: extrabold, color: *color-primary, align: center }
+                - name: paragraph
+                  properties:
+                    text: Customer Support
+                    typography: { size: sm, color: *color-secondary, align: center }

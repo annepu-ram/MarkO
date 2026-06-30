@@ -4,6 +4,11 @@
 # Section type: countdown
 # Layout: stacked
 # Visual style: default
+# Content volume: standard
+# Tone: neutral
+# Conversion intent: lead
+# Image requirement: required
+# Interactivity: static
 
 - name: site
   properties:
@@ -51,13 +56,22 @@
                     spacing: { marginBlock: sm }
                 - name: paragraph
                   properties:
-                    text: Learn proven strategies to drive adoption, retention, and expansion through your product experience. Featuring insights from leaders at top SaaS companies.
+                    text: Learn proven strategies to drive adoption, retention, and expansion
+                      through your product experience. Featuring insights from
+                      leaders at top SaaS companies.
                     typography: { size: md, color: *color-text, lineHeight: '1.7' }
                     spacing: { marginBlock: md }
                 - name: eyebrow
                   properties:
                     text: STARTS IN
-                    typography: { size: xs, weight: semibold, color: *color-accent, transform: uppercase, letterSpacing: wider }
+                    typography:
+                      {
+                        size: xs,
+                        weight: semibold,
+                        color: *color-accent,
+                        transform: uppercase,
+                        letterSpacing: wider
+                      }
                 - name: countdown
                   properties:
                     targetDate: '2026-04-15T14:00:00'
@@ -78,8 +92,26 @@
                     - name: button
                       properties:
                         text: Add to Calendar
-                        appearance: { background: { color: 'transparent' }, border: { width: 1, color: *color-accent } }
-                        typography: { color: *color-accent, weight: medium }
+                        appearance:
+                          {
+                            background: { color: *color-accent, type: "color", opacity: 100 },
+                            border: { width: 1, color: *color-accent, style: solid },
+                            radius: sm,
+                            shadow: none,
+                            shadowColor: "#000000",
+                            iconPlacement: none
+                          }
+                        typography: { color: *color-background, weight: medium, size: md }
+                        action:
+                          type: inlineScript
+                          value: alert("Clicked!")
+                        layout:
+                          widthMode: fit
+                        spacing:
+                          paddingBlock: sm
+                          paddingInline: md
+                          marginBlock: sm
+                          marginInline: xs
 
             - name: layout-column
               properties:
