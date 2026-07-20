@@ -81,7 +81,9 @@
       "Read(//c/Users/sannepu/**)",
       "Bash(PYTHONUTF8=1 \"C:\\\\Users\\\\sannepu\\\\llm-finetune-env\\\\Scripts\\\\python.exe\" scripts/02e_style_overrides.py)",
       "Bash(PYTHONUTF8=1 \"C:\\\\Users\\\\sannepu\\\\llm-finetune-env\\\\Scripts\\\\python.exe\" scripts/03_augment_data.py)",
-      "Bash(kill %1)"
+      "Bash(kill %1)",
+      "Bash(grep -vE \"typing|__future__|dataclasses|enum |json|yaml|os|re$|re,|pathlib|datetime|uuid|logging|collections|functools|itertools|copy|math|random|time|abc|textwrap|string|urllib|statistics|hashlib\")",
+      "Bash(awk -F: '{print $1}')"
     ],
     "deny": [],
     "ask": []
